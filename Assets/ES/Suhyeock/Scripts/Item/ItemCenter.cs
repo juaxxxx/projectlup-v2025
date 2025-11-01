@@ -54,7 +54,7 @@ public class ItemCenter : MonoBehaviour
                 case ItemType.Material:
                     {
                         MaterialItemData materialData = itemData as MaterialItemData;
-                        Material material = new Material(materialData);
+                        CraftingMaterial material = new CraftingMaterial(materialData);
                         generatedLoot.Add(material);
                     }
                     break;

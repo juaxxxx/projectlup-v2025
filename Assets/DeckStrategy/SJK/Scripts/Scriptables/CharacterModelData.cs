@@ -4,5 +4,5 @@ using UnityEngine;
 public class CharacterModelData
 {
     public int ID;
-    public Material material;
+    public UnityEngine.Material material;
 }
