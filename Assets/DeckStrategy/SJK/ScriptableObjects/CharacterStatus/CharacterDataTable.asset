@@ -1,0 +1,95 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 20dd76083c08ede43b87e2803be810b3, type: 3}
+  m_Name: CharacterDataTable
+  m_EditorClassIdentifier: 
+  characterDataList:
+  - ID: 1
+    maxHp: 100
+    characterName: Test1
+    type: 0
+    rangeType: 0
+    attack: 10
+    defense: 10
+    speed: 10
+  - ID: 2
+    maxHp: 22
+    characterName: Test2
+    type: 0
+    rangeType: 1
+    attack: 22
+    defense: 22
+    speed: 22
+  - ID: 3
+    maxHp: 35
+    characterName: Test3
+    type: 1
+    rangeType: 0
+    attack: 30
+    defense: 10
+    speed: 10
+  - ID: 4
+    maxHp: 50
+    characterName: Test4
+    type: 1
+    rangeType: 1
+    attack: 10
+    defense: 50
+    speed: 25
+  - ID: 5
+    maxHp: 150
+    characterName: Test5
+    type: 2
+    rangeType: 0
+    attack: 60
+    defense: 50
+    speed: 36
+  - ID: 6
+    maxHp: 66
+    characterName: Test6
+    type: 2
+    rangeType: 1
+    attack: 66
+    defense: 66
+    speed: 66
+  - ID: 7
+    maxHp: 77
+    characterName: Test7
+    type: 0
+    rangeType: 0
+    attack: 77
+    defense: 77
+    speed: 7
+  - ID: 8
+    maxHp: 300
+    characterName: Test8
+    type: 0
+    rangeType: 1
+    attack: 80
+    defense: 9
+    speed: 78
+  - ID: 9
+    maxHp: 200
+    characterName: Test9
+    type: 1
+    rangeType: 0
+    attack: 100
+    defense: 0
+    speed: 25
+  - ID: 10
+    maxHp: 125
+    characterName: Test10
+    type: 1
+    rangeType: 1
+    attack: 100
+    defense: 100
+    speed: 100
