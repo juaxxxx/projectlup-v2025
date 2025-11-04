@@ -4,10 +4,14 @@ using UnityEngine.Audio;
 using UnityEngine.UI;
 using UnityEngine.Video;
 using System.Collections;
+
 namespace Manager
 {
     public class ExtractionShooterStage : BaseStage
     {
+        public BaseStaticData StaticData;
+        public BaseRuntimeData RuntimeData;
+
         protected override void Awake() 
         {
             base.Awake();
@@ -54,12 +58,16 @@ namespace Manager
 
         protected override void GetDatas()
         {
-            //data = GetData...
+            StaticData = base.GetStaticData(this);
+            RuntimeData = base.GetRuntimeData(this);
         }
 
         protected override void SaveDatas()
         {
-
+            if (RuntimeData != null)
+            {
+                base.SaveRuntimeData(RuntimeData);
+            }
         }
     }
 }
