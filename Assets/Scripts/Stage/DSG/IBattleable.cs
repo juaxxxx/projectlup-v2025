@@ -1,7 +1,11 @@
 using UnityEngine;
 using static DSG.Character;
-public interface IBattleable
+
+namespace DSG
 {
-    void TakeDamage(float amount);
-    void Die();
+    public interface IBattleable
+    {
+        void TakeDamage(float amount);
+        void Die();
+    }
 }

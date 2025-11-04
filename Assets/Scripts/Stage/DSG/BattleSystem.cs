@@ -1,14 +1,13 @@
-using DSG.Utils.Enums;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using TMPro;
 using Unity.VisualScripting;
-using UnityEditor;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using DSG.Utils.Enums;
 
 namespace DSG
 {
@@ -261,6 +260,10 @@ namespace DSG
 
         public void EndBattle(string resultText)
         {
+            DataCenter dataCenter = FindFirstObjectByType<DataCenter>();
+
+            if (dataCenter == null || dataCenter.mvpData == null)
+            {
             if (dataCenter == null)
                 dataCenter = FindFirstObjectByType<DataCenter>();
             if (dataCenter == null || dataCenter.mvpData == null)

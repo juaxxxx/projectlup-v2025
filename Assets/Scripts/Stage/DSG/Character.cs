@@ -1,5 +1,6 @@
 using UnityEngine;
 using static UnityEngine.UI.GridLayoutGroup;
+
 namespace DSG
 {
     public class Character : MonoBehaviour
@@ -7,9 +8,9 @@ namespace DSG
         public struct StatusEffect
         {
             public IStatusEffect statusEffect;
-            public string Name; //ÀÌ¸§ °°À¸¸é
-            public int Stack; // ½ºÅÃ ¼ö +
-            public int RemainsTurn; // ÀÌÀüºÎ¿©µÈ ¶ó¿îµå ¼ö < ÀÌ¹ø¿¡ºÎ¿©µÈ ¶ó¿îµå ¼ö ÀÏ °æ¿ì ÀÌ¹ø¿¡ºÎ¿©µÈ ¶ó¿îµå ¼ö·Î µ¤¾î¾º¿î´Ù.
+            public string Name; //ï¿½Ì¸ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+            public int Stack; // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ +
+            public int RemainsTurn; // ï¿½ï¿½ï¿½ï¿½ï¿½Î¿ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ < ï¿½Ì¹ï¿½ï¿½ï¿½ï¿½Î¿ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½Ì¹ï¿½ï¿½ï¿½ï¿½Î¿ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½î¾ºï¿½ï¿½ï¿½.
         }
 
         private StatusEffectComponent statusEffectComp;
@@ -28,6 +29,7 @@ namespace DSG
         public float maxSkillGauge { get; private set; }
 
         public bool isEnemy = false;
+
         public int battleIndex = -1;
         public float combatPower { get; private set; }
 
