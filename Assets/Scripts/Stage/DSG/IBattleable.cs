@@ -1,5 +1,5 @@
 using UnityEngine;
-using static Character;
+using static DSG.Character;
 public interface IBattleable
 {
     void TakeDamage(float amount);

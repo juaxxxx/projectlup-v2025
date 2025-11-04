@@ -4,32 +4,35 @@ using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using UnityEngine.UIElements;
 
-public class TeamSelectButton : MonoBehaviour
+namespace DSG
 {
-    [SerializeField]
-    private UnityEngine.UI.Toggle toggle;
-
-    [SerializeField]
-    private FormationSystem formationSystem;
-
-    public int teamIndex;
-    void Start()
+    public class TeamSelectButton : MonoBehaviour
     {
-        toggle.onValueChanged.AddListener(OnToggleChanged);
-        if(teamIndex == 0)
+        [SerializeField]
+        private UnityEngine.UI.Toggle toggle;
+
+        [SerializeField]
+        private FormationSystem formationSystem;
+
+        public int teamIndex;
+        void Start()
         {
-            OnToggleChanged(true);
+            toggle.onValueChanged.AddListener(OnToggleChanged);
+            if (teamIndex == 0)
+            {
+                OnToggleChanged(true);
+            }
         }
-    }
 
-    void OnToggleChanged(bool isOn)
-    {
-        toggle.isOn = isOn;
-        toggle.image.color = isOn ? Color.gray : Color.white;
-
-        if (isOn)
+        void OnToggleChanged(bool isOn)
         {
-            formationSystem.PlaceTeam(teamIndex);
+            toggle.isOn = isOn;
+            toggle.image.color = isOn ? Color.gray : Color.white;
+
+            if (isOn)
+            {
+                formationSystem.PlaceTeam(teamIndex);
+            }
         }
     }
 }

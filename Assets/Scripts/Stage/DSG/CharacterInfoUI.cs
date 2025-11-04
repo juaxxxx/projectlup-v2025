@@ -3,66 +3,69 @@ using System.Text;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-using Utils.Enums;
+using DSG.Utils.Enums;
 
-public class CharacterInfoUI : MonoBehaviour
+namespace DSG
 {
-    [SerializeField]
-    private TextMeshProUGUI levelText;
-    [SerializeField]
-    private Image attributeIcon;
-
-    private Transform target;
-    [SerializeField]
-    private Vector3 offset = new Vector3(0, 2.0f, 0);
-
-    private Camera mainCamera;
-    private RectTransform rectTransform;
-
-    void Awake()
+    public class CharacterInfoUI : MonoBehaviour
     {
-        mainCamera = Camera.main;
-        rectTransform = GetComponent<RectTransform>();
-    }
+        [SerializeField]
+        private TextMeshProUGUI levelText;
+        [SerializeField]
+        private Image attributeIcon;
 
-    private void LateUpdate()
-    {
-        if (target == null) return;
-        Vector3 worldPos = target.position + offset;
-        Vector3 screenPos = mainCamera.WorldToScreenPoint(worldPos);
+        private Transform target;
+        [SerializeField]
+        private Vector3 offset = new Vector3(0, 2.0f, 0);
 
-        rectTransform.position = screenPos;
-    }
+        private Camera mainCamera;
+        private RectTransform rectTransform;
 
-    public void SetTarget(Transform newTarget)
-    {
-        target = newTarget;
-        gameObject.SetActive(true);
-        LineupSlot slot = target.GetComponent<LineupSlot>();
-    }
-
-    public void ReleaseTarget()
-    {
-        gameObject.SetActive(false);
-        target = null;
-    }
-
-    public void SetCharacterInfo(EAttributeType attribute, int level)
-    {
-        StringBuilder sb = new StringBuilder("LV." + level.ToString());
-        levelText.text = sb.ToString();
-
-        if (attribute == EAttributeType.ROCK)
+        void Awake()
         {
-            attributeIcon.color = Color.red;
+            mainCamera = Camera.main;
+            rectTransform = GetComponent<RectTransform>();
         }
-        else if (attribute == EAttributeType.SCISSORS)
+
+        private void LateUpdate()
         {
-            attributeIcon.color = Color.green;
+            if (target == null) return;
+            Vector3 worldPos = target.position + offset;
+            Vector3 screenPos = mainCamera.WorldToScreenPoint(worldPos);
+
+            rectTransform.position = screenPos;
         }
-        else
+
+        public void SetTarget(Transform newTarget)
         {
-            attributeIcon.color = Color.blue;
+            target = newTarget;
+            gameObject.SetActive(true);
+            LineupSlot slot = target.GetComponent<LineupSlot>();
+        }
+
+        public void ReleaseTarget()
+        {
+            gameObject.SetActive(false);
+            target = null;
+        }
+
+        public void SetCharacterInfo(EAttributeType attribute, int level)
+        {
+            StringBuilder sb = new StringBuilder("LV." + level.ToString());
+            levelText.text = sb.ToString();
+
+            if (attribute == EAttributeType.ROCK)
+            {
+                attributeIcon.color = Color.red;
+            }
+            else if (attribute == EAttributeType.SCISSORS)
+            {
+                attributeIcon.color = Color.green;
+            }
+            else
+            {
+                attributeIcon.color = Color.blue;
+            }
         }
     }
 }

@@ -1,17 +1,20 @@
 using UnityEngine;
 
-public class ResultButton : MonoBehaviour
+namespace DSG
 {
-    [SerializeField] private BattleSystem battleSystem;
-
-    public void OnExitButtonClicked()
+    public class ResultButton : MonoBehaviour
     {
-        if (battleSystem == null)
-            battleSystem = FindFirstObjectByType<BattleSystem>();
+        [SerializeField] private BattleSystem battleSystem;
 
-        if (battleSystem != null)
+        public void OnExitButtonClicked()
         {
-            battleSystem.EndBattle();
+            if (battleSystem == null)
+                battleSystem = FindFirstObjectByType<BattleSystem>();
+
+            if (battleSystem != null)
+            {
+                battleSystem.EndBattle();
+            }
         }
     }
 }
