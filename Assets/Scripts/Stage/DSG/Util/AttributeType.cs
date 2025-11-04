@@ -6,5 +6,4 @@ namespace DSG.Utils.Enums
     {
         ROCK, PAPER, SCISSORS
     }
-
 }

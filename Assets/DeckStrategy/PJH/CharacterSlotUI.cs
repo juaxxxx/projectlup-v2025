@@ -15,21 +15,21 @@ namespace DSG
         {
             if (data == null || modelData == null)
             {
-                Debug.LogWarning($"{gameObject.name}: µ¥ÀÌÅÍ°¡ ºñ¾îÀÖ½À´Ï´Ù!");
+                Debug.LogWarning($"{gameObject.name}: ï¿½ï¿½ï¿½ï¿½ï¿½Í°ï¿½ ï¿½ï¿½ï¿½ï¿½Ö½ï¿½ï¿½Ï´ï¿½!");
                 return;
             }
 
-            // ÀÌ¹ÌÁö Àû¿ë
+            // ï¿½Ì¹ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
             if (image != null)
                 image.material = modelData.material;
 
-            // ÀÌ¸§ Àû¿ë
+            // ï¿½Ì¸ï¿½ ï¿½ï¿½ï¿½ï¿½
             if (nameText != null)
                 nameText.text = data.characterName;
 
-            // °ø°Ý·Â(±â¿©µµ) Àû¿ë
+            // ï¿½ï¿½ï¿½Ý·ï¿½(ï¿½â¿©ï¿½ï¿½) ï¿½ï¿½ï¿½ï¿½
             if (contributionText != null)
-                contributionText.text = $"°ø°Ý·Â: {data.attack}";
+                contributionText.text = $"ï¿½ï¿½ï¿½Ý·ï¿½: {data.attack}";
         }
     }
 }

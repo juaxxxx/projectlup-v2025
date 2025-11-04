@@ -14,7 +14,6 @@ GameObject:
   - component: {fileID: 1613909865244221256}
   - component: {fileID: 3410943731210983682}
   - component: {fileID: 8506069675099762843}
-  - component: {fileID: 3463669732968689085}
   - component: {fileID: 5740405112984361880}
   - component: {fileID: 2008841880047365390}
   m_Layer: 0
@@ -127,11 +126,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b73e0bcd169fd3f489290c9d5debd3b0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  characterInfo:
-    characterID: 0
-    characterModelID: 0
-    characterLevel: 0
   isEnemy: 0
+  battleIndex: -1
   characterUIPrefab: {fileID: 2879139995223357689, guid: d947c9b7fcf7dab45b738fe9fc92abfa, type: 3}
 --- !u!114 &8506069675099762843
 MonoBehaviour:
@@ -143,18 +139,6 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7162272663ce2954da53bbf656bc7258, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &3463669732968689085
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 424380117016867217}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9eaed9cbbb5ac544c81e8b660c333020, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!114 &5740405112984361880
@@ -169,9 +153,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 08b173466a9505043b657b54aa5cf85c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currHp: 0
   isAttacking: 0
   bulletPrefab: {fileID: 1159801650698535097, guid: e6e6cd0df923f974286ea66ff9cba1e8, type: 3}
-  impactApplied: 0
 --- !u!114 &2008841880047365390
 MonoBehaviour:
   m_ObjectHideFlags: 0
