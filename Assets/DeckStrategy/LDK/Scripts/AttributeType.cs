@@ -1,9 +1,10 @@
 using UnityEngine;
 
-namespace DSG.Utils.Enums
+namespace Utils.Enums
 {
     public enum EAttributeType
     {
         ROCK, PAPER, SCISSORS
     }
+
 }
