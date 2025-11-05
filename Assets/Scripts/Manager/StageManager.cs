@@ -2,6 +2,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.ComponentModel;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -27,9 +28,9 @@ namespace Manager
         [SerializeField] private Define.StageKind startStageKind;
 
         [Header("건들지 마세요!!!")]
-        [SerializeField] private Define.StageKind currentStage = Define.StageKind.Unknown;
+        [ReadOnly, SerializeField] private Define.StageKind currentStageKind = Define.StageKind.Unknown;
 
-        private BaseStage currentStageInstance;
+        private BaseStage currentStageInstance= null;
         private bool isTransitioning = false;
 
         // Transition 검증용 2차원 리스트
@@ -41,21 +42,24 @@ namespace Manager
         { Define.StageKind.Debug, "DebugStage" },
         { Define.StageKind.Intro, "IntroStage" },
         { Define.StageKind.Main, "MainStage" },
-        { Define.StageKind.Roguelike, "RoguelikeSampleStage" },
-        { Define.StageKind.Shooting, "ShootingSampleStage" },
-        { Define.StageKind.DeckStrategy, "DeckStrategySampleStage" },
-        { Define.StageKind.ExtractionShooter, "ExtractionShooterSampleStage" },
-        { Define.StageKind.Production, "ProductionSampleStage" }
+        { Define.StageKind.RL, "RoguelikeSampleStage" },
+        { Define.StageKind.ST, "ShootingSampleStage" },
+        { Define.StageKind.DSG, "DeckStrategySampleStage" },
+        { Define.StageKind.ES, "ExtractionShooterSampleStage" },
+        { Define.StageKind.PCR, "ProductionSampleStage" },
+        { Define.StageKind.Unknown, "MainStage" }
     };
 
         public override void Awake()
         {
             base.Awake();
 
-            
-
             InitializeTransitionTable();
             InitializeFadeCanvas();
+            if (currentStageInstance == null)
+            {
+                LoadStage(startStageKind);
+            }
         }
 
         private void InitializeFadeCanvas()
@@ -124,21 +128,21 @@ namespace Manager
             SetTransition(Transition, Define.StageKind.Debug);
             SetTransition(Transition, Define.StageKind.Intro);
             SetTransition(Transition, Define.StageKind.Main);
-            SetTransition(Transition, Define.StageKind.Roguelike);
-            SetTransition(Transition, Define.StageKind.Shooting);
-            SetTransition(Transition, Define.StageKind.DeckStrategy);
-            SetTransition(Transition, Define.StageKind.ExtractionShooter);
-            SetTransition(Transition, Define.StageKind.Production);
+            SetTransition(Transition, Define.StageKind.RL);
+            SetTransition(Transition, Define.StageKind.ST);
+            SetTransition(Transition, Define.StageKind.DSG);
+            SetTransition(Transition, Define.StageKind.ES);
+            SetTransition(Transition, Define.StageKind.PCR);
 
             AddTransitionToList(Transition);
             Transition.Clear();
 
             // Main
-            SetTransition(Transition, Define.StageKind.Roguelike);
-            SetTransition(Transition, Define.StageKind.Shooting);
-            SetTransition(Transition, Define.StageKind.DeckStrategy);
-            SetTransition(Transition, Define.StageKind.ExtractionShooter);
-            SetTransition(Transition, Define.StageKind.Production);
+            SetTransition(Transition, Define.StageKind.RL);
+            SetTransition(Transition, Define.StageKind.ST);
+            SetTransition(Transition, Define.StageKind.DSG);
+            SetTransition(Transition, Define.StageKind.ES);
+            SetTransition(Transition, Define.StageKind.PCR);
 
             AddTransitionToList(Transition);
             Transition.Clear();
@@ -152,7 +156,7 @@ namespace Manager
             //Roguelike
             SetTransition(Transition, Define.StageKind.Main);
             SetTransition(Transition, Define.StageKind.Intro);
-            SetTransition(Transition, Define.StageKind.Production);
+            SetTransition(Transition, Define.StageKind.PCR);
 
             AddTransitionToList(Transition);
             Transition.Clear();
@@ -160,7 +164,7 @@ namespace Manager
             // Shooting
             SetTransition(Transition, Define.StageKind.Main);
             SetTransition(Transition, Define.StageKind.Intro);
-            SetTransition(Transition, Define.StageKind.Production);
+            SetTransition(Transition, Define.StageKind.PCR);
 
             AddTransitionToList(Transition);
             Transition.Clear();
@@ -168,7 +172,7 @@ namespace Manager
             // ExtractionShooter
             SetTransition(Transition, Define.StageKind.Main);
             SetTransition(Transition, Define.StageKind.Intro);
-            SetTransition(Transition, Define.StageKind.Production);
+            SetTransition(Transition, Define.StageKind.PCR);
 
             AddTransitionToList(Transition);
             Transition.Clear();
@@ -176,12 +180,12 @@ namespace Manager
             // Production
             SetTransition(Transition, Define.StageKind.Main);
             SetTransition(Transition, Define.StageKind.Intro);
-            SetTransition(Transition, Define.StageKind.Production);
-            SetTransition(Transition, Define.StageKind.Roguelike);
-            SetTransition(Transition, Define.StageKind.Shooting);
-            SetTransition(Transition, Define.StageKind.DeckStrategy);
-            SetTransition(Transition, Define.StageKind.ExtractionShooter);
-            SetTransition(Transition, Define.StageKind.Production);
+            SetTransition(Transition, Define.StageKind.PCR);
+            SetTransition(Transition, Define.StageKind.RL);
+            SetTransition(Transition, Define.StageKind.ST);
+            SetTransition(Transition, Define.StageKind.DSG);
+            SetTransition(Transition, Define.StageKind.ES);
+            SetTransition(Transition, Define.StageKind.PCR);
 
             AddTransitionToList(Transition);
             Transition.Clear();
@@ -189,12 +193,12 @@ namespace Manager
             // DeckStrategy
             SetTransition(Transition, Define.StageKind.Main);
             SetTransition(Transition, Define.StageKind.Intro);
-            SetTransition(Transition, Define.StageKind.Production);
+            SetTransition(Transition, Define.StageKind.PCR);
 
             AddTransitionToList(Transition);
             Transition.Clear();
 
-            LoadStage(startStageKind);
+            //LoadStage(startStageKind);
 
         }
 
@@ -210,7 +214,7 @@ namespace Manager
         }
 
         // Stage 전환 
-        public void LoadStage(Define.StageKind targetStage)
+        public void LoadStage(Define.StageKind targetStageKind)
         {
             if (isTransitioning)
             {
@@ -219,22 +223,22 @@ namespace Manager
             }
 
             // 1. Transition 검증
-            if (!IsValidTransition(currentStage, targetStage))
+            if (!IsValidTransition(currentStageKind, targetStageKind))
             {
-                Debug.LogError($"Invalid transition: {currentStage} → {targetStage}");
+                Debug.LogError($"Invalid transition: {currentStageKind} → {targetStageKind}");
                 return;
             }
 
             // 2. 전환 시작
-            StartCoroutine(TransitionCoroutine(targetStage));
+            StartCoroutine(TransitionCoroutine(targetStageKind));
         }
 
         // Transition 검사
         private bool IsValidTransition(Define.StageKind from, Define.StageKind to)
         {
-            if(from == Define.StageKind.Unknown)
+            if(from == Define.StageKind.Unknown && to == Define.StageKind.Unknown)
             {
-                return (to != Define.StageKind.Unknown);
+                return true;
             } 
 
             if (transitionTable[(int)from - 1].Contains(to))
@@ -244,7 +248,7 @@ namespace Manager
         }
 
         /// Stage 전환 Coroutine
-        private IEnumerator TransitionCoroutine(Define.StageKind targetStage)
+        private IEnumerator TransitionCoroutine(Define.StageKind targetStageKind)
         {
             isTransitioning = true;
 
@@ -252,9 +256,9 @@ namespace Manager
             yield return StartCoroutine(OnStageExit());
 
             // 4. Scene 로드
-            string sceneName = sceneNameMap.ContainsKey(targetStage)
-                ? sceneNameMap[targetStage]
-                : targetStage.ToString();
+            string sceneName = sceneNameMap.ContainsKey(targetStageKind)
+                ? sceneNameMap[targetStageKind]
+                : targetStageKind.ToString();
 
             // 씬매니저에 씬이 존재하는지 확인 - 빌드 세팅
             if (SceneManager.GetSceneByName(sceneName).IsValid() == false &&
@@ -265,7 +269,7 @@ namespace Manager
                 yield break;
             }
 
-            AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(sceneName);
+            UnityEngine.AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(sceneName);
 
             if (asyncLoad == null)
             {
@@ -285,10 +289,10 @@ namespace Manager
 
             yield return StartCoroutine(OnStageEnter());
 
-            currentStage = targetStage;
+            currentStageKind = targetStageKind;
             isTransitioning = false;
 
-            Debug.Log("TransitionCoroutine : " + currentStage);
+            Debug.Log("TransitionCoroutine : " + currentStageKind);
         }
 
         private IEnumerator FadeOut()

@@ -34,7 +34,7 @@ namespace Manager
 
             switch (stagekind)
             {
-                case Define.StageKind.Roguelike:
+                case Define.StageKind.RL:
                     filename = Define.RuntimeDataTypes.ToFilename(Define.RuntimeDataType.RoguelikeRuntime);
                     data = JsonDataHelper.LoadData<RoguelikeRuntimeData>(filename);
                     break;

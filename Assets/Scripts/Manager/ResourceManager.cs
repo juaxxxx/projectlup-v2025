@@ -59,20 +59,23 @@ namespace Manager
             BaseStaticData data = null;
             switch (type)
             {
-                case Define.StageKind.Shooting:
+                case Define.StageKind.ST:
                     data = Resources.Load<BaseStaticData>("Data/ShootingStaticData");
                     break;
-                case Define.StageKind.DeckStrategy:
+                case Define.StageKind.DSG:
                     data = Resources.Load<BaseStaticData>("Data/DeckStrategyStaticData");
                     break;
-                case Define.StageKind.ExtractionShooter:
+                case Define.StageKind.ES:
                     data = Resources.Load<BaseStaticData>("Data/ExtractionShooterStaticData");
                     break;
-                case Define.StageKind.Roguelike:
+                case Define.StageKind.RL:
                     data = Resources.Load<BaseStaticData>("Data/RoguelikeStaticData");
                     break;
                 case Define.StageKind.Main:
                     data = Resources.Load<BaseStaticData>("Data/ProductionStaticData");
+                    break;
+                case Define.StageKind.Tutorial:
+                    data = Resources.Load<BaseStaticData>("Data/TutorialStaticData");
                     break;
             }
             return data;

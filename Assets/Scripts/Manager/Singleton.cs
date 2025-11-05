@@ -37,6 +37,7 @@ namespace Manager
             else
             {
                 Destroy(gameObject);
+                return;
             }
         }
     }

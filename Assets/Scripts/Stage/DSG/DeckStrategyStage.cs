@@ -14,7 +14,7 @@ namespace Manager
         protected override void Awake() 
         {
             base.Awake();
-            StageKind = Define.StageKind.DeckStrategy;
+            StageKind = Define.StageKind.DSG;
         }
         // Start is called once before the first execution of Update after the MonoBehaviour is created
         void Start()
