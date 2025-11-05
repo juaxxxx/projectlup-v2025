@@ -2,74 +2,78 @@ using UnityEngine;
 using UnityEngine.UI;
 using Roguelike.Util;
 
-public class ShopbuyContent : MonoBehaviour , IPanelContentAble
+namespace RL
 {
-    public int btnNum;
-
-    [HideInInspector]
-    public TextImageBtn[] buttons;
-
-    private GameObject parentContent;
-
-    private Vector2 minRatio;
-    private Vector2 maxRatio;
-
-    public bool Init()
+    public class ShopbuyContent : MonoBehaviour, IPanelContentAble
     {
-        buttons = GetComponentsInChildren<TextImageBtn>();
+        public int btnNum;
 
-        if(buttons.Length != btnNum)
+        [HideInInspector]
+        public TextImageBtn[] buttons;
+
+        private GameObject parentContent;
+
+        private Vector2 minRatio;
+        private Vector2 maxRatio;
+
+        public bool Init()
         {
-            UnityEngine.Debug.LogError("Buy Btn Num not match");
-        }
+            buttons = GetComponentsInChildren<TextImageBtn>();
 
-        for(int i = 0; i < buttons.Length; i++)
-        {
-            int index = i;
-
-            if(buttons[i].Init())
+            if (buttons.Length != btnNum)
             {
-                buttons[i].button.onClick.AddListener(() => OnBuyBtnClicked(index));
-                CanvasGroup buttonCanvasGroup = buttons[i].gameObject.AddComponent<CanvasGroup>();
-                buttonCanvasGroup.interactable = true;
-                buttonCanvasGroup.ignoreParentGroups = true;
+                UnityEngine.Debug.LogError("Buy Btn Num not match");
+            }
+
+            for (int i = 0; i < buttons.Length; i++)
+            {
+                int index = i;
+
+                if (buttons[i].Init())
+                {
+                    buttons[i].button.onClick.AddListener(() => OnBuyBtnClicked(index));
+                    CanvasGroup buttonCanvasGroup = buttons[i].gameObject.AddComponent<CanvasGroup>();
+                    buttonCanvasGroup.interactable = true;
+                    buttonCanvasGroup.ignoreParentGroups = true;
+
+                }
 
             }
-            
+
+            parentContent = gameObject.transform.parent.gameObject;
+
+            return true;
         }
 
-        parentContent = gameObject.transform.parent.gameObject;
+        public void SetRatio(Vector2 anchorMin, Vector2 anchorMax)
+        {
+            minRatio = anchorMin;
+            maxRatio = anchorMax;
 
-        return true;
+            StartCoroutine(RoguelikeUtil.DelayOneFrame(() => FitToParentContent()));
+        }
+
+        void OnBuyBtnClicked(int index)
+        {
+            UnityEngine.Debug.Log("Clicked");
+        }
+
+        void FitToParentContent()
+        {
+            RectTransform rectTransform = gameObject.GetComponent<RectTransform>();
+
+            rectTransform.anchorMin = minRatio;
+            rectTransform.anchorMax = maxRatio;
+
+
+            rectTransform.offsetMin = Vector2.zero;
+            rectTransform.offsetMax = Vector2.zero;
+
+            Vector3 pos = rectTransform.localPosition;
+            pos.z = 0f;
+            rectTransform.localPosition = pos;
+        }
+
     }
-
-    public void SetRatio(Vector2 anchorMin, Vector2 anchorMax)
-    {
-        minRatio = anchorMin;
-        maxRatio = anchorMax;
-
-        StartCoroutine(RoguelikeUtil.DelayOneFrame(() => FitToParentContent()));
-    }
-
-    void OnBuyBtnClicked(int index)
-    {
-        UnityEngine.Debug.Log("Clicked");
-    }
-
-    void FitToParentContent()
-    {
-        RectTransform rectTransform = gameObject.GetComponent<RectTransform>();
-
-        rectTransform.anchorMin = minRatio;
-        rectTransform.anchorMax = maxRatio;
-
-
-        rectTransform.offsetMin = Vector2.zero;
-        rectTransform.offsetMax = Vector2.zero;
-
-        Vector3 pos = rectTransform.localPosition;
-        pos.z = 0f;
-        rectTransform.localPosition = pos;
-    }
-
 }
+

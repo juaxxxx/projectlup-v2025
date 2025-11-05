@@ -18,7 +18,7 @@ public class LobbyGameCenter : MonoBehaviour
     //private CircleButton CharacterSelectBtn;
     //private CircleButton QuestListBtn;
     //private CircleButton ReturnMainGame;
-    //private Button ChapterSelectBtn;
+    public Button ChapterSelectBtn;
     //private Button GameStartBtn;
 
     public GameObject ChapterInfoText;
@@ -101,7 +101,7 @@ public class LobbyGameCenter : MonoBehaviour
 
             case DisplayableDataType.ChapterData:
                 selectedChapter = chapterDatas[index];
-                //ChapterSelectBtn.image.sprite = chapterDatas[index].GetDisplayableImage();
+                ChapterSelectBtn.image.sprite = chapterDatas[index].GetDisplayableImage();
                 ChapterDisplayedOffset = index;
 
                 UpdateLobbyStageInfo(selectedChapter);
@@ -220,7 +220,7 @@ public class LobbyGameCenter : MonoBehaviour
 
     void UpdateLobbyStageInfo(ChapterData chapterData)
     {
-        TextMeshProUGUI[] textInfos = ChapterInfoText.GetComponents<TextMeshProUGUI>();
+        TextMeshProUGUI[] textInfos = ChapterInfoText.GetComponentsInChildren<TextMeshProUGUI>();
 
         textInfos[0].SetText(chapterData.GetDisplayableName());
     }

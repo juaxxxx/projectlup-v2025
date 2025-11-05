@@ -3,7 +3,7 @@ using UnityEngine.UIElements;
 using UnityEngine.UI;
 using Roguelike.Util;
 
-namespace RK
+namespace RL
 {
     public class WarningPopUpPanel : MonoBehaviour
     {
@@ -11,12 +11,16 @@ namespace RK
         public UnityEngine.UI.Button OkBtn;
         public Animator PadeInOutAnim;
 
+        private PannelController pannelController;
+
         public float FadeOutTime = 0.2f;
 
         void Start()
         {
             OkBtn.onClick.AddListener(PlayReverse);
             gameObject.SetActive(false);
+
+            pannelController = FindFirstObjectByType<PannelController>();
         }
 
         private void OnEnable()
@@ -36,6 +40,7 @@ namespace RK
         void DisablePanel()
         {
             gameObject.SetActive(false);
+            pannelController.SetAllMainScrollActive(true);
         }
 
         // Update is called once per frame

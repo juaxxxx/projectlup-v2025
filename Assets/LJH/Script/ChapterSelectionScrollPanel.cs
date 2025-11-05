@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using Unity.Loading;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
@@ -41,14 +42,15 @@ namespace RL
             base.EraseContents();
 
             Vector2 contentSize = new Vector2(scrollRect.viewport.rect.width, scrollRect.viewport.rect.height);
-            Vector2 viewportSize = contentParent.transform.gameObject.GetComponent<RectTransform>().sizeDelta;
+            //Vector2 viewportSize = contentParent.transform.gameObject.GetComponent<RectTransform>().sizeDelta;
+            RectTransform var = contentParent.transform.gameObject.GetComponent<RectTransform>();
 
             for (int i = 0; i < displayedData.Length; i++)
             {
                 int index = i;
 
                 GameObject button = Instantiate(displayedPrefab, contentParent);
-                button.GetComponent<RectTransform>().sizeDelta = viewportSize;
+                button.GetComponent<RectTransform>().sizeDelta = new Vector2(contentSize.x * 0.8f, contentSize.y);
                 DisplayableButton displayableDataButton = button.GetComponent<DisplayableButton>();
 
                 if (displayableDataButton == null)
@@ -67,6 +69,12 @@ namespace RL
             //(일반 클릭에선 정상)
             //순회 후, Chapter Offset이 정상적으로 적용되지 않는 형상 발견. 타이밍 문제라곤 하는데 임시로 한 프레임 늦게 호출되게 하자
             StartCoroutine(SetHolizonScrollOffset(displayOffset));
+
+            if(selectionButtonsBound.Count == 0)
+            {
+                CarlkButtonsBounds();
+            }
+            
         }
 
         //private void SetHolizonScrollOffset(int offset)
@@ -96,19 +104,27 @@ namespace RL
 
             yield return null;
 
-            float buttonSize = displayedPrefab.GetComponent<RectTransform>().rect.width;
+            //float buttonSize = displayedPrefab.GetComponent<RectTransform>().rect.width;
 
             //if (offset < 0 || offset >= displayedData.Length)
 
             RefreshPanel();
 
-            float spacing = contentParent.GetComponent<HorizontalLayoutGroup>().spacing;
-            float padding = contentParent.GetComponent<HorizontalLayoutGroup>().padding.left;
+            //float spacing = contentParent.GetComponent<HorizontalLayoutGroup>().spacing;
+
+            Vector2 contentSize = new Vector2(scrollRect.viewport.rect.width, scrollRect.viewport.rect.height);
+            float padding = contentSize.x * 0.1f;
+
+            contentParent.GetComponent<HorizontalLayoutGroup>().padding.left = (int)padding;
+            contentParent.GetComponent<HorizontalLayoutGroup>().padding.right = (int)padding;
+
+            //contentParent.GetComponent<HorizontalLayoutGroup>().spacing = (int)(contentSize.x * 0.1f);
 
             float viewportWidth = scrollRect.viewport.rect.width;
             float contentWidth = contentParent.GetComponent<RectTransform>().rect.width;
 
-            float buttonCenterX = offset * (buttonSize + spacing) + buttonSize / 2 + padding;
+            //float buttonCenterX = offset * (buttonSize + spacing) + buttonSize / 2 + padding;
+            float buttonCenterX = selectionButtonsBound[offset].x + (selectionButtonsBound[offset].y - selectionButtonsBound[offset].x) * 0.5f;
 
             float normalizedX = (buttonCenterX - viewportWidth / 2) / (contentWidth - viewportWidth);
             scrollRect.horizontalNormalizedPosition = Mathf.Clamp01(normalizedX);
@@ -126,7 +142,7 @@ namespace RL
 
             if (selectionButtonsBound.Count == 0)
             {
-                CarlkButtonsBounds();
+                //CarlkButtonsBounds();
             }
 
 
@@ -163,18 +179,28 @@ namespace RL
                 }
             }
 
-            float halfButtonWidth = displayedPrefab.GetComponent<RectTransform>().rect.size.x * 0.5f;
+            RefreshPanel();
+
+            //float halfButtonWidth = displayedPrefab.GetComponent<RectTransform>().rect.size.x * 0.5f;
+            int padding = (int)(scrollRect.viewport.rect.width * 0.1f);
 
             for (int i = 0; i < buttonPositions.Count; i++)
             {
-                float buttonPos = buttonPositions[i].localPosition.x;
-                Vector2 bound = new Vector2(buttonPos - halfButtonWidth, buttonPos + halfButtonWidth);
+                //float buttonPos = buttonPositions[i].localPosition.x;
+                //Vector2 bound = new Vector2(buttonPos - halfButtonWidth, buttonPos + halfButtonWidth);
+
+                Vector2 bound = new Vector2(buttonPositions[i].offsetMin.x + padding, buttonPositions[i].offsetMax.x + padding);
+
                 selectionButtonsBound.Add(bound);
             }
 
+            //minMaxButtonLR = new Vector2
+            //    (selectionButtonsBound[0].x + halfButtonWidth,
+            //     selectionButtonsBound[selectionButtonsBound.Count - 1].x + halfButtonWidth);
+
             minMaxButtonLR = new Vector2
-                (selectionButtonsBound[0].x + halfButtonWidth,
-                 selectionButtonsBound[selectionButtonsBound.Count - 1].x + halfButtonWidth);
+                (selectionButtonsBound[0].x + buttonPositions[0].sizeDelta.x * 0.5f,
+                 selectionButtonsBound[selectionButtonsBound.Count - 1].x + buttonPositions[selectionButtonsBound.Count - 1].sizeDelta.x * 0.5f);
         }
 
         int BinarySearchButtonIndex(float pos)

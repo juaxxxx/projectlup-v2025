@@ -32,6 +32,10 @@ namespace RL
         [HideInInspector]
         public WorldEventBtnScrollPannel RightEventPanel;
 
+        //Temp
+        public WarningPopUpPanel testwarningPopUpPanel;
+        //Temp
+
         public float switchingDuration = 0.1f;
         private Coroutine scrollCoroutine;
 
@@ -50,6 +54,8 @@ namespace RL
         public Vector2 touchEndPos;
         private Vector2 localStartPos;
         private Vector2 localEndPos;
+
+        public event System.Action<PanelType> OnPanelSwitched;
 
         void Start()
         {
@@ -134,7 +140,7 @@ namespace RL
 
         }
 
-        void SwitchPannelTo(PanelType switchedtype)
+        public void SwitchPannelTo(PanelType switchedtype)
         {
 
             Vector2 pos = panelCenterPosition[(int)switchedtype];
@@ -145,6 +151,8 @@ namespace RL
 
             lobbyPannels[(int)switchedtype].MoveTo();
             scrollCoroutine = StartCoroutine(SmoothScrollTo(targetValue, switchedtype));
+
+            OnPanelSwitched?.Invoke(switchedtype);
         }
 
         private IEnumerator SmoothScrollTo(float targetValue, PanelType targetPanel)
@@ -227,8 +235,6 @@ namespace RL
 
         public void OnDrawing()
         {
-            Vector2 localCurrentPos = touchCurrentPos - screenCenter;
-            //UnityEngine.Debug.Log(touchCurrentPos);
 
         }
 
@@ -282,6 +288,11 @@ namespace RL
                 RightEventPanel.StopScroll();
             }
 
+        }
+
+        public void PopWarningPanel()
+        {
+            testwarningPopUpPanel.gameObject.SetActive(true);
         }
 
         void OnSwipeUp()
