@@ -1,7 +1,6 @@
 using UnityEngine;
 using DSG.Utils.Enums;
 using System.Collections.Generic;
-using DSG.Utils.Enums;
 
 namespace DSG
 {
