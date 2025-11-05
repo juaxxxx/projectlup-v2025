@@ -821,7 +821,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fadeDuration: 1
-  currentStage: 0
+  startStageKind: 0
+  currentStageKind: 0
 --- !u!4 &665181593
 Transform:
   m_ObjectHideFlags: 0
@@ -1127,7 +1128,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 88909e082ad55b04bbee2fc8ef6c2ff4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  StageKind: 2
+  StageKind: 3
   videoplayer: {fileID: 2046314135}
   clip: {fileID: 0}
   videoVolume: {fileID: 755756761}

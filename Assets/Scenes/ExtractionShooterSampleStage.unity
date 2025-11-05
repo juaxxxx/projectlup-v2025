@@ -596,7 +596,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9548103272a38e3418c875435ecf8f93, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  StageKind: 2
+  StageKind: 6
 --- !u!4 &1630801917
 Transform:
   m_ObjectHideFlags: 0
@@ -721,7 +721,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fadeDuration: 1
-  currentStage: 6
+  startStageKind: 0
+  currentStageKind: 0
 --- !u!4 &1900918628
 Transform:
   m_ObjectHideFlags: 0
