@@ -2677,13 +2677,25 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 471558419}
     - target: {fileID: 4232202831219542408, guid: 7ff1ae7d8c7de0b408fd37dbd60b7c6e, type: 3}
+      propertyPath: gridSystem
+      value: 
+      objectReference: {fileID: 1365092254}
+    - target: {fileID: 4232202831219542408, guid: 7ff1ae7d8c7de0b408fd37dbd60b7c6e, type: 3}
       propertyPath: roomParent
       value: 
       objectReference: {fileID: 1634794313}
     - target: {fileID: 4232202831219542408, guid: 7ff1ae7d8c7de0b408fd37dbd60b7c6e, type: 3}
+      propertyPath: stageData.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4232202831219542408, guid: 7ff1ae7d8c7de0b408fd37dbd60b7c6e, type: 3}
       propertyPath: roomPrefabs.Array.size
       value: 5
       objectReference: {fileID: 0}
+    - target: {fileID: 4232202831219542408, guid: 7ff1ae7d8c7de0b408fd37dbd60b7c6e, type: 3}
+      propertyPath: 'stageData.Array.data[0]'
+      value: 
+      objectReference: {fileID: 11400000, guid: d25c92a78199f8b41896b97e2cb61b8a, type: 2}
     - target: {fileID: 4232202831219542408, guid: 7ff1ae7d8c7de0b408fd37dbd60b7c6e, type: 3}
       propertyPath: 'roomPrefabs.Array.data[2]'
       value: 
@@ -2696,6 +2708,14 @@ PrefabInstance:
       propertyPath: 'roomPrefabs.Array.data[4]'
       value: 
       objectReference: {fileID: 5892875016011890028, guid: 6a3fe74acabaecb45a3c8a76f7d3ebab, type: 3}
+    - target: {fileID: 4232202831219542408, guid: 7ff1ae7d8c7de0b408fd37dbd60b7c6e, type: 3}
+      propertyPath: onStageClear.m_PersistentCalls.m_Calls.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4232202831219542408, guid: 7ff1ae7d8c7de0b408fd37dbd60b7c6e, type: 3}
+      propertyPath: onStageClear.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
