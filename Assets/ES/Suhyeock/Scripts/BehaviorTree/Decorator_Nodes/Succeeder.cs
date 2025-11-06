@@ -14,5 +14,10 @@ namespace ES
             node.Evaluate();
             return NodeState.Success;
         }
+
+        public override void Reset()
+        {
+            node.Reset();
+        }
     }
 }

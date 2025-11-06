@@ -25,5 +25,10 @@ namespace ES
             }
             return NodeState.Failure;
         }
+
+        public override void Reset()
+        {
+
+        }
     }
 }

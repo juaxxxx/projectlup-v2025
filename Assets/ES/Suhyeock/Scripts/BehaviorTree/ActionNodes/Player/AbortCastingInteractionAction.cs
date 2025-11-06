@@ -17,5 +17,10 @@ namespace ES
             blackboard.ResetInteractionState();
             return NodeState.Success;
         }
+
+        public override void Reset()
+        {
+
+        }
     }
 }

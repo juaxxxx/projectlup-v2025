@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using UnityEditor.Experimental.GraphView;
 
 namespace ES
 {
@@ -25,21 +24,17 @@ namespace ES
                 }
             }
 
-            //foreach (BTNode node in children)
-            //{
-            //    NodeState state = node.Evaluate();
-
-            //    if (state == NodeState.Running)
-            //    {
-            //        anyRunning = true;
-            //    }
-            //    // Failure나 Success는 무시하고 계속 다음 노드를 실행
-            //}
-
             // 자식 중 하나라도 실행 중이면 Running
             // 그렇지 않으면 Success
             return anyRunning ? NodeState.Running : NodeState.Success;
         }
-    }
 
+        public override void Reset()
+        {
+            for (int i = 0; i < children.Count; i++)
+            {
+                children[i].Reset();
+            }
+        }
+    }
 }

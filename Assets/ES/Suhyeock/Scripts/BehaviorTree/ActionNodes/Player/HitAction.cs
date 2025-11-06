@@ -1,4 +1,3 @@
-using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 
 namespace ES
@@ -14,11 +13,16 @@ namespace ES
 
         public override NodeState Evaluate()
         {
-            Blackboard.isHit = false;
+            Blackboard.healthComponent.isHit = false;
             Blackboard.eventBroker.CloseLootDisplay();
             Blackboard.eventBroker.HandleIventoryVisibility(false);
             Blackboard.playerOverheadUI.UpdateHPUI();
             return NodeState.Success;
+        }
+
+        public override void Reset()
+        {
+
         }
     }
 }

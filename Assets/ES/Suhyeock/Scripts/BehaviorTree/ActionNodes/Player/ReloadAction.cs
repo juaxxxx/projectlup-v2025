@@ -1,5 +1,4 @@
 using System.Collections;
-using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 
 namespace ES
@@ -7,6 +6,7 @@ namespace ES
     public class ReloadAction : BTNode
     {
         PlayerBlackboard blackboard;
+        private bool isReloadingStarted = false;
 
         public ReloadAction(PlayerBlackboard blackboard)
         {
@@ -19,9 +19,20 @@ namespace ES
             {
                 return NodeState.Running;
             }
+            else if (blackboard.gun.state == GunState.READY && isReloadingStarted)
+            {
+                isReloadingStarted = false;
+                return NodeState.Success;
+            }
             blackboard.gun.Reload();
+            isReloadingStarted = true;
             blackboard.isReloadButtonPressed = false;
             return NodeState.Running;
+        }
+
+        public override void Reset()
+        {
+
         }
     }
 }

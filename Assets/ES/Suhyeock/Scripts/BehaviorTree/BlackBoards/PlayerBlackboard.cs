@@ -22,17 +22,12 @@ namespace ES
 
         [HideInInspector]
         public MoveState moveState = MoveState.IDLE;
-        //[HideInInspector]
-        //public AttackState attackState = AttackState.NONE;
         [HideInInspector]
         public IInteractable interactingObject = null;
         [HideInInspector]
         public bool isInteractionButtonPressed = false;
         [HideInInspector]
         public bool isReloadButtonPressed = false;
-        //public bool isCastingInteraction = false;
-        [HideInInspector]
-        public bool isHit = false;
 
         [HideInInspector]
         public PlayerOverheadUI playerOverheadUI;

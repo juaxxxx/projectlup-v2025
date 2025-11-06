@@ -13,9 +13,13 @@ namespace ES
 
         public override NodeState Evaluate()
         {
-            blackboard.isDead = true;
+            blackboard.healthComponent.isDead = true;
             return NodeState.Success;
         }
 
+        public override void Reset()
+        {
+
+        }
     }
 }

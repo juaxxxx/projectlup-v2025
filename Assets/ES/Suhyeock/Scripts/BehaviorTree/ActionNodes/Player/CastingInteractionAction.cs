@@ -13,6 +13,12 @@ namespace ES
 
         public override NodeState Evaluate()
         {
+            if (blackboard.interactingObject == null ||
+                blackboard.rightJoystick.Horizontal != 0 || blackboard.rightJoystick.Vertical != 0 ||
+                blackboard.leftJoystick.Horizontal != 0 || blackboard.leftJoystick.Vertical != 0)
+            {
+                return NodeState.Failure;
+            }
             bool isCompleted = blackboard.interactingObject.TryStartInteraction(Time.deltaTime);
             if (isCompleted)
             {
@@ -20,6 +26,17 @@ namespace ES
                 return NodeState.Success;
             }
             return NodeState.Running;
+        }
+
+        public override void Reset()
+        {
+            if (blackboard.interactingObject != null)
+            {
+                blackboard.interactingObject.HideInteractionTimerUI();
+                blackboard.interactingObject.ResetInteraction();
+                blackboard.ResetInteractionState();
+               
+            }
         }
     }
 }

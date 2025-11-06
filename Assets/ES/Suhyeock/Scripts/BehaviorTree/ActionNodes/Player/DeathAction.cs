@@ -13,10 +13,14 @@ namespace ES
 
         public override NodeState Evaluate()
         {
-            blackboard.isDead = true;
             blackboard.playerOverheadUI.UpdateHPUI();
             blackboard.eventBroker.ReportGameFinish(false);
             return NodeState.Success;
+        }
+
+        public override void Reset()
+        {
+            
         }
     }
 }

@@ -22,7 +22,13 @@ namespace ES
             {
                 return NodeState.Success;
             }
+
             return NodeState.Failure;
+        }
+
+        public override void Reset()
+        {
+
         }
     }
 }

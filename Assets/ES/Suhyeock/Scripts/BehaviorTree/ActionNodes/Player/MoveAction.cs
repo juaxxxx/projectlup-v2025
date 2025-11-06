@@ -34,5 +34,10 @@ namespace ES
             blackboard.moveState = MoveState.IDLE;
             return NodeState.Success;
         }
+
+        public override void Reset()
+        {
+
+        }
     }
 }

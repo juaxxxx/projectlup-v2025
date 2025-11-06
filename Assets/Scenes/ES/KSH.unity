@@ -914,6 +914,7 @@ GameObject:
   - component: {fileID: 187378973}
   - component: {fileID: 187378972}
   - component: {fileID: 187378976}
+  - component: {fileID: 187378980}
   - component: {fileID: 187378978}
   - component: {fileID: 187378977}
   - component: {fileID: 187378979}
@@ -1012,7 +1013,8 @@ Transform:
   m_LocalPosition: {x: -7.4, y: 0.97, z: 12.5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 293457803}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!135 &187378976
@@ -1060,13 +1062,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 29e41f83c3914a24bbb7233ab9612ed8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  HP: 0
-  MaxHP: 100
+  healthComponent: {fileID: 0}
   speed: 5
-  isDead: 0
   damage: 10
   attackRange: 5
   detectionRange: 10
+  attackSize: 1
+  LayerMask:
+    serializedVersion: 2
+    m_Bits: 64
   playerTransform: {fileID: 1661900842}
   navMeshAgent: {fileID: 0}
 --- !u!195 &187378979
@@ -1091,6 +1095,22 @@ NavMeshAgent:
   m_BaseOffset: 1
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
+--- !u!114 &187378980
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 187378971}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bb17e043f1f83d8498f11ea03b2fb229, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  HP: 0
+  MaxHP: 100
+  isHit: 0
+  isDead: 0
 --- !u!1 &191138289
 GameObject:
   m_ObjectHideFlags: 0
@@ -1386,6 +1406,37 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 290414239}
   m_CullTransparentMesh: 1
+--- !u!1 &293457802
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 293457803}
+  m_Layer: 0
+  m_Name: AttackPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &293457803
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 293457802}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 1.21}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 187378975}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &322458594
 GameObject:
   m_ObjectHideFlags: 0
@@ -7176,12 +7227,13 @@ GameObject:
   - component: {fileID: 1661900839}
   - component: {fileID: 1661900844}
   - component: {fileID: 1661900849}
+  - component: {fileID: 1661900851}
   - component: {fileID: 1661900846}
   - component: {fileID: 1661900845}
   - component: {fileID: 1661900847}
   - component: {fileID: 1661900848}
   - component: {fileID: 1661900850}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Player
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -7329,10 +7381,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 670750453152be5448ff674ccd564093, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  HP: 0
-  MaxHP: 100
+  healthComponent: {fileID: 0}
   speed: 7
-  isDead: 0
   InteractionRadius: 2
   leftJoystick: {fileID: 620095076}
   rightJoystick: {fileID: 451060445}
@@ -7344,7 +7394,6 @@ MonoBehaviour:
   moveState: 0
   isInteractionButtonPressed: 0
   isReloadButtonPressed: 0
-  isHit: 0
   playerOverheadUI: {fileID: 0}
   InteractionDetector: {fileID: 0}
 --- !u!114 &1661900847
@@ -7416,6 +7465,22 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   inventorySize: 30
+--- !u!114 &1661900851
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1661900838}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bb17e043f1f83d8498f11ea03b2fb229, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  HP: 0
+  MaxHP: 100
+  isHit: 0
+  isDead: 0
 --- !u!1 &1679207288
 GameObject:
   m_ObjectHideFlags: 0

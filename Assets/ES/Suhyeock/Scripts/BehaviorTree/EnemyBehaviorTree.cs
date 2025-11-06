@@ -8,14 +8,10 @@ namespace ES
         private BTNode rootNode;
         private EnemyBlackboard blackboard;
 
-        private void Awake()
-        {
-            blackboard = GetComponent<EnemyBlackboard>();
-            blackboard.HP = blackboard.MaxHP;
-        }
         // Start is called once before the first execution of Update after the MonoBehaviour is created
         void Start()
         {
+            blackboard = GetComponent<EnemyBlackboard>();
             SetupBehaviorTree();
         }
 
@@ -34,7 +30,8 @@ namespace ES
 
             TargetInAttackRangeCondition targetInAttackRangeCondition = new TargetInAttackRangeCondition(blackboard);
             EnemyAttackAction enemyAttackAction = new EnemyAttackAction(blackboard);
-            Sequence handleAttackSequence = new Sequence(new List<BTNode> { targetInAttackRangeCondition , enemyAttackAction });
+            Sequence attackSequence = new Sequence(new List<BTNode> { enemyAttackAction, new WaitAction(2.0f) });
+            Sequence handleAttackSequence = new Sequence(new List<BTNode> { targetInAttackRangeCondition , attackSequence });
 
             TargetInDetectionRangeCondition targetInDetectionRangeCondition = new TargetInDetectionRangeCondition(blackboard);
             ChaseTargetAction chaseTargetAction = new ChaseTargetAction(blackboard);
@@ -46,6 +43,16 @@ namespace ES
                 handleAttackSequence,
                 handleMoveSequence,
             });
+        }
+
+        private void OnDrawGizmos()
+        {
+            if (Application.isPlaying && blackboard != null && blackboard.transform != null)
+            {
+                Vector3 attackPoint = blackboard.transform.position + (blackboard.transform.forward * blackboard.attackSize * 0.7f);
+                Gizmos.color = Color.red;
+                Gizmos.DrawWireSphere(attackPoint, blackboard.attackSize);
+            }
         }
     }
 }

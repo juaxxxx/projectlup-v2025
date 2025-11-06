@@ -76,7 +76,7 @@ public class PlayerOverheadUI : MonoBehaviour
 
     public void UpdateHPUI()
     {
-        float hpRatio = blackboard.HP / blackboard.MaxHP;
+        float hpRatio = blackboard.healthComponent.HP / blackboard.healthComponent.MaxHP;
         Debug.Log("Hit");
         hpSlider.value = hpRatio;
     }

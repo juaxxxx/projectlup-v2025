@@ -32,6 +32,11 @@ namespace ES
             blackboard.gun.state = GunState.READY;
             return NodeState.Success;
         }
+
+        public override void Reset()
+        {
+
+        }
     }
 }
 

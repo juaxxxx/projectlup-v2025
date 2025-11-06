@@ -5,6 +5,7 @@ namespace ES
     public class Sequence : BTNode
     {
         private List<BTNode> children = new List<BTNode>();
+        private int currentIndex = 0;
 
         public Sequence(List<BTNode> children)
         {
@@ -13,36 +14,32 @@ namespace ES
 
         public override NodeState Evaluate()
         {
-            bool isAnyNodeRunning = false;
-            for (int i = 0; i < children.Count; i++) 
+            for (int i = currentIndex; i < children.Count; i++) 
             {
                 switch (children[i].Evaluate())
                 {
-                    case NodeState.Failure:
-                        return NodeState.Failure; // 하나라도 실패하면 전체 실패
                     case NodeState.Running:
-                        isAnyNodeRunning = true;
-                        break;
+                        currentIndex = i;
+                        return NodeState.Running;
+                    case NodeState.Failure:
+                        currentIndex = 0;
+                        return NodeState.Failure; // 하나라도 실패하면 전체 실패
                     case NodeState.Success:
                         continue; // 다음 노드로 이동
                 }
             }
 
-            //foreach(BTNode node in children)
-            //{
-            //    switch (node.Evaluate())
-            //    {
-            //        case NodeState.Failure:
-            //            return NodeState.Failure; // 하나라도 실패하면 전체 실패
-            //        case NodeState.Running:
-            //            isAnyNodeRunning = true;
-            //            break;
-            //        case NodeState.Success:
-            //            continue; // 다음 노드로 이동
-            //    }
-            //}
+            currentIndex = 0;
+            return NodeState.Success;
+        }
 
-            return isAnyNodeRunning ? NodeState.Running : NodeState.Success;
+        public override void Reset()
+        {
+            currentIndex = 0;
+            for (int i = 0; i < children.Count; i++)
+            {
+                children[i].Reset();
+            }
         }
     }    
 }

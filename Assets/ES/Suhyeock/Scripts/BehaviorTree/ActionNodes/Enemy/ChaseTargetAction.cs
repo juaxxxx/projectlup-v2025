@@ -15,7 +15,12 @@ namespace ES
         public override NodeState Evaluate()
         {
             blackboard.navMeshAgent.SetDestination(blackboard.playerTransform.position);
-            return NodeState.Running;
+            return NodeState.Success;
+        }
+
+        public override void Reset()
+        {
+            
         }
     }
 }

@@ -13,14 +13,17 @@ namespace ES
 
         public override NodeState Evaluate()
         {
-            if (blackboard.isHit == true)
+            if (blackboard.healthComponent.isHit == true)
             {
-                //blackboard.isHit = false;
                 return NodeState.Success;
             }
             return NodeState.Failure;
         }
 
+        public override void Reset()
+        {
+
+        }
     }
 
 }
