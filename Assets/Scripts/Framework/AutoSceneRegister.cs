@@ -1,10 +1,13 @@
-﻿using UnityEditor;
+﻿#if UNITY_EDITOR
+using UnityEditor;
+#endif
 using UnityEngine;
 using System.Linq;
 using System.IO;
 
 public class AutoSceneRegister
 {
+#if UNITY_EDITOR
     [MenuItem("Tools/Build/Auto Register Scenes")]
     public static void AutoRegisterScenes()
     {
@@ -22,4 +25,5 @@ public class AutoSceneRegister
 
         Debug.Log($"✅ {newSceneList.Length}개의 씬이 빌드 설정에 자동 등록되었습니다!");
     }
+#endif
 }
