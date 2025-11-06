@@ -1,21 +1,28 @@
 ManifestFileVersion: 0
 UnityVersion: 6000.0.61f1
-CRC: 987747764
+CRC: 2256658659
 Hashes:
   AssetFileHash:
     serializedVersion: 2
-    Hash: a3fb60d6374e12aeb0a4a0d4e0571c5f
+    Hash: e2f7382efe23f092f138bfc2dd4db89c
   TypeTreeHash:
     serializedVersion: 2
-    Hash: 9a2ca7bdbd1871f7131daf57de908e0c
+    Hash: de90d2c294d9f059a135e8035080297a
   IncrementalBuildHash:
     serializedVersion: 2
-    Hash: cf4e718c33f8962ad42d410c90c0ae9b
+    Hash: d4ecdd767721c360f296b9a0352b3c69
 HashAppended: 0
 ClassTypes:
 - Class: 83
   Script: {instanceID: 0}
-SerializeReferenceClassIdentifiers: []
+- Class: 114
+  Script: {fileID: 11500000, guid: 0bc3571e0bbf85346a69cec8d36463d2, type: 3}
+- Class: 115
+  Script: {instanceID: 0}
+SerializeReferenceClassIdentifiers:
+- AssemblyName: Assembly-CSharp
+  ClassName: RoguelikeScriptData
 Assets:
+- Assets/Resources/Data/RoguelikeStaticData.asset
 - Assets/Resources/BGM/SampleBGM.mp3
 Dependencies: []
