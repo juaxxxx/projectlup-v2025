@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 047b1f32a8a364341b209cf7a9c08ed6, type: 3}
+  m_Name: Restaurant Status
+  m_EditorClassIdentifier: 
+  buildingName: "\uC2DD\uB2F9"
+  level: 1
+  maxLevel: 30
+  foodStorage: 8
+  waterStorage: 4
+  cookingSpeedPercent: 0.1
+  eatingEfficiency: 0.02
+  currentFood: 0
+  currentWater: 0
+  levelUpFoodStorage: 0800000008000000080000000800000008000000080000000800000008000000080000000800000008000000
+  levelUpWaterStorage: 0400000004000000040000000400000004000000040000000400000004000000040000000400000004000000
