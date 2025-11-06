@@ -172,7 +172,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   toggle: {fileID: 8845656}
-  formationSystem: {fileID: 471753101}
   teamIndex: 5
 --- !u!114 &8845656
 MonoBehaviour:
@@ -427,7 +426,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 35c10283565cb72449d6016c8c9dc4c3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CharacterModelPrefab: {fileID: 3410943731210983682, guid: d1085c23fa2441145abe91e83a16cf7f, type: 3}
+  CharacterModelPrefab: {fileID: 3618087702146548294, guid: bf3896d80b06b09488a4c98cd6d5d851, type: 3}
   isPlaced: 0
   AttackedPosition: {fileID: 1180890745}
 --- !u!1 &50297709
@@ -1979,7 +1978,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 35c10283565cb72449d6016c8c9dc4c3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CharacterModelPrefab: {fileID: 3410943731210983682, guid: d1085c23fa2441145abe91e83a16cf7f, type: 3}
+  CharacterModelPrefab: {fileID: 3618087702146548294, guid: bf3896d80b06b09488a4c98cd6d5d851, type: 3}
   isPlaced: 0
   AttackedPosition: {fileID: 126472034}
 --- !u!114 &589298279
@@ -2102,14 +2101,14 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 589298277}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
   m_LocalPosition: {x: 0, y: 0, z: 13.05}
   m_LocalScale: {x: 0.5, y: 1, z: 0.5}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 126472034}
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 14.619999, y: 0}
@@ -2149,7 +2148,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 35c10283565cb72449d6016c8c9dc4c3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CharacterModelPrefab: {fileID: 3410943731210983682, guid: d1085c23fa2441145abe91e83a16cf7f, type: 3}
+  CharacterModelPrefab: {fileID: 3618087702146548294, guid: bf3896d80b06b09488a4c98cd6d5d851, type: 3}
   isPlaced: 0
   AttackedPosition: {fileID: 1443737012}
 --- !u!114 &595504553
@@ -2272,14 +2271,14 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 595504551}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
   m_LocalPosition: {x: 0, y: 0, z: 7}
   m_LocalScale: {x: 0.5, y: 1, z: 0.5}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1443737012}
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 9.94, y: 0}
@@ -2591,7 +2590,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 35c10283565cb72449d6016c8c9dc4c3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CharacterModelPrefab: {fileID: 3410943731210983682, guid: d1085c23fa2441145abe91e83a16cf7f, type: 3}
+  CharacterModelPrefab: {fileID: 3618087702146548294, guid: bf3896d80b06b09488a4c98cd6d5d851, type: 3}
   isPlaced: 0
   AttackedPosition: {fileID: 1512416462}
 --- !u!1 &643018106
@@ -3693,7 +3692,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 35c10283565cb72449d6016c8c9dc4c3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CharacterModelPrefab: {fileID: 3410943731210983682, guid: d1085c23fa2441145abe91e83a16cf7f, type: 3}
+  CharacterModelPrefab: {fileID: 3618087702146548294, guid: bf3896d80b06b09488a4c98cd6d5d851, type: 3}
   isPlaced: 0
   AttackedPosition: {fileID: 859521233}
 --- !u!1 &940836024
@@ -3749,7 +3748,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   toggle: {fileID: 940836027}
-  formationSystem: {fileID: 471753101}
   teamIndex: 1
 --- !u!114 &940836027
 MonoBehaviour:
@@ -4213,7 +4211,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 35c10283565cb72449d6016c8c9dc4c3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CharacterModelPrefab: {fileID: 3410943731210983682, guid: d1085c23fa2441145abe91e83a16cf7f, type: 3}
+  CharacterModelPrefab: {fileID: 3618087702146548294, guid: bf3896d80b06b09488a4c98cd6d5d851, type: 3}
   isPlaced: 0
   AttackedPosition: {fileID: 832698303}
 --- !u!1 &1074448245
@@ -4396,7 +4394,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   toggle: {fileID: 1111421815}
-  formationSystem: {fileID: 471753101}
   teamIndex: 6
 --- !u!114 &1111421815
 MonoBehaviour:
@@ -4684,7 +4681,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   toggle: {fileID: 1168507553}
-  formationSystem: {fileID: 471753101}
   teamIndex: 4
 --- !u!114 &1168507553
 MonoBehaviour:
@@ -5047,7 +5043,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 35c10283565cb72449d6016c8c9dc4c3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CharacterModelPrefab: {fileID: 3410943731210983682, guid: d1085c23fa2441145abe91e83a16cf7f, type: 3}
+  CharacterModelPrefab: {fileID: 3618087702146548294, guid: bf3896d80b06b09488a4c98cd6d5d851, type: 3}
   isPlaced: 0
   AttackedPosition: {fileID: 1212523068}
 --- !u!114 &1285335461
@@ -5170,14 +5166,14 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1285335459}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
   m_LocalPosition: {x: 0, y: 0, z: 12.01}
   m_LocalScale: {x: 0.5, y: 1, z: 0.5}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1212523068}
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 9.74, y: 0}
@@ -5372,7 +5368,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   toggle: {fileID: 1367611889}
-  formationSystem: {fileID: 471753101}
   teamIndex: 7
 --- !u!114 &1367611889
 MonoBehaviour:
@@ -5494,7 +5489,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 35c10283565cb72449d6016c8c9dc4c3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CharacterModelPrefab: {fileID: 3410943731210983682, guid: d1085c23fa2441145abe91e83a16cf7f, type: 3}
+  CharacterModelPrefab: {fileID: 3618087702146548294, guid: bf3896d80b06b09488a4c98cd6d5d851, type: 3}
   isPlaced: 0
   AttackedPosition: {fileID: 1779897886}
 --- !u!114 &1372342692
@@ -5617,14 +5612,14 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1372342690}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
   m_LocalPosition: {x: 0, y: 0, z: 9.07}
   m_LocalScale: {x: 0.5, y: 1, z: 0.5}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1779897886}
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 15.47, y: 0}
@@ -6239,7 +6234,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 35c10283565cb72449d6016c8c9dc4c3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CharacterModelPrefab: {fileID: 3410943731210983682, guid: d1085c23fa2441145abe91e83a16cf7f, type: 3}
+  CharacterModelPrefab: {fileID: 3618087702146548294, guid: bf3896d80b06b09488a4c98cd6d5d851, type: 3}
   isPlaced: 0
   AttackedPosition: {fileID: 796638457}
 --- !u!1 &1471830727
@@ -6295,7 +6290,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   toggle: {fileID: 1471830730}
-  formationSystem: {fileID: 471753101}
   teamIndex: 2
 --- !u!114 &1471830730
 MonoBehaviour:
@@ -6850,7 +6844,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   toggle: {fileID: 1700389877}
-  formationSystem: {fileID: 471753101}
   teamIndex: 3
 --- !u!114 &1700389877
 MonoBehaviour:
@@ -7093,7 +7086,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 35c10283565cb72449d6016c8c9dc4c3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CharacterModelPrefab: {fileID: 3410943731210983682, guid: d1085c23fa2441145abe91e83a16cf7f, type: 3}
+  CharacterModelPrefab: {fileID: 3618087702146548294, guid: bf3896d80b06b09488a4c98cd6d5d851, type: 3}
   isPlaced: 0
   AttackedPosition: {fileID: 1236116453}
 --- !u!114 &1743930047
@@ -7216,14 +7209,14 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1743930045}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
   m_LocalPosition: {x: 0, y: 0, z: 5}
   m_LocalScale: {x: 0.5, y: 1, z: 0.5}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1236116453}
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 14.309999, y: 0}
@@ -8283,7 +8276,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   toggle: {fileID: 2000496546}
-  formationSystem: {fileID: 471753101}
   teamIndex: 0
 --- !u!114 &2000496546
 MonoBehaviour:

@@ -9,6 +9,11 @@ namespace DSG
         private BattleComponent battleComp;
         private ScoreComponent scoreComp;
 
+        [SerializeField]
+        private SkinnedMeshRenderer bodySkin;
+        [SerializeField]
+        private MeshRenderer headSkin;
+
         public StatusEffectComponent StatusEffectComp => statusEffectComp;
         public BattleComponent BattleComp => battleComp;
         public ScoreComponent ScoreComp => scoreComp;
@@ -87,7 +92,8 @@ namespace DSG
 
             characterData = data;
             characterModelData = modelData;
-            GetComponent<MeshRenderer>().material.color = modelData.material.color;
+            bodySkin.material.color = modelData.material.color;
+            headSkin.material.color = modelData.material.color;
             gameObject.SetActive(true);
             if (characterInfoUI != null)
             {
