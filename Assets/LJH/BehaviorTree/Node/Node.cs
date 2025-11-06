@@ -6,6 +6,11 @@ namespace RL
     {
         protected NodeState nodeState;
         public abstract NodeState Evaluate();
+
+        public void CallWrontState()
+        {
+            UnityEngine.Debug.LogError("Wrong State Detected");
+        }
     }
 }
 

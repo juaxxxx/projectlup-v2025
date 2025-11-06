@@ -19,19 +19,22 @@ namespace RL
             {
                 NodeState childNodeState = childListNodes[i].Evaluate();
 
-                if (childNodeState == NodeState.Fail)
+                switch (childNodeState)
                 {
-                    currWorkingNodeIndex = 0;
-                    return NodeState.Fail;
-                }
-                    
+                    case NodeState.Fail:
+                        currWorkingNodeIndex = 0;
+                        return NodeState.Fail;
 
-                else if(childNodeState == NodeState.Running)
-                {
-                    currWorkingNodeIndex = i;
-                    return NodeState.Running;
+                    case NodeState.Running:
+                        currWorkingNodeIndex = i;
+                        return NodeState.Running;
+
+                    default:
+                        CallWrontState();
+                        currWorkingNodeIndex = 0;
+                        return NodeState.Fail;
                 }
-                    
+
             }
 
             currWorkingNodeIndex = 0;
