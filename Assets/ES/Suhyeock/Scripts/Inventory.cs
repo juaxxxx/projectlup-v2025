@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+Ôªøusing System.Collections.Generic;
 using System;
 using UnityEngine;
 
@@ -8,7 +8,7 @@ public class Inventory : MonoBehaviour
     public int inventorySize = 30;
     public List<InventorySlot> slots;
 
-    private void Awake()
+    virtual public void Awake()
     {
         slots = new List<InventorySlot>(inventorySize);
         for (int i = 0; i < inventorySize; i++)
@@ -19,7 +19,7 @@ public class Inventory : MonoBehaviour
 
     public bool AddItem(Item item)
     {
-        // 1. Ω∫≈√ ∞°¥…«— æ∆¿Ã≈€¿Ã∂Û∏È ±‚¡∏ ΩΩ∑‘ ∞Àªˆ »ƒ √ﬂ∞° (Stacking Logic)
+        // 1. Ïä§ÌÉù Í∞ÄÎä•Ìïú ÏïÑÏù¥ÌÖúÏù¥ÎùºÎ©¥ Í∏∞Ï°¥ Ïä¨Î°Ø Í≤ÄÏÉâ ÌõÑ Ï∂îÍ∞Ä (Stacking Logic)
         if(item.baseItem.type == ItemType.Consumable || item.baseItem.type == ItemType.Material)
         {
             for (int i = 0; i < slots.Count; i++)
@@ -45,7 +45,7 @@ public class Inventory : MonoBehaviour
             }
         }
 
-        // 2. ªı∑ŒøÓ ΩΩ∑‘ø° æ∆¿Ã≈€ √ﬂ∞°
+        // 2. ÏÉàÎ°úÏö¥ Ïä¨Î°ØÏóê ÏïÑÏù¥ÌÖú Ï∂îÍ∞Ä
         InventorySlot emptySlot = slots.Find(s => s.IsEmpty);
         if (emptySlot != null)
         {
@@ -55,6 +55,6 @@ public class Inventory : MonoBehaviour
             return true;
         }
 
-        return false; // ¿Œ∫•≈‰∏Æ∞° ∞°µÊ ¬¸
+        return false; // Ïù∏Î≤§ÌÜ†Î¶¨Í∞Ä Í∞ÄÎìù Ï∞∏
     }
 }

@@ -12,6 +12,14 @@ public class InventoryRuntimeData : BaseRuntimeData
     [SerializeField] private int _capacity = 30;
     [SerializeField] private List<ItemRuntimeData> _slots = new List<ItemRuntimeData>();
 
+    // 재화 저장
+    [SerializeField] private List<string> _currencyKeys = new List<string>();
+    [SerializeField] private List<long> _currencyValues = new List<long>();
+
+    // 장비 저장 (슬롯명 + 아이템ID)
+    [SerializeField] private List<string> _equipmentSlotNames = new List<string>();
+    [SerializeField] private List<int> _equippedItemIds = new List<int>();
+
     public int Capacity
     {
         get => _capacity;
@@ -28,6 +36,10 @@ public class InventoryRuntimeData : BaseRuntimeData
     {
         _capacity = 30;
         _slots.Clear();
+        _currencyKeys.Clear();
+        _currencyValues.Clear();
+        _equipmentSlotNames.Clear();
+        _equippedItemIds.Clear();
     }
 
     /// <summary>
@@ -74,5 +86,68 @@ public class InventoryRuntimeData : BaseRuntimeData
         }
 
         return _slots[index];
+    }
+
+    /// <summary>
+    /// 재화 저장
+    /// </summary>
+    public void SaveCurrencies(Dictionary<string, long> currencies)
+    {
+        _currencyKeys.Clear();
+        _currencyValues.Clear();
+
+        foreach (var currency in currencies)
+        {
+            _currencyKeys.Add(currency.Key);
+            _currencyValues.Add(currency.Value);
+        }
+    }
+
+    /// <summary>
+    /// 재화 로드
+    /// </summary>
+    public Dictionary<string, long> LoadCurrencies()
+    {
+        Dictionary<string, long> currencies = new Dictionary<string, long>();
+
+        for (int i = 0; i < _currencyKeys.Count && i < _currencyValues.Count; i++)
+        {
+            currencies[_currencyKeys[i]] = _currencyValues[i];
+        }
+
+        return currencies;
+    }
+
+    /// <summary>
+    /// 장비 저장
+    /// </summary>
+    public void SaveEquipments(Dictionary<string, IInventoryItemable> equipments)
+    {
+        _equipmentSlotNames.Clear();
+        _equippedItemIds.Clear();
+
+        foreach (var equipment in equipments)
+        {
+            if (equipment.Value != null)
+            {
+                _equipmentSlotNames.Add(equipment.Key);
+                _equippedItemIds.Add(equipment.Value.ItemID);
+            }
+        }
+    }
+
+    /// <summary>
+    /// 장비 로드 (아이템 ID만 반환, 실제 로드는 Inventory에서)
+    /// </summary>
+    public Dictionary<string, int> LoadEquipmentIds()
+    {
+        Dictionary<string, int> equipmentIds = new Dictionary<string, int>();
+
+        for (int i = 0; i < _equipmentSlotNames.Count && i < _equippedItemIds.Count; i++)
+        {
+            equipmentIds[_equipmentSlotNames[i]] = _equippedItemIds[i];
+        }
+
+        return equipmentIds;
     }
 }

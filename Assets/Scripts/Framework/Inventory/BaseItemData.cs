@@ -2,12 +2,11 @@
 
 namespace Framework
 {
-    public abstract class BaseItemData : ScriptableObject, IInventoryItem
+    public abstract class BaseItemData : ScriptableObject, IInventoryItemable
     {
         [Header("기본 정보")]
         [SerializeField] protected int itemID;
         [SerializeField] protected string itemName;
-        [SerializeField, TextArea(3, 5)] protected string description;
         [SerializeField] protected Sprite icon;
         [SerializeField] protected Define.ItemType itemType;
 
@@ -22,7 +21,6 @@ namespace Framework
         // IInventoryItem 인터페이스 구현
         public int ItemID => itemID;
         public string ItemName => itemName;
-        public string Description => description;
         public Sprite Icon => icon;
         public Define.ItemType ItemType => itemType;
         public int MaxStackSize => maxStackSize;
@@ -31,17 +29,13 @@ namespace Framework
         public int SellPrice => sellPrice;
         public int BuyPrice => buyPrice;
 
-        /// <summary>
-        /// 아이템 사용 가능 여부 (각 게임에서 오버라이드)
-        /// </summary>
+        // 아이템 사용 가능 여부
         public virtual bool CanUse()
         {
             return false;
         }
 
-        /// <summary>
-        /// 저장용 데이터로 변환
-        /// </summary>
+        
         public virtual ItemRuntimeData ToSaveData()
         {
             return new ItemRuntimeData
@@ -60,9 +54,7 @@ namespace Framework
             // 런타임 아이템 인스턴스가 필요한 경우 별도 클래스 사용
         }
 
-        /// <summary>
-        /// 에디터 검증 (유효성 체크)
-        /// </summary>
+
         protected virtual void OnValidate()
         {
             if (maxStackSize < 1)

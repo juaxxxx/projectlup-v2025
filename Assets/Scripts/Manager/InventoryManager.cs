@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
+using Framework;
 
 namespace Manager
 {
@@ -9,39 +10,127 @@ namespace Manager
         [Header("아이템 데이터베이스")]
         [SerializeField] private string itemDatabasePath = "Items"; // Resources 폴더 경로
 
+        // 게임별 설정
+        private Framework.IGameInventoryConfig gameConfig;
+
         // 현재 활성 인벤토리
         private MonoBehaviour currentInventory;
 
         // 아이템 데이터베이스 (ID → IInventoryItem)
-        private Dictionary<int, IInventoryItem> itemDatabase;
+        private Dictionary<int, IInventoryItemable> itemDatabase;
+
+        // ⭐ 공용 재화 (모든 게임에서 공유)
+        private Dictionary<string, long> globalCurrencies;
 
         // 전역 이벤트
-        public event Action<IInventoryItem, int> OnAnyItemAdded;
-        public event Action<IInventoryItem, int> OnAnyItemRemoved;
+        public event Action<IInventoryItemable, int> OnAnyItemAdded;
+        public event Action<IInventoryItemable, int> OnAnyItemRemoved;
         public event Action OnAnyInventoryUpdated;
 
+        // 공용 재화 이벤트
+        public event Action<string, long> OnGlobalCurrencyChanged;
+
         private bool isDatabaseLoaded = false;
+        private bool isConfigured = false;
 
         public override void Awake()
         {
             base.Awake();
             InitializeItemDatabase();
+            InitializeGlobalCurrencies();
         }
 
-        #region 인벤토리 등록/관리
+        /// 게임 시작 시 설정 주입 (필수)
+        public void Initialize(Framework.IGameInventoryConfig config)
+        {
+            if (config == null)
+            {
+                Debug.LogError("[InventoryManager] Config cannot be null!");
+                return;
+            }
 
-        /// <summary>
-        /// 인벤토리 등록 (각 게임 씬에서 호출)
-        /// </summary>
+            gameConfig = config;
+            isConfigured = true;
+
+            Debug.Log($"[InventoryManager] Initialized with {config.GetType().Name}");
+        }
+
+        /// 공용 재화 초기화 (모든 게임에서 공유되는 재화)
+        private void InitializeGlobalCurrencies()
+        {
+            if (globalCurrencies == null)
+            {
+                globalCurrencies = new Dictionary<string, long>
+                {
+                    { "Diamond", 0 },     
+                    { "AccountExp", 0 }    
+                };
+
+                Debug.Log("[InventoryManager] Global currencies initialized");
+            }
+        }
+
+        /// 현재 게임 설정 조회
+        public Framework.IGameInventoryConfig GetConfig() => gameConfig;
+
+        /// 설정이 완료되었는지 확인
+        public bool IsConfigured() => isConfigured;
+
         public void RegisterInventory(MonoBehaviour inventory)
         {
             currentInventory = inventory;
             Debug.Log($"[InventoryManager] Registered: {inventory.GetType().Name}");
+
+            if (isConfigured && inventory is Framework.Inventory inv)
+                SetupInventoryFromConfig(inv);
         }
 
-        /// <summary>
-        /// 현재 활성 인벤토리 가져오기
-        /// </summary>
+        private void SetupInventoryFromConfig(Framework.Inventory inventory)
+        {
+            if (gameConfig == null) return;
+
+            foreach (string currency in gameConfig.GetCurrencyTypes())
+                inventory.SetCurrency(currency, 0);
+
+            Debug.Log($"[InventoryManager] Configured inventory with {gameConfig.GetCurrencyTypes().Count} currencies and {gameConfig.GetEquipmentSlots().Count} equipment slots");
+        }
+
+        /// 이 재화가 현재 게임에서 유효한지 검증
+        public bool IsCurrencyValid(string currencyName)
+        {
+            if (!isConfigured)
+            {
+                Debug.LogWarning("[InventoryManager] Not configured. Cannot validate currency.");
+                return false;
+            }
+
+            bool isValid = gameConfig.GetCurrencyTypes().Contains(currencyName);
+            if (!isValid)
+            {
+                Debug.LogWarning($"[InventoryManager] Currency '{currencyName}' is not defined in game config. Valid currencies: {string.Join(", ", gameConfig.GetCurrencyTypes())}");
+            }
+
+            return isValid;
+        }
+
+        /// 이 장비 슬롯이 현재 게임에서 유효한지 검증
+        public bool IsEquipSlotValid(string slotName)
+        {
+            if (!isConfigured)
+            {
+                Debug.LogWarning("[InventoryManager] Not configured. Cannot validate equipment slot.");
+                return false;
+            }
+
+            bool isValid = gameConfig.GetEquipmentSlots().Contains(slotName);
+            if (!isValid)
+            {
+                Debug.LogWarning($"[InventoryManager] Equipment slot '{slotName}' is not defined in game config. Valid slots: {string.Join(", ", gameConfig.GetEquipmentSlots())}");
+            }
+
+            return isValid;
+        }
+
         public T GetCurrentInventory<T>() where T : MonoBehaviour
         {
             if (currentInventory == null)
@@ -59,32 +148,19 @@ namespace Manager
             return null;
         }
 
-        /// <summary>
-        /// 현재 인벤토리가 등록되어 있는지 확인
-        /// </summary>
         public bool HasInventory()
         {
             return currentInventory != null;
         }
 
-        #endregion
-
-        #region 아이템 데이터베이스
-
-        /// <summary>
-        /// 아이템 데이터베이스 초기화
-        /// Resources/Items 폴더의 모든 BaseItemData 로드
-        /// </summary>
         private void InitializeItemDatabase()
         {
             if (isDatabaseLoaded)
-            {
                 return;
-            }
 
-            itemDatabase = new Dictionary<int, IInventoryItem>();
+            itemDatabase = new Dictionary<int, IInventoryItemable>();
 
-            // Resources 폴더에서 모든 BaseItemData 로드
+            // 이건 리소스매니저 또는 어드레서블과 연결해봐야할듯
             Framework.BaseItemData[] items = Resources.LoadAll<Framework.BaseItemData>(itemDatabasePath);
 
             foreach (var item in items)
@@ -102,10 +178,7 @@ namespace Manager
             Debug.Log($"[InventoryManager] Loaded {itemDatabase.Count} items from database");
         }
 
-        /// <summary>
-        /// 아이템 ID로 아이템 데이터 가져오기
-        /// </summary>
-        public IInventoryItem GetItemData(int itemID)
+        public IInventoryItemable GetItemData(int itemID)
         {
             if (!isDatabaseLoaded)
             {
@@ -121,39 +194,26 @@ namespace Manager
             return null;
         }
 
-        /// <summary>
-        /// 아이템 ID로 타입 변환하여 가져오기
-        /// </summary>
-        public T GetItemData<T>(int itemID) where T : class, IInventoryItem
+        public T GetItemData<T>(int itemID) where T : class, IInventoryItemable
         {
-            IInventoryItem item = GetItemData(itemID);
+            IInventoryItemable item = GetItemData(itemID);
             return item as T;
         }
 
-        /// <summary>
-        /// 아이템이 데이터베이스에 존재하는지 확인
-        /// </summary>
         public bool ItemExists(int itemID)
         {
             if (!isDatabaseLoaded)
-            {
                 InitializeItemDatabase();
-            }
 
             return itemDatabase.ContainsKey(itemID);
         }
 
-        /// <summary>
-        /// 특정 타입의 모든 아이템 가져오기
-        /// </summary>
-        public List<IInventoryItem> GetItemsByType(Define.ItemType itemType)
+        public List<IInventoryItemable> GetItemsByType(Define.ItemType itemType)
         {
             if (!isDatabaseLoaded)
-            {
                 InitializeItemDatabase();
-            }
 
-            List<IInventoryItem> result = new List<IInventoryItem>();
+            List<IInventoryItemable> result = new List<IInventoryItemable>();
 
             foreach (var item in itemDatabase.Values)
             {
@@ -166,26 +226,14 @@ namespace Manager
             return result;
         }
 
-        /// <summary>
-        /// 전체 아이템 목록 가져오기
-        /// </summary>
-        public List<IInventoryItem> GetAllItems()
+        public List<IInventoryItemable> GetAllItems()
         {
             if (!isDatabaseLoaded)
-            {
                 InitializeItemDatabase();
-            }
 
-            return new List<IInventoryItem>(itemDatabase.Values);
+            return new List<IInventoryItemable>(itemDatabase.Values);
         }
 
-        #endregion
-
-        #region 저장/로드
-
-        /// <summary>
-        /// 현재 인벤토리 저장
-        /// </summary>
         public void SaveInventory(string saveKey = "CurrentInventory")
         {
             if (currentInventory == null)
@@ -194,7 +242,6 @@ namespace Manager
                 return;
             }
 
-            // BaseInventory를 상속하는지 확인하고 저장 메서드 호출
             var saveMethod = currentInventory.GetType().GetMethod("ToSaveData");
             if (saveMethod == null)
             {
@@ -210,9 +257,6 @@ namespace Manager
             }
         }
 
-        /// <summary>
-        /// 현재 인벤토리 로드
-        /// </summary>
         public void LoadInventory(string saveKey = "CurrentInventory")
         {
             if (currentInventory == null)
@@ -242,9 +286,7 @@ namespace Manager
             }
         }
 
-        /// <summary>
-        /// 스테이지 전환 시 자동 저장 (StageManager와 연동)
-        /// </summary>
+        // 이건 스테이지 매니저에서 호출할듯?
         public void OnStageExit()
         {
             if (currentInventory == null)
@@ -252,7 +294,6 @@ namespace Manager
                 return;
             }
 
-            // ShouldPersist 체크
             var persistProperty = currentInventory.GetType().GetProperty("ShouldPersist");
             if (persistProperty != null)
             {
@@ -264,9 +305,6 @@ namespace Manager
             }
         }
 
-        /// <summary>
-        /// 특정 스테이지의 인벤토리 데이터 삭제
-        /// </summary>
         public void DeleteInventorySave(string saveKey)
         {
             string filename = $"{saveKey}.json";
@@ -277,53 +315,202 @@ namespace Manager
             }
         }
 
-        #endregion
+        /// 게임 전환 (인벤토리 저장 후 새 게임 설정 적용)
+        public void SwitchGame(string fromGameId, string toGameId, Framework.IGameInventoryConfig newConfig)
+        {
+            if (newConfig == null)
+            {
+                Debug.LogError("[InventoryManager] Cannot switch game: newConfig is null");
+                return;
+            }
 
-        #region 전역 이벤트 브로드캐스트
+            // 1. 현재 게임의 인벤토리 저장
+            if (currentInventory != null && !string.IsNullOrEmpty(fromGameId))
+                SaveInventory($"Inventory_{fromGameId}");
 
-        /// <summary>
-        /// 아이템 추가 이벤트 브로드캐스트
-        /// </summary>
-        public void BroadcastItemAdded(IInventoryItem item, int amount)
+            // 2. 현재 인벤토리 초기화
+            currentInventory = null;
+
+            // 3. 새 게임 설정 적용
+            Initialize(newConfig);
+
+            // 4. 새 게임의 인벤토리 로드 (존재하는 경우)
+            if (!string.IsNullOrEmpty(toGameId))
+            {
+                string saveKey = $"Inventory_{toGameId}";
+                if (JsonDataHelper.FileExists($"{saveKey}.json"))
+                {
+                    Debug.Log($"[InventoryManager] Found existing save for game: {toGameId}");
+                }
+                else
+                {
+                    Debug.Log($"[InventoryManager] No existing save for game: {toGameId}. Will start fresh.");
+                }
+            }
+
+            Debug.Log($"[InventoryManager] Game switched: {fromGameId} → {toGameId}");
+            Debug.Log($"[InventoryManager] Global currencies preserved: Diamond={GetGlobalCurrency("Diamond")}, AccountExp={GetGlobalCurrency("AccountExp")}");
+        }
+
+        /// 게임 ID로 설정 조회 (확장 가능하도록 설계)
+        public Framework.IGameInventoryConfig GetConfigForGame(string gameId)
+        {
+            switch (gameId?.ToUpper())
+            {
+                case "RL":
+                case "ROGUELIKE":
+                    return new Framework.RoguelikeInventoryConfig();
+
+                case "ST":
+                case "SHOOTING":
+                    return new Framework.ShootingInventoryConfig();
+
+                case "ES":
+                case "EXTRACTIONSHOOTER":
+                    return new Framework.ExtractionShooterInventoryConfig();
+
+                case "PCR":
+                case "PRODUCTION":
+                    return new Framework.ProductionInventoryConfig();
+
+                default:
+                    Debug.LogWarning($"[InventoryManager] Unknown game ID: {gameId}. Returning null.");
+                    return null;
+            }
+        }
+
+        /// 게임 전환 (게임 ID만으로 편리하게 호출)
+        public void SwitchGame(string fromGameId, string toGameId)
+        {
+            var newConfig = GetConfigForGame(toGameId);
+            if (newConfig != null)
+            {
+                SwitchGame(fromGameId, toGameId, newConfig);
+            }
+        }
+
+        /// 현재 게임 ID 저장 (외부에서 관리 가능하도록)
+        private string currentGameId;
+
+        public string GetCurrentGameId() => currentGameId;
+
+        public void SetCurrentGameId(string gameId)
+        {
+            currentGameId = gameId;
+            Debug.Log($"[InventoryManager] Current game ID set to: {gameId}");
+        }
+
+        /// 인벤토리 등록 시 자동으로 저장된 데이터 로드 시도
+        public void RegisterInventoryAndLoad(MonoBehaviour inventory, string gameId)
+        {
+            RegisterInventory(inventory);
+            SetCurrentGameId(gameId);
+
+            string saveKey = $"Inventory_{gameId}";
+            if (JsonDataHelper.FileExists($"{saveKey}.json"))
+            {
+                LoadInventory(saveKey);
+            }
+        }
+
+        public void BroadcastItemAdded(IInventoryItemable item, int amount)
         {
             OnAnyItemAdded?.Invoke(item, amount);
             OnAnyInventoryUpdated?.Invoke();
         }
 
-        /// <summary>
-        /// 아이템 제거 이벤트 브로드캐스트
-        /// </summary>
-        public void BroadcastItemRemoved(IInventoryItem item, int amount)
+        public void BroadcastItemRemoved(IInventoryItemable item, int amount)
         {
             OnAnyItemRemoved?.Invoke(item, amount);
             OnAnyInventoryUpdated?.Invoke();
         }
 
-        #endregion
-
-        #region 유틸리티
-
-        /// <summary>
-        /// 데이터베이스 리로드 (에디터 전용)
-        /// </summary>
-        public void ReloadDatabase()
+        /// 공용 재화 추가
+        public bool AddGlobalCurrency(string currencyName, long amount)
         {
-            isDatabaseLoaded = false;
-            InitializeItemDatabase();
-            Debug.Log("[InventoryManager] Database reloaded");
+            if (string.IsNullOrEmpty(currencyName) || amount <= 0)
+            {
+                Debug.LogWarning("[InventoryManager] Invalid currency name or amount");
+                return false;
+            }
+
+            if (!globalCurrencies.ContainsKey(currencyName))
+            {
+                Debug.LogWarning($"[InventoryManager] Global currency '{currencyName}' not defined");
+                return false;
+            }
+
+            globalCurrencies[currencyName] += amount;
+            OnGlobalCurrencyChanged?.Invoke(currencyName, globalCurrencies[currencyName]);
+
+            Debug.Log($"[InventoryManager] Added {amount} {currencyName}. Total: {globalCurrencies[currencyName]}");
+            return true;
         }
 
-        /// <summary>
-        /// 디버그 정보 출력
-        /// </summary>
-        public void DebugPrintStatus()
+        /// 공용 재화 제거
+        public bool RemoveGlobalCurrency(string currencyName, long amount)
         {
-            Debug.Log("===== InventoryManager Status =====");
-            Debug.Log($"Current Inventory: {(currentInventory != null ? currentInventory.GetType().Name : "None")}");
-            Debug.Log($"Database Loaded: {isDatabaseLoaded}");
-            Debug.Log($"Total Items in Database: {itemDatabase?.Count ?? 0}");
+            if (string.IsNullOrEmpty(currencyName) || amount <= 0)
+            {
+                Debug.LogWarning("[InventoryManager] Invalid currency name or amount");
+                return false;
+            }
+
+            if (!globalCurrencies.ContainsKey(currencyName))
+            {
+                Debug.LogWarning($"[InventoryManager] Global currency '{currencyName}' not defined");
+                return false;
+            }
+
+            if (globalCurrencies[currencyName] < amount)
+            {
+                Debug.LogWarning($"[InventoryManager] Not enough {currencyName}. Have: {globalCurrencies[currencyName]}, Need: {amount}");
+                return false;
+            }
+
+            globalCurrencies[currencyName] -= amount;
+            OnGlobalCurrencyChanged?.Invoke(currencyName, globalCurrencies[currencyName]);
+
+            Debug.Log($"[InventoryManager] Removed {amount} {currencyName}. Remaining: {globalCurrencies[currencyName]}");
+            return true;
         }
 
-        #endregion
+        /// 공용 재화 조회
+        public long GetGlobalCurrency(string currencyName)
+        {
+            if (globalCurrencies != null && globalCurrencies.ContainsKey(currencyName))
+            {
+                return globalCurrencies[currencyName];
+            }
+            return 0;
+        }
+
+        /// 공용 재화 보유 확인
+        public bool HasGlobalCurrency(string currencyName, long amount)
+        {
+            return GetGlobalCurrency(currencyName) >= amount;
+        }
+
+        /// 공용 재화 설정
+        public void SetGlobalCurrency(string currencyName, long amount)
+        {
+            if (!globalCurrencies.ContainsKey(currencyName))
+            {
+                Debug.LogWarning($"[InventoryManager] Global currency '{currencyName}' not defined");
+                return;
+            }
+
+            globalCurrencies[currencyName] = Math.Max(0L, amount);
+            OnGlobalCurrencyChanged?.Invoke(currencyName, globalCurrencies[currencyName]);
+
+            Debug.Log($"[InventoryManager] Set {currencyName} to {globalCurrencies[currencyName]}");
+        }
+
+        /// 모든 공용 재화 조회
+        public Dictionary<string, long> GetAllGlobalCurrencies()
+        {
+            return new Dictionary<string, long>(globalCurrencies);
+        }
     }
 }
+
