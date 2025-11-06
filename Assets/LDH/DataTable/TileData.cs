@@ -5,9 +5,8 @@ namespace RL
 
     public class TileData
     {
-        public float x;
-        public float y;
-        public float z;
+        public int x;
+        public int z;
         public Vector3 worldPos;
         public GameObject cellObj;
         public bool isWalkable = true;
