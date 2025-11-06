@@ -17,9 +17,10 @@ namespace RL
 
             for(int i = currWorkingNodeIndex; i < childListNodes.Count; i++)
             {
-                NodeState childNodeState = childListNodes[i].Evaluate();
+                NodeState compositNodeResult = childListNodes[i].Evaluate();
 
-                switch (childNodeState)
+
+                switch (compositNodeResult)
                 {
                     case NodeState.Fail:
                         currWorkingNodeIndex = 0;
@@ -30,6 +31,17 @@ namespace RL
                         return NodeState.Running;
 
                     case NodeState.Success:
+                        {
+                            if (childListNodes[i] is DecoratorNode)
+                            {
+                                //(DecoratorNode)(childListNodes[i])->
+                            }
+
+                            else
+                            {
+                                continue;
+                            }
+                        }
                         break;
 
                     default:

@@ -4,25 +4,24 @@ namespace RL
 {
     public interface IBlackBoardAble
     {
-        bool Alive { get; set; }
+        public bool Alive { get; set; }
 
-        bool CanAtk { get; set; }
-        bool OnAtk { get; set; }
+        public bool CanAtk { get; set; }
+        public bool OnAtk { get; set; }
 
-        bool OnHitted { get; set; }
-        bool OnRampage { get; set; }
+        public bool OnHitted { get; set; }
+        public bool OnRampage { get; set; }
 
-        bool HasTarget { get; set; }
+        public bool HasTarget { get; set; }
 
-        bool isLocallyControlled { get; set; }
+        public bool isLocallyControlled { get; set; }
 
-        float Speed { get; set; }
-        float AtkRange { get; set; }
-        float AtkCollTime { get; set; }
-        float HittedAccumTime { get; set; }
-        float RampageTime { get; set; }
-
-        float TargetDistance { get; set; }
+        public float Speed { get; set; }
+        public float AtkRange { get; set; }
+        public float AtkCollTime { get; set; }
+        public float HittedAccumTime { get; set; }
+        public float RampageTime { get; set; }
+        public float TargetDistance { get; set; }
     }
 }
 

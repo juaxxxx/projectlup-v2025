@@ -23,10 +23,13 @@ namespace RL
         bool whishCondition = false;
         public BlackboardConditionNode(IBlackBoardAble targetBlackBoard, ConditionCheckEnum evaluatedCondition, bool WhishCondition , Node decoratedNode) : base(decoratedNode)
         {
-            //if(targetBlackBoard is EnemyBlackBoard)
+            //if (targetBlackBoard is EnemyBlackBoard)
             //{
             //    currBlackBoard = (EnemyBlackBoard)targetBlackBoard;
             //}
+
+            currBlackBoard = targetBlackBoard;
+
             this.whishCondition = WhishCondition;
             this.evaluateCondition = evaluatedCondition;
         }

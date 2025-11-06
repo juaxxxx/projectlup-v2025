@@ -4,7 +4,7 @@ namespace RL
 {
     public abstract class DecoratorNode : Node
     {
-        protected Node targetNode;
+        public Node targetNode;
 
         public DecoratorNode(Node decoratedNode)
         {

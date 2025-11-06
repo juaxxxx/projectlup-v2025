@@ -9,7 +9,7 @@ namespace RL
 
         private RootNode rootnode;
         private EnemyBlackBoard enemyBlackBoard;
-        private SequenceNode topSequenceNode;
+        private CompositeNode topCompositeNode;
 
         private void Awake()
         {
@@ -34,6 +34,8 @@ namespace RL
                 totalChildNodes.Add(isAlive);
             }
 
+            List<Node> midleNodes = new List<Node>();
+
             //Hitted Action
             {
                 List<Node> childList = new List<Node>();
@@ -55,7 +57,7 @@ namespace RL
                 BlackboardConditionNode isHitted = new BlackboardConditionNode(enemyBlackBoard, ConditionCheckEnum.INHITTEDSTATE, true, atkSequenceNode);
 
 
-                totalChildNodes.Add(isHitted);
+                midleNodes.Add(isHitted);
             }
 
             //Attack Action
@@ -74,7 +76,7 @@ namespace RL
                 SelectorNode selectorNode = new SelectorNode(childList);
                 BlackboardConditionNode isTargetInAtkRange = new BlackboardConditionNode(enemyBlackBoard, ConditionCheckEnum.TARTINATKRANGE, false, actionAttack);
 
-                totalChildNodes.Add(isTargetInAtkRange);
+                midleNodes.Add(isTargetInAtkRange);
             }
 
             //MoveTo Action
@@ -82,12 +84,14 @@ namespace RL
                 ActionMovTo actionMovTo = new ActionMovTo();
                 BlackboardConditionNode islocallyControlled = new BlackboardConditionNode(enemyBlackBoard, ConditionCheckEnum.ISLOCALLYCONTROLLED, false, actionMovTo);
 
-                totalChildNodes.Add(islocallyControlled);
+                midleNodes.Add(islocallyControlled);
             }
 
-            topSequenceNode = new SequenceNode(totalChildNodes);
+            totalChildNodes.Add(new SequenceNode(midleNodes));
 
-            rootnode = new RootNode(topSequenceNode);
+            topCompositeNode = new SelectorNode(totalChildNodes);
+
+            rootnode = new RootNode(topCompositeNode);
         }
 
         // Update is called once per frame
