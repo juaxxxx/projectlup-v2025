@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 4049437443328791081}
   - component: {fileID: 2229300224021476549}
   - component: {fileID: 2668705630872173875}
-  m_Layer: 3
+  m_Layer: 8
   m_Name: Dust
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -66,7 +66,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 4b0b1573c64ff44488185dae1b6a738f, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -121,4 +121,3 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1d34acec0f2513246bdc569f3da54b1b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  structureGridSize: {x: 1, y: 1}

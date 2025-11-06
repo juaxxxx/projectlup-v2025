@@ -1,26 +1,23 @@
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
-using UnityEngine.InputSystem.XR;
 
-public class IdleState : MonoBehaviour, ITaskState
+public class IdleState : ITaskState
 {
     private TaskController taskController;
     private bool bIsActiveUI;
 
-    private void Start()
+    public IdleState(TaskController controller)
     {
+        taskController = controller;
         bIsActiveUI = false;
     }
 
-    public void InputHandle(TaskController controller)
+    public void InputHandle()
     {
-        // @TODO
-        // 평소 상태는 지금은 명령할게 생각 안남.
-
         if (!taskController)
         {
-            taskController = controller;
+            return;
         }
 
         // 입력
@@ -31,7 +28,7 @@ public class IdleState : MonoBehaviour, ITaskState
 
             if (bIsActiveUI)
             {
-                controller.ReturnToIdleState();
+                taskController.ReturnToIdleState();
                 SetIsActiveUI(false);
             }
             else
@@ -48,7 +45,7 @@ public class IdleState : MonoBehaviour, ITaskState
 
                     if (tile)
                     {
-                        controller.UpdateLastClickTile(tile);
+                        taskController.UpdateLastClickTile(tile);
                     }
                 }
 
@@ -73,13 +70,13 @@ public class IdleState : MonoBehaviour, ITaskState
         bIsActiveUI = isActive;
     }
 
-    public void Open(TaskController controller)
+    public void Open()
     {
         SetIsActiveUI(false);
         Debug.Log("Idle State Open");
     }
 
-    public void Close(TaskController controller)
+    public void Close()
     {
         Debug.Log("Idle State Close");
     }

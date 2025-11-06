@@ -3,33 +3,27 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 
-public class DigWallState : MonoBehaviour, ITaskState
+public class DigWallState : ITaskState
 {
     private TaskController taskController;
 
     private DigWallPreview digWallPreview;
 
-    private void Start()
+    public DigWallState(TaskController controller, DigWallPreview digWallPreview)
     {
-        digWallPreview = GetComponent<DigWallPreview>();
+        taskController = controller;
+        this.digWallPreview = digWallPreview;
     }
 
-    public void InputHandle(TaskController controller)
+    public void InputHandle()
     {
-        // @TODO
-        // 땅파기 버튼 눌렀을 때
-        // 가능 불가능 땅 표시
-        // 벽 클릭 시 땅파기 명령.
-        // 다른 곳 클릭 시 IdleState로 전환.
-
         if (!taskController)
         {
-            taskController = controller;
+            Debug.Log("taskController is Null");
+
+            return;
         }
 
-        // 1. 가능 불가능 표시.
-
-        // 2. 입력
         if (Mouse.current != null && Mouse.current.leftButton.wasPressedThisFrame)
         {
             // 클릭시 UI가 포함이면 리턴한다.
@@ -49,11 +43,11 @@ public class DigWallState : MonoBehaviour, ITaskState
 
                 if (tile)
                 {
-                    controller.UpdateLastClickTile(tile);
+                    taskController.UpdateLastClickTile(tile);
                 }
             }
 
-            if (Physics.Raycast(ray, out wallHit, 1000f, LayerMask.GetMask("Building")))
+            if (Physics.Raycast(ray, out wallHit, 1000f, LayerMask.GetMask("Wall")))
             {
                 var structure = wallHit.collider.GetComponent<WallBase>();
                 if (structure)
@@ -63,52 +57,70 @@ public class DigWallState : MonoBehaviour, ITaskState
                     // 벽 표시 갱신
                     UpdateDigTile();
 
-                    controller.ReturnToIdleState();
+                    taskController.ReturnToIdleState();
                 }
                 else
                 {
-                    controller.ReturnToIdleState();
+                    taskController.ReturnToIdleState();
                 }
             }
             else
             {
                 Debug.Log("아냐 취소해");
-                controller.ReturnToIdleState();
+                taskController.ReturnToIdleState();
             }
         }
     }
 
-    public void Open(TaskController controller)
+    public void Open()
     {
         // 땅 표시 활성화
+        Debug.Log("DigWall State Open");
         digWallPreview.Show();
     }
 
-    public void Close(TaskController controller)
+    public void Close()
     {
         // 땅 표시 비활성화
+        Debug.Log("DigWall State Close");
         digWallPreview.Hide();
     }
 
     public void UpdateDigTile()
     {
-        var pos = Mouse.current.position.ReadValue();
-        var ray = Camera.main.ScreenPointToRay(pos);
-        RaycastHit tileHit;
+        Debug.Log(taskController.lastClickTile);
 
-        if (Physics.Raycast(ray, out tileHit, 1000f, LayerMask.GetMask("Tile")))
+        Tile tile = taskController.lastClickTile;
+        if (tile)
         {
-            Tile tile = tileHit.collider.GetComponent<Tile>();
-            if (tile)
+            if (tile.tileInfo.tileType == TileType.WALL)
             {
-                if (tile.tileInfo.tileType == TileType.WALL)
-                {
-                    digWallPreview.RemoveCanDigTile(tile);
-                    tile.HideCanDigWallMark();
-                    digWallPreview.AddCanNotDigTile(tile);
-                    tile.SetTileInfo(new TileInfo(TileType.PATH, BuildingType.NONE, WallType.NONE, tile.tileInfo.pos, tile.tileInfo.id));
-                }
+                digWallPreview.RemoveCanDigTile(tile);
+                tile.HideCanDigWallMark();
+                digWallPreview.AddCanNotDigTile(tile);
+                tile.SetTileInfo(new TileInfo(TileType.PATH, BuildingType.NONE, WallType.NONE, tile.tileInfo.pos, tile.tileInfo.id));
             }
         }
+
+        //var pos = Mouse.current.position.ReadValue();
+        //var ray = Camera.main.ScreenPointToRay(pos);
+        //RaycastHit tileHit;
+
+        //if (Physics.Raycast(ray, out tileHit, 1000f, LayerMask.GetMask("Default")))
+        //{
+        //    Tile tile = tileHit.collider.GetComponent<Tile>();
+        //    if (tile)
+        //    {
+        //        Debug.Log("Update Dig Tile");
+        //        if (tile.tileInfo.tileType == TileType.WALL)
+        //        {
+        //            digWallPreview.RemoveCanDigTile(tile);
+        //            tile.HideCanDigWallMark();
+        //            digWallPreview.AddCanNotDigTile(tile);
+        //            tile.SetTileInfo(new TileInfo(TileType.PATH, BuildingType.NONE, WallType.NONE, tile.tileInfo.pos, tile.tileInfo.id));
+        //        }
+        //    }
+        //}
+
     }
 }

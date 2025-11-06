@@ -5,35 +5,31 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 
-public class BuildingState : MonoBehaviour, ITaskState
+public class BuildingState : ITaskState
 {
     private TaskController taskController;
-
-    private BuildingPlacementRules buildingPlacementRules;
+    private BuildPreview buildPreview;
 
     private BuildingType currBuildingType;
 
-    private void Start()
+    public BuildingState(TaskController controller, BuildPreview buildPreview)
     {
-        buildingPlacementRules = gameObject.AddComponent<BuildingPlacementRules>();
+        taskController = controller;
+        this.buildPreview = buildPreview;
         currBuildingType = BuildingType.NONE;
     }
 
-    public void InputHandle(TaskController controller)
+    private void Start()
     {
-        // @TODO
-        // 건설 버튼 눌렀을 때
-        // 건물 선택창 활성화
-        // 1. 건물 선택 버튼 클릭 시 건설 위치 요구.
-        // 1-1. 화면 클릭 시 해당 위치가 설치 가능한지 표시
-        // 1-2. 실행 or 취소 버튼
-        // 다른 곳 클릭 시 IdleState로 전환.
+    }
 
+    public void InputHandle()
+    {
         if (!taskController)
         {
-            taskController = controller;
-            buildingPlacementRules.Init(taskController.tileMap);
+            return;
         }
+
 
         // 2. 입력
         if (Mouse.current != null && Mouse.current.leftButton.wasPressedThisFrame)
@@ -51,51 +47,48 @@ public class BuildingState : MonoBehaviour, ITaskState
                 var tile = tileHit.collider.GetComponent<Tile>();
                 if (tile)
                 {
-                    controller.UpdateLastClickTile(tile);
+                    taskController.UpdateLastClickTile(tile);
 
                     if (currBuildingType == BuildingType.NONE)
                     {
                         Debug.Log("Current BuildingType is NONE.");
                     }
 
-                    switch (buildingPlacementRules.CanPlace(currBuildingType, tile))
-                    {
-                        case PlacementResultType.SUCCESS:
-                            Build(currBuildingType);
-                            controller.CreateBuilding(currBuildingType, tile.gameObject.transform.position);
-                            break;
-                        case PlacementResultType.NOTENOUGHSPACE:
-                            Debug.Log("Lack Space");
-                            break;
-                        case PlacementResultType.LACKOFRESOURCE:
-                            Debug.Log("Lack Resource");
-                            break;
-                    }
-                    Debug.Log("여기서 idle로 가는데");
-                    controller.ReturnToIdleState();
+                    buildPreview.ChangePreview(currBuildingType);
+                    buildPreview.UpdatePreview(currBuildingType, taskController.lastClickTile);
+
                     return;
                 }
                 else
                 {
-                    controller.ReturnToIdleState();
+                    taskController.ReturnToIdleState();
                 }
             }
-            else
-            {
-                controller.ReturnToIdleState();
-            }
+            //else
+            //{
+            //    taskController.ReturnToIdleState();
+            //}
         }
     }
 
-    public void Open(TaskController controller)
+    public void Open()
     {
         Debug.Log("Building State Open");
 
+        if (currBuildingType == BuildingType.NONE)
+        {
+            Debug.Log("currBuildingType is NONE");
+            return;
+        }
+        buildPreview.ChangePreview(currBuildingType);
+
+        buildPreview.UpdatePreview(currBuildingType, taskController.lastClickTile);
     }
 
-    public void Close(TaskController controller)
+    public void Close()
     {
         Debug.Log("Building State Close");
+        buildPreview.ResetPreview();
     }
 
     public void Build(BuildingType type)

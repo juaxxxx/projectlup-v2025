@@ -84,6 +84,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 3568239543883567078}
     m_Modifications:
+    - target: {fileID: 2394884888544037506, guid: f24f51c085838c34186ab4a83238f850, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 1537ecfc6ec90b84e829c753dd2144d7, type: 2}
     - target: {fileID: 4042541064313107204, guid: f24f51c085838c34186ab4a83238f850, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -128,6 +132,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: CanActMark
       objectReference: {fileID: 0}
+    - target: {fileID: 6042243830359983950, guid: f24f51c085838c34186ab4a83238f850, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -155,6 +163,18 @@ PrefabInstance:
       propertyPath: m_Name
       value: CanNotActMark
       objectReference: {fileID: 0}
+    - target: {fileID: 218130069157430384, guid: dfc3484852c56e04d8dc7413cfa59b09, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 218130069157430384, guid: dfc3484852c56e04d8dc7413cfa59b09, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6240170399525072931, guid: dfc3484852c56e04d8dc7413cfa59b09, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: b3f702818bb49ef4dbab2750e58b8e90, type: 2}
     - target: {fileID: 6286408684392974763, guid: dfc3484852c56e04d8dc7413cfa59b09, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0

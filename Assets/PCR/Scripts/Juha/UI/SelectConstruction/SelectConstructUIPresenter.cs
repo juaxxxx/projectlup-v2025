@@ -6,12 +6,15 @@ public class SelectConstructUIPresenter
     private ISelectConstructUIView view;
     private SelectConstructUIModel model;
     private MainUIPresenter mainPresenter;
+    private ConstructionDecisionPresenter constructionDecisionPresenter;
 
-    public void InitPresenter(ISelectConstructUIView view, SelectConstructUIModel model, MainUIPresenter mainPresenter)
+    public void InitPresenter(ISelectConstructUIView view, SelectConstructUIModel model, MainUIPresenter mainPresenter
+        , ConstructionDecisionPresenter constructionDecisionPresenter)
     {
         this.view = view;
         this.model = model;
         this.mainPresenter = mainPresenter;
+        this.constructionDecisionPresenter = constructionDecisionPresenter;
 
         view.OnClickBack += HandleBackClick;
         view.OnClickSelectedBuilding += HandleSelectedBuildingClick;
@@ -26,6 +29,7 @@ public class SelectConstructUIPresenter
     private void HandleSelectedBuildingClick()
     {
         Hide();
+        constructionDecisionPresenter.Show();
     }
 
     public void Show()

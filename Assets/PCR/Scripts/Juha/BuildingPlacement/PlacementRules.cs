@@ -34,9 +34,6 @@ public class PlacementRules : MonoBehaviour
                 int nextGridX = startGridX + i;
                 int nextGridY = startGridY + j;
 
-                Debug.Log("nextGridX: " + nextGridX + ", nextGridY: " + nextGridY);
-                Debug.Log("type: " + tileMap.tiles[nextGridX, nextGridY].tileInfo.tileType);
-
                 // 기획에 따라 통과 가능한 건물과 아닌 건물로 나뉠수도
                 if (tileMap.tiles[nextGridX, nextGridY].tileInfo.tileType != TileType.NONE &&
                     tileMap.tiles[nextGridX, nextGridY].tileInfo.tileType != TileType.PATH)
