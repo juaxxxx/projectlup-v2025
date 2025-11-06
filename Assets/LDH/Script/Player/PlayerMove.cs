@@ -8,7 +8,6 @@ namespace RL
         [Header("이동 속도")]
         public float speed = 5f;
         public float baseSpeed = 5f;
-        public StageController stageCenter;
         private void Start()
         {
             speed = baseSpeed;
@@ -19,10 +18,7 @@ namespace RL
         }
         void Update()
         {
-            if (stageCenter.GameClear)
-            {
-                return;
-            }
+     
             // WASD 입력 받기
             float z = 0f;
             float x = 0f;
@@ -47,10 +43,7 @@ namespace RL
         }
         public void MoveByJoystick(float h, float v)
         {
-            if (stageCenter.GameClear)
-            {
-                return;
-            }
+      
             Vector3 dir = new Vector3(h, 0, v).normalized;
             transform.position += dir * speed * Time.deltaTime;
 

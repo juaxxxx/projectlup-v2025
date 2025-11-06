@@ -27,6 +27,7 @@ namespace RL
         public GameObject enemySpawnerPrefab;
         public GameObject obstaclePrefab;
         private GameObject currentRoom;
+        public PlayerArrowShooter playerArrow;
 
         public UnityEvent onStageClear;
         public GridGenerator gridSystem;
@@ -45,9 +46,10 @@ namespace RL
 
             if (currentStage < stageData.Count)
             {
+                if (playerArrow == null) return;
                 StageData data = stageData[currentStage];
                 currentRoom = Instantiate(data.roomprefab, Vector3.zero, Quaternion.identity, roomParent);
-
+                playerArrow.currentRoom = this.currentRoom.transform;
                 //UI 갱신
                 if (stageText != null)
                 {
@@ -56,19 +58,26 @@ namespace RL
                 //플레이어 찾기
                 var tile = gridSystem.GetTile(data.playerSpawn.x, data.playerSpawn.y);
                 if (tile != null)
-                    player.position = tile.worldPos;
+                {
+                    Vector3 spawnPos = tile.worldPos;
+                    spawnPos.y = 1.5f; 
+                    player.position = spawnPos;
+                }
 
                 //몬스터 스포너  
                 foreach (var pos in data.enemySpawn)
                 {
                     var t = gridSystem.GetTile(pos.x, pos.y);
-                    Instantiate(enemySpawnerPrefab, t.worldPos, Quaternion.identity, currentRoom.transform);
+                    Vector3 spawnPos = t.worldPos + Vector3.up * 1.3f;
+                    Instantiate(enemySpawnerPrefab, spawnPos, Quaternion.identity, currentRoom.transform);
                 }
                 //장애물 배치
                 foreach (var pos in data.obstacles)
                 {
+
                     var t = gridSystem.GetTile(pos.x, pos.y);
-                    Instantiate(obstaclePrefab, t.worldPos, Quaternion.identity, currentRoom.transform);
+                    Vector3 spawnPos = t.worldPos + Vector3.up * 1.3f;
+                    Instantiate(obstaclePrefab, spawnPos, Quaternion.identity,  currentRoom.transform);
                 }
                 Debug.Log($" Stage {currentStage} ({data.StageName}) 로드 완료");
                 currentStage++;

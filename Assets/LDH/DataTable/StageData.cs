@@ -9,7 +9,7 @@ namespace RL
         public string StageName;
         public GameObject roomprefab;
         public Vector2Int playerSpawn;
-        public List<Vector2Int> enemySpawn;
+        public List<Vector3Int> enemySpawn;
         public List<Vector2Int> obstacles;
     }
 
