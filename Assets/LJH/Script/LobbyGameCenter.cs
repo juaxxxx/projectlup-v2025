@@ -12,13 +12,13 @@ public class LobbyGameCenter : MonoBehaviour
 {
     PlatformAdapter platformAdapter;
 
-    //[SerializeField]
-    //private Canvas mainCanvas;
+    [SerializeField]
+    private Canvas mainCanvas;
 
     //private CircleButton CharacterSelectBtn;
     //private CircleButton QuestListBtn;
     //private CircleButton ReturnMainGame;
-    //private Button ChapterSelectBtn;
+    public Button ChapterSelectBtn;
     //private Button GameStartBtn;
 
     public GameObject ChapterInfoText;
@@ -33,8 +33,9 @@ public class LobbyGameCenter : MonoBehaviour
     private RLCharacterData selectedCharacter;
 
     [HideInInspector]
-
     private int ChapterDisplayedOffset = 0;
+
+    private Button gameStartBtn;
     //private int CharacterScrollSelectionOffset = 0;
 
     //private void OnEnable()
@@ -74,13 +75,12 @@ public class LobbyGameCenter : MonoBehaviour
             //CharacterScrollSelectionOffset = savedLastSeletedCharacter < 0 ? 0 : savedLastSeletedCharacter;
         }
 
-        //if (mainCanvas == null)
-        //{
-        //    GameObject obj = GameObject.FindWithTag("Lobby_MainCanvas");
-        //    mainCanvas = obj.GetComponent<Canvas>();
-        //}
+        if (mainCanvas == null)
+        {
+            UnityEngine.Debug.LogError("Bind Main Canvas!");
+        }
 
-        //InitLobbyUIElement();
+        InitLobbyUIElement();
 
         Time.timeScale = 1;
     }
@@ -101,7 +101,7 @@ public class LobbyGameCenter : MonoBehaviour
 
             case DisplayableDataType.ChapterData:
                 selectedChapter = chapterDatas[index];
-                //ChapterSelectBtn.image.sprite = chapterDatas[index].GetDisplayableImage();
+                ChapterSelectBtn.image.sprite = chapterDatas[index].GetDisplayableImage();
                 ChapterDisplayedOffset = index;
 
                 UpdateLobbyStageInfo(selectedChapter);
@@ -149,60 +149,77 @@ public class LobbyGameCenter : MonoBehaviour
         platformAdapter.LoadGameScene();
     }
 
-    //void InitLobbyUIElement()
-    //{
-    //    {
-    //        ButtonRule[] uiButtons = mainCanvas.GetComponentsInChildren<ButtonRule>();
+    void InitLobbyUIElement()
+    {
 
-    //        for (int i = 0; i < uiButtons.Length; i++)
-    //        {
-    //            ButtonRole buttonRole = uiButtons[i].buttonRole;
+        {
+            ButtonRule[] buttonRules = mainCanvas.GetComponentsInChildren<ButtonRule>();
 
-    //            switch (buttonRole)
-    //            {
-    //                case ButtonRole.None:
-    //                    UnityEngine.Debug.LogError("ButtonRole Is Not Assine", this.gameObject);
-    //                    break;
+            for (int i = 0; i < buttonRules.Length; i++)
+            {
+                if (buttonRules[i].buttonRole == ButtonRole.GameStartBtn)
+                {
+                    gameStartBtn = buttonRules[i].gameObject.GetComponent<Button>();
+                    break;
+                }
 
-    //                case ButtonRole.BackToMainBtn:
-    //                    ReturnMainGame = uiButtons[i].GetComponent<CircleButton>();
-    //                    break;
+            }
 
-    //                case ButtonRole.ChapterSelectionBtn:
-    //                    ChapterSelectBtn = uiButtons[i].GetComponent<Button>();
-    //                    break;
+            gameStartBtn.onClick.AddListener(OnGameStart);
+        }
+        
+        //{
+        //    ButtonRule[] uiButtons = mainCanvas.GetComponentsInChildren<ButtonRule>();
 
-    //                case ButtonRole.CharacterSelectionBtn:
-    //                    CharacterSelectBtn = uiButtons[i].GetComponent<CircleButton>();
-    //                    break;
+        //    for (int i = 0; i < uiButtons.Length; i++)
+        //    {
+        //        ButtonRole buttonRole = uiButtons[i].buttonRole;
 
-    //                case ButtonRole.QuestselectionBtn:
-    //                    QuestListBtn = uiButtons[i].GetComponent<CircleButton>();
-    //                    break;
+        //        switch (buttonRole)
+        //        {
+        //            case ButtonRole.None:
+        //                UnityEngine.Debug.LogError("ButtonRole Is Not Assine", this.gameObject);
+        //                break;
 
-    //                case ButtonRole.GameStartBtn:
-    //                    GameStartBtn = uiButtons[i].GetComponent<Button>();
-    //                    break;
-    //            }
-    //        }
-    //    }
+        //            case ButtonRole.BackToMainBtn:
+        //                ReturnMainGame = uiButtons[i].GetComponent<CircleButton>();
+        //                break;
 
-    //    {
-    //        if (CharacterSelectBtn && ChapterSelectBtn && GameStartBtn)
-    //        {
-    //            CheckCircleBtnValid();
+        //            case ButtonRole.ChapterSelectionBtn:
+        //                ChapterSelectBtn = uiButtons[i].GetComponent<Button>();
+        //                break;
 
-    //            CharacterSelectBtn.button.onClick.AddListener(OnCharacterSelect);
-    //            ChapterSelectBtn.onClick.AddListener(OnChapterSelect);
-    //            GameStartBtn.onClick.AddListener(OnGameStart);
-    //        }
+        //            case ButtonRole.CharacterSelectionBtn:
+        //                CharacterSelectBtn = uiButtons[i].GetComponent<CircleButton>();
+        //                break;
 
-    //        else
-    //        {
-    //            UnityEngine.Debug.LogWarning("Check Selection Btn", this.gameObject);
-    //        }
-    //    }
-    //}
+        //            case ButtonRole.QuestselectionBtn:
+        //                QuestListBtn = uiButtons[i].GetComponent<CircleButton>();
+        //                break;
+
+        //            case ButtonRole.GameStartBtn:
+        //                GameStartBtn = uiButtons[i].GetComponent<Button>();
+        //                break;
+        //        }
+        //    }
+        //}
+
+        //{
+        //    if (CharacterSelectBtn && ChapterSelectBtn && GameStartBtn)
+        //    {
+        //        CheckCircleBtnValid();
+
+        //        CharacterSelectBtn.button.onClick.AddListener(OnCharacterSelect);
+        //        ChapterSelectBtn.onClick.AddListener(OnChapterSelect);
+        //        GameStartBtn.onClick.AddListener(OnGameStart);
+        //    }
+
+        //    else
+        //    {
+        //        UnityEngine.Debug.LogWarning("Check Selection Btn", this.gameObject);
+        //    }
+        //}
+    }
 
     void SetPastGameData(int savedLastSeletedChapter, int savedLastSeletedCharacter)
     {
@@ -220,7 +237,7 @@ public class LobbyGameCenter : MonoBehaviour
 
     void UpdateLobbyStageInfo(ChapterData chapterData)
     {
-        TextMeshProUGUI[] textInfos = ChapterInfoText.GetComponents<TextMeshProUGUI>();
+        TextMeshProUGUI[] textInfos = ChapterInfoText.GetComponentsInChildren<TextMeshProUGUI>();
 
         textInfos[0].SetText(chapterData.GetDisplayableName());
     }

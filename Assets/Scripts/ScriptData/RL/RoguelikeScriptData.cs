@@ -1,9 +1,12 @@
 ﻿[System.Serializable]
 public class RoguelikeScriptData
 {
-    [Column("name")] public string name;
-    [Column("description")] public string description;
-    [Column("stat")] public string stat;
-    [Column("gold")] public int gold;
+    [Column("DataType")] public string DataType;
+    [Column("ID")] public string ID;
+    [Column("Name")] public string Name;
+    [Column("HP")] public int HP;
+    [Column("ATK")] public string ATK;
+    [Column("SPEED")] public string SPEED;
+    [Column("ChapterMaxRoomNum")] public string ChapterMaxRoomNum;
 }
               

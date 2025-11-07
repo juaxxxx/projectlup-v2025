@@ -1,41 +1,45 @@
 using UnityEngine;
 using Roguelike.Util;
 
-public class InventorySelectBtnPanel : MonoBehaviour
+namespace RL
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    public InventorPanel inventorPanel;
-    CircleButton[] selectionButtons;
-    void Start()
+    public class InventorySelectBtnPanel : MonoBehaviour
     {
-        selectionButtons = GetComponentsInChildren<CircleButton>();
-
-        StartCoroutine(RoguelikeUtil.DelayOneFrame(() => BindButtonsFunction()));
-
-    }
-
-    void BindButtonsFunction()
-    {
-        for(int i = 0; i < selectionButtons.Length; i++)
+        // Start is called once before the first execution of Update after the MonoBehaviour is created
+        public InventorPanel inventorPanel;
+        CircleButton[] selectionButtons;
+        void Start()
         {
-            int index = i;
+            selectionButtons = GetComponentsInChildren<CircleButton>();
 
-            if (selectionButtons[i].button == null)
-                selectionButtons[i].ManualAwkae();
+            StartCoroutine(RoguelikeUtil.DelayOneFrame(() => BindButtonsFunction()));
 
-            selectionButtons[i].button.onClick.AddListener(()=> OnBtnclicekd(index));
+        }
+
+        void BindButtonsFunction()
+        {
+            for (int i = 0; i < selectionButtons.Length; i++)
+            {
+                int index = i;
+
+                if (selectionButtons[i].button == null)
+                    selectionButtons[i].ManualAwkae();
+
+                selectionButtons[i].button.onClick.AddListener(() => OnBtnclicekd(index));
+            }
+        }
+
+        void OnBtnclicekd(int index)
+        {
+            inventorPanel.ReciveBtnActioFromSelectPanel(index);
+        }
+
+
+        // Update is called once per frame
+        void Update()
+        {
+
         }
     }
-
-    void OnBtnclicekd(int index)
-    {
-        inventorPanel.ReciveBtnActioFromSelectPanel(index);
-    }
-
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 }
+

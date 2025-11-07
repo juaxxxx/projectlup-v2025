@@ -4,136 +4,141 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class PannelInputController : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler, IPointerDownHandler, IPointerUpHandler
+namespace RL
 {
-    private PannelController controller;
-
-    private Vector2 startPos;
-    private Vector2 currentPos;
-    private Vector2 endPos;
-
-    public float touchTrheshold = 20;
-    public float scrollSpeed = 1.3f;
-
-    [HideInInspector]
-    public Scrollbar targetVerticScrollbar;
-
-    private void Start()
+    public class PannelInputController : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler, IPointerDownHandler, IPointerUpHandler
     {
-        controller = FindFirstObjectByType<PannelController>();
+        private PannelController controller;
 
-        if (controller == null)
+        private Vector2 startPos;
+        private Vector2 currentPos;
+        private Vector2 endPos;
+
+        public float touchTrheshold = 20;
+        public float scrollSpeed = 1.3f;
+
+        [HideInInspector]
+        public Scrollbar targetVerticScrollbar;
+
+        private void Start()
         {
-            UnityEngine.Debug.LogError("Cant' Find PannelController");
-        }
-    }
+            controller = FindFirstObjectByType<PannelController>();
 
-    public void OnBeginDrag(PointerEventData eventData)
-    {
-        //startPos = eventData.position;
-
-        //controller.touchStartPos = startPos;
-
-        //controller.TouchStart();
-    }
-
-    public void OnDrag(PointerEventData eventData)
-    {
-
-        float delta = eventData.delta.y;
-
-        currentPos = eventData.position;
-
-        controller.touchCurrentPos = currentPos;
-
-        //controller.OnDrawing();
-
-        List<RaycastResult> results = new List<RaycastResult>();
-        EventSystem.current.RaycastAll(eventData, results);
-
-        WorldEventBtnScrollPannel foundSubPanel = null;
-
-        for (int i = 0; i < results.Count; i++)
-        {
-            WorldEventBtnScrollPannel subScrollPanel = results[i].gameObject.GetComponentInChildren<WorldEventBtnScrollPannel>();
-
-            if (subScrollPanel != null)
+            if (controller == null)
             {
-                foundSubPanel = subScrollPanel;
-                break;
+                UnityEngine.Debug.LogError("Cant' Find PannelController");
             }
         }
 
-        if (foundSubPanel != null)
+        public void OnBeginDrag(PointerEventData eventData)
         {
+            //startPos = eventData.position;
 
-            foundSubPanel.MoveScroll((delta / controller.pannelSize.y) * scrollSpeed * 2);
-        }
-        else
-        {
-            if(targetVerticScrollbar)
-                targetVerticScrollbar.value -= (delta / controller.pannelSize.y) * scrollSpeed;
+            //controller.touchStartPos = startPos;
 
-            controller.DisableWorldEventSubPanel();
+            //controller.TouchStart();
         }
 
-        
-
-    }
-
-    public void OnEndDrag(PointerEventData eventData)
-    {
-        
-    }
-
-    public void OnPointerDown(PointerEventData eventData)
-    {
-        startPos = eventData.position;
-        controller.touchStartPos = startPos;
-
-        controller.TouchStart();
-    }
-
-    public void OnPointerUp(PointerEventData eventData)
-    {
-        endPos = eventData.position;
-        controller.touchEndPos = endPos;
-
-        controller.TouchEnd();
-
-        if (JudgeTouch())
+        public void OnDrag(PointerEventData eventData)
         {
+
+            float delta = eventData.delta.y;
+
+            currentPos = eventData.position;
+
+            controller.touchCurrentPos = currentPos;
+
+            //controller.OnDrawing();
+
             List<RaycastResult> results = new List<RaycastResult>();
             EventSystem.current.RaycastAll(eventData, results);
 
+            WorldEventBtnScrollPannel foundSubPanel = null;
+
             for (int i = 0; i < results.Count; i++)
             {
-                if (results[i].gameObject == gameObject)
-                    continue;
-                if ((results[i].gameObject.GetComponent<Button>() != null) || (results[i].gameObject.GetComponent<CircleButton>() != null))
+                WorldEventBtnScrollPannel subScrollPanel = results[i].gameObject.GetComponentInChildren<WorldEventBtnScrollPannel>();
+
+                if (subScrollPanel != null)
                 {
-                    ExecuteEvents.ExecuteHierarchy(
-                    results[i].gameObject,
-                    eventData,
-                    ExecuteEvents.pointerClickHandler
-                    );
+                    foundSubPanel = subScrollPanel;
+                    break;
+                }
+            }
+
+            if (foundSubPanel != null)
+            {
+
+                foundSubPanel.MoveScroll((delta / controller.pannelSize.y) * scrollSpeed * 2);
+            }
+            else
+            {
+                if (targetVerticScrollbar)
+                    targetVerticScrollbar.value -= (delta / controller.pannelSize.y) * scrollSpeed;
+
+                controller.DisableWorldEventSubPanel();
+            }
+
+
+
+        }
+
+        public void OnEndDrag(PointerEventData eventData)
+        {
+
+        }
+
+        public void OnPointerDown(PointerEventData eventData)
+        {
+            startPos = eventData.position;
+            controller.touchStartPos = startPos;
+
+            controller.TouchStart();
+        }
+
+        public void OnPointerUp(PointerEventData eventData)
+        {
+            endPos = eventData.position;
+            controller.touchEndPos = endPos;
+
+            controller.TouchEnd();
+
+            if (JudgeTouch())
+            {
+                List<RaycastResult> results = new List<RaycastResult>();
+                EventSystem.current.RaycastAll(eventData, results);
+
+                for (int i = 0; i < results.Count; i++)
+                {
+                    if (results[i].gameObject == gameObject)
+                        continue;
+                    if ((results[i].gameObject.GetComponent<Button>() != null) || (results[i].gameObject.GetComponent<CircleButton>() != null))
+                    {
+                        ExecuteEvents.ExecuteHierarchy(
+                        results[i].gameObject,
+                        eventData,
+                        ExecuteEvents.pointerClickHandler
+                        );
+
+                    }
+
 
                 }
-
-
             }
         }
-    }
 
-    bool JudgeTouch()
-    {
-        float distance = Vector2.Distance(startPos, endPos);
-
-        if (distance < touchTrheshold)
+        bool JudgeTouch()
         {
-            return true;
-        }
+            float distance = Vector2.Distance(startPos, endPos);
 
-        return false;
+            if (distance < touchTrheshold)
+            {
+                return true;
+            }
+
+            return false;
+        }
     }
 }
+
+

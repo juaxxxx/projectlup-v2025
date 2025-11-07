@@ -1,77 +1,81 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-public abstract class LobbyContentAblePannel : MonoBehaviour
+namespace RL
 {
-    protected RectTransform viewportRectTransform;
-    protected RectTransform contentPanelRectTransform;
-    protected PannelController pannelController;
-
-    protected Scrollbar activatedVecticScrollbar;
-
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    protected void Start()
+    public abstract class LobbyContentAblePannel : MonoBehaviour
     {
-        Canvas.ForceUpdateCanvases();
+        protected RectTransform viewportRectTransform;
+        protected RectTransform contentPanelRectTransform;
+        protected PannelController pannelController;
 
-        viewportRectTransform = transform.parent.transform.parent.GetComponent<RectTransform>();
+        protected Scrollbar activatedVecticScrollbar;
 
-        if (viewportRectTransform == null)
+        // Start is called once before the first execution of Update after the MonoBehaviour is created
+        protected void Start()
         {
-            UnityEngine.Debug.LogError("Fail to Find ViewportRectTransform");
+            Canvas.ForceUpdateCanvases();
+
+            viewportRectTransform = transform.parent.transform.parent.GetComponent<RectTransform>();
+
+            if (viewportRectTransform == null)
+            {
+                UnityEngine.Debug.LogError("Fail to Find ViewportRectTransform");
+            }
+
+            Vector2 viewportSize = viewportRectTransform.rect.size;
+
+            if (viewportSize == Vector2.zero)
+            {
+                UnityEngine.Debug.LogError("viewportSize is 0");
+            }
+
+            contentPanelRectTransform = gameObject.GetComponent<RectTransform>();
+            contentPanelRectTransform.sizeDelta = viewportSize;
+
+            pannelController = FindFirstObjectByType<PannelController>();
+
+            if (pannelController == null)
+            {
+                UnityEngine.Debug.LogError("Find PannelController Fail");
+            }
         }
 
-        Vector2 viewportSize = viewportRectTransform.rect.size;
-
-        if(viewportSize == Vector2.zero)
+        virtual public void OnSubPanelErase()
         {
-            UnityEngine.Debug.LogError("viewportSize is 0");
+
         }
 
-        contentPanelRectTransform = gameObject.GetComponent<RectTransform>();
-        contentPanelRectTransform.sizeDelta = viewportSize;
-
-        pannelController = FindFirstObjectByType<PannelController>();
-
-        if (pannelController == null)
+        void ResetPanel()
         {
-            UnityEngine.Debug.LogError("Find PannelController Fail");
+
         }
-    }
 
-    virtual public void OnSubPanelErase()
-    {
+        public void Touching(Vector2 touchPos)
+        {
 
-    }
+        }
 
-    void ResetPanel()
-    {
+        private void OnDisable()
+        {
 
-    }
+        }
 
-    public void Touching(Vector2 touchPos)
-    {
+        // Update is called once per frame
+        void Update()
+        {
 
-    }
+        }
 
-    private void OnDisable()
-    {
-        
-    }
+        public Scrollbar GetActiveVerticScrollbar()
+        {
+            return activatedVecticScrollbar;
+        }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+        virtual public void MoveTo()
+        {
 
-    public Scrollbar GetActiveVerticScrollbar()
-    {
-        return activatedVecticScrollbar;
-    }
-
-    virtual public void MoveTo()
-    {
-
+        }
     }
 }
+

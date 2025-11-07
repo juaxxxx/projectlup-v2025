@@ -2,34 +2,48 @@ using UnityEngine;
 using UnityEngine.UI;
 using Roguelike.Define;
 
-public class WorldPanel : LobbyContentAblePannel
+namespace RL
 {
-    public ChapterSelectionScrollPanel chapterSelectionScrollPanel;
-    FloatingChapterImage chapterImageBtn;
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    new void Start()
+    public class WorldPanel : LobbyContentAblePannel
     {
-        base.Start();
+        public ChapterSelectionScrollPanel chapterSelectionScrollPanel;
+        public Button patrolBtn;
+        FloatingChapterImage chapterImageBtn;
+        // Start is called once before the first execution of Update after the MonoBehaviour is created
+        new void Start()
+        {
+            base.Start();
 
-        //왜 못 찾아!
-        //chapterSelectionScrollPanel = GetComponentsInChildren<ChapterSelectionScrollPanel>();
-        chapterImageBtn = GetComponentInChildren<FloatingChapterImage>();
+            //chapterSelectionScrollPanel = GetComponentsInChildren<ChapterSelectionScrollPanel>();
+            chapterImageBtn = GetComponentInChildren<FloatingChapterImage>();
 
-        chapterImageBtn.gameObject.GetComponent<Button>().onClick.AddListener(()=> OnChapterImageBtnClicked());
+            chapterImageBtn.gameObject.GetComponent<Button>().onClick.AddListener(() => OnChapterImageBtnClicked());
 
-    }
 
-    void OnChapterImageBtnClicked()
-    {
-        LobbyGameCenter lobbyGameCenter = FindFirstObjectByType<LobbyGameCenter>();
+            //Temp
+            patrolBtn.onClick.AddListener(TestFuntion);
+        }
 
-        chapterSelectionScrollPanel.SetScrollPanelType(ScrollRect.MovementType.Elastic, LayoutDirection.Horizontal);
-        chapterSelectionScrollPanel.OpenPanel(lobbyGameCenter.chapterDatas, DisplayableDataType.ChapterData, lobbyGameCenter.GetChapterDisplayedOffset());
-    }
+        void OnChapterImageBtnClicked()
+        {
+            LobbyGameCenter lobbyGameCenter = FindFirstObjectByType<LobbyGameCenter>();
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+            chapterSelectionScrollPanel.SetScrollPanelType(ScrollRect.MovementType.Elastic, LayoutDirection.Horizontal);
+            chapterSelectionScrollPanel.OpenPanel(lobbyGameCenter.chapterDatas, DisplayableDataType.ChapterData, lobbyGameCenter.GetChapterDisplayedOffset());
+        }
+
+        void TestFuntion()
+        {
+            PannelController pannelController = FindFirstObjectByType<PannelController>();
+            pannelController.SetAllMainScrollActive(false);
+            pannelController.PopWarningPanel();
+        }
+
+        // Update is called once per frame
+        void Update()
+        {
+
+        }
     }
 }
+

@@ -18,10 +18,10 @@ public class SampleCharacter : MonoBehaviour
             RoguelikeRuntimeData runtimeData = (RoguelikeRuntimeData)stage.RuntimeData;
             List<RoguelikeScriptData> datalist = staticdata.GetDataList();
 
-            characterdata.name = datalist[0].name;
-            characterdata.description = datalist[0].description;
-            characterdata.stat = datalist[0].stat;
-            characterdata.gold = datalist[0].gold;
+            //characterdata.name = datalist[0].name;
+            //characterdata.description = datalist[0].description;
+            //characterdata.stat = datalist[0].stat;
+            //characterdata.gold = datalist[0].gold;
 
             runtimedata = runtimeData;
         }

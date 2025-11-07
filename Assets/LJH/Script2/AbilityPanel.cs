@@ -1,16 +1,20 @@
 using UnityEngine;
 
-public class AbilityPanel : LobbyContentAblePannel
+namespace RL
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    new void Start()
+    public class AbilityPanel : LobbyContentAblePannel
     {
-        base.Start();
-    }
+        // Start is called once before the first execution of Update after the MonoBehaviour is created
+        new void Start()
+        {
+            base.Start();
+        }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+        // Update is called once per frame
+        void Update()
+        {
+
+        }
     }
 }
+

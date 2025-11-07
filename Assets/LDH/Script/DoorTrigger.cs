@@ -1,23 +1,27 @@
 using System.Runtime.CompilerServices;
 using UnityEngine;
-
-public class DoorTrigger : MonoBehaviour
+namespace RL
 {
-    private bool colider = false;
-    void OnCollisionEnter(Collision collision)
+
+
+    public class DoorTrigger : MonoBehaviour
     {
-        if (colider) return;
-        if (collision.gameObject.CompareTag("Player"))
+        private bool colider = false;
+        void OnCollisionEnter(Collision collision)
         {
-            colider = true;
-           
-            StageController stageManager = FindAnyObjectByType<StageController>();
-            if (stageManager != null)
+            if (colider) return;
+            if (collision.gameObject.CompareTag("Player"))
             {
-               
-                stageManager.LoadNextRoom();
+                colider = true;
+
+                StageController stageManager = FindAnyObjectByType<StageController>();
+                if (stageManager != null)
+                {
+
+                    stageManager.LoadNextRoom();
+                }
+
             }
-      
         }
     }
 }

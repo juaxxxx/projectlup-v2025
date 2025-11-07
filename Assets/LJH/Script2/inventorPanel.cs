@@ -4,86 +4,90 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class InventorPanel : LobbyContentAblePannel
+namespace RL
 {
-    public GameObject ItemInventoryPanel;
-    public CharacterSelectionScrollPanel CharacterSelectPanel;
-
-    public Scrollbar[] scrollbars;
-
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-
-    private List<Scrollbar> inventoryMovingVerticScrollBar = new List<Scrollbar>();
-    new void Start()
+    public class InventorPanel : LobbyContentAblePannel
     {
-        base.Start();
+        public GameObject ItemInventoryPanel;
+        public CharacterSelectionScrollPanel CharacterSelectPanel;
 
-        StartCoroutine(RoguelikeUtil.DelayOneFrame(() => PostPanelInitShop()));
-    }
+        public Scrollbar[] scrollbars;
 
-    void PostPanelInitShop()
-    {
-        Init();
-    }
+        // Start is called once before the first execution of Update after the MonoBehaviour is created
 
-    void Init()
-    {
-        if(ItemInventoryPanel == null ||  CharacterSelectPanel == null)
+        private List<Scrollbar> inventoryMovingVerticScrollBar = new List<Scrollbar>();
+        new void Start()
         {
-            UnityEngine.Debug.LogError("Fail To Find Inventory's Panel");
+            base.Start();
+
+            StartCoroutine(RoguelikeUtil.DelayOneFrame(() => PostPanelInitShop()));
         }
 
-        activatedVecticScrollbar = scrollbars[0];
-
-        CharacterSelectPanel.gameObject.SetActive(false);
-    }
-
-    public void ReciveBtnActioFromSelectPanel(int index)
-    {
-        CharacterSelectPanel.gameObject.SetActive(true);
-
-        if(index == 0)
+        void PostPanelInitShop()
         {
-            activatedVecticScrollbar = scrollbars[1];
-            
-
-            OnCharacterSelect();
+            Init();
         }
-        //pannelController.SetActiveInputcacher(false);
-        pannelController.SetAllMainScrollActive(false);
-        pannelController.SetActiveVerticScroll(activatedVecticScrollbar);
-    }
 
-    private void OnCharacterSelect()
-    {
-        LobbyGameCenter lobbyGameCenter = FindFirstObjectByType<LobbyGameCenter>();
+        void Init()
+        {
+            if (ItemInventoryPanel == null || CharacterSelectPanel == null)
+            {
+                UnityEngine.Debug.LogError("Fail To Find Inventory's Panel");
+            }
 
-        CharacterSelectPanel.gameObject.SetActive(true);
-        CharacterSelectPanel.SetScrollPanelType(ScrollRect.MovementType.Elastic, LayoutDirection.Grid);
-        CharacterSelectPanel.OpenPanel(lobbyGameCenter.characterDatas, DisplayableDataType.CharacterData);
-        CharacterSelectPanel.InitPreviewData(lobbyGameCenter.GetselectedCharacter());
-    }
+            activatedVecticScrollbar = scrollbars[0];
 
-    public override void OnSubPanelErase()
-    {
-        activatedVecticScrollbar = scrollbars[0];
-        pannelController.SetActiveVerticScroll(activatedVecticScrollbar);
-        pannelController.SetAllMainScrollActive(true);
-    }
+            CharacterSelectPanel.gameObject.SetActive(false);
+        }
 
-    public override void MoveTo()
-    {
-        activatedVecticScrollbar = scrollbars[0];
-        activatedVecticScrollbar.value = 1;
-        pannelController.SetActiveVerticScroll(activatedVecticScrollbar);
-        pannelController.SetAllMainScrollActive(true);
+        public void ReciveBtnActioFromSelectPanel(int index)
+        {
+            CharacterSelectPanel.gameObject.SetActive(true);
+
+            if (index == 0)
+            {
+                activatedVecticScrollbar = scrollbars[1];
 
 
-    }
+                OnCharacterSelect();
+            }
+            //pannelController.SetActiveInputcacher(false);
+            pannelController.SetAllMainScrollActive(false);
+            pannelController.SetActiveVerticScroll(activatedVecticScrollbar);
+        }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+        private void OnCharacterSelect()
+        {
+            LobbyGameCenter lobbyGameCenter = FindFirstObjectByType<LobbyGameCenter>();
+
+            CharacterSelectPanel.gameObject.SetActive(true);
+            CharacterSelectPanel.SetScrollPanelType(ScrollRect.MovementType.Elastic, LayoutDirection.Grid);
+            CharacterSelectPanel.OpenPanel(lobbyGameCenter.characterDatas, DisplayableDataType.CharacterData);
+            CharacterSelectPanel.InitPreviewData(lobbyGameCenter.GetselectedCharacter());
+        }
+
+        public override void OnSubPanelErase()
+        {
+            activatedVecticScrollbar = scrollbars[0];
+            pannelController.SetActiveVerticScroll(activatedVecticScrollbar);
+            pannelController.SetAllMainScrollActive(true);
+        }
+
+        public override void MoveTo()
+        {
+            activatedVecticScrollbar = scrollbars[0];
+            activatedVecticScrollbar.value = 1;
+            pannelController.SetActiveVerticScroll(activatedVecticScrollbar);
+            pannelController.SetAllMainScrollActive(true);
+
+
+        }
+
+        // Update is called once per frame
+        void Update()
+        {
+
+        }
     }
 }
+

@@ -1,7 +1,5 @@
-using UnityEditor.UIElements;
 using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.UIElements;
 
 public class WorldEventBtnScrollPannel : MonoBehaviour
 {

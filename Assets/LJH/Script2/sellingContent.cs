@@ -3,79 +3,83 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class sellingContent : MonoBehaviour , IPanelContentAble
+namespace RL
 {
-    [HideInInspector]
-    public Image sellImage;
-
-    [HideInInspector]
-    public List<Button> btnList;
-
-    [SerializeField]
-    private TextImageBtn buttonPrefab;
-
-    private GameObject ItemLayoutContent;
-    public GameObject SellingItemBtnBuyPanel;
-
-
-    public bool Init()
+    public class sellingContent : MonoBehaviour, IPanelContentAble
     {
-        ItemLayoutContent = gameObject.transform.parent.gameObject;
+        [HideInInspector]
+        public Image sellImage;
 
-        if (ItemLayoutContent == null)
+        [HideInInspector]
+        public List<Button> btnList;
+
+        [SerializeField]
+        private TextImageBtn buttonPrefab;
+
+        private GameObject ItemLayoutContent;
+        public GameObject SellingItemBtnBuyPanel;
+
+
+        public bool Init()
         {
-            return false;
-        }
+            ItemLayoutContent = gameObject.transform.parent.gameObject;
 
-        SellingItemBtnBuyPanel = gameObject.GetComponentInChildren<HorizontalLayoutGroup>().gameObject;
-
-        if (SellingItemBtnBuyPanel == null)
-        {
-            return false;
-        }
-            
-        return true;
-    }
-
-    public void SetContent(Vector2 size, int buttonNum)
-    {
-        foreach (var btn in btnList)
-        {
-            if (btn != null)
-                Destroy(btn.gameObject);
-        }
-        btnList.Clear();
-
-
-        for (int i = 0; i < buttonNum; i++)
-        {
-            int index = i;
-            TextImageBtn newBtn = Instantiate(buttonPrefab, SellingItemBtnBuyPanel.transform);
-
-            if(newBtn.Init())
+            if (ItemLayoutContent == null)
             {
-                btnList.Add(newBtn.button);
-
-                newBtn.button.onClick.AddListener(() => OnBtnClicked(index));
+                return false;
             }
 
-            else
+            SellingItemBtnBuyPanel = gameObject.GetComponentInChildren<HorizontalLayoutGroup>().gameObject;
+
+            if (SellingItemBtnBuyPanel == null)
             {
-                UnityEngine.Debug.LogError("Fail To Init Buy Btn");
+                return false;
             }
 
-            
+            return true;
         }
-    }
 
-    public void OnBtnClicked(int btnIndex)
-    {
+        public void SetContent(Vector2 size, int buttonNum)
+        {
+            foreach (var btn in btnList)
+            {
+                if (btn != null)
+                    Destroy(btn.gameObject);
+            }
+            btnList.Clear();
 
-    }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+            for (int i = 0; i < buttonNum; i++)
+            {
+                int index = i;
+                TextImageBtn newBtn = Instantiate(buttonPrefab, SellingItemBtnBuyPanel.transform);
+
+                if (newBtn.Init())
+                {
+                    btnList.Add(newBtn.button);
+
+                    newBtn.button.onClick.AddListener(() => OnBtnClicked(index));
+                }
+
+                else
+                {
+                    UnityEngine.Debug.LogError("Fail To Init Buy Btn");
+                }
+
+
+            }
+        }
+
+        public void OnBtnClicked(int btnIndex)
+        {
+
+        }
+
+        // Update is called once per frame
+        void Update()
+        {
+
+        }
     }
 }
+
