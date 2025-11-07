@@ -100,7 +100,7 @@ namespace DSG
             if (data == null || modelData == null) return;
 
             //characterInfo = info;
-            battleComp.SetStatus(data);
+            battleComp.SetHp(data.maxHp);
 
             characterData = data;
             characterModelData = modelData;
@@ -139,6 +139,12 @@ namespace DSG
 
             chracterBattleUI.gameObject.SetActive(true);
             characterInfoUI.gameObject.SetActive(false);
+        }
+
+        public void SetSkinColor(Color color)
+        {
+            bodySkin.material.color = color;
+            headSkin.material.color = color;
         }
     }
 }

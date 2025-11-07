@@ -7,7 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.TextCore.Text;
-using static DSG.Result_CharacterDisplay;
+using static DSG.ResultCharacterDisplay;
 
 namespace DSG
 {

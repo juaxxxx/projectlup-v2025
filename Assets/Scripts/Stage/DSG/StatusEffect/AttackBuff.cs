@@ -21,7 +21,7 @@ namespace DSG
         public override void Turn(Character C) { }
         public override void Remove(Character C)
         {
-            C.BattleComp.attack -= amount;
+            C.characterData.attack -= amount;
         }
     }
 }

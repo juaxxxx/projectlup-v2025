@@ -63,7 +63,6 @@ namespace DSG
             if (Instance == null)
             {
                 Instance = this;
-                DontDestroyOnLoad(gameObject);
             }
             else
             {
@@ -121,7 +120,7 @@ namespace DSG
                 Destroy(icon);
             sequenceImage.Clear();
 
-            battleSequence.Sort((x, y) => y.BattleComp.speed.CompareTo(x.BattleComp.speed));
+            battleSequence.Sort((x, y) => y.characterData.speed.CompareTo(x.characterData.speed));
 
             for (int i = 0; i < battleSequence.Count; i++)
             {
@@ -270,7 +269,10 @@ namespace DSG
             mvp.char1Name = mvp.char2Name = mvp.char3Name = mvp.char4Name = mvp.char5Name = "";
             mvp.char1Color = mvp.char2Color = mvp.char3Color = mvp.char4Color = mvp.char5Color = Color.white;
 
-            var friendlyChars = new List<(string Name, Color Color, float Score)>();
+            mvp.char1Prefab = mvp.char2Prefab = mvp.char3Prefab = mvp.char4Prefab = mvp.char5Prefab = null;
+
+            
+            var friendlyChars = new List<(string Name, Color Color, float Score, GameObject Prefab)>();
             foreach (var slotObj in friendlySlots)
             {
                 var slot = slotObj?.GetComponent<LineupSlot>();
@@ -281,13 +283,14 @@ namespace DSG
                 string name = character.characterData.characterName;
                 Color color = character.characterModelData.material.GetColor("_BaseColor");
                 float score = character.ScoreComp.CalculateMVPScore();
+                GameObject prefab = character.characterModelData.prefab;
 
-                friendlyChars.Add((name, color, score));
+                friendlyChars.Add((name, color, score, prefab));
             }
             foreach (var d in deadCharacterData)
             {
                 if (!friendlyChars.Exists(x => x.Name == d.Name))
-                    friendlyChars.Add(d);
+                    friendlyChars.Add((d.Name, d.Color, d.Score, null));
             }
 
             var ranked = friendlyChars.OrderByDescending(x => x.Score).ToList();
@@ -300,10 +303,10 @@ namespace DSG
             for (int i = 0; i < Mathf.Min(5, ranked.Count); i++)
             {
                 var character = ranked[i];
-                ApplyMVP(mvp, i + 1, character.Name, character.Color, character.Score);
+                
+                ApplyMVP(mvp, i + 1, character.Name, character.Color, character.Score, character.Prefab);
             }
 
-            DontDestroyOnLoad(dataCenter.gameObject);
             SceneManager.LoadScene("DeckBattleResultScene");
         }
         public void BackupDeadCharacter(string name, Color color, float score)
@@ -313,15 +316,40 @@ namespace DSG
 
             deadCharacterData.Add((name, color, score));
         }
-        private void ApplyMVP(TeamMVPData data, int index, string name, Color color, float score)
+        private void ApplyMVP(TeamMVPData data, int index, string name, Color color, float score, GameObject prefab = null)
         {
             switch (index)
             {
-                case 1: data.char1Name = name; data.char1Color = color; data.char1Score = score; break;
-                case 2: data.char2Name = name; data.char2Color = color; data.char2Score = score; break;
-                case 3: data.char3Name = name; data.char3Color = color; data.char3Score = score; break;
-                case 4: data.char4Name = name; data.char4Color = color; data.char4Score = score; break;
-                case 5: data.char5Name = name; data.char5Color = color; data.char5Score = score; break;
+                case 1:
+                    data.char1Name = name;
+                    data.char1Color = color;
+                    data.char1Score = score;
+                    data.char1Prefab = prefab;
+                    break;
+                case 2:
+                    data.char2Name = name;
+                    data.char2Color = color;
+                    data.char2Score = score;
+                    data.char2Prefab = prefab;
+                    break;
+                case 3:
+                    data.char3Name = name;
+                    data.char3Color = color;
+                    data.char3Score = score;
+                    data.char3Prefab = prefab;
+                    break;
+                case 4:
+                    data.char4Name = name;
+                    data.char4Color = color;
+                    data.char4Score = score;
+                    data.char4Prefab = prefab;
+                    break;
+                case 5:
+                    data.char5Name = name;
+                    data.char5Color = color;
+                    data.char5Score = score;
+                    data.char5Prefab = prefab;
+                    break;
             }
         }
 
@@ -395,7 +423,6 @@ namespace DSG
             }
 
             InitSequence();
-            Debug.Log($" Round {currentRound - 1} ����");
         }
 
         void UpdatePlayerCP()
