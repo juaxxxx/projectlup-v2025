@@ -27,7 +27,7 @@ namespace RL
                 lastFireTime = Time.time;
             }
         }
-        void ShootArrow()
+        public void ShootArrow()
         {
             Enemy targetEnemy = FindClosestEnemy();
            

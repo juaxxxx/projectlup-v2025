@@ -8,6 +8,7 @@ namespace RL
         [Header("이동 속도")]
         public float speed = 5f;
         public float baseSpeed = 5f;
+        public  bool isMoving = false;
         private void Start()
         {
             speed = baseSpeed;
@@ -18,7 +19,7 @@ namespace RL
         }
         void Update()
         {
-     
+            isMoving = false;
             // WASD 입력 받기
             float z = 0f;
             float x = 0f;
@@ -49,6 +50,7 @@ namespace RL
 
             if (dir != Vector3.zero)
             {
+                isMoving = true;
                 transform.forward = dir;
             }
         }

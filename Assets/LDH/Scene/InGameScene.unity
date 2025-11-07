@@ -1310,6 +1310,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 534135434087159019, guid: 02aae3aa3d7b7da498d285233a564ce2, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1242295387}
+    - targetCorrespondingSourceObject: {fileID: 534135434087159019, guid: 02aae3aa3d7b7da498d285233a564ce2, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1242295388}
   m_SourcePrefab: {fileID: 100100000, guid: 02aae3aa3d7b7da498d285233a564ce2, type: 3}
 --- !u!1 &1239575751 stripped
 GameObject:
@@ -1367,6 +1370,20 @@ MonoBehaviour:
   arrowSpeed: 10
   archer: {fileID: 1242295381}
   currentRoom: {fileID: 401549931}
+--- !u!114 &1242295388
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1239575751}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8dd3758a76afa0e41aa66c0759e7cfa2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  joystick: {fileID: 1119547936}
+  playerArcher: {fileID: 1242295381}
 --- !u!1 &1247192369
 GameObject:
   m_ObjectHideFlags: 0
