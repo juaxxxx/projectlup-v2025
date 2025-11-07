@@ -54,12 +54,12 @@ namespace Manager
         {
             base.Awake();
 
-            InitializeTransitionTable();
-            InitializeFadeCanvas();
-            if (currentStageInstance == null)
-            {
-                LoadStage(startStageKind);
-            }
+                InitializeTransitionTable();
+                InitializeFadeCanvas();
+                if (currentStageInstance == null)
+                {
+                    LoadStage(startStageKind);
+                }
         }
 
         private void InitializeFadeCanvas()
@@ -123,6 +123,21 @@ namespace Manager
         private void InitializeTransitionTable()
         {
             List<Define.StageKind> Transition = new List<Define.StageKind>();
+
+            // Unknown
+            SetTransition(Transition, Define.StageKind.Unknown);
+            SetTransition(Transition, Define.StageKind.Debug);
+            SetTransition(Transition, Define.StageKind.Intro);
+            SetTransition(Transition, Define.StageKind.Main);
+            SetTransition(Transition, Define.StageKind.RL);
+            SetTransition(Transition, Define.StageKind.ST);
+            SetTransition(Transition, Define.StageKind.DSG);
+            SetTransition(Transition, Define.StageKind.ES);
+            SetTransition(Transition, Define.StageKind.PCR);
+
+            AddTransitionToList(Transition);
+            Transition.Clear();
+
 
             // Debug
             SetTransition(Transition, Define.StageKind.Debug);
@@ -203,6 +218,19 @@ namespace Manager
 
             AddTransitionToList(Transition);
             Transition.Clear();
+
+            // Tutorial
+            SetTransition(Transition, Define.StageKind.Debug);
+            SetTransition(Transition, Define.StageKind.Intro);
+            SetTransition(Transition, Define.StageKind.Main);
+            SetTransition(Transition, Define.StageKind.RL);
+            SetTransition(Transition, Define.StageKind.ST);
+            SetTransition(Transition, Define.StageKind.DSG);
+            SetTransition(Transition, Define.StageKind.ES);
+            SetTransition(Transition, Define.StageKind.PCR);
+
+            AddTransitionToList(Transition);
+            Transition.Clear();
         }
 
         private void SetTransition(List<Define.StageKind> from, Define.StageKind to)
@@ -239,15 +267,7 @@ namespace Manager
         // Transition 검사
         private bool IsValidTransition(Define.StageKind from, Define.StageKind to)
         {
-            if(from == Define.StageKind.Unknown && to == Define.StageKind.Unknown)
-            {
-                return true;
-            } 
-
-            if (transitionTable[(int)from - 1].Contains(to))
-                return true;
-
-            return false;
+            return transitionTable[(int)from].Contains(to);
         }
 
         /// Stage 전환 Coroutine
@@ -293,7 +313,13 @@ namespace Manager
             }
 
             currentStageInstance = FindFirstObjectByType<BaseStage>();
-
+            while (currentStageInstance == null)
+            {
+                currentStageInstance = FindFirstObjectByType<BaseStage>();
+                Debug.Log("Find BaseStage");
+                yield return new WaitForSeconds(0.1f);
+            }
+            Debug.Log(currentStageInstance);
             yield return StartCoroutine(OnStageEnter());
 
             currentStageKind = targetStageKind;
@@ -349,6 +375,7 @@ namespace Manager
         {
             if (currentStageInstance)
             {
+                Debug.Log("OnStageEnter");
                 yield return StartCoroutine(currentStageInstance.OnStageEnter());
             }
             yield return StartCoroutine(FadeIn());
@@ -358,6 +385,7 @@ namespace Manager
         {
             if (currentStageInstance)
             {
+                Debug.Log("OnStageExit");
                 yield return StartCoroutine(currentStageInstance.OnStageExit());
             }
             yield return StartCoroutine(FadeOut());

@@ -10,6 +10,12 @@ namespace Manager
 
         private Framework.Inventory PlayerInventory;
 
+        protected override void Awake()
+        {
+            base.Awake();
+            StageKind = Define.StageKind.Debug;
+        }
+
         void Start()
         {
             //StageManager.Instance.LoadStage(TargetStage);

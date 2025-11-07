@@ -8,7 +8,7 @@ namespace Manager
 {
     public abstract class BaseStage : MonoBehaviour
     {
-        public Define.StageKind StageKind = Define.StageKind.Main;
+        [ReadOnly] public Define.StageKind StageKind = Define.StageKind.Main;
 
         protected virtual void Awake()
         {
