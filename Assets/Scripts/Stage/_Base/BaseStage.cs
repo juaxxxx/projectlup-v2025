@@ -73,7 +73,7 @@ namespace Manager
             DataManager.Instance.SaveRuntimeData(runtimeData);
         }
 
-        protected BaseStaticData GetStaticData(BaseStage stage)
+        protected BaseStaticData GetStaticData(BaseStage stage, int dataindex)
         {
             BaseStaticData data = null;
 
@@ -82,7 +82,7 @@ namespace Manager
             return data;
         }
 
-        protected BaseRuntimeData GetRuntimeData(BaseStage stage)
+        protected BaseRuntimeData GetRuntimeData(BaseStage stage, int dataindex)
         {
             BaseRuntimeData data = null;
 

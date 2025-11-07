@@ -58,8 +58,8 @@ namespace Manager
 
         protected override void GetDatas()
         {
-            StaticData = base.GetStaticData(this);
-            RuntimeData = base.GetRuntimeData(this);
+            StaticData = base.GetStaticData(this,(int)Define.ShootingStageKind.Lobby);
+            RuntimeData = base.GetRuntimeData(this, (int)Define.ShootingStageKind.Lobby);
         }
 
         protected override void SaveDatas()
