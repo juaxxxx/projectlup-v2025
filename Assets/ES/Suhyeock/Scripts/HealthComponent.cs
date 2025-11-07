@@ -11,9 +11,14 @@ namespace ES
         [HideInInspector]
         public bool isDead = false;
 
-        public void Start()
+
+        public void Awake()
         {
             HP = MaxHP;
+        }
+        public void Start()
+        {
+            //HP = MaxHP;
         }
 
         public void TakeDamage(float damage)

@@ -14,11 +14,11 @@ namespace ES
         {
             GUIStyle buttonStyle = new GUIStyle(GUI.skin.button);
             buttonStyle.fontSize = 35;
-            if (GUI.Button(new Rect(10, 200, 300, 100), "Take Damage", buttonStyle))
-            {
-                blackboard.healthComponent.HP -= 10.0f;
-                blackboard.healthComponent.isHit = true;
-            }
+            //if (GUI.Button(new Rect(10, 200, 300, 100), "Take Damage", buttonStyle))
+            //{
+            //    blackboard.healthComponent.HP -= 10.0f;
+            //    blackboard.healthComponent.isHit = true;
+            //}
 
             if (GUI.Button(new Rect(10, 310, 300, 100), "Escape", buttonStyle))
             {

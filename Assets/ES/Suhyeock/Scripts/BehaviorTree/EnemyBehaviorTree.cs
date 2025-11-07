@@ -37,11 +37,15 @@ namespace ES
             ChaseTargetAction chaseTargetAction = new ChaseTargetAction(blackboard);
             Sequence handleMoveSequence = new Sequence(new List<BTNode> { targetInDetectionRangeCondition, chaseTargetAction });
 
+            FindRandomLocationAction findRandomLocationAction = new FindRandomLocationAction(blackboard);
+            MoveToTargetAction moveToTargetAction = new MoveToTargetAction(blackboard);
+            Sequence patrolSequence = new Sequence(new List<BTNode> { findRandomLocationAction, moveToTargetAction, new WaitAction(3.0f)});
             rootNode = new Selector(new List<BTNode> 
             { 
                 handleDeathSequence,
                 handleAttackSequence,
                 handleMoveSequence,
+                patrolSequence
             });
         }
 

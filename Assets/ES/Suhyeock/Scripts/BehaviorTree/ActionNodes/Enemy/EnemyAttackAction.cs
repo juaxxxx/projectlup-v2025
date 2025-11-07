@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
 
 namespace ES
 {
@@ -21,20 +22,25 @@ namespace ES
 
             Vector3 attackPoint = enemyPosition + (enemyForward * blackboard.attackSize * 0.7f);
 
-            Collider[] hitTargets = Physics.OverlapSphere(
+            Collider[] hitColliders = Physics.OverlapSphere(
                 attackPoint,
                 blackboard.attackSize,
                 blackboard.LayerMask
             );
+            HashSet<GameObject> hitTargetsOnce = new HashSet<GameObject>();
 
-            for (int i = 0; i < hitTargets.Length; i++)
+            for (int i = 0; i < hitColliders.Length; i++)
             {
-                HealthComponent health = hitTargets[i].GetComponent<HealthComponent>();
-
-                if (health)
+                GameObject rootObject = hitColliders[i].gameObject;
+                if (hitTargetsOnce.Add(rootObject))
                 {
-                    health.TakeDamage(10.0f);
-                    Debug.Log("Attack");
+                    HealthComponent health = hitColliders[i].GetComponent<HealthComponent>();
+
+                    if (health)
+                    {
+                        health.TakeDamage(10.0f);
+                        Debug.Log("Attack");
+                    }
                 }
             }
 

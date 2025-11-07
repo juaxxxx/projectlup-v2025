@@ -10,16 +10,6 @@ namespace ES
         private float damage = 0f;
         private BulletObjectPool ownerPool;
 
-        // Start is called once before the first execution of Update after the MonoBehaviour is created
-
-        //private void Awake()
-        //{
-
-        //}
-        //void Start()
-        //{
-
-        //}
 
         void Update()
         {
@@ -40,6 +30,20 @@ namespace ES
             this.damage = damage;
             this.speed = speed;
 
+        }
+
+        private void OnTriggerEnter(Collider other)
+        {
+            if (other.gameObject.CompareTag("Enemy"))
+            {
+                Debug.Log("OnTriggerEnter");
+                if (other.TryGetComponent(out HealthComponent healthComponent))
+                {
+                    healthComponent.TakeDamage(damage);
+                    ownerPool.Return(gameObject);
+                }
+            }
+           
         }
     }
 }
