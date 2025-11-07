@@ -1,3 +1,4 @@
+using ES;
 using JetBrains.Annotations;
 using System;
 using UnityEngine;
@@ -11,12 +12,17 @@ namespace RL
         public delegate void EnemyDeathHandler(Enemy deadEnemy);
         public static event EnemyDeathHandler ObjectOnEnemyDied;
         public Vector2Int gridPos;
+
+        private EnemyBlackBoard enemyBlackBoard;
+
         // Start is called once before the first execution of Update after the MonoBehaviour is created
         void Start()
         {
-            EnemyStats.Hp = 20;
+            EnemyStats.Hp = 500;
             EnemyStats.Attack = 0;
             EnemyStats.speed = 3;
+
+            enemyBlackBoard = GetComponentInChildren<EnemyBlackBoard>();
 
             Debug.Log($"enemy생성  체력  :  {EnemyStats.Hp}");
         }
@@ -28,6 +34,9 @@ namespace RL
         {
             EnemyStats.Hp -= damage;
             Debug.Log($"데미지 : {damage} 남은체력 {EnemyStats.Hp}");
+
+            enemyBlackBoard.OnHitted = true;
+
             if (EnemyStats.Hp <= 0)
             {
                 Die();

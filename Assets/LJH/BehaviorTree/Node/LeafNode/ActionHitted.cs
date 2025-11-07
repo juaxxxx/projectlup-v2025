@@ -22,6 +22,7 @@ namespace RL
             isAnimOnPlayed = true;
             nodeState = NodeState.Running;
 
+
             behaviorTree.PlayAnimation("Hitted", this);
             blackBoard.InHittedState = true;
 

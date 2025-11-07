@@ -122,7 +122,10 @@ namespace RL
                 rootnode.Evaluate();
             }
 
+            enemyBlackBoard.UpdateBlackBoard();
         }
+
+
 
         //public void PlayAnimation(string animName, LeafNode caller)
         //{
