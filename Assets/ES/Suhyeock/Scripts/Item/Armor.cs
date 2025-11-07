@@ -1,14 +1,17 @@
 using UnityEngine;
 
-public class Armor : Item
+namespace ES
 {
-    public int defense;
-    public ArmorSlot armorSlot;
-
-    public Armor(ArmorItemData itemData) : base(itemData)
+    public class Armor : Item
     {
-        defense = itemData.defense;
-        armorSlot = itemData.armorSlot;
-        count = 1;
+        public int defense;
+        public ArmorSlot armorSlot;
+
+        public Armor(ArmorItemData itemData) : base(itemData)
+        {
+            defense = itemData.defense;
+            armorSlot = itemData.armorSlot;
+            count = 1;
+        }
     }
 }

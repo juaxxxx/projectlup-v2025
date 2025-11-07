@@ -1,17 +1,20 @@
 using UnityEngine;
 
-public class EnemySenser : MonoBehaviour
+namespace ES
 {
-
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    public class EnemySenser : MonoBehaviour
     {
-        
-    }
 
-    // Update is called once per frame
-    void Update()
-    {
+        // Start is called once before the first execution of Update after the MonoBehaviour is created
+        void Start()
+        {
         
+        }
+
+        // Update is called once per frame
+        void Update()
+        {
+        
+        }
     }
 }

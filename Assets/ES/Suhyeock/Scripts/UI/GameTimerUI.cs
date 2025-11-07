@@ -2,44 +2,47 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class GameTimerUI : MonoBehaviour
+namespace ES
 {
-    [SerializeField]
-    private TextMeshProUGUI TimerText;
-    [SerializeField]
-    private int TimeLimitMinutes = 10;
-
-    private float RenamingTimer = 0.0f;
-    private bool TimeIsRunning = true;
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    public class GameTimerUI : MonoBehaviour
     {
-        RenamingTimer = TimeLimitMinutes * 60.0f;
-    }
+        [SerializeField]
+        private TextMeshProUGUI TimerText;
+        [SerializeField]
+        private int TimeLimitMinutes = 10;
 
-    // Update is called once per frame
-    void Update()
-    {
-        if (TimeIsRunning)
+        private float RenamingTimer = 0.0f;
+        private bool TimeIsRunning = true;
+        // Start is called once before the first execution of Update after the MonoBehaviour is created
+        void Start()
         {
-            if (RenamingTimer > 0.0f)
-            {
-                RenamingTimer -= Time.deltaTime;
-            }
-            else
-            {
-                RenamingTimer = 0.0f;
-                TimeIsRunning = false;
-            }
-            DisplayTime();
-        }    
-    }
+            RenamingTimer = TimeLimitMinutes * 60.0f;
+        }
 
-    void DisplayTime()
-    {
-        float Minutes = Mathf.FloorToInt(RenamingTimer / 60.0f);
-        float Seconds = Mathf.FloorToInt(RenamingTimer % 60.0f);
+        // Update is called once per frame
+        void Update()
+        {
+            if (TimeIsRunning)
+            {
+                if (RenamingTimer > 0.0f)
+                {
+                    RenamingTimer -= Time.deltaTime;
+                }
+                else
+                {
+                    RenamingTimer = 0.0f;
+                    TimeIsRunning = false;
+                }
+                DisplayTime();
+            }    
+        }
 
-        TimerText.text = string.Format("{0:00}:{1:00}", Minutes, Seconds);
+        void DisplayTime()
+        {
+            float Minutes = Mathf.FloorToInt(RenamingTimer / 60.0f);
+            float Seconds = Mathf.FloorToInt(RenamingTimer % 60.0f);
+
+            TimerText.text = string.Format("{0:00}:{1:00}", Minutes, Seconds);
+        }
     }
 }

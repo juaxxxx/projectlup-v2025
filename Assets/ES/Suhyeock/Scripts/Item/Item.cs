@@ -1,12 +1,15 @@
 using UnityEngine;
 
-public class Item
+namespace ES
 {
-    public BaseItemData baseItem;
-    public int count;
-    
-    public Item(BaseItemData baseItem)
+    public class Item
     {
-        this.baseItem = baseItem;
+        public BaseItemData baseItem;
+        public int count;
+    
+        public Item(BaseItemData baseItem)
+        {
+            this.baseItem = baseItem;
+        }
     }
 }

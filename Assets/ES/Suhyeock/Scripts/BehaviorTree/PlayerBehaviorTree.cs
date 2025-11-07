@@ -1,105 +1,87 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerBehaviorTree : MonoBehaviour
-{   
-    private BTNode rootNode;
-    private PlayerBlackboard blackboard;
-    private CharacterController characterController;
+namespace ES
+{
+    public class PlayerBehaviorTree : MonoBehaviour
+    {   
+        private BTNode rootNode;
+        private PlayerBlackboard blackboard;
+        private CharacterController characterController;
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    private void Awake()
-    {
-        characterController = GetComponent<CharacterController>();
-        blackboard = GetComponent<PlayerBlackboard>();
-        blackboard.playerOverheadUI = GetComponent<PlayerOverheadUI>();
-        blackboard.InteractionDetector = GetComponent<InteractionDetector>();
-        blackboard.HP = blackboard.MaxHP;
-    }
-    void Start()
-    {
-        
-        SetupBehaviorTree();
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        if (blackboard.isDead == true)
-            return;
-        rootNode.Evaluate();
-    }
-    private void SetupBehaviorTree()
-    {
-        DeadCondition deadCondition = new DeadCondition(blackboard);
-        DeathAction deathAction = new DeathAction(blackboard);
-
-        Sequence checkIsDeadSequence = new Sequence(new List<BTNode> {
-            deadCondition,
-            deathAction,
-        });
-        CastingInteractionCondition castingInteractionCondition = new CastingInteractionCondition(blackboard);
-
-        HitCondition hitCondition = new HitCondition(blackboard);
-        HitAction hitAction = new HitAction(blackboard);
-        AbortCastingInteractionAction abortCastingInteractionAction = new AbortCastingInteractionAction(blackboard);
-
-        Sequence handleHitSequence = new Sequence(new List<BTNode> { hitCondition, hitAction, castingInteractionCondition, abortCastingInteractionAction });
-
-        MovingCondition movingCondition = new MovingCondition(blackboard);
-        AttackingCondition attackingCondition = new AttackingCondition(blackboard);
-        Selector movingOrAttackingSelector = new Selector(new List<BTNode> { movingCondition, attackingCondition });
-        
-
-        Sequence abortIfCastingInteractionSequence= new Sequence(new List<BTNode> {
-            castingInteractionCondition,
-            abortCastingInteractionAction,
-        });
-
-        Succeeder AbortIfCastingInteractionSucceeder = new Succeeder(abortIfCastingInteractionSequence);
-        
-        ReloadCondition reloadCondition = new ReloadCondition(blackboard);
-        ReloadAction reloadAction = new ReloadAction(blackboard);
-        Sequence handleReloadSequence = new Sequence(new List<BTNode> { reloadCondition, reloadAction});
-
-        Failer handleReloadSequenceFailer = new Failer(handleReloadSequence);
-        FireAction fireAction = new FireAction(blackboard, characterController);
-
-        Selector handleGunActionsSelector = new Selector(new List<BTNode> { reloadCondition, fireAction});
-       
-        MoveAction moveAction = new MoveAction(blackboard, characterController);
-        
-        Parallel fireAndMoveParallel = new Parallel(new List<BTNode> { handleGunActionsSelector, moveAction });
-
-
-        Sequence handleMovementAndAttackSequence = new Sequence(new List<BTNode> {
-            movingOrAttackingSelector,
-            AbortIfCastingInteractionSucceeder,
-            fireAndMoveParallel
-        });
-
-        
-        InteractionButtonPressedCondition interactionButtonPressedCondition = new InteractionButtonPressedCondition(blackboard);
-        TryInteractAction tryInteractAction = new TryInteractAction(blackboard, characterController);
-        Sequence tryInitiateInteractionSequence = new Sequence(new List<BTNode> {
-            interactionButtonPressedCondition ,
-            tryInteractAction
-        });
-
-        CastingInteractionAction castingInteractionAction = new CastingInteractionAction(blackboard);
-        Sequence performInteractionCastingSequence = new Sequence(new List<BTNode> {
-            castingInteractionCondition,
-            castingInteractionAction
-        });
-
-        rootNode = new Selector(new List<BTNode>
+        // Start is called once before the first execution of Update after the MonoBehaviour is created
+        private void Awake()
         {
-            checkIsDeadSequence,
-            handleHitSequence,
-            handleReloadSequenceFailer,
-            handleMovementAndAttackSequence,
-            tryInitiateInteractionSequence ,
-            performInteractionCastingSequence,
-        });
+            characterController = GetComponent<CharacterController>();
+            blackboard = GetComponent<PlayerBlackboard>();
+            blackboard.playerOverheadUI = GetComponent<PlayerOverheadUI>();
+            blackboard.InteractionDetector = GetComponent<InteractionDetector>();
+            
+        }
+        void Start()
+        {
+            SetupBehaviorTree();
+        }
+
+        // Update is called once per frame
+        void Update()
+        {
+            rootNode.Evaluate();
+        }
+        private void SetupBehaviorTree()
+        {
+            //1. 사망
+            DeadCondition deadCondition = new DeadCondition(blackboard);
+            DeathAction deathAction = new DeathAction(blackboard);
+
+            Sequence handleDeathSequence = new Sequence(new List<BTNode> {
+                deadCondition,
+                deathAction,
+            });
+
+            //2. 피격시 행동
+            CastingInteractionCondition castingInteractionCondition = new CastingInteractionCondition(blackboard);
+
+            HitCondition hitCondition = new HitCondition(blackboard);
+            HitAction hitAction = new HitAction(blackboard);
+            AbortCastingInteractionAction abortCastingInteractionAction = new AbortCastingInteractionAction(blackboard);
+
+            Sequence handleHitSequence = new Sequence(new List<BTNode> { hitCondition, hitAction, castingInteractionCondition, abortCastingInteractionAction });
+
+            //3. 상호작용
+            InteractionButtonPressedCondition interactionButtonPressedCondition = new InteractionButtonPressedCondition(blackboard);
+            TryInteractAction tryInteractAction = new TryInteractAction(blackboard, characterController);
+            CastingInteractionAction castingInteractionAction = new CastingInteractionAction(blackboard);
+            Sequence InteractionSequence = new Sequence(new List<BTNode> {
+                interactionButtonPressedCondition ,
+                tryInteractAction,
+                castingInteractionAction,
+            });
+
+         
+            //4. 재장전, 공격, 이동
+            AttackingCondition attackingCondition = new AttackingCondition(blackboard);
+            FireAction fireAction = new FireAction(blackboard, characterController);
+            Sequence handleAttackSequence = new Sequence(new List<BTNode> { attackingCondition, fireAction });
+           
+            ReloadCondition reloadCondition = new ReloadCondition(blackboard);
+            ReloadAction reloadAction = new ReloadAction(blackboard);
+            Sequence handleReloadSequence = new Sequence(new List<BTNode> { reloadCondition, reloadAction});
+            
+            Selector handleGunActionsSelector = new Selector(new List<BTNode> { handleReloadSequence, handleAttackSequence });
+       
+            MovingCondition movingCondition = new MovingCondition(blackboard);
+            MoveAction moveAction = new MoveAction(blackboard, characterController);
+            Parallel combatParallel = new Parallel(new List<BTNode> { handleGunActionsSelector, movingCondition, moveAction });
+
+
+            rootNode = new Selector(new List<BTNode>
+            {
+                handleDeathSequence,
+                handleHitSequence,
+                InteractionSequence ,
+                combatParallel,
+            });
+        }
     }
 }

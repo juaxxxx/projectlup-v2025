@@ -1,9 +1,12 @@
 using NUnit.Framework.Interfaces;
 using UnityEngine;
 
-public class InventorySlot
+namespace ES
 {
-    public Item item;
+    public class InventorySlot
+    {
+        public Item item;
 
-    public bool IsEmpty => item == null;
+        public bool IsEmpty => item == null;
+    }
 }

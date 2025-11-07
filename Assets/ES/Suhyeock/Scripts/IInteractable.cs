@@ -1,16 +1,19 @@
 using UnityEngine;
 
-public interface IInteractable
+namespace ES
 {
-    bool TryStartInteraction(float deltaTime);
-    bool CanInteract();
-    void Interact();
-    void ResetInteraction();
+    public interface IInteractable
+    {
+        bool TryStartInteraction(float deltaTime);
+        bool CanInteract();
+        void Interact();
+        void ResetInteraction();
 
-    void ShowInteractionPrompt();
-    void HideInteractionPrompt();
+        void ShowInteractionPrompt();
+        void HideInteractionPrompt();
 
-    void ShowInteractionTimerUI();
+        void ShowInteractionTimerUI();
 
-    void HideInteractionTimerUI();
+        void HideInteractionTimerUI();
+    }
 }

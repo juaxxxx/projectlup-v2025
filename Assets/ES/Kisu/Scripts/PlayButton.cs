@@ -1,11 +1,15 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class PlayButton : MonoBehaviour
+namespace ES
 {
-
-    public void LoadInGame()
+    public class PlayButton : MonoBehaviour
     {
-        SceneManager.LoadScene("GameScene 1031");
+
+        public void LoadInGame()
+        {
+            SceneManager.LoadScene("GameScene 1031");
+        }
     }
+
 }

@@ -2,37 +2,40 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EventBroker : MonoBehaviour
+namespace ES
 {
-    public Action<bool> OnGameFinished;
-
-    public Action<bool> OnInventoryVisibilityChanged;
-    public Action<List<Item>> OnOpenLootDisplay;
-    public Action OnCloseLootDisplay;
-
-    public Action<float, float> OnReloadTimeUpdate;
-
-    public void ReportGameFinish(bool isSuccess)
+    public class EventBroker : MonoBehaviour
     {
-        OnGameFinished?.Invoke(isSuccess);
-    }
+        public Action<bool> OnGameFinished;
 
-    public void HandleIventoryVisibility(bool isVisible)
-    {
-        OnInventoryVisibilityChanged?.Invoke(isVisible);
-    }
+        public Action<bool> OnInventoryVisibilityChanged;
+        public Action<List<Item>> OnOpenLootDisplay;
+        public Action OnCloseLootDisplay;
 
-    public void OpenLootDisplay(List<Item> items)
-    {
-        OnOpenLootDisplay?.Invoke(items);
-    }
-    public void CloseLootDisplay()
-    {
-        OnCloseLootDisplay?.Invoke();
-    }
+        public Action<float, float> OnReloadTimeUpdate;
 
-    public void ReloadTimeUpdate(float time, float reloadTime)
-    {
-        OnReloadTimeUpdate?.Invoke(time, reloadTime);
+        public void ReportGameFinish(bool isSuccess)
+        {
+            OnGameFinished?.Invoke(isSuccess);
+        }
+
+        public void HandleIventoryVisibility(bool isVisible)
+        {
+            OnInventoryVisibilityChanged?.Invoke(isVisible);
+        }
+
+        public void OpenLootDisplay(List<Item> items)
+        {
+            OnOpenLootDisplay?.Invoke(items);
+        }
+        public void CloseLootDisplay()
+        {
+            OnCloseLootDisplay?.Invoke();
+        }
+
+        public void ReloadTimeUpdate(float time, float reloadTime)
+        {
+            OnReloadTimeUpdate?.Invoke(time, reloadTime);
+        }
     }
 }

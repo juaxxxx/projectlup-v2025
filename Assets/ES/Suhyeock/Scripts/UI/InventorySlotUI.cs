@@ -1,36 +1,39 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-public class InventorySlotUI : MonoBehaviour
+namespace ES
 {
-    public Image iconImgae;
-    public Text stackText;
-
-    private int slotIndex;
-    private InventoryUIController inventoryUIController;
-    private ItemIconLoader itemIconLoader;
-
-    public void Init(int slotIndex, InventoryUIController inventoryUIController, ItemIconLoader itemIconLoader)
+    public class InventorySlotUI : MonoBehaviour
     {
-        this.slotIndex = slotIndex;
-        this.inventoryUIController = inventoryUIController;
-        this.itemIconLoader = itemIconLoader;
-    }
+        public Image iconImgae;
+        public Text stackText;
 
-    public void UpdateSlot(InventorySlot dataSlot)
-    {
-        if (dataSlot.IsEmpty)
+        private int slotIndex;
+        private InventoryUIController inventoryUIController;
+        private ItemIconLoader itemIconLoader;
+
+        public void Init(int slotIndex, InventoryUIController inventoryUIController, ItemIconLoader itemIconLoader)
         {
-            iconImgae.gameObject.SetActive(false);
-            stackText.text = "";
+            this.slotIndex = slotIndex;
+            this.inventoryUIController = inventoryUIController;
+            this.itemIconLoader = itemIconLoader;
         }
-        else
+
+        public void UpdateSlot(InventorySlot dataSlot)
         {
-            iconImgae.gameObject.SetActive(true);
-            iconImgae.sprite = itemIconLoader.LoadIconSprite(dataSlot.item.baseItem.iconName);
+            if (dataSlot.IsEmpty)
+            {
+                iconImgae.gameObject.SetActive(false);
+                stackText.text = "";
+            }
+            else
+            {
+                iconImgae.gameObject.SetActive(true);
+                iconImgae.sprite = itemIconLoader.LoadIconSprite(dataSlot.item.baseItem.iconName);
 
-            stackText.text = dataSlot.item.count.ToString();
+                stackText.text = dataSlot.item.count.ToString();
+            }
         }
-    }
 
+    }
 }

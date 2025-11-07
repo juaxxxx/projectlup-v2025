@@ -1,26 +1,30 @@
 using UnityEngine;
 
-public class PlayerSpawner : MonoBehaviour
+namespace ES
 {
-    [SerializeField] private GameObject Player;      
-    [SerializeField] private Transform[] SpawnPoints;  
-
-    void Start()
+    public class PlayerSpawner : MonoBehaviour
     {
-        SpawnPlayer();
-    }
+        [SerializeField] private GameObject Player;
+        [SerializeField] private Transform[] SpawnPoints;
 
-    private void Update()
-    {
-        
-    }
+        void Start()
+        {
+            SpawnPlayer();
+        }
 
-    void SpawnPlayer()
-    {
-       
-        int randomIndex = Random.Range(0, SpawnPoints.Length);
+        private void Update()
+        {
 
-        Player.transform.position = SpawnPoints[randomIndex].position;
-        Player.transform.rotation = SpawnPoints[randomIndex].rotation;
+        }
+
+        void SpawnPlayer()
+        {
+
+            int randomIndex = Random.Range(0, SpawnPoints.Length);
+
+            Player.transform.position = SpawnPoints[randomIndex].position;
+            Player.transform.rotation = SpawnPoints[randomIndex].rotation;
+        }
     }
 }
+

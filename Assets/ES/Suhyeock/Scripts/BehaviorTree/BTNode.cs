@@ -1,6 +1,11 @@
 using UnityEngine;
 
-public abstract class BTNode
+namespace ES
 {
-    public abstract NodeState Evaluate();
+    public abstract class BTNode
+    {
+        public abstract NodeState Evaluate();
+
+        public abstract void Reset();
+    }
 }

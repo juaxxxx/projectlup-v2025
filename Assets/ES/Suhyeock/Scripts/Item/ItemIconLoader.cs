@@ -1,39 +1,42 @@
 using UnityEngine;
 using System.Collections.Generic;
 
-[CreateAssetMenu(fileName = "ItemIconLoader", menuName = "Scriptable Objects/ItemIconLoader")]
-public class ItemIconLoader : ScriptableObject
+namespace ES
 {
-    public List<ItemIconEntry> iconEntries = new List<ItemIconEntry>();
-
-    private Dictionary<string, Sprite> itemIcons = null;
-
-    public void Initialize()
+    [CreateAssetMenu(fileName = "ItemIconLoader", menuName = "Scriptable Objects/ItemIconLoader")]
+    public class ItemIconLoader : ScriptableObject
     {
-        if (itemIcons != null) return;
+        public List<ItemIconEntry> iconEntries = new List<ItemIconEntry>();
 
-        itemIcons = new Dictionary<string, Sprite>();
+        private Dictionary<string, Sprite> itemIcons = null;
 
-        foreach (ItemIconEntry entry in iconEntries)
+        public void Initialize()
         {
-            if (!itemIcons.ContainsKey(entry.iconName))
+            if (itemIcons != null) return;
+
+            itemIcons = new Dictionary<string, Sprite>();
+
+            foreach (ItemIconEntry entry in iconEntries)
             {
-                itemIcons.Add(entry.iconName, entry.iconSprite);
+                if (!itemIcons.ContainsKey(entry.iconName))
+                {
+                    itemIcons.Add(entry.iconName, entry.iconSprite);
+                }
             }
         }
-    }
 
-    public Sprite LoadIconSprite(string iconName)
-    {
-        if (itemIcons == null)
+        public Sprite LoadIconSprite(string iconName)
         {
-            Initialize();
-        }
+            if (itemIcons == null)
+            {
+                Initialize();
+            }
 
-        if (itemIcons != null && itemIcons.TryGetValue(iconName, out Sprite icon))
-        {
-            return icon;
+            if (itemIcons != null && itemIcons.TryGetValue(iconName, out Sprite icon))
+            {
+                return icon;
+            }
+            return null;
         }
-        return null;
     }
 }

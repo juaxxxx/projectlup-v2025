@@ -1,19 +1,27 @@
 using UnityEngine;
 
-public class Inverter : BTNode
+namespace ES
 {
-    public BTNode node;
+    public class Inverter : BTNode
+    {
+        public BTNode node;
 
-    public Inverter(BTNode node)
-    {
-        this.node = node;
-    }
-    public override NodeState Evaluate()
-    {
-        if (node.Evaluate() == NodeState.Success)
+        public Inverter(BTNode node)
         {
-            return NodeState.Failure;
+            this.node = node;
         }
-        return NodeState.Success;
+        public override NodeState Evaluate()
+        {
+            if (node.Evaluate() == NodeState.Success)
+            {
+                return NodeState.Failure;
+            }
+            return NodeState.Success;
+        }
+
+        public override void Reset()
+        {
+            node.Reset();
+        }
     }
 }

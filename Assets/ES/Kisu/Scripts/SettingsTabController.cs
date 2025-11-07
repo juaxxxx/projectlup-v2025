@@ -1,32 +1,37 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-public class SettingsTabController : MonoBehaviour
+namespace ES
 {
-    [Header("패널들")]
-    public GameObject[] panels;
-
-    [Header("탭 버튼들")]
-    public Button[] buttons;
-
-    void Start()
+    public class SettingsTabController : MonoBehaviour
     {
-        // 버튼 클릭 이벤트 연결
-        for (int i = 0; i < buttons.Length; i++)
+        [Header("패널들")]
+        public GameObject[] panels;
+
+        [Header("탭 버튼들")]
+        public Button[] buttons;
+
+        void Start()
         {
-            int index = i;
-            buttons[i].onClick.AddListener(() => ShowPanel(index));
+            // 버튼 클릭 이벤트 연결
+            for (int i = 0; i < buttons.Length; i++)
+            {
+                int index = i;
+                buttons[i].onClick.AddListener(() => ShowPanel(index));
+            }
+
+            ShowPanel(0); // 초기 활성 패널
         }
 
-        ShowPanel(0); // 초기 활성 패널
-    }
-
-    public void ShowPanel(int index)
-    {
-        for (int i = 0; i < panels.Length; i++)
+        public void ShowPanel(int index)
         {
-            panels[i].SetActive(i == index);
-            buttons[i].interactable = i != index;
+            for (int i = 0; i < panels.Length; i++)
+            {
+                panels[i].SetActive(i == index);
+                buttons[i].interactable = i != index;
+            }
         }
     }
 }
+
+

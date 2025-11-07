@@ -1,35 +1,38 @@
 using UnityEngine;
 
-public class CharacterSelector : MonoBehaviour
+namespace ES
 {
-    public GameObject[] characters;
-    private int currentIndex = 0;
-
-    void Start()
+    public class CharacterSelector : MonoBehaviour
     {
-        currentIndex = PlayerPrefs.GetInt("SelectedCharacterIndex", 0);
-        ShowCharacter(currentIndex);
-    }
+        public GameObject[] characters;
+        private int currentIndex = 0;
 
-    public void NextCharacter()
-    {
-        characters[currentIndex].SetActive(false);
-        currentIndex = (currentIndex + 1) % characters.Length;
-        ShowCharacter(currentIndex);
-        PlayerPrefs.SetInt("SelectedCharacterIndex", currentIndex);
-    }
+        void Start()
+        {
+            currentIndex = PlayerPrefs.GetInt("SelectedCharacterIndex", 0);
+            ShowCharacter(currentIndex);
+        }
 
-    public void PrevCharacter()
-    {
-        characters[currentIndex].SetActive(false);
-        currentIndex = (currentIndex - 1 + characters.Length) % characters.Length;
-        ShowCharacter(currentIndex);
-        PlayerPrefs.SetInt("SelectedCharacterIndex", currentIndex);
-    }
+        public void NextCharacter()
+        {
+            characters[currentIndex].SetActive(false);
+            currentIndex = (currentIndex + 1) % characters.Length;
+            ShowCharacter(currentIndex);
+            PlayerPrefs.SetInt("SelectedCharacterIndex", currentIndex);
+        }
 
-    public void ShowCharacter(int index)
-    {
-        for (int i = 0; i < characters.Length; i++)
-            characters[i].SetActive(i == index);
+        public void PrevCharacter()
+        {
+            characters[currentIndex].SetActive(false);
+            currentIndex = (currentIndex - 1 + characters.Length) % characters.Length;
+            ShowCharacter(currentIndex);
+            PlayerPrefs.SetInt("SelectedCharacterIndex", currentIndex);
+        }
+
+        public void ShowCharacter(int index)
+        {
+            for (int i = 0; i < characters.Length; i++)
+                characters[i].SetActive(i == index);
+        }
     }
 }

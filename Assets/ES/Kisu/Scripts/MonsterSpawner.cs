@@ -1,24 +1,27 @@
 using UnityEngine;
 
-public class MonsterSpawner : MonoBehaviour
+namespace ES
 {
-    [SerializeField] private GameObject MonsterPrefab; 
-    [SerializeField] private Transform[] SpawnPoints; 
+    public class MonsterSpawner : MonoBehaviour
+    {
+        [SerializeField] private GameObject MonsterPrefab;
+        [SerializeField] private Transform[] SpawnPoints;
 
-    void Start()
-    {
-        SpawnAllMonsters();
-    }
-    void Update()
-    {
-        
-    }
-
-    void SpawnAllMonsters()
-    {
-        foreach (Transform point in SpawnPoints)
+        void Start()
         {
-            Instantiate(MonsterPrefab, point.position, point.rotation);
+            SpawnAllMonsters();
+        }
+        void Update()
+        {
+
+        }
+
+        void SpawnAllMonsters()
+        {
+            foreach (Transform point in SpawnPoints)
+            {
+                Instantiate(MonsterPrefab, point.position, point.rotation);
+            }
         }
     }
 }
