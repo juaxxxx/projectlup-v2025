@@ -4,31 +4,40 @@ using UnityEngine;
 
 namespace RL
 {
-    public class EnemyBehaviorTree : MonoBehaviour
+    public class EnemyBehaviorTree : BaseBehaviorTree
     {
+        //private Animator Animator;
 
-        private RootNode rootnode;
-        private EnemyBlackBoard enemyBlackBoard;
-        private CompositeNode topCompositeNode;
+        //private RootNode rootnode;
+        //private EnemyBlackBoard enemyBlackBoard;
+        //private CompositeNode topCompositeNode;
 
-        private void Awake()
-        {
-            enemyBlackBoard = GetComponent<EnemyBlackBoard>();
-            enemyBlackBoard.HP = enemyBlackBoard.MaxHP;
-        }
-        // Start is called once before the first execution of Update after the MonoBehaviour is created
-        void Start()
-        {
-            InitBehaviorTree();
-        }
+        //private LeafNode currentRunningLeaf;
 
-        void InitBehaviorTree()
+        //private void Awake()
+        //{
+        //    enemyBlackBoard = GetComponent<EnemyBlackBoard>();
+        //    Animator = GetComponent<Animator>();
+        //    enemyBlackBoard.HP = enemyBlackBoard.MaxHP;
+        //}
+        //// Start is called once before the first execution of Update after the MonoBehaviour is created
+        //void Start()
+        //{
+        //    if(Animator != null)
+        //    {
+        //        Animator.GetBehaviour<AnimatorCallBack>().SetAnimEndCallBack(OnAnimationEnd);
+        //    }
+
+        //    InitBehaviorTree();
+        //}
+
+        public override void InitBehaviorTree()
         {
             List<Node> totalChildNodes = new List<Node>();
 
             //Die Action
             {
-                ActionDie actionDie = new ActionDie();
+                ActionDie actionDie = new ActionDie(enemyBlackBoard, this);
                 BlackboardConditionNode isAlive = new BlackboardConditionNode(enemyBlackBoard, ConditionCheckEnum.ISALIVE, false, actionDie);
 
                 totalChildNodes.Add(isAlive);
@@ -40,9 +49,9 @@ namespace RL
             {
                 List<Node> childList = new List<Node>();
 
-                ReduceHP reduceHP = new ReduceHP();
+                ReduceHP reduceHP = new ReduceHP(enemyBlackBoard, this);
 
-                ActionHitted actionHitted = new ActionHitted();
+                ActionHitted actionHitted = new ActionHitted(enemyBlackBoard, this);
 
                 //BlackboardConditionNode isAttackState = new BlackboardConditionNode(enemyBlackBoard, ConditionCheckEnum.INATKSTATE, false, actionHitted);
                 //BlackboardConditionNode isRampagesTATE = new BlackboardConditionNode(enemyBlackBoard, ConditionCheckEnum.INRAMPAGE, false, actionHitted);
@@ -72,10 +81,10 @@ namespace RL
             {
                 List<Node> childList = new List<Node>();
 
-                Wait wait = new Wait();
+                Wait wait = new Wait(enemyBlackBoard, this);
                 BlackboardConditionNode isAtkCollTime = new BlackboardConditionNode(enemyBlackBoard, ConditionCheckEnum.INREADYTOATK, false, wait);
 
-                ActionAttack actionAttack = new ActionAttack();
+                ActionAttack actionAttack = new ActionAttack(enemyBlackBoard, this);
                 BlackboardConditionNode isHitted = new BlackboardConditionNode(enemyBlackBoard, ConditionCheckEnum.INHITTEDSTATE, false, actionAttack);
 
                 childList.Add(isAtkCollTime);
@@ -89,7 +98,7 @@ namespace RL
 
             //MoveTo Action
             {
-                ActionMovTo actionMovTo = new ActionMovTo();
+                ActionMovTo actionMovTo = new ActionMovTo(enemyBlackBoard, this);
                 BlackboardConditionNode islocallyControlled = new BlackboardConditionNode(enemyBlackBoard, ConditionCheckEnum.ISLOCALLYCONTROLLED, false, actionMovTo);
 
                 midleNodes.Add(islocallyControlled);
@@ -114,6 +123,24 @@ namespace RL
             }
 
         }
+
+        //public void PlayAnimation(string animName, LeafNode caller)
+        //{
+        //    if (Animator == null)
+        //        return;
+
+        //    currentRunningLeaf = caller;
+        //    Animator.Play(animName);
+        //}
+
+        //public void OnAnimationEnd(AnimatorStateInfo info)
+        //{
+        //    if (currentRunningLeaf == null)
+        //        return;
+
+        //    currentRunningLeaf.OnAnimationEnd();
+        //    currentRunningLeaf = null;
+        //}
     }
 }
 

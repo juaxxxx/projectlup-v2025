@@ -33,6 +33,7 @@ namespace RL
                     case NodeState.Success:
                         continue;
 
+                    case NodeState.None:
                     default:
                         CallWrontState();
                         currWorkingNodeIndex = 0;

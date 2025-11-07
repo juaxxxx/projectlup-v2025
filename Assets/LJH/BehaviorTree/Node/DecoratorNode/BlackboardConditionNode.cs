@@ -20,10 +20,10 @@ namespace RL
 
     public class BlackboardConditionNode : DecoratorNode
     {
-        BlackBoar currBlackBoard;
+        BlackBoard currBlackBoard;
         ConditionCheckEnum evaluateCondition = ConditionCheckEnum.None;
         bool whishCondition = false;
-        public BlackboardConditionNode(BlackBoar targetBlackBoard, ConditionCheckEnum evaluatedCondition, bool WhishCondition , Node decoratedNode) : base(decoratedNode)
+        public BlackboardConditionNode(BlackBoard targetBlackBoard, ConditionCheckEnum evaluatedCondition, bool WhishCondition , Node decoratedNode) : base(decoratedNode)
         {
             //if (targetBlackBoard is EnemyBlackBoard)
             //{

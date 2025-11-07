@@ -6,7 +6,7 @@ namespace RL
     {
 
 
-        protected NodeState nodeState;
+        protected NodeState nodeState = NodeState.None;
         public abstract NodeState Evaluate();
 
 

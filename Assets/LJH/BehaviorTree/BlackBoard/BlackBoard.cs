@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace RL
 {
-    public abstract class BlackBoar : MonoBehaviour
+    public abstract class BlackBoard : MonoBehaviour
     {
         public bool Alive = true;
 

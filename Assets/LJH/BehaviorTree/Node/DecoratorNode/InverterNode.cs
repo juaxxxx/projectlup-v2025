@@ -20,6 +20,7 @@ namespace RL
                 case NodeState.Success:
                     return NodeState.Fail;
 
+                case NodeState.None:
                 default:
                     CallWrontState();
                     return NodeState.Fail;

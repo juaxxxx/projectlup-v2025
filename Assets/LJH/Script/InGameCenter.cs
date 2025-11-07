@@ -10,6 +10,9 @@ namespace RL
 {
     public class InGameCenter : MonoBehaviour
     {
+        [Header("레벨데이터")]
+        public LevelDataTable levelTable;
+
         [SerializeField]
         private GameObject mainCanvas;
 
@@ -141,11 +144,6 @@ namespace RL
 
         void InitInGameUIElement()
         {
-            if (mainCanvas == null)
-            {
-                GameObject obj = GameObject.FindWithTag("InGame_MainCanvas");
-            }
-
             {
                 //gameResultPanel = GameObject.FindWithTag("InGame_GameResultPanel");
                 //if (gameResultPanel == null)
@@ -247,9 +245,6 @@ namespace RL
         {
             Debug.Log("클리어 버튼");
             gameResultPanel.SetActive(true);
-
-            DynamicJoystick joysitck = mainCanvas.GetComponentInChildren<DynamicJoystick>();
-            joysitck.gameObject.SetActive(false);
 
             ShowGameResult();
 

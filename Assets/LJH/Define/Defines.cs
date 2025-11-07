@@ -19,8 +19,8 @@ namespace Roguelike.Define
 
     public static class RoguelikeScene
     {
-        public const string LobbyScene = "LobbyScene";
-        public const string GameScene = "InGameScene";
+        public const string LobbyScene = "RKLobbyScene";
+        public const string GameScene = "RKInGameScene";
         public const string ResultScene = "ResultScene";
     }
 

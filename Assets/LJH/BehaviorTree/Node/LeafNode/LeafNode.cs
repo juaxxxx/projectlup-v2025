@@ -4,10 +4,16 @@ namespace RL
 {
     public abstract class LeafNode : Node
     {
-        BlackBoar blackBoad;
+        protected BaseBehaviorTree behaviorTree;
+        protected BlackBoard blackBoard;
 
-        //protected abstract void startAction();
-        //protected abstract void endAction();
+        public LeafNode(BlackBoard blackBoard, BaseBehaviorTree behaviorTree)
+        {
+            this.blackBoard = blackBoard;
+            this.behaviorTree = behaviorTree;
+        }
+
+        public abstract void OnAnimationEnd();
     }
 }
 

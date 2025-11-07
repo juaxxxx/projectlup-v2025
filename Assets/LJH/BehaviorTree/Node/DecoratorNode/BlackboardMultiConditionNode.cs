@@ -11,10 +11,10 @@ namespace RL
 
     public class BlackboardMultiConditionNode : DecoratorNode
     {
-        private readonly BlackBoar currBlackBoard;
+        private readonly BlackBoard currBlackBoard;
         private readonly List<(ConditionCheckEnum condition, bool whishConditions)> conditionList;
 
-        public BlackboardMultiConditionNode(BlackBoar targetBlackBoard, List<(ConditionCheckEnum, bool)> conditions, Node decoratedNode) : base(decoratedNode)
+        public BlackboardMultiConditionNode(BlackBoard targetBlackBoard, List<(ConditionCheckEnum, bool)> conditions, Node decoratedNode) : base(decoratedNode)
         {
             currBlackBoard = targetBlackBoard;
             conditionList = conditions;

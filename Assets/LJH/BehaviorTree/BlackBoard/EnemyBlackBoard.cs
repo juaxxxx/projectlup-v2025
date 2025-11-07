@@ -2,8 +2,9 @@ using UnityEngine;
 
 namespace RL
 {
-    public class EnemyBlackBoard : BlackBoar
+    public class EnemyBlackBoard : BlackBoard
     {
+        //따로 추가할 요소 있으면 넣어
         //public bool Alive { get; set; } = true;
 
         //public bool isLocallyControlled { get; set; } = false;

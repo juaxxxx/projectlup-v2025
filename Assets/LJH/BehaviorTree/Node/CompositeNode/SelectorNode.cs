@@ -31,6 +31,8 @@ namespace RL
 
                     case NodeState.Fail:
                         continue;
+
+                    case NodeState.None:
                     default:
                         CallWrontState();
                         currWorkingNodeIndex = 0;
