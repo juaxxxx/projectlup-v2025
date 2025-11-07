@@ -6,6 +6,7 @@ namespace RL
     {
         public override NodeState Evaluate()
         {
+            UnityEngine.Debug.Log("Action MoveTo");
             return NodeState.Success;
         }
     }

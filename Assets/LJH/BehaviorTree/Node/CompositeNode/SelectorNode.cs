@@ -30,7 +30,7 @@ namespace RL
                         return NodeState.Running;
 
                     case NodeState.Fail:
-                        break;
+                        continue;
                     default:
                         CallWrontState();
                         currWorkingNodeIndex = 0;

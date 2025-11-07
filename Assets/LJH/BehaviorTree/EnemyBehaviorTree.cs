@@ -40,21 +40,29 @@ namespace RL
             {
                 List<Node> childList = new List<Node>();
 
-                ActionHitted actionHitted = new ActionHitted();
-
-                BlackboardConditionNode isAttackState = new BlackboardConditionNode(enemyBlackBoard, ConditionCheckEnum.INATKSTATE, false, actionHitted);
-                BlackboardConditionNode isRampagesTATE = new BlackboardConditionNode(enemyBlackBoard, ConditionCheckEnum.INRAMPAGE, false, actionHitted);
-
                 ReduceHP reduceHP = new ReduceHP();
 
+                ActionHitted actionHitted = new ActionHitted();
 
-                childList.Add(isAttackState);
-                childList.Add(isRampagesTATE);
+                //BlackboardConditionNode isAttackState = new BlackboardConditionNode(enemyBlackBoard, ConditionCheckEnum.INATKSTATE, false, actionHitted);
+                //BlackboardConditionNode isRampagesTATE = new BlackboardConditionNode(enemyBlackBoard, ConditionCheckEnum.INRAMPAGE, false, actionHitted);
+
+                List<(ConditionCheckEnum, bool)> whishConditions = new()
+                {
+                    (ConditionCheckEnum.INATKSTATE, false),
+                    (ConditionCheckEnum.INRAMPAGE, false)
+                };
+
+                BlackboardMultiConditionNode inAttack_InRampage = new BlackboardMultiConditionNode(enemyBlackBoard, whishConditions, actionHitted);
+
+
+
                 childList.Add(reduceHP);
+                childList.Add(inAttack_InRampage);
 
 
                 SequenceNode atkSequenceNode = new SequenceNode(childList);
-                BlackboardConditionNode isHitted = new BlackboardConditionNode(enemyBlackBoard, ConditionCheckEnum.INHITTEDSTATE, true, atkSequenceNode);
+                BlackboardConditionNode isHitted = new BlackboardConditionNode(enemyBlackBoard, ConditionCheckEnum.OnHit, true, atkSequenceNode);
 
 
                 midleNodes.Add(isHitted);
@@ -65,7 +73,7 @@ namespace RL
                 List<Node> childList = new List<Node>();
 
                 Wait wait = new Wait();
-                BlackboardConditionNode isAtkCollTime = new BlackboardConditionNode(enemyBlackBoard, ConditionCheckEnum.INATKREADY, true, wait);
+                BlackboardConditionNode isAtkCollTime = new BlackboardConditionNode(enemyBlackBoard, ConditionCheckEnum.INREADYTOATK, false, wait);
 
                 ActionAttack actionAttack = new ActionAttack();
                 BlackboardConditionNode isHitted = new BlackboardConditionNode(enemyBlackBoard, ConditionCheckEnum.INHITTEDSTATE, false, actionAttack);
@@ -74,7 +82,7 @@ namespace RL
                 childList.Add(actionAttack);
 
                 SelectorNode selectorNode = new SelectorNode(childList);
-                BlackboardConditionNode isTargetInAtkRange = new BlackboardConditionNode(enemyBlackBoard, ConditionCheckEnum.TARTINATKRANGE, false, actionAttack);
+                BlackboardConditionNode isTargetInAtkRange = new BlackboardConditionNode(enemyBlackBoard, ConditionCheckEnum.TargetINATKRANGE, true, selectorNode);
 
                 midleNodes.Add(isTargetInAtkRange);
             }
@@ -87,7 +95,7 @@ namespace RL
                 midleNodes.Add(islocallyControlled);
             }
 
-            totalChildNodes.Add(new SequenceNode(midleNodes));
+            totalChildNodes.Add(new SelectorNode(midleNodes));
 
             topCompositeNode = new SelectorNode(totalChildNodes);
 
@@ -100,11 +108,11 @@ namespace RL
             if (enemyBlackBoard.Alive == false)
                 return;
 
-            if(rootnode != null)
+            if (rootnode != null)
             {
                 rootnode.Evaluate();
             }
-            
+
         }
     }
 }

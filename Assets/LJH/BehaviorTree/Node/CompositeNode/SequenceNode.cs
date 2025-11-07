@@ -31,18 +31,7 @@ namespace RL
                         return NodeState.Running;
 
                     case NodeState.Success:
-                        {
-                            if (childListNodes[i] is DecoratorNode)
-                            {
-                                //(DecoratorNode)(childListNodes[i])->
-                            }
-
-                            else
-                            {
-                                continue;
-                            }
-                        }
-                        break;
+                        continue;
 
                     default:
                         CallWrontState();

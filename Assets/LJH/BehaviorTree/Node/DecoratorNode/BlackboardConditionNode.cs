@@ -5,11 +5,13 @@ namespace RL
     public enum ConditionCheckEnum
     {
         None,
+
         ISALIVE,
+
         INREADYTOATK,
-        TARTINATKRANGE,
-        INATKREADY,
+        TargetINATKRANGE,
         INATKSTATE,
+        OnHit,
         INHITTEDSTATE,
         INRAMPAGE,
         HASTARGET,
@@ -18,10 +20,10 @@ namespace RL
 
     public class BlackboardConditionNode : DecoratorNode
     {
-        IBlackBoardAble currBlackBoard;
+        BlackBoar currBlackBoard;
         ConditionCheckEnum evaluateCondition = ConditionCheckEnum.None;
         bool whishCondition = false;
-        public BlackboardConditionNode(IBlackBoardAble targetBlackBoard, ConditionCheckEnum evaluatedCondition, bool WhishCondition , Node decoratedNode) : base(decoratedNode)
+        public BlackboardConditionNode(BlackBoar targetBlackBoard, ConditionCheckEnum evaluatedCondition, bool WhishCondition , Node decoratedNode) : base(decoratedNode)
         {
             //if (targetBlackBoard is EnemyBlackBoard)
             //{
@@ -43,27 +45,32 @@ namespace RL
                 case ConditionCheckEnum.ISALIVE:
                     TargetCondition = currBlackBoard.Alive;
                     break;
+
                 case ConditionCheckEnum.INREADYTOATK:
-                    TargetCondition = currBlackBoard.CanAtk;
+                    TargetCondition = currBlackBoard.AtkCollTime <= 0;
                     break;
                 case ConditionCheckEnum.INATKSTATE:
-                    TargetCondition = currBlackBoard.OnAtk;
+                    TargetCondition = currBlackBoard.InAtkState;
                     break;
+
                 case ConditionCheckEnum.INHITTEDSTATE:
-                    TargetCondition = currBlackBoard.OnHitted;
+                    TargetCondition = currBlackBoard.InHittedState;
                     break;
                 case ConditionCheckEnum.INRAMPAGE:
                     TargetCondition = currBlackBoard.OnRampage;
                     break;
+
+
+                case ConditionCheckEnum.OnHit:
+                    TargetCondition = currBlackBoard.OnHitted;
+                    break;
                 case ConditionCheckEnum.HASTARGET:
                     TargetCondition = currBlackBoard.HasTarget;
                     break;
-                case ConditionCheckEnum.INATKREADY:
-                    TargetCondition = currBlackBoard.AtkCollTime > 0;
-                    break;
-                case ConditionCheckEnum.TARTINATKRANGE:
+                case ConditionCheckEnum.TargetINATKRANGE:
                     TargetCondition = currBlackBoard.AtkRange > currBlackBoard.TargetDistance;
                     break;
+
                 case ConditionCheckEnum.ISLOCALLYCONTROLLED:
                     TargetCondition = currBlackBoard.isLocallyControlled;
                     break;
@@ -71,7 +78,7 @@ namespace RL
             }
 
             if (TargetCondition == whishCondition)
-                return NodeState.Success;
+                return targetNode.Evaluate();
 
             else
                 return NodeState.Fail;
