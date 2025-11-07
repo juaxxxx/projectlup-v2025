@@ -12,18 +12,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 35dc64dfe6fe68545990a9314dccc0b4, type: 3}
   m_Name: TeamMVPData
   m_EditorClassIdentifier: 
-  char1Score: 100
+  battleResult: Defeat
+  char1Score: 154
   char2Score: 100
-  char3Score: 80
-  char4Score: 77
-  char5Score: 0
-  char1Name: Test9
-  char2Name: Test10
-  char3Name: Test8
-  char4Name: Test7
-  char5Name: 
-  char1Color: {r: 1, g: 1, b: 1, a: 1}
-  char2Color: {r: 1, g: 1, b: 0, a: 1}
-  char3Color: {r: 1, g: 0, b: 0, a: 1}
-  char4Color: {r: 0.55291617, g: 0.39215684, b: 0.78431374, a: 1}
-  char5Color: {r: 0, g: 0, b: 0, a: 1}
+  char3Score: 100
+  char4Score: 80
+  char5Score: 66
+  char1Name: Test7
+  char2Name: Test1
+  char3Name: Test2
+  char4Name: Test6
+  char5Name: Test4
+  char1Color: {r: 0.55291617, g: 0.39215684, b: 0.78431374, a: 1}
+  char2Color: {r: 0, g: 0, b: 0, a: 1}
+  char3Color: {r: 0, g: 0, b: 1, a: 1}
+  char4Color: {r: 1, g: 0, b: 1, a: 1}
+  char5Color: {r: 0, g: 1, b: 0, a: 1}
+  char1Prefab: {fileID: 8606755148461151098, guid: bf3896d80b06b09488a4c98cd6d5d851, type: 3}
+  char2Prefab: {fileID: 8606755148461151098, guid: bf3896d80b06b09488a4c98cd6d5d851, type: 3}
+  char3Prefab: {fileID: 8606755148461151098, guid: bf3896d80b06b09488a4c98cd6d5d851, type: 3}
+  char4Prefab: {fileID: 8606755148461151098, guid: bf3896d80b06b09488a4c98cd6d5d851, type: 3}
+  char5Prefab: {fileID: 8606755148461151098, guid: bf3896d80b06b09488a4c98cd6d5d851, type: 3}

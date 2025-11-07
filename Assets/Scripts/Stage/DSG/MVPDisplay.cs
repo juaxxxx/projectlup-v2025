@@ -1,18 +1,19 @@
 ﻿using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-using DSG;
-public class MVPDisplay : MonoBehaviour
+
+namespace DSG
 {
-    private DataCenter dataCenter;
-
-    void Start()
+    public class MVPDisplay : MonoBehaviour
     {
-        dataCenter = FindFirstObjectByType<DataCenter>();
-        if (dataCenter == null || dataCenter.mvpData == null)
-            return;
+        private DataCenter dataCenter;
+        void Start()
+        {
+            dataCenter = FindFirstObjectByType<DataCenter>();
+            if (dataCenter == null || dataCenter.mvpData == null)
+                return;
 
-        var mvp = dataCenter.mvpData;
+            var mvp = dataCenter.mvpData;
 
             TMP_Text resultText = transform.Find("Text_Result")?.GetComponent<TMP_Text>();
             if (resultText != null)
@@ -103,11 +104,5 @@ public class MVPDisplay : MonoBehaviour
 
             viewer.ShowMVPModel(mvp.char1Prefab);
         }
-
-
-  
-
- 
     }
 }
-
