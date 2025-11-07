@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 
 namespace PCR
@@ -26,17 +27,22 @@ namespace PCR
                 // 바닥과 충돌 검사
                 if (Physics.Raycast(ray, out RaycastHit hit))
                 {
-                    ANode startNode = gridMap.GetNodeFromWorldPosition(transform.position);
-                    ANode targetNode = gridMap.GetNodeFromWorldPosition(hit.point);
-
-                    path = pathfinder.FindPath(startNode, targetNode);
-                    gridMap.pathToDraw = path; // 경로 시각화용
-                    currentIndex = 0;
+                    FindPath(hit);
                 }
             }
-
             MoveAlongPath();
         }
+
+        void FindPath(RaycastHit hit)
+        {
+            ANode startNode = gridMap.GetNodeFromWorldPosition(transform.position);
+            ANode targetNode = gridMap.GetNodeFromWorldPosition(hit.point);
+            path = pathfinder.FindPath(startNode, targetNode);
+
+            gridMap.pathToDraw = path; // 경로 시각화용
+            currentIndex = 0;
+        }
+
 
         void MoveAlongPath()
         {

@@ -1,36 +1,29 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-
-public sealed class SelectorNode : INode
+namespace PCR
 {
-    List<INode> childList;
-
-    public SelectorNode(List<INode> childs)
+    public sealed class SelectorNode : BTNode
     {
-        childList = childs;
-    }
+        List<BTNode> children;
+        public SelectorNode(List<BTNode> nodes) { children = nodes; }
 
-    // Selector Node는 자식 노드 중에서 처음으로 Success 나 Running 상태를 가진 노드가 발생하면 그 노드까지 진행하고 멈춤
-    // 자식 상태: Failure일 때 -> 다음 자식으로 이동
-    public INode.WorkerNodeState Evaluate()
-    {
-        if (childList == null)
-            return INode.WorkerNodeState.WNS_FAILURE;
-
-        foreach (var child in childList)
+        public override BTNode.WorkerNodeState Evaluate()
         {
-            switch (child.Evaluate())
+            foreach (BTNode child in children)
             {
-                case INode.WorkerNodeState.WNS_RUNNING:
-                    return INode.WorkerNodeState.WNS_RUNNING;
-                case INode.WorkerNodeState.WNS_SUCESS:
-                    return INode.WorkerNodeState.WNS_SUCESS;
-            
-            }
+                WorkerNodeState result = child.Evaluate();
+                switch (result)
+                {
+                    case BTNode.WorkerNodeState.RUNNING:
+                        return BTNode.WorkerNodeState.RUNNING;
+                    case BTNode.WorkerNodeState.SUCCESS:
+                        return BTNode.WorkerNodeState.SUCCESS;
 
+                }
+            }
+            return WorkerNodeState.FAILURE;
         }
-       return INode.WorkerNodeState.WNS_FAILURE;
     }
-    
+
 }

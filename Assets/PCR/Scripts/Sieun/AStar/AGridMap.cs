@@ -1,11 +1,9 @@
 using UnityEngine;
-
 using System.Collections.Generic;
 
 
 
 namespace PCR
-
 {
 
     public class AGridMap : MonoBehaviour
