@@ -57,8 +57,8 @@ namespace Manager
 
         protected override void GetDatas()
         {
-            StaticData = base.GetStaticData(this);
-            RuntimeData = base.GetRuntimeData(this);
+            StaticData = base.GetStaticData(this,(int)Define.DeckStrategyStageKind.Lobby);
+            RuntimeData = base.GetRuntimeData(this, (int)Define.DeckStrategyStageKind.Lobby);
         }
 
         protected override void SaveDatas()

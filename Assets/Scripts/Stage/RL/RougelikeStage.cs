@@ -59,8 +59,8 @@ namespace Manager
 
         protected override void GetDatas()
         {
-            StaticData = base.GetStaticData(this);
-            RuntimeData = base.GetRuntimeData(this);
+            StaticData = base.GetStaticData(this, (int)Define.RoguelikeStageKind.Lobby);
+            RuntimeData = base.GetRuntimeData(this, (int)Define.RoguelikeStageKind.Lobby);
         }
 
         protected override void SaveDatas()

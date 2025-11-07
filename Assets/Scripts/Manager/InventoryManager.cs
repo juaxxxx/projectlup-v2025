@@ -8,7 +8,7 @@ namespace Manager
     public class InventoryManager : Singleton<InventoryManager>
     {
         [Header("아이템 데이터베이스")]
-        [SerializeField] private string itemDatabasePath = "Items"; // Resources 폴더 경로
+        [SerializeField] private string itemDatabasePath = "Data"; // Resources 폴더 경로
 
         // 게임별 설정
         private Framework.IGameInventoryConfig gameConfig;
