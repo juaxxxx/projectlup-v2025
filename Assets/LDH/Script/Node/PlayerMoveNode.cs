@@ -15,17 +15,22 @@ namespace LUP.RL
 
         public override NodeState Evaluate()
         {
-            // 입력값 받기
             float h = joystick.fixedJoystick.Horizontal;
             float v = joystick.fixedJoystick.Vertical;
-
-            // 입력이 없으면 이동하지 않음
-            if (h < 0f && v < 0f)
-                return NodeState.Fail;
-            Debug.Log("움직임");
+            if (Mathf.Abs(h) < 0.05f && Mathf.Abs(v) < 0.05f)
+            {
+                bb.Move.isMoving = false;
+                return NodeState.Fail;  
+            }
+            else
+            {
+                bb.Move.MoveByJoystick(h, v);
+                bb.Move.isMoving = true;
+                return NodeState.Running;  
+            }
             // 실제 이동 수행
-            bb.Move.MoveByJoystick(h, v);
-            return NodeState.Running;
+            //bb.Move.MoveByJoystick(h, v);
+            //return NodeState.Running;
         }
     }
 }

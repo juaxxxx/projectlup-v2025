@@ -8,13 +8,16 @@ namespace LUP.RL
         private Node root;
         [SerializeField] private PlayerBlackBoard bb;
         [SerializeField] private JoyStickSC joystick;
-        [SerializeField] private Archer playerArcher;
+        //[SerializeField] private Archer playerArcher;
+        //[SerializeField] private PlayerMove move;
+        //[SerializeField] private PlayerArrowShooter move;
         private void Awake()
         {
             if (bb == null) bb = new PlayerBlackBoard();
+            bb.Initialize(gameObject);
             if (joystick == null) joystick = FindFirstObjectByType<JoyStickSC>();
-            bb.Health = playerArcher;
-     
+
+
             BuildTree();
         }
 
@@ -30,7 +33,7 @@ namespace LUP.RL
 
             // 青悼 飘府 备己
 
-            var actionSelector = new SelectorNode(new List<Node> { attackNode, moveNode });
+            var actionSelector = new SelectorNode(new List<Node> {  moveNode, attackNode });
             var mainSequence = new SequenceNode(new List<Node> { isAlive, isHitted, actionSelector });
 
             root = mainSequence;
@@ -38,7 +41,7 @@ namespace LUP.RL
 
         private void Update()
         {
-            root?.Evaluate();
+                root.Evaluate();
         }
     }
 }

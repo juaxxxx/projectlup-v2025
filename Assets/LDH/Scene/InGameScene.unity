@@ -199,7 +199,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2549898058626967627, guid: 2960b4d69b8686448b9a6cfb9b5ae05c, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.94
+      value: 1.5
       objectReference: {fileID: 0}
     - target: {fileID: 2549898058626967627, guid: 2960b4d69b8686448b9a6cfb9b5ae05c, type: 3}
       propertyPath: m_LocalPosition.z
@@ -232,6 +232,10 @@ PrefabInstance:
     - target: {fileID: 2549898058626967627, guid: 2960b4d69b8686448b9a6cfb9b5ae05c, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6970792532723173654, guid: 2960b4d69b8686448b9a6cfb9b5ae05c, type: 3}
+      propertyPath: EnemyStats.Hp
+      value: 1000
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1310,6 +1314,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 534135434087159019, guid: 02aae3aa3d7b7da498d285233a564ce2, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1242295387}
+    - targetCorrespondingSourceObject: {fileID: 534135434087159019, guid: 02aae3aa3d7b7da498d285233a564ce2, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1242295388}
   m_SourcePrefab: {fileID: 100100000, guid: 02aae3aa3d7b7da498d285233a564ce2, type: 3}
 --- !u!1 &1239575751 stripped
 GameObject:
@@ -1362,11 +1369,23 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   arrowPrefab: {fileID: 8646999651821705201, guid: 6a6aa7f8c0221584a9509c8bf1f3ad08, type: 3}
   spawnPoint: {fileID: 888571931}
-  enemyTarget: {fileID: 2549898058626967627, guid: 2960b4d69b8686448b9a6cfb9b5ae05c, type: 3}
   fireDelay: 1
   arrowSpeed: 10
   archer: {fileID: 1242295381}
   currentRoom: {fileID: 401549931}
+--- !u!114 &1242295388
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1239575751}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8dd3758a76afa0e41aa66c0759e7cfa2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  joystick: {fileID: 1119547936}
 --- !u!1 &1247192369
 GameObject:
   m_ObjectHideFlags: 0

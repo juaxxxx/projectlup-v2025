@@ -11,7 +11,18 @@ namespace LUP.RL
         }
         public override NodeState Evaluate()
         {
-            return bb.isAlive ? NodeState.Success : NodeState.Fail;
+            if(bb.isAlive)
+            {
+              
+                return NodeState.Success;
+                
+            }
+            else
+            {
+           
+                return NodeState.Fail;
+            }
+     
         }
     }
 
@@ -33,6 +44,7 @@ namespace LUP.RL
             // 피격 중일 때
             if (bb.OnHit)
             {
+                Debug.Log("피격");
                 // 처음 피격 시에만 감속 적용
                 if (!speedReduced)
                 {
@@ -50,12 +62,13 @@ namespace LUP.RL
                     bb.OnHit = false;
                     speedReduced = false;
                     timer = 0f;
+                    return NodeState.Success;
                 }
 
                 return NodeState.Running; // 감속 중
             }
 
-            return NodeState.Fail;
+            return NodeState.Success;
         }
     }
 

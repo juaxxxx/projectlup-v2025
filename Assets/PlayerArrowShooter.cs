@@ -8,9 +8,10 @@ namespace LUP.RL
         //  화살 프리팹
         public GameObject arrowPrefab;
         //발사 위치
+        [Header("SpawnPoint 할당")]
         public Transform spawnPoint;
         // 적 위치
-        public Transform enemyTarget;
+        private Transform enemyTarget;
         //발사  속도
         public float fireDelay = 2f;
         public float arrowSpeed = 10f;
@@ -29,13 +30,25 @@ namespace LUP.RL
         }
         public void ShootArrow()
         {
+            spawnPoint.rotation = Quaternion.LookRotation(transform.forward);
             Enemy targetEnemy = FindClosestEnemy();
-           
-            if (targetEnemy == null) return;
-            Debug.Log("화살생성");
+
+            Vector3 fireDir;
+            if (targetEnemy != null)
+                fireDir = (targetEnemy.transform.position - transform.position).normalized;
+            else
+                fireDir = transform.forward;
+
+            fireDir.y = 0f;
+            if (fireDir.sqrMagnitude > 0.01f)
+            {
+                Quaternion lookRot = Quaternion.LookRotation(fireDir);
+                transform.rotation = Quaternion.Slerp(transform.rotation, lookRot, 1.5f);
+            }
+
             Transform targetTransform = targetEnemy ? targetEnemy.transform : null;
             //   화살생성
-            GameObject arrow = Instantiate(arrowPrefab, spawnPoint.position, spawnPoint.rotation);
+            GameObject arrow = Instantiate(arrowPrefab, spawnPoint.position, Quaternion.LookRotation(fireDir));
 
             // 값전달  
             HomingArrow homing = arrow.GetComponent<HomingArrow>();
