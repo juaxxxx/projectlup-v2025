@@ -19,7 +19,7 @@ public class BuildPreview : MonoBehaviour
 
     private void Awake()
     {
-        buildingPlacementRules = gameObject.AddComponent<BuildingPlacementRules>();
+        buildingPlacementRules = GetComponent<BuildingPlacementRules>();
     }
 
     private void Start()
@@ -37,7 +37,6 @@ public class BuildPreview : MonoBehaviour
 
     public void ResetPreview()
     {
-        canBuild = false;
         currPreview.SetActive(false);
     }
 

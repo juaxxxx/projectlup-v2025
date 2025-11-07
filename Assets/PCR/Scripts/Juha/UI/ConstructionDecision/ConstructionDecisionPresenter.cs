@@ -13,10 +13,17 @@ public class ConstructionDecisionPresenter
         this.model = model;
         this.mainPresenter = mainPresenter;
 
-        view.OnClickReject += HandleCancelConstruct;
+        view.OnClickAccept += HandleStartConstruction;
+        view.OnClickReject += HandleCancelConstruction;
     }
 
-    private void HandleCancelConstruct()
+    private void HandleCancelConstruction()
+    {
+        view.Hide();
+        mainPresenter.Show();
+    }
+
+    private void HandleStartConstruction()
     {
         view.Hide();
         mainPresenter.Show();
@@ -30,6 +37,11 @@ public class ConstructionDecisionPresenter
     public void Hide()
     {
         view.Hide();
+    }
+
+    public void BindActionAccept(Action action)
+    {
+        view.OnClickAccept += action;
     }
 
     public void BindActionReject(Action action)

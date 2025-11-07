@@ -6,26 +6,23 @@ public class TileMap : MonoBehaviour
 {
     int gridWidth = 5;
     int gridHeight = 5;
-    int tileMapWidth = 10;
-    int tileMapHeight = 10;
+    int tileMapWidth = 28;
+    int tileMapHeight = 15;
 
-    // 해당 위치 타일 정보
     [SerializeField]
     private GameObject tilePrefab;
 
-    // �׽�Ʈ�� �����յ�
     [SerializeField]
     private GameObject dustPrefab;
 
     public Tile[,] tiles;
 
-    // �׽�Ʈ��
     public void InitializeTileMap()
     {
         tiles = new Tile[tileMapWidth, tileMapHeight];
-        for (int i = 0; i< 10; i++)
+        for (int i = 0; i< tileMapWidth; i++)
         {
-            for (int j = 0; j < 10; j++)
+            for (int j = 0; j < tileMapHeight; j++)
             {
                 if (tilePrefab)
                 {
@@ -42,7 +39,6 @@ public class TileMap : MonoBehaviour
 
     public void UpdateAllDigWallPreview(DigWallPreview digWallPreview)
     {
-        // �׽�Ʈ��: ���� ������ �μ� �� �ִ� ���� �ƴ� ���� ����
         foreach (Tile tile in tiles)
         {
             if (tile.tileInfo.tileType == TileType.WALL)

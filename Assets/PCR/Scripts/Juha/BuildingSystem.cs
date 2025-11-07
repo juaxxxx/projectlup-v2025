@@ -1,6 +1,6 @@
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using System.Collections.Generic;
 
 public class BuildingSystem : MonoBehaviour
 {
@@ -9,6 +9,8 @@ public class BuildingSystem : MonoBehaviour
     private TileMap tileMap;
 
     private DigWallPreview digWallPreview;
+
+    public Dictionary<int, BuildingBase> buildings;
 
     private void Awake()
     {

@@ -10,17 +10,10 @@ public class BuildingState : ITaskState
     private TaskController taskController;
     private BuildPreview buildPreview;
 
-    private BuildingType currBuildingType;
-
     public BuildingState(TaskController controller, BuildPreview buildPreview)
     {
         taskController = controller;
         this.buildPreview = buildPreview;
-        currBuildingType = BuildingType.NONE;
-    }
-
-    private void Start()
-    {
     }
 
     public void InputHandle()
@@ -49,13 +42,13 @@ public class BuildingState : ITaskState
                 {
                     taskController.UpdateLastClickTile(tile);
 
-                    if (currBuildingType == BuildingType.NONE)
+                    if (taskController.currSelectedBuildingType == BuildingType.NONE)
                     {
                         Debug.Log("Current BuildingType is NONE.");
                     }
 
-                    buildPreview.ChangePreview(currBuildingType);
-                    buildPreview.UpdatePreview(currBuildingType, taskController.lastClickTile);
+                    buildPreview.ChangePreview(taskController.currSelectedBuildingType);
+                    buildPreview.UpdatePreview(taskController.currSelectedBuildingType, taskController.lastClickTile);
 
                     return;
                 }
@@ -75,14 +68,14 @@ public class BuildingState : ITaskState
     {
         Debug.Log("Building State Open");
 
-        if (currBuildingType == BuildingType.NONE)
+        if (taskController.currSelectedBuildingType == BuildingType.NONE)
         {
             Debug.Log("currBuildingType is NONE");
             return;
         }
-        buildPreview.ChangePreview(currBuildingType);
+        buildPreview.ChangePreview(taskController.currSelectedBuildingType);
 
-        buildPreview.UpdatePreview(currBuildingType, taskController.lastClickTile);
+        buildPreview.UpdatePreview(taskController.currSelectedBuildingType, taskController.lastClickTile);
     }
 
     public void Close()
@@ -91,17 +84,4 @@ public class BuildingState : ITaskState
         buildPreview.ResetPreview();
     }
 
-    public void Build(BuildingType type)
-    {
-        switch(type)
-        {
-            case BuildingType.WHEATFARM:
-                break;
-        }
-    }
-
-    public void SetCurrBuildingType(BuildingType type)
-    {
-        currBuildingType = type;
-    }
 }

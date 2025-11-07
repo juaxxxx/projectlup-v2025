@@ -8,7 +8,7 @@ public interface IFarmTaskUIView
     event Action OnClickWorker;
     event Action OnClickUpgrade;
     event Action OnClickBack;
-
+    event Action<FarmUIBtnType> OnChangeTask;
 
     void Show();
     void Hide();

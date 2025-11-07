@@ -14,6 +14,7 @@ public class FarmTaskUIPresenter
         this.mainPresenter = mainPresenter;
 
         view.OnClickBack += HandleBackClick;
+
     }
 
     private void HandleBackClick()

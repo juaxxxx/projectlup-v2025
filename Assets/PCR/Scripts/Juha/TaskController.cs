@@ -52,7 +52,6 @@ public class TaskController : MonoBehaviour
         Trasition(idleState);
 
         currSelectedBuildingType = BuildingType.NONE;
-
     }
 
     private void Update()
@@ -103,9 +102,17 @@ public class TaskController : MonoBehaviour
         currSelectedBuildingType = buildingType;
     }
 
-    public void CreateBuilding(BuildingType type, Vector3 pos)
+    public void CreateBuilding()
     {
-        switch(type)
+        if (buildPreview.canBuild == false)
+        {
+            Debug.Log("Can't build");
+            return;
+        }
+
+        Vector3 pos = lastClickTile.gameObject.transform.position;
+
+        switch (currSelectedBuildingType)
         {
             case BuildingType.WHEATFARM:
                 Instantiate(wheatFarmPrefab, pos, Quaternion.identity);
@@ -132,12 +139,6 @@ public class TaskController : MonoBehaviour
 
         uiCenter.InitUI(this);
 
-    }
-
-    public void SetBuildingType(BuildingType type)
-    {
-        BuildingState state = buildingState as BuildingState;
-        state?.SetCurrBuildingType(type);
     }
 
     public void ReturnToIdleState()

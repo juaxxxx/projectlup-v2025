@@ -5,7 +5,7 @@ public class BuildingPlacementRules : MonoBehaviour
 {
     PlacementRules placementRules;
 
-    private void Start()
+    private void Awake()
     {
         placementRules = gameObject.AddComponent<PlacementRules>();
     }

@@ -59,7 +59,7 @@ public class BuildingWheatFarm : ProductableBuilding
         // 다음에는 저장된 데이터를 받아와서 갱신해준다.
         level = 0;
         currStorage = 0;
-        buildingName = "밀 농장";
+        buildingName = "WheatFarm";
 
         if (level >= 0 && level < productableBuildingData.constructionData.Length)
         {

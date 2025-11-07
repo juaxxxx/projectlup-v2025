@@ -52,11 +52,13 @@ public class PCRUICenter : MonoBehaviour
         mainPresenter.BindActionConstruct(taskController.SetIdleActiveTrue);
 
 
-        selectConstructPresenter.BindActionBuildingType(taskController.SetBuildingType);
+        selectConstructPresenter.BindActionBuildingType(taskController.SetCurrSelectedBuildingType);
         selectConstructPresenter.BindActionBack(taskController.IdleTask);
         selectConstructPresenter.BindActionSelectedBuilding(taskController.BuildingTask);
 
         constructionDecisionPresenter.BindActionReject(taskController.IdleTask);
+        constructionDecisionPresenter.BindActionAccept(taskController.IdleTask);
+        constructionDecisionPresenter.BindActionAccept(taskController.CreateBuilding);
     }
     
     // 건설 건물 선택 시 공통 이벤트
