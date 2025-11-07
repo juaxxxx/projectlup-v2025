@@ -12,10 +12,8 @@ namespace DSG
         private Character owner;
 
         public float currHp;
-        public float maxHp;
-        public float attack;
-        public float defense;
-        public float speed;
+        public float maxSkillGauge { get; private set; }
+        public float currGauge = 0;
 
         public bool isAttacking = false;
 
@@ -41,6 +39,7 @@ namespace DSG
 
         public event Action<float> OnDamaged;
         public event Action<int> OnDie;
+        public event Action<float> OnChangeGauge;
 
         public event Action<ERangeType> OnAttackStarted;
         public event Action<bool> OnReachedTargetPos;
@@ -91,13 +90,17 @@ namespace DSG
                     {
                         if (!impactApplied)
                         {
-                            // °ø°Ý À§Ä¡·Î ÀÌµ¿ ¿Ï·á½Ã
+                            // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ä¡ï¿½ï¿½ ï¿½Ìµï¿½ ï¿½Ï·ï¿½ï¿½
                             OnReachedTargetPos?.Invoke(true);
-                            // °ø°Ý ¾Ö´Ï¸ÞÀÌ¼Ç ½ÇÇà 
+                            // ï¿½ï¿½ï¿½ï¿½ ï¿½Ö´Ï¸ï¿½ï¿½Ì¼ï¿½ ï¿½ï¿½ï¿½ï¿½ 
                             OnMeleeAttack?.Invoke();
-                            // °ø°Ý ¾Ö´Ï¸ÞÀÌ¼Ç Á¾·á½Ã
+                            // ï¿½ï¿½ï¿½ï¿½ ï¿½Ö´Ï¸ï¿½ï¿½Ì¼ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½
                             OnEndMelee?.Invoke();
                             ApplyDamageOnce();
+                            if (currGauge == maxSkillGauge)
+                            {
+                                currGauge = 0;
+                            }
                             impactApplied = true;
                         }
                         targetPosition = originPosition;
@@ -145,6 +148,7 @@ namespace DSG
             defense = data.defense;
             speed = data.speed;
             currHp = maxHp;
+            maxSkillGauge = 100;
         }
 
         public void Attack(LineupSlot target)
@@ -179,6 +183,8 @@ namespace DSG
             float damage = attack;
             targetChar.BattleComp.TakeDamage(damage);
             owner.ScoreComp.UpdateDamageDealt(damage);
+
+            PlusGuage(50);
         }
 
         public virtual void TakeDamage(float amount)
@@ -244,6 +250,12 @@ namespace DSG
         {
             OnDamaged = null;
             OnDie = null;
+        }
+
+        public void PlusGuage(float amount)
+        {
+            currGauge += amount;
+            OnChangeGauge?.Invoke(currGauge);
         }
     }
 }

@@ -27,7 +27,6 @@ namespace DSG
         public CharacterData characterData { get; private set; }
         public CharacterModelData characterModelData { get; private set; }
 
-        public float maxSkillGauge { get; private set; }
         public bool isEnemy = false;
         public int battleIndex = -1;
 

@@ -13,29 +13,10 @@ namespace DSG
         }
         public override void Apply(Character C)
         {
-            switch(operationType)
-            {
-                case EOperationType.Calm:
-                    {
-                        C.BattleComp.attack = amount; break;
-                    }
-                case EOperationType.Plus:
-                    {
-                        C.BattleComp.attack += amount; break;
-                    }
-                case EOperationType.Minus:
-                    {
-                        C.BattleComp.attack -= amount; break;
-                    }
-                case EOperationType.Multiply:
-                    {
-                        C.BattleComp.attack *= amount; break;
-                    }
-                case EOperationType.Division:
-                    {
-                        C.BattleComp.attack /= amount; break;
-                    }
-            }
+            float playerAttack = C.BattleComp.attack;
+            float result = 0;
+            Operation.TryEval(operationType, playerAttack, amount,out result);
+            C.BattleComp.attack = result;
         }
         public override void Turn(Character C) { }
         public override void Remove(Character C)

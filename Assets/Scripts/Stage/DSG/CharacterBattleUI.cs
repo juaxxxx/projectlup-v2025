@@ -49,10 +49,11 @@ namespace DSG
             healthSlider.maxValue = character.characterData.maxHp;
             healthSlider.value = character.characterData.maxHp;
 
-            gaugeSlider.maxValue = character.maxSkillGauge;
-            gaugeSlider.value = character.maxSkillGauge;
+            gaugeSlider.maxValue = character.BattleComp.maxSkillGauge;
+            gaugeSlider.value = 0;
 
             character.BattleComp.OnDamaged += HealthUpdate;
+            character.BattleComp.OnChangeGauge += GaugeUpdate;
 
             character.StatusEffectComp.OnEffectAdded = OnEffectAdded;
             character.StatusEffectComp.OnEffectRemoved = OnEffectRemoved;

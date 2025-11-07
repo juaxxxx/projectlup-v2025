@@ -154,6 +154,7 @@ namespace DSG
                 
                 Character character = battleSequence[i];
                 character.StatusEffectComp.TurnAll();
+                character.StatusEffectComp.ClearRemoveList();
 
                 if (!character.BattleComp.isAlive)
                 {

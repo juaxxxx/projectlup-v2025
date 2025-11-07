@@ -16,6 +16,7 @@ namespace DSG
         public Action<IStatusEffect> OnEffectRemoved;
 
         private readonly Dictionary<EStatusEffectType, IStatusEffect> _effects = new();
+        private readonly List<EStatusEffectType> _effectsRemoveList = new();
 
         private void Start()
         {
@@ -29,7 +30,10 @@ namespace DSG
             if (_effects.TryGetValue(effect.type, out IStatusEffect getEffect))
             {
                 getEffect.amount += effect.amount;  // 내부 값 수정
-                _effects[effect.type] = getEffect;  // 다시 저장
+                _effects[effect.type].amount = getEffect.amount;  // 다시 저장 이거 괜찮나
+
+                int Turn = Math.Max(getEffect.remainingTurns, effect.remainingTurns);
+                _effects[effect.type].remainingTurns = Turn;
             }
             else
             {
@@ -46,11 +50,21 @@ namespace DSG
                 effect.Turn(owner);
                 effect.remainingTurns--;
                 OnEffectEndTurn?.Invoke(effect);
+
                 if (effect.remainingTurns <= 0)
                 {
-                    RemoveEffect(effect);
+                    _effectsRemoveList.Add(effect.type);
                 }
             }
+        }
+        public void ClearRemoveList()
+        {
+            foreach (var key in _effectsRemoveList)
+            {
+                var e = _effects[key];
+                RemoveEffect(e);
+            }
+            _effectsRemoveList.Clear();
         }
         public void RemoveEffect(IStatusEffect effect)
         {
