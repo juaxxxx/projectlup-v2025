@@ -1,6 +1,10 @@
 using UnityEngine;
 
-public class RestaurantRuntime
+namespace LUP.PCR
 {
-    
+    public class RestaurantRuntime
+    {
+
+    }
 }
+

@@ -1,8 +1,6 @@
-using PCR;
 using UnityEngine;
-using static PCR.BTNode;
 
-namespace PCR
+namespace LUP.PCR
 { 
     public class IsNewTaskChecker : BTNode
     {

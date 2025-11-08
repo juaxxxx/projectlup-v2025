@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace PCR
+namespace LUP.PCR
 {
     public class GoToEatingPlace : BTNode
     {

@@ -2,7 +2,7 @@
 using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 
-namespace PCR
+namespace LUP.PCR
 {
     public class UnitMover : MonoBehaviour
     {

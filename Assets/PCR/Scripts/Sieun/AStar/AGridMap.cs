@@ -1,9 +1,7 @@
 using UnityEngine;
 using System.Collections.Generic;
 
-
-
-namespace PCR
+namespace LUP.PCR
 {
 
     public class AGridMap : MonoBehaviour

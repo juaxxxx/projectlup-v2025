@@ -1,7 +1,6 @@
-using PCR;
 using System.Collections.Generic;
 using UnityEngine;
-namespace PCR
+namespace LUP.PCR
 
 {
 

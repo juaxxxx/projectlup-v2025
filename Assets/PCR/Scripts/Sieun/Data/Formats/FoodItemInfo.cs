@@ -1,7 +1,11 @@
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "BaseItemInfo", menuName = "LUPData/ItemInfos")]
-public class FoodItemInfo : ItemInfoCommonFormatBase
+namespace LUP.PCR
 {
+    [CreateAssetMenu(fileName = "BaseItemInfo", menuName = "LUPData/ItemInfos")]
+    public class FoodItemInfo : ItemInfoCommonFormatBase
+    {
 
+    }
 }
+

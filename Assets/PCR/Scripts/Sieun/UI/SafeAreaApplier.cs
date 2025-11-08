@@ -3,7 +3,7 @@ using UnityEngine;
 using UnityEditor;
 using UnityEditor.SceneManagement;
 #endif
-namespace PCR
+namespace LUP.PCR
 {
     public class SafeAreaApplier : MonoBehaviour
     {

@@ -1,7 +1,11 @@
 using UnityEngine;
 
-public class CareTaker
+namespace LUP.PCR
 {
-    public RestaurantMemento resaurantMemento { get; set; }
-    //public FarmMemento farmMemento { get; set; }
+    public class CareTaker
+    {
+        public RestaurantMemento resaurantMemento { get; set; }
+        //public FarmMemento farmMemento { get; set; }
+    }
+
 }

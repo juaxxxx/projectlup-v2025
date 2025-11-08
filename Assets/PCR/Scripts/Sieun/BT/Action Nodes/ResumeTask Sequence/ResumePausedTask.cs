@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace PCR
+namespace LUP.PCR
 {
     public class ResumePausedTask : BTNode
     {
@@ -21,6 +21,8 @@ namespace PCR
 
             worker.hasPausedWork = false;
             Debug.Log("작업 재개 완료!");
+            timer = 0f;
+
             return WorkerNodeState.SUCCESS;
         }
     }

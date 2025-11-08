@@ -1,28 +1,28 @@
 using UnityEngine;
 
-namespace PCR
+namespace LUP.PCR
 {
-    public class StartNewTask : BTNode
+    public class EatFood : BTNode
     {
         Worker worker;
         float timer = 0f;
         float duration = 3f;
 
-        public StartNewTask(Worker worker) { this.worker = worker; }
+        public EatFood(Worker worker) { this.worker = worker; }
 
         public override WorkerNodeState Evaluate()
         {
             if (timer < duration)
             {
                 timer += Time.deltaTime;
-                Debug.Log($"새 작업 수행 중... {timer:F1}/{duration}");
+                Debug.Log($"식사 중... {timer:F1}/{duration}");
                 return WorkerNodeState.RUNNING;
             }
 
-            worker.hasNewTask = false;
-            Debug.Log("새 작업 완료!");
+            worker.hunger = 0f;
+            Debug.Log("식사 완료!");
             return WorkerNodeState.SUCCESS;
         }
     }
-}
 
+}

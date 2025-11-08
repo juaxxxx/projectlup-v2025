@@ -1,5 +1,5 @@
 using UnityEngine;
-namespace PCR
+namespace LUP.PCR
 {
     public class ANode
     {

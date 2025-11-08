@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace PCR
+namespace LUP.PCR
 {
     //RequireComponent(typeof(Animator))]
     public class WorkerAI : MonoBehaviour
@@ -27,7 +27,7 @@ namespace PCR
          });
 
             // Sequence: 하던 일 재개
-            BTNode resumeWorkSequence = new SequenceNode(new List<BTNode>
+            BTNode resumeTaskSequence = new SequenceNode(new List<BTNode>
         {
             new IsPausedTaskChecker(worker),
             new GoToPausedTaskLocation(worker),
@@ -43,9 +43,9 @@ namespace PCR
         });
 
             // Selector: 작업/휴식
-            BTNode workSelector = new SelectorNode(new List<BTNode>
+            BTNode taskSelector = new SelectorNode(new List<BTNode>
            {
-               resumeWorkSequence,
+               resumeTaskSequence,
                newTaskSequence,
                new GoToLounge(worker)
            });
@@ -54,10 +54,17 @@ namespace PCR
             root = new SelectorNode(new List<BTNode>
             {
                 hungerSequence,
-                workSelector
+                taskSelector
             });
 
         }
+
+        private void Update()
+        {
+            root.Evaluate();
+
+        }
+
 
     }
 

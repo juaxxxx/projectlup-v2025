@@ -1,34 +1,37 @@
 using UnityEngine;
 
-public class CameraProjectionTest : MonoBehaviour
+namespace LUP.PCR
 {
-    private bool isOrtho = false;
-    private Camera mainCam;
-
-    void Start()
+    public class CameraProjectionTest : MonoBehaviour
     {
-        mainCam = Camera.main;
-    }
+        private bool isOrtho = false;
+        private Camera mainCam;
 
-    void Update()
-    {
-        // Space 키를 눌렀을 때 모드 전환
-        if (Input.GetKeyDown(KeyCode.Space))
+        void Start()
         {
-            isOrtho = !isOrtho;
+            mainCam = Camera.main;
+        }
 
-            if (isOrtho)
+        void Update()
+        {
+            // Space 키를 눌렀을 때 모드 전환
+            if (Input.GetKeyDown(KeyCode.Space))
             {
-                mainCam.orthographic = true;
-                mainCam.orthographicSize = 23.1f;
-                Debug.Log("현재 모드: Orthographic");
-            }
-            else
-            {
-                // Perspective (원근 투영) 모드로 전환
-                mainCam.orthographic = false;
-                mainCam.fieldOfView = 112.5f;
-                Debug.Log("현재 모드: Perspective");
+                isOrtho = !isOrtho;
+
+                if (isOrtho)
+                {
+                    mainCam.orthographic = true;
+                    mainCam.orthographicSize = 23.1f;
+                    Debug.Log("현재 모드: Orthographic");
+                }
+                else
+                {
+                    // Perspective (원근 투영) 모드로 전환
+                    mainCam.orthographic = false;
+                    mainCam.fieldOfView = 112.5f;
+                    Debug.Log("현재 모드: Perspective");
+                }
             }
         }
     }

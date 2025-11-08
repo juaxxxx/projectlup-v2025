@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace PCR
+namespace LUP.PCR
 {
     public class Worker : MonoBehaviour
     {
@@ -14,13 +14,20 @@ namespace PCR
         public Vector3 newTaskSpot;
         public Vector3 loungeSpot;
 
+        [SerializeField]Transform dest;
+
         void Awake()
         {
             originSpot = transform.position;
-            eatingSpot = transform.position + Vector3.forward * 5f;
-            pausedWorkSpot = transform.position + Vector3.right * 5f;
-            newTaskSpot = transform.position + Vector3.left * 5f;
-            loungeSpot = transform.position + Vector3.back * 5f;
+            eatingSpot = transform.position;
+            pausedWorkSpot = transform.position;
+            newTaskSpot = transform.position;
+            loungeSpot = transform.position;
+        }
+
+        private void Start()
+        {
+            eatingSpot = dest.position;
         }
 
         public void MoveTo(Vector3 target)

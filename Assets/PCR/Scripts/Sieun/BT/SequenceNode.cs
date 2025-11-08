@@ -1,7 +1,6 @@
 using System.Collections.Generic;
-using static PCR.BTNode;
 
-namespace PCR
+namespace LUP.PCR
 {
     public sealed class SequenceNode : BTNode
     {

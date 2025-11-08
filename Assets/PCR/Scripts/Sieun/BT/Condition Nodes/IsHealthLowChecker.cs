@@ -1,12 +1,14 @@
-using PCR;
 using UnityEngine;
 
-namespace PCR
+namespace LUP.PCR
 {
     public class IsHealthLowChecker : BTNode
     {
         public WorkerStatus Status { get; private set; } = new WorkerStatus();
         Worker worker;
+        
+        int logLoopCount = -1;
+
         public IsHealthLowChecker(Worker worker) { this.worker = worker; }
         public override WorkerNodeState Evaluate()
         {
@@ -15,7 +17,12 @@ namespace PCR
                 Debug.Log("배고픔 감지됨.");
                 return WorkerNodeState.SUCCESS;
             }
-            Debug.Log("아직 배고프지 않음.");
+
+            if(logLoopCount == 0)
+            {
+                Debug.Log("아직 배고프지 않음.");
+                logLoopCount += 1;
+            }
             return WorkerNodeState.FAILURE;
         }
     }
