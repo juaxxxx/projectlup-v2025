@@ -29,13 +29,17 @@ namespace RL
             return nodeState;
         }
 
-        public override void OnAnimationEnd()
+        public override void OnAnimationEnd(AnimatorStateInfo animInfo)
         {
             UnityEngine.Debug.Log("Hit Animation Ended");
             isAnimOnPlayed = false;
             nodeState = NodeState.Success;
             blackBoard.InHittedState = false;
             blackBoard.OnHitted = false;
+            blackBoard.HittedAccumTime += animInfo.length / animInfo.speed;
+
+            if (blackBoard.HittedAccumTime >= blackBoard.RampageTime)
+                blackBoard.OnRampage = true;
         }
     }
 }

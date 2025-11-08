@@ -30,7 +30,7 @@ namespace RL
             return nodeState;
         }
 
-        public override void OnAnimationEnd()
+        public override void OnAnimationEnd(AnimatorStateInfo animInfo)
         {
             UnityEngine.Debug.Log("Hit Animation Ended");
             isAnimOnPlayed = false;

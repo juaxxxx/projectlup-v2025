@@ -28,7 +28,7 @@ namespace RL
             return NodeState.Success;
         }
 
-        public override void OnAnimationEnd()
+        public override void OnAnimationEnd(AnimatorStateInfo animInfo)
         {
 
         }

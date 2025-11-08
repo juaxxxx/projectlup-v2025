@@ -73,7 +73,7 @@ namespace RL
             if (currentRunningLeaf == null)
                 return;
 
-            currentRunningLeaf.OnAnimationEnd();
+            currentRunningLeaf.OnAnimationEnd(info);
             currentRunningLeaf = null;
         }
     }

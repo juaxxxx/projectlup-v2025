@@ -53,6 +53,10 @@ namespace RL
                     TargetCondition = currBlackBoard.InAtkState;
                     break;
 
+
+                case ConditionCheckEnum.OnHit:
+                    TargetCondition = currBlackBoard.OnHitted;
+                    break;
                 case ConditionCheckEnum.INHITTEDSTATE:
                     TargetCondition = currBlackBoard.InHittedState;
                     break;
@@ -61,12 +65,11 @@ namespace RL
                     break;
 
 
-                case ConditionCheckEnum.OnHit:
-                    TargetCondition = currBlackBoard.OnHitted;
-                    break;
+
                 case ConditionCheckEnum.HASTARGET:
                     TargetCondition = currBlackBoard.HasTarget;
                     break;
+
                 case ConditionCheckEnum.TargetINATKRANGE:
                     TargetCondition = currBlackBoard.AtkRange > currBlackBoard.TargetDistance;
                     break;

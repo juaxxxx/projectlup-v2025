@@ -13,7 +13,7 @@ namespace RL
             this.behaviorTree = behaviorTree;
         }
 
-        public abstract void OnAnimationEnd();
+        public abstract void OnAnimationEnd(AnimatorStateInfo animInfo);
     }
 }
 

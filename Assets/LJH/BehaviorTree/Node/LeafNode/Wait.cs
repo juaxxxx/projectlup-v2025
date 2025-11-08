@@ -13,7 +13,7 @@ namespace RL
             UnityEngine.Debug.Log("Action Wait");
             return NodeState.Success;
         }
-        public override void OnAnimationEnd()
+        public override void OnAnimationEnd(AnimatorStateInfo animInfo)
         {
 
         }

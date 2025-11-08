@@ -17,11 +17,38 @@ namespace RL
 
         public override void UpdateBlackBoard()
         {
+            float deltaTime = Time.deltaTime;
+
             TargetDistance = Vector3.Distance(targetPos.position, gameObject.transform.position);
 
-            AtkCollTime = AtkCollTime - Time.deltaTime * AtkCoolTimeRecoverySpeed;
+
+
+            AtkCollTime = AtkCollTime - deltaTime * AtkCoolTimeRecoverySpeed;
             if (AtkCollTime < 0)
                 AtkCollTime = 0;
+
+
+            {
+                if (OnRampage)
+                {
+                    HittedAccumTime -= deltaTime;
+                }
+
+                else
+                {
+                    HittedAccumTime -= deltaTime * 0.3f;
+                }
+
+                if (HittedAccumTime <= 0)
+                {
+                    HittedAccumTime = 0;
+
+                    if (OnRampage == true)
+                        OnRampage = false;
+                }
+                    
+            }
+            
         }
     }
 }

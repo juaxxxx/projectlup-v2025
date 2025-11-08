@@ -4391,7 +4391,7 @@ MonoBehaviour:
   arrowPrefab: {fileID: 8646999651821705201, guid: 6a6aa7f8c0221584a9509c8bf1f3ad08, type: 3}
   spawnPoint: {fileID: 888571931}
   enemyTarget: {fileID: 2549898058626967627, guid: 2960b4d69b8686448b9a6cfb9b5ae05c, type: 3}
-  fireDelay: 2
+  fireDelay: 0.5
   arrowSpeed: 10
   archer: {fileID: 1242295381}
   currentRoom: {fileID: 401549931}
@@ -7966,7 +7966,7 @@ MonoBehaviour:
   AtkCooldownDuration: 3
   AtkCoolTimeRecoverySpeed: 1
   HittedAccumTime: 0
-  RampageTime: 3
+  RampageTime: 2
   TargetDistance: 100
   Target: {fileID: 0}
   targetPos: {fileID: 0}
