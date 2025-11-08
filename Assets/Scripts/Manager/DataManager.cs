@@ -26,24 +26,34 @@ namespace LUP
         {
             BaseRuntimeData data = null;
 
-            // 나중에 런타임데이터 스크립터블오브젝트가 들어가면 사용?
-            // data = ResourceManager.Instance.LoadRuntimeData(stagekind, stagetype);
-
-            
             string filename = "";
 
             switch (stagekind)
             {
-                case Define.StageKind.RL:
+                case LUP.Define.StageKind.RL:
                     filename = Define.RuntimeDataTypes.ToFilename(Define.RuntimeDataType.RoguelikeRuntime);
                     data = JsonDataHelper.LoadData<RoguelikeRuntimeData>(filename);
                     break;
-                case Define.StageKind.Main:
+                case LUP.Define.StageKind.DSG:
+                    filename = Define.RuntimeDataTypes.ToFilename(Define.RuntimeDataType.DeckStrategyRuntime);
+                    data = JsonDataHelper.LoadData<DeckStrategyRuntimeData>(filename);
+                    break;
+                case LUP.Define.StageKind.Main:
                     filename = Define.RuntimeDataTypes.ToFilename(Define.RuntimeDataType.Versions);
                     data = JsonDataHelper.LoadData<VersionsData>(filename);
                     break;
-                // 그 외 다른 스테이지..
-
+                case LUP.Define.StageKind.PCR:
+                    filename = Define.RuntimeDataTypes.ToFilename(Define.RuntimeDataType.ProductionRuntime);
+                    data = JsonDataHelper.LoadData<ProductionRuntimeData>(filename);
+                    break;
+                case LUP.Define.StageKind.ES:
+                    filename = Define.RuntimeDataTypes.ToFilename(Define.RuntimeDataType.ExtractionShooterRuntime);
+                    data = JsonDataHelper.LoadData<ExtractionRuntimeData>(filename);
+                    break;
+                case LUP.Define.StageKind.ST:
+                    filename = Define.RuntimeDataTypes.ToFilename(Define.RuntimeDataType.ShootingRuntime);
+                    data = JsonDataHelper.LoadData<ShootingRuntimeData>(filename);
+                    break;
                 default:
                     Debug.LogError($"No runtime data defined for StageKind: { stagekind}");
                     return null;
