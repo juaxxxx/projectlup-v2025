@@ -5,10 +5,10 @@ namespace LUP
 {
     public class DeckStrategyStage : BaseStage
     {
-        public BaseStaticDataLoader StaticDataLoader;
         public BaseRuntimeData RuntimeData;
 
-        List<DeckStaticData> DataList;
+        public List<DeckStaticData> DeckDataList;
+        public List<DeckCharacterStaticData> CharacterDataList;
 
         protected override void Awake() 
         {
@@ -56,15 +56,34 @@ namespace LUP
 
         protected override void GetDatas()
         {
-            StaticDataLoader = base.GetStaticData(this, 1);
-            RuntimeData = base.GetRuntimeData(this, 1);
+            List<BaseStaticDataLoader> loaders = base.GetStaticData(this, 1);
+            List<BaseRuntimeData> runtimeDatas = base.GetRuntimeData(this, 1);
 
-            if (StaticDataLoader != null)
+            // 일단 타입별로 가져오는 예시
+            if (loaders != null && loaders.Count > 0)
             {
-                DeckStaticDataLoader DSGStaticDataLoader = (DeckStaticDataLoader)StaticDataLoader;
-                if (DSGStaticDataLoader != null)
+                foreach (var loader in loaders)
                 {
-                    DataList = DSGStaticDataLoader.GetDataList();
+                    if (loader is DeckStaticDataLoader deckLoader)
+                    {
+                        DeckDataList = deckLoader.GetDataList();
+                    }
+                    else if (loader is DeckCharacterStaticDataLoader charLoader)
+                    {
+                        CharacterDataList = charLoader.GetDataList();
+                    }
+                }
+            }
+
+            // 일단 타입별로 가져오는 예시
+            if (runtimeDatas != null && runtimeDatas.Count > 0)
+            {
+                foreach (var runtimeData in runtimeDatas)
+                {
+                    if (runtimeData is DeckStrategyRuntimeData deckRuntimeData)
+                    {
+                        RuntimeData = deckRuntimeData;
+                    }
                 }
             }
         }

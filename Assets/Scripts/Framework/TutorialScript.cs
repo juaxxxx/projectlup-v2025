@@ -12,7 +12,11 @@ public class TutorialScript : MonoBehaviour, IPointerClickHandler
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        tutorialStaticData = (TutorialStaticDataLoader)LUP.ResourceManager.Instance.LoadStaticData(LUP.Define.StageKind.Tutorial , 1);
+        List<BaseStaticDataLoader> dataList = LUP.ResourceManager.Instance.LoadStaticData(LUP.Define.StageKind.Tutorial, 1);
+        if (dataList != null && dataList.Count > 0)
+        {
+            tutorialStaticData = dataList[0] as TutorialStaticDataLoader;
+        }
     }
 
     // Update is called once per frame

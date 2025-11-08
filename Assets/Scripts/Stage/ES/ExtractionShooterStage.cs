@@ -5,10 +5,8 @@ namespace LUP
 {
     public class ExtractionShooterStage : BaseStage
     {
-        public BaseStaticDataLoader StaticDataLoader;
         public BaseRuntimeData RuntimeData;
-
-        List<ExtractionStaticData> DataList;
+        public List<ExtractionStaticData> DataList;
 
         protected override void Awake() 
         {
@@ -56,15 +54,28 @@ namespace LUP
 
         protected override void GetDatas()
         {
-            StaticDataLoader = base.GetStaticData(this, 1);
-            RuntimeData = base.GetRuntimeData(this, 1);
+            List<BaseStaticDataLoader> loaders = base.GetStaticData(this, 1);
+            List<BaseRuntimeData> runtimeDatas = base.GetRuntimeData(this, 1);
 
-            if (StaticDataLoader != null)
+            if (loaders != null && loaders.Count > 0)
             {
-                ExtractionStaticDataLoader ESStaticDataLoader = (ExtractionStaticDataLoader)StaticDataLoader;
-                if (ESStaticDataLoader != null)
+                foreach (var loader in loaders)
                 {
-                    DataList = ESStaticDataLoader.GetDataList();
+                    if (loader is ExtractionStaticDataLoader ESLoader)
+                    {
+                        DataList = ESLoader.GetDataList();
+                    }
+                }
+            }
+
+            if (runtimeDatas != null && runtimeDatas.Count > 0)
+            {
+                foreach (var runtimeData in runtimeDatas)
+                {
+                    if (runtimeData is ExtractionRuntimeData ESRuntimeData)
+                    {
+                        RuntimeData = ESRuntimeData;
+                    }
                 }
             }
         }

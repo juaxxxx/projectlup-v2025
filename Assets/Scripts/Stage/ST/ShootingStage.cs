@@ -5,11 +5,8 @@ namespace LUP
 {
     public class ShootingStage : BaseStage
     {
-        public BaseStaticDataLoader StaticDataLoader;
         public BaseRuntimeData RuntimeData;
-
-        // 실제 입력한 값들이 담긴 데이터 리스트
-        List<ShootingStaticData> DataList;
+        public List<ShootingStaticData> DataList;
 
         protected override void Awake() 
         {
@@ -59,15 +56,28 @@ namespace LUP
 
         protected override void GetDatas()
         {
-            StaticDataLoader = base.GetStaticData(this,1);
-            RuntimeData = base.GetRuntimeData(this, 1);
+            List<BaseStaticDataLoader> loaders = base.GetStaticData(this, 1);
+            List<BaseRuntimeData> runtimeDatas = base.GetRuntimeData(this, 1);
 
-            if (StaticDataLoader != null)
+            if (loaders != null && loaders.Count > 0)
             {
-                ShootingStaticDataLoader STStaticDataLoader = (ShootingStaticDataLoader)StaticDataLoader;
-                if (STStaticDataLoader != null)
+                foreach (var loader in loaders)
                 {
-                    DataList = STStaticDataLoader.GetDataList();
+                    if (loader is ShootingStaticDataLoader stLoader)
+                    {
+                        DataList = stLoader.GetDataList();
+                    }
+                }
+            }
+
+            if (runtimeDatas != null && runtimeDatas.Count > 0)
+            {
+                foreach (var runtimeData in runtimeDatas)
+                {
+                    if (runtimeData is ShootingRuntimeData stRuntimeData)
+                    {
+                        RuntimeData = stRuntimeData;
+                    }
                 }
             }
         }

@@ -54,31 +54,40 @@ namespace LUP
             return audioClip;
         }
 
-        public BaseStaticDataLoader LoadStaticData(Define.StageKind type, int stagetype)
+        public List<BaseStaticDataLoader> LoadStaticData(Define.StageKind type, int stagetype)
         {
-            BaseStaticDataLoader data = null;
+            List<BaseStaticDataLoader> dataList = new List<BaseStaticDataLoader>();
+            string folderPath = "";
+
             switch (type)
             {
                 case Define.StageKind.ST:
-                    data = Resources.Load<BaseStaticDataLoader>("Data/ShootingStaticData");
+                    folderPath = "Data/ST";
                     break;
                 case Define.StageKind.DSG:
-                    data = Resources.Load<BaseStaticDataLoader>("Data/DeckStrategyStaticData");
+                    folderPath = "Data/DSG";
                     break;
                 case Define.StageKind.ES:
-                    data = Resources.Load<BaseStaticDataLoader>("Data/ExtractionShooterStaticData");
+                    folderPath = "Data/ES";
                     break;
                 case Define.StageKind.RL:
-                    data = Resources.Load<BaseStaticDataLoader>("Data/RoguelikeStaticData");
+                    folderPath = "Data/RL";
                     break;
                 case Define.StageKind.Main:
-                    data = Resources.Load<BaseStaticDataLoader>("Data/ProductionStaticData");
+                    folderPath = "Data/PCR";
                     break;
                 case Define.StageKind.Tutorial:
-                    data = Resources.Load<BaseStaticDataLoader>("Data/TutorialStaticData");
+                    folderPath = "Data/FW";
                     break;
             }
-            return data;
+
+            if (!string.IsNullOrEmpty(folderPath))
+            {
+                BaseStaticDataLoader[] loadedData = Resources.LoadAll<BaseStaticDataLoader>(folderPath);
+                dataList.AddRange(loadedData);
+            }
+
+            return dataList;
         }
     }
 }

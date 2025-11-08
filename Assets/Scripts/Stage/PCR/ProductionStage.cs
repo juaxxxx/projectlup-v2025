@@ -5,11 +5,8 @@ namespace LUP
 {
     public class ProductionStage : BaseStage
     {
-        public BaseStaticDataLoader StaticDataLoader;
         public BaseRuntimeData RuntimeData;
-
-        // 실제 입력한 값들이 담긴 데이터 리스트
-        List<ProductionStaticData> DataList;
+        public List<ProductionStaticData> DataList;
 
         protected override void Awake() 
         {
@@ -58,15 +55,28 @@ namespace LUP
 
         protected override void GetDatas()
         {
-            StaticDataLoader = base.GetStaticData(this, 1);
-            RuntimeData = base.GetRuntimeData(this, 1);
+            List<BaseStaticDataLoader> loaders = base.GetStaticData(this, 1);
+            List<BaseRuntimeData> runtimeDatas = base.GetRuntimeData(this, 1);
 
-            if (StaticDataLoader != null)
+            if (loaders != null && loaders.Count > 0)
             {
-                ProductionStaticDataLoader PCRStaticDataLoader = (ProductionStaticDataLoader)StaticDataLoader;
-                if (PCRStaticDataLoader != null)
+                foreach (var loader in loaders)
                 {
-                    DataList = PCRStaticDataLoader.GetDataList();
+                    if (loader is ProductionStaticDataLoader pcrLoader)
+                    {
+                        DataList = pcrLoader.GetDataList();
+                    }
+                }
+            }
+
+            if (runtimeDatas != null && runtimeDatas.Count > 0)
+            {
+                foreach (var runtimeData in runtimeDatas)
+                {
+                    if (runtimeData is ProductionRuntimeData pcrRuntimeData)
+                    {
+                        RuntimeData = pcrRuntimeData;
+                    }
                 }
             }
         }

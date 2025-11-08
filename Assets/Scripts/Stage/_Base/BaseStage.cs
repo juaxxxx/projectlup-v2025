@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace LUP
@@ -69,25 +70,25 @@ namespace LUP
             DataManager.Instance.SaveRuntimeData(runtimeData);
         }
 
-        protected BaseStaticDataLoader GetStaticData(BaseStage stage, int dataindex)
+        protected List<BaseStaticDataLoader> GetStaticData(BaseStage stage, int dataindex)
         {
-            BaseStaticDataLoader data = null;
+            List<BaseStaticDataLoader> datas = null;
 
-            data = LUP.DataManager.Instance.GetStaticData(stage.StageKind, dataindex);
+            datas = LUP.DataManager.Instance.GetStaticData(stage.StageKind, dataindex);
 
-            return data;
+            return datas;
         }
 
-        protected BaseRuntimeData GetRuntimeData(BaseStage stage, int dataindex)
+        protected List<BaseRuntimeData> GetRuntimeData(BaseStage stage, int dataindex)
         {
-            BaseRuntimeData data = null;
+            List<BaseRuntimeData> datas = null;
 
-            data = LUP.DataManager.Instance.GetRuntimeData(stage.StageKind, dataindex);
+            datas = LUP.DataManager.Instance.GetRuntimeData(stage.StageKind, dataindex);
 
-            return data;
+            return datas;
         }
 
-       
+
     }
 }
 
