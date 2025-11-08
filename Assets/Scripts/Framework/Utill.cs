@@ -34,49 +34,6 @@ namespace Define
         DSG = 8, // 덱 전략
         Tutorial=9,
     }
-
-    public enum StageType // 임시로 일단 이걸 사용해봤음
-    {
-        Lobby = 1,
-        InGame = 2,
-        Result = 3
-    }
-
-    public enum RoguelikeStageKind : int
-    {
-        Lobby = 1,
-        InGame = 2,
-        Result = 3
-    }
-
-    public enum ShootingStageKind : int
-    {
-        Lobby = 1,
-        InGame = 2,
-        Result = 3
-    }
-
-    public enum DeckStrategyStageKind : int
-    {
-        Lobby = 1,
-        InGame = 2,
-        Result = 3
-    }
-
-    public enum ExtractionShooterStageKind : int
-    {
-        Lobby = 1,
-        InGame = 2,
-        Result = 3
-    }
-
-    public enum ProductionStageKind : int
-    {
-        Lobby = 1,
-        InGame = 2,
-        Result = 3
-    }
-
     public enum RuntimeDataType
     {
         RoguelikeRuntime,

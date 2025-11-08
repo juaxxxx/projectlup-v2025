@@ -57,8 +57,8 @@ namespace Manager
 
         protected override void GetDatas()
         {
-            StaticData = base.GetStaticData(this,(int)Define.ProductionStageKind.Lobby);
-            RuntimeData = base.GetRuntimeData(this, (int)Define.ProductionStageKind.Lobby);
+            StaticData = base.GetStaticData(this,1);
+            RuntimeData = base.GetRuntimeData(this, 1);
         }
 
         protected override void SaveDatas()

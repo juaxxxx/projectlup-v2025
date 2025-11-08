@@ -32,9 +32,9 @@ namespace Manager
         DeckStrategy = 8, // 덱 전략
          */
 
-        public void LoadStage(Define.StageKind stage)
+        public void LoadStage(Define.StageKind stage, int sceneindex = -1)
         {
-            StageManager.Instance.LoadStage(stage);
+            StageManager.Instance.LoadStage(stage, sceneindex);
         }
 
         protected abstract void LoadResources();
@@ -77,7 +77,7 @@ namespace Manager
         {
             BaseStaticData data = null;
 
-            data = Manager.DataManager.Instance.GetStaticData(stage.StageKind, (int)Define.StageType.Lobby);
+            data = Manager.DataManager.Instance.GetStaticData(stage.StageKind, dataindex);
 
             return data;
         }
@@ -86,7 +86,7 @@ namespace Manager
         {
             BaseRuntimeData data = null;
 
-            data = Manager.DataManager.Instance.GetRuntimeData(stage.StageKind, (int)Define.StageType.Lobby);
+            data = Manager.DataManager.Instance.GetRuntimeData(stage.StageKind, dataindex);
 
             return data;
         }

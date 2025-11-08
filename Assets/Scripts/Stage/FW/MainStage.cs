@@ -79,8 +79,8 @@ namespace Manager
         {
             //resource = ResourceManager.Instance.Load...
             versionsdata = (VersionsData)Manager.DataManager.Instance.GetRuntimeData(Define.StageKind.Main,1);
-            AB = AssetBundle.LoadFromFile(Path.Combine(Application.dataPath, Path.Combine("Resources/AssetBundles", "staticdatas")));
-            versionsdata.assetbundlehash = AB.GetHashCode().ToString();
+            //AB = AssetBundle.LoadFromFile(Path.Combine(Application.dataPath, Path.Combine("Resources/AssetBundles", "staticdatas")));
+            //versionsdata.assetbundlehash = AB.GetHashCode().ToString();
         }
 
         protected override void GetDatas()
