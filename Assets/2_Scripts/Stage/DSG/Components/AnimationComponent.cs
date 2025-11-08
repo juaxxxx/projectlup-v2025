@@ -9,54 +9,65 @@ namespace LUP.DSG
         public Animator animator;
 
         public event Action OnHitAttack;
+        public event Action OnAttackEnd;
+        public event Action OnEndFwdDash;
+        public event Action OnEndBwdDash;
+
+        public EAnimStateType currentState { get; private set; }
 
         void Start()
         {
-
+            currentState = EAnimStateType.Idle;
         }
 
         public void StartAttackAnimation(ERangeType type)
         {
             if (type == ERangeType.Range)
             {
-                SetAnimationState(EAnimStateType.Attack_Range);
+                currentState = EAnimStateType.Attack_Range;
             }
             else
             {
-                SetAnimationState(EAnimStateType.StartDash_Fwd);
+                currentState = EAnimStateType.StartDash_Fwd;
             }
+            SetAnimationState(currentState);
         }
 
         public void EndDashLoop(bool attackEnded)
         {
             if (attackEnded)
             {
-                SetAnimationState(EAnimStateType.EndDash_Bwd);
+                currentState = EAnimStateType.EndDash_Bwd;
             }
             else
             {
-                SetAnimationState(EAnimStateType.EndDash_Fwd);
+                currentState = EAnimStateType.EndDash_Fwd;
             }
+            SetAnimationState(currentState);
         }
 
         public void StartMeleeAnimation()
         {
-            SetAnimationState(EAnimStateType.Attack_Melee);
+            currentState = EAnimStateType.Attack_Melee;
+            SetAnimationState(currentState);
         }
 
         public void EndMeleeAnimation()
         {
-            SetAnimationState(EAnimStateType.StartDash_Bwd);
+            currentState = EAnimStateType.StartDash_Bwd;
+            SetAnimationState(currentState);
         }
 
         public void PlayHittedAnimation(float damage)
         {
-            SetAnimationState(EAnimStateType.Hitted);
+            currentState = EAnimStateType.Hitted;
+            SetAnimationState(currentState);
         }
 
         public void PlayDiedAnimation(int index)
         {
-            SetAnimationState(EAnimStateType.Died);
+            currentState = EAnimStateType.Died;
+            SetAnimationState(currentState);
         }
 
         private void SetAnimationState(EAnimStateType type)
@@ -67,6 +78,23 @@ namespace LUP.DSG
         public void OnHitAttackEvent()
         {
             OnHitAttack?.Invoke();
+        }
+
+        public void OnAttackEndEvent()
+        {
+            currentState = EAnimStateType.Idle;
+            EndMeleeAnimation();
+            //OnAttackEnd?.Invoke();
+        }
+
+        public void OnEndFwdDashEvent()
+        {
+            StartMeleeAnimation();
+        }
+
+        public void OnEndBwdDashEvent()
+        {
+            currentState = EAnimStateType.Idle;
         }
     }
 }
