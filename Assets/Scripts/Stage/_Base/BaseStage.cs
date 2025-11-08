@@ -1,8 +1,5 @@
-﻿using UnityEngine;
-using UnityEngine.SceneManagement;
-using System;
-using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections;
+using UnityEngine;
 
 namespace Manager
 {
@@ -63,7 +60,6 @@ namespace Manager
         public virtual IEnumerator OnStageExit()
         {
             SaveDatas();
-            Manager.InventoryManager.Instance.OnStageExit();
 
             yield return null;
         }

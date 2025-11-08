@@ -4,7 +4,6 @@ using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using Unity.VisualScripting;
-using UnityEditor;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -21,14 +20,6 @@ namespace Manager
 
     public class StageManager : Singleton<StageManager>
     {
-        [Header("스테이지들 설정하는 부분")]
-        public SceneList FW_StageList;
-        public SceneList RL_StageList;
-        public SceneList ST_StageList;
-        public SceneList ES_StageList;
-        public SceneList PCR_StageList;
-        public SceneList DSG_StageList;
-
         [Header("Fade Settings")]
         private CanvasGroup fadeCanvas;
         [SerializeField] private float fadeDuration = 1f;
@@ -46,19 +37,29 @@ namespace Manager
         private List<List<Define.StageKind>> transitionTable = new List<List<Define.StageKind>>();
 
         // StageKind → Scene 이름 매핑
-        private Dictionary<Define.StageKind, SceneList> sceneNameMap = new Dictionary<Define.StageKind, SceneList>();
+        private Dictionary<Define.StageKind, string> sceneNameMap = new Dictionary<Define.StageKind, string>
+    {
+        { Define.StageKind.Debug, "DebugStage" },
+        { Define.StageKind.Intro, "IntroStage" },
+        { Define.StageKind.Main, "MainStage" },
+        { Define.StageKind.RL, "RoguelikeSampleStage" },
+        { Define.StageKind.ST, "ShootingSampleStage" },
+        { Define.StageKind.DSG, "DeckStrategySampleStage" },
+        { Define.StageKind.ES, "ExtractionShooterSampleStage" },
+        { Define.StageKind.PCR, "ProductionSampleStage" },
+        { Define.StageKind.Unknown, "MainStage" }
+    };
 
         public override void Awake()
         {
             base.Awake();
 
-            InitializeTransitionTable();
-            InitializeFadeCanvas();
-            InitializeSceneMap();
-            if (currentStageInstance == null)
-            {
-                LoadStage(startStageKind);
-            }    
+                InitializeTransitionTable();
+                InitializeFadeCanvas();
+                if (currentStageInstance == null)
+                {
+                    LoadStage(startStageKind);
+                }
         }
 
         private void InitializeFadeCanvas()
@@ -244,7 +245,7 @@ namespace Manager
         }
 
         // Stage 전환 
-        public void LoadStage(Define.StageKind targetStageKind, int sceneindex = -1)
+        public void LoadStage(Define.StageKind targetStageKind)
         {
             if (isTransitioning)
             {
@@ -260,7 +261,7 @@ namespace Manager
             }
 
             // 2. 전환 시작
-            StartCoroutine(TransitionCoroutine(targetStageKind, sceneindex));
+            StartCoroutine(TransitionCoroutine(targetStageKind));
         }
 
         // Transition 검사
@@ -270,30 +271,17 @@ namespace Manager
         }
 
         /// Stage 전환 Coroutine
-        private IEnumerator TransitionCoroutine(Define.StageKind targetStageKind, int sceneindex= -1)
+        private IEnumerator TransitionCoroutine(Define.StageKind targetStageKind)
         {
             isTransitioning = true;
 
             // Stage Exit 처리
             yield return StartCoroutine(OnStageExit());
 
-            // 인벤토리 게임 전환 (이전 게임 저장 + 새 게임 설정 적용)
-            InventoryManager.Instance.SwitchGame(currentStageKind, targetStageKind);
-            Debug.Log($"[StageManager] Inventory switched: {currentStageKind} → {targetStageKind}");
-            string sceneName;
-            if (sceneindex == -1)
-            {
-                sceneName = sceneNameMap.ContainsKey(targetStageKind)
-                ? sceneNameMap[targetStageKind].scenes[0].name.ToString()
-                : targetStageKind.ToString();
-            }
-            else
-            {
-                sceneName = sceneNameMap[targetStageKind].scenes[sceneindex].name.ToString();
-            }
-            Debug.Log("SceneName:" + sceneName);
             // 4. Scene 로드
-            
+            string sceneName = sceneNameMap.ContainsKey(targetStageKind)
+                ? sceneNameMap[targetStageKind]
+                : targetStageKind.ToString();
 
             // 씬매니저에 씬이 존재하는지 확인 - 빌드 세팅
             if (SceneManager.GetSceneByName(sceneName).IsValid() == false &&
@@ -402,19 +390,6 @@ namespace Manager
         public BaseStage GetCurrentStage()
         {
             return currentStageInstance;
-        }
-
-        private void InitializeSceneMap()
-        {
-            sceneNameMap.Add(Define.StageKind.Debug, FW_StageList);
-            sceneNameMap.Add(Define.StageKind.Intro, FW_StageList);
-            sceneNameMap.Add(Define.StageKind.Main, FW_StageList);
-            sceneNameMap.Add(Define.StageKind.RL, RL_StageList);
-            sceneNameMap.Add(Define.StageKind.ST, ST_StageList);
-            sceneNameMap.Add(Define.StageKind.DSG, DSG_StageList);
-            sceneNameMap.Add(Define.StageKind.ES, ES_StageList);
-            sceneNameMap.Add(Define.StageKind.PCR, PCR_StageList);
-            sceneNameMap.Add(Define.StageKind.Unknown, FW_StageList);
         }
     }
 }
