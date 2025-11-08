@@ -6,10 +6,8 @@ namespace LUP
 {
     public class RoguelikeStage : BaseStage
     {
-        public BaseStaticDataLoader StaticDataLoader;
         public BaseRuntimeData RuntimeData;
-
-        List<RoguelikeStaticData> DataList;
+        public List<RoguelikeStaticData> DataList;
 
         protected override void Awake() 
         {
@@ -58,30 +56,42 @@ namespace LUP
 
         protected override void GetDatas()
         {
-            StaticDataLoader = base.GetStaticData(this, 1);
-            RuntimeData = base.GetRuntimeData(this, 1);
+            List<BaseStaticDataLoader> loaders = base.GetStaticData(this, 1);
+            List<BaseRuntimeData> runtimeDatas = base.GetRuntimeData(this, 1);
 
-            if (StaticDataLoader != null)
+            if (loaders != null && loaders.Count > 0)
             {
-                RoguelikeStaticDataLoader RLStaticDataLoader = (RoguelikeStaticDataLoader)StaticDataLoader;
-                if (RLStaticDataLoader != null)
+                foreach (var loader in loaders)
                 {
-                    DataList = RLStaticDataLoader.GetDataList();
+                    if (loader is RoguelikeStaticDataLoader rlLoader)
+                    {
+                        DataList = rlLoader.GetDataList();
+                    }
+                }
+            }
+
+            if (runtimeDatas != null && runtimeDatas.Count > 0)
+            {
+                foreach (var runtimeData in runtimeDatas)
+                {
+                    if (runtimeData is RoguelikeRuntimeData rlRuntimeData)
+                    {
+                        RuntimeData = rlRuntimeData;
+                    }
                 }
             }
         }
 
         protected override void SaveDatas()
         {
-            if(RuntimeData != null)
+            List<BaseRuntimeData> runtimeDataList = new List<BaseRuntimeData>();
+
+            if (RuntimeData != null)
             {
-                base.SaveRuntimeData(RuntimeData);
+                runtimeDataList.Add(RuntimeData);
             }
-        }
 
-        protected override void SetupInventory()
-        {
-
+            base.SaveRuntimeDataList(runtimeDataList);
         }
     }
 }

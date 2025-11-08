@@ -9,8 +9,6 @@ namespace LUP
     [Serializable]
     public class StageTransition
     {
-        // public Define.StageKind start;
-        // public Define.StageKind end;
         public Define.StageKind start;
         public Define.StageKind end;
     }
@@ -273,7 +271,6 @@ namespace LUP
             // Stage Exit 처리
             yield return StartCoroutine(OnStageExit());
 
-            Debug.Log($"[StageManager] Inventory switched: {currentStageKind} → {targetStageKind}");
             string sceneName;
             if (sceneindex == -1)
             {

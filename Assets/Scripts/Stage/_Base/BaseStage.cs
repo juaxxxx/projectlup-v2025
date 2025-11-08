@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace LUP
@@ -17,18 +18,6 @@ namespace LUP
 
         }
 
-        /*
-        UnKnown = 0,    // 이상한 씬
-        Debug = 1,      // 디버그 씬 (개발용)
-        Main = 2,       // 메인 화면
-        Intro = 3,      // 인트로
-        Roguelike = 4,  // 로그라이크
-        Shooting = 5,   // 슈팅
-        ExtractionShooter = 6, // 익스트랙션 슈터
-        Production = 7,  // 생산/건설/강화
-        DeckStrategy = 8, // 덱 전략
-         */
-
         public void LoadStage(Define.StageKind stage, int sceneindex = -1)
         {
             StageManager.Instance.LoadStage(stage, sceneindex);
@@ -41,11 +30,8 @@ namespace LUP
 
         protected abstract void SaveDatas();
 
-        protected abstract void SetupInventory();
-
         public virtual IEnumerator OnStageEnter()
         {
-            SetupInventory();
             LoadResources();
             GetDatas();
 
@@ -69,25 +55,30 @@ namespace LUP
             DataManager.Instance.SaveRuntimeData(runtimeData);
         }
 
-        protected BaseStaticDataLoader GetStaticData(BaseStage stage, int dataindex)
+        protected void SaveRuntimeDataList(List<BaseRuntimeData> runtimeDataList)
         {
-            BaseStaticDataLoader data = null;
-
-            data = LUP.DataManager.Instance.GetStaticData(stage.StageKind, dataindex);
-
-            return data;
+            DataManager.Instance.SaveRuntimeDataList(runtimeDataList);
         }
 
-        protected BaseRuntimeData GetRuntimeData(BaseStage stage, int dataindex)
+        protected List<BaseStaticDataLoader> GetStaticData(BaseStage stage, int dataindex)
         {
-            BaseRuntimeData data = null;
+            List<BaseStaticDataLoader> datas = null;
 
-            data = LUP.DataManager.Instance.GetRuntimeData(stage.StageKind, dataindex);
+            datas = LUP.DataManager.Instance.GetStaticData(stage.StageKind, dataindex);
 
-            return data;
+            return datas;
         }
 
-       
+        protected List<BaseRuntimeData> GetRuntimeData(BaseStage stage, int dataindex)
+        {
+            List<BaseRuntimeData> datas = null;
+
+            datas = LUP.DataManager.Instance.GetRuntimeData(stage.StageKind, dataindex);
+
+            return datas;
+        }
+
+
     }
 }
 

@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 namespace LUP
@@ -72,20 +73,38 @@ namespace LUP
         protected override void LoadResources()
         {
             //resource = ResourceManager.Instance.Load...
-            versionsdata = (VersionsData)LUP.DataManager.Instance.GetRuntimeData(Define.StageKind.Main,1);
             //AB = AssetBundle.LoadFromFile(Path.Combine(Application.dataPath, Path.Combine("Resources/AssetBundles", "staticdatas")));
             //versionsdata.assetbundlehash = AB.GetHashCode().ToString();
         }
 
         protected override void GetDatas()
         {
-            
+            List<BaseRuntimeData> runtimeDatas = base.GetRuntimeData(this, 1);
+
+            if (runtimeDatas != null && runtimeDatas.Count > 0)
+            {
+                foreach (var runtimeData in runtimeDatas)
+                {
+                    if (runtimeData is VersionsData versionData)
+                    {
+                        versionsdata = versionData;
+                    }
+                }
+            }
         }
 
         protected override void SaveDatas()
         {
+            List<BaseRuntimeData> runtimeDataList = new List<BaseRuntimeData>();
 
+            if (versionsdata != null)
+            {
+                runtimeDataList.Add(versionsdata);
+            }
+
+            base.SaveRuntimeDataList(runtimeDataList);
         }
+
 
         void SetAudioVolume(float value)
         {
@@ -107,12 +126,6 @@ namespace LUP
         {
             LUP.SoundManager.Instance.StopBGM();
         }
-
-        protected override void SetupInventory()
-        {
-
-        }
-
     }
 }
 

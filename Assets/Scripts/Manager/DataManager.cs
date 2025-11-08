@@ -1,29 +1,29 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
 
 namespace LUP
 {
     public class DataManager : Singleton<DataManager>
     {
         [SerializeField]
-        BaseStaticDataLoader data;
+        List<BaseStaticDataLoader> dataList;
 
-        public BaseStaticDataLoader GetStaticData(Define.StageKind stagekind, int stagetype)
+        public List<BaseStaticDataLoader> GetStaticData(Define.StageKind stagekind, int stagetype)
         {
-            BaseStaticDataLoader data = null;
+            List<BaseStaticDataLoader> datas = ResourceManager.Instance.LoadStaticData(stagekind, stagetype);
 
-            data = ResourceManager.Instance.LoadStaticData(stagekind, stagetype);
-
-            if (!data)
+            if (datas == null || datas.Count == 0)
             {
                 Debug.LogError($"Failed to load static data");
                 return null;
             }
 
-            return data;
+            return datas;
         }
 
-        public BaseRuntimeData GetRuntimeData(Define.StageKind stagekind, int stagetype)
+        public List<BaseRuntimeData> GetRuntimeData(Define.StageKind stagekind, int stagetype)
         {
+            List<BaseRuntimeData> runtimeDataList = new List<BaseRuntimeData>();
             BaseRuntimeData data = null;
 
             string filename = "";
@@ -72,7 +72,9 @@ namespace LUP
                 data.ResetData();
             }
 
-            return data;
+            runtimeDataList.Add(data);
+
+            return runtimeDataList;
         }
 
         public override void Awake()
@@ -81,13 +83,26 @@ namespace LUP
 
             // RuntimeData가 코루틴을 사용할 수 있도록 설정
             BaseRuntimeData.SetCoroutineRunner(this);
-
-            // Manager.ResourceManager.Instance.Load
         }
 
         public void SaveRuntimeData(BaseRuntimeData runtimeData)
         {
             JsonDataHelper.SaveData(runtimeData, runtimeData.filename);
+        }
+
+        public void SaveRuntimeDataList(List<BaseRuntimeData> runtimeDataList)
+        {
+            if (runtimeDataList == null || runtimeDataList.Count == 0)
+            {
+                Debug.LogWarning("SaveRuntimeDataList: No runtime data to save");
+                return;
+            }
+
+            foreach (var data in runtimeDataList)
+            {
+                if (data != null)
+                    JsonDataHelper.SaveData(data, data.filename);
+            }
         }
     }
 }

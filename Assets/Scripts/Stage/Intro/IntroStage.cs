@@ -75,11 +75,6 @@ namespace LUP
         {
 
         }
-
-        protected override void SetupInventory()
-        {
-
-        }
     }
 }
 
