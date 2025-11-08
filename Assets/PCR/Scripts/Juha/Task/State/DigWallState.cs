@@ -24,7 +24,7 @@ public class DigWallState : ITaskState
             return;
         }
 
-        if (Mouse.current != null && Mouse.current.leftButton.wasPressedThisFrame)
+        if (Mouse.current != null && Mouse.current.leftButton.wasReleasedThisFrame)
         {
             // 클릭시 UI가 포함이면 리턴한다.
             if (EventSystem.current.IsPointerOverGameObject()) return;
@@ -88,8 +88,6 @@ public class DigWallState : ITaskState
 
     public void UpdateDigTile()
     {
-        Debug.Log(taskController.lastClickTile);
-
         Tile tile = taskController.lastClickTile;
         if (tile)
         {

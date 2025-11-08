@@ -12,6 +12,22 @@ public class DigWallPreview : MonoBehaviour
         CanNotDigTile = new HashSet<Tile>();
     }
 
+    public void UpdateAllDigWallPreview(TileMap tileMap)
+    {
+        foreach (Tile tile in tileMap.tiles)
+        {
+            //TODO: 내용 변경
+            if (tile.tileInfo.tileType == TileType.WALL)
+            {
+                AddCanDigTile(tile);
+            }
+            else
+            {
+                AddCanNotDigTile(tile);
+            }
+        }
+    }
+
     public void Show()
     {
 

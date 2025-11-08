@@ -4,38 +4,45 @@ using System.Collections.Generic;
 
 public class BuildingSystem : MonoBehaviour
 {
-    private TaskController taskController;
+    [SerializeField]
+    private GameObject wheatFarmPrefab;
+    [SerializeField]
+    private GameObject mushroomFarmPrefab;
+    [SerializeField]
+    private GameObject restaurantPrefab;
 
-    private TileMap tileMap;
+    private Dictionary<int, WallBase> walls;
+    private Dictionary<int, BuildingBase> buildings;
 
-    private DigWallPreview digWallPreview;
+    private BuildPreview buildPreview;
 
-    public Dictionary<int, BuildingBase> buildings;
+    // Load Wall, Building Data
 
-    private void Awake()
+
+    public void CreateBuilding(BuildingType type, Tile pivotTile)
     {
-        taskController = GetComponent<TaskController>();
-        tileMap = GetComponent<TileMap>();
-        digWallPreview = GetComponent<DigWallPreview>();
-    }
+        if (buildPreview.canBuild == false)
+        {
+            Debug.Log("Can't build");
+            return;
+        }
 
-    void Start()
-    {
-        InitializeTileMap();
-    }
+        Vector3 pos = pivotTile.gameObject.transform.position;
 
-    private void InitializeTileMap()
-    {
-        tileMap.InitializeTileMap();
-        tileMap.UpdateAllDigWallPreview(digWallPreview);
-        tileMap.GenerateObject();
-    }
+        switch (type)
+        {
+            case BuildingType.WHEATFARM:
+                Instantiate(wheatFarmPrefab, pos, Quaternion.identity);
 
-    Vector3 ScreenToWorldOnZ(Vector2 screenPos, float z)
-    {
-        var cam = Camera.main;
-        // 카메라에서 z평면까지의 거리
-        float distance = (z - cam.transform.position.z) / cam.transform.forward.z;
-        return cam.ScreenToWorldPoint(new Vector3(screenPos.x, screenPos.y, distance));
+                break;
+            case BuildingType.MUSHROOMFARM:
+                Instantiate(mushroomFarmPrefab, pos, Quaternion.identity);
+
+                break;
+            case BuildingType.RESTAURANT:
+                Instantiate(restaurantPrefab, pos, Quaternion.identity);
+
+                break;
+        }
     }
 }

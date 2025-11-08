@@ -21,9 +21,8 @@ public class BuildingState : ITaskState
             return;
         }
 
-
         // 2. 입력
-        if (Mouse.current != null && Mouse.current.leftButton.wasPressedThisFrame)
+        if (Mouse.current != null && Mouse.current.leftButton.wasReleasedThisFrame)
         {
             // 클릭시 UI가 포함이면 리턴한다.
             if (EventSystem.current.IsPointerOverGameObject()) return;

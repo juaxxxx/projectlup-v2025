@@ -1,5 +1,3 @@
-using Unity.VisualScripting;
-using UnityEditorInternal;
 using UnityEngine;
 
 public class TileMap : MonoBehaviour
@@ -17,7 +15,11 @@ public class TileMap : MonoBehaviour
 
     public Tile[,] tiles;
 
-    public void InitializeTileMap()
+    // 이건 어디서 할지 고민좀 해보자.
+    //tileMap.UpdateAllDigWallPreview(digWallPreview);
+    //tileMap.GenerateObject();
+
+    public void InitializeTileMap(TileInfo[,] tileInfoes)
     {
         tiles = new Tile[tileMapWidth, tileMapHeight];
         for (int i = 0; i< tileMapWidth; i++)
@@ -31,34 +33,12 @@ public class TileMap : MonoBehaviour
                         new Vector3(i * gridWidth + 2.5f, -j * gridHeight - 2.5f, -2.5f),
                         Quaternion.identity, this.transform);
                     tiles[i, j] = tile.GetComponent<Tile>();
-                    tiles[i, j].SetTileInfo(new TileInfo(TileType.WALL, BuildingType.NONE, WallType.DUST, new Vector2Int(i, j), -1));
+                    tiles[i, j].SetTileInfo(tileInfoes[i,j]);
                 }
             }
         }
     }
 
-    public void UpdateAllDigWallPreview(DigWallPreview digWallPreview)
-    {
-        foreach (Tile tile in tiles)
-        {
-            if (tile.tileInfo.tileType == TileType.WALL)
-            {
-                digWallPreview.AddCanDigTile(tile);
-            }
-            else
-            {
-                digWallPreview.AddCanNotDigTile(tile);
-            }
-        }
-    }
-
-    // 나중에 데이터 가져올 때 호출할 함수
-    void SetupTileMap(TileInfo[,] tileMap)
-    {
-
-    }
-
-    // �׽�Ʈ��
     public void GenerateObject()
     {
         for (int i = 0; i < 10; i++)
