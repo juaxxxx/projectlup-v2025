@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
-namespace DSG
+namespace LUP.DSG
 {
     public class CharacterSlotUI : MonoBehaviour
     {

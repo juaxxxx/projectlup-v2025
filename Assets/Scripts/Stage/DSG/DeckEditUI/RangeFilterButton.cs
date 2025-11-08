@@ -1,7 +1,7 @@
-using DSG.Utils.Enums;
+using LUP.DSG.Utils.Enums;
 using UnityEngine;
 
-namespace DSG
+namespace LUP.DSG
 {
     public class RangeFilterButton : BaseFilterButton<ERangeType> { }
 }

@@ -2,7 +2,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace DSG
+namespace LUP.DSG
 {
     public class RoundCount : MonoBehaviour
     {

@@ -2,7 +2,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace DSG
+namespace LUP.DSG
 {
     public class MVPDisplay : MonoBehaviour
     {

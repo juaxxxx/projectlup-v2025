@@ -1,5 +1,5 @@
 using UnityEngine;
-using DSG.Utils.Enums;
+using LUP.DSG.Utils.Enums;
 
 [System.Serializable]
 public class CharacterStatusData

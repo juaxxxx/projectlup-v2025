@@ -2,10 +2,10 @@ using NUnit.Framework;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
-using DSG.Utils.Enums;
-using static DSG.Character;
+using LUP.DSG.Utils.Enums;
+using static LUP.DSG.Character;
 
-namespace DSG
+namespace LUP.DSG
 {
     public class StatusEffectComponent : MonoBehaviour
     {

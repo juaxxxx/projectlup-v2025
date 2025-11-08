@@ -1,13 +1,14 @@
 using UnityEngine;
 using static UnityEngine.Rendering.HDROutputUtils;
 
-namespace DSG.Utils.Enums
+namespace LUP.DSG.Utils.Enums
 {
     public enum EStatusEffectType
     {
         Burn,
         Poison,
         AttackBuff,
+        None
     }
 
     public enum EOperationType
@@ -16,6 +17,7 @@ namespace DSG.Utils.Enums
         Minus,
         Multiply,
         Division,
-        Calm
+        Calm,
+        None
     }
 }

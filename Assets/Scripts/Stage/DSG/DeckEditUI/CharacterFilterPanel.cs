@@ -1,11 +1,11 @@
-using DSG.Utils.Enums;
+using LUP.DSG.Utils.Enums;
 using NUnit.Framework;
 using System;
 using System.Collections.Generic;
 using UnityEditor.ShaderGraph.Internal;
 using UnityEngine;
 
-namespace DSG
+namespace LUP.DSG
 {
     public class CharacterFilterPanel : MonoBehaviour
     {

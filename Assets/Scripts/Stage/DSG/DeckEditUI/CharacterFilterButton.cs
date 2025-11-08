@@ -1,23 +1,26 @@
-using DSG;
+using LUP.DSG;
 using System;
 using UnityEngine;
 using static UnityEngine.Rendering.DebugUI;
 
-public class CharacterFilterButton<T> : FilterButtonBase where T : Enum
+namespace LUP.DSG
 {
-    private CharacterFilterPanel filterPanel;
-    private T enumValue;
-
-    public override void Init(CharacterFilterPanel panel, Enum enumVal)
+    public class CharacterFilterButton<T> : FilterButtonBase where T : Enum
     {
-        filterPanel = panel;
-        enumValue = (T)enumVal;
-        filterText.text = enumValue.ToString();
+        private CharacterFilterPanel filterPanel;
+        private T enumValue;
 
-        filterButton.onClick.AddListener(() =>
+        public override void Init(CharacterFilterPanel panel, Enum enumVal)
         {
-            isSelected = !isSelected;
-            filterPanel.UpdateFilter(enumValue);
-        });
+            filterPanel = panel;
+            enumValue = (T)enumVal;
+            filterText.text = enumValue.ToString();
+
+            filterButton.onClick.AddListener(() =>
+            {
+                isSelected = !isSelected;
+                filterPanel.UpdateFilter(enumValue);
+            });
+        }
     }
 }

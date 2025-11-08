@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using UnityEngine;
 
-namespace DSG
+namespace LUP.DSG
 {
     public class DataCenter : MonoBehaviour
     {

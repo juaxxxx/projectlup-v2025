@@ -1,11 +1,14 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class ExitButton : MonoBehaviour
+namespace LUP.DSG
 {
-    // UI 버튼의 OnClick 이벤트에 연결
-    public void OnExitButtonClicked()
+    public class ExitButton : MonoBehaviour
     {
-        SceneManager.LoadScene("DeckMainScene");
+        // UI 버튼의 OnClick 이벤트에 연결
+        public void OnExitButtonClicked()
+        {
+            SceneManager.LoadScene("DeckMainScene");
+        }
     }
 }

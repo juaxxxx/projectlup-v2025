@@ -1,10 +1,10 @@
-using DSG.Utils.Enums;
+using LUP.DSG.Utils.Enums;
 using OpenCvSharp.Aruco;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace DSG
+namespace LUP.DSG
 {
     public delegate float BinaryOp(float a, float b);
     static class Operation

@@ -1,26 +1,29 @@
 using UnityEngine;
 using System.Collections;
 
-public class CameraShake : MonoBehaviour
+namespace LUP.DSG
 {
-    public IEnumerator Shake(float duration, float magnitude)
+    public class CameraShake : MonoBehaviour
     {
-        Vector3 originalPos = transform.localPosition;
-
-        float elapsed = 0.0f;
-
-        while (elapsed < duration)
+        public IEnumerator Shake(float duration, float magnitude)
         {
-            float x = Random.Range(-1f, 1f) * magnitude;
-            float y = Random.Range(-1f, 1f) * magnitude;
+            Vector3 originalPos = transform.localPosition;
 
-            transform.localPosition = originalPos + new Vector3(x, y, 0f);
+            float elapsed = 0.0f;
 
-            elapsed += Time.deltaTime;
+            while (elapsed < duration)
+            {
+                float x = Random.Range(-1f, 1f) * magnitude;
+                float y = Random.Range(-1f, 1f) * magnitude;
 
-            yield return null;
+                transform.localPosition = originalPos + new Vector3(x, y, 0f);
+
+                elapsed += Time.deltaTime;
+
+                yield return null;
+            }
+
+            transform.localPosition = originalPos;
         }
-
-        transform.localPosition = originalPos;
     }
 }

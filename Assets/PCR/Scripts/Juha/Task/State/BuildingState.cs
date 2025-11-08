@@ -1,5 +1,3 @@
-using Unity.Android.Gradle;
-using Unity.Android.Types;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;

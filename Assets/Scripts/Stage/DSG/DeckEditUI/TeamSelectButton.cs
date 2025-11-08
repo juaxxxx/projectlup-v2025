@@ -4,7 +4,7 @@ using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using UnityEngine.UIElements;
 
-namespace DSG
+namespace LUP.DSG
 {
     public class TeamSelectButton : MonoBehaviour
     {

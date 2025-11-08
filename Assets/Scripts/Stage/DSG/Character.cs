@@ -2,7 +2,7 @@ using System.Runtime.CompilerServices;
 using UnityEngine;
 using static UnityEngine.UI.GridLayoutGroup;
 
-namespace DSG
+namespace LUP.DSG
 {
     public class Character : MonoBehaviour
     {
@@ -70,6 +70,9 @@ namespace DSG
             battleComp.OnReachedTargetPos += animationComp.EndDashLoop;
             battleComp.OnDamaged += animationComp.PlayHittedAnimation;
             battleComp.OnDie += animationComp.PlayDiedAnimation;
+            BattleComp.OnMeleeAttack += animationComp.StartMeleeAnimation;
+
+            animationComp.OnHitAttack += battleComp.ApplyDamageOnce;
         }
 
         public void EndTurn()
@@ -101,6 +104,7 @@ namespace DSG
 
             //characterInfo = info;
             battleComp.SetHp(data.maxHp);
+            BattleComp.SetMaxGauge(100);
 
             characterData = data;
             characterModelData = modelData;

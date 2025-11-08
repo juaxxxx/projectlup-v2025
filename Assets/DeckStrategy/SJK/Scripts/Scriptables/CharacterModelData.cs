@@ -1,9 +1,12 @@
 using UnityEngine;
 
-[System.Serializable]
-public class CharacterModelData
+namespace LUP.DSG
 {
-    public int ID;
-    public UnityEngine.Material material;
-    public GameObject prefab;
+    [System.Serializable]
+    public class CharacterModelData
+    {
+        public int ID;
+        public UnityEngine.Material material;
+        public GameObject prefab;
+    }
 }

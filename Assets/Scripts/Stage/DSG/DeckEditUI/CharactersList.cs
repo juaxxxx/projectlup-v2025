@@ -1,4 +1,4 @@
-using DSG.Utils.Enums;
+using LUP.DSG.Utils.Enums;
 using Manager;
 using NUnit.Framework.Interfaces;
 using Roguelike.Define;
@@ -7,9 +7,9 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.TextCore.Text;
-using static DSG.ResultCharacterDisplay;
+using static LUP.DSG.ResultCharacterDisplay;
 
-namespace DSG
+namespace LUP.DSG
 {
     public class CharactersList : MonoBehaviour
     {

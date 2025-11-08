@@ -1,8 +1,8 @@
-using DSG;
+using LUP.DSG;
 using UnityEngine;
-using DSG.Utils.Enums;
+using LUP.DSG.Utils.Enums;
 
-namespace DSG
+namespace LUP.DSG
 {
     public class BurnEffect : IStatusEffect
     {

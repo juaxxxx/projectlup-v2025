@@ -2,7 +2,7 @@ using NUnit.Framework;
 using UnityEngine;
 using System.Collections.Generic;
 
-namespace DSG
+namespace LUP.DSG
 {
     public class PickRandomTarget : AttackTargetSelectorBase
     {

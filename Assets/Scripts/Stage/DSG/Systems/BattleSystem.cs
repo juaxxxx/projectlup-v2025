@@ -8,9 +8,9 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.TextCore.Text;
 using UnityEngine.UI;
-using DSG.Utils.Enums;
+using LUP.DSG.Utils.Enums;
 
-namespace DSG
+namespace LUP.DSG
 {
     public class BattleSystem : MonoBehaviour
     {
@@ -48,7 +48,6 @@ namespace DSG
 
         private int currentTurnIndex = 0;
         private int currentRound = 1;
-
         private bool isBattleStart = false;
 
         [SerializeField]
@@ -150,7 +149,7 @@ namespace DSG
                     battleSequence.RemoveAt(i);
                     continue;
                 }
-                
+
                 Character character = battleSequence[i];
                 character.StatusEffectComp.TurnAll();
                 character.StatusEffectComp.ClearRemoveList();
@@ -271,7 +270,7 @@ namespace DSG
 
             mvp.char1Prefab = mvp.char2Prefab = mvp.char3Prefab = mvp.char4Prefab = mvp.char5Prefab = null;
 
-            
+
             var friendlyChars = new List<(string Name, Color Color, float Score, GameObject Prefab)>();
             foreach (var slotObj in friendlySlots)
             {
@@ -303,7 +302,7 @@ namespace DSG
             for (int i = 0; i < Mathf.Min(5, ranked.Count); i++)
             {
                 var character = ranked[i];
-                
+
                 ApplyMVP(mvp, i + 1, character.Name, character.Color, character.Score, character.Prefab);
             }
 
@@ -412,14 +411,8 @@ namespace DSG
 
                 var currentChar = battleSequence[currentTurnIndex];
                 if (currentChar == null || !currentChar.BattleComp.isAlive) continue;
-                if (currentChar.characterData.rangeType == ERangeType.Melee)
-                {
-                    yield return new WaitForSeconds(2.0f);
-                }
-                else
-                {
-                    yield return new WaitForSeconds(1.0f);
-                }
+
+                yield return new WaitWhile(() => currentChar.BattleComp.isAttacking);
             }
 
             InitSequence();
@@ -492,11 +485,10 @@ namespace DSG
                 EndBattle("Defeat");
             }
         }
-       private void OnDieIndexCharacter(int index)
-       {
+        private void OnDieIndexCharacter(int index)
+        {
             sequenceImage[index].gameObject.SetActive(false);
-       }
+        }
     }
-        
+
 }
-    

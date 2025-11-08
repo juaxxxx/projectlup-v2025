@@ -1,7 +1,7 @@
-using DSG.Utils.Enums;
+using LUP.DSG.Utils.Enums;
 using System.Collections.Generic;
 
-namespace DSG
+namespace LUP.DSG
 {
     public class CharacterFilterState
     {

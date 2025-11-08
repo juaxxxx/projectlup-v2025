@@ -1,18 +1,14 @@
-using DSG.Utils.Enums;
+using LUP.DSG.Utils.Enums;
 using System;
 using UnityEngine;
 
-namespace DSG
+namespace LUP.DSG
 {
     public class AnimationComponent : MonoBehaviour
     {
-        [SerializeField]
-        private Animator animator;
+        public Animator animator;
 
-        public event Action OnReachedAttackPos;
-        public event Action OnReachedOriginPos;
-        public event Action OnHitted;
-        public event Action OnDied;
+        public event Action OnHitAttack;
 
         void Start()
         {
@@ -61,6 +57,11 @@ namespace DSG
         public void PlayDiedAnimation(int index)
         {
             animator.SetTrigger("died");
+        }
+
+        public void OnHitAttackEvent()
+        {
+            OnHitAttack?.Invoke();
         }
     }
 }

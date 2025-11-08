@@ -1,11 +1,13 @@
-using DSG.Utils.Enums;
+using LUP.DSG.Utils.Enums;
 using System;
+using System.Collections;
 using TMPro;
 using UnityEngine;
-using static DSG.ResultCharacterDisplay;
+using static LUP.DSG.ResultCharacterDisplay;
+using static UnityEditor.Experimental.GraphView.GraphView;
 using static UnityEngine.UI.GridLayoutGroup;
 
-namespace DSG
+namespace LUP.DSG
 {
     public class BattleComponent : MonoBehaviour
     {
@@ -89,20 +91,18 @@ namespace DSG
                     {
                         if (!impactApplied)
                         {
-                            // ���� ��ġ�� �̵� �Ϸ��
                             OnReachedTargetPos?.Invoke(true);
-                            // ���� �ִϸ��̼� ���� 
                             OnMeleeAttack?.Invoke();
-                            // ���� �ִϸ��̼� �����
-                            OnEndMelee?.Invoke();
-                            ApplyDamageOnce();
+
+                            StartCoroutine(WaitAttack());
+
                             if (currGauge == maxSkillGauge)
                             {
                                 currGauge = 0;
                             }
+
                             impactApplied = true;
                         }
-                        targetPosition = originPosition;
                     }
                     else if (transform.position == originPosition)
                     {
@@ -145,6 +145,11 @@ namespace DSG
             currHp = hp;
         }
 
+        public void SetMaxGauge(float gauge)
+        {
+            maxSkillGauge = gauge;
+        }
+
         public void Attack(LineupSlot target)
         {
             if (isAttacking) return;
@@ -157,6 +162,7 @@ namespace DSG
             if (owner.characterData.rangeType == ERangeType.Range)
             {
                 bullet = Instantiate(bulletPrefab, originPosition, Quaternion.identity);
+                OnAttackStarted?.Invoke(owner.characterData.rangeType);
             }
 
             OnAttackStarted?.Invoke(owner.characterData.rangeType);
@@ -164,7 +170,7 @@ namespace DSG
             isAttacking = true;
         }
 
-        private void ApplyDamageOnce()
+        public void ApplyDamageOnce()
         {
             if (targetSlot == null)
                 return;
@@ -175,7 +181,7 @@ namespace DSG
                 return;
 
             float damage = owner.characterData.attack;
-            targetChar.BattleComp.TakeDamage(damage);
+            targetChar.BattleComp.TakeDamage(1);
             owner.ScoreComp.UpdateDamageDealt(damage);
 
             PlusGuage(50);
@@ -250,6 +256,24 @@ namespace DSG
         {
             currGauge += amount;
             OnChangeGauge?.Invoke(currGauge);
+        }
+
+        IEnumerator WaitAttack()
+        {
+
+            yield return null;
+            Animator anim = owner.AnimationComp.animator;
+
+            AnimatorStateInfo state = anim.GetCurrentAnimatorStateInfo(0);
+            AnimatorClipInfo[] clips = anim.GetCurrentAnimatorClipInfo(0);
+
+            float clipLen = clips[0].clip.length;
+            float speed = anim.speed * state.speedMultiplier;
+            float waitSec = clipLen / Mathf.Max(speed, 0.0001f);
+            yield return new WaitForSeconds(waitSec);
+
+            targetPosition = originPosition;
+            OnEndMelee?.Invoke();
         }
     }
 }

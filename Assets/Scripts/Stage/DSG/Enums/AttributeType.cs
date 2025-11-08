@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace DSG.Utils.Enums
+namespace LUP.DSG.Utils.Enums
 {
     public enum EAttributeType
     {

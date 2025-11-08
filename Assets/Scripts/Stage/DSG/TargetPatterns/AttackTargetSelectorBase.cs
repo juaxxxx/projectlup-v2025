@@ -1,7 +1,7 @@
 using UnityEngine;
 using System.Collections.Generic;
 
-namespace DSG
+namespace LUP.DSG
 {
     public abstract class AttackTargetSelectorBase : IAttackTargetSelector
     {
@@ -47,7 +47,7 @@ namespace DSG
         }
         protected bool IsAlive(Character character)
         {
-            return character != null &&
+            return character.characterData != null &&
                    character.BattleComp != null &&
                    character.BattleComp.isAlive;
         }

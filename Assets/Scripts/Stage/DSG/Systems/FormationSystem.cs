@@ -1,7 +1,7 @@
 using UnityEditor;
 using UnityEngine;
 
-namespace DSG
+namespace LUP.DSG
 {
     public class FormationSystem : MonoBehaviour
     {

@@ -3,7 +3,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace DSG
+namespace LUP.DSG
 {
     public class BaseFilterButton<T> : MonoBehaviour where T : Enum
     {

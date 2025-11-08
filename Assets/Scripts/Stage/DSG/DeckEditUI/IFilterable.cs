@@ -1,5 +1,5 @@
 
-namespace DSG
+namespace LUP.DSG
 {
     public interface IFilterable
     {

@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
-namespace DSG
+namespace LUP.DSG
 {
 
     [CreateAssetMenu(fileName = "Character Data Table", menuName = "Scriptable/Character Data Table", order = int.MaxValue)]

@@ -4,9 +4,9 @@ using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
-using DSG.Utils.Enums;
+using LUP.DSG.Utils.Enums;
 
-namespace DSG
+namespace LUP.DSG
 {
     public class CharacterIcon : MonoBehaviour
     {

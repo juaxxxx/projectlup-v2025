@@ -1,6 +1,6 @@
-using DSG.Utils.Enums;
+using LUP.DSG.Utils.Enums;
 
-namespace DSG
+namespace LUP.DSG
 {
     [System.Serializable]
     public class CharacterData

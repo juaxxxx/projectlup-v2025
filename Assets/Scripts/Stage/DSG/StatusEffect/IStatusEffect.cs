@@ -1,8 +1,8 @@
-using DSG.Utils.Enums;
+using LUP.DSG.Utils.Enums;
 using UnityEngine;
-using static DSG.Character;
+using static LUP.DSG.Character;
 
-namespace DSG
+namespace LUP.DSG
 {
     public abstract class IStatusEffect
     {

@@ -2,7 +2,7 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.TextCore.Text;
 
-namespace DSG
+namespace LUP.DSG
 {
     public class LineupSlot : MonoBehaviour
     {

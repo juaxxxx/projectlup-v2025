@@ -1,4 +1,4 @@
-using DSG.Utils.Enums;
+using LUP.DSG.Utils.Enums;
 using System;
 using System.Collections.Generic;
 using System.Data.SqlTypes;
@@ -8,10 +8,10 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.TextCore.Text;
 using UnityEngine.UI;
-using static DSG.Character;
+using static LUP.DSG.Character;
 using static UnityEngine.GraphicsBuffer;
 
-namespace DSG
+namespace LUP.DSG
 {
     [System.Serializable]
     public struct StatusSpritePair

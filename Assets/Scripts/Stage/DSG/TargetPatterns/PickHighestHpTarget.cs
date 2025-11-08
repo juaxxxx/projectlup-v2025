@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace DSG
+namespace LUP.DSG
 {
     public class PickHighestHpTarget : AttackTargetSelectorBase
     {

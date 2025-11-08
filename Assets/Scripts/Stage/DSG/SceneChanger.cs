@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-namespace DSG
+namespace LUP.DSG
 {
     public class SceneChanger : MonoBehaviour
     {
