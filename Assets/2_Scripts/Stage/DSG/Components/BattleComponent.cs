@@ -154,7 +154,8 @@ namespace LUP.DSG
 
         public void Attack(LineupSlot target)
         {
-            if (isAttacking) return;
+            //if (isAttacking) return;
+            if (owner.AnimationComp.currentState != EAnimStateType.Idle) return;
 
             if (target == null)
                 return;
@@ -163,7 +164,7 @@ namespace LUP.DSG
             targetPosition = targetSlot.AttackedPosition.position;
             HandleAttackStart();
 
-            isAttacking = true;
+            //isAttacking = true;
         }
 
         public void ApplyDamageOnce()
