@@ -5,11 +5,11 @@ namespace Manager
     public class DataManager : Singleton<DataManager>
     {
         [SerializeField]
-        BaseStaticData data;
+        BaseStaticDataLoader data;
 
-        public BaseStaticData GetStaticData(Define.StageKind stagekind, int stagetype)
+        public BaseStaticDataLoader GetStaticData(Define.StageKind stagekind, int stagetype)
         {
-            BaseStaticData data = null;
+            BaseStaticDataLoader data = null;
 
             data = ResourceManager.Instance.LoadStaticData(stagekind, stagetype);
 

@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class AssetBundleSample : MonoBehaviour
 {
-    public RoguelikeStaticData characterdata;
+    public RoguelikeStaticDataLoader characterdata;
 
 
     void Start()
@@ -15,7 +15,7 @@ public class AssetBundleSample : MonoBehaviour
             Debug.Log("Failed to load AssetBundle!");
             return;
         }
-        characterdata = runtimedataAB.LoadAsset<RoguelikeStaticData>("RoguelikeStaticData");
+        characterdata = runtimedataAB.LoadAsset<RoguelikeStaticDataLoader>("RoguelikeStaticData");
 
     }
 }

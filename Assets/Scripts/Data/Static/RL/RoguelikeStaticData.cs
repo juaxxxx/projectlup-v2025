@@ -1,25 +1,12 @@
-﻿using System.Collections;
-using UnityEngine;
-using UnityEngine.Networking;
-
-[CreateAssetMenu(fileName = "RoguelikeStaticData", menuName = "Scriptable Objects/RoguelikeStaticData")]
-public class RoguelikeStaticData : BaseStaticData<RoguelikeScriptData>
+﻿[System.Serializable]
+public class RoguelikeStaticData
 {
-    protected override string URL => "https://docs.google.com/spreadsheets/d/11yM9l6g4opxVTflwsOVV0nZoIPUQ9VnA0rhkasLEi7I/export?format=csv&gid=2025045110";
-
-    public override IEnumerator LoadSheet()
-    {
-        UnityWebRequest www = UnityWebRequest.Get(URL);
-        yield return www.SendWebRequest();
-
-        if (www.result != UnityWebRequest.Result.Success)
-        {
-            Debug.LogError($"[RoguelikeStaticData] Failed to load sheet: {www.error}");
-            yield break;
-        }
-
-        string csvData = www.downloadHandler.text;
-        ParseSheet(csvData);
-    }
+    [Column("DataType")] public string DataType;
+    [Column("ID")] public string ID;
+    [Column("Name")] public string Name;
+    [Column("HP")] public int HP;
+    [Column("ATK")] public string ATK;
+    [Column("SPEED")] public string SPEED;
+    [Column("ChapterMaxRoomNum")] public string ChapterMaxRoomNum;
 }
-
+              

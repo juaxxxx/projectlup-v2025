@@ -8,7 +8,7 @@ namespace Manager
 {
     public class DeckStrategyStage : BaseStage
     {
-        public BaseStaticData StaticData;
+        public BaseStaticDataLoader StaticData;
         public BaseRuntimeData RuntimeData;
 
         protected override void Awake() 

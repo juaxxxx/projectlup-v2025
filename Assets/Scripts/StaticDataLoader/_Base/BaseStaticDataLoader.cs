@@ -4,7 +4,7 @@ using System.Reflection;
 using UnityEditor;
 using UnityEngine;
 
-public abstract class BaseStaticData : ScriptableObject
+public abstract class BaseStaticDataLoader : ScriptableObject
 {
     protected abstract string URL { get; }
 
@@ -14,7 +14,7 @@ public abstract class BaseStaticData : ScriptableObject
     public abstract IEnumerator LoadSheet();
 }
 
-public abstract class BaseStaticData<T> : BaseStaticData where T : new()
+public abstract class BaseStaticDataLoader<T> : BaseStaticDataLoader where T : new()
 {
     [Header("스프레드시트에서 읽혀져 직렬화 된 오브젝트")][SerializeField]
     public List<T> DataList = new List<T>();
@@ -178,14 +178,14 @@ public abstract class BaseStaticData<T> : BaseStaticData where T : new()
 }
 
 #if UNITY_EDITOR
-[CustomEditor(typeof(BaseStaticData), true)]
+[CustomEditor(typeof(BaseStaticDataLoader), true)]
 public class BaseStaticDataReaderEditor : Editor
 {
-    BaseStaticData data;
+    BaseStaticDataLoader data;
 
     void OnEnable()
     {
-        data = (BaseStaticData)target;
+        data = (BaseStaticDataLoader)target;
     }
 
     public override void OnInspectorGUI()

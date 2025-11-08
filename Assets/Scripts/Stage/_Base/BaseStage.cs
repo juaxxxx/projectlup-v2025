@@ -73,9 +73,9 @@ namespace Manager
             DataManager.Instance.SaveRuntimeData(runtimeData);
         }
 
-        protected BaseStaticData GetStaticData(BaseStage stage, int dataindex)
+        protected BaseStaticDataLoader GetStaticData(BaseStage stage, int dataindex)
         {
-            BaseStaticData data = null;
+            BaseStaticDataLoader data = null;
 
             data = Manager.DataManager.Instance.GetStaticData(stage.StageKind, dataindex);
 

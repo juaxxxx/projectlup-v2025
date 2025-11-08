@@ -5,7 +5,7 @@ namespace Manager
 {
     public class RoguelikeStage : BaseStage
     {
-        public BaseStaticData StaticData;
+        public BaseStaticDataLoader StaticData;
         public BaseRuntimeData RuntimeData;
 
         public GameObject TestCharacter;

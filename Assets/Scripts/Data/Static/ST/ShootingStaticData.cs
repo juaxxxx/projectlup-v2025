@@ -1,25 +1,8 @@
-﻿using System.Collections;
-using UnityEngine;
-using UnityEngine.Networking;
-
-[CreateAssetMenu(fileName = "ShootingStaticData", menuName = "Scriptable Objects/ShootingStaticData")]
-public class ShootingStaticData : BaseStaticData<ShootingScriptData>
+﻿[System.Serializable]
+public class ShootingStaticData
 {
-    protected override string URL => "https://docs.google.com/spreadsheets/d/11yM9l6g4opxVTflwsOVV0nZoIPUQ9VnA0rhkasLEi7I/export?format=csv";
-
-    public override IEnumerator LoadSheet()
-    {
-        UnityWebRequest www = UnityWebRequest.Get(URL);
-        yield return www.SendWebRequest();
-
-        if (www.result != UnityWebRequest.Result.Success)
-        {
-            Debug.LogError($"[ShootingStaticData] Failed to load sheet: {www.error}");
-            yield break;
-        }
-
-        string csvData = www.downloadHandler.text;
-
-        ParseSheet(csvData);
-    }
+    [Column("name")] public string name;
+    [Column("description")] public string description;
+    [Column("stat")] public string stat;
+    [Column("gold")] public int gold;
 }

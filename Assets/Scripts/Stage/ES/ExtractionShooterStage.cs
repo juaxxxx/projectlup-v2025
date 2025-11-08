@@ -9,7 +9,7 @@ namespace Manager
 {
     public class ExtractionShooterStage : BaseStage
     {
-        public BaseStaticData StaticData;
+        public BaseStaticDataLoader StaticData;
         public BaseRuntimeData RuntimeData;
 
         protected override void Awake() 
