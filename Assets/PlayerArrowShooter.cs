@@ -30,51 +30,40 @@ namespace LUP.RL
         }
         public void ShootArrow()
         {
-            spawnPoint.rotation = Quaternion.LookRotation(transform.forward);
+            spawnPoint.rotation = Quaternion.LookRotation(this.transform.forward);
             Enemy targetEnemy = FindClosestEnemy();
 
             Vector3 fireDir;
             if (targetEnemy != null)
-                fireDir = (targetEnemy.transform.position - transform.position).normalized;
+                fireDir = (targetEnemy.transform.position - this.transform.position).normalized;
             else
                 fireDir = transform.forward;
 
             fireDir.y = 0f;
             if (fireDir.sqrMagnitude > 0.01f)
             {
+                //fireDir을 바라보는 회전값 쿼터니언 생성.
                 Quaternion lookRot = Quaternion.LookRotation(fireDir);
+                // 보간
                 transform.rotation = Quaternion.Slerp(transform.rotation, lookRot, 1.5f);
             }
-
-            Transform targetTransform = targetEnemy ? targetEnemy.transform : null;
             //   화살생성
             GameObject arrow = Instantiate(arrowPrefab, spawnPoint.position, Quaternion.LookRotation(fireDir));
 
             // 값전달  
             HomingArrow homing = arrow.GetComponent<HomingArrow>();
-            homing.Initialize(archer, targetTransform, arrowSpeed, archer.Adata.currentData.Attack);
+            homing.Initialize(archer, targetEnemy.transform, arrowSpeed, archer.Adata.currentData.Attack);
 
-            if (targetTransform == null)
-            {
-                arrow.transform.position = spawnPoint.forward;
-            }
-            else
-            {
-                arrow.transform.LookAt(targetTransform);
-            }
         }
         Enemy FindClosestEnemy()
         {
             if (currentRoom == null)
             {
-                Debug.Log("방없음");
                 return null;
             }
-
             Enemy[] enemies = currentRoom.GetComponentsInChildren<Enemy>(true);
             if (enemies.Length == 0)
             {
-                Debug.Log("적이없음"); 
                     return null;
             }
             Enemy closest = null;
@@ -102,7 +91,6 @@ namespace LUP.RL
         {
             Enemy.ObjectOnEnemyDied -= HandleEnemyDeath;
         }
-
         private void HandleEnemyDeath(Enemy dead)
         {
             Debug.Log($"{dead.name} 사망 감지!");
