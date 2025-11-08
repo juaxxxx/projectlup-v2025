@@ -1,16 +1,14 @@
-﻿using Manager;
-using UnityEngine;
-using UnityEngine.Audio;
-using UnityEngine.UI;
-using UnityEngine.Video;
-using System.Collections;
+﻿using System.Collections;
+using System.Collections.Generic;
 
 namespace Manager
 {
     public class ExtractionShooterStage : BaseStage
     {
-        public BaseStaticDataLoader StaticData;
+        public BaseStaticDataLoader StaticDataLoader;
         public BaseRuntimeData RuntimeData;
+
+        List<ExtractionStaticData> DataList;
 
         protected override void Awake() 
         {
@@ -58,8 +56,17 @@ namespace Manager
 
         protected override void GetDatas()
         {
-            StaticData = base.GetStaticData(this, 1);
-            RuntimeData = base.GetRuntimeData(this, 1);
+            StaticDataLoader = base.GetStaticData(this, (int)Define.ExtractionShooterStageKind.Lobby);
+            RuntimeData = base.GetRuntimeData(this, (int)Define.ExtractionShooterStageKind.Lobby);
+
+            if (StaticDataLoader != null)
+            {
+                ExtractionStaticDataLoader ESStaticDataLoader = (ExtractionStaticDataLoader)StaticDataLoader;
+                if (ESStaticDataLoader != null)
+                {
+                    DataList = ESStaticDataLoader.GetDataList();
+                }
+            }
         }
 
         protected override void SaveDatas()

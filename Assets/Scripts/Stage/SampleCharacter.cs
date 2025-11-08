@@ -13,7 +13,7 @@ public class SampleCharacter : MonoBehaviour
         RoguelikeStage stage = Manager.StageManager.Instance.GetCurrentStage() as RoguelikeStage;
         if (stage != null)
         {
-            RoguelikeStaticDataLoader staticdataloader = (RoguelikeStaticDataLoader)stage.StaticData;
+            RoguelikeStaticDataLoader staticdataloader = (RoguelikeStaticDataLoader)stage.StaticDataLoader;
             RoguelikeRuntimeData runtimeData = (RoguelikeRuntimeData)stage.RuntimeData;
             List<RoguelikeStaticData> datalist = staticdataloader.GetDataList();
 

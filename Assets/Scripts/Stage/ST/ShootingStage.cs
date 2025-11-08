@@ -1,21 +1,22 @@
-﻿using Manager;
-using UnityEngine;
-using UnityEngine.Audio;
-using UnityEngine.UI;
-using UnityEngine.Video;
-using System.Collections;
+﻿using System.Collections;
+using System.Collections.Generic;
+
 namespace Manager
 {
     public class ShootingStage : BaseStage
     {
-        public BaseStaticDataLoader StaticData;
+        public BaseStaticDataLoader StaticDataLoader;
         public BaseRuntimeData RuntimeData;
+
+        // 실제 입력한 값들이 담긴 데이터 리스트
+        List<ShootingStaticData> DataList;
 
         protected override void Awake() 
         {
             base.Awake();
             StageKind = Define.StageKind.ST;
         }
+
         // Start is called once before the first execution of Update after the MonoBehaviour is created
         void Start()
         {
@@ -58,8 +59,17 @@ namespace Manager
 
         protected override void GetDatas()
         {
-            StaticData = base.GetStaticData(this,1);
-            RuntimeData = base.GetRuntimeData(this, 1);
+            StaticDataLoader = base.GetStaticData(this,(int)Define.ShootingStageKind.Lobby);
+            RuntimeData = base.GetRuntimeData(this, (int)Define.ShootingStageKind.Lobby);
+
+            if (StaticDataLoader != null)
+            {
+                ShootingStaticDataLoader STStaticDataLoader = (ShootingStaticDataLoader)StaticDataLoader;
+                if (STStaticDataLoader != null)
+                {
+                    DataList = STStaticDataLoader.GetDataList();
+                }
+            }
         }
 
         protected override void SaveDatas()
