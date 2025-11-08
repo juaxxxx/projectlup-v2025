@@ -19,11 +19,11 @@ namespace LUP.DSG
         {
             if (type == ERangeType.Range)
             {
-                animator.SetTrigger("rangeAttack");
+                SetAnimationState(EAnimStateType.Attack_Range);
             }
             else
             {
-                animator.SetTrigger("startMelee");
+                SetAnimationState(EAnimStateType.StartDash_Fwd);
             }
         }
 
@@ -31,32 +31,37 @@ namespace LUP.DSG
         {
             if (attackEnded)
             {
-                animator.SetTrigger("reachedOriginPos");
+                SetAnimationState(EAnimStateType.EndDash_Bwd);
             }
             else
             {
-                animator.SetTrigger("reachedAttackPos");
+                SetAnimationState(EAnimStateType.EndDash_Fwd);
             }
         }
 
         public void StartMeleeAnimation()
         {
-            animator.SetTrigger("meleeAttack");
+            SetAnimationState(EAnimStateType.Attack_Melee);
         }
 
         public void EndMeleeAnimation()
         {
-            animator.SetTrigger("endMelee");
+            SetAnimationState(EAnimStateType.StartDash_Bwd);
         }
 
         public void PlayHittedAnimation(float damage)
         {
-            animator.SetTrigger("hitted");
+            SetAnimationState(EAnimStateType.Hitted);
         }
 
         public void PlayDiedAnimation(int index)
         {
-            animator.SetTrigger("died");
+            SetAnimationState(EAnimStateType.Died);
+        }
+
+        private void SetAnimationState(EAnimStateType type)
+        {
+            animator.SetInteger("CharacterState", (int)type);
         }
 
         public void OnHitAttackEvent()

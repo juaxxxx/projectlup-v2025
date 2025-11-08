@@ -5,8 +5,10 @@ namespace LUP.DSG.Utils.Enums
     public enum EAnimStateType
     {
         Idle,
-        Dash_Fwd,
-        Dash_Bwd,
+        StartDash_Fwd,
+        StartDash_Bwd,
+        EndDash_Fwd,
+        EndDash_Bwd,
         Attack_Melee,
         Attack_Range,
         Hitted,
