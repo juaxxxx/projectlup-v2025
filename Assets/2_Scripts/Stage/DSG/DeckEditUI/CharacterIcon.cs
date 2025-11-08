@@ -21,8 +21,10 @@ namespace LUP.DSG
 
         public OwnedCharacterInfo characterInfo;
 
-        private event Action<OwnedCharacterInfo, SelectedButton> OnSelected;
-        private event Action<int, SelectedButton> OnDeselected;
+        public Action<OwnedCharacterInfo, SelectedButton> OnSelected;
+        public Action<int, SelectedButton> OnDeselected;
+
+        public int selectedSlot = -1;
 
         private void Awake()
         {

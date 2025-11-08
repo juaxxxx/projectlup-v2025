@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 namespace LUP.DSG
 {
-    public class BaseFilterButton<T> : MonoBehaviour where T : Enum
+    public class BaseFilterButton<T> : MonoBehaviour, IFilterable where T : Enum
     {
         private CharacterFilterPanel filterPanel;
 
@@ -47,6 +47,12 @@ namespace LUP.DSG
             checkedImage.enabled = isSelected;
 
             filterPanel.UpdateFilter(enumValue);
+        }
+
+        public void ResetCheckState()
+        {
+            isSelected = false;
+            checkedImage.enabled = false;
         }
     }
 }

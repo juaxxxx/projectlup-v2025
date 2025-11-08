@@ -10,7 +10,6 @@ namespace LUP.DSG
         private CanvasGroup canvasGroup;
 
         public bool isSelected = false;
-        private float targetAlpha;
 
         private void Awake()
         {

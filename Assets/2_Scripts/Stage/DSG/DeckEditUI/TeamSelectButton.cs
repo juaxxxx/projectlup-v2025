@@ -1,8 +1,4 @@
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.EventSystems;
-using UnityEngine.UI;
-using UnityEngine.UIElements;
 
 namespace LUP.DSG
 {
@@ -21,15 +17,13 @@ namespace LUP.DSG
             toggle.onValueChanged.AddListener(OnToggleChanged);
             if (teamIndex == 0)
             {
-                OnToggleChanged(true);
+                toggle.isOn = true;
             }
         }
 
         void OnToggleChanged(bool isOn)
         {
-            toggle.isOn = isOn;
             toggle.image.color = isOn ? Color.gray : Color.white;
-
             if (isOn)
             {
                 formationSystem.PlaceTeam(teamIndex);

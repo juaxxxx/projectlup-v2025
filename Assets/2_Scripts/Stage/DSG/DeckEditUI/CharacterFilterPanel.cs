@@ -2,6 +2,7 @@ using LUP.DSG.Utils.Enums;
 using NUnit.Framework;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEditor.ShaderGraph.Internal;
 using UnityEngine;
 
@@ -20,7 +21,6 @@ namespace LUP.DSG
         private Transform attributesFilterArea;
         [SerializeField]
         private Transform RangesFilterArea;
-
 
         Dictionary<EAttributeType, bool> attributeFilter = new Dictionary<EAttributeType, bool>();
         Dictionary<ERangeType, bool> rangeTypeFilter = new Dictionary<ERangeType, bool>() ;
@@ -91,8 +91,22 @@ namespace LUP.DSG
                 if (pair.Value) filter.checkedRanges.Add(pair.Key);
             }
 
-            charactersList.PopulateScrollView(filter.ContainsCheckedFilters() ? filter : null);
+            charactersList.RePopulateThroughFilter(filter.ContainsCheckedFilters() ? filter : null);
             filterPanel.SetActive(false);
+        }
+
+        public void ResetAllFilter()
+        {
+            IFilterable[] filters = GetComponentsInChildren<IFilterable>(includeInactive: true);
+            foreach(IFilterable filter in filters)
+            {
+                filter.ResetCheckState();
+            }
+
+            foreach (EAttributeType key in attributeFilter.Keys.ToList())
+                attributeFilter[key] = false;
+            foreach (ERangeType key in rangeTypeFilter.Keys.ToList())
+                rangeTypeFilter[key] = false;
         }
     }
 }

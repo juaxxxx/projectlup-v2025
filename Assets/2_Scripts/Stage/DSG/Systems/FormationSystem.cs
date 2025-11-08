@@ -1,3 +1,6 @@
+using ST;
+using System.Collections;
+using Unity.VisualScripting;
 using UnityEditor;
 using UnityEngine;
 
@@ -17,6 +20,8 @@ namespace LUP.DSG
 
         [SerializeField]
         private Transform characterListContent;
+        [SerializeField]
+        private CharacterFilterPanel filterPanel;
 
         public int selectedTeamIndex = 0;
         public int selectedCount = 0;
@@ -43,32 +48,58 @@ namespace LUP.DSG
         public void PlaceTeam(int teamIndex)
         {
             selectedTeamIndex = teamIndex;
-            ResetCharacterList();
+            if (teamDataTable.teams[selectedTeamIndex] == null) return;
+            ResetCharacterList(teamDataTable.teams[selectedTeamIndex]);
 
+            selectedCount = 0;
+            selectedTeam = teamDataTable.teams[selectedTeamIndex];
+
+            ApplyPlaceTeam();
+        }
+
+        public void ApplyPlaceTeam()
+        {
             for (int i = 0; i < slots.Length; ++i)
             {
                 LineupSlot slot = slots[i].GetComponent<LineupSlot>();
                 slot.DeselectCharacter();
-            }
-            selectedCount = 0;
-            if (teamDataTable.teams[selectedTeamIndex] == null) return;
 
-            selectedTeam = teamDataTable.teams[selectedTeamIndex];
-
-            for (int i = 0; i < slots.Length; ++i)
-            {
-                if (selectedTeam.characters[i].characterID == 0) return;
-                LineupSlot slot = slots[i].GetComponent<LineupSlot>();
+                if (selectedTeam.characters[i].characterID == 0) continue;
 
                 CharacterIcon[] icons = characterListContent.GetComponentsInChildren<CharacterIcon>();
                 foreach (var icon in icons)
                 {
                     if (icon.characterInfo.characterID == selectedTeam.characters[i].characterID)
                     {
-                        icon.OnButtonClicked();
+                        if (icon.selectedButton.isSelected)
+                        {
+                            ReleaseCharacter(icon.characterInfo.characterID, icon.selectedButton);
+                            icon.selectedSlot = -1;
+                        }
+                        else
+                        {
+                            PlaceCharacterInPlaceTeam(icon.characterInfo, icon.selectedButton, i);
+                            icon.selectedSlot = i;
+                        }
+
                         break;
                     }
                 }
+            }
+        }
+
+        public void PlaceCharacterInPlaceTeam(OwnedCharacterInfo info, SelectedButton button, int slotIndex)
+        {
+            if (selectedCount >= 5 || slotIndex == -1) return;
+
+            LineupSlot slot = slots[slotIndex].GetComponent<LineupSlot>();
+            if (!slot.isPlaced)
+            {
+                slot.SetSelectedCharacter(info, false);
+                selectedTeam.characters[slotIndex] = info;
+                ++selectedCount;
+                Debug.Log("characterID: " + selectedTeam.characters[slotIndex].characterID);
+                button.ButtonClicked();
             }
         }
 
@@ -76,7 +107,7 @@ namespace LUP.DSG
         {
             if (selectedCount >= 5) return;
 
-            for (int i = 0; i < slots.Length; ++i)
+            for(int i = 0; i < slots.Length; ++i)
             {
                 LineupSlot slot = slots[i].GetComponent<LineupSlot>();
                 if (!slot.isPlaced)
@@ -84,6 +115,7 @@ namespace LUP.DSG
                     slot.SetSelectedCharacter(info, false);
                     selectedTeam.characters[i] = info;
                     ++selectedCount;
+                    Debug.Log("characterID: " + selectedTeam.characters[i].characterID);
                     button.ButtonClicked();
                     return;
                 }
@@ -110,16 +142,19 @@ namespace LUP.DSG
             }
         }
 
-        private void ResetCharacterList()
+        private void ResetCharacterList(UserData.Team team)
         {
-            CharacterIcon[] icons = characterListContent.GetComponentsInChildren<CharacterIcon>();
-            foreach (var icon in icons)
+            CharactersList list = characterListContent.GetComponentInParent<CharactersList>();
+            if (list != null)
             {
-                if (icon.selectedButton.isSelected)
+                list.ResetSelectedStatus();
+                foreach (OwnedCharacterInfo info in team.characters)
                 {
-                    icon.selectedButton.ButtonClicked();
+                    list.UpdateCheckedList(info.characterID, true);
                 }
+                list.PopulateScrollView();
             }
+            filterPanel.ResetAllFilter();
         }
 
         public void SaveTeam()
