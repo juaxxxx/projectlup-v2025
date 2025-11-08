@@ -1,4 +1,4 @@
-﻿using Manager;
+﻿using LUP;
 using UnityEngine;
 
 public class StageLoadButton : MonoBehaviour
@@ -6,7 +6,7 @@ public class StageLoadButton : MonoBehaviour
     public void LoadStage(int stage)
     {
         Debug.Log(stage);
-        Define.StageKind StageKind = (Define.StageKind)stage;
-        Manager.StageManager.Instance.GetCurrentStage().LoadStage(StageKind);
+        LUP.Define.StageKind StageKind = (LUP.Define.StageKind)stage;
+        LUP.StageManager.Instance.GetCurrentStage().LoadStage(StageKind);
     }
 }

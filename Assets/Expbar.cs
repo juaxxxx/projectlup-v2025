@@ -1,3 +1,4 @@
+ï»¿
 using System.Data;
 using System.Linq;
 using TMPro;
@@ -27,15 +28,15 @@ namespace RL
         }
         public void UpdateUi()
         {
-            //ÇöÀç ·¹º§ °æÇèÄ¡
+            //í˜„ìž¬ ë ˆë²¨ ê²½í—˜ì¹˜
             int level = archer.Adata.level;
             int Exp = archer.Adata.xp;
 
-            //´ÙÀ½·¹º§ Á¸ÀçÇÒ °æ¿ì  ÇÊ¿ä °æÇèÄ¡ °®°í¿À±â .
+            //ë‹¤ìŒë ˆë²¨ ì¡´ìž¬í•  ê²½ìš°  í•„ìš” ê²½í—˜ì¹˜ ê°–ê³ ì˜¤ê¸° .
             int requirExp = levelTable.levelList[level - 1].RequiredExp;
-            //ºñÀ²   °è»ê  
+            //ë¹„ìœ¨   ê³„ì‚°  
             float ratio = (float)Exp / requirExp;
-            Debug.Log($"ÇöÀç °æÇèÄ¡ ºñÀ²: {ratio}");
+            Debug.Log($"í˜„ìž¬ ê²½í—˜ì¹˜ ë¹„ìœ¨: {ratio}");
             if (fillCoroutine != null)
                 StopCoroutine(fillCoroutine);
             fillCoroutine = StartCoroutine(SmoothFill(ratio));
@@ -47,7 +48,7 @@ namespace RL
 
             int requiredExp = levelTable.levelList[archer.Adata.level - 1].RequiredExp;
 
-            // ·¹º§¾÷ Á¶°Ç Ã¼Å©
+            // ë ˆë²¨ì—… ì¡°ê±´ ì²´í¬
             while (archer.Adata.xp >= requiredExp)
             {
                 archer.Adata.xp -= requiredExp;
@@ -61,7 +62,7 @@ namespace RL
         private IEnumerator SmoothFill(float target)
         {
             float current = fillImage.fillAmount;
-            float speed = 1f; // ¼Óµµ Á¶Àý (Å¬¼ö·Ï ºü¸§)
+            float speed = 1f; // ì†ë„ ì¡°ì ˆ (í´ìˆ˜ë¡ ë¹ ë¦„)
 
             while (Mathf.Abs(current - target) > 0.001f)
             {

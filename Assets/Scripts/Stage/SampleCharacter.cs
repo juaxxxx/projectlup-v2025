@@ -1,4 +1,4 @@
-﻿using Manager;
+﻿using LUP;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -6,19 +6,18 @@ public class SampleCharacter : MonoBehaviour
 {
     [SerializeField]
     private RoguelikeRuntimeData runtimedata;
-
-    public RoguelikeScriptData characterdata;
+    public RoguelikeStaticData characterdata;
 
     void Awake()
     {
-        RoguelikeStage stage = Manager.StageManager.Instance.GetCurrentStage() as RoguelikeStage;
+        RoguelikeStage stage = LUP.StageManager.Instance.GetCurrentStage() as RoguelikeStage;
         if (stage != null)
         {
-            RoguelikeStaticData staticdata = (RoguelikeStaticData)stage.StaticData;
+            RoguelikeStaticDataLoader staticdataloader = (RoguelikeStaticDataLoader)stage.StaticDataLoader;
             RoguelikeRuntimeData runtimeData = (RoguelikeRuntimeData)stage.RuntimeData;
-            List<RoguelikeScriptData> datalist = staticdata.GetDataList();
+            List<RoguelikeStaticData> datalist = staticdataloader.GetDataList();
 
-            //characterdata.name = datalist[0].name;
+            //characterdata.SPEED = datalist[0].SPEED;
             //characterdata.description = datalist[0].description;
             //characterdata.stat = datalist[0].stat;
             //characterdata.gold = datalist[0].gold;

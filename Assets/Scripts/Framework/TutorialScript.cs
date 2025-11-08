@@ -8,11 +8,11 @@ public class TutorialScript : MonoBehaviour, IPointerClickHandler
 {
     public int textIndex=0;
     public Text text;
-    public TutorialStaticData tutorialStaticData;
+    public TutorialStaticDataLoader tutorialStaticData;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        tutorialStaticData = (TutorialStaticData)Manager.ResourceManager.Instance.LoadStaticData(Define.StageKind.Tutorial , 1);
+        tutorialStaticData = (TutorialStaticDataLoader)LUP.ResourceManager.Instance.LoadStaticData(LUP.Define.StageKind.Tutorial , 1);
     }
 
     // Update is called once per frame

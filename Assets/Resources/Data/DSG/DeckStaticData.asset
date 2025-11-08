@@ -1,0 +1,6947 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 809399bc9ca6f514887545591f183e48, type: 3}
+  m_Name: DeckStaticData
+  m_EditorClassIdentifier: 
+  associatedWorksheet: 
+  START_ROW: 1
+  DataList:
+  - tableId: 101
+    characterId: 1
+    level: 1
+    hp: 100
+    attack: 25
+    defense: 10
+    speed: 10
+  - tableId: 102
+    characterId: 1
+    level: 2
+    hp: 105
+    attack: 26
+    defense: 11
+    speed: 11
+  - tableId: 103
+    characterId: 1
+    level: 3
+    hp: 110
+    attack: 27
+    defense: 12
+    speed: 12
+  - tableId: 104
+    characterId: 1
+    level: 4
+    hp: 115
+    attack: 28
+    defense: 13
+    speed: 13
+  - tableId: 105
+    characterId: 1
+    level: 5
+    hp: 120
+    attack: 29
+    defense: 14
+    speed: 14
+  - tableId: 106
+    characterId: 1
+    level: 6
+    hp: 125
+    attack: 30
+    defense: 15
+    speed: 15
+  - tableId: 107
+    characterId: 1
+    level: 7
+    hp: 130
+    attack: 31
+    defense: 16
+    speed: 16
+  - tableId: 108
+    characterId: 1
+    level: 8
+    hp: 135
+    attack: 32
+    defense: 17
+    speed: 17
+  - tableId: 109
+    characterId: 1
+    level: 9
+    hp: 140
+    attack: 33
+    defense: 18
+    speed: 18
+  - tableId: 110
+    characterId: 1
+    level: 10
+    hp: 145
+    attack: 34
+    defense: 19
+    speed: 19
+  - tableId: 111
+    characterId: 1
+    level: 11
+    hp: 150
+    attack: 35
+    defense: 20
+    speed: 20
+  - tableId: 112
+    characterId: 1
+    level: 12
+    hp: 155
+    attack: 36
+    defense: 21
+    speed: 21
+  - tableId: 113
+    characterId: 1
+    level: 13
+    hp: 160
+    attack: 37
+    defense: 22
+    speed: 22
+  - tableId: 114
+    characterId: 1
+    level: 14
+    hp: 165
+    attack: 38
+    defense: 23
+    speed: 23
+  - tableId: 115
+    characterId: 1
+    level: 15
+    hp: 170
+    attack: 39
+    defense: 24
+    speed: 24
+  - tableId: 116
+    characterId: 1
+    level: 16
+    hp: 175
+    attack: 40
+    defense: 25
+    speed: 25
+  - tableId: 117
+    characterId: 1
+    level: 17
+    hp: 180
+    attack: 41
+    defense: 26
+    speed: 26
+  - tableId: 118
+    characterId: 1
+    level: 18
+    hp: 185
+    attack: 42
+    defense: 27
+    speed: 27
+  - tableId: 119
+    characterId: 1
+    level: 19
+    hp: 190
+    attack: 43
+    defense: 28
+    speed: 28
+  - tableId: 120
+    characterId: 1
+    level: 20
+    hp: 195
+    attack: 44
+    defense: 29
+    speed: 29
+  - tableId: 121
+    characterId: 1
+    level: 21
+    hp: 200
+    attack: 45
+    defense: 30
+    speed: 30
+  - tableId: 122
+    characterId: 1
+    level: 22
+    hp: 205
+    attack: 46
+    defense: 31
+    speed: 31
+  - tableId: 123
+    characterId: 1
+    level: 23
+    hp: 210
+    attack: 47
+    defense: 32
+    speed: 32
+  - tableId: 124
+    characterId: 1
+    level: 24
+    hp: 215
+    attack: 48
+    defense: 33
+    speed: 33
+  - tableId: 125
+    characterId: 1
+    level: 25
+    hp: 220
+    attack: 49
+    defense: 34
+    speed: 34
+  - tableId: 126
+    characterId: 1
+    level: 26
+    hp: 225
+    attack: 50
+    defense: 35
+    speed: 35
+  - tableId: 127
+    characterId: 1
+    level: 27
+    hp: 230
+    attack: 51
+    defense: 36
+    speed: 36
+  - tableId: 128
+    characterId: 1
+    level: 28
+    hp: 235
+    attack: 52
+    defense: 37
+    speed: 37
+  - tableId: 129
+    characterId: 1
+    level: 29
+    hp: 240
+    attack: 53
+    defense: 38
+    speed: 38
+  - tableId: 130
+    characterId: 1
+    level: 30
+    hp: 245
+    attack: 54
+    defense: 39
+    speed: 39
+  - tableId: 131
+    characterId: 1
+    level: 31
+    hp: 250
+    attack: 55
+    defense: 40
+    speed: 40
+  - tableId: 132
+    characterId: 1
+    level: 32
+    hp: 255
+    attack: 56
+    defense: 41
+    speed: 41
+  - tableId: 133
+    characterId: 1
+    level: 33
+    hp: 260
+    attack: 57
+    defense: 42
+    speed: 42
+  - tableId: 134
+    characterId: 1
+    level: 34
+    hp: 265
+    attack: 58
+    defense: 43
+    speed: 43
+  - tableId: 135
+    characterId: 1
+    level: 35
+    hp: 270
+    attack: 59
+    defense: 44
+    speed: 44
+  - tableId: 136
+    characterId: 1
+    level: 36
+    hp: 275
+    attack: 60
+    defense: 45
+    speed: 45
+  - tableId: 137
+    characterId: 1
+    level: 37
+    hp: 280
+    attack: 61
+    defense: 46
+    speed: 46
+  - tableId: 138
+    characterId: 1
+    level: 38
+    hp: 285
+    attack: 62
+    defense: 47
+    speed: 47
+  - tableId: 139
+    characterId: 1
+    level: 39
+    hp: 290
+    attack: 63
+    defense: 48
+    speed: 48
+  - tableId: 140
+    characterId: 1
+    level: 40
+    hp: 295
+    attack: 64
+    defense: 49
+    speed: 49
+  - tableId: 141
+    characterId: 1
+    level: 41
+    hp: 300
+    attack: 65
+    defense: 50
+    speed: 50
+  - tableId: 142
+    characterId: 1
+    level: 42
+    hp: 305
+    attack: 66
+    defense: 51
+    speed: 51
+  - tableId: 143
+    characterId: 1
+    level: 43
+    hp: 310
+    attack: 67
+    defense: 52
+    speed: 52
+  - tableId: 144
+    characterId: 1
+    level: 44
+    hp: 315
+    attack: 68
+    defense: 53
+    speed: 53
+  - tableId: 145
+    characterId: 1
+    level: 45
+    hp: 320
+    attack: 69
+    defense: 54
+    speed: 54
+  - tableId: 146
+    characterId: 1
+    level: 46
+    hp: 325
+    attack: 70
+    defense: 55
+    speed: 55
+  - tableId: 147
+    characterId: 1
+    level: 47
+    hp: 330
+    attack: 71
+    defense: 56
+    speed: 56
+  - tableId: 148
+    characterId: 1
+    level: 48
+    hp: 335
+    attack: 72
+    defense: 57
+    speed: 57
+  - tableId: 149
+    characterId: 1
+    level: 49
+    hp: 340
+    attack: 73
+    defense: 58
+    speed: 58
+  - tableId: 150
+    characterId: 1
+    level: 50
+    hp: 345
+    attack: 74
+    defense: 59
+    speed: 59
+  - tableId: 151
+    characterId: 1
+    level: 51
+    hp: 350
+    attack: 75
+    defense: 60
+    speed: 60
+  - tableId: 152
+    characterId: 1
+    level: 52
+    hp: 355
+    attack: 76
+    defense: 61
+    speed: 61
+  - tableId: 153
+    characterId: 1
+    level: 53
+    hp: 360
+    attack: 77
+    defense: 62
+    speed: 62
+  - tableId: 154
+    characterId: 1
+    level: 54
+    hp: 365
+    attack: 78
+    defense: 63
+    speed: 63
+  - tableId: 155
+    characterId: 1
+    level: 55
+    hp: 370
+    attack: 79
+    defense: 64
+    speed: 64
+  - tableId: 156
+    characterId: 1
+    level: 56
+    hp: 375
+    attack: 80
+    defense: 65
+    speed: 65
+  - tableId: 157
+    characterId: 1
+    level: 57
+    hp: 380
+    attack: 81
+    defense: 66
+    speed: 66
+  - tableId: 158
+    characterId: 1
+    level: 58
+    hp: 385
+    attack: 82
+    defense: 67
+    speed: 67
+  - tableId: 159
+    characterId: 1
+    level: 59
+    hp: 390
+    attack: 83
+    defense: 68
+    speed: 68
+  - tableId: 160
+    characterId: 1
+    level: 60
+    hp: 395
+    attack: 84
+    defense: 69
+    speed: 69
+  - tableId: 161
+    characterId: 1
+    level: 61
+    hp: 400
+    attack: 85
+    defense: 70
+    speed: 70
+  - tableId: 162
+    characterId: 1
+    level: 62
+    hp: 405
+    attack: 86
+    defense: 71
+    speed: 71
+  - tableId: 163
+    characterId: 1
+    level: 63
+    hp: 410
+    attack: 87
+    defense: 72
+    speed: 72
+  - tableId: 164
+    characterId: 1
+    level: 64
+    hp: 415
+    attack: 88
+    defense: 73
+    speed: 73
+  - tableId: 165
+    characterId: 1
+    level: 65
+    hp: 420
+    attack: 89
+    defense: 74
+    speed: 74
+  - tableId: 166
+    characterId: 1
+    level: 66
+    hp: 425
+    attack: 90
+    defense: 75
+    speed: 75
+  - tableId: 167
+    characterId: 1
+    level: 67
+    hp: 430
+    attack: 91
+    defense: 76
+    speed: 76
+  - tableId: 168
+    characterId: 1
+    level: 68
+    hp: 435
+    attack: 92
+    defense: 77
+    speed: 77
+  - tableId: 169
+    characterId: 1
+    level: 69
+    hp: 440
+    attack: 93
+    defense: 78
+    speed: 78
+  - tableId: 170
+    characterId: 1
+    level: 70
+    hp: 445
+    attack: 94
+    defense: 79
+    speed: 79
+  - tableId: 171
+    characterId: 1
+    level: 71
+    hp: 450
+    attack: 95
+    defense: 80
+    speed: 80
+  - tableId: 172
+    characterId: 1
+    level: 72
+    hp: 455
+    attack: 96
+    defense: 81
+    speed: 81
+  - tableId: 173
+    characterId: 1
+    level: 73
+    hp: 460
+    attack: 97
+    defense: 82
+    speed: 82
+  - tableId: 174
+    characterId: 1
+    level: 74
+    hp: 465
+    attack: 98
+    defense: 83
+    speed: 83
+  - tableId: 175
+    characterId: 1
+    level: 75
+    hp: 470
+    attack: 99
+    defense: 84
+    speed: 84
+  - tableId: 176
+    characterId: 1
+    level: 76
+    hp: 475
+    attack: 100
+    defense: 85
+    speed: 85
+  - tableId: 177
+    characterId: 1
+    level: 77
+    hp: 480
+    attack: 101
+    defense: 86
+    speed: 86
+  - tableId: 178
+    characterId: 1
+    level: 78
+    hp: 485
+    attack: 102
+    defense: 87
+    speed: 87
+  - tableId: 179
+    characterId: 1
+    level: 79
+    hp: 490
+    attack: 103
+    defense: 88
+    speed: 88
+  - tableId: 180
+    characterId: 1
+    level: 80
+    hp: 495
+    attack: 104
+    defense: 89
+    speed: 89
+  - tableId: 181
+    characterId: 1
+    level: 81
+    hp: 500
+    attack: 105
+    defense: 90
+    speed: 90
+  - tableId: 182
+    characterId: 1
+    level: 82
+    hp: 505
+    attack: 106
+    defense: 91
+    speed: 91
+  - tableId: 183
+    characterId: 1
+    level: 83
+    hp: 510
+    attack: 107
+    defense: 92
+    speed: 92
+  - tableId: 184
+    characterId: 1
+    level: 84
+    hp: 515
+    attack: 108
+    defense: 93
+    speed: 93
+  - tableId: 185
+    characterId: 1
+    level: 85
+    hp: 520
+    attack: 109
+    defense: 94
+    speed: 94
+  - tableId: 186
+    characterId: 1
+    level: 86
+    hp: 525
+    attack: 110
+    defense: 95
+    speed: 95
+  - tableId: 187
+    characterId: 1
+    level: 87
+    hp: 530
+    attack: 111
+    defense: 96
+    speed: 96
+  - tableId: 188
+    characterId: 1
+    level: 88
+    hp: 535
+    attack: 112
+    defense: 97
+    speed: 97
+  - tableId: 189
+    characterId: 1
+    level: 89
+    hp: 540
+    attack: 113
+    defense: 98
+    speed: 98
+  - tableId: 190
+    characterId: 1
+    level: 90
+    hp: 545
+    attack: 114
+    defense: 99
+    speed: 99
+  - tableId: 191
+    characterId: 1
+    level: 91
+    hp: 550
+    attack: 115
+    defense: 100
+    speed: 100
+  - tableId: 192
+    characterId: 1
+    level: 92
+    hp: 555
+    attack: 116
+    defense: 101
+    speed: 101
+  - tableId: 193
+    characterId: 1
+    level: 93
+    hp: 560
+    attack: 117
+    defense: 102
+    speed: 102
+  - tableId: 194
+    characterId: 1
+    level: 94
+    hp: 565
+    attack: 118
+    defense: 103
+    speed: 103
+  - tableId: 195
+    characterId: 1
+    level: 95
+    hp: 570
+    attack: 119
+    defense: 104
+    speed: 104
+  - tableId: 196
+    characterId: 1
+    level: 96
+    hp: 575
+    attack: 120
+    defense: 105
+    speed: 105
+  - tableId: 197
+    characterId: 1
+    level: 97
+    hp: 580
+    attack: 121
+    defense: 106
+    speed: 106
+  - tableId: 198
+    characterId: 1
+    level: 98
+    hp: 585
+    attack: 122
+    defense: 107
+    speed: 107
+  - tableId: 199
+    characterId: 1
+    level: 99
+    hp: 590
+    attack: 123
+    defense: 108
+    speed: 108
+  - tableId: 201
+    characterId: 2
+    level: 1
+    hp: 100
+    attack: 25
+    defense: 10
+    speed: 10
+  - tableId: 202
+    characterId: 2
+    level: 2
+    hp: 102
+    attack: 27
+    defense: 11
+    speed: 11
+  - tableId: 203
+    characterId: 2
+    level: 3
+    hp: 104
+    attack: 29
+    defense: 12
+    speed: 12
+  - tableId: 204
+    characterId: 2
+    level: 4
+    hp: 106
+    attack: 31
+    defense: 13
+    speed: 13
+  - tableId: 205
+    characterId: 2
+    level: 5
+    hp: 108
+    attack: 33
+    defense: 14
+    speed: 14
+  - tableId: 206
+    characterId: 2
+    level: 6
+    hp: 110
+    attack: 35
+    defense: 15
+    speed: 15
+  - tableId: 207
+    characterId: 2
+    level: 7
+    hp: 112
+    attack: 37
+    defense: 16
+    speed: 16
+  - tableId: 208
+    characterId: 2
+    level: 8
+    hp: 114
+    attack: 39
+    defense: 17
+    speed: 17
+  - tableId: 209
+    characterId: 2
+    level: 9
+    hp: 116
+    attack: 41
+    defense: 18
+    speed: 18
+  - tableId: 210
+    characterId: 2
+    level: 10
+    hp: 118
+    attack: 43
+    defense: 19
+    speed: 19
+  - tableId: 211
+    characterId: 2
+    level: 11
+    hp: 120
+    attack: 45
+    defense: 20
+    speed: 20
+  - tableId: 212
+    characterId: 2
+    level: 12
+    hp: 122
+    attack: 47
+    defense: 21
+    speed: 21
+  - tableId: 213
+    characterId: 2
+    level: 13
+    hp: 124
+    attack: 49
+    defense: 22
+    speed: 22
+  - tableId: 214
+    characterId: 2
+    level: 14
+    hp: 126
+    attack: 51
+    defense: 23
+    speed: 23
+  - tableId: 215
+    characterId: 2
+    level: 15
+    hp: 128
+    attack: 53
+    defense: 24
+    speed: 24
+  - tableId: 216
+    characterId: 2
+    level: 16
+    hp: 130
+    attack: 55
+    defense: 25
+    speed: 25
+  - tableId: 217
+    characterId: 2
+    level: 17
+    hp: 132
+    attack: 57
+    defense: 26
+    speed: 26
+  - tableId: 218
+    characterId: 2
+    level: 18
+    hp: 134
+    attack: 59
+    defense: 27
+    speed: 27
+  - tableId: 219
+    characterId: 2
+    level: 19
+    hp: 136
+    attack: 61
+    defense: 28
+    speed: 28
+  - tableId: 220
+    characterId: 2
+    level: 20
+    hp: 138
+    attack: 63
+    defense: 29
+    speed: 29
+  - tableId: 221
+    characterId: 2
+    level: 21
+    hp: 140
+    attack: 65
+    defense: 30
+    speed: 30
+  - tableId: 222
+    characterId: 2
+    level: 22
+    hp: 142
+    attack: 67
+    defense: 31
+    speed: 31
+  - tableId: 223
+    characterId: 2
+    level: 23
+    hp: 144
+    attack: 69
+    defense: 32
+    speed: 32
+  - tableId: 224
+    characterId: 2
+    level: 24
+    hp: 146
+    attack: 71
+    defense: 33
+    speed: 33
+  - tableId: 225
+    characterId: 2
+    level: 25
+    hp: 148
+    attack: 73
+    defense: 34
+    speed: 34
+  - tableId: 226
+    characterId: 2
+    level: 26
+    hp: 150
+    attack: 75
+    defense: 35
+    speed: 35
+  - tableId: 227
+    characterId: 2
+    level: 27
+    hp: 152
+    attack: 77
+    defense: 36
+    speed: 36
+  - tableId: 228
+    characterId: 2
+    level: 28
+    hp: 154
+    attack: 79
+    defense: 37
+    speed: 37
+  - tableId: 229
+    characterId: 2
+    level: 29
+    hp: 156
+    attack: 81
+    defense: 38
+    speed: 38
+  - tableId: 230
+    characterId: 2
+    level: 30
+    hp: 158
+    attack: 83
+    defense: 39
+    speed: 39
+  - tableId: 231
+    characterId: 2
+    level: 31
+    hp: 160
+    attack: 85
+    defense: 40
+    speed: 40
+  - tableId: 232
+    characterId: 2
+    level: 32
+    hp: 162
+    attack: 87
+    defense: 41
+    speed: 41
+  - tableId: 233
+    characterId: 2
+    level: 33
+    hp: 164
+    attack: 89
+    defense: 42
+    speed: 42
+  - tableId: 234
+    characterId: 2
+    level: 34
+    hp: 166
+    attack: 91
+    defense: 43
+    speed: 43
+  - tableId: 235
+    characterId: 2
+    level: 35
+    hp: 168
+    attack: 93
+    defense: 44
+    speed: 44
+  - tableId: 236
+    characterId: 2
+    level: 36
+    hp: 170
+    attack: 95
+    defense: 45
+    speed: 45
+  - tableId: 237
+    characterId: 2
+    level: 37
+    hp: 172
+    attack: 97
+    defense: 46
+    speed: 46
+  - tableId: 238
+    characterId: 2
+    level: 38
+    hp: 174
+    attack: 99
+    defense: 47
+    speed: 47
+  - tableId: 239
+    characterId: 2
+    level: 39
+    hp: 176
+    attack: 101
+    defense: 48
+    speed: 48
+  - tableId: 240
+    characterId: 2
+    level: 40
+    hp: 178
+    attack: 103
+    defense: 49
+    speed: 49
+  - tableId: 241
+    characterId: 2
+    level: 41
+    hp: 180
+    attack: 105
+    defense: 50
+    speed: 50
+  - tableId: 242
+    characterId: 2
+    level: 42
+    hp: 182
+    attack: 107
+    defense: 51
+    speed: 51
+  - tableId: 243
+    characterId: 2
+    level: 43
+    hp: 184
+    attack: 109
+    defense: 52
+    speed: 52
+  - tableId: 244
+    characterId: 2
+    level: 44
+    hp: 186
+    attack: 111
+    defense: 53
+    speed: 53
+  - tableId: 245
+    characterId: 2
+    level: 45
+    hp: 188
+    attack: 113
+    defense: 54
+    speed: 54
+  - tableId: 246
+    characterId: 2
+    level: 46
+    hp: 190
+    attack: 115
+    defense: 55
+    speed: 55
+  - tableId: 247
+    characterId: 2
+    level: 47
+    hp: 192
+    attack: 117
+    defense: 56
+    speed: 56
+  - tableId: 248
+    characterId: 2
+    level: 48
+    hp: 194
+    attack: 119
+    defense: 57
+    speed: 57
+  - tableId: 249
+    characterId: 2
+    level: 49
+    hp: 196
+    attack: 121
+    defense: 58
+    speed: 58
+  - tableId: 250
+    characterId: 2
+    level: 50
+    hp: 198
+    attack: 123
+    defense: 59
+    speed: 59
+  - tableId: 251
+    characterId: 2
+    level: 51
+    hp: 200
+    attack: 125
+    defense: 60
+    speed: 60
+  - tableId: 252
+    characterId: 2
+    level: 52
+    hp: 202
+    attack: 127
+    defense: 61
+    speed: 61
+  - tableId: 253
+    characterId: 2
+    level: 53
+    hp: 204
+    attack: 129
+    defense: 62
+    speed: 62
+  - tableId: 254
+    characterId: 2
+    level: 54
+    hp: 206
+    attack: 131
+    defense: 63
+    speed: 63
+  - tableId: 255
+    characterId: 2
+    level: 55
+    hp: 208
+    attack: 133
+    defense: 64
+    speed: 64
+  - tableId: 256
+    characterId: 2
+    level: 56
+    hp: 210
+    attack: 135
+    defense: 65
+    speed: 65
+  - tableId: 257
+    characterId: 2
+    level: 57
+    hp: 212
+    attack: 137
+    defense: 66
+    speed: 66
+  - tableId: 258
+    characterId: 2
+    level: 58
+    hp: 214
+    attack: 139
+    defense: 67
+    speed: 67
+  - tableId: 259
+    characterId: 2
+    level: 59
+    hp: 216
+    attack: 141
+    defense: 68
+    speed: 68
+  - tableId: 260
+    characterId: 2
+    level: 60
+    hp: 218
+    attack: 143
+    defense: 69
+    speed: 69
+  - tableId: 261
+    characterId: 2
+    level: 61
+    hp: 220
+    attack: 145
+    defense: 70
+    speed: 70
+  - tableId: 262
+    characterId: 2
+    level: 62
+    hp: 222
+    attack: 147
+    defense: 71
+    speed: 71
+  - tableId: 263
+    characterId: 2
+    level: 63
+    hp: 224
+    attack: 149
+    defense: 72
+    speed: 72
+  - tableId: 264
+    characterId: 2
+    level: 64
+    hp: 226
+    attack: 151
+    defense: 73
+    speed: 73
+  - tableId: 265
+    characterId: 2
+    level: 65
+    hp: 228
+    attack: 153
+    defense: 74
+    speed: 74
+  - tableId: 266
+    characterId: 2
+    level: 66
+    hp: 230
+    attack: 155
+    defense: 75
+    speed: 75
+  - tableId: 267
+    characterId: 2
+    level: 67
+    hp: 232
+    attack: 157
+    defense: 76
+    speed: 76
+  - tableId: 268
+    characterId: 2
+    level: 68
+    hp: 234
+    attack: 159
+    defense: 77
+    speed: 77
+  - tableId: 269
+    characterId: 2
+    level: 69
+    hp: 236
+    attack: 161
+    defense: 78
+    speed: 78
+  - tableId: 270
+    characterId: 2
+    level: 70
+    hp: 238
+    attack: 163
+    defense: 79
+    speed: 79
+  - tableId: 271
+    characterId: 2
+    level: 71
+    hp: 240
+    attack: 165
+    defense: 80
+    speed: 80
+  - tableId: 272
+    characterId: 2
+    level: 72
+    hp: 242
+    attack: 167
+    defense: 81
+    speed: 81
+  - tableId: 273
+    characterId: 2
+    level: 73
+    hp: 244
+    attack: 169
+    defense: 82
+    speed: 82
+  - tableId: 274
+    characterId: 2
+    level: 74
+    hp: 246
+    attack: 171
+    defense: 83
+    speed: 83
+  - tableId: 275
+    characterId: 2
+    level: 75
+    hp: 248
+    attack: 173
+    defense: 84
+    speed: 84
+  - tableId: 276
+    characterId: 2
+    level: 76
+    hp: 250
+    attack: 175
+    defense: 85
+    speed: 85
+  - tableId: 277
+    characterId: 2
+    level: 77
+    hp: 252
+    attack: 177
+    defense: 86
+    speed: 86
+  - tableId: 278
+    characterId: 2
+    level: 78
+    hp: 254
+    attack: 179
+    defense: 87
+    speed: 87
+  - tableId: 279
+    characterId: 2
+    level: 79
+    hp: 256
+    attack: 181
+    defense: 88
+    speed: 88
+  - tableId: 280
+    characterId: 2
+    level: 80
+    hp: 258
+    attack: 183
+    defense: 89
+    speed: 89
+  - tableId: 281
+    characterId: 2
+    level: 81
+    hp: 260
+    attack: 185
+    defense: 90
+    speed: 90
+  - tableId: 282
+    characterId: 2
+    level: 82
+    hp: 262
+    attack: 187
+    defense: 91
+    speed: 91
+  - tableId: 283
+    characterId: 2
+    level: 83
+    hp: 264
+    attack: 189
+    defense: 92
+    speed: 92
+  - tableId: 284
+    characterId: 2
+    level: 84
+    hp: 266
+    attack: 191
+    defense: 93
+    speed: 93
+  - tableId: 285
+    characterId: 2
+    level: 85
+    hp: 268
+    attack: 193
+    defense: 94
+    speed: 94
+  - tableId: 286
+    characterId: 2
+    level: 86
+    hp: 270
+    attack: 195
+    defense: 95
+    speed: 95
+  - tableId: 287
+    characterId: 2
+    level: 87
+    hp: 272
+    attack: 197
+    defense: 96
+    speed: 96
+  - tableId: 288
+    characterId: 2
+    level: 88
+    hp: 274
+    attack: 199
+    defense: 97
+    speed: 97
+  - tableId: 289
+    characterId: 2
+    level: 89
+    hp: 276
+    attack: 201
+    defense: 98
+    speed: 98
+  - tableId: 290
+    characterId: 2
+    level: 90
+    hp: 278
+    attack: 203
+    defense: 99
+    speed: 99
+  - tableId: 291
+    characterId: 2
+    level: 91
+    hp: 280
+    attack: 205
+    defense: 100
+    speed: 100
+  - tableId: 292
+    characterId: 2
+    level: 92
+    hp: 282
+    attack: 207
+    defense: 101
+    speed: 101
+  - tableId: 293
+    characterId: 2
+    level: 93
+    hp: 284
+    attack: 209
+    defense: 102
+    speed: 102
+  - tableId: 294
+    characterId: 2
+    level: 94
+    hp: 286
+    attack: 211
+    defense: 103
+    speed: 103
+  - tableId: 295
+    characterId: 2
+    level: 95
+    hp: 288
+    attack: 213
+    defense: 104
+    speed: 104
+  - tableId: 296
+    characterId: 2
+    level: 96
+    hp: 290
+    attack: 215
+    defense: 105
+    speed: 105
+  - tableId: 297
+    characterId: 2
+    level: 97
+    hp: 292
+    attack: 217
+    defense: 106
+    speed: 106
+  - tableId: 298
+    characterId: 2
+    level: 98
+    hp: 294
+    attack: 219
+    defense: 107
+    speed: 107
+  - tableId: 299
+    characterId: 2
+    level: 99
+    hp: 296
+    attack: 221
+    defense: 108
+    speed: 108
+  - tableId: 301
+    characterId: 3
+    level: 1
+    hp: 80
+    attack: 30
+    defense: 8
+    speed: 15
+  - tableId: 302
+    characterId: 3
+    level: 2
+    hp: 83
+    attack: 32
+    defense: 9
+    speed: 16
+  - tableId: 303
+    characterId: 3
+    level: 3
+    hp: 86
+    attack: 34
+    defense: 10
+    speed: 17
+  - tableId: 304
+    characterId: 3
+    level: 4
+    hp: 89
+    attack: 36
+    defense: 11
+    speed: 18
+  - tableId: 305
+    characterId: 3
+    level: 5
+    hp: 92
+    attack: 38
+    defense: 12
+    speed: 19
+  - tableId: 306
+    characterId: 3
+    level: 6
+    hp: 95
+    attack: 40
+    defense: 13
+    speed: 20
+  - tableId: 307
+    characterId: 3
+    level: 7
+    hp: 98
+    attack: 42
+    defense: 14
+    speed: 21
+  - tableId: 308
+    characterId: 3
+    level: 8
+    hp: 101
+    attack: 44
+    defense: 15
+    speed: 22
+  - tableId: 309
+    characterId: 3
+    level: 9
+    hp: 104
+    attack: 46
+    defense: 16
+    speed: 23
+  - tableId: 310
+    characterId: 3
+    level: 10
+    hp: 107
+    attack: 48
+    defense: 17
+    speed: 24
+  - tableId: 311
+    characterId: 3
+    level: 11
+    hp: 110
+    attack: 50
+    defense: 18
+    speed: 25
+  - tableId: 312
+    characterId: 3
+    level: 12
+    hp: 113
+    attack: 52
+    defense: 19
+    speed: 26
+  - tableId: 313
+    characterId: 3
+    level: 13
+    hp: 116
+    attack: 54
+    defense: 20
+    speed: 27
+  - tableId: 314
+    characterId: 3
+    level: 14
+    hp: 119
+    attack: 56
+    defense: 21
+    speed: 28
+  - tableId: 315
+    characterId: 3
+    level: 15
+    hp: 122
+    attack: 58
+    defense: 22
+    speed: 29
+  - tableId: 316
+    characterId: 3
+    level: 16
+    hp: 125
+    attack: 60
+    defense: 23
+    speed: 30
+  - tableId: 317
+    characterId: 3
+    level: 17
+    hp: 128
+    attack: 62
+    defense: 24
+    speed: 31
+  - tableId: 318
+    characterId: 3
+    level: 18
+    hp: 131
+    attack: 64
+    defense: 25
+    speed: 32
+  - tableId: 319
+    characterId: 3
+    level: 19
+    hp: 134
+    attack: 66
+    defense: 26
+    speed: 33
+  - tableId: 320
+    characterId: 3
+    level: 20
+    hp: 137
+    attack: 68
+    defense: 27
+    speed: 34
+  - tableId: 321
+    characterId: 3
+    level: 21
+    hp: 140
+    attack: 70
+    defense: 28
+    speed: 35
+  - tableId: 322
+    characterId: 3
+    level: 22
+    hp: 143
+    attack: 72
+    defense: 29
+    speed: 36
+  - tableId: 323
+    characterId: 3
+    level: 23
+    hp: 146
+    attack: 74
+    defense: 30
+    speed: 37
+  - tableId: 324
+    characterId: 3
+    level: 24
+    hp: 149
+    attack: 76
+    defense: 31
+    speed: 38
+  - tableId: 325
+    characterId: 3
+    level: 25
+    hp: 152
+    attack: 78
+    defense: 32
+    speed: 39
+  - tableId: 326
+    characterId: 3
+    level: 26
+    hp: 155
+    attack: 80
+    defense: 33
+    speed: 40
+  - tableId: 327
+    characterId: 3
+    level: 27
+    hp: 158
+    attack: 82
+    defense: 34
+    speed: 41
+  - tableId: 328
+    characterId: 3
+    level: 28
+    hp: 161
+    attack: 84
+    defense: 35
+    speed: 42
+  - tableId: 329
+    characterId: 3
+    level: 29
+    hp: 164
+    attack: 86
+    defense: 36
+    speed: 43
+  - tableId: 330
+    characterId: 3
+    level: 30
+    hp: 167
+    attack: 88
+    defense: 37
+    speed: 44
+  - tableId: 331
+    characterId: 3
+    level: 31
+    hp: 170
+    attack: 90
+    defense: 38
+    speed: 45
+  - tableId: 332
+    characterId: 3
+    level: 32
+    hp: 173
+    attack: 92
+    defense: 39
+    speed: 46
+  - tableId: 333
+    characterId: 3
+    level: 33
+    hp: 176
+    attack: 94
+    defense: 40
+    speed: 47
+  - tableId: 334
+    characterId: 3
+    level: 34
+    hp: 179
+    attack: 96
+    defense: 41
+    speed: 48
+  - tableId: 335
+    characterId: 3
+    level: 35
+    hp: 182
+    attack: 98
+    defense: 42
+    speed: 49
+  - tableId: 336
+    characterId: 3
+    level: 36
+    hp: 185
+    attack: 100
+    defense: 43
+    speed: 50
+  - tableId: 337
+    characterId: 3
+    level: 37
+    hp: 188
+    attack: 102
+    defense: 44
+    speed: 51
+  - tableId: 338
+    characterId: 3
+    level: 38
+    hp: 191
+    attack: 104
+    defense: 45
+    speed: 52
+  - tableId: 339
+    characterId: 3
+    level: 39
+    hp: 194
+    attack: 106
+    defense: 46
+    speed: 53
+  - tableId: 340
+    characterId: 3
+    level: 40
+    hp: 197
+    attack: 108
+    defense: 47
+    speed: 54
+  - tableId: 341
+    characterId: 3
+    level: 41
+    hp: 200
+    attack: 110
+    defense: 48
+    speed: 55
+  - tableId: 342
+    characterId: 3
+    level: 42
+    hp: 203
+    attack: 112
+    defense: 49
+    speed: 56
+  - tableId: 343
+    characterId: 3
+    level: 43
+    hp: 206
+    attack: 114
+    defense: 50
+    speed: 57
+  - tableId: 344
+    characterId: 3
+    level: 44
+    hp: 209
+    attack: 116
+    defense: 51
+    speed: 58
+  - tableId: 345
+    characterId: 3
+    level: 45
+    hp: 212
+    attack: 118
+    defense: 52
+    speed: 59
+  - tableId: 346
+    characterId: 3
+    level: 46
+    hp: 215
+    attack: 120
+    defense: 53
+    speed: 60
+  - tableId: 347
+    characterId: 3
+    level: 47
+    hp: 218
+    attack: 122
+    defense: 54
+    speed: 61
+  - tableId: 348
+    characterId: 3
+    level: 48
+    hp: 221
+    attack: 124
+    defense: 55
+    speed: 62
+  - tableId: 349
+    characterId: 3
+    level: 49
+    hp: 224
+    attack: 126
+    defense: 56
+    speed: 63
+  - tableId: 350
+    characterId: 3
+    level: 50
+    hp: 227
+    attack: 128
+    defense: 57
+    speed: 64
+  - tableId: 351
+    characterId: 3
+    level: 51
+    hp: 230
+    attack: 130
+    defense: 58
+    speed: 65
+  - tableId: 352
+    characterId: 3
+    level: 52
+    hp: 233
+    attack: 132
+    defense: 59
+    speed: 66
+  - tableId: 353
+    characterId: 3
+    level: 53
+    hp: 236
+    attack: 134
+    defense: 60
+    speed: 67
+  - tableId: 354
+    characterId: 3
+    level: 54
+    hp: 239
+    attack: 136
+    defense: 61
+    speed: 68
+  - tableId: 355
+    characterId: 3
+    level: 55
+    hp: 242
+    attack: 138
+    defense: 62
+    speed: 69
+  - tableId: 356
+    characterId: 3
+    level: 56
+    hp: 245
+    attack: 140
+    defense: 63
+    speed: 70
+  - tableId: 357
+    characterId: 3
+    level: 57
+    hp: 248
+    attack: 142
+    defense: 64
+    speed: 71
+  - tableId: 358
+    characterId: 3
+    level: 58
+    hp: 251
+    attack: 144
+    defense: 65
+    speed: 72
+  - tableId: 359
+    characterId: 3
+    level: 59
+    hp: 254
+    attack: 146
+    defense: 66
+    speed: 73
+  - tableId: 360
+    characterId: 3
+    level: 60
+    hp: 257
+    attack: 148
+    defense: 67
+    speed: 74
+  - tableId: 361
+    characterId: 3
+    level: 61
+    hp: 260
+    attack: 150
+    defense: 68
+    speed: 75
+  - tableId: 362
+    characterId: 3
+    level: 62
+    hp: 263
+    attack: 152
+    defense: 69
+    speed: 76
+  - tableId: 363
+    characterId: 3
+    level: 63
+    hp: 266
+    attack: 154
+    defense: 70
+    speed: 77
+  - tableId: 364
+    characterId: 3
+    level: 64
+    hp: 269
+    attack: 156
+    defense: 71
+    speed: 78
+  - tableId: 365
+    characterId: 3
+    level: 65
+    hp: 272
+    attack: 158
+    defense: 72
+    speed: 79
+  - tableId: 366
+    characterId: 3
+    level: 66
+    hp: 275
+    attack: 160
+    defense: 73
+    speed: 80
+  - tableId: 367
+    characterId: 3
+    level: 67
+    hp: 278
+    attack: 162
+    defense: 74
+    speed: 81
+  - tableId: 368
+    characterId: 3
+    level: 68
+    hp: 281
+    attack: 164
+    defense: 75
+    speed: 82
+  - tableId: 369
+    characterId: 3
+    level: 69
+    hp: 284
+    attack: 166
+    defense: 76
+    speed: 83
+  - tableId: 370
+    characterId: 3
+    level: 70
+    hp: 287
+    attack: 168
+    defense: 77
+    speed: 84
+  - tableId: 371
+    characterId: 3
+    level: 71
+    hp: 290
+    attack: 170
+    defense: 78
+    speed: 85
+  - tableId: 372
+    characterId: 3
+    level: 72
+    hp: 293
+    attack: 172
+    defense: 79
+    speed: 86
+  - tableId: 373
+    characterId: 3
+    level: 73
+    hp: 296
+    attack: 174
+    defense: 80
+    speed: 87
+  - tableId: 374
+    characterId: 3
+    level: 74
+    hp: 299
+    attack: 176
+    defense: 81
+    speed: 88
+  - tableId: 375
+    characterId: 3
+    level: 75
+    hp: 302
+    attack: 178
+    defense: 82
+    speed: 89
+  - tableId: 376
+    characterId: 3
+    level: 76
+    hp: 305
+    attack: 180
+    defense: 83
+    speed: 90
+  - tableId: 377
+    characterId: 3
+    level: 77
+    hp: 308
+    attack: 182
+    defense: 84
+    speed: 91
+  - tableId: 378
+    characterId: 3
+    level: 78
+    hp: 311
+    attack: 184
+    defense: 85
+    speed: 92
+  - tableId: 379
+    characterId: 3
+    level: 79
+    hp: 314
+    attack: 186
+    defense: 86
+    speed: 93
+  - tableId: 380
+    characterId: 3
+    level: 80
+    hp: 317
+    attack: 188
+    defense: 87
+    speed: 94
+  - tableId: 381
+    characterId: 3
+    level: 81
+    hp: 320
+    attack: 190
+    defense: 88
+    speed: 95
+  - tableId: 382
+    characterId: 3
+    level: 82
+    hp: 323
+    attack: 192
+    defense: 89
+    speed: 96
+  - tableId: 383
+    characterId: 3
+    level: 83
+    hp: 326
+    attack: 194
+    defense: 90
+    speed: 97
+  - tableId: 384
+    characterId: 3
+    level: 84
+    hp: 329
+    attack: 196
+    defense: 91
+    speed: 98
+  - tableId: 385
+    characterId: 3
+    level: 85
+    hp: 332
+    attack: 198
+    defense: 92
+    speed: 99
+  - tableId: 386
+    characterId: 3
+    level: 86
+    hp: 335
+    attack: 200
+    defense: 93
+    speed: 100
+  - tableId: 387
+    characterId: 3
+    level: 87
+    hp: 338
+    attack: 202
+    defense: 94
+    speed: 101
+  - tableId: 388
+    characterId: 3
+    level: 88
+    hp: 341
+    attack: 204
+    defense: 95
+    speed: 102
+  - tableId: 389
+    characterId: 3
+    level: 89
+    hp: 344
+    attack: 206
+    defense: 96
+    speed: 103
+  - tableId: 390
+    characterId: 3
+    level: 90
+    hp: 347
+    attack: 208
+    defense: 97
+    speed: 104
+  - tableId: 391
+    characterId: 3
+    level: 91
+    hp: 350
+    attack: 210
+    defense: 98
+    speed: 105
+  - tableId: 392
+    characterId: 3
+    level: 92
+    hp: 353
+    attack: 212
+    defense: 99
+    speed: 106
+  - tableId: 393
+    characterId: 3
+    level: 93
+    hp: 356
+    attack: 214
+    defense: 100
+    speed: 107
+  - tableId: 394
+    characterId: 3
+    level: 94
+    hp: 359
+    attack: 216
+    defense: 101
+    speed: 108
+  - tableId: 395
+    characterId: 3
+    level: 95
+    hp: 362
+    attack: 218
+    defense: 102
+    speed: 109
+  - tableId: 396
+    characterId: 3
+    level: 96
+    hp: 365
+    attack: 220
+    defense: 103
+    speed: 110
+  - tableId: 397
+    characterId: 3
+    level: 97
+    hp: 368
+    attack: 222
+    defense: 104
+    speed: 111
+  - tableId: 398
+    characterId: 3
+    level: 98
+    hp: 371
+    attack: 224
+    defense: 105
+    speed: 112
+  - tableId: 399
+    characterId: 3
+    level: 99
+    hp: 374
+    attack: 226
+    defense: 106
+    speed: 113
+  - tableId: 401
+    characterId: 4
+    level: 1
+    hp: 130
+    attack: 10
+    defense: 5
+    speed: 3
+  - tableId: 402
+    characterId: 4
+    level: 2
+    hp: 135
+    attack: 11
+    defense: 6
+    speed: 4
+  - tableId: 403
+    characterId: 4
+    level: 3
+    hp: 140
+    attack: 12
+    defense: 7
+    speed: 5
+  - tableId: 404
+    characterId: 4
+    level: 4
+    hp: 145
+    attack: 13
+    defense: 8
+    speed: 6
+  - tableId: 405
+    characterId: 4
+    level: 5
+    hp: 150
+    attack: 14
+    defense: 9
+    speed: 7
+  - tableId: 406
+    characterId: 4
+    level: 6
+    hp: 155
+    attack: 15
+    defense: 10
+    speed: 8
+  - tableId: 407
+    characterId: 4
+    level: 7
+    hp: 160
+    attack: 16
+    defense: 11
+    speed: 9
+  - tableId: 408
+    characterId: 4
+    level: 8
+    hp: 165
+    attack: 17
+    defense: 12
+    speed: 10
+  - tableId: 409
+    characterId: 4
+    level: 9
+    hp: 170
+    attack: 18
+    defense: 13
+    speed: 11
+  - tableId: 410
+    characterId: 4
+    level: 10
+    hp: 175
+    attack: 19
+    defense: 14
+    speed: 12
+  - tableId: 411
+    characterId: 4
+    level: 11
+    hp: 180
+    attack: 20
+    defense: 15
+    speed: 13
+  - tableId: 412
+    characterId: 4
+    level: 12
+    hp: 185
+    attack: 21
+    defense: 16
+    speed: 14
+  - tableId: 413
+    characterId: 4
+    level: 13
+    hp: 190
+    attack: 22
+    defense: 17
+    speed: 15
+  - tableId: 414
+    characterId: 4
+    level: 14
+    hp: 195
+    attack: 23
+    defense: 18
+    speed: 16
+  - tableId: 415
+    characterId: 4
+    level: 15
+    hp: 200
+    attack: 24
+    defense: 19
+    speed: 17
+  - tableId: 416
+    characterId: 4
+    level: 16
+    hp: 205
+    attack: 25
+    defense: 20
+    speed: 18
+  - tableId: 417
+    characterId: 4
+    level: 17
+    hp: 210
+    attack: 26
+    defense: 21
+    speed: 19
+  - tableId: 418
+    characterId: 4
+    level: 18
+    hp: 215
+    attack: 27
+    defense: 22
+    speed: 20
+  - tableId: 419
+    characterId: 4
+    level: 19
+    hp: 220
+    attack: 28
+    defense: 23
+    speed: 21
+  - tableId: 420
+    characterId: 4
+    level: 20
+    hp: 225
+    attack: 29
+    defense: 24
+    speed: 22
+  - tableId: 421
+    characterId: 4
+    level: 21
+    hp: 230
+    attack: 30
+    defense: 25
+    speed: 23
+  - tableId: 422
+    characterId: 4
+    level: 22
+    hp: 235
+    attack: 31
+    defense: 26
+    speed: 24
+  - tableId: 423
+    characterId: 4
+    level: 23
+    hp: 240
+    attack: 32
+    defense: 27
+    speed: 25
+  - tableId: 424
+    characterId: 4
+    level: 24
+    hp: 245
+    attack: 33
+    defense: 28
+    speed: 26
+  - tableId: 425
+    characterId: 4
+    level: 25
+    hp: 250
+    attack: 34
+    defense: 29
+    speed: 27
+  - tableId: 426
+    characterId: 4
+    level: 26
+    hp: 255
+    attack: 35
+    defense: 30
+    speed: 28
+  - tableId: 427
+    characterId: 4
+    level: 27
+    hp: 260
+    attack: 36
+    defense: 31
+    speed: 29
+  - tableId: 428
+    characterId: 4
+    level: 28
+    hp: 265
+    attack: 37
+    defense: 32
+    speed: 30
+  - tableId: 429
+    characterId: 4
+    level: 29
+    hp: 270
+    attack: 38
+    defense: 33
+    speed: 31
+  - tableId: 430
+    characterId: 4
+    level: 30
+    hp: 275
+    attack: 39
+    defense: 34
+    speed: 32
+  - tableId: 431
+    characterId: 4
+    level: 31
+    hp: 280
+    attack: 40
+    defense: 35
+    speed: 33
+  - tableId: 432
+    characterId: 4
+    level: 32
+    hp: 285
+    attack: 41
+    defense: 36
+    speed: 34
+  - tableId: 433
+    characterId: 4
+    level: 33
+    hp: 290
+    attack: 42
+    defense: 37
+    speed: 35
+  - tableId: 434
+    characterId: 4
+    level: 34
+    hp: 295
+    attack: 43
+    defense: 38
+    speed: 36
+  - tableId: 435
+    characterId: 4
+    level: 35
+    hp: 300
+    attack: 44
+    defense: 39
+    speed: 37
+  - tableId: 436
+    characterId: 4
+    level: 36
+    hp: 305
+    attack: 45
+    defense: 40
+    speed: 38
+  - tableId: 437
+    characterId: 4
+    level: 37
+    hp: 310
+    attack: 46
+    defense: 41
+    speed: 39
+  - tableId: 438
+    characterId: 4
+    level: 38
+    hp: 315
+    attack: 47
+    defense: 42
+    speed: 40
+  - tableId: 439
+    characterId: 4
+    level: 39
+    hp: 320
+    attack: 48
+    defense: 43
+    speed: 41
+  - tableId: 440
+    characterId: 4
+    level: 40
+    hp: 325
+    attack: 49
+    defense: 44
+    speed: 42
+  - tableId: 441
+    characterId: 4
+    level: 41
+    hp: 330
+    attack: 50
+    defense: 45
+    speed: 43
+  - tableId: 442
+    characterId: 4
+    level: 42
+    hp: 335
+    attack: 51
+    defense: 46
+    speed: 44
+  - tableId: 443
+    characterId: 4
+    level: 43
+    hp: 340
+    attack: 52
+    defense: 47
+    speed: 45
+  - tableId: 444
+    characterId: 4
+    level: 44
+    hp: 345
+    attack: 53
+    defense: 48
+    speed: 46
+  - tableId: 445
+    characterId: 4
+    level: 45
+    hp: 350
+    attack: 54
+    defense: 49
+    speed: 47
+  - tableId: 446
+    characterId: 4
+    level: 46
+    hp: 355
+    attack: 55
+    defense: 50
+    speed: 48
+  - tableId: 447
+    characterId: 4
+    level: 47
+    hp: 360
+    attack: 56
+    defense: 51
+    speed: 49
+  - tableId: 448
+    characterId: 4
+    level: 48
+    hp: 365
+    attack: 57
+    defense: 52
+    speed: 50
+  - tableId: 449
+    characterId: 4
+    level: 49
+    hp: 370
+    attack: 58
+    defense: 53
+    speed: 51
+  - tableId: 450
+    characterId: 4
+    level: 50
+    hp: 375
+    attack: 59
+    defense: 54
+    speed: 52
+  - tableId: 451
+    characterId: 4
+    level: 51
+    hp: 380
+    attack: 60
+    defense: 55
+    speed: 53
+  - tableId: 452
+    characterId: 4
+    level: 52
+    hp: 385
+    attack: 61
+    defense: 56
+    speed: 54
+  - tableId: 453
+    characterId: 4
+    level: 53
+    hp: 390
+    attack: 62
+    defense: 57
+    speed: 55
+  - tableId: 454
+    characterId: 4
+    level: 54
+    hp: 395
+    attack: 63
+    defense: 58
+    speed: 56
+  - tableId: 455
+    characterId: 4
+    level: 55
+    hp: 400
+    attack: 64
+    defense: 59
+    speed: 57
+  - tableId: 456
+    characterId: 4
+    level: 56
+    hp: 405
+    attack: 65
+    defense: 60
+    speed: 58
+  - tableId: 457
+    characterId: 4
+    level: 57
+    hp: 410
+    attack: 66
+    defense: 61
+    speed: 59
+  - tableId: 458
+    characterId: 4
+    level: 58
+    hp: 415
+    attack: 67
+    defense: 62
+    speed: 60
+  - tableId: 459
+    characterId: 4
+    level: 59
+    hp: 420
+    attack: 68
+    defense: 63
+    speed: 61
+  - tableId: 460
+    characterId: 4
+    level: 60
+    hp: 425
+    attack: 69
+    defense: 64
+    speed: 62
+  - tableId: 461
+    characterId: 4
+    level: 61
+    hp: 430
+    attack: 70
+    defense: 65
+    speed: 63
+  - tableId: 462
+    characterId: 4
+    level: 62
+    hp: 435
+    attack: 71
+    defense: 66
+    speed: 64
+  - tableId: 463
+    characterId: 4
+    level: 63
+    hp: 440
+    attack: 72
+    defense: 67
+    speed: 65
+  - tableId: 464
+    characterId: 4
+    level: 64
+    hp: 445
+    attack: 73
+    defense: 68
+    speed: 66
+  - tableId: 465
+    characterId: 4
+    level: 65
+    hp: 450
+    attack: 74
+    defense: 69
+    speed: 67
+  - tableId: 466
+    characterId: 4
+    level: 66
+    hp: 455
+    attack: 75
+    defense: 70
+    speed: 68
+  - tableId: 467
+    characterId: 4
+    level: 67
+    hp: 460
+    attack: 76
+    defense: 71
+    speed: 69
+  - tableId: 468
+    characterId: 4
+    level: 68
+    hp: 465
+    attack: 77
+    defense: 72
+    speed: 70
+  - tableId: 469
+    characterId: 4
+    level: 69
+    hp: 470
+    attack: 78
+    defense: 73
+    speed: 71
+  - tableId: 470
+    characterId: 4
+    level: 70
+    hp: 475
+    attack: 79
+    defense: 74
+    speed: 72
+  - tableId: 471
+    characterId: 4
+    level: 71
+    hp: 480
+    attack: 80
+    defense: 75
+    speed: 73
+  - tableId: 472
+    characterId: 4
+    level: 72
+    hp: 485
+    attack: 81
+    defense: 76
+    speed: 74
+  - tableId: 473
+    characterId: 4
+    level: 73
+    hp: 490
+    attack: 82
+    defense: 77
+    speed: 75
+  - tableId: 474
+    characterId: 4
+    level: 74
+    hp: 495
+    attack: 83
+    defense: 78
+    speed: 76
+  - tableId: 475
+    characterId: 4
+    level: 75
+    hp: 500
+    attack: 84
+    defense: 79
+    speed: 77
+  - tableId: 476
+    characterId: 4
+    level: 76
+    hp: 505
+    attack: 85
+    defense: 80
+    speed: 78
+  - tableId: 477
+    characterId: 4
+    level: 77
+    hp: 510
+    attack: 86
+    defense: 81
+    speed: 79
+  - tableId: 478
+    characterId: 4
+    level: 78
+    hp: 515
+    attack: 87
+    defense: 82
+    speed: 80
+  - tableId: 479
+    characterId: 4
+    level: 79
+    hp: 520
+    attack: 88
+    defense: 83
+    speed: 81
+  - tableId: 480
+    characterId: 4
+    level: 80
+    hp: 525
+    attack: 89
+    defense: 84
+    speed: 82
+  - tableId: 481
+    characterId: 4
+    level: 81
+    hp: 530
+    attack: 90
+    defense: 85
+    speed: 83
+  - tableId: 482
+    characterId: 4
+    level: 82
+    hp: 535
+    attack: 91
+    defense: 86
+    speed: 84
+  - tableId: 483
+    characterId: 4
+    level: 83
+    hp: 540
+    attack: 92
+    defense: 87
+    speed: 85
+  - tableId: 484
+    characterId: 4
+    level: 84
+    hp: 545
+    attack: 93
+    defense: 88
+    speed: 86
+  - tableId: 485
+    characterId: 4
+    level: 85
+    hp: 550
+    attack: 94
+    defense: 89
+    speed: 87
+  - tableId: 486
+    characterId: 4
+    level: 86
+    hp: 555
+    attack: 95
+    defense: 90
+    speed: 88
+  - tableId: 487
+    characterId: 4
+    level: 87
+    hp: 560
+    attack: 96
+    defense: 91
+    speed: 89
+  - tableId: 488
+    characterId: 4
+    level: 88
+    hp: 565
+    attack: 97
+    defense: 92
+    speed: 90
+  - tableId: 489
+    characterId: 4
+    level: 89
+    hp: 570
+    attack: 98
+    defense: 93
+    speed: 91
+  - tableId: 490
+    characterId: 4
+    level: 90
+    hp: 575
+    attack: 99
+    defense: 94
+    speed: 92
+  - tableId: 491
+    characterId: 4
+    level: 91
+    hp: 580
+    attack: 100
+    defense: 95
+    speed: 93
+  - tableId: 492
+    characterId: 4
+    level: 92
+    hp: 585
+    attack: 101
+    defense: 96
+    speed: 94
+  - tableId: 493
+    characterId: 4
+    level: 93
+    hp: 590
+    attack: 102
+    defense: 97
+    speed: 95
+  - tableId: 494
+    characterId: 4
+    level: 94
+    hp: 595
+    attack: 103
+    defense: 98
+    speed: 96
+  - tableId: 495
+    characterId: 4
+    level: 95
+    hp: 600
+    attack: 104
+    defense: 99
+    speed: 97
+  - tableId: 496
+    characterId: 4
+    level: 96
+    hp: 605
+    attack: 105
+    defense: 100
+    speed: 98
+  - tableId: 497
+    characterId: 4
+    level: 97
+    hp: 610
+    attack: 106
+    defense: 101
+    speed: 99
+  - tableId: 498
+    characterId: 4
+    level: 98
+    hp: 615
+    attack: 107
+    defense: 102
+    speed: 100
+  - tableId: 499
+    characterId: 4
+    level: 99
+    hp: 620
+    attack: 108
+    defense: 103
+    speed: 101
+  - tableId: 501
+    characterId: 5
+    level: 1
+    hp: 80
+    attack: 11
+    defense: 20
+    speed: 8
+  - tableId: 502
+    characterId: 5
+    level: 2
+    hp: 85
+    attack: 12
+    defense: 21
+    speed: 10
+  - tableId: 503
+    characterId: 5
+    level: 3
+    hp: 90
+    attack: 13
+    defense: 22
+    speed: 12
+  - tableId: 504
+    characterId: 5
+    level: 4
+    hp: 95
+    attack: 14
+    defense: 23
+    speed: 14
+  - tableId: 505
+    characterId: 5
+    level: 5
+    hp: 100
+    attack: 15
+    defense: 24
+    speed: 16
+  - tableId: 506
+    characterId: 5
+    level: 6
+    hp: 105
+    attack: 16
+    defense: 25
+    speed: 18
+  - tableId: 507
+    characterId: 5
+    level: 7
+    hp: 110
+    attack: 17
+    defense: 26
+    speed: 20
+  - tableId: 508
+    characterId: 5
+    level: 8
+    hp: 115
+    attack: 18
+    defense: 27
+    speed: 22
+  - tableId: 509
+    characterId: 5
+    level: 9
+    hp: 120
+    attack: 19
+    defense: 28
+    speed: 24
+  - tableId: 510
+    characterId: 5
+    level: 10
+    hp: 125
+    attack: 20
+    defense: 29
+    speed: 26
+  - tableId: 511
+    characterId: 5
+    level: 11
+    hp: 130
+    attack: 21
+    defense: 30
+    speed: 28
+  - tableId: 512
+    characterId: 5
+    level: 12
+    hp: 135
+    attack: 22
+    defense: 31
+    speed: 30
+  - tableId: 513
+    characterId: 5
+    level: 13
+    hp: 140
+    attack: 23
+    defense: 32
+    speed: 32
+  - tableId: 514
+    characterId: 5
+    level: 14
+    hp: 145
+    attack: 24
+    defense: 33
+    speed: 34
+  - tableId: 515
+    characterId: 5
+    level: 15
+    hp: 150
+    attack: 25
+    defense: 34
+    speed: 36
+  - tableId: 516
+    characterId: 5
+    level: 16
+    hp: 155
+    attack: 26
+    defense: 35
+    speed: 38
+  - tableId: 517
+    characterId: 5
+    level: 17
+    hp: 160
+    attack: 27
+    defense: 36
+    speed: 40
+  - tableId: 518
+    characterId: 5
+    level: 18
+    hp: 165
+    attack: 28
+    defense: 37
+    speed: 42
+  - tableId: 519
+    characterId: 5
+    level: 19
+    hp: 170
+    attack: 29
+    defense: 38
+    speed: 44
+  - tableId: 520
+    characterId: 5
+    level: 20
+    hp: 175
+    attack: 30
+    defense: 39
+    speed: 46
+  - tableId: 521
+    characterId: 5
+    level: 21
+    hp: 180
+    attack: 31
+    defense: 40
+    speed: 48
+  - tableId: 522
+    characterId: 5
+    level: 22
+    hp: 185
+    attack: 32
+    defense: 41
+    speed: 50
+  - tableId: 523
+    characterId: 5
+    level: 23
+    hp: 190
+    attack: 33
+    defense: 42
+    speed: 52
+  - tableId: 524
+    characterId: 5
+    level: 24
+    hp: 195
+    attack: 34
+    defense: 43
+    speed: 54
+  - tableId: 525
+    characterId: 5
+    level: 25
+    hp: 200
+    attack: 35
+    defense: 44
+    speed: 56
+  - tableId: 526
+    characterId: 5
+    level: 26
+    hp: 205
+    attack: 36
+    defense: 45
+    speed: 58
+  - tableId: 527
+    characterId: 5
+    level: 27
+    hp: 210
+    attack: 37
+    defense: 46
+    speed: 60
+  - tableId: 528
+    characterId: 5
+    level: 28
+    hp: 215
+    attack: 38
+    defense: 47
+    speed: 62
+  - tableId: 529
+    characterId: 5
+    level: 29
+    hp: 220
+    attack: 39
+    defense: 48
+    speed: 64
+  - tableId: 530
+    characterId: 5
+    level: 30
+    hp: 225
+    attack: 40
+    defense: 49
+    speed: 66
+  - tableId: 531
+    characterId: 5
+    level: 31
+    hp: 230
+    attack: 41
+    defense: 50
+    speed: 68
+  - tableId: 532
+    characterId: 5
+    level: 32
+    hp: 235
+    attack: 42
+    defense: 51
+    speed: 70
+  - tableId: 533
+    characterId: 5
+    level: 33
+    hp: 240
+    attack: 43
+    defense: 52
+    speed: 72
+  - tableId: 534
+    characterId: 5
+    level: 34
+    hp: 245
+    attack: 44
+    defense: 53
+    speed: 74
+  - tableId: 535
+    characterId: 5
+    level: 35
+    hp: 250
+    attack: 45
+    defense: 54
+    speed: 76
+  - tableId: 536
+    characterId: 5
+    level: 36
+    hp: 255
+    attack: 46
+    defense: 55
+    speed: 78
+  - tableId: 537
+    characterId: 5
+    level: 37
+    hp: 260
+    attack: 47
+    defense: 56
+    speed: 80
+  - tableId: 538
+    characterId: 5
+    level: 38
+    hp: 265
+    attack: 48
+    defense: 57
+    speed: 82
+  - tableId: 539
+    characterId: 5
+    level: 39
+    hp: 270
+    attack: 49
+    defense: 58
+    speed: 84
+  - tableId: 540
+    characterId: 5
+    level: 40
+    hp: 275
+    attack: 50
+    defense: 59
+    speed: 86
+  - tableId: 541
+    characterId: 5
+    level: 41
+    hp: 280
+    attack: 51
+    defense: 60
+    speed: 88
+  - tableId: 542
+    characterId: 5
+    level: 42
+    hp: 285
+    attack: 52
+    defense: 61
+    speed: 90
+  - tableId: 543
+    characterId: 5
+    level: 43
+    hp: 290
+    attack: 53
+    defense: 62
+    speed: 92
+  - tableId: 544
+    characterId: 5
+    level: 44
+    hp: 295
+    attack: 54
+    defense: 63
+    speed: 94
+  - tableId: 545
+    characterId: 5
+    level: 45
+    hp: 300
+    attack: 55
+    defense: 64
+    speed: 96
+  - tableId: 546
+    characterId: 5
+    level: 46
+    hp: 305
+    attack: 56
+    defense: 65
+    speed: 98
+  - tableId: 547
+    characterId: 5
+    level: 47
+    hp: 310
+    attack: 57
+    defense: 66
+    speed: 100
+  - tableId: 548
+    characterId: 5
+    level: 48
+    hp: 315
+    attack: 58
+    defense: 67
+    speed: 102
+  - tableId: 549
+    characterId: 5
+    level: 49
+    hp: 320
+    attack: 59
+    defense: 68
+    speed: 104
+  - tableId: 550
+    characterId: 5
+    level: 50
+    hp: 325
+    attack: 60
+    defense: 69
+    speed: 106
+  - tableId: 551
+    characterId: 5
+    level: 51
+    hp: 330
+    attack: 61
+    defense: 70
+    speed: 108
+  - tableId: 552
+    characterId: 5
+    level: 52
+    hp: 335
+    attack: 62
+    defense: 71
+    speed: 110
+  - tableId: 553
+    characterId: 5
+    level: 53
+    hp: 340
+    attack: 63
+    defense: 72
+    speed: 112
+  - tableId: 554
+    characterId: 5
+    level: 54
+    hp: 345
+    attack: 64
+    defense: 73
+    speed: 114
+  - tableId: 555
+    characterId: 5
+    level: 55
+    hp: 350
+    attack: 65
+    defense: 74
+    speed: 116
+  - tableId: 556
+    characterId: 5
+    level: 56
+    hp: 355
+    attack: 66
+    defense: 75
+    speed: 118
+  - tableId: 557
+    characterId: 5
+    level: 57
+    hp: 360
+    attack: 67
+    defense: 76
+    speed: 120
+  - tableId: 558
+    characterId: 5
+    level: 58
+    hp: 365
+    attack: 68
+    defense: 77
+    speed: 122
+  - tableId: 559
+    characterId: 5
+    level: 59
+    hp: 370
+    attack: 69
+    defense: 78
+    speed: 124
+  - tableId: 560
+    characterId: 5
+    level: 60
+    hp: 375
+    attack: 70
+    defense: 79
+    speed: 126
+  - tableId: 561
+    characterId: 5
+    level: 61
+    hp: 380
+    attack: 71
+    defense: 80
+    speed: 128
+  - tableId: 562
+    characterId: 5
+    level: 62
+    hp: 385
+    attack: 72
+    defense: 81
+    speed: 130
+  - tableId: 563
+    characterId: 5
+    level: 63
+    hp: 390
+    attack: 73
+    defense: 82
+    speed: 132
+  - tableId: 564
+    characterId: 5
+    level: 64
+    hp: 395
+    attack: 74
+    defense: 83
+    speed: 134
+  - tableId: 565
+    characterId: 5
+    level: 65
+    hp: 400
+    attack: 75
+    defense: 84
+    speed: 136
+  - tableId: 566
+    characterId: 5
+    level: 66
+    hp: 405
+    attack: 76
+    defense: 85
+    speed: 138
+  - tableId: 567
+    characterId: 5
+    level: 67
+    hp: 410
+    attack: 77
+    defense: 86
+    speed: 140
+  - tableId: 568
+    characterId: 5
+    level: 68
+    hp: 415
+    attack: 78
+    defense: 87
+    speed: 142
+  - tableId: 569
+    characterId: 5
+    level: 69
+    hp: 420
+    attack: 79
+    defense: 88
+    speed: 144
+  - tableId: 570
+    characterId: 5
+    level: 70
+    hp: 425
+    attack: 80
+    defense: 89
+    speed: 146
+  - tableId: 571
+    characterId: 5
+    level: 71
+    hp: 430
+    attack: 81
+    defense: 90
+    speed: 148
+  - tableId: 572
+    characterId: 5
+    level: 72
+    hp: 435
+    attack: 82
+    defense: 91
+    speed: 150
+  - tableId: 573
+    characterId: 5
+    level: 73
+    hp: 440
+    attack: 83
+    defense: 92
+    speed: 152
+  - tableId: 574
+    characterId: 5
+    level: 74
+    hp: 445
+    attack: 84
+    defense: 93
+    speed: 154
+  - tableId: 575
+    characterId: 5
+    level: 75
+    hp: 450
+    attack: 85
+    defense: 94
+    speed: 156
+  - tableId: 576
+    characterId: 5
+    level: 76
+    hp: 455
+    attack: 86
+    defense: 95
+    speed: 158
+  - tableId: 577
+    characterId: 5
+    level: 77
+    hp: 460
+    attack: 87
+    defense: 96
+    speed: 160
+  - tableId: 578
+    characterId: 5
+    level: 78
+    hp: 465
+    attack: 88
+    defense: 97
+    speed: 162
+  - tableId: 579
+    characterId: 5
+    level: 79
+    hp: 470
+    attack: 89
+    defense: 98
+    speed: 164
+  - tableId: 580
+    characterId: 5
+    level: 80
+    hp: 475
+    attack: 90
+    defense: 99
+    speed: 166
+  - tableId: 581
+    characterId: 5
+    level: 81
+    hp: 480
+    attack: 91
+    defense: 100
+    speed: 168
+  - tableId: 582
+    characterId: 5
+    level: 82
+    hp: 485
+    attack: 92
+    defense: 101
+    speed: 170
+  - tableId: 583
+    characterId: 5
+    level: 83
+    hp: 490
+    attack: 93
+    defense: 102
+    speed: 172
+  - tableId: 584
+    characterId: 5
+    level: 84
+    hp: 495
+    attack: 94
+    defense: 103
+    speed: 174
+  - tableId: 585
+    characterId: 5
+    level: 85
+    hp: 500
+    attack: 95
+    defense: 104
+    speed: 176
+  - tableId: 586
+    characterId: 5
+    level: 86
+    hp: 505
+    attack: 96
+    defense: 105
+    speed: 178
+  - tableId: 587
+    characterId: 5
+    level: 87
+    hp: 510
+    attack: 97
+    defense: 106
+    speed: 180
+  - tableId: 588
+    characterId: 5
+    level: 88
+    hp: 515
+    attack: 98
+    defense: 107
+    speed: 182
+  - tableId: 589
+    characterId: 5
+    level: 89
+    hp: 520
+    attack: 99
+    defense: 108
+    speed: 184
+  - tableId: 590
+    characterId: 5
+    level: 90
+    hp: 525
+    attack: 100
+    defense: 109
+    speed: 186
+  - tableId: 591
+    characterId: 5
+    level: 91
+    hp: 530
+    attack: 101
+    defense: 110
+    speed: 188
+  - tableId: 592
+    characterId: 5
+    level: 92
+    hp: 535
+    attack: 102
+    defense: 111
+    speed: 190
+  - tableId: 593
+    characterId: 5
+    level: 93
+    hp: 540
+    attack: 103
+    defense: 112
+    speed: 192
+  - tableId: 594
+    characterId: 5
+    level: 94
+    hp: 545
+    attack: 104
+    defense: 113
+    speed: 194
+  - tableId: 595
+    characterId: 5
+    level: 95
+    hp: 550
+    attack: 105
+    defense: 114
+    speed: 196
+  - tableId: 596
+    characterId: 5
+    level: 96
+    hp: 555
+    attack: 106
+    defense: 115
+    speed: 198
+  - tableId: 597
+    characterId: 5
+    level: 97
+    hp: 560
+    attack: 107
+    defense: 116
+    speed: 200
+  - tableId: 598
+    characterId: 5
+    level: 98
+    hp: 565
+    attack: 108
+    defense: 117
+    speed: 202
+  - tableId: 599
+    characterId: 5
+    level: 99
+    hp: 570
+    attack: 109
+    defense: 118
+    speed: 204
+  - tableId: 601
+    characterId: 6
+    level: 1
+    hp: 110
+    attack: 15
+    defense: 5
+    speed: 8
+  - tableId: 602
+    characterId: 6
+    level: 2
+    hp: 115
+    attack: 16
+    defense: 7
+    speed: 9
+  - tableId: 603
+    characterId: 6
+    level: 3
+    hp: 120
+    attack: 17
+    defense: 9
+    speed: 10
+  - tableId: 604
+    characterId: 6
+    level: 4
+    hp: 125
+    attack: 18
+    defense: 11
+    speed: 11
+  - tableId: 605
+    characterId: 6
+    level: 5
+    hp: 130
+    attack: 19
+    defense: 13
+    speed: 12
+  - tableId: 606
+    characterId: 6
+    level: 6
+    hp: 135
+    attack: 20
+    defense: 15
+    speed: 13
+  - tableId: 607
+    characterId: 6
+    level: 7
+    hp: 140
+    attack: 21
+    defense: 17
+    speed: 14
+  - tableId: 608
+    characterId: 6
+    level: 8
+    hp: 145
+    attack: 22
+    defense: 19
+    speed: 15
+  - tableId: 609
+    characterId: 6
+    level: 9
+    hp: 150
+    attack: 23
+    defense: 21
+    speed: 16
+  - tableId: 610
+    characterId: 6
+    level: 10
+    hp: 155
+    attack: 24
+    defense: 23
+    speed: 17
+  - tableId: 611
+    characterId: 6
+    level: 11
+    hp: 160
+    attack: 25
+    defense: 25
+    speed: 18
+  - tableId: 612
+    characterId: 6
+    level: 12
+    hp: 165
+    attack: 26
+    defense: 27
+    speed: 19
+  - tableId: 613
+    characterId: 6
+    level: 13
+    hp: 170
+    attack: 27
+    defense: 29
+    speed: 20
+  - tableId: 614
+    characterId: 6
+    level: 14
+    hp: 175
+    attack: 28
+    defense: 31
+    speed: 21
+  - tableId: 615
+    characterId: 6
+    level: 15
+    hp: 180
+    attack: 29
+    defense: 33
+    speed: 22
+  - tableId: 616
+    characterId: 6
+    level: 16
+    hp: 185
+    attack: 30
+    defense: 35
+    speed: 23
+  - tableId: 617
+    characterId: 6
+    level: 17
+    hp: 190
+    attack: 31
+    defense: 37
+    speed: 24
+  - tableId: 618
+    characterId: 6
+    level: 18
+    hp: 195
+    attack: 32
+    defense: 39
+    speed: 25
+  - tableId: 619
+    characterId: 6
+    level: 19
+    hp: 200
+    attack: 33
+    defense: 41
+    speed: 26
+  - tableId: 620
+    characterId: 6
+    level: 20
+    hp: 205
+    attack: 34
+    defense: 43
+    speed: 27
+  - tableId: 621
+    characterId: 6
+    level: 21
+    hp: 210
+    attack: 35
+    defense: 45
+    speed: 28
+  - tableId: 622
+    characterId: 6
+    level: 22
+    hp: 215
+    attack: 36
+    defense: 47
+    speed: 29
+  - tableId: 623
+    characterId: 6
+    level: 23
+    hp: 220
+    attack: 37
+    defense: 49
+    speed: 30
+  - tableId: 624
+    characterId: 6
+    level: 24
+    hp: 225
+    attack: 38
+    defense: 51
+    speed: 31
+  - tableId: 625
+    characterId: 6
+    level: 25
+    hp: 230
+    attack: 39
+    defense: 53
+    speed: 32
+  - tableId: 626
+    characterId: 6
+    level: 26
+    hp: 235
+    attack: 40
+    defense: 55
+    speed: 33
+  - tableId: 627
+    characterId: 6
+    level: 27
+    hp: 240
+    attack: 41
+    defense: 57
+    speed: 34
+  - tableId: 628
+    characterId: 6
+    level: 28
+    hp: 245
+    attack: 42
+    defense: 59
+    speed: 35
+  - tableId: 629
+    characterId: 6
+    level: 29
+    hp: 250
+    attack: 43
+    defense: 61
+    speed: 36
+  - tableId: 630
+    characterId: 6
+    level: 30
+    hp: 255
+    attack: 44
+    defense: 63
+    speed: 37
+  - tableId: 631
+    characterId: 6
+    level: 31
+    hp: 260
+    attack: 45
+    defense: 65
+    speed: 38
+  - tableId: 632
+    characterId: 6
+    level: 32
+    hp: 265
+    attack: 46
+    defense: 67
+    speed: 39
+  - tableId: 633
+    characterId: 6
+    level: 33
+    hp: 270
+    attack: 47
+    defense: 69
+    speed: 40
+  - tableId: 634
+    characterId: 6
+    level: 34
+    hp: 275
+    attack: 48
+    defense: 71
+    speed: 41
+  - tableId: 635
+    characterId: 6
+    level: 35
+    hp: 280
+    attack: 49
+    defense: 73
+    speed: 42
+  - tableId: 636
+    characterId: 6
+    level: 36
+    hp: 285
+    attack: 50
+    defense: 75
+    speed: 43
+  - tableId: 637
+    characterId: 6
+    level: 37
+    hp: 290
+    attack: 51
+    defense: 77
+    speed: 44
+  - tableId: 638
+    characterId: 6
+    level: 38
+    hp: 295
+    attack: 52
+    defense: 79
+    speed: 45
+  - tableId: 639
+    characterId: 6
+    level: 39
+    hp: 300
+    attack: 53
+    defense: 81
+    speed: 46
+  - tableId: 640
+    characterId: 6
+    level: 40
+    hp: 305
+    attack: 54
+    defense: 83
+    speed: 47
+  - tableId: 641
+    characterId: 6
+    level: 41
+    hp: 310
+    attack: 55
+    defense: 85
+    speed: 48
+  - tableId: 642
+    characterId: 6
+    level: 42
+    hp: 315
+    attack: 56
+    defense: 87
+    speed: 49
+  - tableId: 643
+    characterId: 6
+    level: 43
+    hp: 320
+    attack: 57
+    defense: 89
+    speed: 50
+  - tableId: 644
+    characterId: 6
+    level: 44
+    hp: 325
+    attack: 58
+    defense: 91
+    speed: 51
+  - tableId: 645
+    characterId: 6
+    level: 45
+    hp: 330
+    attack: 59
+    defense: 93
+    speed: 52
+  - tableId: 646
+    characterId: 6
+    level: 46
+    hp: 335
+    attack: 60
+    defense: 95
+    speed: 53
+  - tableId: 647
+    characterId: 6
+    level: 47
+    hp: 340
+    attack: 61
+    defense: 97
+    speed: 54
+  - tableId: 648
+    characterId: 6
+    level: 48
+    hp: 345
+    attack: 62
+    defense: 99
+    speed: 55
+  - tableId: 649
+    characterId: 6
+    level: 49
+    hp: 350
+    attack: 63
+    defense: 101
+    speed: 56
+  - tableId: 650
+    characterId: 6
+    level: 50
+    hp: 355
+    attack: 64
+    defense: 103
+    speed: 57
+  - tableId: 651
+    characterId: 6
+    level: 51
+    hp: 360
+    attack: 65
+    defense: 105
+    speed: 58
+  - tableId: 652
+    characterId: 6
+    level: 52
+    hp: 365
+    attack: 66
+    defense: 107
+    speed: 59
+  - tableId: 653
+    characterId: 6
+    level: 53
+    hp: 370
+    attack: 67
+    defense: 109
+    speed: 60
+  - tableId: 654
+    characterId: 6
+    level: 54
+    hp: 375
+    attack: 68
+    defense: 111
+    speed: 61
+  - tableId: 655
+    characterId: 6
+    level: 55
+    hp: 380
+    attack: 69
+    defense: 113
+    speed: 62
+  - tableId: 656
+    characterId: 6
+    level: 56
+    hp: 385
+    attack: 70
+    defense: 115
+    speed: 63
+  - tableId: 657
+    characterId: 6
+    level: 57
+    hp: 390
+    attack: 71
+    defense: 117
+    speed: 64
+  - tableId: 658
+    characterId: 6
+    level: 58
+    hp: 395
+    attack: 72
+    defense: 119
+    speed: 65
+  - tableId: 659
+    characterId: 6
+    level: 59
+    hp: 400
+    attack: 73
+    defense: 121
+    speed: 66
+  - tableId: 660
+    characterId: 6
+    level: 60
+    hp: 405
+    attack: 74
+    defense: 123
+    speed: 67
+  - tableId: 661
+    characterId: 6
+    level: 61
+    hp: 410
+    attack: 75
+    defense: 125
+    speed: 68
+  - tableId: 662
+    characterId: 6
+    level: 62
+    hp: 415
+    attack: 76
+    defense: 127
+    speed: 69
+  - tableId: 663
+    characterId: 6
+    level: 63
+    hp: 420
+    attack: 77
+    defense: 129
+    speed: 70
+  - tableId: 664
+    characterId: 6
+    level: 64
+    hp: 425
+    attack: 78
+    defense: 131
+    speed: 71
+  - tableId: 665
+    characterId: 6
+    level: 65
+    hp: 430
+    attack: 79
+    defense: 133
+    speed: 72
+  - tableId: 666
+    characterId: 6
+    level: 66
+    hp: 435
+    attack: 80
+    defense: 135
+    speed: 73
+  - tableId: 667
+    characterId: 6
+    level: 67
+    hp: 440
+    attack: 81
+    defense: 137
+    speed: 74
+  - tableId: 668
+    characterId: 6
+    level: 68
+    hp: 445
+    attack: 82
+    defense: 139
+    speed: 75
+  - tableId: 669
+    characterId: 6
+    level: 69
+    hp: 450
+    attack: 83
+    defense: 141
+    speed: 76
+  - tableId: 670
+    characterId: 6
+    level: 70
+    hp: 455
+    attack: 84
+    defense: 143
+    speed: 77
+  - tableId: 671
+    characterId: 6
+    level: 71
+    hp: 460
+    attack: 85
+    defense: 145
+    speed: 78
+  - tableId: 672
+    characterId: 6
+    level: 72
+    hp: 465
+    attack: 86
+    defense: 147
+    speed: 79
+  - tableId: 673
+    characterId: 6
+    level: 73
+    hp: 470
+    attack: 87
+    defense: 149
+    speed: 80
+  - tableId: 674
+    characterId: 6
+    level: 74
+    hp: 475
+    attack: 88
+    defense: 151
+    speed: 81
+  - tableId: 675
+    characterId: 6
+    level: 75
+    hp: 480
+    attack: 89
+    defense: 153
+    speed: 82
+  - tableId: 676
+    characterId: 6
+    level: 76
+    hp: 485
+    attack: 90
+    defense: 155
+    speed: 83
+  - tableId: 677
+    characterId: 6
+    level: 77
+    hp: 490
+    attack: 91
+    defense: 157
+    speed: 84
+  - tableId: 678
+    characterId: 6
+    level: 78
+    hp: 495
+    attack: 92
+    defense: 159
+    speed: 85
+  - tableId: 679
+    characterId: 6
+    level: 79
+    hp: 500
+    attack: 93
+    defense: 161
+    speed: 86
+  - tableId: 680
+    characterId: 6
+    level: 80
+    hp: 505
+    attack: 94
+    defense: 163
+    speed: 87
+  - tableId: 681
+    characterId: 6
+    level: 81
+    hp: 510
+    attack: 95
+    defense: 165
+    speed: 88
+  - tableId: 682
+    characterId: 6
+    level: 82
+    hp: 515
+    attack: 96
+    defense: 167
+    speed: 89
+  - tableId: 683
+    characterId: 6
+    level: 83
+    hp: 520
+    attack: 97
+    defense: 169
+    speed: 90
+  - tableId: 684
+    characterId: 6
+    level: 84
+    hp: 525
+    attack: 98
+    defense: 171
+    speed: 91
+  - tableId: 685
+    characterId: 6
+    level: 85
+    hp: 530
+    attack: 99
+    defense: 173
+    speed: 92
+  - tableId: 686
+    characterId: 6
+    level: 86
+    hp: 535
+    attack: 100
+    defense: 175
+    speed: 93
+  - tableId: 687
+    characterId: 6
+    level: 87
+    hp: 540
+    attack: 101
+    defense: 177
+    speed: 94
+  - tableId: 688
+    characterId: 6
+    level: 88
+    hp: 545
+    attack: 102
+    defense: 179
+    speed: 95
+  - tableId: 689
+    characterId: 6
+    level: 89
+    hp: 550
+    attack: 103
+    defense: 181
+    speed: 96
+  - tableId: 690
+    characterId: 6
+    level: 90
+    hp: 555
+    attack: 104
+    defense: 183
+    speed: 97
+  - tableId: 691
+    characterId: 6
+    level: 91
+    hp: 560
+    attack: 105
+    defense: 185
+    speed: 98
+  - tableId: 692
+    characterId: 6
+    level: 92
+    hp: 565
+    attack: 106
+    defense: 187
+    speed: 99
+  - tableId: 693
+    characterId: 6
+    level: 93
+    hp: 570
+    attack: 107
+    defense: 189
+    speed: 100
+  - tableId: 694
+    characterId: 6
+    level: 94
+    hp: 575
+    attack: 108
+    defense: 191
+    speed: 101
+  - tableId: 695
+    characterId: 6
+    level: 95
+    hp: 580
+    attack: 109
+    defense: 193
+    speed: 102
+  - tableId: 696
+    characterId: 6
+    level: 96
+    hp: 585
+    attack: 110
+    defense: 195
+    speed: 103
+  - tableId: 697
+    characterId: 6
+    level: 97
+    hp: 590
+    attack: 111
+    defense: 197
+    speed: 104
+  - tableId: 698
+    characterId: 6
+    level: 98
+    hp: 595
+    attack: 112
+    defense: 199
+    speed: 105
+  - tableId: 699
+    characterId: 6
+    level: 99
+    hp: 600
+    attack: 113
+    defense: 201
+    speed: 106
+  - tableId: 701
+    characterId: 7
+    level: 1
+    hp: 100
+    attack: 10
+    defense: 5
+    speed: 10
+  - tableId: 702
+    characterId: 7
+    level: 2
+    hp: 110
+    attack: 12
+    defense: 6
+    speed: 11
+  - tableId: 703
+    characterId: 7
+    level: 3
+    hp: 120
+    attack: 14
+    defense: 7
+    speed: 12
+  - tableId: 704
+    characterId: 7
+    level: 4
+    hp: 130
+    attack: 16
+    defense: 8
+    speed: 13
+  - tableId: 705
+    characterId: 7
+    level: 5
+    hp: 140
+    attack: 18
+    defense: 9
+    speed: 14
+  - tableId: 706
+    characterId: 7
+    level: 6
+    hp: 150
+    attack: 20
+    defense: 10
+    speed: 15
+  - tableId: 707
+    characterId: 7
+    level: 7
+    hp: 160
+    attack: 22
+    defense: 11
+    speed: 16
+  - tableId: 708
+    characterId: 7
+    level: 8
+    hp: 170
+    attack: 24
+    defense: 12
+    speed: 17
+  - tableId: 709
+    characterId: 7
+    level: 9
+    hp: 180
+    attack: 26
+    defense: 13
+    speed: 18
+  - tableId: 710
+    characterId: 7
+    level: 10
+    hp: 190
+    attack: 28
+    defense: 14
+    speed: 19
+  - tableId: 711
+    characterId: 7
+    level: 11
+    hp: 200
+    attack: 30
+    defense: 15
+    speed: 20
+  - tableId: 712
+    characterId: 7
+    level: 12
+    hp: 210
+    attack: 32
+    defense: 16
+    speed: 21
+  - tableId: 713
+    characterId: 7
+    level: 13
+    hp: 220
+    attack: 34
+    defense: 17
+    speed: 22
+  - tableId: 714
+    characterId: 7
+    level: 14
+    hp: 230
+    attack: 36
+    defense: 18
+    speed: 23
+  - tableId: 715
+    characterId: 7
+    level: 15
+    hp: 240
+    attack: 38
+    defense: 19
+    speed: 24
+  - tableId: 716
+    characterId: 7
+    level: 16
+    hp: 250
+    attack: 40
+    defense: 20
+    speed: 25
+  - tableId: 717
+    characterId: 7
+    level: 17
+    hp: 260
+    attack: 42
+    defense: 21
+    speed: 26
+  - tableId: 718
+    characterId: 7
+    level: 18
+    hp: 270
+    attack: 44
+    defense: 22
+    speed: 27
+  - tableId: 719
+    characterId: 7
+    level: 19
+    hp: 280
+    attack: 46
+    defense: 23
+    speed: 28
+  - tableId: 720
+    characterId: 7
+    level: 20
+    hp: 290
+    attack: 48
+    defense: 24
+    speed: 29
+  - tableId: 721
+    characterId: 7
+    level: 21
+    hp: 300
+    attack: 50
+    defense: 25
+    speed: 30
+  - tableId: 722
+    characterId: 7
+    level: 22
+    hp: 310
+    attack: 52
+    defense: 26
+    speed: 31
+  - tableId: 723
+    characterId: 7
+    level: 23
+    hp: 320
+    attack: 54
+    defense: 27
+    speed: 32
+  - tableId: 724
+    characterId: 7
+    level: 24
+    hp: 330
+    attack: 56
+    defense: 28
+    speed: 33
+  - tableId: 725
+    characterId: 7
+    level: 25
+    hp: 340
+    attack: 58
+    defense: 29
+    speed: 34
+  - tableId: 726
+    characterId: 7
+    level: 26
+    hp: 350
+    attack: 60
+    defense: 30
+    speed: 35
+  - tableId: 727
+    characterId: 7
+    level: 27
+    hp: 360
+    attack: 62
+    defense: 31
+    speed: 36
+  - tableId: 728
+    characterId: 7
+    level: 28
+    hp: 370
+    attack: 64
+    defense: 32
+    speed: 37
+  - tableId: 729
+    characterId: 7
+    level: 29
+    hp: 380
+    attack: 66
+    defense: 33
+    speed: 38
+  - tableId: 730
+    characterId: 7
+    level: 30
+    hp: 390
+    attack: 68
+    defense: 34
+    speed: 39
+  - tableId: 731
+    characterId: 7
+    level: 31
+    hp: 400
+    attack: 70
+    defense: 35
+    speed: 40
+  - tableId: 732
+    characterId: 7
+    level: 32
+    hp: 410
+    attack: 72
+    defense: 36
+    speed: 41
+  - tableId: 733
+    characterId: 7
+    level: 33
+    hp: 420
+    attack: 74
+    defense: 37
+    speed: 42
+  - tableId: 734
+    characterId: 7
+    level: 34
+    hp: 430
+    attack: 76
+    defense: 38
+    speed: 43
+  - tableId: 735
+    characterId: 7
+    level: 35
+    hp: 440
+    attack: 78
+    defense: 39
+    speed: 44
+  - tableId: 736
+    characterId: 7
+    level: 36
+    hp: 450
+    attack: 80
+    defense: 40
+    speed: 45
+  - tableId: 737
+    characterId: 7
+    level: 37
+    hp: 460
+    attack: 82
+    defense: 41
+    speed: 46
+  - tableId: 738
+    characterId: 7
+    level: 38
+    hp: 470
+    attack: 84
+    defense: 42
+    speed: 47
+  - tableId: 739
+    characterId: 7
+    level: 39
+    hp: 480
+    attack: 86
+    defense: 43
+    speed: 48
+  - tableId: 740
+    characterId: 7
+    level: 40
+    hp: 490
+    attack: 88
+    defense: 44
+    speed: 49
+  - tableId: 741
+    characterId: 7
+    level: 41
+    hp: 500
+    attack: 90
+    defense: 45
+    speed: 50
+  - tableId: 742
+    characterId: 7
+    level: 42
+    hp: 510
+    attack: 92
+    defense: 46
+    speed: 51
+  - tableId: 743
+    characterId: 7
+    level: 43
+    hp: 520
+    attack: 94
+    defense: 47
+    speed: 52
+  - tableId: 744
+    characterId: 7
+    level: 44
+    hp: 530
+    attack: 96
+    defense: 48
+    speed: 53
+  - tableId: 745
+    characterId: 7
+    level: 45
+    hp: 540
+    attack: 98
+    defense: 49
+    speed: 54
+  - tableId: 746
+    characterId: 7
+    level: 46
+    hp: 550
+    attack: 100
+    defense: 50
+    speed: 55
+  - tableId: 747
+    characterId: 7
+    level: 47
+    hp: 560
+    attack: 102
+    defense: 51
+    speed: 56
+  - tableId: 748
+    characterId: 7
+    level: 48
+    hp: 570
+    attack: 104
+    defense: 52
+    speed: 57
+  - tableId: 749
+    characterId: 7
+    level: 49
+    hp: 580
+    attack: 106
+    defense: 53
+    speed: 58
+  - tableId: 750
+    characterId: 7
+    level: 50
+    hp: 590
+    attack: 108
+    defense: 54
+    speed: 59
+  - tableId: 751
+    characterId: 7
+    level: 51
+    hp: 600
+    attack: 110
+    defense: 55
+    speed: 60
+  - tableId: 752
+    characterId: 7
+    level: 52
+    hp: 610
+    attack: 112
+    defense: 56
+    speed: 61
+  - tableId: 753
+    characterId: 7
+    level: 53
+    hp: 620
+    attack: 114
+    defense: 57
+    speed: 62
+  - tableId: 754
+    characterId: 7
+    level: 54
+    hp: 630
+    attack: 116
+    defense: 58
+    speed: 63
+  - tableId: 755
+    characterId: 7
+    level: 55
+    hp: 640
+    attack: 118
+    defense: 59
+    speed: 64
+  - tableId: 756
+    characterId: 7
+    level: 56
+    hp: 650
+    attack: 120
+    defense: 60
+    speed: 65
+  - tableId: 757
+    characterId: 7
+    level: 57
+    hp: 660
+    attack: 122
+    defense: 61
+    speed: 66
+  - tableId: 758
+    characterId: 7
+    level: 58
+    hp: 670
+    attack: 124
+    defense: 62
+    speed: 67
+  - tableId: 759
+    characterId: 7
+    level: 59
+    hp: 680
+    attack: 126
+    defense: 63
+    speed: 68
+  - tableId: 760
+    characterId: 7
+    level: 60
+    hp: 690
+    attack: 128
+    defense: 64
+    speed: 69
+  - tableId: 761
+    characterId: 7
+    level: 61
+    hp: 700
+    attack: 130
+    defense: 65
+    speed: 70
+  - tableId: 762
+    characterId: 7
+    level: 62
+    hp: 710
+    attack: 132
+    defense: 66
+    speed: 71
+  - tableId: 763
+    characterId: 7
+    level: 63
+    hp: 720
+    attack: 134
+    defense: 67
+    speed: 72
+  - tableId: 764
+    characterId: 7
+    level: 64
+    hp: 730
+    attack: 136
+    defense: 68
+    speed: 73
+  - tableId: 765
+    characterId: 7
+    level: 65
+    hp: 740
+    attack: 138
+    defense: 69
+    speed: 74
+  - tableId: 766
+    characterId: 7
+    level: 66
+    hp: 750
+    attack: 140
+    defense: 70
+    speed: 75
+  - tableId: 767
+    characterId: 7
+    level: 67
+    hp: 760
+    attack: 142
+    defense: 71
+    speed: 76
+  - tableId: 768
+    characterId: 7
+    level: 68
+    hp: 770
+    attack: 144
+    defense: 72
+    speed: 77
+  - tableId: 769
+    characterId: 7
+    level: 69
+    hp: 780
+    attack: 146
+    defense: 73
+    speed: 78
+  - tableId: 770
+    characterId: 7
+    level: 70
+    hp: 790
+    attack: 148
+    defense: 74
+    speed: 79
+  - tableId: 771
+    characterId: 7
+    level: 71
+    hp: 800
+    attack: 150
+    defense: 75
+    speed: 80
+  - tableId: 772
+    characterId: 7
+    level: 72
+    hp: 810
+    attack: 152
+    defense: 76
+    speed: 81
+  - tableId: 773
+    characterId: 7
+    level: 73
+    hp: 820
+    attack: 154
+    defense: 77
+    speed: 82
+  - tableId: 774
+    characterId: 7
+    level: 74
+    hp: 830
+    attack: 156
+    defense: 78
+    speed: 83
+  - tableId: 775
+    characterId: 7
+    level: 75
+    hp: 840
+    attack: 158
+    defense: 79
+    speed: 84
+  - tableId: 776
+    characterId: 7
+    level: 76
+    hp: 850
+    attack: 160
+    defense: 80
+    speed: 85
+  - tableId: 777
+    characterId: 7
+    level: 77
+    hp: 860
+    attack: 162
+    defense: 81
+    speed: 86
+  - tableId: 778
+    characterId: 7
+    level: 78
+    hp: 870
+    attack: 164
+    defense: 82
+    speed: 87
+  - tableId: 779
+    characterId: 7
+    level: 79
+    hp: 880
+    attack: 166
+    defense: 83
+    speed: 88
+  - tableId: 780
+    characterId: 7
+    level: 80
+    hp: 890
+    attack: 168
+    defense: 84
+    speed: 89
+  - tableId: 781
+    characterId: 7
+    level: 81
+    hp: 900
+    attack: 170
+    defense: 85
+    speed: 90
+  - tableId: 782
+    characterId: 7
+    level: 82
+    hp: 910
+    attack: 172
+    defense: 86
+    speed: 91
+  - tableId: 783
+    characterId: 7
+    level: 83
+    hp: 920
+    attack: 174
+    defense: 87
+    speed: 92
+  - tableId: 784
+    characterId: 7
+    level: 84
+    hp: 930
+    attack: 176
+    defense: 88
+    speed: 93
+  - tableId: 785
+    characterId: 7
+    level: 85
+    hp: 940
+    attack: 178
+    defense: 89
+    speed: 94
+  - tableId: 786
+    characterId: 7
+    level: 86
+    hp: 950
+    attack: 180
+    defense: 90
+    speed: 95
+  - tableId: 787
+    characterId: 7
+    level: 87
+    hp: 960
+    attack: 182
+    defense: 91
+    speed: 96
+  - tableId: 788
+    characterId: 7
+    level: 88
+    hp: 970
+    attack: 184
+    defense: 92
+    speed: 97
+  - tableId: 789
+    characterId: 7
+    level: 89
+    hp: 980
+    attack: 186
+    defense: 93
+    speed: 98
+  - tableId: 790
+    characterId: 7
+    level: 90
+    hp: 990
+    attack: 188
+    defense: 94
+    speed: 99
+  - tableId: 791
+    characterId: 7
+    level: 91
+    hp: 1000
+    attack: 190
+    defense: 95
+    speed: 100
+  - tableId: 792
+    characterId: 7
+    level: 92
+    hp: 1010
+    attack: 192
+    defense: 96
+    speed: 101
+  - tableId: 793
+    characterId: 7
+    level: 93
+    hp: 1020
+    attack: 194
+    defense: 97
+    speed: 102
+  - tableId: 794
+    characterId: 7
+    level: 94
+    hp: 1030
+    attack: 196
+    defense: 98
+    speed: 103
+  - tableId: 795
+    characterId: 7
+    level: 95
+    hp: 1040
+    attack: 198
+    defense: 99
+    speed: 104
+  - tableId: 796
+    characterId: 7
+    level: 96
+    hp: 1050
+    attack: 200
+    defense: 100
+    speed: 105
+  - tableId: 797
+    characterId: 7
+    level: 97
+    hp: 1060
+    attack: 202
+    defense: 101
+    speed: 106
+  - tableId: 798
+    characterId: 7
+    level: 98
+    hp: 1070
+    attack: 204
+    defense: 102
+    speed: 107
+  - tableId: 799
+    characterId: 7
+    level: 99
+    hp: 1080
+    attack: 206
+    defense: 103
+    speed: 108
+  - tableId: 801
+    characterId: 8
+    level: 1
+    hp: 100
+    attack: 10
+    defense: 10
+    speed: 8
+  - tableId: 802
+    characterId: 8
+    level: 2
+    hp: 105
+    attack: 11
+    defense: 11
+    speed: 10
+  - tableId: 803
+    characterId: 8
+    level: 3
+    hp: 110
+    attack: 12
+    defense: 12
+    speed: 12
+  - tableId: 804
+    characterId: 8
+    level: 4
+    hp: 115
+    attack: 13
+    defense: 13
+    speed: 14
+  - tableId: 805
+    characterId: 8
+    level: 5
+    hp: 120
+    attack: 14
+    defense: 14
+    speed: 16
+  - tableId: 806
+    characterId: 8
+    level: 6
+    hp: 125
+    attack: 15
+    defense: 15
+    speed: 18
+  - tableId: 807
+    characterId: 8
+    level: 7
+    hp: 130
+    attack: 16
+    defense: 16
+    speed: 20
+  - tableId: 808
+    characterId: 8
+    level: 8
+    hp: 135
+    attack: 17
+    defense: 17
+    speed: 22
+  - tableId: 809
+    characterId: 8
+    level: 9
+    hp: 140
+    attack: 18
+    defense: 18
+    speed: 24
+  - tableId: 810
+    characterId: 8
+    level: 10
+    hp: 145
+    attack: 19
+    defense: 19
+    speed: 26
+  - tableId: 811
+    characterId: 8
+    level: 11
+    hp: 150
+    attack: 20
+    defense: 20
+    speed: 28
+  - tableId: 812
+    characterId: 8
+    level: 12
+    hp: 155
+    attack: 21
+    defense: 21
+    speed: 30
+  - tableId: 813
+    characterId: 8
+    level: 13
+    hp: 160
+    attack: 22
+    defense: 22
+    speed: 32
+  - tableId: 814
+    characterId: 8
+    level: 14
+    hp: 165
+    attack: 23
+    defense: 23
+    speed: 34
+  - tableId: 815
+    characterId: 8
+    level: 15
+    hp: 170
+    attack: 24
+    defense: 24
+    speed: 36
+  - tableId: 816
+    characterId: 8
+    level: 16
+    hp: 175
+    attack: 25
+    defense: 25
+    speed: 38
+  - tableId: 817
+    characterId: 8
+    level: 17
+    hp: 180
+    attack: 26
+    defense: 26
+    speed: 40
+  - tableId: 818
+    characterId: 8
+    level: 18
+    hp: 185
+    attack: 27
+    defense: 27
+    speed: 42
+  - tableId: 819
+    characterId: 8
+    level: 19
+    hp: 190
+    attack: 28
+    defense: 28
+    speed: 44
+  - tableId: 820
+    characterId: 8
+    level: 20
+    hp: 195
+    attack: 29
+    defense: 29
+    speed: 46
+  - tableId: 821
+    characterId: 8
+    level: 21
+    hp: 200
+    attack: 30
+    defense: 30
+    speed: 48
+  - tableId: 822
+    characterId: 8
+    level: 22
+    hp: 205
+    attack: 31
+    defense: 31
+    speed: 50
+  - tableId: 823
+    characterId: 8
+    level: 23
+    hp: 210
+    attack: 32
+    defense: 32
+    speed: 52
+  - tableId: 824
+    characterId: 8
+    level: 24
+    hp: 215
+    attack: 33
+    defense: 33
+    speed: 54
+  - tableId: 825
+    characterId: 8
+    level: 25
+    hp: 220
+    attack: 34
+    defense: 34
+    speed: 56
+  - tableId: 826
+    characterId: 8
+    level: 26
+    hp: 225
+    attack: 35
+    defense: 35
+    speed: 58
+  - tableId: 827
+    characterId: 8
+    level: 27
+    hp: 230
+    attack: 36
+    defense: 36
+    speed: 60
+  - tableId: 828
+    characterId: 8
+    level: 28
+    hp: 235
+    attack: 37
+    defense: 37
+    speed: 62
+  - tableId: 829
+    characterId: 8
+    level: 29
+    hp: 240
+    attack: 38
+    defense: 38
+    speed: 64
+  - tableId: 830
+    characterId: 8
+    level: 30
+    hp: 245
+    attack: 39
+    defense: 39
+    speed: 66
+  - tableId: 831
+    characterId: 8
+    level: 31
+    hp: 250
+    attack: 40
+    defense: 40
+    speed: 68
+  - tableId: 832
+    characterId: 8
+    level: 32
+    hp: 255
+    attack: 41
+    defense: 41
+    speed: 70
+  - tableId: 833
+    characterId: 8
+    level: 33
+    hp: 260
+    attack: 42
+    defense: 42
+    speed: 72
+  - tableId: 834
+    characterId: 8
+    level: 34
+    hp: 265
+    attack: 43
+    defense: 43
+    speed: 74
+  - tableId: 835
+    characterId: 8
+    level: 35
+    hp: 270
+    attack: 44
+    defense: 44
+    speed: 76
+  - tableId: 836
+    characterId: 8
+    level: 36
+    hp: 275
+    attack: 45
+    defense: 45
+    speed: 78
+  - tableId: 837
+    characterId: 8
+    level: 37
+    hp: 280
+    attack: 46
+    defense: 46
+    speed: 80
+  - tableId: 838
+    characterId: 8
+    level: 38
+    hp: 285
+    attack: 47
+    defense: 47
+    speed: 82
+  - tableId: 839
+    characterId: 8
+    level: 39
+    hp: 290
+    attack: 48
+    defense: 48
+    speed: 84
+  - tableId: 840
+    characterId: 8
+    level: 40
+    hp: 295
+    attack: 49
+    defense: 49
+    speed: 86
+  - tableId: 841
+    characterId: 8
+    level: 41
+    hp: 300
+    attack: 50
+    defense: 50
+    speed: 88
+  - tableId: 842
+    characterId: 8
+    level: 42
+    hp: 305
+    attack: 51
+    defense: 51
+    speed: 90
+  - tableId: 843
+    characterId: 8
+    level: 43
+    hp: 310
+    attack: 52
+    defense: 52
+    speed: 92
+  - tableId: 844
+    characterId: 8
+    level: 44
+    hp: 315
+    attack: 53
+    defense: 53
+    speed: 94
+  - tableId: 845
+    characterId: 8
+    level: 45
+    hp: 320
+    attack: 54
+    defense: 54
+    speed: 96
+  - tableId: 846
+    characterId: 8
+    level: 46
+    hp: 325
+    attack: 55
+    defense: 55
+    speed: 98
+  - tableId: 847
+    characterId: 8
+    level: 47
+    hp: 330
+    attack: 56
+    defense: 56
+    speed: 100
+  - tableId: 848
+    characterId: 8
+    level: 48
+    hp: 335
+    attack: 57
+    defense: 57
+    speed: 102
+  - tableId: 849
+    characterId: 8
+    level: 49
+    hp: 340
+    attack: 58
+    defense: 58
+    speed: 104
+  - tableId: 850
+    characterId: 8
+    level: 50
+    hp: 345
+    attack: 59
+    defense: 59
+    speed: 106
+  - tableId: 851
+    characterId: 8
+    level: 51
+    hp: 350
+    attack: 60
+    defense: 60
+    speed: 108
+  - tableId: 852
+    characterId: 8
+    level: 52
+    hp: 355
+    attack: 61
+    defense: 61
+    speed: 110
+  - tableId: 853
+    characterId: 8
+    level: 53
+    hp: 360
+    attack: 62
+    defense: 62
+    speed: 112
+  - tableId: 854
+    characterId: 8
+    level: 54
+    hp: 365
+    attack: 63
+    defense: 63
+    speed: 114
+  - tableId: 855
+    characterId: 8
+    level: 55
+    hp: 370
+    attack: 64
+    defense: 64
+    speed: 116
+  - tableId: 856
+    characterId: 8
+    level: 56
+    hp: 375
+    attack: 65
+    defense: 65
+    speed: 118
+  - tableId: 857
+    characterId: 8
+    level: 57
+    hp: 380
+    attack: 66
+    defense: 66
+    speed: 120
+  - tableId: 858
+    characterId: 8
+    level: 58
+    hp: 385
+    attack: 67
+    defense: 67
+    speed: 122
+  - tableId: 859
+    characterId: 8
+    level: 59
+    hp: 390
+    attack: 68
+    defense: 68
+    speed: 124
+  - tableId: 860
+    characterId: 8
+    level: 60
+    hp: 395
+    attack: 69
+    defense: 69
+    speed: 126
+  - tableId: 861
+    characterId: 8
+    level: 61
+    hp: 400
+    attack: 70
+    defense: 70
+    speed: 128
+  - tableId: 862
+    characterId: 8
+    level: 62
+    hp: 405
+    attack: 71
+    defense: 71
+    speed: 130
+  - tableId: 863
+    characterId: 8
+    level: 63
+    hp: 410
+    attack: 72
+    defense: 72
+    speed: 132
+  - tableId: 864
+    characterId: 8
+    level: 64
+    hp: 415
+    attack: 73
+    defense: 73
+    speed: 134
+  - tableId: 865
+    characterId: 8
+    level: 65
+    hp: 420
+    attack: 74
+    defense: 74
+    speed: 136
+  - tableId: 866
+    characterId: 8
+    level: 66
+    hp: 425
+    attack: 75
+    defense: 75
+    speed: 138
+  - tableId: 867
+    characterId: 8
+    level: 67
+    hp: 430
+    attack: 76
+    defense: 76
+    speed: 140
+  - tableId: 868
+    characterId: 8
+    level: 68
+    hp: 435
+    attack: 77
+    defense: 77
+    speed: 142
+  - tableId: 869
+    characterId: 8
+    level: 69
+    hp: 440
+    attack: 78
+    defense: 78
+    speed: 144
+  - tableId: 870
+    characterId: 8
+    level: 70
+    hp: 445
+    attack: 79
+    defense: 79
+    speed: 146
+  - tableId: 871
+    characterId: 8
+    level: 71
+    hp: 450
+    attack: 80
+    defense: 80
+    speed: 148
+  - tableId: 872
+    characterId: 8
+    level: 72
+    hp: 455
+    attack: 81
+    defense: 81
+    speed: 150
+  - tableId: 873
+    characterId: 8
+    level: 73
+    hp: 460
+    attack: 82
+    defense: 82
+    speed: 152
+  - tableId: 874
+    characterId: 8
+    level: 74
+    hp: 465
+    attack: 83
+    defense: 83
+    speed: 154
+  - tableId: 875
+    characterId: 8
+    level: 75
+    hp: 470
+    attack: 84
+    defense: 84
+    speed: 156
+  - tableId: 876
+    characterId: 8
+    level: 76
+    hp: 475
+    attack: 85
+    defense: 85
+    speed: 158
+  - tableId: 877
+    characterId: 8
+    level: 77
+    hp: 480
+    attack: 86
+    defense: 86
+    speed: 160
+  - tableId: 878
+    characterId: 8
+    level: 78
+    hp: 485
+    attack: 87
+    defense: 87
+    speed: 162
+  - tableId: 879
+    characterId: 8
+    level: 79
+    hp: 490
+    attack: 88
+    defense: 88
+    speed: 164
+  - tableId: 880
+    characterId: 8
+    level: 80
+    hp: 495
+    attack: 89
+    defense: 89
+    speed: 166
+  - tableId: 881
+    characterId: 8
+    level: 81
+    hp: 500
+    attack: 90
+    defense: 90
+    speed: 168
+  - tableId: 882
+    characterId: 8
+    level: 82
+    hp: 505
+    attack: 91
+    defense: 91
+    speed: 170
+  - tableId: 883
+    characterId: 8
+    level: 83
+    hp: 510
+    attack: 92
+    defense: 92
+    speed: 172
+  - tableId: 884
+    characterId: 8
+    level: 84
+    hp: 515
+    attack: 93
+    defense: 93
+    speed: 174
+  - tableId: 885
+    characterId: 8
+    level: 85
+    hp: 520
+    attack: 94
+    defense: 94
+    speed: 176
+  - tableId: 886
+    characterId: 8
+    level: 86
+    hp: 525
+    attack: 95
+    defense: 95
+    speed: 178
+  - tableId: 887
+    characterId: 8
+    level: 87
+    hp: 530
+    attack: 96
+    defense: 96
+    speed: 180
+  - tableId: 888
+    characterId: 8
+    level: 88
+    hp: 535
+    attack: 97
+    defense: 97
+    speed: 182
+  - tableId: 889
+    characterId: 8
+    level: 89
+    hp: 540
+    attack: 98
+    defense: 98
+    speed: 184
+  - tableId: 890
+    characterId: 8
+    level: 90
+    hp: 545
+    attack: 99
+    defense: 99
+    speed: 186
+  - tableId: 891
+    characterId: 8
+    level: 91
+    hp: 550
+    attack: 100
+    defense: 100
+    speed: 188
+  - tableId: 892
+    characterId: 8
+    level: 92
+    hp: 555
+    attack: 101
+    defense: 101
+    speed: 190
+  - tableId: 893
+    characterId: 8
+    level: 93
+    hp: 560
+    attack: 102
+    defense: 102
+    speed: 192
+  - tableId: 894
+    characterId: 8
+    level: 94
+    hp: 565
+    attack: 103
+    defense: 103
+    speed: 194
+  - tableId: 895
+    characterId: 8
+    level: 95
+    hp: 570
+    attack: 104
+    defense: 104
+    speed: 196
+  - tableId: 896
+    characterId: 8
+    level: 96
+    hp: 575
+    attack: 105
+    defense: 105
+    speed: 198
+  - tableId: 897
+    characterId: 8
+    level: 97
+    hp: 580
+    attack: 106
+    defense: 106
+    speed: 200
+  - tableId: 898
+    characterId: 8
+    level: 98
+    hp: 585
+    attack: 107
+    defense: 107
+    speed: 202
+  - tableId: 899
+    characterId: 8
+    level: 99
+    hp: 590
+    attack: 108
+    defense: 108
+    speed: 204
+  - tableId: 901
+    characterId: 9
+    level: 1
+    hp: 80
+    attack: 10
+    defense: 10
+    speed: 6
+  - tableId: 902
+    characterId: 9
+    level: 2
+    hp: 85
+    attack: 12
+    defense: 12
+    speed: 7
+  - tableId: 903
+    characterId: 9
+    level: 3
+    hp: 90
+    attack: 14
+    defense: 14
+    speed: 8
+  - tableId: 904
+    characterId: 9
+    level: 4
+    hp: 95
+    attack: 16
+    defense: 16
+    speed: 9
+  - tableId: 905
+    characterId: 9
+    level: 5
+    hp: 100
+    attack: 18
+    defense: 18
+    speed: 10
+  - tableId: 906
+    characterId: 9
+    level: 6
+    hp: 105
+    attack: 20
+    defense: 20
+    speed: 11
+  - tableId: 907
+    characterId: 9
+    level: 7
+    hp: 110
+    attack: 22
+    defense: 22
+    speed: 12
+  - tableId: 908
+    characterId: 9
+    level: 8
+    hp: 115
+    attack: 24
+    defense: 24
+    speed: 13
+  - tableId: 909
+    characterId: 9
+    level: 9
+    hp: 120
+    attack: 26
+    defense: 26
+    speed: 14
+  - tableId: 910
+    characterId: 9
+    level: 10
+    hp: 125
+    attack: 28
+    defense: 28
+    speed: 15
+  - tableId: 911
+    characterId: 9
+    level: 11
+    hp: 130
+    attack: 30
+    defense: 30
+    speed: 16
+  - tableId: 912
+    characterId: 9
+    level: 12
+    hp: 135
+    attack: 32
+    defense: 32
+    speed: 17
+  - tableId: 913
+    characterId: 9
+    level: 13
+    hp: 140
+    attack: 34
+    defense: 34
+    speed: 18
+  - tableId: 914
+    characterId: 9
+    level: 14
+    hp: 145
+    attack: 36
+    defense: 36
+    speed: 19
+  - tableId: 915
+    characterId: 9
+    level: 15
+    hp: 150
+    attack: 38
+    defense: 38
+    speed: 20
+  - tableId: 916
+    characterId: 9
+    level: 16
+    hp: 155
+    attack: 40
+    defense: 40
+    speed: 21
+  - tableId: 917
+    characterId: 9
+    level: 17
+    hp: 160
+    attack: 42
+    defense: 42
+    speed: 22
+  - tableId: 918
+    characterId: 9
+    level: 18
+    hp: 165
+    attack: 44
+    defense: 44
+    speed: 23
+  - tableId: 919
+    characterId: 9
+    level: 19
+    hp: 170
+    attack: 46
+    defense: 46
+    speed: 24
+  - tableId: 920
+    characterId: 9
+    level: 20
+    hp: 175
+    attack: 48
+    defense: 48
+    speed: 25
+  - tableId: 921
+    characterId: 9
+    level: 21
+    hp: 180
+    attack: 50
+    defense: 50
+    speed: 26
+  - tableId: 922
+    characterId: 9
+    level: 22
+    hp: 185
+    attack: 52
+    defense: 52
+    speed: 27
+  - tableId: 923
+    characterId: 9
+    level: 23
+    hp: 190
+    attack: 54
+    defense: 54
+    speed: 28
+  - tableId: 924
+    characterId: 9
+    level: 24
+    hp: 195
+    attack: 56
+    defense: 56
+    speed: 29
+  - tableId: 925
+    characterId: 9
+    level: 25
+    hp: 200
+    attack: 58
+    defense: 58
+    speed: 30
+  - tableId: 926
+    characterId: 9
+    level: 26
+    hp: 205
+    attack: 60
+    defense: 60
+    speed: 31
+  - tableId: 927
+    characterId: 9
+    level: 27
+    hp: 210
+    attack: 62
+    defense: 62
+    speed: 32
+  - tableId: 928
+    characterId: 9
+    level: 28
+    hp: 215
+    attack: 64
+    defense: 64
+    speed: 33
+  - tableId: 929
+    characterId: 9
+    level: 29
+    hp: 220
+    attack: 66
+    defense: 66
+    speed: 34
+  - tableId: 930
+    characterId: 9
+    level: 30
+    hp: 225
+    attack: 68
+    defense: 68
+    speed: 35
+  - tableId: 931
+    characterId: 9
+    level: 31
+    hp: 230
+    attack: 70
+    defense: 70
+    speed: 36
+  - tableId: 932
+    characterId: 9
+    level: 32
+    hp: 235
+    attack: 72
+    defense: 72
+    speed: 37
+  - tableId: 933
+    characterId: 9
+    level: 33
+    hp: 240
+    attack: 74
+    defense: 74
+    speed: 38
+  - tableId: 934
+    characterId: 9
+    level: 34
+    hp: 245
+    attack: 76
+    defense: 76
+    speed: 39
+  - tableId: 935
+    characterId: 9
+    level: 35
+    hp: 250
+    attack: 78
+    defense: 78
+    speed: 40
+  - tableId: 936
+    characterId: 9
+    level: 36
+    hp: 255
+    attack: 80
+    defense: 80
+    speed: 41
+  - tableId: 937
+    characterId: 9
+    level: 37
+    hp: 260
+    attack: 82
+    defense: 82
+    speed: 42
+  - tableId: 938
+    characterId: 9
+    level: 38
+    hp: 265
+    attack: 84
+    defense: 84
+    speed: 43
+  - tableId: 939
+    characterId: 9
+    level: 39
+    hp: 270
+    attack: 86
+    defense: 86
+    speed: 44
+  - tableId: 940
+    characterId: 9
+    level: 40
+    hp: 275
+    attack: 88
+    defense: 88
+    speed: 45
+  - tableId: 941
+    characterId: 9
+    level: 41
+    hp: 280
+    attack: 90
+    defense: 90
+    speed: 46
+  - tableId: 942
+    characterId: 9
+    level: 42
+    hp: 285
+    attack: 92
+    defense: 92
+    speed: 47
+  - tableId: 943
+    characterId: 9
+    level: 43
+    hp: 290
+    attack: 94
+    defense: 94
+    speed: 48
+  - tableId: 944
+    characterId: 9
+    level: 44
+    hp: 295
+    attack: 96
+    defense: 96
+    speed: 49
+  - tableId: 945
+    characterId: 9
+    level: 45
+    hp: 300
+    attack: 98
+    defense: 98
+    speed: 50
+  - tableId: 946
+    characterId: 9
+    level: 46
+    hp: 305
+    attack: 100
+    defense: 100
+    speed: 51
+  - tableId: 947
+    characterId: 9
+    level: 47
+    hp: 310
+    attack: 102
+    defense: 102
+    speed: 52
+  - tableId: 948
+    characterId: 9
+    level: 48
+    hp: 315
+    attack: 104
+    defense: 104
+    speed: 53
+  - tableId: 949
+    characterId: 9
+    level: 49
+    hp: 320
+    attack: 106
+    defense: 106
+    speed: 54
+  - tableId: 950
+    characterId: 9
+    level: 50
+    hp: 325
+    attack: 108
+    defense: 108
+    speed: 55
+  - tableId: 951
+    characterId: 9
+    level: 51
+    hp: 330
+    attack: 110
+    defense: 110
+    speed: 56
+  - tableId: 952
+    characterId: 9
+    level: 52
+    hp: 335
+    attack: 112
+    defense: 112
+    speed: 57
+  - tableId: 953
+    characterId: 9
+    level: 53
+    hp: 340
+    attack: 114
+    defense: 114
+    speed: 58
+  - tableId: 954
+    characterId: 9
+    level: 54
+    hp: 345
+    attack: 116
+    defense: 116
+    speed: 59
+  - tableId: 955
+    characterId: 9
+    level: 55
+    hp: 350
+    attack: 118
+    defense: 118
+    speed: 60
+  - tableId: 956
+    characterId: 9
+    level: 56
+    hp: 355
+    attack: 120
+    defense: 120
+    speed: 61
+  - tableId: 957
+    characterId: 9
+    level: 57
+    hp: 360
+    attack: 122
+    defense: 122
+    speed: 62
+  - tableId: 958
+    characterId: 9
+    level: 58
+    hp: 365
+    attack: 124
+    defense: 124
+    speed: 63
+  - tableId: 959
+    characterId: 9
+    level: 59
+    hp: 370
+    attack: 126
+    defense: 126
+    speed: 64
+  - tableId: 960
+    characterId: 9
+    level: 60
+    hp: 375
+    attack: 128
+    defense: 128
+    speed: 65
+  - tableId: 961
+    characterId: 9
+    level: 61
+    hp: 380
+    attack: 130
+    defense: 130
+    speed: 66
+  - tableId: 962
+    characterId: 9
+    level: 62
+    hp: 385
+    attack: 132
+    defense: 132
+    speed: 67
+  - tableId: 963
+    characterId: 9
+    level: 63
+    hp: 390
+    attack: 134
+    defense: 134
+    speed: 68
+  - tableId: 964
+    characterId: 9
+    level: 64
+    hp: 395
+    attack: 136
+    defense: 136
+    speed: 69
+  - tableId: 965
+    characterId: 9
+    level: 65
+    hp: 400
+    attack: 138
+    defense: 138
+    speed: 70
+  - tableId: 966
+    characterId: 9
+    level: 66
+    hp: 405
+    attack: 140
+    defense: 140
+    speed: 71
+  - tableId: 967
+    characterId: 9
+    level: 67
+    hp: 410
+    attack: 142
+    defense: 142
+    speed: 72
+  - tableId: 968
+    characterId: 9
+    level: 68
+    hp: 415
+    attack: 144
+    defense: 144
+    speed: 73
+  - tableId: 969
+    characterId: 9
+    level: 69
+    hp: 420
+    attack: 146
+    defense: 146
+    speed: 74
+  - tableId: 970
+    characterId: 9
+    level: 70
+    hp: 425
+    attack: 148
+    defense: 148
+    speed: 75
+  - tableId: 971
+    characterId: 9
+    level: 71
+    hp: 430
+    attack: 150
+    defense: 150
+    speed: 76
+  - tableId: 972
+    characterId: 9
+    level: 72
+    hp: 435
+    attack: 152
+    defense: 152
+    speed: 77
+  - tableId: 973
+    characterId: 9
+    level: 73
+    hp: 440
+    attack: 154
+    defense: 154
+    speed: 78
+  - tableId: 974
+    characterId: 9
+    level: 74
+    hp: 445
+    attack: 156
+    defense: 156
+    speed: 79
+  - tableId: 975
+    characterId: 9
+    level: 75
+    hp: 450
+    attack: 158
+    defense: 158
+    speed: 80
+  - tableId: 976
+    characterId: 9
+    level: 76
+    hp: 455
+    attack: 160
+    defense: 160
+    speed: 81
+  - tableId: 977
+    characterId: 9
+    level: 77
+    hp: 460
+    attack: 162
+    defense: 162
+    speed: 82
+  - tableId: 978
+    characterId: 9
+    level: 78
+    hp: 465
+    attack: 164
+    defense: 164
+    speed: 83
+  - tableId: 979
+    characterId: 9
+    level: 79
+    hp: 470
+    attack: 166
+    defense: 166
+    speed: 84
+  - tableId: 980
+    characterId: 9
+    level: 80
+    hp: 475
+    attack: 168
+    defense: 168
+    speed: 85
+  - tableId: 981
+    characterId: 9
+    level: 81
+    hp: 480
+    attack: 170
+    defense: 170
+    speed: 86
+  - tableId: 982
+    characterId: 9
+    level: 82
+    hp: 485
+    attack: 172
+    defense: 172
+    speed: 87
+  - tableId: 983
+    characterId: 9
+    level: 83
+    hp: 490
+    attack: 174
+    defense: 174
+    speed: 88
+  - tableId: 984
+    characterId: 9
+    level: 84
+    hp: 495
+    attack: 176
+    defense: 176
+    speed: 89
+  - tableId: 985
+    characterId: 9
+    level: 85
+    hp: 500
+    attack: 178
+    defense: 178
+    speed: 90
+  - tableId: 986
+    characterId: 9
+    level: 86
+    hp: 505
+    attack: 180
+    defense: 180
+    speed: 91
+  - tableId: 987
+    characterId: 9
+    level: 87
+    hp: 510
+    attack: 182
+    defense: 182
+    speed: 92
+  - tableId: 988
+    characterId: 9
+    level: 88
+    hp: 515
+    attack: 184
+    defense: 184
+    speed: 93
+  - tableId: 989
+    characterId: 9
+    level: 89
+    hp: 520
+    attack: 186
+    defense: 186
+    speed: 94
+  - tableId: 990
+    characterId: 9
+    level: 90
+    hp: 525
+    attack: 188
+    defense: 188
+    speed: 95
+  - tableId: 991
+    characterId: 9
+    level: 91
+    hp: 530
+    attack: 190
+    defense: 190
+    speed: 96
+  - tableId: 992
+    characterId: 9
+    level: 92
+    hp: 535
+    attack: 192
+    defense: 192
+    speed: 97
+  - tableId: 993
+    characterId: 9
+    level: 93
+    hp: 540
+    attack: 194
+    defense: 194
+    speed: 98
+  - tableId: 994
+    characterId: 9
+    level: 94
+    hp: 545
+    attack: 196
+    defense: 196
+    speed: 99
+  - tableId: 995
+    characterId: 9
+    level: 95
+    hp: 550
+    attack: 198
+    defense: 198
+    speed: 100
+  - tableId: 996
+    characterId: 9
+    level: 96
+    hp: 555
+    attack: 200
+    defense: 200
+    speed: 101
+  - tableId: 997
+    characterId: 9
+    level: 97
+    hp: 560
+    attack: 202
+    defense: 202
+    speed: 102
+  - tableId: 998
+    characterId: 9
+    level: 98
+    hp: 565
+    attack: 204
+    defense: 204
+    speed: 103
+  - tableId: 999
+    characterId: 9
+    level: 99
+    hp: 570
+    attack: 206
+    defense: 206
+    speed: 104
+  - tableId: 1001
+    characterId: 10
+    level: 1
+    hp: 50
+    attack: 10
+    defense: 10
+    speed: 8
+  - tableId: 1002
+    characterId: 10
+    level: 2
+    hp: 55
+    attack: 13
+    defense: 11
+    speed: 10
+  - tableId: 1003
+    characterId: 10
+    level: 3
+    hp: 60
+    attack: 16
+    defense: 12
+    speed: 12
+  - tableId: 1004
+    characterId: 10
+    level: 4
+    hp: 65
+    attack: 19
+    defense: 13
+    speed: 14
+  - tableId: 1005
+    characterId: 10
+    level: 5
+    hp: 70
+    attack: 22
+    defense: 14
+    speed: 16
+  - tableId: 1006
+    characterId: 10
+    level: 6
+    hp: 75
+    attack: 25
+    defense: 15
+    speed: 18
+  - tableId: 1007
+    characterId: 10
+    level: 7
+    hp: 80
+    attack: 28
+    defense: 16
+    speed: 20
+  - tableId: 1008
+    characterId: 10
+    level: 8
+    hp: 85
+    attack: 31
+    defense: 17
+    speed: 22
+  - tableId: 1009
+    characterId: 10
+    level: 9
+    hp: 90
+    attack: 34
+    defense: 18
+    speed: 24
+  - tableId: 1010
+    characterId: 10
+    level: 10
+    hp: 95
+    attack: 37
+    defense: 19
+    speed: 26
+  - tableId: 1011
+    characterId: 10
+    level: 11
+    hp: 100
+    attack: 40
+    defense: 20
+    speed: 28
+  - tableId: 1012
+    characterId: 10
+    level: 12
+    hp: 105
+    attack: 43
+    defense: 21
+    speed: 30
+  - tableId: 1013
+    characterId: 10
+    level: 13
+    hp: 110
+    attack: 46
+    defense: 22
+    speed: 32
+  - tableId: 1014
+    characterId: 10
+    level: 14
+    hp: 115
+    attack: 49
+    defense: 23
+    speed: 34
+  - tableId: 1015
+    characterId: 10
+    level: 15
+    hp: 120
+    attack: 52
+    defense: 24
+    speed: 36
+  - tableId: 1016
+    characterId: 10
+    level: 16
+    hp: 125
+    attack: 55
+    defense: 25
+    speed: 38
+  - tableId: 1017
+    characterId: 10
+    level: 17
+    hp: 130
+    attack: 58
+    defense: 26
+    speed: 40
+  - tableId: 1018
+    characterId: 10
+    level: 18
+    hp: 135
+    attack: 61
+    defense: 27
+    speed: 42
+  - tableId: 1019
+    characterId: 10
+    level: 19
+    hp: 140
+    attack: 64
+    defense: 28
+    speed: 44
+  - tableId: 1020
+    characterId: 10
+    level: 20
+    hp: 145
+    attack: 67
+    defense: 29
+    speed: 46
+  - tableId: 1021
+    characterId: 10
+    level: 21
+    hp: 150
+    attack: 70
+    defense: 30
+    speed: 48
+  - tableId: 1022
+    characterId: 10
+    level: 22
+    hp: 155
+    attack: 73
+    defense: 31
+    speed: 50
+  - tableId: 1023
+    characterId: 10
+    level: 23
+    hp: 160
+    attack: 76
+    defense: 32
+    speed: 52
+  - tableId: 1024
+    characterId: 10
+    level: 24
+    hp: 165
+    attack: 79
+    defense: 33
+    speed: 54
+  - tableId: 1025
+    characterId: 10
+    level: 25
+    hp: 170
+    attack: 82
+    defense: 34
+    speed: 56
+  - tableId: 1026
+    characterId: 10
+    level: 26
+    hp: 175
+    attack: 85
+    defense: 35
+    speed: 58
+  - tableId: 1027
+    characterId: 10
+    level: 27
+    hp: 180
+    attack: 88
+    defense: 36
+    speed: 60
+  - tableId: 1028
+    characterId: 10
+    level: 28
+    hp: 185
+    attack: 91
+    defense: 37
+    speed: 62
+  - tableId: 1029
+    characterId: 10
+    level: 29
+    hp: 190
+    attack: 94
+    defense: 38
+    speed: 64
+  - tableId: 1030
+    characterId: 10
+    level: 30
+    hp: 195
+    attack: 97
+    defense: 39
+    speed: 66
+  - tableId: 1031
+    characterId: 10
+    level: 31
+    hp: 200
+    attack: 100
+    defense: 40
+    speed: 68
+  - tableId: 1032
+    characterId: 10
+    level: 32
+    hp: 205
+    attack: 103
+    defense: 41
+    speed: 70
+  - tableId: 1033
+    characterId: 10
+    level: 33
+    hp: 210
+    attack: 106
+    defense: 42
+    speed: 72
+  - tableId: 1034
+    characterId: 10
+    level: 34
+    hp: 215
+    attack: 109
+    defense: 43
+    speed: 74
+  - tableId: 1035
+    characterId: 10
+    level: 35
+    hp: 220
+    attack: 112
+    defense: 44
+    speed: 76
+  - tableId: 1036
+    characterId: 10
+    level: 36
+    hp: 225
+    attack: 115
+    defense: 45
+    speed: 78
+  - tableId: 1037
+    characterId: 10
+    level: 37
+    hp: 230
+    attack: 118
+    defense: 46
+    speed: 80
+  - tableId: 1038
+    characterId: 10
+    level: 38
+    hp: 235
+    attack: 121
+    defense: 47
+    speed: 82
+  - tableId: 1039
+    characterId: 10
+    level: 39
+    hp: 240
+    attack: 124
+    defense: 48
+    speed: 84
+  - tableId: 1040
+    characterId: 10
+    level: 40
+    hp: 245
+    attack: 127
+    defense: 49
+    speed: 86
+  - tableId: 1041
+    characterId: 10
+    level: 41
+    hp: 250
+    attack: 130
+    defense: 50
+    speed: 88
+  - tableId: 1042
+    characterId: 10
+    level: 42
+    hp: 255
+    attack: 133
+    defense: 51
+    speed: 90
+  - tableId: 1043
+    characterId: 10
+    level: 43
+    hp: 260
+    attack: 136
+    defense: 52
+    speed: 92
+  - tableId: 1044
+    characterId: 10
+    level: 44
+    hp: 265
+    attack: 139
+    defense: 53
+    speed: 94
+  - tableId: 1045
+    characterId: 10
+    level: 45
+    hp: 270
+    attack: 142
+    defense: 54
+    speed: 96
+  - tableId: 1046
+    characterId: 10
+    level: 46
+    hp: 275
+    attack: 145
+    defense: 55
+    speed: 98
+  - tableId: 1047
+    characterId: 10
+    level: 47
+    hp: 280
+    attack: 148
+    defense: 56
+    speed: 100
+  - tableId: 1048
+    characterId: 10
+    level: 48
+    hp: 285
+    attack: 151
+    defense: 57
+    speed: 102
+  - tableId: 1049
+    characterId: 10
+    level: 49
+    hp: 290
+    attack: 154
+    defense: 58
+    speed: 104
+  - tableId: 1050
+    characterId: 10
+    level: 50
+    hp: 295
+    attack: 157
+    defense: 59
+    speed: 106
+  - tableId: 1051
+    characterId: 10
+    level: 51
+    hp: 300
+    attack: 160
+    defense: 60
+    speed: 108
+  - tableId: 1052
+    characterId: 10
+    level: 52
+    hp: 305
+    attack: 163
+    defense: 61
+    speed: 110
+  - tableId: 1053
+    characterId: 10
+    level: 53
+    hp: 310
+    attack: 166
+    defense: 62
+    speed: 112
+  - tableId: 1054
+    characterId: 10
+    level: 54
+    hp: 315
+    attack: 169
+    defense: 63
+    speed: 114
+  - tableId: 1055
+    characterId: 10
+    level: 55
+    hp: 320
+    attack: 172
+    defense: 64
+    speed: 116
+  - tableId: 1056
+    characterId: 10
+    level: 56
+    hp: 325
+    attack: 175
+    defense: 65
+    speed: 118
+  - tableId: 1057
+    characterId: 10
+    level: 57
+    hp: 330
+    attack: 178
+    defense: 66
+    speed: 120
+  - tableId: 1058
+    characterId: 10
+    level: 58
+    hp: 335
+    attack: 181
+    defense: 67
+    speed: 122
+  - tableId: 1059
+    characterId: 10
+    level: 59
+    hp: 340
+    attack: 184
+    defense: 68
+    speed: 124
+  - tableId: 1060
+    characterId: 10
+    level: 60
+    hp: 345
+    attack: 187
+    defense: 69
+    speed: 126
+  - tableId: 1061
+    characterId: 10
+    level: 61
+    hp: 350
+    attack: 190
+    defense: 70
+    speed: 128
+  - tableId: 1062
+    characterId: 10
+    level: 62
+    hp: 355
+    attack: 193
+    defense: 71
+    speed: 130
+  - tableId: 1063
+    characterId: 10
+    level: 63
+    hp: 360
+    attack: 196
+    defense: 72
+    speed: 132
+  - tableId: 1064
+    characterId: 10
+    level: 64
+    hp: 365
+    attack: 199
+    defense: 73
+    speed: 134
+  - tableId: 1065
+    characterId: 10
+    level: 65
+    hp: 370
+    attack: 202
+    defense: 74
+    speed: 136
+  - tableId: 1066
+    characterId: 10
+    level: 66
+    hp: 375
+    attack: 205
+    defense: 75
+    speed: 138
+  - tableId: 1067
+    characterId: 10
+    level: 67
+    hp: 380
+    attack: 208
+    defense: 76
+    speed: 140
+  - tableId: 1068
+    characterId: 10
+    level: 68
+    hp: 385
+    attack: 211
+    defense: 77
+    speed: 142
+  - tableId: 1069
+    characterId: 10
+    level: 69
+    hp: 390
+    attack: 214
+    defense: 78
+    speed: 144
+  - tableId: 1070
+    characterId: 10
+    level: 70
+    hp: 395
+    attack: 217
+    defense: 79
+    speed: 146
+  - tableId: 1071
+    characterId: 10
+    level: 71
+    hp: 400
+    attack: 220
+    defense: 80
+    speed: 148
+  - tableId: 1072
+    characterId: 10
+    level: 72
+    hp: 405
+    attack: 223
+    defense: 81
+    speed: 150
+  - tableId: 1073
+    characterId: 10
+    level: 73
+    hp: 410
+    attack: 226
+    defense: 82
+    speed: 152
+  - tableId: 1074
+    characterId: 10
+    level: 74
+    hp: 415
+    attack: 229
+    defense: 83
+    speed: 154
+  - tableId: 1075
+    characterId: 10
+    level: 75
+    hp: 420
+    attack: 232
+    defense: 84
+    speed: 156
+  - tableId: 1076
+    characterId: 10
+    level: 76
+    hp: 425
+    attack: 235
+    defense: 85
+    speed: 158
+  - tableId: 1077
+    characterId: 10
+    level: 77
+    hp: 430
+    attack: 238
+    defense: 86
+    speed: 160
+  - tableId: 1078
+    characterId: 10
+    level: 78
+    hp: 435
+    attack: 241
+    defense: 87
+    speed: 162
+  - tableId: 1079
+    characterId: 10
+    level: 79
+    hp: 440
+    attack: 244
+    defense: 88
+    speed: 164
+  - tableId: 1080
+    characterId: 10
+    level: 80
+    hp: 445
+    attack: 247
+    defense: 89
+    speed: 166
+  - tableId: 1081
+    characterId: 10
+    level: 81
+    hp: 450
+    attack: 250
+    defense: 90
+    speed: 168
+  - tableId: 1082
+    characterId: 10
+    level: 82
+    hp: 455
+    attack: 253
+    defense: 91
+    speed: 170
+  - tableId: 1083
+    characterId: 10
+    level: 83
+    hp: 460
+    attack: 256
+    defense: 92
+    speed: 172
+  - tableId: 1084
+    characterId: 10
+    level: 84
+    hp: 465
+    attack: 259
+    defense: 93
+    speed: 174
+  - tableId: 1085
+    characterId: 10
+    level: 85
+    hp: 470
+    attack: 262
+    defense: 94
+    speed: 176
+  - tableId: 1086
+    characterId: 10
+    level: 86
+    hp: 475
+    attack: 265
+    defense: 95
+    speed: 178
+  - tableId: 1087
+    characterId: 10
+    level: 87
+    hp: 480
+    attack: 268
+    defense: 96
+    speed: 180
+  - tableId: 1088
+    characterId: 10
+    level: 88
+    hp: 485
+    attack: 271
+    defense: 97
+    speed: 182
+  - tableId: 1089
+    characterId: 10
+    level: 89
+    hp: 490
+    attack: 274
+    defense: 98
+    speed: 184
+  - tableId: 1090
+    characterId: 10
+    level: 90
+    hp: 495
+    attack: 277
+    defense: 99
+    speed: 186
+  - tableId: 1091
+    characterId: 10
+    level: 91
+    hp: 500
+    attack: 280
+    defense: 100
+    speed: 188
+  - tableId: 1092
+    characterId: 10
+    level: 92
+    hp: 505
+    attack: 283
+    defense: 101
+    speed: 190
+  - tableId: 1093
+    characterId: 10
+    level: 93
+    hp: 510
+    attack: 286
+    defense: 102
+    speed: 192
+  - tableId: 1094
+    characterId: 10
+    level: 94
+    hp: 515
+    attack: 289
+    defense: 103
+    speed: 194
+  - tableId: 1095
+    characterId: 10
+    level: 95
+    hp: 520
+    attack: 292
+    defense: 104
+    speed: 196
+  - tableId: 1096
+    characterId: 10
+    level: 96
+    hp: 525
+    attack: 295
+    defense: 105
+    speed: 198
+  - tableId: 1097
+    characterId: 10
+    level: 97
+    hp: 530
+    attack: 298
+    defense: 106
+    speed: 200
+  - tableId: 1098
+    characterId: 10
+    level: 98
+    hp: 535
+    attack: 301
+    defense: 107
+    speed: 202
+  - tableId: 1099
+    characterId: 10
+    level: 99
+    hp: 540
+    attack: 304
+    defense: 108
+    speed: 204

@@ -1,8 +1,7 @@
-﻿using Manager;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
-namespace Manager
+namespace LUP
 {
     public class SoundManager : Singleton<SoundManager>
     {

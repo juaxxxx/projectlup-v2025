@@ -1,10 +1,7 @@
-﻿using UnityEngine;
-using UnityEngine.SceneManagement;
-using System;
-using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections;
+using UnityEngine;
 
-namespace Manager
+namespace LUP
 {
     public abstract class BaseStage : MonoBehaviour
     {
@@ -32,9 +29,9 @@ namespace Manager
         DeckStrategy = 8, // 덱 전략
          */
 
-        public void LoadStage(Define.StageKind stage)
+        public void LoadStage(Define.StageKind stage, int sceneindex = -1)
         {
-            StageManager.Instance.LoadStage(stage);
+            StageManager.Instance.LoadStage(stage, sceneindex);
         }
 
         protected abstract void LoadResources();
@@ -63,7 +60,6 @@ namespace Manager
         public virtual IEnumerator OnStageExit()
         {
             SaveDatas();
-            Manager.InventoryManager.Instance.OnStageExit();
 
             yield return null;
         }
@@ -73,11 +69,11 @@ namespace Manager
             DataManager.Instance.SaveRuntimeData(runtimeData);
         }
 
-        protected BaseStaticData GetStaticData(BaseStage stage, int dataindex)
+        protected BaseStaticDataLoader GetStaticData(BaseStage stage, int dataindex)
         {
-            BaseStaticData data = null;
+            BaseStaticDataLoader data = null;
 
-            data = Manager.DataManager.Instance.GetStaticData(stage.StageKind, (int)Define.StageType.Lobby);
+            data = LUP.DataManager.Instance.GetStaticData(stage.StageKind, dataindex);
 
             return data;
         }
@@ -86,7 +82,7 @@ namespace Manager
         {
             BaseRuntimeData data = null;
 
-            data = Manager.DataManager.Instance.GetRuntimeData(stage.StageKind, (int)Define.StageType.Lobby);
+            data = LUP.DataManager.Instance.GetRuntimeData(stage.StageKind, dataindex);
 
             return data;
         }

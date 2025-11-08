@@ -1,14 +1,15 @@
-﻿using UnityEngine;
-using System.Collections;
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
 
-namespace Manager
+namespace LUP
 {
     public class RoguelikeStage : BaseStage
     {
-        public BaseStaticData StaticData;
+        public BaseStaticDataLoader StaticDataLoader;
         public BaseRuntimeData RuntimeData;
 
-        public GameObject TestCharacter;
+        List<RoguelikeStaticData> DataList;
 
         protected override void Awake() 
         {
@@ -30,8 +31,6 @@ namespace Manager
         {
             yield return base.OnStageEnter();
             
-            //구현부
-            Instantiate(TestCharacter);
 
             yield return null;
         }
@@ -59,8 +58,17 @@ namespace Manager
 
         protected override void GetDatas()
         {
-            StaticData = base.GetStaticData(this, (int)Define.RoguelikeStageKind.Lobby);
-            RuntimeData = base.GetRuntimeData(this, (int)Define.RoguelikeStageKind.Lobby);
+            StaticDataLoader = base.GetStaticData(this, 1);
+            RuntimeData = base.GetRuntimeData(this, 1);
+
+            if (StaticDataLoader != null)
+            {
+                RoguelikeStaticDataLoader RLStaticDataLoader = (RoguelikeStaticDataLoader)StaticDataLoader;
+                if (RLStaticDataLoader != null)
+                {
+                    DataList = RLStaticDataLoader.GetDataList();
+                }
+            }
         }
 
         protected override void SaveDatas()

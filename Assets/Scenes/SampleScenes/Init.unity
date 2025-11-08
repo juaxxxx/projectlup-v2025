@@ -385,8 +385,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 46029aeb4a30c9e4b867f6ee82f8bf18, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  FW_StageList: {fileID: 11400000, guid: 5d7916bdc8d4c714dbc6be8eaf7ebe5d, type: 2}
+  RL_StageList: {fileID: 11400000, guid: 2889cea56ea32e04094687362bd2d3e9, type: 2}
+  ST_StageList: {fileID: 11400000, guid: 0ff056004ee3e85479f8ddd9daf47b32, type: 2}
+  ES_StageList: {fileID: 11400000, guid: ca5cd7a0bd14e8b4d8e3171c928b4d1b, type: 2}
+  PCR_StageList: {fileID: 11400000, guid: 0c5eb1e73168b4e49bc0c7f921926a4e, type: 2}
+  DSG_StageList: {fileID: 11400000, guid: 735383ee6d0897d4eb0e652703757e34, type: 2}
   fadeDuration: 1
-  startStageKind: 3
+  startStageKind: 2
   currentStageKind: 1
 --- !u!4 &669508849
 Transform:

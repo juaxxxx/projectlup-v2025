@@ -1,21 +1,22 @@
-﻿using Manager;
-using UnityEngine;
-using UnityEngine.Audio;
-using UnityEngine.UI;
-using UnityEngine.Video;
-using System.Collections;
-namespace Manager
+﻿using System.Collections;
+using System.Collections.Generic;
+
+namespace LUP
 {
     public class ProductionStage : BaseStage
     {
-        public BaseStaticData StaticData;
+        public BaseStaticDataLoader StaticDataLoader;
         public BaseRuntimeData RuntimeData;
+
+        // 실제 입력한 값들이 담긴 데이터 리스트
+        List<ProductionStaticData> DataList;
 
         protected override void Awake() 
         {
             base.Awake();
             StageKind = Define.StageKind.PCR;
         }
+
         // Start is called once before the first execution of Update after the MonoBehaviour is created
         void Start()
         {
@@ -57,8 +58,17 @@ namespace Manager
 
         protected override void GetDatas()
         {
-            StaticData = base.GetStaticData(this,(int)Define.ProductionStageKind.Lobby);
-            RuntimeData = base.GetRuntimeData(this, (int)Define.ProductionStageKind.Lobby);
+            StaticDataLoader = base.GetStaticData(this, 1);
+            RuntimeData = base.GetRuntimeData(this, 1);
+
+            if (StaticDataLoader != null)
+            {
+                ProductionStaticDataLoader PCRStaticDataLoader = (ProductionStaticDataLoader)StaticDataLoader;
+                if (PCRStaticDataLoader != null)
+                {
+                    DataList = PCRStaticDataLoader.GetDataList();
+                }
+            }
         }
 
         protected override void SaveDatas()

@@ -1,15 +1,9 @@
-﻿using Manager;
-using System.IO;
-using System;
-using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections;
 using UnityEngine;
-using UnityEngine.Audio;
-using UnityEngine.Rendering;
 using UnityEngine.UI;
 using UnityEngine.Video;
 
-namespace Manager
+namespace LUP
 {
     public class IntroStage : BaseStage
     {

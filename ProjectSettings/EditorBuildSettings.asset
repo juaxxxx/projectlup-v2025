@@ -6,38 +6,35 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
+    path: Assets/Scenes/SampleScenes/MainStage.unity
+    guid: d9ee7a5a79a1c0342af06c20e965e9d4
+  - enabled: 1
     path: Assets/Scenes/SampleScenes/Init.unity
     guid: 8dd7383c9bd227840a097f1f1003a3d8
   - enabled: 1
-    path: Assets/Scenes/DSG/DeckStrategySampleStage.unity
-    guid: f4f1ac332e206584db3478e3d95bbc65
+    path: Assets/Scenes/SampleScenes/DebugStage.unity
+    guid: 6eca0af7957015549a0f0d5cf2a705bb
   - enabled: 1
-    path: Assets/Scenes/SampleScenes/ShootingSampleStage.unity
-    guid: ac3a338f60ee2c341a7880d1509cf193
-  - enabled: 1
-    path: Assets/Scenes/SampleScenes/ExtractionShooterSampleStage.unity
-    guid: d473d75413519b14e8e97c35422889b6
-  - enabled: 1
-    path: Assets/Scenes/SampleScenes/RoguelikeSampleStage.unity
-    guid: 6406b11a24f2ed24ca2b78934eb25b71
-  - enabled: 1
-    path: Assets/Scenes/SampleScenes/TutorialStage.unity
-    guid: 0b66a1dc6fe02ae45aa42a5c8482c1ee
+    path: Assets/Scenes/SampleScenes/IntroStage.unity
+    guid: bfe6194dfd4d4084ba7b006f35702bb2
   - enabled: 1
     path: Assets/Scenes/SampleScenes/ProductionSampleStage.unity
     guid: 231e44d376864ac4b9b98690c0be2701
   - enabled: 1
-    path: Assets/Scenes/SampleScenes/MainStage.unity
-    guid: d9ee7a5a79a1c0342af06c20e965e9d4
+    path: Assets/Scenes/DSG/DeckBattleResultScene.unity
+    guid: bd44563923dff504cb5344ff11b8af9c
   - enabled: 1
-    path: Assets/Scenes/SampleScenes/IntroStage.unity
-    guid: bfe6194dfd4d4084ba7b006f35702bb2
-  - enabled: 0
-    path: Assets/Scenes/SampleScenes/DebugScene.unity
-    guid: 40d98895c90e5c049a594efcbd482bfb
+    path: Assets/Scenes/DSG/DeckBattleScene.unity
+    guid: 17ad16b2d18a49949bf42d35ba0c8fcb
   - enabled: 1
-    path: Assets/Scenes/SampleScenes/DebugStage.unity
-    guid: 6eca0af7957015549a0f0d5cf2a705bb
+    path: Assets/Scenes/DSG/DeckEditsScene.unity
+    guid: edacb5adb57524a408eed66d2a61e52c
+  - enabled: 1
+    path: Assets/Scenes/DSG/DeckMainScene.unity
+    guid: a96673fe7d516504ab88af6c6d9ad617
+  - enabled: 1
+    path: Assets/Scenes/DSG/DeckStrategySampleStage.unity
+    guid: f4f1ac332e206584db3478e3d95bbc65
   m_configObjects:
     com.unity.addressableassets: {fileID: 11400000, guid: 0aeb53e0455b9de4d9ecc647d80b7a52, type: 2}
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}

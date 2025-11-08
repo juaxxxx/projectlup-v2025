@@ -1,15 +1,14 @@
-﻿using Manager;
-using UnityEngine;
-using UnityEngine.Audio;
-using UnityEngine.UI;
-using UnityEngine.Video;
-using System.Collections;
-namespace Manager
+﻿using System.Collections;
+using System.Collections.Generic;
+
+namespace LUP
 {
     public class DeckStrategyStage : BaseStage
     {
-        public BaseStaticData StaticData;
+        public BaseStaticDataLoader StaticDataLoader;
         public BaseRuntimeData RuntimeData;
+
+        List<DeckStaticData> DataList;
 
         protected override void Awake() 
         {
@@ -57,8 +56,17 @@ namespace Manager
 
         protected override void GetDatas()
         {
-            StaticData = base.GetStaticData(this,(int)Define.DeckStrategyStageKind.Lobby);
-            RuntimeData = base.GetRuntimeData(this, (int)Define.DeckStrategyStageKind.Lobby);
+            StaticDataLoader = base.GetStaticData(this, 1);
+            RuntimeData = base.GetRuntimeData(this, 1);
+
+            if (StaticDataLoader != null)
+            {
+                DeckStaticDataLoader DSGStaticDataLoader = (DeckStaticDataLoader)StaticDataLoader;
+                if (DSGStaticDataLoader != null)
+                {
+                    DataList = DSGStaticDataLoader.GetDataList();
+                }
+            }
         }
 
         protected override void SaveDatas()

@@ -1,5 +1,5 @@
-using LUP.DSG.Utils.Enums;
-using Manager;
+ï»¿using LUP.DSG.Utils.Enums;
+using LUP;
 using NUnit.Framework.Interfaces;
 using Roguelike.Define;
 using System;
@@ -91,7 +91,7 @@ namespace LUP.DSG
         private void AddCharacterIcon(OwnedCharacterInfo characterInfo, EAttributeType type)
         {
             var itemUI = Instantiate(iconPrefab, contentParent.transform);
-            var icon = itemUI.GetComponent<CharacterIcon>(); // ÇÁ¸®ÆÕ¿¡ ºÙÀº UI ½ºÅ©¸³Æ®
+            var icon = itemUI.GetComponent<CharacterIcon>(); // í”„ë¦¬íŒ¹ì— ë¶™ì€ UI ìŠ¤í¬ë¦½íŠ¸
 
             var modelData = dataCenter.FindCharacterModel(characterInfo.characterModelID);
 

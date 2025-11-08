@@ -2,7 +2,7 @@
 using UnityEngine;
 using UnityEngine.Video;
 
-namespace Manager
+namespace LUP
 {
     public class ResourceManager : Singleton<ResourceManager>
     {
@@ -54,28 +54,28 @@ namespace Manager
             return audioClip;
         }
 
-        public BaseStaticData LoadStaticData(Define.StageKind type, int stagetype)
+        public BaseStaticDataLoader LoadStaticData(Define.StageKind type, int stagetype)
         {
-            BaseStaticData data = null;
+            BaseStaticDataLoader data = null;
             switch (type)
             {
                 case Define.StageKind.ST:
-                    data = Resources.Load<BaseStaticData>("Data/ShootingStaticData");
+                    data = Resources.Load<BaseStaticDataLoader>("Data/ShootingStaticData");
                     break;
                 case Define.StageKind.DSG:
-                    data = Resources.Load<BaseStaticData>("Data/DeckStrategyStaticData");
+                    data = Resources.Load<BaseStaticDataLoader>("Data/DeckStrategyStaticData");
                     break;
                 case Define.StageKind.ES:
-                    data = Resources.Load<BaseStaticData>("Data/ExtractionShooterStaticData");
+                    data = Resources.Load<BaseStaticDataLoader>("Data/ExtractionShooterStaticData");
                     break;
                 case Define.StageKind.RL:
-                    data = Resources.Load<BaseStaticData>("Data/RoguelikeStaticData");
+                    data = Resources.Load<BaseStaticDataLoader>("Data/RoguelikeStaticData");
                     break;
                 case Define.StageKind.Main:
-                    data = Resources.Load<BaseStaticData>("Data/ProductionStaticData");
+                    data = Resources.Load<BaseStaticDataLoader>("Data/ProductionStaticData");
                     break;
                 case Define.StageKind.Tutorial:
-                    data = Resources.Load<BaseStaticData>("Data/TutorialStaticData");
+                    data = Resources.Load<BaseStaticDataLoader>("Data/TutorialStaticData");
                     break;
             }
             return data;

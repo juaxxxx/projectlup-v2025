@@ -1,13 +1,7 @@
-﻿using Manager;
-using OpenCvSharp;
-using System.Collections;
-using System.Data;
-using System.IO;
+﻿using System.Collections;
 using UnityEngine;
-using UnityEngine.Audio;
 using UnityEngine.UI;
-using UnityEngine.Video;
-namespace Manager
+namespace LUP
 {
     public class MainStage : BaseStage
     {
@@ -78,9 +72,9 @@ namespace Manager
         protected override void LoadResources()
         {
             //resource = ResourceManager.Instance.Load...
-            versionsdata = (VersionsData)Manager.DataManager.Instance.GetRuntimeData(Define.StageKind.Main,1);
-            AB = AssetBundle.LoadFromFile(Path.Combine(Application.dataPath, Path.Combine("Resources/AssetBundles", "staticdatas")));
-            versionsdata.assetbundlehash = AB.GetHashCode().ToString();
+            versionsdata = (VersionsData)LUP.DataManager.Instance.GetRuntimeData(Define.StageKind.Main,1);
+            //AB = AssetBundle.LoadFromFile(Path.Combine(Application.dataPath, Path.Combine("Resources/AssetBundles", "staticdatas")));
+            //versionsdata.assetbundlehash = AB.GetHashCode().ToString();
         }
 
         protected override void GetDatas()
@@ -97,21 +91,21 @@ namespace Manager
         {
             Debug.LogFormat("SoundVolume : {0}", value);
 
-            Manager.SoundManager.Instance.SetBGMVolume(slider.value);
-            Manager.SoundManager.Instance.SetSFXVolume(slider.value);
+            LUP.SoundManager.Instance.SetBGMVolume(slider.value);
+            LUP.SoundManager.Instance.SetSFXVolume(slider.value);
         }
 
         public void PlaySFX()
         {
-            Manager.SoundManager.Instance.PlaySFX(Define.SoundSFXResourceType.Sample);
+            LUP.SoundManager.Instance.PlaySFX(Define.SoundSFXResourceType.Sample);
         }
         public void PlayBGM()
         {
-            Manager.SoundManager.Instance.PlayBGM(Define.SoundBGMResourceType.Sample);
+            LUP.SoundManager.Instance.PlayBGM(Define.SoundBGMResourceType.Sample);
         }
         public void StopBGM()
         {
-            Manager.SoundManager.Instance.StopBGM();
+            LUP.SoundManager.Instance.StopBGM();
         }
 
         protected override void SetupInventory()
