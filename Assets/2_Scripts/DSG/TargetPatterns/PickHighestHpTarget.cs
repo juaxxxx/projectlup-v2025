@@ -6,7 +6,7 @@ namespace LUP.DSG
     public class PickHighestHpTarget : AttackTargetSelectorBase
     {
         public PickHighestHpTarget(BattleSystem battle) : base(battle) { }
-        public override LineupSlot SelectTarget(Character Attacker)
+        public override LineupSlot SelectEnemyTarget(Character Attacker)
         {
             List<LineupSlot> Slot = GetAliveTargetList(Attacker);
             if (Slot.Count <= 0)

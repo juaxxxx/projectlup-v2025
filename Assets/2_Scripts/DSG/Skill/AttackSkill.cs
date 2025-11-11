@@ -1,13 +1,11 @@
 using LUP.DSG;
+using System.Collections.Generic;
 using UnityEngine;
 
-namespace LUP.DSG
+public class AttackSkill : Skillbase
 {
-    public class AttackSkill : ISkill
+    void Excute(List<Character> Targets, IStatusEffect StatusEffect)
     {
-        public void Skill(Character c)
-        {
-            Debug.Log("f");
-        }
+
     }
 }

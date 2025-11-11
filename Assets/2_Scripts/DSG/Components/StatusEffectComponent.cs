@@ -27,21 +27,21 @@ namespace LUP.DSG
             if (!owner.BattleComp.isAlive)
                 return;
 
-            if (_effects.TryGetValue(effect.type, out IStatusEffect getEffect))
+            if (_effects.TryGetValue(effect.effectType, out IStatusEffect getEffect))
             {
                 getEffect.amount += effect.amount;  // 내부 값 수정
-                _effects[effect.type].amount = getEffect.amount;  // 다시 저장 이거 괜찮나
+                _effects[effect.effectType].amount = getEffect.amount;  // 다시 저장 이거 괜찮나
 
                 int Turn = Math.Max(getEffect.remainingTurns, effect.remainingTurns);
-                _effects[effect.type].remainingTurns = Turn;
+                _effects[effect.effectType].remainingTurns = Turn;
             }
             else
             {
-                _effects.Add(effect.type, effect);
+                _effects.Add(effect.effectType, effect);
             }
 
             effect.Apply(owner);
-            OnEffectAdded?.Invoke(_effects[effect.type]);
+            OnEffectAdded?.Invoke(_effects[effect.effectType]);
         }
         public void TurnAll()
         {
@@ -53,7 +53,7 @@ namespace LUP.DSG
 
                 if (effect.remainingTurns <= 0)
                 {
-                    _effectsRemoveList.Add(effect.type);
+                    _effectsRemoveList.Add(effect.effectType);
                 }
             }
         }
@@ -68,7 +68,7 @@ namespace LUP.DSG
         }
         public void RemoveEffect(IStatusEffect effect)
         {
-            _effects.Remove(effect.type);
+            _effects.Remove(effect.effectType);
             effect.Remove(owner);
             OnEffectRemoved?.Invoke(effect);
         }

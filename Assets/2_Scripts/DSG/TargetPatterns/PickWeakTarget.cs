@@ -8,7 +8,7 @@ namespace LUP.DSG
     {
         public PickWeakTarget(BattleSystem battle) : base(battle) { }
 
-        public override LineupSlot SelectTarget(Character Attacker)
+        public override LineupSlot SelectEnemyTarget(Character Attacker)
         {
             if (battle == null || Attacker == null)
                 return null;

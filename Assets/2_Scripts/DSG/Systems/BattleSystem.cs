@@ -244,8 +244,12 @@ namespace LUP.DSG
             if (turnText != null)
                 turnText.text = $"{currentChar.characterData.characterName} Turn";
 
-            LineupSlot targetslot = targetSelector.SelectTarget(currentChar);
-            currentChar.BattleComp.Attack(targetslot);
+
+            {
+                LineupSlot targetslot = targetSelector.SelectEnemyTarget(currentChar);
+                currentChar.BattleComp.Attack(targetslot);
+            }
+
 
             StartCoroutine(WaitForAttackEnd(currentChar));
             return;
@@ -449,6 +453,7 @@ namespace LUP.DSG
                 if (currentChar == null || !currentChar.BattleComp.isAlive) continue;
 
                 yield return new WaitWhile(() => currentChar.BattleComp.isAttacking);
+                yield return new WaitForSeconds(1);
             }
 
             InitSequence();
