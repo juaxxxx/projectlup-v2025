@@ -5,6 +5,7 @@ namespace LUP.RL
 {
     public class EnemyBlackBoard : BlackBoard
     {
+        public EnemyArrowShooter EShooter;
         private void Start()
         {
             Target = FindFirstObjectByType<PlayerMove>().gameObject;

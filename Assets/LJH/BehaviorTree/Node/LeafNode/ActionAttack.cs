@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace RL
+namespace LUP.RL
 {
     public class ActionAttack : LeafNode
     {
@@ -12,17 +12,17 @@ namespace RL
         }
         public override NodeState Evaluate()
         {
-            UnityEngine.Debug.Log("Action Attack");
-            if(bb.EShooter == null)
-            {
-                Debug.Log("슈터 값 없음");
-                return NodeState.Fail;
-            }
-            bb.EShooter.ShootArrow(bb.Target, bb.targetPos);
+            //UnityEngine.Debug.Log("Action Attack");
+            //if(bb.EShooter == null)
+            //{
+            //    Debug.Log("슈터 값 없음");
+            //    return NodeState.Fail;
+            //}
+            //bb.EShooter.ShootArrow(bb.Target, bb.targetPos);
             return NodeState.Success;
         }
 
-        public override void OnAnimationEnd()
+        public override void OnAnimationEnd(AnimatorStateInfo animInfo)
         {
 
         }

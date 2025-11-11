@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace RL
+namespace LUP.RL
 {
     public abstract class BlackBoard : MonoBehaviour
     {
