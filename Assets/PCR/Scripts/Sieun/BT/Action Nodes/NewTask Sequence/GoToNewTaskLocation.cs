@@ -8,16 +8,15 @@ namespace LUP.PCR
         Worker worker;
         bool arrived = false;
     
-        public GoToNewTaskLocation(Worker worker) { this.worker = worker; }
     
-        public override WorkerNodeState Evaluate()
+        public override WorkerNodeState Evaluate(WorkerAI worker)
         {
             if (!arrived)
             {
-                Debug.Log("새 작업지로 이동 중...");
-                worker.MoveTo(worker.newTaskSpot);
+                //Debug.Log("새 작업지로 이동 중...");
+                //worker.MoveTo(worker.newTaskSpot);
     
-                if (!worker.IsAt(worker.newTaskSpot))
+                //if (!worker.IsAt(worker.newTaskSpot))
                     return WorkerNodeState.RUNNING;
     
                 arrived = true;

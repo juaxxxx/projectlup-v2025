@@ -5,13 +5,13 @@ namespace LUP.PCR
     public sealed class SequenceNode : BTNode
     {
         List<BTNode> children;
-        public SequenceNode(List<BTNode> BTNodes) { children = BTNodes; }
-
-        public override WorkerNodeState Evaluate()
+        public SequenceNode(List<BTNode> BTNodes) { children = BTNodes; 
+}
+        public override WorkerNodeState Evaluate(WorkerAI worker)
         {
             foreach (BTNode child in children)
             {
-                WorkerNodeState result = child.Evaluate();
+                WorkerNodeState result = child.Evaluate(worker);
                 switch (result)
                 {
                     case BTNode.WorkerNodeState.RUNNING:

@@ -7,20 +7,19 @@ namespace LUP.PCR
         Worker worker;
         bool arrived = false;
 
-        public GoToEatingPlace(Worker worker) { this.worker = worker; }
 
-        public override WorkerNodeState Evaluate()
+        public override WorkerNodeState Evaluate(WorkerAI worker)
         {
             if (!arrived)
             {
                 Debug.Log("식당으로 이동 중...");
-                worker.MoveTo(worker.eatingSpot);
+                //worker.MoveTo(worker.eatingSpot);
 
-                if (!worker.IsAt(worker.eatingSpot))
+                //if (!worker.IsAt(worker.eatingSpot))
                     return WorkerNodeState.RUNNING;
 
-                arrived = true;
-                Debug.Log("식당 도착!");
+                //arrived = true;
+                //Debug.Log("식당 도착!");
             }
             return WorkerNodeState.SUCCESS;
         }

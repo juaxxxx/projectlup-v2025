@@ -8,9 +8,8 @@ namespace LUP.PCR
         float timer = 0f;
         float duration = 3f;
 
-        public StartNewTask(Worker worker) { this.worker = worker; }
 
-        public override WorkerNodeState Evaluate()
+        public override WorkerNodeState Evaluate(WorkerAI worker)
         {
             if (timer < duration)
             {

@@ -10,6 +10,6 @@ namespace LUP.PCR
             SUCCESS,
             FAILURE,
         }
-        public abstract WorkerNodeState Evaluate();
+        public abstract WorkerNodeState Evaluate(WorkerAI worker);
     }
 }

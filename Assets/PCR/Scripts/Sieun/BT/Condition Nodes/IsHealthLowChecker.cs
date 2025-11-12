@@ -9,8 +9,7 @@ namespace LUP.PCR
         
         int logLoopCount = -1;
 
-        public IsHealthLowChecker(Worker worker) { this.worker = worker; }
-        public override WorkerNodeState Evaluate()
+        public override WorkerNodeState Evaluate(WorkerAI worker)
         {
             if (worker.hunger >= 0.7f)
             {
