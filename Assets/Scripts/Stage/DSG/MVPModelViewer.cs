@@ -42,7 +42,6 @@ namespace LUP.DSG
             int layer = LayerMask.NameToLayer("MVPDisplayModel");
             SetLayerRecursively(currentModel, layer);
 
-            // 선택적으로 애니메이션 Idle 실행 (있을 경우)
             Animator anim = currentModel.GetComponent<Animator>();
             if (anim != null)
             {

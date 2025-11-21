@@ -1,3 +1,4 @@
+using DSG.Utils.Enums;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -5,6 +6,7 @@ using System.Linq;
 using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
 using UnityEngine.TextCore.Text;
 using UnityEngine.UI;
@@ -55,7 +57,7 @@ namespace LUP.DSG
 
         public static BattleSystem Instance { get; private set; }
         private Dictionary<string, (Color Color, float Score)> deadScores = new();
-        private List<(string Name, Color Color, float Score)> deadCharacterData = new();
+        private List<(string Name, Color Color, float Score, GameObject Prefab)> deadCharacterData = new();
 
         void Awake()
         {
@@ -90,6 +92,22 @@ namespace LUP.DSG
                 new PickRandomTarget(this));
         }
 
+        private void Update()
+        {
+            if (!isBattleStart || battleSequence.Count == 0)
+                return;
+
+            if (currentTurnIndex < battleSequence.Count)
+            {
+                var currentChar = battleSequence[currentTurnIndex];
+                if (currentChar != null && currentChar.BattleComp.isAttacking)
+                    return;
+            }
+            if (Input.GetMouseButtonDown(0) && !EventSystem.current.IsPointerOverGameObject())
+            {
+                HandleTurnInput();
+            }
+        }
         private void SortBattleSequence()
         {
             battleSequence.Clear();
@@ -251,19 +269,22 @@ namespace LUP.DSG
 
         public void EndBattle(string resultText)
         {
-            DataCenter dataCenter = FindFirstObjectByType<DataCenter>();
-
+            var dataCenter = FindFirstObjectByType<DataCenter>();
             if (dataCenter == null)
-                dataCenter = FindFirstObjectByType<DataCenter>();
-            if (dataCenter == null || dataCenter.mvpData == null)
             {
-                Debug.LogError("DataCenter 또는 MVPData 누락!");
+                Debug.LogError("[EndBattle] DataCenter를 찾을 수 없습니다!");
+                return;
+            }
+            if (dataCenter.mvpData == null)
+            {
+                Debug.LogError("[EndBattle] DataCenter.mvpData가 비어 있습니다! (TeamMVPData ScriptableObject 연결 필요)");
                 return;
             }
 
             var mvp = dataCenter.mvpData;
             mvp.battleResult = resultText;
 
+            // 2) 초기화
             mvp.char1Score = mvp.char2Score = mvp.char3Score = mvp.char4Score = mvp.char5Score = 0f;
             mvp.char1Name = mvp.char2Name = mvp.char3Name = mvp.char4Name = mvp.char5Name = "";
             mvp.char1Color = mvp.char2Color = mvp.char3Color = mvp.char4Color = mvp.char5Color = Color.white;
@@ -272,24 +293,39 @@ namespace LUP.DSG
 
 
             var friendlyChars = new List<(string Name, Color Color, float Score, GameObject Prefab)>();
-            foreach (var slotObj in friendlySlots)
+
+            if (friendlySlots != null)
             {
-                var slot = slotObj?.GetComponent<LineupSlot>();
-                var character = slot?.character;
-                if (character == null || character.characterData == null || character.characterModelData == null || character.ScoreComp == null)
-                    continue;
+                foreach (var slotObj in friendlySlots)
+                {
+                    if (slotObj == null) continue;
+                    var slot = slotObj.GetComponent<LineupSlot>();
+                    if (slot == null || slot.character == null) continue;
 
-                string name = character.characterData.characterName;
-                Color color = character.characterModelData.material.GetColor("_BaseColor");
-                float score = character.ScoreComp.CalculateMVPScore();
-                GameObject prefab = character.characterModelData.prefab;
+                    var ch = slot.character;
+                    if (ch.characterData == null || ch.ScoreComp == null) continue;
 
-                friendlyChars.Add((name, color, score, prefab));
+                    string name = ch.characterData.characterName;
+
+                    Color color = Color.white;
+                    if (ch.characterModelData != null && ch.characterModelData.material != null)
+                    {
+                        try { color = ch.characterModelData.material.GetColor("_BaseColor"); }
+                        catch { color = ch.characterModelData.material.color; }
+                    }
+
+                    float score = ch.ScoreComp.CalculateMVPScore();
+                    GameObject prefab = (ch.characterModelData != null) ? ch.characterModelData.prefab : null;
+
+                    friendlyChars.Add((name, color, score, prefab));
+                }
             }
+
+            
             foreach (var d in deadCharacterData)
             {
                 if (!friendlyChars.Exists(x => x.Name == d.Name))
-                    friendlyChars.Add((d.Name, d.Color, d.Score, null));
+                    friendlyChars.Add((d.Name, d.Color, d.Score,d.Prefab));
             }
 
             var ranked = friendlyChars.OrderByDescending(x => x.Score).ToList();
@@ -308,12 +344,12 @@ namespace LUP.DSG
 
             SceneManager.LoadScene("DeckBattleResultScene");
         }
-        public void BackupDeadCharacter(string name, Color color, float score)
+        public void BackupDeadCharacter(string name, Color color, float score, GameObject prefab)
         {
             if (deadCharacterData.Exists(x => x.Name == name))
                 return;
 
-            deadCharacterData.Add((name, color, score));
+            deadCharacterData.Add((name, color, score, prefab));
         }
         private void ApplyMVP(TeamMVPData data, int index, string name, Color color, float score, GameObject prefab = null)
         {
