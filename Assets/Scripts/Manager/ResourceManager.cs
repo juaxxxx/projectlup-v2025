@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.IO;
 using UnityEngine;
 using UnityEngine.Video;
 
@@ -6,6 +7,9 @@ namespace LUP
 {
     public class ResourceManager : Singleton<ResourceManager>
     {
+        [SerializeField, ReadOnly]
+        private List<AssetBundle> assetbundles = new List<AssetBundle>(); 
+
         private static Dictionary<string, Object> _cache = new();
         private static T LoadResource<T>(string path) where T : Object
         {
@@ -13,6 +17,16 @@ namespace LUP
             var obj = Resources.Load<T>(path);
             if (obj != null) _cache[path] = obj;
             return obj;
+        }
+
+        private void Awake()
+        {
+            base.Awake();
+            if (Instance.assetbundles.Count==0)
+            {
+                LoadAssetBundles();
+            }
+            
         }
 
         public VideoClip LoadVideoClip(Define.VideoResourceType type)
@@ -88,6 +102,20 @@ namespace LUP
             }
 
             return dataList;
+        }
+
+        private void LoadAssetBundles()
+        {
+            {
+                AssetBundle AB;
+                AB = AssetBundle.LoadFromFile(Path.Combine(Application.dataPath, Path.Combine("Resources/AssetBundles", "staticdatas")));
+                assetbundles.Add(AB);
+            }
+        }
+
+        public int GetAssetBundleSize()
+        {
+            return assetbundles.Count;
         }
     }
 }

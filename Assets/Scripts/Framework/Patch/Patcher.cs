@@ -193,17 +193,40 @@ namespace LUP
             // 둘 중 하나라도 없으면 그냥 종료
             if (versionsdata == null || tempversionsdata == null)
             {
-                Debug.LogError("[Patcher] 버전 데이터가 세팅되지 않아 패치를 중단합니다.");
+                Debug.Log("[Patcher] 버전 데이터가 세팅되지 않아 패치를 중단합니다.");
                 yield break;
             }
 
             // 3. 버전 비교
             yield return CompareVersions();
 
+            if (differentlist.Count==0)
+            {
+                Debug.Log("[Patcher] 이미 최신버젼입니다.");
+                yield break;
+            }
+
             // 4. 리소스 다운로드
             yield return DownloadResources();
 
+            // 5. 버젼 저장
+            yield return SaveVersions();
             Debug.Log("[Patcher] 패치 플로우 완료");
+        }
+
+        private IEnumerator SaveVersions()
+        {
+            versionsdata = tempversionsdata;
+            versionsdata.SaveData();
+            yield break;
+        }
+
+        private void CheckAssets()
+        {
+            if(ResourceManager.Instance.GetAssetBundleSize() > (int)Define.AssetBundleKind.__MAX)
+            {
+                //애셋번들들 쭉 확인해야함. for문이랑 enum+딕셔너리 사용예정
+            }
         }
     }
 }

@@ -20,10 +20,8 @@ namespace LUP.Define
 
     public enum AssetBundleKind
     {
-        AssetBundle1,
-        AssetBundle2,
-        AssetBundle3,
-        AssetBundle4,
+        AssetBundle1 =0,
+        __MAX,
     }
     /// <summary>
     /// Stage
