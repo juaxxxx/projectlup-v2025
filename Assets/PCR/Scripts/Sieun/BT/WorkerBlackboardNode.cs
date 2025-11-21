@@ -13,51 +13,25 @@ namespace LUP.PCR
         protected WorkerBlackboardNode(WorkerBlackboard blackboard) : base() // 기존 BTNode 생성자 호출
         {
             this.BB = blackboard;
-        }
 
-        /* // @TODO : 이런 초기화 작업이 필요할지 BT 로직 테스트하면서 검토하기
-            BB = bb;
             // 지연 초기화: 생성 시점에 아직 OwnerAI가 없을 수 있으므로 TryGet로 안전하게 캐싱
             if (BB.TryGetValue<WorkerAI>(BBKeys.OwnerAI, out var ai)) OwnerAI = ai;
             if (BB.TryGetValue<Worker>(BBKeys.Self, out var w)) WorkerComp = w;
-            if (BB.TryGetValue<IUnitMover>(BBKeys.UnitMover, out var m)) Mover = m;
+            if (BB.TryGetValue<IUnitMoveable>(BBKeys.UnitMover, out var m)) Mover = m;
         }
-
-        protected T GetData<T>(string key) => BB.GetValue<T>(key);
-        protected void SetData<T>(string key, T value) => BB.SetValue(key, value);
 
         // 만약 런타임 도중 OwnerAI/Worker/Mover가 등록될 수 있으니 필요 시 재로딩 가능
         protected void RefreshCachedReferences()
         {
             if (OwnerAI == null && BB.TryGetValue<WorkerAI>(BBKeys.OwnerAI, out var ai)) OwnerAI = ai;
             if (WorkerComp == null && BB.TryGetValue<Worker>(BBKeys.Self, out var w)) WorkerComp = w;
-            if (Mover == null && BB.TryGetValue<IUnitMover>(BBKeys.UnitMover, out var m)) Mover = m;
+            if (Mover == null && BB.TryGetValue<IUnitMoveable>(BBKeys.UnitMover, out var m)) Mover = m;
         }
-        */
-
-
-        //protected void RefreshCachedReferences()
-        //{
-        //    if (OwnerAI == null && BB.TryGetValue<WorkerAI>(BBKeys.OwnerAI, out var ai)) OwnerAI = ai;
-        //    if (WorkerComp == null && BB.TryGetValue<Worker>(BBKeys.Self, out var w)) WorkerComp = w;
-        //    if (Mover == null && BB.TryGetValue<IUnitMoveable>(BBKeys.UnitMover, out var m)) Mover = m;
-        //}
-
-
-
 
         // 자식 노드들이 편하게 쓰라고 만든 헬퍼 함수들
         // (굳이 Blackboard.GetValue 하지 않고 Node.GetData 로 짧게 쓰기 위함)
-        protected void SetData<T>(string key, T value)
-        {
-            BB.SetValue(key, value);
-        }
-
-        protected T GetData<T>(string key)
-        {
-            return BB.GetValue<T>(key);
-        }
-
+        protected T GetData<T>(string key) => BB.GetValue<T>(key);
+        protected void SetData<T>(string key, T value) => BB.SetValue(key, value);
         protected bool HasData(string key) => BB.HasKey(key);
     }
 }

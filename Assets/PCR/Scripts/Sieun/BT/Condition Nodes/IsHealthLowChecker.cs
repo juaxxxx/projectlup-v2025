@@ -7,14 +7,14 @@ namespace LUP.PCR
     {
         public IsHealthLowChecker(WorkerBlackboard blackboard) : base(blackboard) { }
 
-        int logLoopCount = -1;
+        int logLoopCount = 0;
 
         public override NodeState Evaluate()
         {
             float currentHunger = GetData<float>(BBKeys.Hunger);
             bool isHungry = GetData<bool>(BBKeys.IsHungry);
             SetData(BBKeys.IsHungry, isHungry);
-
+            
             if (isHungry)
             {
                 Debug.Log("¹è°íÇÄ °¨ÁöµÊ.");

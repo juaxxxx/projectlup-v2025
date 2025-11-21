@@ -17,7 +17,6 @@ namespace LUP.PCR
             // dest = paused.GetWorkerEntranceWorldPos(null);
             if (Mover == null) return NodeState.FAILURE;
 
-
             if (!started)
             {
                 Mover.SetDestination(dest);

@@ -14,10 +14,11 @@ namespace LUP.PCR
         public event Action<WorkerAI> OnTaskFinished;    // [작업 완료]
 
         [Header("State")]
-        [SerializeField] private float hunger = 0.5f;
+        [SerializeField] private float hunger;
         [SerializeField] private bool  hasNewTask = false;
         [SerializeField] private bool  hasPausedTask = false;
-        
+        private bool Ishunger;
+
         [Header("BT Settings")]
         public float btTickInterval = 0.1f;
         private float btTimer = 0f;
@@ -44,6 +45,7 @@ namespace LUP.PCR
                 LocalBlackboard.SetValue(BBKeys.IsHungry, hungryFlag);
             }
         }
+
         public bool HasNewTask
         {
             get => hasNewTask;
@@ -80,6 +82,13 @@ namespace LUP.PCR
 
         private void Start()
         {
+
+
+            // BT 트리 구성
+            SettingBT();
+        }
+        private void SyncFieldsToBlackboard()
+        {
             //정적 데이터(참조) 등록
             LocalBlackboard.SetValue(BBKeys.OwnerAI, this);
             LocalBlackboard.SetValue(BBKeys.Self, worker);
@@ -87,13 +96,14 @@ namespace LUP.PCR
 
             // BT 상태 초기화
             LocalBlackboard.SetValue(BBKeys.Hunger, hunger);
-            LocalBlackboard.SetValue(BBKeys.IsHungry, Hunger);
+            bool hungryFlag = hunger >= HungerRules.Hunger;
+            LocalBlackboard.SetValue(BBKeys.IsHungry, hungryFlag);
+
             LocalBlackboard.SetValue(BBKeys.HasNewTask, hasNewTask);
             LocalBlackboard.SetValue(BBKeys.HasPausedTask, hasPausedTask);
-
-            // BT 트리 구성
-            SettingBT();
         }
+
+
 
         void SettingBT()
         {
@@ -108,7 +118,6 @@ namespace LUP.PCR
              new GoToEatingPlace(LocalBlackboard),
              new ReturnToPausedTask(LocalBlackboard),
              new EatFood(LocalBlackboard),
-            // new GoBackToOriginPosition()
          });
 
             // Sequence: 하던 일 재개
@@ -116,7 +125,7 @@ namespace LUP.PCR
         {
             new IsPausedTaskChecker(LocalBlackboard),
             new GoToPausedTaskLocation(LocalBlackboard),
-            new ResumePausedTask(LocalBlackboard)
+            //new ResumePausedTask(LocalBlackboard)
         });
 
             // Sequence: 새 일 시작
@@ -124,7 +133,7 @@ namespace LUP.PCR
         {
             new IsNewTaskChecker(LocalBlackboard),
             new GoToNewTaskLocation(LocalBlackboard),
-            new StartNewTask(LocalBlackboard)
+            //new StartNewTask(LocalBlackboard)
         });
 
             // Selector: 작업/휴식
@@ -149,7 +158,7 @@ namespace LUP.PCR
         {
             if (root == null) return;
 
-            Hunger = Mathf.Clamp01(hunger - Time.deltaTime * 0.01f);
+           // Hunger = Mathf.Clamp01(hunger - Time.deltaTime * 0.01f);
 
             // protected, private 보호수준에 막힘.
             // @TODO: ProductableBuilding의 currBuildState 가져오는 방법 고민하기 
@@ -161,13 +170,13 @@ namespace LUP.PCR
             //    LocalBlackboard.SetValue(BBKeys.IsProductionCompleted, pState.data.IsCompleted);
             //    LocalBlackboard.SetValue(BBKeys.ProductionProgress, pState.data.Progress);
 
-            //    btTimer += Time.deltaTime;
-            //    if (btTimer >= btTickInterval)
-            //    {
-            //        btTimer = 0f;
-            //        root?.Evaluate();
-            //    }
-            //}
+               //btTimer += Time.deltaTime;
+               //if (btTimer >= btTickInterval)
+               //{
+               //    btTimer = 0f;
+               //}
+                   root?.Evaluate();
+           //}
         }
         public void AssignTask(ProductableBuilding building)
         {
@@ -220,14 +229,11 @@ namespace LUP.PCR
             OnTaskFinished?.Invoke(this);
         }
 
-        // Called by external systems if worker eats
         public void OnAte()
         {
-            Hunger = 0f; // fully satisfied for example
+            Hunger = 0f;
             OnEatCompleted?.Invoke(this);
         }
-
-       
 
     }
 

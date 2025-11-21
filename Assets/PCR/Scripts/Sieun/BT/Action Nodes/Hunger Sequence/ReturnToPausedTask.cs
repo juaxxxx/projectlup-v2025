@@ -7,7 +7,7 @@ public class ReturnToPausedTask : WorkerBlackboardNode
 
     public override NodeState Evaluate()
     {
-        //RefreshCachedReferences();
+        RefreshCachedReferences();
         
         // Check paused building
         if (!HasData(BBKeys.TargetBuilding + "_paused")) return NodeState.FAILURE;
