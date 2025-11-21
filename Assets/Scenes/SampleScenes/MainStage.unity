@@ -804,8 +804,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 46029aeb4a30c9e4b867f6ee82f8bf18, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  FW_StageList: {fileID: 0}
+  RL_StageList: {fileID: 0}
+  ST_StageList: {fileID: 0}
+  ES_StageList: {fileID: 0}
+  PCR_StageList: {fileID: 0}
+  DSG_StageList: {fileID: 0}
   fadeDuration: 1
-  currentStage: 0
+  startStageKind: 0
+  currentStageKind: 0
 --- !u!4 &665181593
 Transform:
   m_ObjectHideFlags: 0
@@ -987,6 +994,51 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &988427376
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 988427378}
+  - component: {fileID: 988427377}
+  m_Layer: 0
+  m_Name: Patcher
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &988427377
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 988427376}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 69cd1aafc36af604fb75a79672e7029c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  versionsJsonUrl: https://project-lup.github.io/projectlup-v2025-cdn/Versions.json
+--- !u!4 &988427378
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 988427376}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -5.2131443, y: 8.032065, z: 1.6190376}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1005737953
 GameObject:
   m_ObjectHideFlags: 0
@@ -1021,6 +1073,11 @@ MonoBehaviour:
   BGM: {fileID: 0}
   soundVolume: 0
   slider: {fileID: 1717568592}
+  versionsdata:
+    filename: 
+    _name: Versions
+    _assetbundlehash: 
+  AB: {fileID: 0}
 --- !u!4 &1005737955
 Transform:
   m_ObjectHideFlags: 0
@@ -2027,3 +2084,4 @@ SceneRoots:
   - {fileID: 1865854758}
   - {fileID: 665181593}
   - {fileID: 1720753442}
+  - {fileID: 988427378}

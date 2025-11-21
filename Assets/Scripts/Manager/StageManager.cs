@@ -275,12 +275,12 @@ namespace LUP
             if (sceneindex == -1)
             {
                 sceneName = sceneNameMap.ContainsKey(targetStageKind)
-                ? sceneNameMap[targetStageKind].scenes[0].name.ToString()
+                ? sceneNameMap[targetStageKind].sceneNames[0]
                 : targetStageKind.ToString();
             }
             else
             {
-                sceneName = sceneNameMap[targetStageKind].scenes[sceneindex].name.ToString();
+                sceneName = sceneNameMap[targetStageKind].sceneNames[sceneindex];
             }
             Debug.Log("SceneName:" + sceneName);
             // 4. Scene 로드

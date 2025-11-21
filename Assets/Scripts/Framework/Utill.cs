@@ -18,6 +18,13 @@ namespace LUP.Define
         Sample,
     }
 
+    public enum AssetBundleKind
+    {
+        AssetBundle1,
+        AssetBundle2,
+        AssetBundle3,
+        AssetBundle4,
+    }
     /// <summary>
     /// Stage
     /// </summary>
