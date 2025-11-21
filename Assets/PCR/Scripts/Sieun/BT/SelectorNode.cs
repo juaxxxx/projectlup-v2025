@@ -19,6 +19,8 @@ namespace LUP.PCR
                         return BTNode.NodeState.RUNNING;
                     case BTNode.NodeState.SUCCESS:
                         return BTNode.NodeState.SUCCESS;
+                    case NodeState.FAILURE:
+                        continue;
 
                 }
             }

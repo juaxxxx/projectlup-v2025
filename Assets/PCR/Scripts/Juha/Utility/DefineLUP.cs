@@ -7,16 +7,6 @@ public static class GridSize
     public static int y = 10;
 }
 
-public static class BBKeys
-{
-    public const string Self = "Self";         // Worker 컴포넌트
-    public const string OwnerAI = "OwnerAI";   // WorkerAI 컴포넌트
-    public const string Hunger = "Hunger";
-    public const string IsWorking = "IsWorking";
-    public const string HasNewTask = "HasNewTask";
-    public const string HasPausedTask = "HasPausedTask";
-}
-
 public enum TileType
 {
     NONE,

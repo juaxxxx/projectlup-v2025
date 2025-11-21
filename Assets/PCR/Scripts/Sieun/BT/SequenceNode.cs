@@ -16,10 +16,11 @@ namespace LUP.PCR
                 {
                     case BTNode.NodeState.RUNNING:
                         return BTNode.NodeState.RUNNING;
-                    case BTNode.NodeState.SUCCESS:
-                        continue;
                     case BTNode.NodeState.FAILURE:
                         return BTNode.NodeState.FAILURE;
+                    case BTNode.NodeState.SUCCESS:
+                        continue;
+
                 }
             }
             return NodeState.SUCCESS;

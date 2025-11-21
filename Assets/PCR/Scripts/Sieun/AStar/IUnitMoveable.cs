@@ -1,0 +1,11 @@
+using UnityEngine;
+
+public interface IUnitMoveable
+{
+    void SetDestination(Vector3 destination);
+    bool IsArrived();
+    void Stop();
+
+
+    Vector3 CurrentDestination { get; }
+}

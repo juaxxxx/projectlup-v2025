@@ -8,10 +8,10 @@ namespace LUP.PCR
 
         public override NodeState Evaluate()
         {
-            bool hasPausedWork = GetData<bool>(BBKeys.HasPausedTask);
-
+            ProductableBuilding paused = GetData<ProductableBuilding>(BBKeys.TargetBuilding + "_paused");
+            
             Debug.Log("중단된 작업 존재 여부 검사...");
-            return hasPausedWork ? NodeState.SUCCESS : NodeState.FAILURE;
+            return paused != null ? NodeState.SUCCESS : NodeState.FAILURE;
         }
     }
 }

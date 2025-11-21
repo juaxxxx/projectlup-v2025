@@ -11,19 +11,13 @@ namespace LUP.PCR
 
         public override NodeState Evaluate()
         {
-            bool hasPausedTask = GetData<bool>(BBKeys.HasPausedTask);
+            ProductableBuilding paused = GetData<ProductableBuilding>(BBKeys.TargetBuilding + "_paused");
+            if (paused == null) return NodeState.FAILURE;
 
-            if (timer < duration)
-            {
-                timer += Time.deltaTime;
-                Debug.Log($"작업 재개 중... {timer:F1}/{duration}");
-                return NodeState.RUNNING;
-            }
-
-            hasPausedTask = false;
-            Debug.Log("작업 재개 완료!");
-            timer = 0f;
-
+            OwnerAI?.StartWorkingAt(paused);
+            
+            BB.Remove(BBKeys.TargetBuilding + "_paused");
+            SetData(BBKeys.HasPausedTask, false);
             return NodeState.SUCCESS;
         }
     }

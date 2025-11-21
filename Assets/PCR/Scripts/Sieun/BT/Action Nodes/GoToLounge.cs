@@ -5,25 +5,30 @@ namespace LUP.PCR
     public class GoToLounge : WorkerBlackboardNode
     {
         public GoToLounge(WorkerBlackboard blackboard) : base(blackboard) { }
-        bool arrived = false;
+        bool started = false;
 
         public override NodeState Evaluate()
         {
-            if (!arrived)
+            if (Mover == null) return NodeState.FAILURE;
+
+            if (!started)
             {
-                Debug.Log("라운지로 이동 중...");
-                //worker.MoveTo(worker.loungeSpot);
+                //@TODO : 구조 확정되면 라운지 위치 지정하기
+                //Mover.MoveTo(loungePos);
+                //SetData(BBKeys.TargetPosition, loungePos);
+                started = true;
 
-                //if (!worker.IsAt(worker.loungeSpot))
-                //    return NodeState.RUNNING;
+                if (!Mover.IsArrived())
+                {
+                    Debug.Log("라운지로 이동 중...");
+                }
 
-                arrived = true;
-                Debug.Log("라운지 도착. 휴식 중...");
+                return NodeState.RUNNING;
             }
 
-            return NodeState.RUNNING; // 계속 대기
+            Debug.Log("라운지 도착. 휴식 중...");
+            started = false;
+            return NodeState.SUCCESS;
         }
     }
-
-
 }

@@ -2,33 +2,14 @@ using UnityEngine;
 
 namespace LUP.PCR
 {
+
+    // RequireComponent(typeof(Animator))]
     public class Worker : MonoBehaviour
     {
-
-
-        //public Vector3 eatingSpot;
-        //public Vector3 originSpot;
-        //public Vector3 pausedWorkSpot;
-        //public Vector3 newTaskSpot;
-        //public Vector3 loungeSpot;
-
-        [SerializeField]Transform dest;
-
-        void Awake()
+        public Renderer MeshRenderer;
+        private void Awake()
         {
-            //originSpot = transform.position;
-            //eatingSpot = transform.position;
-            //pausedWorkSpot = transform.position;
-            //newTaskSpot = transform.position;
-            //loungeSpot = transform.position;
+            //MeshRenderer = GetComponentInChildren<Renderer>();
         }
-
-        private void Start()
-        {
-            //eatingSpot = dest.position;
-        }
-
-       
     }
-
 }

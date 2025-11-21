@@ -1,17 +1,18 @@
 using System;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 namespace LUP.PCR
 {
     public readonly struct WorkerBlackboardKey : IEquatable<WorkerBlackboardKey>
     {
-        public readonly string name;
+        public readonly string Key;
         public readonly int hashKey;
 
-        public WorkerBlackboardKey(string keyName)
+        public WorkerBlackboardKey(string key)
         {
-            this.name = keyName;
-            hashKey = ComputeHash(name);
+            this.Key = key;
+            hashKey = ComputeHash(Key);
         }
 
         private static int ComputeHash(string str)
@@ -29,8 +30,7 @@ namespace LUP.PCR
         public bool Equals(WorkerBlackboardKey other) => hashKey == other.hashKey;
         public override bool Equals(object obj) => obj is WorkerBlackboardKey other && Equals(other);
         public override int GetHashCode() => hashKey;
-        public override string ToString() => name;
-
+        public override string ToString() => Key;
         public static bool operator ==(WorkerBlackboardKey lhs, WorkerBlackboardKey rhs) => lhs.Equals(rhs);
         public static bool operator !=(WorkerBlackboardKey lhs, WorkerBlackboardKey rhs) => !(lhs == rhs);
     }
