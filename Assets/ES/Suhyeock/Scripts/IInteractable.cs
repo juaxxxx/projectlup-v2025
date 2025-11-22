@@ -4,6 +4,8 @@ namespace ES
 {
     public interface IInteractable
     {
+        bool InterruptsOnMove { get; } // 기수 추가한 코드
+
         bool TryStartInteraction(float deltaTime);
         bool CanInteract();
         void Interact();
@@ -14,6 +16,6 @@ namespace ES
 
         void ShowInteractionTimerUI();
 
-        void HideInteractionTimerUI();
+        void HideInteractionTimerUI();  
     }
 }

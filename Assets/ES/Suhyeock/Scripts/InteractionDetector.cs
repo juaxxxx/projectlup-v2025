@@ -65,5 +65,11 @@ namespace ES
             }
             return nearest;
         }
+
+        // 기수 추가한 코드
+        public bool IsObjectNearby(IInteractable target)
+        {
+            return nearbyInteractables.Contains(target);
+        }
     }
 }

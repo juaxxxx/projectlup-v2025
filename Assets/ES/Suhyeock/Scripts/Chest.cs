@@ -15,6 +15,8 @@ namespace ES
         private bool isInteracted = false;
         private bool isInteracting = false;
 
+        public bool InterruptsOnMove => true;  // 기수 추가한 코드
+
         private List<Item> dropItems = new List<Item>();
         public bool CanInteract() => !isInteracting;
 

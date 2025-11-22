@@ -14,6 +14,9 @@ namespace ES
 
         public Action<float, float> OnReloadTimeUpdate;
 
+        // 기수 추가한 코드
+        public Action ExtractionSuccess;
+
         public void ReportGameFinish(bool isSuccess)
         {
             OnGameFinished?.Invoke(isSuccess);
@@ -36,6 +39,13 @@ namespace ES
         public void ReloadTimeUpdate(float time, float reloadTime)
         {
             OnReloadTimeUpdate?.Invoke(time, reloadTime);
+        }
+
+        // 기수 추가한 코드
+        public void OnExtractionSuccess()
+        {
+            Debug.Log("EventBroker: Extraction Success Triggered!");
+            ExtractionSuccess?.Invoke();
         }
     }
 }
