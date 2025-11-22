@@ -22,31 +22,36 @@ namespace LUP
 
         void Start()
         {
-            //StageManager.Instance.LoadStage(TargetStage);
+            //testInventory.LoadInventory(saveFileName);
 
+            //IItemable gold = ItemManager.Instance.GetItem("gold");
+            //testInventory.AddItem(gold, 50);
         }
 
         void Update()
         {
-            if (Input.GetKeyDown(KeyCode.Space))
-            {
-                testInventory.SaveInventory(saveFileName);
-                Debug.Log($"[DebugStage] 인벤토리 세이브 완료: {saveFileName}");
-            }
+            //if (Input.GetKeyDown(KeyCode.Space))
+            //{
+            //    IItemable gold = ItemManager.Instance.GetItem("gold");
+            //    testInventory.AddItem(gold, 50);
 
-            // L키로 인벤토리 로드 (추가 기능)
-            if (Input.GetKeyDown(KeyCode.L))
-            {
-                if (testInventory != null)
-                {
-                    testInventory.LoadInventory(saveFileName);
-                    Debug.Log($"[DebugStage] 인벤토리 로드 완료: {saveFileName}");
-                }
-                else
-                {
-                    Debug.LogWarning("[DebugStage] 로드할 인벤토리가 없습니다!");
-                }
-            }
+            //    testInventory.SaveInventory(saveFileName);
+            //    Debug.Log($"[DebugStage] 인벤토리 세이브 완료: {saveFileName}");
+            //}
+
+            //// L키로 인벤토리 로드 (추가 기능)
+            //if (Input.GetKeyDown(KeyCode.L))
+            //{
+            //    if (testInventory != null)
+            //    {
+            //        testInventory.LoadInventory(saveFileName);
+            //        Debug.Log($"[DebugStage] 인벤토리 로드 완료: {saveFileName}");
+            //    }
+            //    else
+            //    {
+            //        Debug.LogWarning("[DebugStage] 로드할 인벤토리가 없습니다!");
+            //    }
+            //}
         }
 
 

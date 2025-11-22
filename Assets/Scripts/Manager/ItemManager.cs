@@ -5,7 +5,7 @@ namespace LUP
 {
     public class ItemManager : Singleton<ItemManager>
     {
-        private Dictionary<string, LUPItemData> itemDatabase = new Dictionary<string, LUPItemData>();
+        private Dictionary<int, LUPItemData> itemDatabase = new Dictionary<int, LUPItemData>();
 
         public override void Awake()
         {
@@ -22,7 +22,7 @@ namespace LUP
 
             foreach (var item in items)
             {
-                if (item != null && !string.IsNullOrEmpty(item.ItemID))
+                if (item != null && item.ItemID != 0)
                 {
                     if (itemDatabase.ContainsKey(item.ItemID))
                     {
@@ -36,11 +36,11 @@ namespace LUP
             Debug.Log($"ItemManager: {itemDatabase.Count}개의 아이템 로드 완료");
         }
 
-        public IItemable GetItem(string itemID)
+        public IItemable GetItem(int itemID)
         {
-            if (string.IsNullOrEmpty(itemID))
+            if (itemID == 0)
             {
-                Debug.LogWarning("ItemID가 비어있습니다.");
+                Debug.LogWarning("ItemID가 유효하지 않습니다.");
                 return null;
             }
 
@@ -78,7 +78,7 @@ namespace LUP
             return result;
         }
 
-        public bool HasItem(string itemID)
+        public bool HasItem(int itemID)
         {
             return itemDatabase.ContainsKey(itemID);
         }

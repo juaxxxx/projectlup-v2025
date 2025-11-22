@@ -5,17 +5,16 @@ using UnityEngine;
 public class TestInvenRuntimeData : BaseRuntimeData
 {
     [SerializeField] private string _slotKey;
-    [SerializeField] private string _itemID;
+    [SerializeField] private int _itemID;
     [SerializeField] private int _quantity = 0;
 
-    
     public string slotKey
     {
         get => _slotKey;
         set => SetValue(ref _slotKey, value);
     }
 
-    public string itemID
+    public int itemID
     {
         get => _itemID;
         set => SetValue(ref _itemID, value);
@@ -26,12 +25,11 @@ public class TestInvenRuntimeData : BaseRuntimeData
         get => _quantity;
         set => SetValue(ref _quantity, value);
     }
-    
 
     public override void ResetData()
     {
         _slotKey = "";
-        _itemID = "";
+        _itemID = 0;
         _quantity = 0;
     }
 }

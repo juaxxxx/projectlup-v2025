@@ -26,7 +26,7 @@ namespace LUP
                 return false;
             }
 
-            if (slots.TryGetValue(item.ItemID, out var existingSlot))
+            if (slots.TryGetValue(item.ItemID.ToString(), out var existingSlot))
             {
                 if (existingSlot.CanStack)
                 {
@@ -51,9 +51,9 @@ namespace LUP
         }
 
 
-        public bool UseItem(string itemID, int quantity = 1)
+        public bool UseItem(int itemID, int quantity = 1)
         {
-            if (!slots.TryGetValue(itemID, out var slot))
+            if (!slots.TryGetValue(itemID.ToString(), out var slot))
             {
                 Debug.LogWarning($"Item {itemID} not found");
                 return false;
@@ -82,9 +82,10 @@ namespace LUP
             return true;
         }
 
-        public bool RemoveItem(string itemID, int quantity = 1)
+        public bool RemoveItem(int itemID, int quantity = 1)
         {
-            if (!slots.TryGetValue(itemID, out var slot))
+            string key = itemID.ToString();
+            if (!slots.TryGetValue(key, out var slot))
                 return false;
 
             if (slot.Quantity < quantity)
@@ -94,14 +95,14 @@ namespace LUP
 
             if (slot.Quantity <= 0)
             {
-                slots.Remove(itemID);
+                slots.Remove(key);
             }
 
             OnItemRemoved?.Invoke(slot.Item, quantity);
             return true;
         }
 
-        public int GetItemCount(string itemID)
+        public int GetItemCount(int itemID)
         {
             int total = 0;
 
@@ -116,7 +117,7 @@ namespace LUP
             return total;
         }
 
-        public bool HasItem(string itemID, int requiredQuantity = 1)
+        public bool HasItem(int itemID, int requiredQuantity = 1)
         {
             return GetItemCount(itemID) >= requiredQuantity;
         }
@@ -131,10 +132,10 @@ namespace LUP
             slots.Clear();
         }
 
-        private string GenerateSlotKey(string itemID)
+        private string GenerateSlotKey(int itemID)
         {
             int counter = 0;
-            string key = itemID;
+            string key = itemID.ToString();
 
             while (slots.ContainsKey(key))
             {
@@ -205,7 +206,7 @@ namespace LUP
 
             foreach (var slotData in data.slots)
             {
-                if (slotData == null || string.IsNullOrEmpty(slotData.itemID))
+                if (slotData == null || slotData.itemID == 0)
                 {
                     Debug.LogWarning("잘못된 슬롯 데이터를 건너뜁니다.");
                     continue;

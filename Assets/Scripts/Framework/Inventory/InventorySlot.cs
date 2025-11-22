@@ -4,7 +4,7 @@ namespace LUP
 {
     public interface IItemable
     {
-        string ItemID { get; }                      // 고유 ID (필수)
+        int ItemID { get; }                      // 고유 ID (필수)
         string ItemName { get; }                    // 표시용 이름
         LUP.Define.ItemType Type { get; }           // 아이템 타입
         int MaxStackSize { get; }                   // 최대 스택 (1 = 스택 불가)
