@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.InputSystem.EnhancedTouch;
 
 namespace LUP.PCR
 {
@@ -11,7 +12,7 @@ namespace LUP.PCR
         public override NodeState Evaluate()
         {
             float currentHunger = GetData<float>(BBKeys.Hunger);
-            bool isHungry = GetData<bool>(BBKeys.IsHungry);
+            bool isHungry = currentHunger >= HungerRules.Hunger;
             SetData(BBKeys.IsHungry, isHungry);
             
             if (isHungry)
