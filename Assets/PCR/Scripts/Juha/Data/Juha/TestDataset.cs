@@ -17,8 +17,18 @@ public struct WallDataInfo
 
 public struct BuildingDataInfo
 {
+    public int id;
+    public BuildingType type;
+    public Vector2Int pos;
 
+    public BuildingDataInfo(int id, BuildingType type, Vector2Int pos)
+    {
+        this.id = id;
+        this.type = type;
+        this.pos = pos;
+    }
 }
+
 
 public class TestDataset : MonoBehaviour
 {

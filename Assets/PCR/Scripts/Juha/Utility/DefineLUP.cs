@@ -7,6 +7,7 @@ public static class GridSize
     public static int y = 10;
 }
 
+
 public enum TileType
 {
     NONE,

@@ -4,19 +4,26 @@ using System.Collections.Generic;
 
 public class BuildingSystem : MonoBehaviour
 {
-    [SerializeField]
-    private GameObject wheatFarmPrefab;
-    [SerializeField]
-    private GameObject mushroomFarmPrefab;
-    [SerializeField]
-    private GameObject restaurantPrefab;
-
-    private Dictionary<int, WallBase> walls;
-    private Dictionary<int, BuildingBase> buildings;
+    private Dictionary<int, WallBase> currWalls;
+    private Dictionary<int, BuildingBase> currBuildings;
 
     private BuildPreview buildPreview;
 
     // Load Wall, Building Data
+    public void InitData(PCRDataCenter dataCenter)
+    {
+        List<WallDataInfo> wallInfoes = dataCenter.wallDatas;
+
+        // 임시 id 할당
+        int wallId = 1;
+
+        for (int i =0; i< wallInfoes.Count; i++)
+        {
+
+        }
+    }
+
+
 
 
     public void CreateBuilding(BuildingType type, Tile pivotTile)
@@ -32,15 +39,15 @@ public class BuildingSystem : MonoBehaviour
         switch (type)
         {
             case BuildingType.WHEATFARM:
-                Instantiate(wheatFarmPrefab, pos, Quaternion.identity);
+                //Instantiate(wheatFarmPrefab, pos, Quaternion.identity);
 
                 break;
             case BuildingType.MUSHROOMFARM:
-                Instantiate(mushroomFarmPrefab, pos, Quaternion.identity);
+                //Instantiate(mushroomFarmPrefab, pos, Quaternion.identity);
 
                 break;
             case BuildingType.RESTAURANT:
-                Instantiate(restaurantPrefab, pos, Quaternion.identity);
+               // Instantiate(restaurantPrefab, pos, Quaternion.identity);
 
                 break;
         }

@@ -21,7 +21,6 @@ public class PCRGameSystem : MonoBehaviour
 
     private void Awake()
     {
-        // 각 시스템 컴포넌트 생성
         dataCenter = GetComponentInChildren<PCRDataCenter>();
         buildingSystem = GetComponentInChildren<BuildingSystem>();
         tileMap = GetComponentInChildren<TileMap>();
@@ -34,8 +33,13 @@ public class PCRGameSystem : MonoBehaviour
     private void Start()
     {
         // PCRDataCenter Init
+        dataCenter.InitData();
+
         // BuildingSystem Init
+
+
         // TileMap Init
+
 
         // DigWallPreview Init
         digWallPreview.UpdateAllDigWallPreview(tileMap);
