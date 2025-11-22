@@ -12,7 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b79c5bd4919e7954ebb4378037d18fbe, type: 3}
   m_Name: RLSceneList
   m_EditorClassIdentifier: 
-  scenes:
-  - {fileID: 102900000, guid: b89cdfd32e70e2944a0975019a1c817e, type: 3}
-  - {fileID: 102900000, guid: 72d1226082f1879458b070ebf65bab0f, type: 3}
-  - {fileID: 0}
+  sceneNames:
+  - RKLobbyScene
+  - RKInGameScene
