@@ -33,6 +33,7 @@ namespace LUP
         [Header("건들지 마세요!!!")]
         [ReadOnly, SerializeField] private Define.StageKind currentStageKind = Define.StageKind.Unknown;
 
+        [SerializeField,ReadOnly]
         private BaseStage currentStageInstance= null;
         private bool isTransitioning = false;
 

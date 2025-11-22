@@ -813,6 +813,7 @@ MonoBehaviour:
   fadeDuration: 1
   startStageKind: 0
   currentStageKind: 0
+  currentStageInstance: {fileID: 0}
 --- !u!4 &665181593
 Transform:
   m_ObjectHideFlags: 0
@@ -1023,7 +1024,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 69cd1aafc36af604fb75a79672e7029c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  versionsJsonUrl: https://project-lup.github.io/projectlup-v2025-cdn/Versions.json
+  url: https://project-lup.github.io/projectlup-v2025-cdn/
+  versionsdata:
+    filename: 
+    _name: Versions
+    _assetbundlehash: 
+  tempversionsdata:
+    filename: 
+    _name: Versions
+    _assetbundlehash: 
+  differentlist: 
 --- !u!4 &988427378
 Transform:
   m_ObjectHideFlags: 0
@@ -1553,6 +1563,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0f1603d45941a504bb3a34891f1d8cca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  assetbundles: []
 --- !u!4 &1720753442
 Transform:
   m_ObjectHideFlags: 0
@@ -2017,7 +2028,7 @@ MonoBehaviour:
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 3
+          m_IntArgument: 2
           m_FloatArgument: 0
           m_StringArgument: Intro
           m_BoolArgument: 0

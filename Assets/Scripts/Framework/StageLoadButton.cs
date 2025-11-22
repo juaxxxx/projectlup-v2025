@@ -7,6 +7,6 @@ public class StageLoadButton : MonoBehaviour
     {
         Debug.Log(stage);
         LUP.Define.StageKind StageKind = (LUP.Define.StageKind)stage;
-        LUP.StageManager.Instance.GetCurrentStage().LoadStage(StageKind);
+        LUP.StageManager.Instance.GetCurrentStage().LoadStage(LUP.Define.StageKind.Main,stage);
     }
 }
