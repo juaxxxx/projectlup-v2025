@@ -1,0 +1,20 @@
+using UnityEngine;
+namespace LUP.RL
+{
+    public class JoyStickSC : MonoBehaviour
+    {
+        public float speed = 5;
+        public FixedJoystick fixedJoystick;
+
+        public PlayerMove playermove;
+        public void Update()
+        {
+
+            float h = fixedJoystick.Horizontal;
+            float v = fixedJoystick.Vertical;
+            playermove.MoveByJoystick(h, v);
+        }
+
+    }
+
+}
