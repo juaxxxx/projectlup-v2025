@@ -1,5 +1,8 @@
-﻿using System.Collections;
+﻿using LUP.DSG;
+using System.Collections;
 using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.UI;
 
 namespace LUP
 {
@@ -31,7 +34,25 @@ namespace LUP
         {
             yield return base.OnStageEnter();
             //구현부
-            
+            ToggleGroup toggleGroup = FindAnyObjectByType<ToggleGroup>();
+            if (toggleGroup == null) yield break;
+
+            TeamSelectButton[] teamSelectButtons = toggleGroup.transform.GetComponentsInChildren<TeamSelectButton>();
+            if (teamSelectButtons.Length > 0)
+            {
+                List<Coroutine> running = new List<Coroutine>();
+
+                foreach (TeamSelectButton button in teamSelectButtons)
+                {
+                    Coroutine coroutine = StartCoroutine(button.OnStageEnter());
+                    running.Add(coroutine);
+                }
+
+                foreach (Coroutine coroutine in running)
+                {
+                    yield return coroutine;
+                }
+            }
 
             yield return null;
         }
@@ -84,6 +105,15 @@ namespace LUP
                     {
                         RuntimeData = deckRuntimeData;
                     }
+                }
+            }
+
+            if (RuntimeData != null)
+            {
+                DeckStrategyRuntimeData deckStrategyRuntimeData = (DeckStrategyRuntimeData)RuntimeData;
+                if (deckStrategyRuntimeData != null && deckStrategyRuntimeData.Teams.Count == 0)
+                {
+                    deckStrategyRuntimeData.Teams.AddRange(new UserData.Team[8]);
                 }
             }
         }

@@ -11,7 +11,7 @@ public class DeckStrategyRuntimeData : BaseRuntimeData
     private List<OwnedCharacterInfo> ownedCharacterList = new List<OwnedCharacterInfo>();
 
     [SerializeField]
-    private List<UserData.Team> teams = new List<UserData.Team>(8);
+    private List<UserData.Team> teams = new List<UserData.Team>();
 
     public int PlayerId
     {

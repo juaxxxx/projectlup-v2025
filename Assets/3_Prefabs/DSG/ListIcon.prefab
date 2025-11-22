@@ -165,7 +165,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 3685334297540631434}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4c738a05c32127d47807ff3deb350f45, type: 3}
+  m_Script: {fileID: 11500000, guid: 0f3412ad15008dd49bd32fb072a2665f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   portrait: {fileID: 6976622432523574024}
@@ -176,6 +176,7 @@ MonoBehaviour:
     characterID: 0
     characterModelID: 0
     characterLevel: 0
+  selectedSlot: -1
 --- !u!1 &6432587507072388997
 GameObject:
   m_ObjectHideFlags: 0
@@ -681,7 +682,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 8923700830825243032}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0e11bb2e6703f1246b206de9d484e239, type: 3}
+  m_Script: {fileID: 11500000, guid: 79873cc9c9df4f24cb5ec730a68bccec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   canvasGroup: {fileID: 819291905849919248}
