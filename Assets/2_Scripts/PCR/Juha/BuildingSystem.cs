@@ -6,27 +6,59 @@ namespace LUP.PCR
 {
     public class BuildingSystem : MonoBehaviour
     {
+        private BuildingGenerator buildingGenerator;
+
         private Dictionary<int, WallBase> currWalls;
         private Dictionary<int, BuildingBase> currBuildings;
 
         private BuildPreview buildPreview;
 
+        private int buildingId = 1; // 테스트 Id.
+
         // Load Wall, Building Data
-        public void InitData(PCRDataCenter dataCenter)
+        public void InitBuildingSystem(PCRDataCenter dataCenter, BuildingGenerator buildingGenerator, BuildPreview buildPreview)
         {
+            this.buildingGenerator = buildingGenerator;
+            this.buildPreview = buildPreview;
+
             List<WallDataInfo> wallInfoes = dataCenter.wallDatas;
 
             // 임시 id 할당
             int wallId = 1;
 
+            // wall Init
             for (int i = 0; i < wallInfoes.Count; i++)
             {
+                WallType wallType = wallInfoes[i].type;
+                Vector2Int wallPos = wallInfoes[i].pos;
 
+                GameObject wallObject = buildingGenerator.CreateInitWall(wallType, wallPos);
+                if (!wallObject)
+                {
+                    Debug.Log("wallObject is null");
+                    continue;
+                }
+
+                WallBase wall = wallObject.GetComponent<WallBase>();
+
+                if (!wall)
+                {
+                    Debug.Log("WallBase is Null");
+                    continue;
+                }
+
+                if (!currWalls.ContainsKey(wallId))
+                {
+                    currWalls.Add(wallId, wall);
+                }
+                else
+                {
+                    Debug.Log("wallId already exists");
+                }
+
+                wallId++;
             }
         }
-
-
-
 
         public void CreateBuilding(BuildingType type, Tile pivotTile)
         {
@@ -36,22 +68,16 @@ namespace LUP.PCR
                 return;
             }
 
-            Vector3 pos = pivotTile.gameObject.transform.position;
+            BuildingBase building = buildingGenerator.CreateBuilding(type, pivotTile);
 
-            switch (type)
+            if (building != null)
             {
-                case BuildingType.WHEATFARM:
-                    //Instantiate(wheatFarmPrefab, pos, Quaternion.identity);
-
-                    break;
-                case BuildingType.MUSHROOMFARM:
-                    //Instantiate(mushroomFarmPrefab, pos, Quaternion.identity);
-
-                    break;
-                case BuildingType.RESTAURANT:
-                    // Instantiate(restaurantPrefab, pos, Quaternion.identity);
-
-                    break;
+                // @TODO: Id 설정 만들어야 한다.
+                if (!currBuildings.ContainsKey(buildingId))
+                {
+                    currBuildings.Add(buildingId, building);
+                }
+                buildingId++;
             }
         }
     }
