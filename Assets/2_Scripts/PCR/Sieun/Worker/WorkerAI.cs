@@ -9,13 +9,14 @@ namespace LUP.PCR
     public class WorkerAI : MonoBehaviour
     {
         [Header("State")]
-        private float hunger;
+        [SerializeField] private float hunger;
+        [SerializeField] private BuildingBase dest; 
+        private bool Ishunger;
         private bool hasNewTask = false;
         private bool hasPausedTask = false;
-        private bool Ishunger;
 
         [Header("BT Time")]
-        public float btTickInterval = 0.1f;
+        private float btTickInterval = 0.1f;
         private float btTimer = 0f;
 
         [Header("Component")]
@@ -85,8 +86,15 @@ namespace LUP.PCR
 
             // BT 상태 초기화
             LocalBlackboard.SetValue(BBKeys.Hunger, hunger);
-            bool hungryFlag = hunger >= HungerRules.Hunger;
-            LocalBlackboard.SetValue(BBKeys.IsHungry, hungryFlag);
+            bool IsHunger = hunger >= HungerRules.Hunger;
+            LocalBlackboard.SetValue(BBKeys.IsHungry, IsHunger);
+
+            LocalBlackboard.SetValue<BuildingBase>(BBKeys.TargetBuilding, dest);
+            LocalBlackboard.SetValue<Vector2Int>(BBKeys.TargetPosition, dest.entrancePos);
+
+            LocalBlackboard.SetValue(BBKeys.HasNewTask, hasNewTask);
+            LocalBlackboard.SetValue(BBKeys.HasNewTask, hasNewTask);
+
 
             LocalBlackboard.SetValue(BBKeys.HasNewTask, hasNewTask);
             LocalBlackboard.SetValue(BBKeys.HasPausedTask, hasPausedTask);

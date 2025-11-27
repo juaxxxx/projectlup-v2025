@@ -9,13 +9,19 @@ namespace LUP.PCR
         public override NodeState Evaluate()
         {
             //RefreshCachedReferences();
-            var building = GetData<ProductableBuilding>(BBKeys.TargetBuilding);
-            if (building == null) return NodeState.SUCCESS; // nothing to pause
+            bool isWorking = GetData<bool>(BBKeys.IsWorking);
+            if (isWorking)
+                return NodeState.SUCCESS;
 
+            ProductableBuilding building = GetData<ProductableBuilding>(BBKeys.TargetBuilding);
+            if (building == null) return NodeState.SUCCESS; // nothing to pause
+            
             SetData(BBKeys.TargetBuilding + "_paused", building);
             SetData(BBKeys.HasPausedTask, true);
 
+            SetData(BBKeys.IsWorking, false);
             BB.Remove(BBKeys.TargetPosition);
+
             return NodeState.SUCCESS;
         }
     }

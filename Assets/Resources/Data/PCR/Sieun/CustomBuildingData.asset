@@ -10,20 +10,16 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 223226650127f134193369db1ba6c0ba, type: 3}
-  m_Name: MushroomFarmData
+  m_Name: CustomBuildingData
   m_EditorClassIdentifier: 
   buildingData:
-    type: 1
-    size: {x: 2, y: 1}
+    type: 0
+    size: {x: 2, y: 2}
     powerCost: 20
   constructionData:
   - time: 0
     cost: []
-  - time: 476
-    cost:
-    - resourceType: 0
-      amount: 10
-  resource: 4
+  resource: 0
   productionData:
   - productionTime: 0
     storageCapacity: 0

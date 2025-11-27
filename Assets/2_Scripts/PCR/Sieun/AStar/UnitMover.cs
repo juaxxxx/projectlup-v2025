@@ -46,9 +46,6 @@ namespace LUP.PCR
         //    currentIndex = 0;
         //}
 
-
-
-
         // BT - 사용할 목적지 설정
         public void SetDestination(Vector3 worldPos)
         {
@@ -65,6 +62,8 @@ namespace LUP.PCR
                 currentDestination = gridMap.GetNodeWorldPosition(path[path.Count - 1]);
             else
                 currentDestination = worldPos;
+
+            MoveAlongPath();
         }
 
         // BT - 목적지 도착 확인용
@@ -84,7 +83,7 @@ namespace LUP.PCR
         }
 
 
-        void MoveAlongPath()
+        private void MoveAlongPath()
         {
             if (path == null || currentIndex >= path.Count) { return; }
 

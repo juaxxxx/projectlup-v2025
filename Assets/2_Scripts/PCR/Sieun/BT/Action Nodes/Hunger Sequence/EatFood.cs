@@ -11,6 +11,7 @@ namespace LUP.PCR
         public override NodeState Evaluate()
         {
             float currentHunger = GetData<float>(BBKeys.Hunger);
+            
             if (timer < duration)
             {
                 timer += Time.deltaTime;
