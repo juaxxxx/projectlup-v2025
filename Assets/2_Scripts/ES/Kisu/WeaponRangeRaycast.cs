@@ -89,7 +89,7 @@ namespace LUP.ES
         {
             if (gun != null)
             {
-                maxRange = gun.weapon.range;
+                maxRange = gun.weaponItem.data.range;
             }
 
             Vector3 start = origin.position;

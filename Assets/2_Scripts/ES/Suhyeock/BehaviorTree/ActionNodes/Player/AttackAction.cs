@@ -2,12 +2,12 @@ using UnityEngine;
 
 namespace LUP.ES
 {
-    public class FireAction : BTNode
+    public class AttackAction : BTNode
     {
         private PlayerBlackboard blackboard;
         private CharacterController characterController;
 
-        public FireAction(PlayerBlackboard blackboard, CharacterController characterController)
+        public AttackAction(PlayerBlackboard blackboard, CharacterController characterController)
         {
             this.blackboard = blackboard;
             this.characterController = characterController;
@@ -23,13 +23,12 @@ namespace LUP.ES
                 Vector3 dir = new Vector3(horizontal, 0f, Vertical);
                 dir.Normalize();
                 characterController.transform.forward = dir;
-                //blackboard.isFiring = true;
-                blackboard.gun.Fire();
+                blackboard.weapon.Attack();
                 blackboard.playerOverheadUI.UpdateAmmoUI();
-                blackboard.gun.state = GunState.ATTACKING;
+                blackboard.weapon.state = WeaponState.ATTACKING;
                 return NodeState.Running;
             }
-            blackboard.gun.state = GunState.READY;
+            blackboard.weapon.state = WeaponState.READY;
             return NodeState.Success;
         }
 

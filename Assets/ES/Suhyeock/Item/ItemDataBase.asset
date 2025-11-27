@@ -13,111 +13,129 @@ MonoBehaviour:
   m_Name: ItemDataBase
   m_EditorClassIdentifier: 
   items:
-  - rid: 7161147223877877822
-  - rid: 7161147223877877823
-  - rid: 7161147223877877824
-  - rid: 7161147223877877825
-  - rid: 7161147223877877826
-  - rid: 7161147223877877827
-  - rid: 7161147223877877828
-  - rid: 7161147223877877829
+  - rid: 5261643148408389708
+  - rid: 5261643148408389709
+  - rid: 5261643148408389710
+  - rid: 5261643148408389711
+  - rid: 5261643148408389712
+  - rid: 5261643148408389713
+  - rid: 5261643148408389714
+  - rid: 5261643148408389715
+  - rid: 5261643148408389716
   references:
     version: 2
     RefIds:
-    - rid: 7161147223877877822
-      type: {class: WeaponItemData, ns: LUP.ES, asm: Assembly-CSharp}
+    - rid: 5261643148408389708
+      type: {class: RangedWeaponItemData, ns: LUP.ES, asm: Assembly-CSharp}
       data:
         id: 1
-        name: Pistol
-        type: 1
         iconName: Pistol
+        name: Pistol
         stackSize: 1
-        bulletSpeed: 10
+        itemType: 1
+        weaponType: 1
         damage: 5
         range: 10
+        timeBetAttack: 0.3
+        bulletSpeed: 10
         magCapacity: 8
-        timeBetFire: 0.3
         reloadTime: 1.2
-    - rid: 7161147223877877823
-      type: {class: WeaponItemData, ns: LUP.ES, asm: Assembly-CSharp}
+    - rid: 5261643148408389709
+      type: {class: RangedWeaponItemData, ns: LUP.ES, asm: Assembly-CSharp}
       data:
         id: 2
-        name: SMG
-        type: 1
         iconName: SMG
+        name: SMG
         stackSize: 1
-        bulletSpeed: 25
+        itemType: 1
+        weaponType: 1
         damage: 15
         range: 7
+        timeBetAttack: 0.1
+        bulletSpeed: 25
         magCapacity: 20
-        timeBetFire: 0.1
         reloadTime: 1.3
-    - rid: 7161147223877877824
-      type: {class: WeaponItemData, ns: LUP.ES, asm: Assembly-CSharp}
+    - rid: 5261643148408389710
+      type: {class: RangedWeaponItemData, ns: LUP.ES, asm: Assembly-CSharp}
       data:
         id: 3
-        name: AR
-        type: 1
         iconName: AR
+        name: AR
         stackSize: 1
-        bulletSpeed: 20
+        itemType: 1
+        weaponType: 1
         damage: 20
         range: 10
+        timeBetAttack: 0.15
+        bulletSpeed: 20
         magCapacity: 30
-        timeBetFire: 0.15
         reloadTime: 2
-    - rid: 7161147223877877825
-      type: {class: WeaponItemData, ns: LUP.ES, asm: Assembly-CSharp}
+    - rid: 5261643148408389711
+      type: {class: RangedWeaponItemData, ns: LUP.ES, asm: Assembly-CSharp}
       data:
         id: 4
-        name: LMG
-        type: 1
         iconName: LMG
+        name: LMG
         stackSize: 1
-        bulletSpeed: 25
+        itemType: 1
+        weaponType: 1
         damage: 17
         range: 20
+        timeBetAttack: 0.12
+        bulletSpeed: 25
         magCapacity: 100
-        timeBetFire: 0.12
         reloadTime: 4
-    - rid: 7161147223877877826
+    - rid: 5261643148408389712
       type: {class: ArmorItemData, ns: LUP.ES, asm: Assembly-CSharp}
       data:
         id: 5
-        name: Helmet
-        type: 2
         iconName: Helmet
+        name: Helmet
         stackSize: 1
+        itemType: 2
         defense: 5
         armorSlot: 0
-    - rid: 7161147223877877827
+    - rid: 5261643148408389713
       type: {class: ArmorItemData, ns: LUP.ES, asm: Assembly-CSharp}
       data:
         id: 6
-        name: BodyArmor
-        type: 2
         iconName: BodyArmor
+        name: BodyArmor
         stackSize: 1
+        itemType: 2
         defense: 5
         armorSlot: 1
-    - rid: 7161147223877877828
+    - rid: 5261643148408389714
       type: {class: ConsumableItemData, ns: LUP.ES, asm: Assembly-CSharp}
       data:
         id: 7
-        name: Bandage
-        type: 3
         iconName: Bandage
+        name: Bandage
         stackSize: 3
+        itemType: 3
         effectDuration: 5
         useTime: 5
         effectType: 0
         effectValue: 30
-    - rid: 7161147223877877829
+    - rid: 5261643148408389715
       type: {class: MaterialItemData, ns: LUP.ES, asm: Assembly-CSharp}
       data:
         id: 8
-        name: Key
-        type: 4
         iconName: Key
+        name: Key
         stackSize: 5
+        itemType: 4
         tier: 0
+    - rid: 5261643148408389716
+      type: {class: MeleeWeaponItemData, ns: LUP.ES, asm: Assembly-CSharp}
+      data:
+        id: 9
+        iconName: Sword
+        name: Sword
+        stackSize: 1
+        itemType: 1
+        weaponType: 0
+        damage: 30
+        range: 2
+        timeBetAttack: 0.8
+        attackAngle: 160

@@ -31,12 +31,12 @@ namespace LUP.ES
             {
                 int randomId = Random.Range(1, itemDataBase.GetItemCount() + 1);
                 BaseItemData itemData = itemDataBase.GetItemByID(randomId);
-                switch (itemData.type)
+                switch (itemData.itemType)
                 {
                     case ItemType.Weapon:
                         {
                             WeaponItemData weaponData = itemData as WeaponItemData;
-                            Weapon weapon = new Weapon(weaponData);
+                            WeaponItem weapon = new WeaponItem(weaponData);
                             generatedLoot.Add(weapon);
                         }
                         break;

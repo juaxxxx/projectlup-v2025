@@ -16,7 +16,7 @@ namespace LUP.ES
 
         public void OnReloadPressed()
         {
-            if (blackboard.gun.state == GunState.RELOADING)
+            if (blackboard.weapon.state == WeaponState.RELOADING)
                 return;
             blackboard.isReloadButtonPressed = true;
         }

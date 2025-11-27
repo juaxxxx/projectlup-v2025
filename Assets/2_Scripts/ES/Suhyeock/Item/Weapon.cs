@@ -1,25 +1,27 @@
+using LUP.ES;
 using UnityEngine;
 
 namespace LUP.ES
 {
-    public class Weapon : Item
+    public enum WeaponState
     {
-        public float bulletSpeed;
-        public float damage;
-        public float range;
-        public int magCapacity; // 탄창 용량
-        public float timeBetFire; // 총알 발사 간격
-        public float reloadTime; // 재장전 소요 시간
+        READY,
+        ATTACKING,
+        RELOADING,
+    }
 
-        public Weapon(WeaponItemData itemData) : base(itemData)
-        {
-            bulletSpeed = itemData.bulletSpeed;
-            damage = itemData.damage;
-            range = itemData.range;
-            magCapacity = itemData.magCapacity;
-            timeBetFire = itemData.timeBetFire;
-            reloadTime = itemData.reloadTime;
-            count = 1;
-        }
+
+    public abstract class Weapon : MonoBehaviour
+    {
+        [HideInInspector]
+        public EventBroker eventBroker;
+        [HideInInspector]
+        public WeaponState state;
+        [HideInInspector]
+        public WeaponItem weaponItem;
+
+        public abstract void Attack();
     }
 }
+
+

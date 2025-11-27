@@ -15,14 +15,9 @@ namespace LUP.ES
     {
         public MaterialTier tier;
 
-        public MaterialItemData(int id, string name, string iconName, MaterialTier tier, int stackSize)
+        public MaterialItemData(int id, string name, string iconName, MaterialTier tier, int stackSize) : base(id, name, iconName, stackSize)
         {
-            base.id = id;
-            this.name = name;
-            type = ItemType.Material;
-            this.iconName = iconName;
-            this.tier = tier;
-            this.stackSize = stackSize;
+            itemType = ItemType.Material;
         }
     }
 }

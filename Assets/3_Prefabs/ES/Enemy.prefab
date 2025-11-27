@@ -103,7 +103,7 @@ GameObject:
   - component: {fileID: 5974502463838644164}
   - component: {fileID: 2774155264405688990}
   - component: {fileID: 5857549374492609973}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Enemy
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -285,14 +285,17 @@ MonoBehaviour:
   damage: 10
   attackRange: 2
   detectionRange: 10
+  maxRange: 20
   attackSize: 1
   patrolRadius: 5
   LayerMask:
     serializedVersion: 2
     m_Bits: 16
   playerTransform: {fileID: 0}
+  isDetected: 0
   navMeshAgent: {fileID: 0}
   targetMovePosition: {x: 0, y: 0, z: 0}
+  initialPosition: {x: 0, y: 0, z: 0}
 --- !u!114 &5857549374492609973
 MonoBehaviour:
   m_ObjectHideFlags: 0

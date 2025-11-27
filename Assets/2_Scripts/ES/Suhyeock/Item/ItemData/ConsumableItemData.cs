@@ -17,17 +17,13 @@ namespace LUP.ES
         public float effectValue;     // 효과의 크기
 
 
-        public ConsumableItemData(int id, string name, string iconName, float effectDuration, float useTime, EffectType effectType, float effectValue, int stackSize)
+        public ConsumableItemData(int id, string name, string iconName, float effectDuration, float useTime, EffectType effectType, float effectValue, int stackSize) : base(id, name, iconName, stackSize)
         {
-            this.id = id;
-            this.name = name;
-            type = ItemType.Consumable;
-            this.iconName = iconName;
+            itemType = ItemType.Consumable;
             this.effectDuration = effectDuration;
             this.useTime = useTime;
             this.effectType = effectType;
             this.effectValue = effectValue;
-            this.stackSize = stackSize;
         }
     }
 }

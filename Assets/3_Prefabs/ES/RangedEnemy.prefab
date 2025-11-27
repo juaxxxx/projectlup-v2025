@@ -166,7 +166,7 @@ GameObject:
   - component: {fileID: 5974502463838644164}
   - component: {fileID: 1068742499048342183}
   - component: {fileID: 1592714663866799431}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: RangedEnemy
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -366,6 +366,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 16
   playerTransform: {fileID: 0}
+  isDetected: 0
   navMeshAgent: {fileID: 0}
   targetMovePosition: {x: 0, y: 0, z: 0}
   initialPosition: {x: 0, y: 0, z: 0}

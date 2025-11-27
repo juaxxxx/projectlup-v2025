@@ -8,15 +8,16 @@ namespace LUP.ES
     public class ItemDataBase : ScriptableObject
     {
         [SerializeReference]
-        private List<BaseItemData> items = new List<BaseItemData> {
-                new WeaponItemData(1, "Pistol", "Pistol", 10f, 5f, 10f, 8, 0.3f, 1.2f),
-                new WeaponItemData(2, "SMG", "SMG", 25f, 15f, 7f, 20, 0.1f, 1.3f),
-                new WeaponItemData(3, "AR", "AR", 20f, 20f, 10f, 30, 0.15f, 2.0f),
-                new WeaponItemData(4, "LMG", "LMG", 25f, 17f, 20f, 100, 0.12f, 4.0f),
+        public List<BaseItemData> items = new List<BaseItemData> {
+                new RangedWeaponItemData(1, "Pistol", "Pistol",  5f, 10f, 0.3f, 10f, 8,  1.2f),
+                new RangedWeaponItemData(2, "SMG", "SMG",  15f, 7f, 0.1f, 25f, 20, 1.3f),
+                new RangedWeaponItemData(3, "AR", "AR",  20f, 10f, 0.15f, 20f, 30, 2.0f),
+                new RangedWeaponItemData(4, "LMG", "LMG",  17f, 20f, 0.12f, 25f, 100, 4.0f),
                 new ArmorItemData(5, "Helmet", "Helmet",5, ArmorSlot.Head ),
                 new ArmorItemData(6, "BodyArmor", "BodyArmor",5, ArmorSlot.Body ),
                 new ConsumableItemData(7, "Bandage", "Bandage", 5.0f, 5.0f, EffectType.Heal, 30.0f, 3),
-                new MaterialItemData(8, "Key", "Key", MaterialTier.Common, 5)
+                new MaterialItemData(8, "Key", "Key", MaterialTier.Common, 5),
+                new MeleeWeaponItemData(9, "Sword", "Sword", 30.0f, 2f, 0.8f, 160f),
         };
 
         private Dictionary<int, BaseItemData> itemDictionary;

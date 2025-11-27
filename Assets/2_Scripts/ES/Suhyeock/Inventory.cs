@@ -22,7 +22,7 @@ namespace LUP.ES
         public bool AddItem(Item item)
         {
             // 1. 스택 가능한 아이템이라면 기존 슬롯 검색 후 추가 (Stacking Logic)
-            if (item.baseItem.type == ItemType.Consumable || item.baseItem.type == ItemType.Material)
+            if (item.baseItem.itemType == ItemType.Consumable || item.baseItem.itemType == ItemType.Material)
             {
                 for (int i = 0; i < slots.Count; i++)
                 {

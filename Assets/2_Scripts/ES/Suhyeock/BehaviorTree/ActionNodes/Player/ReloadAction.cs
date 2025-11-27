@@ -15,19 +15,24 @@ namespace LUP.ES
 
         public override NodeState Evaluate()
         {
-            if (blackboard.gun.state == GunState.RELOADING)
+            if (blackboard.weapon.state == WeaponState.RELOADING)
             {
                 return NodeState.Running;
             }
-            else if (blackboard.gun.state == GunState.READY && isReloadingStarted)
+            else if (blackboard.weapon.state == WeaponState.READY && isReloadingStarted)
             {
                 isReloadingStarted = false;
                 return NodeState.Success;
             }
-            blackboard.gun.Reload();
-            isReloadingStarted = true;
-            blackboard.isReloadButtonPressed = false;
-            return NodeState.Running;
+
+            if (blackboard.weapon is IReloadable reloadableWeapon)
+            {
+                reloadableWeapon.Reload();
+                isReloadingStarted = true;
+                blackboard.isReloadButtonPressed = false;
+                return NodeState.Running;
+            }
+            return NodeState.Failure;
         }
 
         public override void Reset()

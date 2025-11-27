@@ -14,6 +14,7 @@ namespace LUP.ES
         {
             characterController = GetComponent<CharacterController>();
             blackboard = GetComponent<PlayerBlackboard>();
+            blackboard.weapon.eventBroker = blackboard.eventBroker;
             blackboard.playerOverheadUI = GetComponent<PlayerOverheadUI>();
             
         }
@@ -60,18 +61,18 @@ namespace LUP.ES
          
             //4. 재장전, 공격, 이동
             AttackingCondition attackingCondition = new AttackingCondition(blackboard);
-            FireAction fireAction = new FireAction(blackboard, characterController);
-            Sequence handleAttackSequence = new Sequence(new List<BTNode> { attackingCondition, fireAction });
+            AttackAction attackAction = new AttackAction(blackboard, characterController);
+            Sequence handleAttackSequence = new Sequence(new List<BTNode> { attackingCondition, attackAction });
            
             ReloadCondition reloadCondition = new ReloadCondition(blackboard);
             ReloadAction reloadAction = new ReloadAction(blackboard);
             Sequence handleReloadSequence = new Sequence(new List<BTNode> { reloadCondition, reloadAction});
             
-            Selector handleGunActionsSelector = new Selector(new List<BTNode> { handleReloadSequence, handleAttackSequence });
+            Selector handleActionsSelector = new Selector(new List<BTNode> { handleReloadSequence, handleAttackSequence });
        
             MovingCondition movingCondition = new MovingCondition(blackboard);
             MoveAction moveAction = new MoveAction(blackboard, characterController);
-            Parallel combatParallel = new Parallel(new List<BTNode> { handleGunActionsSelector, movingCondition, moveAction });
+            Parallel combatParallel = new Parallel(new List<BTNode> { handleActionsSelector, movingCondition, moveAction });
 
 
             rootNode = new Selector(new List<BTNode>
