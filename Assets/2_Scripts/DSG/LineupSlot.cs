@@ -31,6 +31,10 @@ namespace LUP.DSG
         {
             slotTransform = this.transform;
             character = Instantiate(CharacterModelPrefab, slotTransform);
+
+            character.transform.localPosition = Vector3.zero;
+            character.transform.localScale = Vector3.one;
+
             character.gameObject.SetActive(false);
         }
 

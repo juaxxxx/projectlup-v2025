@@ -10,9 +10,6 @@ namespace LUP.DSG
 
         private GameObject currentModel;
 
-        /// <summary>
-        /// MVP 캐릭터 프리팹을 화면에 표시
-        /// </summary>
         public void ShowMVPModel(GameObject modelPrefab)
         {
             Clear();

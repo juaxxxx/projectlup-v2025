@@ -14,7 +14,7 @@ namespace LUP.DSG
         [SerializeField]
         private SkinnedMeshRenderer bodySkin;
         [SerializeField]
-        private MeshRenderer headSkin;
+        private SkinnedMeshRenderer headSkin;
 
         public StatusEffectComponent StatusEffectComp => statusEffectComp;
         public BattleComponent BattleComp => battleComp;
