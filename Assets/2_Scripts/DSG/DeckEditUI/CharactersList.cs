@@ -24,37 +24,23 @@ namespace LUP.DSG
 
         List<bool> SelectedOwnedList = new List<bool>();
 
-        private void Awake()
+        private void OnEnable()
         {
+            StageEnterSystem.OnAfterDSGStageEnter += Initialize;
+        }
+
+        private void OnDisable()
+        {
+            StageEnterSystem.OnAfterDSGStageEnter -= Initialize;
+        }
+
+        private void Initialize(DeckStrategyStage stage)
+        {
+
             List<OwnedCharacterInfo> characterList = dataCenter.GetOwnedCharacterList();
             for (int i = 0; i <= characterList.Count; ++i)
             {
                 SelectedOwnedList.Add(false);
-            }
-        }
-
-        private void Start()
-        {
-            //DeckStrategyStage stage = LUP.StageManager.Instance.GetCurrentStage() as DeckStrategyStage;
-            //if(stage != null)
-            //{
-            //    DeckStrategyRuntimeData runtimeData = (DeckStrategyRuntimeData)stage.RuntimeData;
-            //    List<OwnedCharacterInfo> characterList = dataCenter.GetOwnedCharacterList();
-            //    runtimeData.OwnedCharacterList = characterList;
-            //    testLog();
-            //}
-        }
-
-        private void testLog()
-        {
-            DeckStrategyStage stage = LUP.StageManager.Instance.GetCurrentStage() as DeckStrategyStage;
-            if (stage != null)
-            {
-                DeckStrategyRuntimeData runtimeData = (DeckStrategyRuntimeData)stage.RuntimeData;
-                foreach(OwnedCharacterInfo info in runtimeData.OwnedCharacterList)
-                {
-                    Debug.Log(info.characterID + ", " + info.characterModelID + ", " + info.characterLevel);
-                }
             }
         }
 
