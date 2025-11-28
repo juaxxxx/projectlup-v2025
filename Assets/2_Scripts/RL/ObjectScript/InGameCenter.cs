@@ -132,7 +132,7 @@ namespace LUP.RL
                     stageController.onStageClear.AddListener(GameClear);
 
                     //¿Ã∞≈ ø÷ æ»µ !!
-                    //controlledPlayer = stageController.player.gameObject.GetComponent<Archer>();
+                    controlledPlayer = stageController.player.gameObject.GetComponent<Archer>();
 
                     if (controlledPlayer == null)
                         UnityEngine.Debug.LogError("Fail to Find Player!!");

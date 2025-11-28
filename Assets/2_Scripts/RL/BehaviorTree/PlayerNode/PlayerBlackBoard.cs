@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace LUP.RL
 {
-    public class PlayerBlackBoard :MonoBehaviour
+    public class PlayerBlackBoard : MonoBehaviour
     {
         public Archer Health { get;  set; }
         public PlayerMove Move { get;  set; }
@@ -10,7 +10,6 @@ namespace LUP.RL
         public Transform currentRoom;
         public void Initialize(GameObject player)
         {
-               
             Move = player.GetComponent<PlayerMove>();
             Shooter = player.GetComponent<ShooterComp>();
             Health = player.GetComponent<Archer>();

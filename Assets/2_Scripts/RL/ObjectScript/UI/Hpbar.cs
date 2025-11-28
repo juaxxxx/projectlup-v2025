@@ -33,8 +33,7 @@ namespace LUP.RL
         {
             if (target == null)
                 Debug.Log("target null");
-            {
-            }
+           
         Vector3 worldPos = target.transform.position + offset;
        
         Vector3 screenPos = cam.WorldToScreenPoint(worldPos);

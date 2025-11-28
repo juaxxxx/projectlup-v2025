@@ -39,11 +39,9 @@ namespace LUP.RL
             bb = player.GetComponent<PlayerBlackBoard>();
             if (bb == null)
             {
-                Debug.LogError("StageCenter - PlayerBlackBoard가 Player에 없습니다!");
                 return;
             }
             bb.Initialize(player.gameObject);
-            //bb.SetCurrentRoom(currentRoom.transform);
         }
         public void LoadNextRoom()
         {
