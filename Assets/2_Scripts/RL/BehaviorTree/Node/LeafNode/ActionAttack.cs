@@ -40,6 +40,11 @@ namespace LUP.RL
             blackBoard.InAtkState = false;
             blackBoard.OnAtk = false;
         }
+
+        public override void OnAnimationInTargetRate()
+        {
+            //현재 애니메이션이, AnimController의 TargetRate일 경우 한번 호출(다른 상태 진입시, 초기화)
+        }
     }
 }
 

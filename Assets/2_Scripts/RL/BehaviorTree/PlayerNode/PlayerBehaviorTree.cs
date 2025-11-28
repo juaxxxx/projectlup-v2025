@@ -36,6 +36,11 @@ namespace LUP.RL
                 for (int i = 0; i < animatorCallBacks.Length; i++)
                 {
                     animatorCallBacks[i].SetAnimEndCallBack(OnAnimationEnd);
+
+                    if (animatorCallBacks[i].animTargetCallBackRate != 1.0f)
+                    {
+                        animatorCallBacks[i].SetAnimCallBBack(OnAnimationInTargetRate);
+                    }
                 }
             }
         }
@@ -100,12 +105,20 @@ namespace LUP.RL
 
             if (stateInfo.IsName("Wait") || stateInfo.IsName("MoveTo") || stateInfo.IsName("Attack"))
             {
-                //currentRunningActionNode = caller;
+                currentRunningLeafNode = caller;
                 animator.speed = palySpeed;
                 animator.Play(calledAnimName);
             }
 
 
+        }
+
+        public void OnAnimationInTargetRate(AnimatorStateInfo info)
+        {
+            if (currentRunningLeafNode == null)
+                return;
+
+            currentRunningLeafNode.OnAnimationInTargetRate();
         }
 
         public void OnAnimationEnd(AnimatorStateInfo info)

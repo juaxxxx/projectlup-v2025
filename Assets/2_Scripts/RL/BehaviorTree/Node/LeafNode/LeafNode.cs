@@ -14,6 +14,7 @@ namespace LUP.RL
         }
 
         public abstract void OnAnimationEnd(AnimatorStateInfo animInfo);
+        public virtual void OnAnimationInTargetRate() { }
 
         protected void SetNavAgentDeActivate(bool deActive)
         {

@@ -21,17 +21,26 @@ namespace LUP.RL
 
             if (Time.time - lastFireTime < bb.Shooter.fireDelay) return NodeState.Fail;
 
-            bt.PlayAnimation(ActionState.Attack, this);
-
-            Debug.Log("발사");
-            bb.Shooter.ShootArrow();
-            lastFireTime = Time.time;
+            if(bt.GetCurrentAnimState().IsName("Attack") == false)
+            {
+                bb.Shooter.TurnToTarget();
+                bt.PlayAnimation(ActionState.Attack, this);
+            }
+            //bb.Shooter.ShootArrow();
+            //lastFireTime = Time.time;
             return NodeState.Success;
         }
 
         public override void OnPlayerAnimationEnd(AnimatorStateInfo animInfo)
         {
 
+        }
+
+        public override void OnAnimationInTargetRate()
+        {
+            Debug.Log("발사");
+            bb.Shooter.ShootArrow();
+            lastFireTime = Time.time;
         }
     }
 

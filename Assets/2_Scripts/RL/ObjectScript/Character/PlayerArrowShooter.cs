@@ -19,6 +19,9 @@ namespace LUP.RL
 
         public Transform currentRoom;
         private float lastFireTime = 0f;
+
+        private Enemy targetEnemy;
+        private Vector3 fireDir;
         void Update()
         {
             //일정시간마다 공격하게끔
@@ -28,15 +31,14 @@ namespace LUP.RL
                 lastFireTime = Time.time;
             }
         }
-        public void ShootArrow()
+
+        public void TurnToTarget()
         {
             spawnPoint.rotation = Quaternion.LookRotation(this.transform.forward);
-            Enemy targetEnemy = FindClosestEnemy();
+            targetEnemy = FindClosestEnemy();
 
-            
-            Vector3 fireDir;
             if (targetEnemy == null || targetEnemy.Equals(null)) return;
-                fireDir = (targetEnemy.transform.position - this.transform.position).normalized;
+            fireDir = (targetEnemy.transform.position - this.transform.position).normalized;
 
             fireDir.y = 0f;
             if (fireDir.sqrMagnitude > 0.01f)
@@ -46,6 +48,25 @@ namespace LUP.RL
                 // 보간
                 transform.rotation = Quaternion.Slerp(transform.rotation, lookRot, 1.5f);
             }
+        }
+        public void ShootArrow()
+        {
+            //spawnPoint.rotation = Quaternion.LookRotation(this.transform.forward);
+            //Enemy targetEnemy = FindClosestEnemy();
+
+            
+            //Vector3 fireDir;
+            //if (targetEnemy == null || targetEnemy.Equals(null)) return;
+            //    fireDir = (targetEnemy.transform.position - this.transform.position).normalized;
+
+            //fireDir.y = 0f;
+            //if (fireDir.sqrMagnitude > 0.01f)
+            //{
+            //    //fireDir을 바라보는 회전값 쿼터니언 생성.
+            //    Quaternion lookRot = Quaternion.LookRotation(fireDir);
+            //    // 보간
+            //    transform.rotation = Quaternion.Slerp(transform.rotation, lookRot, 1.5f);
+            //}
             //   화살생성
             GameObject arrow = Instantiate(arrowPrefab, spawnPoint.position, Quaternion.LookRotation(fireDir));
 
