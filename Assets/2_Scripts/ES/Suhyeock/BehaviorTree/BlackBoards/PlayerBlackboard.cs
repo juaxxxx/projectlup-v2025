@@ -18,7 +18,7 @@ namespace LUP.ES
         public FixedJoystick rightJoystick;
         public LayerMask InteractableLayer;
         public EventBroker eventBroker;
-        public Gun gun;
+        public Weapon weapon;
         public InteractionDetector InteractionDetector;
 
         [HideInInspector]

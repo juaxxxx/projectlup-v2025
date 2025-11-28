@@ -12,21 +12,26 @@ namespace LUP.ES
 
         public override NodeState Evaluate()
         {
-            if (blackboard.gun.magAmmo == blackboard.gun.weapon.magCapacity)
+            if(blackboard.weapon.weaponItem.data.weaponType == WeaponType.Melee)
+                return NodeState.Failure;
+            Gun gun = blackboard.weapon as Gun;
+            if (gun == null)
+                return NodeState.Failure;
+            RangedWeaponItemData data = blackboard.weapon.weaponItem.data as RangedWeaponItemData;
+            if (data != null && gun.magAmmo == data.magCapacity)
             {
                 blackboard.isReloadButtonPressed = false;
                 return NodeState.Failure;
             }
 
-            if (blackboard.gun.state == GunState.RELOADING)
+            if (blackboard.weapon.state == WeaponState.RELOADING)
             {
                 return NodeState.Running;
             }
-            if (blackboard.gun.magAmmo <= 0 || blackboard.isReloadButtonPressed == true)
+            if (gun.magAmmo <= 0 || blackboard.isReloadButtonPressed == true)
             {
                 return NodeState.Success;
             }
-
             return NodeState.Failure;
         }
 

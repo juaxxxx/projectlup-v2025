@@ -3,60 +3,55 @@ using UnityEngine;
 
 namespace LUP.ES
 {
-    public enum GunState
-    {
-        READY,
-        ATTACKING,
-        RELOADING,
-    }
 
-    public class Gun : MonoBehaviour
+    public class Gun : Weapon, IReloadable
     {
         public ItemDataBase itemDataBase; //임시
         public int selectedWeaponId = 1; //임시
 
-        public EventBroker eventBroker;
+        //public EventBroker eventBroker;
         //public GunData gunData;
-        public Weapon weapon;
         public GameObject bulletPrefab;
         private BulletObjectPool bulletPool;
         public Transform firePoint;
-        [HideInInspector]
-        public GunState state;
 
         [HideInInspector]
         public int ammoRemain = 0;
         [HideInInspector]
         public int magAmmo = 0;
-        private float nextFireTime = 0f;
+        private float nextAttackTime = 0f;
 
         private void Awake()
         {
             bulletPool = GetComponent<BulletObjectPool>();
-            //ammoRemain = gunData.startAmmoRemain;
         }
+
         private void Start()
         {
-            state = GunState.READY;
+            state = WeaponState.READY;
             BaseItemData itemData = itemDataBase.GetItemByID(selectedWeaponId);
-            WeaponItemData weaponData = itemData as WeaponItemData;
-            weapon = new Weapon(weaponData);
-            magAmmo = weapon.magCapacity;
-            bulletPool.Init(bulletPrefab);
+            RangedWeaponItemData weaponData = itemData as RangedWeaponItemData;
+            weaponItem = new WeaponItem(weaponData);
+            if (weaponData != null)
+            {
+                magAmmo = weaponData.magCapacity;
+                bulletPool.Init(bulletPrefab);
+            }
         }
-        public void Fire()
+        public override void Attack()
         {
-            if (Time.time < nextFireTime)
+            if (Time.time < nextAttackTime)
             {
                 return;
             }
 
-            nextFireTime = Time.time + weapon.timeBetFire;
+            nextAttackTime = Time.time + weaponItem.data.timeBetAttack;
             GameObject obj = bulletPool.Get();
             Bullet bullet = obj.GetComponent<Bullet>();
+            RangedWeaponItemData data = weaponItem.data as RangedWeaponItemData;
             if (bullet != null)
             {
-                bullet.Init(bulletPool, firePoint.position, firePoint.rotation, weapon.range, weapon.damage, weapon.bulletSpeed);
+                bullet.Init(bulletPool, firePoint.position, firePoint.rotation, data.range, data.damage, data.bulletSpeed);
                 magAmmo--;
                 return;
             }
@@ -70,17 +65,18 @@ namespace LUP.ES
 
         private IEnumerator ReloadRoutine()
         {
-            state = GunState.RELOADING;
+            state = WeaponState.RELOADING;
             float timer = 0f;
             //yield return new WaitForSeconds(gunData.reloadTime);
-            while (timer < weapon.reloadTime)
+            RangedWeaponItemData data = weaponItem.data as RangedWeaponItemData;
+            while (timer < data.reloadTime)
             {
                 timer += Time.deltaTime;
-                eventBroker.ReloadTimeUpdate(timer, weapon.reloadTime);
+                eventBroker.ReloadTimeUpdate(timer, data.reloadTime);
                 yield return null;
             }
-            state = GunState.READY;
-            magAmmo = weapon.magCapacity;
+            state = WeaponState.READY;
+            magAmmo = data.magCapacity;
         }
     }
 

@@ -6,7 +6,7 @@ namespace LUP.ES
     {
         public ItemDataBase itemDataBase; //임시
         public int selectedWeaponId = 1; //임시
-        public Weapon weapon;
+        public WeaponItem weapon;
         public GameObject bulletPrefab;
         private BulletObjectPool bulletPool;
         public Transform firePoint;
@@ -22,7 +22,7 @@ namespace LUP.ES
         {
             BaseItemData itemData = itemDataBase.GetItemByID(selectedWeaponId);
             WeaponItemData weaponData = itemData as WeaponItemData;
-            weapon = new Weapon(weaponData);
+            weapon = new WeaponItem(weaponData);
             bulletPool.Init(bulletPrefab);
         }
 
@@ -34,12 +34,13 @@ namespace LUP.ES
                 return false;
             }
 
-            nextFireTime = Time.time + weapon.timeBetFire;
+            nextFireTime = Time.time + weapon.data.timeBetAttack;
             GameObject obj = bulletPool.Get();
             Bullet bullet = obj.GetComponent<Bullet>();
             if (bullet != null)
             {
-                bullet.Init(bulletPool, firePoint.position, firePoint.rotation, weapon.range, weapon.damage, weapon.bulletSpeed);
+                RangedWeaponItemData data = weapon.data as RangedWeaponItemData;
+                bullet.Init(bulletPool, firePoint.position, firePoint.rotation, weapon.data.range, weapon.data.damage, data.bulletSpeed);
                 return true;
             }
             return true;

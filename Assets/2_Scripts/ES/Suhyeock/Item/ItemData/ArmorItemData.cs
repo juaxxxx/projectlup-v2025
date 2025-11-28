@@ -16,15 +16,11 @@ namespace LUP.ES
         public int defense;
         public ArmorSlot armorSlot;
 
-        public ArmorItemData(int id, string name, string iconName, int defense, ArmorSlot armorSlot)
+        public ArmorItemData(int id, string name, string iconName, int defense, ArmorSlot armorSlot) : base(id, name, iconName, 1) 
         {
-            this.id = id;
-            this.name = name;
-            type = ItemType.Armor;
-            this.iconName = iconName;
+            itemType = ItemType.Armor;
             this.defense = defense;
             this.armorSlot = armorSlot;
-            stackSize = 1;
         }
     }
 }

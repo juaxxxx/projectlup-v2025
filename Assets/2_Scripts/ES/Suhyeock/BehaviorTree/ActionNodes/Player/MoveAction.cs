@@ -25,7 +25,7 @@ namespace LUP.ES
 
                 characterController.Move(dir * blackboard.speed * Time.deltaTime);
 
-                if (dir != Vector3.zero && blackboard.gun.state != GunState.ATTACKING)
+                if (dir != Vector3.zero && blackboard.weapon.state != WeaponState.ATTACKING)
                     characterController.transform.forward = dir; //플레이어의 이동 방향으로 회전
 
                 blackboard.moveState = MoveState.MOVING;
