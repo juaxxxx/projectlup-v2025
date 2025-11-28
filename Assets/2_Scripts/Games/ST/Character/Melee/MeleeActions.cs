@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System;
+
 namespace LUP.ST
 {
 
@@ -8,6 +9,7 @@ namespace LUP.ST
     {
         MeleeBlackBoard bb;
         StatComponent stats;
+        VisualComponent visual;
 
         // 이동 제어용
         private bool isStopped = false;
@@ -21,6 +23,7 @@ namespace LUP.ST
         {
             bb = GetComponent<MeleeBlackBoard>();
             stats = GetComponent<StatComponent>();
+            visual = GetComponent<VisualComponent>();
         }
 
         // 사망: 애니 등 실행. 트리는 Retire가 RUNNING이면 멈춘다고 가정
@@ -44,6 +47,7 @@ namespace LUP.ST
             }
 
             // 이동
+            visual?.SetMoving(true);
             bb.InCover = false;
             isStopped = false;
             MoveTowards(dst);
@@ -65,6 +69,7 @@ namespace LUP.ST
             if (bb.Target == null)
             {
                 Debug.Log($"{name} ▶ MoveToEnemy 실패 (Target 없음)");
+                visual?.SetMoving(false);
                 return NodeState.FAILURE;
             }
 
@@ -83,10 +88,12 @@ namespace LUP.ST
             if (dist <= attackRange)
             {
                 Debug.Log($"{name} ▶ 공격 사거리 진입");
+                visual?.SetMoving(false);
                 return MeleeAttackLoop();
             }
 
             // 아직 공격 거리 밖이면 이동
+            visual?.SetMoving(true);
             isStopped = false;
             Vector3 targetPos = bb.Target.position;
             MoveTowards(targetPos);
@@ -98,6 +105,7 @@ namespace LUP.ST
         public NodeState MeleeAttackLoop()
         {
             // 정지(공격시 위치 고정)
+            visual?.SetMoving(false);
             isStopped = true;
 
             if (stats.IsDead)
@@ -168,6 +176,7 @@ namespace LUP.ST
         {
             if (!isStopped)
             {
+                visual?.SetMoving(false);
                 Debug.Log($"{name} ▶ Idle 진입");
             }
             isStopped = true; // Idle이면 정지 상태(필요 시 소폭 흔들기 추가)

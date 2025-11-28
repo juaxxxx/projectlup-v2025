@@ -33,6 +33,7 @@ namespace LUP.ST
         [HideInInspector] public float attackStartTime = -999f;
         [HideInInspector] public float lastAttackEndTime = -999f;
 
+
         // 버프 추적 (중첩 방지)
         private Dictionary<string, Coroutine> activeBuffs = new Dictionary<string, Coroutine>();
         private Dictionary<string, float> buffMultipliers = new Dictionary<string, float>();
@@ -40,6 +41,8 @@ namespace LUP.ST
         // 이벤트
         public event Action<float, float> OnHealthChanged;
         public event Action OnDeath;
+
+        private VisualComponent visualComponent;
 
         // 프로퍼티
         public float MaxHealth => maxHealth;
@@ -60,6 +63,9 @@ namespace LUP.ST
             currentHealth = maxHealth;
             activeBuffs = new Dictionary<string, Coroutine>();
             buffMultipliers = new Dictionary<string, float>();
+
+            // Visual 컴포넌트 참조만 가져오기
+            visualComponent = GetComponent<VisualComponent>();
         }
 
         // IDamageable 구현
@@ -70,6 +76,9 @@ namespace LUP.ST
             float actualDamage = Mathf.Max(damage - defense, 0);
             currentHealth -= actualDamage;
             currentHealth = Mathf.Max(currentHealth, 0);
+
+            // Visual 컴포넌트에 알림
+            visualComponent?.PlayHitAnimation();
 
             OnHealthChanged?.Invoke(currentHealth, maxHealth);
 
@@ -110,6 +119,9 @@ namespace LUP.ST
             if (!CanStartAttack()) return;
             isAttacking = true;
             attackStartTime = Time.time;
+
+            // Visual 컴포넌트에 알림
+            visualComponent?.PlayAttackAnimation();
         }
 
         public AttackState UpdateAttack()
