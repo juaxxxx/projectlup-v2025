@@ -14,7 +14,7 @@ namespace LUP.PCR
         {
             this.BB = blackboard;
 
-            // 지연 초기화: 생성 시점에 아직 OwnerAI가 없을 수 있으므로 TryGet로 안전하게 캐싱
+            // 지연 초기화: 생성 시점에 아직 참조할 컴포넌트가 없을 수 있으므로 TryGet로 안전하게 캐싱
             if (BB.TryGetValue<WorkerAI>(BBKeys.OwnerAI, out var ai)) OwnerAI = ai;
             if (BB.TryGetValue<Worker>(BBKeys.Self, out var w)) WorkerComp = w;
             if (BB.TryGetValue<IUnitMoveable>(BBKeys.UnitMover, out var m)) Mover = m;

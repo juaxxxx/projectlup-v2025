@@ -17,13 +17,12 @@ namespace LUP.PCR
 
         //[SerializeField] int gridXCount = 10;
         //[SerializeField] int gridYCount = 10;
+
         /// <summary>
         /// 데이터 연결 전 워커 행동트리 테스트용 임시데이터
-        // from PCRDataCenter CreateGrid()
-        /// </summary>
-
         /// PCRGameSystem 혹은 초기화 매니저에서 호출해야 함
         /// <param name="tileData">PCRDataCenter의 TileInfo 배열</param>
+        /// </summary>
         public void InitMap(TileInfo[,] tileData)
         {
             gridStartPoint = transform.position;
@@ -47,8 +46,8 @@ namespace LUP.PCR
                     Vector3 worldPosition =
                         GridToWorldPosition(new Vector2Int(x, y));
 
-                    bool walkable = sourceInfoTiles[x, y].tileType != TileType.WALL;
-                    //!Physics.CheckSphere(worldPosition, tileSize * 0.4f, unwalkableMask);
+                    //bool walkable = sourceInfoTiles[x, y].tileType != TileType.WALL;
+                    bool walkable = !Physics.CheckSphere(worldPosition, tileSize * 0.4f, unwalkableMask);
 
                     grid[x, y] = new ANode(walkable, worldPosition, x, y);
                 }
@@ -96,8 +95,8 @@ namespace LUP.PCR
 
             foreach (var node in grid)
             {
-                //Gizmos.color = node.isWalkable ? Color.green : Color.red;
-                //Gizmos.DrawCube(node.worldPos, Vector3.one * (tileSize * 0.9f));
+                Gizmos.color = node.isWalkable ? Color.green : Color.red;
+                Gizmos.DrawCube(node.worldPos, Vector3.one * (tileSize * 0.9f));
             }
 
             if (pathToDraw != null)
@@ -105,7 +104,7 @@ namespace LUP.PCR
                 Gizmos.color = Color.yellow;
                 for (int i = 0; i < pathToDraw.Count - 1; i++)
                 {
-                    //Gizmos.DrawLine(pathToDraw[i].worldPos, pathToDraw[i + 1].worldPos);
+                    Gizmos.DrawLine(pathToDraw[i].worldPos, pathToDraw[i + 1].worldPos);
 
                 }
             }
