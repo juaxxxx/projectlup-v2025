@@ -13,14 +13,26 @@ namespace LUP.DSG
         public CharacterModelDataTable characterModelDataTable;
         public TeamMVPData mvpData;
 
-        //List<DeckScriptData> dataList;
+        List<OwnedCharacterInfo> ownedCharacterList;
 
-
-        private void Awake()
+        private void OnEnable()
         {
-            //DeckStrategyStage stage = Manager.StageManager.Instance.GetCurrentStage() as DeckStrategyStage;
-            //DeckStaticData staticData = (DeckStaticData)stage.StaticData;
-            //dataList = staticData.GetDataList();
+            StageEnterSystem.OnAfterDSGStageEnter += Initialize;
+        }
+
+        private void OnDisable()
+        {
+            StageEnterSystem.OnAfterDSGStageEnter -= Initialize;
+        }
+
+        private void Initialize(DeckStrategyStage stage)
+        {
+            if (stage != null)
+            {
+                DeckStrategyRuntimeData runtimeData = (DeckStrategyRuntimeData)stage.RuntimeData;
+
+                ownedCharacterList = runtimeData.OwnedCharacterList;
+            }
         }
 
         public CharacterData FindCharacterData(int ID)
@@ -51,24 +63,22 @@ namespace LUP.DSG
 
         public List<OwnedCharacterInfo> GetOwnedCharacterList()
         {
+            if(ownedCharacterList != null && ownedCharacterList.Count > 0)
+            {
+                return ownedCharacterList;
+            }
             return ownedCharacterTable.ownedCharacterList;
         }
 
-        //public DeckScriptData GetCharacterStatus(int id, int level)
-        //{
-        //    string keyString = (id*100 + level).ToString();
-        //    int key = int.Parse(keyString);
+        public void SetOwnedCharacterList()
+        {
+            DeckStrategyStage stage = LUP.StageManager.Instance.GetCurrentStage() as DeckStrategyStage;
+            if (stage != null)
+            {
+                DeckStrategyRuntimeData runtimeData = (DeckStrategyRuntimeData)stage.RuntimeData;
 
-        //    foreach(var data in dataList)
-        //    {
-        //        if(data.tableId == key)
-        //        {
-        //            return data;
-        //        }
-        //    }
-
-        //    return null;
-        //}
-
+                ownedCharacterList = runtimeData.OwnedCharacterList;
+            }
+        }
     }
 }
