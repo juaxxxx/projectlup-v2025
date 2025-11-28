@@ -46,18 +46,17 @@ namespace LUP.PCR
         //    currentIndex = 0;
         //}
 
-        // BT - 사용할 목적지 설정
         public void SetDestination(Vector3 worldPos)
         {
             if (gridMap == null || pathfinder == null) return;
-            
+
             ANode startNode = gridMap.GetNodeFromWorldPosition(transform.position);
             ANode targetNode = gridMap.GetNodeFromWorldPosition(worldPos);
             path = pathfinder.FindPath(startNode, targetNode);
             currentIndex = 0;
-            
+
             gridMap.pathToDraw = path; // 경로 시각화용
-            
+
             if (path != null && path.Count > 0)
                 currentDestination = gridMap.GetNodeWorldPosition(path[path.Count - 1]);
             else
@@ -65,6 +64,24 @@ namespace LUP.PCR
 
             MoveAlongPath();
         }
+
+        // BT - 사용할 목적지 설정
+        public void SetDestination(Vector2Int gridPos)
+        {
+            if (gridMap == null || pathfinder == null) return;
+
+            ANode startNode = gridMap.GetNodeFromWorldPosition(transform.position);
+            ANode targetNode = gridMap.GetNodeFromGridPos(gridPos);
+            
+            if(targetNode != null && targetNode.isWalkable)
+            {
+                path = pathfinder.FindPath(startNode, targetNode);
+            }
+            
+        }
+
+
+
 
         // BT - 목적지 도착 확인용
         public bool IsArrived()

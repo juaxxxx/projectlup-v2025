@@ -1,4 +1,4 @@
-using UnityEngine;
+ï»¿using UnityEngine;
 using System.Collections.Generic;
 
 namespace LUP.PCR
@@ -7,73 +7,89 @@ namespace LUP.PCR
     {
         [Header("Map Settings")]
         [SerializeField] float tileSize = 5f;
-        [SerializeField] int gridXCount = 10;
-        [SerializeField] int gridYCount = 10;
-        [SerializeField] LayerMask unwalkableMask;
+        [SerializeField] LayerMask unwalkableMask; // wall
 
         public ANode[,] grid;
+        public TileInfo[,] sourceInfoTiles;
+
         Vector3 gridStartPoint;
         [HideInInspector] public List<ANode> pathToDraw;
 
+        //[SerializeField] int gridXCount = 10;
+        //[SerializeField] int gridYCount = 10;
         /// <summary>
-        /// µ¥ÀÌÅÍ ¿¬°á Àü ¿öÄ¿ Çàµ¿Æ®¸® Å×½ºÆ®¿ë ÀÓ½Ãµ¥ÀÌÅÍ
-
-        PCRDataCenter pcrDataCenter;
+        /// ë°ì´í„° ì—°ê²° ì „ ì›Œì»¤ í–‰ë™íŠ¸ë¦¬ í…ŒìŠ¤íŠ¸ìš© ì„ì‹œë°ì´í„°
         // from PCRDataCenter CreateGrid()
-        public TileInfo[,] tileInfoes;
-        int tileMapWidth = 28;
-        int tileMapHeight = 15;
-        
-        //
-
-
         /// </summary>
 
-        private void Awake()
+        /// PCRGameSystem í˜¹ì€ ì´ˆê¸°í™” ë§¤ë‹ˆì €ì—ì„œ í˜¸ì¶œí•´ì•¼ í•¨
+        /// <param name="tileData">PCRDataCenterì˜ TileInfo ë°°ì—´</param>
+        public void InitMap(TileInfo[,] tileData)
         {
             gridStartPoint = transform.position;
-            CreateGrid();
+            sourceInfoTiles = tileData;
+            CreateGridFromData();
         }
 
-        void CreateGrid()
+        void CreateGridFromData()
         {
-            tileInfoes = pcrDataCenter.tileInfoes;
+            if (sourceInfoTiles == null) { return; }
 
-            grid = new ANode[tileMapWidth, tileMapHeight];
+            int width = sourceInfoTiles.GetLength(0);
+            int height = sourceInfoTiles.GetLength(1);
 
-            for (int x = 0; x < tileMapWidth; x++)
+            grid = new ANode[width, height];
+
+            for (int x = 0; x < width; x++)
             {
-                for (int y = 0; y < tileMapHeight; y++)
+                for (int y = 0; y < height; y++)
                 {
                     Vector3 worldPosition =
-                        gridStartPoint + new Vector3(x * tileSize + tileSize / 2f, y * tileSize + tileSize / 2f, 0);
+                        GridToWorldPosition(new Vector2Int(x, y));
 
+                    bool walkable = sourceInfoTiles[x, y].tileType != TileType.WALL;
+                    //!Physics.CheckSphere(worldPosition, tileSize * 0.4f, unwalkableMask);
 
-
-
-                    bool walkable = !Physics.CheckSphere(worldPosition, tileSize * 0.4f, unwalkableMask);
-
-                    
-                    
-                    
                     grid[x, y] = new ANode(walkable, worldPosition, x, y);
                 }
             }
 
         }
 
+        // Vector2Int(ë°ì´í„°ì¢Œí‘œ) -> Vector3(ì›”ë“œ ì¢Œí‘œ) ë³€í™˜ 
+        public Vector3 GridToWorldPosition(Vector2Int gridPos)
+        {
+            return gridStartPoint + new Vector3(gridPos.x * tileSize + tileSize / 2f, gridPos.y * tileSize + tileSize / 2f, 0);
+        }
+
+        // Vector3(ì›”ë“œ ì¢Œí‘œ) -> ANode (ë‚´ë¶€ì— x, y ì¸ë±ìŠ¤ í¬í•¨)
         public ANode GetNodeFromWorldPosition(Vector3 worldPosition)
         {
-            int x = Mathf.Clamp(Mathf.FloorToInt((worldPosition.x - gridStartPoint.x) / tileSize), 0, gridXCount - 1);
-            int y = Mathf.Clamp(Mathf.FloorToInt((worldPosition.y - gridStartPoint.y) / tileSize), 0, gridYCount - 1);
+            if (grid == null) { return null; }
+
+            int x = Mathf.Clamp(Mathf.FloorToInt((worldPosition.x - gridStartPoint.x) / tileSize), 0, grid.GetLength(0) - 1);
+            int y = Mathf.Clamp(Mathf.FloorToInt((worldPosition.y - gridStartPoint.y) / tileSize), 0, grid.GetLength(1) - 1);
 
             return grid[x, y];
+        }
 
+        public ANode GetNodeFromGridPos(Vector2Int pos)
+        {
+            if(grid == null) { return null; }
+            
+            if(pos.x >= 0 && pos.y >= 0 && pos.x < grid.GetLength(0) && pos.y < grid.GetLength(1))
+            {
+
+                return grid[pos.x, pos.y];
+            }
+
+            return null;
         }
         public Vector3 GetNodeWorldPosition(ANode node)
         {
             return node.worldPos;
         }
+
         private void OnDrawGizmos()
         {
             if (grid == null) return;
@@ -82,9 +98,6 @@ namespace LUP.PCR
             {
                 //Gizmos.color = node.isWalkable ? Color.green : Color.red;
                 //Gizmos.DrawCube(node.worldPos, Vector3.one * (tileSize * 0.9f));
-
-
-
             }
 
             if (pathToDraw != null)
@@ -94,120 +107,9 @@ namespace LUP.PCR
                 {
                     //Gizmos.DrawLine(pathToDraw[i].worldPos, pathToDraw[i + 1].worldPos);
 
-
-
-
-
                 }
             }
         }
 
     }
-
 }
-
-/*
-         [Header("Map Settings")]
-    [SerializeField] float tileSize = 5f;
-    [SerializeField] LayerMask unwalkableMask; // wall
-
-    public ANode[,] grid;
-    public TileInfo[,] sourceInfoTiles;
-
-    Vector3 gridStartPoint;
-    [HideInInspector] public List<ANode> pathToDraw;
-
-    //[SerializeField] int gridXCount = 10;
-    //[SerializeField] int gridYCount = 10;
-    /// <summary>
-    /// µ¥ÀÌÅÍ ¿¬°á Àü ¿öÄ¿ Çàµ¿Æ®¸® Å×½ºÆ®¿ë ÀÓ½Ãµ¥ÀÌÅÍ
-    // from PCRDataCenter CreateGrid()
-    //int tileMapWidth = 28;
-    //int tileMapHeight = 15; // dataCenter.tileMapWidth, tileMapHeight
-    /// </summary>
-
-    /// <summary>
-    /// PCRGameSystem È¤Àº ÃÊ±âÈ­ ¸Å´ÏÀú¿¡¼­ È£ÃâÇØ¾ß ÇÔ
-    /// </summary>
-    /// <param name="tileData">PCRDataCenterÀÇ TileInfo ¹è¿­</param>
-    public void InitMap(TileInfo[,] tileData)
-    {
-        gridStartPoint = transform.position;
-        sourceInfoTiles = tileData;
-        CreateGridFromData();
-    }
-
-    void CreateGridFromData()
-    {
-        if (sourceInfoTiles == null) { return; }
-
-        int width = sourceInfoTiles.GetLength(0);
-        int height = sourceInfoTiles.GetLength(1);
-
-        grid = new ANode[width, height];
-
-        for (int x = 0; x < width; x++)
-        {
-            for (int y = 0; y < height; y++)
-            {
-                Vector3 worldPosition =
-                    GridToWorldPosition(new Vector2Int(x, y));
-
-                bool walkable = !Physics.CheckSphere(worldPosition, tileSize * 0.4f, unwalkableMask);
-
-                grid[x, y] = new ANode(walkable, worldPosition, x, y);
-            }
-        }
-
-    }
-
-    public Vector3 GridToWorldPosition(Vector2Int gridPos)
-    {
-        return gridStartPoint + new Vector3(gridPos.x * tileSize + tileSize / 2f, gridPos.y * tileSize + tileSize / 2f, 0);
-    }
-
-
-
-    //public ANode GetNodeFromWorldPosition(Vector3 worldPosition)
-    //{
-    //    int x = Mathf.Clamp(Mathf.FloorToInt((worldPosition.x - gridStartPoint.x) / tileSize), 0, gridXCount - 1);
-    //    int y = Mathf.Clamp(Mathf.FloorToInt((worldPosition.y - gridStartPoint.y) / tileSize), 0, gridYCount - 1);
-
-    //    return grid[x, y];
-
-    //}
-    public Vector3 GetNodeWorldPosition(ANode node)
-    {
-        return node.worldPos;
-    }
-
-    private void OnDrawGizmos()
-    {
-        if (grid == null) return;
-
-        foreach (var node in grid)
-        {
-            //Gizmos.color = node.isWalkable ? Color.green : Color.red;
-            //Gizmos.DrawCube(node.worldPos, Vector3.one * (tileSize * 0.9f));
-
-
-
-        }
-
-        if (pathToDraw != null)
-        {
-            Gizmos.color = Color.yellow;
-            for (int i = 0; i < pathToDraw.Count - 1; i++)
-            {
-                //Gizmos.DrawLine(pathToDraw[i].worldPos, pathToDraw[i + 1].worldPos);
-
-
-
-
-
-            }
-        }
-    }
-
-}
- */
