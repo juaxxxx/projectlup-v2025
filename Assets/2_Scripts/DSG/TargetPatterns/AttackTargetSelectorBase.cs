@@ -7,7 +7,7 @@ namespace LUP.DSG
     {
         protected readonly BattleSystem battle;
         protected AttackTargetSelectorBase(BattleSystem battlesystem) => battle = battlesystem;
-        public abstract LineupSlot SelectTarget(Character attacker);
+        public abstract LineupSlot SelectEnemyTarget(Character attacker);
 
         protected List<LineupSlot> GetAliveTargetList(Character character)
         {

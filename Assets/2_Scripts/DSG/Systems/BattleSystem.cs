@@ -202,15 +202,17 @@ namespace LUP.DSG
                 if (slot.character != null && slot.isPlaced)
                 {
                     slot.ActivateBattleUI();
+                    slot.character.BattleComp.PlusGuage(50);
                 }
             }
 
             for (int i = 0; i < enemySlots.Length; i++)
             {
-                var slot = enemySlots[i].GetComponent<LineupSlot>();
+                var slot = enemySlots[i].GetComponent<LineupSlot>(); //andi
                 if (slot.character != null)
                 {
                     slot.ActivateBattleUI();
+                    slot.character.BattleComp.PlusGuage(50);
                 }
             }
 
@@ -244,10 +246,19 @@ namespace LUP.DSG
             if (turnText != null)
                 turnText.text = $"{currentChar.characterData.characterName} Turn";
 
-            LineupSlot targetslot = targetSelector.SelectTarget(currentChar);
-            currentChar.BattleComp.Attack(targetslot);
+            if(currentChar.BattleComp.isSkillOn)
+            {
+                List<LineupSlot> targetList = GetSkillTargets(currentChar);
+                currentChar.BattleComp.Skill(targetList);
+                StartCoroutine(WaitForAttackEnd(currentChar));
+            }
+            else
+            {
+                LineupSlot targetslot = targetSelector.SelectEnemyTarget(currentChar);
+                currentChar.BattleComp.Attack(targetslot);
+                StartCoroutine(WaitForAttackEnd(currentChar));
+            }
 
-            StartCoroutine(WaitForAttackEnd(currentChar));
             return;
         }
         public void BackupScore(Character c)
@@ -387,7 +398,28 @@ namespace LUP.DSG
                     break;
             }
         }
+        private List<LineupSlot> GetSkillTargets(Character caster)
+        {
+            var result = new List<LineupSlot>();
+            int targetCount = 1;
 
+            PickRandomTarget randomSelector = new PickRandomTarget(this);
+
+            if (caster.BattleComp.skillInfo != null)
+                targetCount = Mathf.Max(1, caster.BattleComp.skillInfo.targetCount);
+
+            for (int i = 0; i < targetCount; i++)
+            {
+                var target = randomSelector.SelectEnemyTarget(caster);
+                if (target == null)
+                    break;
+
+                if (!result.Contains(target))
+                    result.Add(target);
+            }
+
+            return result;
+        }
         private void UpdateUI()
         {
             if (roundText != null)
@@ -424,6 +456,21 @@ namespace LUP.DSG
 
             CheckBattleEnd();
         }
+
+        //private IEnumerator WaitforSkillEnd(Character currentChar)
+        //{
+        //    yield return new WaitWhile(() => currentChar.BattleComp.isUsingSkill);
+
+        //    if (currentTurnIndex < sequenceImage.Count && sequenceImage[currentTurnIndex] != null)
+        //    {
+        //        sequenceImage[currentTurnIndex].SetActive(false);
+        //    }
+
+        //    currentTurnIndex++;
+        //    UpdateUI();
+
+        //    CheckBattleEnd();
+        //}
         public void NextRound()
         {
             if (!isBattleStart || battleSequence.Count == 0)
@@ -449,6 +496,7 @@ namespace LUP.DSG
                 if (currentChar == null || !currentChar.BattleComp.isAlive) continue;
 
                 yield return new WaitWhile(() => currentChar.BattleComp.isAttacking);
+                yield return new WaitForSeconds(1);
             }
 
             InitSequence();

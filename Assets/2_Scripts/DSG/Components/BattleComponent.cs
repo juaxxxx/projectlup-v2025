@@ -1,11 +1,16 @@
 using LUP.DSG.Utils.Enums;
+using NUnit.Framework;
 using System;
 using System.Collections;
 using TMPro;
 using UnityEngine;
+using System.Collections.Generic;
 using static LUP.DSG.ResultCharacterDisplay;
 using static UnityEditor.Experimental.GraphView.GraphView;
+using static UnityEngine.GraphicsBuffer;
 using static UnityEngine.UI.GridLayoutGroup;
+using System.Runtime.CompilerServices;
+using System.Linq;
 
 namespace LUP.DSG
 {
@@ -15,11 +20,13 @@ namespace LUP.DSG
 
         public float currHp;
         public float maxSkillGauge { get; private set; }
-        public float currGauge = 0;
+        public float currGauge = 0f;
 
         public bool isAttacking = false;
+        public bool isUsingSkill = false;
 
         private LineupSlot targetSlot;
+        private List<LineupSlot> SkillTargetSlot;
         private Vector3 originPosition;
         private Vector3 targetPosition;
 
@@ -36,7 +43,11 @@ namespace LUP.DSG
         private float knockbackDuration = 0.2f;
         private float knockbackTimer = 0f;
         private bool isKnockback = false;
+
         public bool isAlive { get; private set; } = true;
+        public bool isSkillOn { get; private set; } = false;
+
+        public SkillInfoData skillInfo;
 
         public event Action<float> OnDamaged;
         public event Action<int> OnDie;
@@ -84,32 +95,40 @@ namespace LUP.DSG
             if (owner.AnimationComp.currentState == EAnimStateType.StartDash_Fwd)
             {
                 transform.position = Vector3.MoveTowards(gameObject.transform.position, targetPosition, 0.5f);
-                if (transform.position == targetSlot.AttackedPosition.position)
+                if (Vector3.Distance(transform.position,targetSlot.AttackedPosition.position) < 0.01f)
                 {
                     if (!impactApplied)
                     {
                         OnReachedTargetPos?.Invoke(false);
 
-                        if (currGauge == maxSkillGauge)
-                        {
-                            currGauge = 0;
-                        }
                         targetPosition = originPosition;
                         impactApplied = true;
+                    }
+                }
+                else if (isUsingSkill && Vector3.Distance(transform.position, skillInfo.AttackPosition) < 0.01f)
+                {
+                    if (!impactApplied)
+                    {
+                        OnReachedTargetPos?.Invoke(true);
+
+                        targetPosition = originPosition;
+                        impactApplied = true;
+                        ApplySkillDamage();
                     }
                 }
             }
             else if (owner.AnimationComp.currentState == EAnimStateType.StartDash_Bwd)
             {
                 transform.position = Vector3.MoveTowards(gameObject.transform.position, targetPosition, 0.5f);
-                if (transform.position == originPosition)
+                if (Vector3.Distance(transform.position, originPosition) < 0.01f)
                 {
                     impactApplied = false;
+                    isUsingSkill = false;
                     isAttacking = false;
                     OnReachedTargetPos?.Invoke(true);
                 }
             }
-            else if(bullet != null)
+            else if (bullet != null)
             {
                 Vector3 dir = targetPosition - bullet.transform.position;
                 float distanceToTarget = dir.magnitude;
@@ -121,7 +140,14 @@ namespace LUP.DSG
 
                     if (!impactApplied)
                     {
-                        ApplyDamageOnce();
+                        if (isUsingSkill)
+                        {
+                            ApplySkillDamage();
+                        }
+                        else
+                        {
+                            ApplyDamageOnce();
+                        }
                         impactApplied = true;
                     }
 
@@ -131,7 +157,10 @@ namespace LUP.DSG
                     bullet = null;
                     return;
                 }
-                bullet.transform.position += dir.normalized * moveDistance;
+                else
+                {
+                    bullet.transform.position += dir.normalized * moveDistance;
+                }
             }
         }
 
@@ -164,9 +193,8 @@ namespace LUP.DSG
             targetPosition = targetSlot.AttackedPosition.position;
             HandleAttackStart();
 
-            //isAttacking = true;
+            isAttacking = true;
         }
-
         public void ApplyDamageOnce()
         {
             if (targetSlot == null)
@@ -178,10 +206,35 @@ namespace LUP.DSG
                 return;
 
             float damage = owner.characterData.attack;
+
             targetChar.BattleComp.TakeDamage(1);
             owner.ScoreComp.UpdateDamageDealt(damage);
 
             PlusGuage(50);
+        }
+        public void ApplySkillDamage()
+        {
+            if (SkillTargetSlot == null || SkillTargetSlot.Count <= 0)
+                return;
+
+            for (int i = 0; i < SkillTargetSlot.Count; i++)
+            {
+                if (skillInfo.bIsDamaged)
+                {
+                    float damage = owner.characterData.attack + skillInfo.damage;
+                    SkillTargetSlot[i].character.BattleComp.TakeDamage(1);
+                    owner.ScoreComp.UpdateDamageDealt(damage);
+                }
+
+                if (skillInfo.bIsStatusEffect)
+                {
+                    IStatusEffect Status = owner.StatusEffectComp.CreateStatusEffect(skillInfo.effectType, skillInfo.operationType, skillInfo.stack, skillInfo.turn);
+                    SkillTargetSlot[i].character.StatusEffectComp.AddEffect(Status);
+                }
+            }
+
+            InitGuage();
+            isAttacking = true;
         }
 
         public virtual void TakeDamage(float amount)
@@ -221,6 +274,30 @@ namespace LUP.DSG
                 Die();
             }
         }
+
+        public void Skill(List<LineupSlot> targetList)
+        {
+            if (isAttacking || isUsingSkill) return;
+
+            SkillTargetSlot = targetList;
+            targetPosition = skillInfo.AttackPosition;
+            HandleAttackStart();
+
+            isUsingSkill = true;
+            isAttacking = true;
+        }
+        private void HandleAttackStart()
+        {
+            OnAttackStarted?.Invoke(owner.characterData.rangeType);
+        }
+        public void TrySpawnProjectileForRangedAttack()
+        {
+            if (owner.characterData.rangeType != ERangeType.Range)
+                return;
+
+            bullet = Instantiate(bulletPrefab, originPosition, Quaternion.identity);
+        }
+
         public virtual void Die()
         {
             isAlive = false;
@@ -253,29 +330,22 @@ namespace LUP.DSG
 
         public void PlusGuage(float amount)
         {
-            currGauge += amount;
+            currGauge = Mathf.Min(maxSkillGauge, currGauge + amount);
+
+            if (currGauge >= maxSkillGauge)
+            {
+                isSkillOn = true;   // "다음 턴에 스킬 쓸 수 있음"
+            }
+
             OnChangeGauge?.Invoke(currGauge);
         }
 
-        //public void AttackEnd()
-        //{
-        //    //if (owner.AnimationComp.currentState == EAnimStateType.Attack_Melee)
-        //    //{
-        //    //    OnEndMelee?.Invoke();
-        //    //}
-        //}
-
-        private void HandleAttackStart()
+        private void InitGuage()
         {
-            OnAttackStarted?.Invoke(owner.characterData.rangeType);
-        }
-
-        public void TrySpawnProjectileForRangedAttack()
-        {
-            if (owner.characterData.rangeType != ERangeType.Range)
-                return;
-
-            bullet = Instantiate(bulletPrefab, originPosition, Quaternion.identity);
+            maxSkillGauge = 100;
+            currGauge = 0;
+            isSkillOn = false;
+            OnChangeGauge?.Invoke(currGauge);
         }
     }
 }

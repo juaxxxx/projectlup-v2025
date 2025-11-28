@@ -1421,7 +1421,9 @@ MonoBehaviour:
   currHp: 0
   currGauge: 0
   isAttacking: 0
+  isUsingSkill: 0
   bulletPrefab: {fileID: 1159801650698535097, guid: e6e6cd0df923f974286ea66ff9cba1e8, type: 3}
+  skillInfo: {fileID: 11400000, guid: e3100d60c56df594cb89fa4545765a59, type: 2}
   damageLogPrefab: {fileID: 7683064257652862875, guid: a1f113c2e8dff434092bc754de6b349e, type: 3}
 --- !u!114 &8913472107421759091
 MonoBehaviour:

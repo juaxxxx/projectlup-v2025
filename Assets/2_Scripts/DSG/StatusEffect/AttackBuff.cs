@@ -6,8 +6,8 @@ namespace LUP.DSG
     public class AttackBuff : IStatusEffect
     {
         public EOperationType operationType;
-        public AttackBuff(EOperationType Type, float Amount = 1f, int Turns = 1)
-            : base(EStatusEffectType.AttackBuff, Amount, Turns)
+        public AttackBuff(EOperationType Type, float Amount, int Turns)
+            : base(EStatusEffectType.AttackBuff,Type, Amount, Turns)
         {
             operationType = Type;
         }

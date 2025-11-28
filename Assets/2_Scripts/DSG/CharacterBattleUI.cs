@@ -98,7 +98,7 @@ namespace LUP.DSG
         }
         private void OnEffectAdded(IStatusEffect effect)
         {
-            if (activeIcons.TryGetValue(effect.type, out Image image))
+            if (activeIcons.TryGetValue(effect.effectType, out Image image))
             {
                 image.GetComponentInChildren<TextMeshProUGUI>().text = $"Stack : {effect.amount}";
                 return;
@@ -129,28 +129,28 @@ namespace LUP.DSG
             label.raycastTarget = false;
             label.color = Color.red;
 
-            activeIcons.TryAdd(effect.type, icon);
+            activeIcons.TryAdd(effect.effectType, icon);
 
-            if (statusSprites.TryGetValue(effect.type, out Sprite sprite))
+            if (statusSprites.TryGetValue(effect.effectType, out Sprite sprite))
             {
                 icon.sprite = sprite;
             }
             else { icon.sprite = null; }
 
             icon.enabled = true;
-            activeIcons.TryAdd(effect.type, icon);
+            activeIcons.TryAdd(effect.effectType, icon);
         }
         private void OnEffectRemoved(IStatusEffect effect)
         {
-            if (!activeIcons.TryGetValue(effect.type, out Image icon))
+            if (!activeIcons.TryGetValue(effect.effectType, out Image icon))
                 return;
 
             Destroy(icon.gameObject);
-            activeIcons.Remove(effect.type);
+            activeIcons.Remove(effect.effectType);
         }
         private void OnEffectEndTurn(IStatusEffect effect)
         {
-            if (activeIcons.TryGetValue(effect.type, out Image image))
+            if (activeIcons.TryGetValue(effect.effectType, out Image image))
             {
                 image.GetComponentInChildren<TextMeshProUGUI>().text = $"Stack : {effect.amount}";
                 return;

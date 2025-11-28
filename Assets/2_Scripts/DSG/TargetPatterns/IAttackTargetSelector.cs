@@ -4,6 +4,6 @@ namespace LUP.DSG
 {
     public interface IAttackTargetSelector
     {
-        public LineupSlot SelectTarget(Character Attacker);
+        public LineupSlot SelectEnemyTarget(Character Attacker);
     }
 }

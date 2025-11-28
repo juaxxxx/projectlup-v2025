@@ -7,11 +7,11 @@ namespace LUP.DSG
         private readonly IAttackTargetSelector[] chain;
         public ChainedTargetSelector(params IAttackTargetSelector[] chain) => this.chain = chain;
 
-        public LineupSlot SelectTarget(Character Attacker)
+        public LineupSlot SelectEnemyTarget(Character Attacker)
         {
             for (int i = 0; i < chain.Length; i++)
             {
-                LineupSlot slot = chain[i].SelectTarget(Attacker);
+                LineupSlot slot = chain[i].SelectEnemyTarget(Attacker);
 
                 if (slot != null)
                 {

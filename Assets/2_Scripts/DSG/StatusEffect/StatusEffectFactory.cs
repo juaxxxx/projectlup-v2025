@@ -6,32 +6,22 @@ namespace LUP.DSG
 {
     public class StatusEffectFactory
     {
-        public IStatusEffect CreateStatusEffect(EStatusEffectType Type,float Stack, int Turn)
+        public IStatusEffect CreateStatusEffect(EStatusEffectType Type, EOperationType OpType = EOperationType.Plus,
+            float Stack = 1f, int Turn = 1)
         {
             switch(Type)
             {
                 case EStatusEffectType.Burn:
                     {
-                        return new BurnEffect(Stack,Turn);
+                        return new BurnEffect(OpType, Stack,Turn);
                     }
                 case EStatusEffectType.Poison:
                     {
-                        return new PoisonEffect(Stack,Turn);
+                        return new PoisonEffect(OpType,Stack, Turn);
                     }
-                default:
-                    {
-                        return null;
-                    }
-            }
-        }
-        public IStatusEffect CreateBuffORDeBuff(EStatusEffectType Type, EOperationType OpType,
-            float Amount,int Turn)
-        {
-            switch(Type)
-            {
                 case EStatusEffectType.AttackBuff:
                     {
-                        return new AttackBuff(OpType,Amount,Turn);
+                        return new AttackBuff(OpType, Stack, Turn);
                     }
                 default:
                     {
