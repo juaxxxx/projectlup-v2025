@@ -109,11 +109,10 @@ namespace LUP.DSG
                 {
                     if (!impactApplied)
                     {
-                        OnReachedTargetPos?.Invoke(true);
+                        OnReachedTargetPos?.Invoke(false);
 
                         targetPosition = originPosition;
                         impactApplied = true;
-                        ApplySkillDamage();
                     }
                 }
             }
@@ -140,14 +139,7 @@ namespace LUP.DSG
 
                     if (!impactApplied)
                     {
-                        if (isUsingSkill)
-                        {
-                            ApplySkillDamage();
-                        }
-                        else
-                        {
-                            ApplyDamageOnce();
-                        }
+                        ApplyDamageOnce();
                         impactApplied = true;
                     }
 
@@ -197,6 +189,12 @@ namespace LUP.DSG
         }
         public void ApplyDamageOnce()
         {
+            if (isUsingSkill)
+            {
+                ApplySkillDamage();
+                return;
+            }
+
             if (targetSlot == null)
                 return;
 
@@ -234,7 +232,6 @@ namespace LUP.DSG
             }
 
             InitGuage();
-            isAttacking = true;
         }
 
         public virtual void TakeDamage(float amount)

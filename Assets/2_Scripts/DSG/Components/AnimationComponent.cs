@@ -101,6 +101,14 @@ namespace LUP.DSG
         public void OnEndBwdDashEvent()
         {
             currentState = EAnimStateType.Idle;
+            SetAnimationState(currentState);
+        }
+
+        public void OnHittedEndEvent()
+        {
+            currentState = EAnimStateType.Idle;
+            SetAnimationState(currentState);
+
         }
     }
 }

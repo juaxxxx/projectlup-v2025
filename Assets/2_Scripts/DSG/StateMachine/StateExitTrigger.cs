@@ -1,3 +1,4 @@
+using LUP.DSG;
 using UnityEngine;
 
 public class StateExitTrigger : StateMachineBehaviour
@@ -5,7 +6,7 @@ public class StateExitTrigger : StateMachineBehaviour
     public override void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         int state = animator.GetInteger("CharacterState");
-        if(state == 7 || state == 6)
+        if(state == 6)
         {
             animator.SetInteger("CharacterState", 0);
         }
