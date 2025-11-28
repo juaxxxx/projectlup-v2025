@@ -24,14 +24,10 @@ namespace LUP.PCR
         private UnitMover mover;
         private IUnitMoveable moverAdapter;
         private BTNode root;
-
-        // 로컬 블랙보드->동적 데이터 동기화
-        // WorkerAI의 변수 값이 바뀌면 -> 블랙보드도 즉시 업데이트됨
-        // BT 노드들은 변수를 직접 안 보고 블랙보드의 Key만 봄
-        public void InitBTRules()
-        {
-            Ishunger = hunger >= HungerRules.Hunger;
-        }
+        // 생산 작업 참조
+        private ProductableBuilding currentTaskBuilding = null;
+        private ProductableBuilding pausedTaskBuilding = null;
+        private ProductableBuilding newAssignedBuilding = null;
 
         public WorkerBlackboard LocalBlackboard { get; private set; }
         public float Hunger
@@ -43,7 +39,6 @@ namespace LUP.PCR
                 LocalBlackboard.SetValue(BBKeys.Hunger, hunger);
             }
         }
-
         public bool HasNewTask
         {
             get => hasNewTask;
@@ -63,20 +58,24 @@ namespace LUP.PCR
             }
         }
 
-        // 생산 작업 참조
-        private ProductableBuilding currentTaskBuilding = null;
-        private ProductableBuilding pausedTaskBuilding = null;
-        private ProductableBuilding newAssignedBuilding = null;
+        // 로컬 블랙보드->동적 데이터 동기화
+        // WorkerAI의 변수 값이 바뀌면 -> 블랙보드도 즉시 업데이트됨
+        // BT 노드들은 변수를 직접 안 보고 블랙보드의 Key만 봄
+        public void InitBTRules()
+        {
+            Ishunger = hunger >= HungerRules.Hunger;
+        }
 
-        private void Awake()
+        public void InitBTReferences()
         {
             worker = GetComponent<Worker>();
             mover = GetComponent<UnitMover>();
             moverAdapter = mover as IUnitMoveable;
-
             LocalBlackboard = new WorkerBlackboard();
             InitBlackboard();
+            SettingBT();
         }
+
         private void InitBlackboard()
         {
             //정적 데이터(참조) 등록
@@ -98,11 +97,6 @@ namespace LUP.PCR
 
             LocalBlackboard.SetValue(BBKeys.HasNewTask, hasNewTask);
             LocalBlackboard.SetValue(BBKeys.HasPausedTask, hasPausedTask);
-        }
-
-        private void Start()
-        {
-            SettingBT();
         }
 
         void SettingBT()
@@ -152,14 +146,16 @@ namespace LUP.PCR
             });
 
         }
-        
 
-        private void Update()
+        public void UpdateBT()
         {
             if (root == null) return;
             root?.Evaluate();
-            // Hunger = Mathf.Clamp01(hunger - Time.deltaTime * 0.01f);
+        }
 
+        private void Update()
+        {
+            // Hunger = Mathf.Clamp01(hunger - Time.deltaTime * 0.01f);
             // protected, private 보호수준에 막힘.
             // @TODO: ProductableBuilding의 currBuildState 가져오는 방법 고민하기 
             //if (currentTaskBuilding != null && currentTaskBuilding.currBuildState is ProductableState pState && pState != null)

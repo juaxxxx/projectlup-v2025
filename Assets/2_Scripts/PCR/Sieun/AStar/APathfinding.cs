@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+ï»¿using System.Collections.Generic;
 using UnityEngine;
 
 namespace LUP.PCR
@@ -17,7 +17,7 @@ namespace LUP.PCR
             int dx = Mathf.Abs(a.indexX - b.indexX);
             int dy = Mathf.Abs(a.indexY - b.indexY);
 
-            return 10 * (dx + dy); // ¸ÇÇØÆ° °Å¸®
+            return 10 * (dx + dy); // ë§¨í•´íŠ¼ ê±°ë¦¬
         }
 
         public List<ANode> FindPath(ANode startNode, ANode targetNode)
@@ -85,7 +85,7 @@ namespace LUP.PCR
                 for (int y = -1; y <= 1; y++)
                 {
                     if (Mathf.Abs(x) + Mathf.Abs(y) != 1)
-                        continue; // ´ë°¢¼± Á¦¿Ü
+                        continue; // ëŒ€ê°ì„  ì œì™¸
                     
                     int checkX = node.indexX + x;
                     int checkY = node.indexY + y;
