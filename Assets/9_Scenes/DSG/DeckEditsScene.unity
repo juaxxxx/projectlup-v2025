@@ -1421,7 +1421,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 504369307}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 007dbf493fed7e54f9fa2d704f4d06f1, type: 3}
+  m_Script: {fileID: 11500000, guid: 54ad98cffb688fc46b600bd990503a23, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   toggle: {fileID: 504369310}
@@ -3002,7 +3002,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1018181414}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 007dbf493fed7e54f9fa2d704f4d06f1, type: 3}
+  m_Script: {fileID: 11500000, guid: 54ad98cffb688fc46b600bd990503a23, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   toggle: {fileID: 1018181417}
@@ -3244,7 +3244,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1049738302}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 007dbf493fed7e54f9fa2d704f4d06f1, type: 3}
+  m_Script: {fileID: 11500000, guid: 54ad98cffb688fc46b600bd990503a23, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   toggle: {fileID: 1049738305}
@@ -3961,11 +3961,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 1314368955}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ffe3df4136bb8ff4ba75ce1f9819c1fe, type: 3}
+  m_Script: {fileID: 11500000, guid: fc254983c8656334e91dad08c2833aec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dataCenter: {fileID: 0}
-  teamDataTable: {fileID: 11400000, guid: 2a968602addba7242a4cc2cecc06b032, type: 2}
+  dataCenter: {fileID: 1091457045}
   slots:
   - {fileID: 636051258}
   - {fileID: 1072193027}
@@ -3973,6 +3972,7 @@ MonoBehaviour:
   - {fileID: 1462758778}
   - {fileID: 895510914}
   characterListContent: {fileID: 1197695711}
+  filterPanel: {fileID: 2115691459}
   selectedTeamIndex: 0
   selectedCount: 0
 --- !u!1 &1366979377
@@ -4092,7 +4092,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1366979377}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fad1676d86f21584da191f0d89854457, type: 3}
+  m_Script: {fileID: 11500000, guid: e92e1766f5148074ead59e700f8fb959, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   dataCenter: {fileID: 1091457045}
@@ -4233,7 +4233,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1383354219}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 007dbf493fed7e54f9fa2d704f4d06f1, type: 3}
+  m_Script: {fileID: 11500000, guid: 54ad98cffb688fc46b600bd990503a23, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   toggle: {fileID: 1383354224}
@@ -4279,7 +4279,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1402947965}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 16588407369685e4dbd192ba59916f19, type: 3}
+  m_Script: {fileID: 11500000, guid: bb0b5fa6afb8ef246b4241a16a92746a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &1462758778
@@ -4874,7 +4874,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1620561174}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 007dbf493fed7e54f9fa2d704f4d06f1, type: 3}
+  m_Script: {fileID: 11500000, guid: 54ad98cffb688fc46b600bd990503a23, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   toggle: {fileID: 1620561177}
@@ -5288,7 +5288,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1663620702}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 007dbf493fed7e54f9fa2d704f4d06f1, type: 3}
+  m_Script: {fileID: 11500000, guid: 54ad98cffb688fc46b600bd990503a23, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   toggle: {fileID: 1663620705}
@@ -5379,6 +5379,53 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1663620702}
   m_CullTransparentMesh: 1
+--- !u!1 &1689079308
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1689079310}
+  - component: {fileID: 1689079309}
+  m_Layer: 0
+  m_Name: Stage
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1689079309
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1689079308}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 776beebd7434a5344a21f9abc08febe0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  StageKind: 5
+  DeckDataList: []
+  CharacterDataList: []
+--- !u!4 &1689079310
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1689079308}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1719610445
 GameObject:
   m_ObjectHideFlags: 0
@@ -5803,7 +5850,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1855830691}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 007dbf493fed7e54f9fa2d704f4d06f1, type: 3}
+  m_Script: {fileID: 11500000, guid: 54ad98cffb688fc46b600bd990503a23, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   toggle: {fileID: 1855830694}
@@ -5943,7 +5990,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1879723636}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 007dbf493fed7e54f9fa2d704f4d06f1, type: 3}
+  m_Script: {fileID: 11500000, guid: 54ad98cffb688fc46b600bd990503a23, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   toggle: {fileID: 1879723639}
@@ -6638,7 +6685,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 2115691455}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7d47dd9450bb4284f80f7825a049c266, type: 3}
+  m_Script: {fileID: 11500000, guid: d1fde033dc446df43ba45d536ed5937a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   charactersList: {fileID: 1366979382}
@@ -6664,3 +6711,4 @@ SceneRoots:
   - {fileID: 1402947966}
   - {fileID: 1920360886}
   - {fileID: 1091457044}
+  - {fileID: 1689079310}

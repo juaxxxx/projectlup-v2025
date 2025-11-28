@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b79c5bd4919e7954ebb4378037d18fbe, type: 3}
   m_Name: DSGSceneList
   m_EditorClassIdentifier: 
-  scenes:
-  - {fileID: 102900000, guid: bd44563923dff504cb5344ff11b8af9c, type: 3}
-  - {fileID: 102900000, guid: 17ad16b2d18a49949bf42d35ba0c8fcb, type: 3}
-  - {fileID: 102900000, guid: edacb5adb57524a408eed66d2a61e52c, type: 3}
-  - {fileID: 102900000, guid: a96673fe7d516504ab88af6c6d9ad617, type: 3}
-  - {fileID: 102900000, guid: f4f1ac332e206584db3478e3d95bbc65, type: 3}
+  sceneNames:
+  - DeckMainScene
+  - DeckEditsScene
+  - DeckBattleScene
+  - DeckBattleResultScene
+  - DeckStrategySampleStage

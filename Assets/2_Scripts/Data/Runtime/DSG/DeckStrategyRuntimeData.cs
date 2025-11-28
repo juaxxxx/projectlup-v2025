@@ -10,6 +10,9 @@ public class DeckStrategyRuntimeData : BaseRuntimeData
     [SerializeField]
     private List<OwnedCharacterInfo> ownedCharacterList = new List<OwnedCharacterInfo>();
 
+    [SerializeField]
+    private List<UserData.Team> teams = new List<UserData.Team>();
+
     public int PlayerId
     {
         get => playerId;
@@ -22,9 +25,16 @@ public class DeckStrategyRuntimeData : BaseRuntimeData
         set => SetValue(ref ownedCharacterList, value);
     }
 
+    public List<UserData.Team> Teams
+    {
+        get => teams;
+        set => SetValue(ref teams, value);
+    }
+
     public override void ResetData() 
     {
         playerId = 0;
         ownedCharacterList.Clear();
+        teams.Clear();
     }
 }

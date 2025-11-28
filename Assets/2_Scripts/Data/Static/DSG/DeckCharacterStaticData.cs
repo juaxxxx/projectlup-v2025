@@ -1,4 +1,6 @@
-﻿[System.Serializable]
+﻿using LUP.DSG.Utils.Enums;
+
+[System.Serializable]
 public class DeckCharacterStaticData
 {
     [Column("CharacterId")] public int CharacterId;

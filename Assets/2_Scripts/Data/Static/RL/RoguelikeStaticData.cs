@@ -6,7 +6,10 @@ public class RoguelikeStaticData
     [Column("Name")] public string Name;
     [Column("HP")] public int HP;
     [Column("ATK")] public string ATK;
-    [Column("SPEED")] public string SPEED;
+    [Column("MOVESPEED")] public string SPEED;
+    [Column("ATKRANGE")] public string ATKRANGE;
+    [Column("ATKCOLLTIMEDURATION")] public string ATKCOLLTIMEDURATION;
     [Column("ChapterMaxRoomNum")] public string ChapterMaxRoomNum;
+    [Column("ChapterPreviewImageId")] public string ChapterPreviewImageId;
 }
               

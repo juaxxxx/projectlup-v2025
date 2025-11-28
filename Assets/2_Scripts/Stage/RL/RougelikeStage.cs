@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+using LUP.RL;
+
 namespace LUP
 {
     public class RoguelikeStage : BaseStage
@@ -9,6 +11,8 @@ namespace LUP
         public BaseRuntimeData RuntimeData;
         public List<RoguelikeStaticData> DataList;
 
+        public LobbyGameCenter lobbyGameCenter;
+        public InGameCenter inGameCenter;
         protected override void Awake() 
         {
             base.Awake();
@@ -29,6 +33,15 @@ namespace LUP
         {
             yield return base.OnStageEnter();
             
+            if(lobbyGameCenter != null)
+            {
+                lobbyGameCenter.InitializeCenter();
+            }
+
+            if(inGameCenter != null)
+            {
+                inGameCenter.InitializeCenter();
+            }
 
             yield return null;
         }

@@ -321,7 +321,7 @@ namespace LUP
             }
             Debug.Log(currentStageInstance);
             yield return StartCoroutine(OnStageEnter());
-
+            
             currentStageKind = targetStageKind;
             isTransitioning = false;
 
