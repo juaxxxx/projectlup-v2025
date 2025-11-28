@@ -7,6 +7,9 @@ namespace LUP.RL
         public Archer Health { get;  set; }
         public PlayerMove Move { get;  set; }
         public PlayerArrowShooter Shooter { get;  set; }
+
+
+
         public void Initialize(GameObject player)
         {
             Move = player.GetComponent<PlayerMove>();

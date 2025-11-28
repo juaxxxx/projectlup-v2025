@@ -10,14 +10,14 @@ namespace LUP.RL
         [SerializeField] private PlayerBlackBoard bb;
         [SerializeField] private JoyStickSC joystick;
 
-
-        [SerializeField] private Animator animator;
-        protected AnimatorStateInfo stateInfo;
-        protected Node currentRunningActionNode;
-
         //[SerializeField] private Archer playerArcher;
         //[SerializeField] private PlayerMove move;
         //[SerializeField] private PlayerArrowShooter move;
+
+        [SerializeField] private Animator animator;
+        protected AnimatorStateInfo stateInfo;
+        protected PlayerLeafNode currentRunningLeafNode;
+
         private void Awake()
         {
             if (bb == null) bb = new PlayerBlackBoard();
@@ -28,6 +28,18 @@ namespace LUP.RL
             BuildTree();
         }
 
+        private void Start()
+        {
+            if (animator != null)
+            {
+                AnimatorCallBack[] animatorCallBacks = animator.GetBehaviours<AnimatorCallBack>();
+                for (int i = 0; i < animatorCallBacks.Length; i++)
+                {
+                    animatorCallBacks[i].SetAnimEndCallBack(OnAnimationEnd);
+                }
+            }
+        }
+
         private void BuildTree()
         {
             // 조건 노드
@@ -35,8 +47,8 @@ namespace LUP.RL
             var isHitted = new IsHittedNode(bb);
 
             // 액션 노드
-            var moveNode = new PlayerMoveNode(bb, joystick);
-            var attackNode = new PlayerAttackNode(bb);
+            var moveNode = new PlayerMoveNode(bb, joystick, this);
+            var attackNode = new PlayerAttackNode(bb, this);
 
             // 행동 트리 구성
 
@@ -51,7 +63,7 @@ namespace LUP.RL
                 root.Evaluate();
         }
 
-        public void PlayAnimation(ActionState actionState, LeafNode caller)
+        public void PlayAnimation(ActionState actionState, PlayerLeafNode caller, float palySpeed = 1.0f)
         {
             if (animator == null)
                 return;
@@ -86,9 +98,10 @@ namespace LUP.RL
 
             stateInfo = GetCurrentAnimState();
 
-            if (stateInfo.IsName("Wait") || stateInfo.IsName("MoveTo"))
+            if (stateInfo.IsName("Wait") || stateInfo.IsName("MoveTo") || stateInfo.IsName("Attack"))
             {
-                currentRunningActionNode = caller;
+                //currentRunningActionNode = caller;
+                animator.speed = palySpeed;
                 animator.Play(calledAnimName);
             }
 
@@ -97,11 +110,12 @@ namespace LUP.RL
 
         public void OnAnimationEnd(AnimatorStateInfo info)
         {
-            if (currentRunningActionNode == null)
+            if (currentRunningLeafNode == null)
                 return;
 
-            //currentRunningActionNode.OnAnimationEnd(info);
-            currentRunningActionNode = null;
+            currentRunningLeafNode.OnPlayerAnimationEnd(info);
+            currentRunningLeafNode = null;
+
         }
 
         public AnimatorStateInfo GetCurrentAnimState()
