@@ -127,7 +127,7 @@ namespace LUP.RL
                 return;
 
             currentRunningLeafNode.OnPlayerAnimationEnd(info);
-            currentRunningLeafNode = null;
+            //currentRunningLeafNode = null;
 
         }
 

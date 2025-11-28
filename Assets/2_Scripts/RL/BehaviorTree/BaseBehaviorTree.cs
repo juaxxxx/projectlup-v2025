@@ -27,12 +27,16 @@ namespace LUP.RL
 
         private LeafNode currentRunningLeaf;
 
+        public GameObject thisCharacter;
+
         private void Awake()
         {
             enemyBlackBoard = GetComponent<EnemyBlackBoard>();
             Animator = GetComponent<Animator>();
 
             enemyBlackBoard.HP = enemyBlackBoard.MaxHP;
+
+            thisCharacter = gameObject;
         }
         // Start is called once before the first execution of Update after the MonoBehaviour is created
         void Start()
