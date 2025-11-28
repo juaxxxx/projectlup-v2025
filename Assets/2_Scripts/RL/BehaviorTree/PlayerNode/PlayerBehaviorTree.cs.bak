@@ -9,6 +9,7 @@ namespace LUP.RL
         private Node root;
         private PlayerBlackBoard bb;
         [SerializeField] private JoyStickSC joystick;
+<<<<<<< HEAD
 
         //[SerializeField] private Archer playerArcher;
         //[SerializeField] private PlayerMove move;
@@ -18,6 +19,9 @@ namespace LUP.RL
         protected AnimatorStateInfo stateInfo;
         protected PlayerLeafNode currentRunningLeafNode;
 
+=======
+      
+>>>>>>> f7afb52 (feat(RL) Fix PlayerArrowShooter)
         private void Awake()
         {
             bb = GetComponent<PlayerBlackBoard>();

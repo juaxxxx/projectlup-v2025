@@ -22,7 +22,7 @@ namespace LUP.RL
                 return NodeState.Fail;
             }
 
-            UnityEngine.Debug.Log("Action MoveTo");
+            //UnityEngine.Debug.Log("Action MoveTo");
 
             if (behaviorTree.GetCurrentAnimState().IsName("MoveTo") == true)
             {

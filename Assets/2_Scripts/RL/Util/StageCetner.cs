@@ -28,12 +28,23 @@ namespace LUP.RL
         public GameObject enemySpawnerPrefab;
         public GameObject obstaclePrefab;
         private GameObject currentRoom;
-        public PlayerArrowShooter playerArrow;
-
+        private PlayerBlackBoard bb;
         public UnityEvent onStageClear;
         public GridGenerator gridSystem;
         private int currentStage = 0;
         public bool GameClear = false;
+
+        public void Start()
+        {
+            bb = player.GetComponent<PlayerBlackBoard>();
+            if (bb == null)
+            {
+                Debug.LogError("StageCenter - PlayerBlackBoard가 Player에 없습니다!");
+                return;
+            }
+            bb.Initialize(player.gameObject);
+            //bb.SetCurrentRoom(currentRoom.transform);
+        }
         public void LoadNextRoom()
         {
             //방이 하나라도  있으면 다  삭제
@@ -47,10 +58,12 @@ namespace LUP.RL
 
             if (currentStage < stageData.Count)
             {
-                if (playerArrow == null) return;
+                if (player == null) return;
                 StageData data = stageData[currentStage];
                 currentRoom = Instantiate(data.roomprefab, Vector3.zero, Quaternion.identity, roomParent);
-                playerArrow.currentRoom = this.currentRoom.transform;
+                var bb = player.GetComponent<PlayerBlackBoard>();
+                if(bb != null)
+                bb.SetCurrentRoom(currentRoom.transform);
                 //UI 갱신
                 if (stageText != null)
                 {

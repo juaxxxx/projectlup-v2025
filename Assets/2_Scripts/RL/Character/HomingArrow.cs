@@ -31,8 +31,8 @@ namespace LUP.RL
             if (enemy != null)
             {
                 Debug.Log("Ãæµ¹");
-                Destroy(gameObject);
                 enemy.TakeDamage(archer.Adata.currentData.Attack);
+                Destroy(gameObject);
             }
         }
         void Update()
