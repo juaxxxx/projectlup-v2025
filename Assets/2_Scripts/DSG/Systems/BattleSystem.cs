@@ -70,7 +70,18 @@ namespace LUP.DSG
                 Destroy(gameObject);
             }
         }
-        private void Start()
+
+        private void OnEnable()
+        {
+            StageEnterSystem.OnAfterDSGStageEnter += Initialize;
+        }
+
+        private void OnDisable()
+        {
+            StageEnterSystem.OnAfterDSGStageEnter -= Initialize;
+        }
+
+        private void Initialize(DeckStrategyStage stage)
         {
             for (int i = 0; i < enemySlots.Length; i++)
             {

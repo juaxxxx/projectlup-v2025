@@ -11,7 +11,7 @@ namespace LUP.DSG
 
         public bool isSelected = false;
 
-        private void Awake()
+        public void Init()
         {
             button = GetComponent<Button>();
             canvasGroup.alpha = 0f;

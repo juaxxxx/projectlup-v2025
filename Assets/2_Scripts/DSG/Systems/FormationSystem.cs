@@ -32,14 +32,6 @@ namespace LUP.DSG
         public CharacterPlacedHandler placedHandler;
         public CharacterReleasedHandler releaseHandler;
 
-        void Start()
-        {
-            //for(int i = 0; i < slots.Length; ++i)
-            //{
-            //    CreateSlot(i);
-            //}
-        }
-
         private void CreateSlot(int index)
         {
 

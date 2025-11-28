@@ -8,7 +8,6 @@ namespace LUP.DSG
         public HashSet<EAttributeType> checkedAttributes = new();
         public HashSet<ERangeType> checkedRanges = new();
 
-
         public bool ContainsCheckedFilters()
         {
             return (checkedAttributes.Count > 0 || 

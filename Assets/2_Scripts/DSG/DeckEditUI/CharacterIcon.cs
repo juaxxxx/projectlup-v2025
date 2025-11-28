@@ -1,10 +1,10 @@
+using LUP.DSG.Utils.Enums;
 using System;
 using System.Text;
 using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
-using LUP.DSG.Utils.Enums;
 
 namespace LUP.DSG
 {
@@ -26,16 +26,24 @@ namespace LUP.DSG
 
         public int selectedSlot = -1;
 
-        private void Awake()
+        private void OnEnable()
+        {
+            StageEnterSystem.OnAfterDSGStageEnter += Initialize;
+        }
+
+        private void OnDisable()
+        {
+            StageEnterSystem.OnAfterDSGStageEnter -= Initialize;
+        }
+
+        private void Initialize(DeckStrategyStage stage)
         {
             FormationSystem formationSystem = FindAnyObjectByType<FormationSystem>();
             OnSelected = formationSystem.PlaceCharacter;
             OnDeselected = formationSystem.ReleaseCharacter;
-        }
 
-        private void Start()
-        {
             selectedButton.button.onClick.AddListener(OnButtonClicked);
+            selectedButton.Init();
         }
 
         public void SetIconData(OwnedCharacterInfo info, EAttributeType type, Color portraitColor, int characterLevel, bool isChecked)
