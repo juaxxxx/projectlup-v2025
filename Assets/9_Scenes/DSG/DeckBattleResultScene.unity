@@ -1261,7 +1261,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ownedCharacterTable: {fileID: 11400000, guid: 1a11f21ae57c3d34aa6847a855019259, type: 2}
-  characterDataTable: {fileID: 11400000, guid: ed07d8c7ee4d90840a2dafe10f2ca495, type: 2}
   characterModelDataTable: {fileID: 11400000, guid: 8e5a2cc3fdef4b04698bae1932d8687b, type: 2}
   mvpData: {fileID: 11400000, guid: b5420738ed619244288d3ed612d3f9fe, type: 2}
 --- !u!4 &523391682
@@ -3325,7 +3324,6 @@ GameObject:
   - component: {fileID: 1209456420}
   - component: {fileID: 1209456419}
   - component: {fileID: 1209456418}
-  - component: {fileID: 1209456421}
   m_Layer: 5
   m_Name: Button_Exit
   m_TagString: Untagged
@@ -3397,10 +3395,10 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1209456421}
-        m_TargetAssemblyTypeName: ExitButton, Assembly-CSharp
-        m_MethodName: OnExitButtonClicked
-        m_Mode: 1
+      - m_Target: {fileID: 1684614289}
+        m_TargetAssemblyTypeName: LUP.DeckStrategyStage, Assembly-CSharp
+        m_MethodName: ChangeScene
+        m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -3447,18 +3445,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1209456416}
   m_CullTransparentMesh: 1
---- !u!114 &1209456421
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1209456416}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0165788722945d441b556f239216a5da, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1225219090
 GameObject:
   m_ObjectHideFlags: 0

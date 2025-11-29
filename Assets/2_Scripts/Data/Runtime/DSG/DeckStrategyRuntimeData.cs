@@ -37,4 +37,15 @@ public class DeckStrategyRuntimeData : BaseRuntimeData
         ownedCharacterList.Clear();
         teams.Clear();
     }
+
+    public OwnedCharacterInfo GetCharacterInfo(int characterId)
+    {
+        foreach(OwnedCharacterInfo data in ownedCharacterList)
+        {
+            if(data.characterID == characterId) return data;
+        }
+
+        return null;
+    }
+
 }

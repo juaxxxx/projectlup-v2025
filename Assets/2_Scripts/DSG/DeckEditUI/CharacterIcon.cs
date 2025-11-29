@@ -26,24 +26,14 @@ namespace LUP.DSG
 
         public int selectedSlot = -1;
 
-        private void OnEnable()
-        {
-            StageEnterSystem.OnAfterDSGStageEnter += Initialize;
-        }
-
-        private void OnDisable()
-        {
-            StageEnterSystem.OnAfterDSGStageEnter -= Initialize;
-        }
-
-        private void Initialize(DeckStrategyStage stage)
+        public void Init()
         {
             FormationSystem formationSystem = FindAnyObjectByType<FormationSystem>();
             OnSelected = formationSystem.PlaceCharacter;
             OnDeselected = formationSystem.ReleaseCharacter;
 
-            selectedButton.button.onClick.AddListener(OnButtonClicked);
             selectedButton.Init();
+            selectedButton.button.onClick.AddListener(OnButtonClicked);
         }
 
         public void SetIconData(OwnedCharacterInfo info, EAttributeType type, Color portraitColor, int characterLevel, bool isChecked)

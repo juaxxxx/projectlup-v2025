@@ -19,10 +19,7 @@ namespace LUP.DSG
         public StatusEffectComponent StatusEffectComp => statusEffectComp;
         public BattleComponent BattleComp => battleComp;
         public ScoreComponent ScoreComp => scoreComp;
-
         public AnimationComponent AnimationComp => animationComp;
-
-        //public OwnedCharacterInfo characterInfo;
 
         public CharacterData characterData { get; private set; }
         public CharacterModelData characterModelData { get; private set; }
@@ -39,11 +36,22 @@ namespace LUP.DSG
 
         private void Awake()
         {
+            StageInitializeInvoker.OnDSGStagePostInitialize += PostInitialize;
+            StageInitializeInvoker.OnDSGStageInitialize += Initialize;
+
             statusEffectComp = GetComponent<StatusEffectComponent>();
             battleComp = GetComponent<BattleComponent>();
             scoreComp = GetComponent<ScoreComponent>();
             animationComp = GetComponent<AnimationComponent>();
+        }
+        private void OnDestroy()
+        {
+            StageInitializeInvoker.OnDSGStagePostInitialize -= PostInitialize;
+            StageInitializeInvoker.OnDSGStageInitialize -= Initialize;
+        }
 
+        private void Initialize(DeckStrategyStage stage)
+        {
             Canvas[] canvases = FindObjectsByType<Canvas>(FindObjectsSortMode.None);
             foreach (var canvas in canvases)
             {
@@ -64,17 +72,15 @@ namespace LUP.DSG
             }
         }
 
-        private void Start()
+        private void PostInitialize(DeckStrategyStage stage)
         {
             battleComp.OnAttackStarted += animationComp.StartAttackAnimation;
             battleComp.OnReachedTargetPos += animationComp.EndDashLoop;
             battleComp.OnDamaged += animationComp.PlayHittedAnimation;
             battleComp.OnDie += animationComp.PlayDiedAnimation;
-            BattleComp.OnMeleeAttack += animationComp.StartMeleeAnimation;
 
             animationComp.OnHitAttack += battleComp.ApplyDamageOnce;
             animationComp.OnShootRangeAttack += battleComp.TrySpawnProjectileForRangedAttack;
-            //animationComp.OnAttackEnd += battleComp.AttackEnd;
         }
 
         public void EndTurn()
@@ -99,7 +105,10 @@ namespace LUP.DSG
             DataCenter dataCenter = FindAnyObjectByType<DataCenter>();
             if (dataCenter == null) return;
 
-            CharacterData data = dataCenter.FindCharacterData(info.characterID);
+            DeckStrategyStage stage = LUP.StageManager.Instance.GetCurrentStage() as DeckStrategyStage;
+            if (stage == null) return;
+
+            CharacterData data = stage.FindCharacterData(info.characterID, info.characterLevel);
             CharacterModelData modelData = dataCenter.FindCharacterModel(info.characterModelID);
 
             if (data == null || modelData == null) return;
@@ -141,6 +150,7 @@ namespace LUP.DSG
 
         public void ActiveBattleUI()
         {
+            if (chracterBattleUI == null) return;
             chracterBattleUI.Init(this);
 
             chracterBattleUI.gameObject.SetActive(true);

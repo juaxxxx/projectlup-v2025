@@ -38,7 +38,6 @@ namespace LUP.DSG
         [SerializeField]
         private Vector3 offset = new Vector3(0, 1.5f, 0);
 
-
         public void Init(Character character)
         {
             //Debug.Log("Init");

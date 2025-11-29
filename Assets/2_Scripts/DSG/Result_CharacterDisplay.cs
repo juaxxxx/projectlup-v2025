@@ -9,7 +9,16 @@ namespace LUP.DSG
     {
         private TeamMVPData mvpData;
 
-        void Start()
+        private void Awake()
+        {
+            StageInitializeInvoker.OnDSGStagePostInitialize += PostInitialize;
+        }
+        private void OnDestroy()
+        {
+            StageInitializeInvoker.OnDSGStagePostInitialize -= PostInitialize;
+        }
+
+        private void PostInitialize(DeckStrategyStage stage)
         {
             mvpData = Resources.Load<TeamMVPData>("TeamMVPData");
             if (mvpData == null)

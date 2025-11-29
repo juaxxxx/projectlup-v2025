@@ -7,7 +7,17 @@ namespace LUP.DSG
     public class MVPDisplay : MonoBehaviour
     {
         private DataCenter dataCenter;
-        void Start()
+
+        private void Awake()
+        {
+            StageInitializeInvoker.OnDSGStagePostInitialize += PostInitialize;
+        }
+        private void OnDestroy()
+        {
+            StageInitializeInvoker.OnDSGStagePostInitialize -= PostInitialize;
+        }
+
+        private void PostInitialize(DeckStrategyStage stage)
         {
             dataCenter = FindFirstObjectByType<DataCenter>();
             if (dataCenter == null || dataCenter.mvpData == null)

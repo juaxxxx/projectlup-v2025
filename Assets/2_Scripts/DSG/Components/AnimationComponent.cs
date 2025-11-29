@@ -10,9 +10,6 @@ namespace LUP.DSG
 
         public event Action OnHitAttack;
         public event Action OnShootRangeAttack;
-        public event Action OnAttackEnd;
-        public event Action OnEndFwdDash;
-        public event Action OnEndBwdDash;
 
         public EAnimStateType currentState { get; private set; }
 
