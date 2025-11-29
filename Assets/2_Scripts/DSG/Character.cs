@@ -11,11 +11,6 @@ namespace LUP.DSG
         private ScoreComponent scoreComp;
         private AnimationComponent animationComp;
 
-        [SerializeField]
-        private SkinnedMeshRenderer bodySkin;
-        [SerializeField]
-        private SkinnedMeshRenderer headSkin;
-
         public StatusEffectComponent StatusEffectComp => statusEffectComp;
         public BattleComponent BattleComp => battleComp;
         public ScoreComponent ScoreComp => scoreComp;
@@ -119,8 +114,6 @@ namespace LUP.DSG
 
             characterData = data;
             characterModelData = modelData;
-            bodySkin.material.color = modelData.material.color;
-            headSkin.material.color = modelData.material.color;
             gameObject.SetActive(true);
             if (characterInfoUI != null)
             {
@@ -155,12 +148,6 @@ namespace LUP.DSG
 
             chracterBattleUI.gameObject.SetActive(true);
             characterInfoUI.gameObject.SetActive(false);
-        }
-
-        public void SetSkinColor(Color color)
-        {
-            bodySkin.material.color = color;
-            headSkin.material.color = color;
         }
     }
 }

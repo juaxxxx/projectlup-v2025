@@ -30,7 +30,7 @@ namespace LUP.DSG
         private void Initialize(DeckStrategyStage stage)
         {
             slotTransform = this.transform;
-            character = Instantiate(CharacterModelPrefab, slotTransform);
+            character = Instantiate(dataCenter.GetCharacterPrefab(modelID).GetComponent<Character>(), slotTransform);
 
             character.transform.localPosition = Vector3.zero;
             character.transform.localScale = Vector3.one;
