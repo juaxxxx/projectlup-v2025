@@ -46,8 +46,6 @@ namespace LUP.PCR
             notWalls.Add(new Vector2Int(4, 0));
             notWalls.Add(new Vector2Int(6, 0));
             notWalls.Add(new Vector2Int(7, 0));
-            notWalls.Add(new Vector2Int(10, 0));
-            notWalls.Add(new Vector2Int(10, 0));
             notWalls.Add(new Vector2Int(5, 1));
             notWalls.Add(new Vector2Int(6, 1));
             notWalls.Add(new Vector2Int(7, 1));
@@ -63,9 +61,6 @@ namespace LUP.PCR
             notWalls.Add(new Vector2Int(4, 3));
             notWalls.Add(new Vector2Int(8, 3));
             notWalls.Add(new Vector2Int(9, 3));
-            notWalls.Add(new Vector2Int(10, 3));
-            notWalls.Add(new Vector2Int(11, 3));
-            notWalls.Add(new Vector2Int(12, 3));
             notWalls.Add(new Vector2Int(0, 4));
             notWalls.Add(new Vector2Int(1, 4));
             notWalls.Add(new Vector2Int(2, 4));
@@ -73,17 +68,9 @@ namespace LUP.PCR
             notWalls.Add(new Vector2Int(4, 4));
             notWalls.Add(new Vector2Int(8, 4));
             notWalls.Add(new Vector2Int(9, 4));
-            notWalls.Add(new Vector2Int(10, 4));
-            notWalls.Add(new Vector2Int(11, 4));
-            notWalls.Add(new Vector2Int(12, 4));
             notWalls.Add(new Vector2Int(4, 5));
             notWalls.Add(new Vector2Int(8, 5));
             notWalls.Add(new Vector2Int(9, 5));
-            notWalls.Add(new Vector2Int(10, 5));
-            notWalls.Add(new Vector2Int(11, 5));
-            notWalls.Add(new Vector2Int(12, 5));
-            notWalls.Add(new Vector2Int(13, 5));
-            notWalls.Add(new Vector2Int(14, 5));
 
         }
 
@@ -108,9 +95,9 @@ namespace LUP.PCR
             wallInfoes.Clear();
 
             int idCount = 0;
-            for (int i = 0; i < 28; i++)
+            for (int i = 0; i < GridSize.x; i++)
             {
-                for (int j = 0; j < 15; j++)
+                for (int j = 0; j < GridSize.y; j++)
                 {
                     if (FindNotWall(new Vector2Int(i, j)))
                     {

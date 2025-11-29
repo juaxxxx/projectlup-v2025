@@ -16,6 +16,8 @@ namespace LUP.PCR
         private GameObject mushroomFarmPrefab;
         [SerializeField]
         private GameObject restaurantPrefab;
+        [SerializeField]
+        private GameObject powerStationPrefab;
 
         [SerializeField]
         private GameObject dustPrefab;
@@ -55,6 +57,10 @@ namespace LUP.PCR
                     break;
                 case BuildingType.RESTAURANT:
                     buildingObject = Instantiate(restaurantPrefab, pos, Quaternion.identity);
+                    
+                    break;
+                case BuildingType.POWERSTATION:
+                    buildingObject = Instantiate(powerStationPrefab, pos, Quaternion.identity);
 
                     break;
             }

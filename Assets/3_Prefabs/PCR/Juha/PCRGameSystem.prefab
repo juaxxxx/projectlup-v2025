@@ -44,8 +44,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f27900a343fb38c428430ceaf7c11de7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tilePrefab: {fileID: 0}
-  dustPrefab: {fileID: 0}
+  tilePrefab: {fileID: 8091790397025560228, guid: b3fae8582928dce4abfeae5bf13679d4, type: 3}
 --- !u!1 &604371497270058545
 GameObject:
   m_ObjectHideFlags: 0
@@ -127,6 +126,7 @@ Transform:
   - {fileID: 1474787679929011635}
   - {fileID: 6451158559025355477}
   - {fileID: 7142335919441245575}
+  - {fileID: 5775999410788905202}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &3489063902991163802
@@ -141,6 +141,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 037262107a73fe64494da275aad4e774, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  buildingGenerator: {fileID: 3770741666171774173}
   buildingSystem: {fileID: 6915965669488142714}
   tileMap: {fileID: 7934961181985955281}
   taskController: {fileID: 8812501191550470173}
@@ -192,13 +193,63 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5bc3692d74402864e9581ca9e097f4ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  digWallPreview: {fileID: 0}
+  buildPreview: {fileID: 0}
   currSelectedBuildingType: 0
-  tileMap: {fileID: 0}
+  tileMap: {fileID: 7934961181985955281}
   lastClickTile: {fileID: 0}
+  buildingSystem: {fileID: 0}
   uiCenter: {fileID: 0}
-  wheatFarmPrefab: {fileID: 0}
-  mushroomFarmPrefab: {fileID: 0}
-  restaurantPrefab: {fileID: 0}
+--- !u!1 &6506604557057117768
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5775999410788905202}
+  - component: {fileID: 3770741666171774173}
+  m_Layer: 0
+  m_Name: BuidlingGenerator
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5775999410788905202
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6506604557057117768}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 3053574862826589538}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3770741666171774173
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6506604557057117768}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 06f73467c1f8a2d40b698ba9512f7dd2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  buildingSpawnTransform: {fileID: 0}
+  wallSpawnTransform: {fileID: 0}
+  wheatFarmPrefab: {fileID: 6076015338484084759, guid: 7c02beada8a74f845911f3c818b59245, type: 3}
+  mushroomFarmPrefab: {fileID: 6745643677092434164, guid: c409b4080aefebf41b8972ad77303a0c, type: 3}
+  restaurantPrefab: {fileID: 2816563872769931831, guid: 85a397ffd2d64a541b489d82678bd1e8, type: 3}
+  dustPrefab: {fileID: 4137795641468081738, guid: d63ddd9551a991e4ab65e9de2816cf3b, type: 3}
 --- !u!1 &6775609805975652863
 GameObject:
   m_ObjectHideFlags: 0
@@ -316,7 +367,8 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 8339570793247870058}
   m_Father: {fileID: 3053574862826589538}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1207909849776977502
@@ -331,9 +383,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b75c2f71f595fac4489782e402632893, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  wheatFarmPreview: {fileID: 0}
-  canBuildMaterial: {fileID: 0}
-  canNotBuildMaterial: {fileID: 0}
+  wheatFarmPreview: {fileID: 1175990637338927610}
+  canBuildMaterial: {fileID: 2100000, guid: e83917b034519d34498dfbc4287a6ffe, type: 2}
+  canNotBuildMaterial: {fileID: 2100000, guid: 044b5dbc77c50624ea56fc58511daff3, type: 2}
   canBuild: 0
 --- !u!1001 &6506382749774836896
 PrefabInstance:
@@ -343,6 +395,74 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 3053574862826589538}
     m_Modifications:
+    - target: {fileID: 384802636608576622, guid: cc5a6000dd1ad2e499094317c8aa1f04, type: 3}
+      propertyPath: m_fontAsset
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 882611221335217559, guid: cc5a6000dd1ad2e499094317c8aa1f04, type: 3}
+      propertyPath: m_fontAsset
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 1259145376552811983, guid: cc5a6000dd1ad2e499094317c8aa1f04, type: 3}
+      propertyPath: m_fontAsset
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 1567840390047498698, guid: cc5a6000dd1ad2e499094317c8aa1f04, type: 3}
+      propertyPath: m_fontAsset
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 1663002173594184916, guid: cc5a6000dd1ad2e499094317c8aa1f04, type: 3}
+      propertyPath: m_fontAsset
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 2488100002408937005, guid: cc5a6000dd1ad2e499094317c8aa1f04, type: 3}
+      propertyPath: m_fontAsset
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 2785310908709601050, guid: cc5a6000dd1ad2e499094317c8aa1f04, type: 3}
+      propertyPath: m_fontAsset
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 2886914669881780350, guid: cc5a6000dd1ad2e499094317c8aa1f04, type: 3}
+      propertyPath: m_fontAsset
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 3042312817939102518, guid: cc5a6000dd1ad2e499094317c8aa1f04, type: 3}
+      propertyPath: m_fontAsset
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 3057214962147768412, guid: cc5a6000dd1ad2e499094317c8aa1f04, type: 3}
+      propertyPath: m_fontAsset
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 3130881099677751582, guid: cc5a6000dd1ad2e499094317c8aa1f04, type: 3}
+      propertyPath: m_fontAsset
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 3903946754317110881, guid: cc5a6000dd1ad2e499094317c8aa1f04, type: 3}
+      propertyPath: m_fontAsset
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 4510118219896864436, guid: cc5a6000dd1ad2e499094317c8aa1f04, type: 3}
+      propertyPath: m_fontAsset
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 4519772843521748605, guid: cc5a6000dd1ad2e499094317c8aa1f04, type: 3}
+      propertyPath: m_fontAsset
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 4888448786094798107, guid: cc5a6000dd1ad2e499094317c8aa1f04, type: 3}
+      propertyPath: m_fontAsset
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5257863991098108878, guid: cc5a6000dd1ad2e499094317c8aa1f04, type: 3}
+      propertyPath: m_fontAsset
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5501864920885127775, guid: cc5a6000dd1ad2e499094317c8aa1f04, type: 3}
+      propertyPath: m_fontAsset
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 5637432749922220307, guid: cc5a6000dd1ad2e499094317c8aa1f04, type: 3}
       propertyPath: m_LocalPosition.x
       value: 353.738
@@ -383,9 +503,41 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6164549678960024841, guid: cc5a6000dd1ad2e499094317c8aa1f04, type: 3}
+      propertyPath: m_fontAsset
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 6610457766102954642, guid: cc5a6000dd1ad2e499094317c8aa1f04, type: 3}
       propertyPath: m_Name
       value: UICenter
+      objectReference: {fileID: 0}
+    - target: {fileID: 7257044513804783724, guid: cc5a6000dd1ad2e499094317c8aa1f04, type: 3}
+      propertyPath: m_fontAsset
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 7527062602464049191, guid: cc5a6000dd1ad2e499094317c8aa1f04, type: 3}
+      propertyPath: m_fontAsset
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 7714918830171789687, guid: cc5a6000dd1ad2e499094317c8aa1f04, type: 3}
+      propertyPath: m_fontAsset
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 8293184236426183690, guid: cc5a6000dd1ad2e499094317c8aa1f04, type: 3}
+      propertyPath: m_fontAsset
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 8787749048481171944, guid: cc5a6000dd1ad2e499094317c8aa1f04, type: 3}
+      propertyPath: m_fontAsset
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 8903011322305593383, guid: cc5a6000dd1ad2e499094317c8aa1f04, type: 3}
+      propertyPath: m_fontAsset
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 9127780013993896711, guid: cc5a6000dd1ad2e499094317c8aa1f04, type: 3}
+      propertyPath: m_fontAsset
+      value: 
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -408,3 +560,74 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 34eac3d5dbffc6c4d9f1261ac2c9979b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1001 &7511730615928719351
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 7142335919441245575}
+    m_Modifications:
+    - target: {fileID: 1982459330029980573, guid: f6ab578ef14738b4481dc061f72ab7ff, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 7.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1982459330029980573, guid: f6ab578ef14738b4481dc061f72ab7ff, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -17.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1982459330029980573, guid: f6ab578ef14738b4481dc061f72ab7ff, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -2.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1982459330029980573, guid: f6ab578ef14738b4481dc061f72ab7ff, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1982459330029980573, guid: f6ab578ef14738b4481dc061f72ab7ff, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1982459330029980573, guid: f6ab578ef14738b4481dc061f72ab7ff, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1982459330029980573, guid: f6ab578ef14738b4481dc061f72ab7ff, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1982459330029980573, guid: f6ab578ef14738b4481dc061f72ab7ff, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1982459330029980573, guid: f6ab578ef14738b4481dc061f72ab7ff, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1982459330029980573, guid: f6ab578ef14738b4481dc061f72ab7ff, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8678140108917843469, guid: f6ab578ef14738b4481dc061f72ab7ff, type: 3}
+      propertyPath: m_Name
+      value: WheatFarmPreview
+      objectReference: {fileID: 0}
+    - target: {fileID: 8678140108917843469, guid: f6ab578ef14738b4481dc061f72ab7ff, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: f6ab578ef14738b4481dc061f72ab7ff, type: 3}
+--- !u!1 &1175990637338927610 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8678140108917843469, guid: f6ab578ef14738b4481dc061f72ab7ff, type: 3}
+  m_PrefabInstance: {fileID: 7511730615928719351}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &8339570793247870058 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1982459330029980573, guid: f6ab578ef14738b4481dc061f72ab7ff, type: 3}
+  m_PrefabInstance: {fileID: 7511730615928719351}
+  m_PrefabAsset: {fileID: 0}

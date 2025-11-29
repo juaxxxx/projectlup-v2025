@@ -21,11 +21,13 @@ namespace LUP.PCR
                 Start();
             }
         }
+
         public void Exit(BuildingBase building)
         {
             Debug.Log("ProductableState Exit");
             data.Reset(0);
         }
+
         public void Tick(BuildingBase building, float deltaTime)
         {
             if (!IsStarted())

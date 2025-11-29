@@ -25,7 +25,8 @@ namespace LUP.PCR
         MUSHROOMFARM,
         WHEATFARM,
         MOLEFARM,
-        RESTAURANT
+        RESTAURANT,
+        POWERSTATION,
     }
 
     public enum WallType
@@ -42,6 +43,7 @@ namespace LUP.PCR
         IRON,
         WHEAT,
         MUSHROOM,
+        POWER,
     }
 
     public enum PlacementResultType

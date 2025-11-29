@@ -6,6 +6,9 @@ namespace LUP.PCR
     {
         [SerializeField]
         GameObject wheatFarmPreview;
+        [SerializeField]
+        GameObject powerStationPreview;
+
 
         [SerializeField]
         Material canBuildMaterial;
@@ -27,6 +30,7 @@ namespace LUP.PCR
         private void Start()
         {
             wheatFarmPreview.SetActive(false);
+            powerStationPreview.SetActive(false);
             canBuild = false;
         }
 
@@ -99,6 +103,9 @@ namespace LUP.PCR
 
                     break;
 
+                case BuildingType.POWERSTATION:
+                    currPreview = powerStationPreview;
+                    break;
                 default:
 
                     break;

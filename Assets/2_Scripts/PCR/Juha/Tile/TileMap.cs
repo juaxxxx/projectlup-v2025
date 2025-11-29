@@ -6,8 +6,6 @@ namespace LUP.PCR
     {
         int gridWidth = 5;
         int gridHeight = 5;
-        int tileMapWidth = 28;
-        int tileMapHeight = 15;
 
         [SerializeField]
         private GameObject tilePrefab;
@@ -20,10 +18,10 @@ namespace LUP.PCR
 
         public void InitializeTileMap(TileInfo[,] tileInfoes)
         {
-            tiles = new Tile[tileMapWidth, tileMapHeight];
-            for (int i = 0; i < tileMapWidth; i++)
+            tiles = new Tile[GridSize.x, GridSize.y];
+            for (int i = 0; i < GridSize.x; i++)
             {
-                for (int j = 0; j < tileMapHeight; j++)
+                for (int j = 0; j < GridSize.y; j++)
                 {
                     if (tilePrefab)
                     {
