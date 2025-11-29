@@ -10,7 +10,7 @@ namespace LUP.RL
         }
         public override NodeState Evaluate()
         {
-            UnityEngine.Debug.Log("Reduce HP");
+            //UnityEngine.Debug.Log("Reduce HP");
             return NodeState.Success;
         }
 

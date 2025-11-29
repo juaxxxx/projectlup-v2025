@@ -10,7 +10,7 @@ namespace LUP.RL
         }
         public override NodeState Evaluate()
         {
-            UnityEngine.Debug.Log("Action Wait");
+            //UnityEngine.Debug.Log("Action Wait");
 
             if(behaviorTree.GetCurrentAnimState().IsName("Wait") == false)
             {

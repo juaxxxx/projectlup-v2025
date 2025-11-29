@@ -6,18 +6,23 @@ namespace LUP.RL
 {
     public class EnemyBlackBoard : BlackBoard
     {
-        public Enemy enemy;
-        public ShooterComp shooter;
+       private Enemy enemy;
+       private ShooterComp shooter;
+        [SerializeField] private float FullAttackCoolTime = 2f;
         private void Start()
         {
             {
-                shooter = enemy.GetComponent<ShooterComp>();
+                enemy = GetComponent<Enemy>();
+             
                 Target = FindFirstObjectByType<PlayerMove>().gameObject;
-
                 if (Target == null)
                     UnityEngine.Debug.LogWarning("Can't find Target(Plaeyr)");
 
                 targetPos = Target.transform;
+                if (enemy.Type == EnemyType.Ranged)
+                {
+                    shooter = enemy.GetComponent<ShooterComp>();
+                }
             }
 
 
@@ -40,11 +45,26 @@ namespace LUP.RL
             
             TargetDistance = Vector3.Distance(targetPos.position, gameObject.transform.position);
 
+         
 
-            shooter.TryShoot(Target.transform, enemy.EnemyStats.Attack);
-            AtkCollTime = AtkCollTime - deltaTime * AtkCoolTimeRecoverySpeed;
+            AtkCollTime -= deltaTime * AtkCoolTimeRecoverySpeed;
             if (AtkCollTime < 0)
+            
                 AtkCollTime = 0;
+            
+            if (enemy.Type == EnemyType.Ranged && shooter != null)
+            {
+                if (AtkCollTime == 0)
+                {
+                    shooter.TryShoot(Target.transform, enemy.EnemyStats.Attack);
+
+                    // 쿨타임 리필
+                    AtkCollTime = FullAttackCoolTime;   
+                }
+
+                // 원거리 몬스터는 아래 로직 안 타게 종료
+                return;
+            }
 
 
             {

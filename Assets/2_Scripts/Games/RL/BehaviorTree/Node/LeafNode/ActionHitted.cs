@@ -12,7 +12,7 @@ namespace LUP.RL
         public override NodeState Evaluate()
         {
 
-            UnityEngine.Debug.Log("Action Hitted");
+            //UnityEngine.Debug.Log("Action Hitted");
 
             if (isAnimOnPlayed)
             {
@@ -34,7 +34,7 @@ namespace LUP.RL
 
         public override void OnAnimationEnd(AnimatorStateInfo animInfo)
         {
-            UnityEngine.Debug.Log("Hit Animation Ended");
+            //UnityEngine.Debug.Log("Hit Animation Ended");
             isAnimOnPlayed = false;
             nodeState = NodeState.Success;
             blackBoard.InHittedState = false;
