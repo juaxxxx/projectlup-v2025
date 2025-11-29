@@ -1188,6 +1188,67 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   MeshRenderer: {fileID: 0}
+--- !u!1001 &1183410054
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 3053574862826589538, guid: cdc75119459fb3a4694c648952622ce5, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 1.5770328
+      objectReference: {fileID: 0}
+    - target: {fileID: 3053574862826589538, guid: cdc75119459fb3a4694c648952622ce5, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.3405753
+      objectReference: {fileID: 0}
+    - target: {fileID: 3053574862826589538, guid: cdc75119459fb3a4694c648952622ce5, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0.021045534
+      objectReference: {fileID: 0}
+    - target: {fileID: 3053574862826589538, guid: cdc75119459fb3a4694c648952622ce5, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3053574862826589538, guid: cdc75119459fb3a4694c648952622ce5, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3053574862826589538, guid: cdc75119459fb3a4694c648952622ce5, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3053574862826589538, guid: cdc75119459fb3a4694c648952622ce5, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3053574862826589538, guid: cdc75119459fb3a4694c648952622ce5, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3053574862826589538, guid: cdc75119459fb3a4694c648952622ce5, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3053574862826589538, guid: cdc75119459fb3a4694c648952622ce5, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5325230887927325913, guid: cdc75119459fb3a4694c648952622ce5, type: 3}
+      propertyPath: m_Name
+      value: PCRGameSystem (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 5325230887927325913, guid: cdc75119459fb3a4694c648952622ce5, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: cdc75119459fb3a4694c648952622ce5, type: 3}
 --- !u!1 &1368217301
 GameObject:
   m_ObjectHideFlags: 0
@@ -4506,6 +4567,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   wheatFarmPreview: {fileID: 8678140108917843469, guid: f6ab578ef14738b4481dc061f72ab7ff, type: 3}
+  powerStationPreview: {fileID: 0}
   canBuildMaterial: {fileID: 2100000, guid: e83917b034519d34498dfbc4287a6ffe, type: 2}
   canNotBuildMaterial: {fileID: 2100000, guid: 044b5dbc77c50624ea56fc58511daff3, type: 2}
   canBuild: 0
@@ -8701,6 +8763,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 037262107a73fe64494da275aad4e774, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  buildingGenerator: {fileID: 0}
   buildingSystem: {fileID: 6915965670084738356}
   tileMap: {fileID: 7934961182448290207}
   taskController: {fileID: 8812501191088135251}
@@ -11520,7 +11583,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &5329438049453722703
 RectTransform:
   m_ObjectHideFlags: 0
@@ -13546,6 +13609,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   wheatFarmBtn: {fileID: 7352152410217971896}
   mushroomFarmBtn: {fileID: 1964761414094031299}
+  powerStationBtn: {fileID: 0}
   backBtn: {fileID: 0}
 --- !u!114 &6418453384982179722
 MonoBehaviour:
@@ -16674,7 +16738,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tilePrefab: {fileID: 8091790397025560228, guid: b3fae8582928dce4abfeae5bf13679d4, type: 3}
-  dustPrefab: {fileID: 4137795641468081738, guid: d63ddd9551a991e4ab65e9de2816cf3b, type: 3}
 --- !u!114 &7938525806965694167
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -18493,9 +18556,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5bc3692d74402864e9581ca9e097f4ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  digWallPreview: {fileID: 0}
+  buildPreview: {fileID: 0}
   currSelectedBuildingType: 0
   tileMap: {fileID: 0}
   lastClickTile: {fileID: 0}
+  buildingSystem: {fileID: 0}
   uiCenter: {fileID: 0}
 --- !u!114 &8839430557194671330
 MonoBehaviour:
@@ -19129,3 +19195,4 @@ SceneRoots:
   - {fileID: 1926665716}
   - {fileID: 3053574863421053228}
   - {fileID: 850087110}
+  - {fileID: 1183410054}
