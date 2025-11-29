@@ -56,6 +56,7 @@ namespace LUP
 
             yield return null;
         }
+
         public override IEnumerator OnStageStay()
         {
             yield return base.OnStageStay();

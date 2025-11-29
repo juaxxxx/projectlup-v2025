@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using System;
 using System.Collections.Generic;
 using System.Reflection;
 using UnityEditor;
@@ -16,7 +17,8 @@ public abstract class BaseStaticDataLoader : ScriptableObject
 
 public abstract class BaseStaticDataLoader<T> : BaseStaticDataLoader where T : new()
 {
-    [Header("스프레드시트에서 읽혀져 직렬화 된 오브젝트")][SerializeField]
+    [Header("스프레드시트에서 읽혀져 직렬화 된 오브젝트")]
+    [SerializeField]
     public List<T> DataList = new List<T>();
 
     public List<T> GetDataList() => DataList;
@@ -122,8 +124,12 @@ public abstract class BaseStaticDataLoader<T> : BaseStaticDataLoader where T : n
 
             try
             {
-                // 타입별 파싱
-                if (field.FieldType == typeof(string))
+                if (field.FieldType.IsEnum)
+                {
+                    if (Enum.TryParse(field.FieldType, value, true, out object enumValue))
+                        field.SetValue(instance, enumValue);
+                }
+                else if (field.FieldType == typeof(string))
                 {
                     field.SetValue(instance, value);
                 }

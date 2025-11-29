@@ -1,5 +1,5 @@
 ﻿[System.Serializable]
-public class ProductionStaticData
+public class PCRConstructionStaticData
 {
     [Column("name")] public string name;
     [Column("description")] public string description;

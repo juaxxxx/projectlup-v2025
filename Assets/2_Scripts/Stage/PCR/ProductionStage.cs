@@ -6,7 +6,7 @@ namespace LUP
     public class ProductionStage : BaseStage
     {
         public BaseRuntimeData RuntimeData;
-        public List<ProductionStaticData> DataList;
+        public List<PCRConstructionStaticData> DataList;
 
         protected override void Awake() 
         {
@@ -62,7 +62,7 @@ namespace LUP
             {
                 foreach (var loader in loaders)
                 {
-                    if (loader is ProductionStaticDataLoader pcrLoader)
+                    if (loader is PCRConstructionStaticDataLoader pcrLoader)
                     {
                         DataList = pcrLoader.GetDataList();
                     }
