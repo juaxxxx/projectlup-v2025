@@ -40,6 +40,7 @@ namespace LUP.RL
         [HideInInspector]
         public NavMeshAgent agent;
 
+
         public abstract void UpdateBlackBoard();
     }
 }

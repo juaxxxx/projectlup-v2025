@@ -6,9 +6,12 @@ namespace LUP.RL
 {
     public class EnemyBlackBoard : BlackBoard
     {
+        public Enemy enemy;
+        public ShooterComp shooter;
         private void Start()
         {
             {
+                shooter = enemy.GetComponent<ShooterComp>();
                 Target = FindFirstObjectByType<PlayerMove>().gameObject;
 
                 if (Target == null)
@@ -32,13 +35,13 @@ namespace LUP.RL
             float deltaTime = Time.deltaTime;
             if (Target == null || targetPos == null)
             {
-                Debug.Log("xxx");
                 return;
             }
+            
             TargetDistance = Vector3.Distance(targetPos.position, gameObject.transform.position);
 
 
-
+            shooter.TryShoot(Target.transform, enemy.EnemyStats.Attack);
             AtkCollTime = AtkCollTime - deltaTime * AtkCoolTimeRecoverySpeed;
             if (AtkCollTime < 0)
                 AtkCollTime = 0;

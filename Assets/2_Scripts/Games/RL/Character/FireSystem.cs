@@ -11,11 +11,8 @@ namespace LUP.RL
 
         public void TryFire(Transform target, int attackValue)
         {
-            if(target == null)
-            {
-                Debug.Log(" get null");
-                return;
-            }
+            if(target == null) return;
+
             GameObject obj = Instantiate(bulletData.bulletPrefab, spawnPoint.position, spawnPoint.rotation);
             ProjectileBase tilebase = obj.GetComponent<ProjectileBase>();
             tilebase.Init(bulletData, gameObject, attackValue, target);
