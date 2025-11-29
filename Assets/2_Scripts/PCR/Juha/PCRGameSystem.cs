@@ -7,6 +7,8 @@ namespace LUP.PCR
     {
 
         [SerializeField]
+        private BuildingGenerator buildingGenerator;
+        [SerializeField]
         private BuildingSystem buildingSystem;
         [SerializeField]
         private TileMap tileMap;
@@ -24,6 +26,7 @@ namespace LUP.PCR
         private void Awake()
         {
             dataCenter = GetComponentInChildren<PCRDataCenter>();
+            buildingGenerator = GetComponentInChildren<BuildingGenerator>();
             buildingSystem = GetComponentInChildren<BuildingSystem>();
             tileMap = GetComponentInChildren<TileMap>();
             digWallPreview = GetComponentInChildren<DigWallPreview>();
@@ -38,10 +41,10 @@ namespace LUP.PCR
             dataCenter.InitData();
 
             // BuildingSystem Init
-
+            buildingSystem.InitBuildingSystem(dataCenter, buildingGenerator, buildPreview);
 
             // TileMap Init
-
+            tileMap.InitializeTileMap(dataCenter.tileInfoes);
 
             // DigWallPreview Init
             digWallPreview.UpdateAllDigWallPreview(tileMap);
@@ -50,17 +53,11 @@ namespace LUP.PCR
             buildPreview.Init(tileMap);
 
             // TaskController Init
-            taskController.InitTaskController(uiCenter, digWallPreview, buildPreview);
+            taskController.InitTaskController(uiCenter, digWallPreview, buildPreview, tileMap, buildingSystem);
 
             // uiCenter Init
             uiCenter.InitUI(taskController);
         }
-
-        private void InitializeTileMap()
-        {
-
-        }
-
     }
 
 }

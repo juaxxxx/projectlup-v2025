@@ -9,12 +9,9 @@ namespace LUP.PCR
     {
         private TaskController taskController;
 
-        private DigWallPreview digWallPreview;
-
-        public DigWallState(TaskController controller, DigWallPreview digWallPreview)
+        public DigWallState(TaskController controller)
         {
             taskController = controller;
-            this.digWallPreview = digWallPreview;
         }
 
         public void InputHandle()
@@ -78,14 +75,14 @@ namespace LUP.PCR
         {
             // 땅 표시 활성화
             Debug.Log("DigWall State Open");
-            digWallPreview.Show();
+            taskController.digWallPreview.Show();
         }
 
         public void Close()
         {
             // 땅 표시 비활성화
             Debug.Log("DigWall State Close");
-            digWallPreview.Hide();
+            taskController.digWallPreview.Hide();
         }
 
         public void UpdateDigTile()
@@ -95,9 +92,9 @@ namespace LUP.PCR
             {
                 if (tile.tileInfo.tileType == TileType.WALL)
                 {
-                    digWallPreview.RemoveCanDigTile(tile);
+                    taskController.digWallPreview.RemoveCanDigTile(tile);
                     tile.HideCanDigWallMark();
-                    digWallPreview.AddCanNotDigTile(tile);
+                    taskController.digWallPreview.AddCanNotDigTile(tile);
                     tile.SetTileInfo(new TileInfo(TileType.PATH, BuildingType.NONE, WallType.NONE, tile.tileInfo.pos, tile.tileInfo.id));
                 }
             }

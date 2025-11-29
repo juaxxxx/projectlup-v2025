@@ -61,6 +61,8 @@ namespace LUP.PCR
             constructionDecisionPresenter.BindActionReject(taskController.IdleTask);
             constructionDecisionPresenter.BindActionAccept(taskController.IdleTask);
             constructionDecisionPresenter.BindActionAccept(taskController.CreateBuilding);
+
+            Debug.Log("UICenter Init");
         }
 
         // 건설 건물 선택 시 공통 이벤트

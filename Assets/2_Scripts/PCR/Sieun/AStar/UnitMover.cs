@@ -46,24 +46,78 @@ namespace LUP.PCR
         //    currentIndex = 0;
         //}
 
-        // BT - 사용할 목적지 설정
         public void SetDestination(Vector3 worldPos)
         {
             if (gridMap == null || pathfinder == null) return;
-            
+
             ANode startNode = gridMap.GetNodeFromWorldPosition(transform.position);
             ANode targetNode = gridMap.GetNodeFromWorldPosition(worldPos);
-            path = pathfinder.FindPath(startNode, targetNode);
-            currentIndex = 0;
-            
-            gridMap.pathToDraw = path; // 경로 시각화용
-            
-            if (path != null && path.Count > 0)
-                currentDestination = gridMap.GetNodeWorldPosition(path[path.Count - 1]);
-            else
+
+            if (targetNode == null || !targetNode.isWalkable)
+            {
+                //@TODO // 시스템메시지 UI 호출
+                return;
+            }
+
+            List<ANode> calculatedPath = pathfinder.FindPath(startNode, targetNode);
+
+            //@TODO
+            //: 만약 경로를 못 찾았으면 목적지만이라도 설정할지, 멈출지 결정
+            if (calculatedPath == null || calculatedPath.Count == 0)
+            {
                 currentDestination = worldPos;
+                path = null;
+            }
+            else
+            {
+                ProcessPath(calculatedPath);
+            }
 
             MoveAlongPath();
+        }
+        public void SetDestination(Vector2Int gridPos)
+        {
+            if (gridMap == null || pathfinder == null) return;
+
+            // 시작점은 현재 유닛의 월드 위치를 기준으로 찾음
+
+            ANode startNode = gridMap.GetNodeFromWorldPosition(transform.position);
+            ANode targetNode = gridMap.GetNodeFromGridPos(gridPos);
+
+            if (targetNode == null || !targetNode.isWalkable)
+            {
+                //@TODO // 시스템메시지 UI 호출
+                return;
+            }
+
+            List<ANode> calculatedPath = pathfinder.FindPath(startNode, targetNode);
+
+            if (calculatedPath != null && calculatedPath.Count > 0)
+            {
+                ProcessPath(calculatedPath);
+            }
+
+            MoveAlongPath();
+        }
+        private void ProcessPath(List<ANode> newPath)
+        {
+            path = newPath;
+            currentIndex = 0;
+
+            gridMap.pathToDraw = path;
+
+            currentDestination = gridMap.GetNodeWorldPosition(path[path.Count - 1]);
+        }
+
+        private void MoveAlongPath()
+        {
+            if (path == null || currentIndex >= path.Count) { return; }
+
+            Vector3 targetPos = gridMap.GetNodeWorldPosition(path[currentIndex]);
+            transform.position = Vector3.MoveTowards(transform.position, targetPos, moveSpeed * Time.deltaTime);
+
+            if (Vector3.Distance(transform.position, targetPos) < 0.1f)
+                currentIndex++;
         }
 
         // BT - 목적지 도착 확인용
@@ -80,18 +134,8 @@ namespace LUP.PCR
         {
             path = null;
             currentIndex = 0;
+            gridMap.pathToDraw = null;
         }
 
-
-        private void MoveAlongPath()
-        {
-            if (path == null || currentIndex >= path.Count) { return; }
-
-            Vector3 targetPos = gridMap.GetNodeWorldPosition(path[currentIndex]);
-            transform.position = Vector3.MoveTowards(transform.position, targetPos, moveSpeed * Time.deltaTime);
-
-            if (Vector3.Distance(transform.position, targetPos) < 0.1f)
-                currentIndex++;
-        }
     }
 }

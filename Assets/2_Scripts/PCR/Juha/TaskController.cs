@@ -9,8 +9,8 @@ namespace LUP.PCR
         private ITaskState buildingState;
         private ITaskState idleState;
 
-        private DigWallPreview digWallPreview;
-        private BuildPreview buildPreview;
+        public DigWallPreview digWallPreview;
+        public BuildPreview buildPreview;
 
         public BuildingType currSelectedBuildingType;
         public ITaskState currentState { get; set; }
@@ -18,17 +18,14 @@ namespace LUP.PCR
         public TileMap tileMap;
         public Tile lastClickTile;
 
+        public BuildingSystem buildingSystem;
         public PCRUICenter uiCenter;
 
         private void Awake()
         {
-            digWallPreview = GetComponent<DigWallPreview>();
-            buildPreview = GetComponent<BuildPreview>();
-            tileMap = GetComponent<TileMap>();
-
             idleState = new IdleState(this);
-            digWallState = new DigWallState(this, digWallPreview);
-            buildingState = new BuildingState(this, buildPreview);
+            digWallState = new DigWallState(this);
+            buildingState = new BuildingState(this);
         }
 
         private void Start()
@@ -45,13 +42,18 @@ namespace LUP.PCR
             }
         }
 
-        public void InitTaskController(PCRUICenter uiCenter, DigWallPreview digWallPreview, BuildPreview buildPreview)
+        public void InitTaskController(PCRUICenter uiCenter, DigWallPreview digWallPreview, BuildPreview buildPreview, 
+            TileMap tileMap, BuildingSystem buildingSystem)
         {
             this.uiCenter = uiCenter;
             this.digWallPreview = digWallPreview;
             this.buildPreview = buildPreview;
+            this.tileMap = tileMap;
+            this.buildingSystem = buildingSystem;
 
             Trasition(idleState);
+
+            Debug.Log("TaskController Init");
         }
 
         public void Trasition(ITaskState state)
@@ -100,8 +102,7 @@ namespace LUP.PCR
         // @TODO: 이거 BuildSystem으로 가는게 맞는듯
         public void CreateBuilding()
         {
-            // buiodlingSytstme.create 넣어라
-
+            buildingSystem.CreateBuilding(currSelectedBuildingType, lastClickTile);
         }
 
         public void ReturnToIdleState()

@@ -1,4 +1,4 @@
-using UnityEngine;
+ï»¿using UnityEngine;
 using UnityEngine.InputSystem.EnhancedTouch;
 
 namespace LUP.PCR
@@ -18,14 +18,14 @@ namespace LUP.PCR
             
             if (isHungry)
             {
-                Debug.Log("¹è°íÇÄ °¨ÁöµÊ.");
+                Debug.Log("ë°°ê³ í”” ê°ì§€ë¨.");
                 return NodeState.SUCCESS;
             }
             else
             {
                 if (logLoopCount == 0)
                 {
-                    Debug.Log("¾ÆÁ÷ ¹è°íÇÁÁö ¾ÊÀ½.");
+                    Debug.Log("ì•„ì§ ë°°ê³ í”„ì§€ ì•ŠìŒ.");
                     logLoopCount += 1;
                 }
                 return NodeState.FAILURE;

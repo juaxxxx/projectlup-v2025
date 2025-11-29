@@ -119,6 +119,37 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &89870424
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 89870425}
+  m_Layer: 0
+  m_Name: walls
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &89870425
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 89870424}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &177115532
 GameObject:
   m_ObjectHideFlags: 0
@@ -190,6 +221,37 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 177115532}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &308905292
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 308905293}
+  m_Layer: 0
+  m_Name: Buildings
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &308905293
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 308905292}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
@@ -778,7 +840,7 @@ Camera:
     height: 1
   near clip plane: 0.3
   far clip plane: 1000
-  field of view: 60
+  field of view: 40
   orthographic: 0
   orthographic size: 5
   m_Depth: -1
@@ -905,9 +967,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e9a776edcb54506469b069d745b03ee3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  wheatFarmPrefab: {fileID: 0}
-  mushroomFarmPrefab: {fileID: 0}
-  restaurantPrefab: {fileID: 0}
 --- !u!114 &1143394258
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -920,9 +979,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5bc3692d74402864e9581ca9e097f4ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  digWallPreview: {fileID: 0}
+  buildPreview: {fileID: 0}
   currSelectedBuildingType: 0
   tileMap: {fileID: 0}
   lastClickTile: {fileID: 0}
+  buildingSystem: {fileID: 0}
   uiCenter: {fileID: 493708371}
 --- !u!114 &1143394259
 MonoBehaviour:
@@ -937,7 +999,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tilePrefab: {fileID: 8091790397025560228, guid: b3fae8582928dce4abfeae5bf13679d4, type: 3}
-  dustPrefab: {fileID: 4137795641468081738, guid: d63ddd9551a991e4ab65e9de2816cf3b, type: 3}
 --- !u!114 &1143394260
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -963,6 +1024,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   wheatFarmPreview: {fileID: 1228743261}
+  powerStationPreview: {fileID: 0}
   canBuildMaterial: {fileID: 2100000, guid: e83917b034519d34498dfbc4287a6ffe, type: 2}
   canNotBuildMaterial: {fileID: 2100000, guid: 044b5dbc77c50624ea56fc58511daff3, type: 2}
   canBuild: 0
@@ -1326,29 +1388,17 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 1207909849776977502, guid: cdc75119459fb3a4694c648952622ce5, type: 3}
-      propertyPath: canBuildMaterial
-      value: 
-      objectReference: {fileID: 2100000, guid: e83917b034519d34498dfbc4287a6ffe, type: 2}
-    - target: {fileID: 1207909849776977502, guid: cdc75119459fb3a4694c648952622ce5, type: 3}
-      propertyPath: wheatFarmPreview
-      value: 
-      objectReference: {fileID: 8678140108917843469, guid: f6ab578ef14738b4481dc061f72ab7ff, type: 3}
-    - target: {fileID: 1207909849776977502, guid: cdc75119459fb3a4694c648952622ce5, type: 3}
-      propertyPath: canNotBuildMaterial
-      value: 
-      objectReference: {fileID: 2100000, guid: 044b5dbc77c50624ea56fc58511daff3, type: 2}
     - target: {fileID: 3053574862826589538, guid: cdc75119459fb3a4694c648952622ce5, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 1.5770328
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3053574862826589538, guid: cdc75119459fb3a4694c648952622ce5, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.3405753
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3053574862826589538, guid: cdc75119459fb3a4694c648952622ce5, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0.021045534
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3053574862826589538, guid: cdc75119459fb3a4694c648952622ce5, type: 3}
       propertyPath: m_LocalRotation.w
@@ -1378,18 +1428,18 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3770741666171774173, guid: cdc75119459fb3a4694c648952622ce5, type: 3}
+      propertyPath: wallSpawnTransform
+      value: 
+      objectReference: {fileID: 89870425}
+    - target: {fileID: 3770741666171774173, guid: cdc75119459fb3a4694c648952622ce5, type: 3}
+      propertyPath: buildingSpawnTransform
+      value: 
+      objectReference: {fileID: 308905293}
     - target: {fileID: 5325230887927325913, guid: cdc75119459fb3a4694c648952622ce5, type: 3}
       propertyPath: m_Name
       value: PCRGameSystem
       objectReference: {fileID: 0}
-    - target: {fileID: 7934961181985955281, guid: cdc75119459fb3a4694c648952622ce5, type: 3}
-      propertyPath: dustPrefab
-      value: 
-      objectReference: {fileID: 4137795641468081738, guid: d63ddd9551a991e4ab65e9de2816cf3b, type: 3}
-    - target: {fileID: 7934961181985955281, guid: cdc75119459fb3a4694c648952622ce5, type: 3}
-      propertyPath: tilePrefab
-      value: 
-      objectReference: {fileID: 8091790397025560228, guid: b3fae8582928dce4abfeae5bf13679d4, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1406,3 +1456,5 @@ SceneRoots:
   - {fileID: 1405763317}
   - {fileID: 1347613365}
   - {fileID: 7142311245950955112}
+  - {fileID: 308905293}
+  - {fileID: 89870425}

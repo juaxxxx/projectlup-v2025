@@ -8,12 +8,10 @@ namespace LUP.PCR
     public class BuildingState : ITaskState
     {
         private TaskController taskController;
-        private BuildPreview buildPreview;
 
-        public BuildingState(TaskController controller, BuildPreview buildPreview)
+        public BuildingState(TaskController controller)
         {
             taskController = controller;
-            this.buildPreview = buildPreview;
         }
 
         public void InputHandle()
@@ -46,8 +44,8 @@ namespace LUP.PCR
                             Debug.Log("Current BuildingType is NONE.");
                         }
 
-                        buildPreview.ChangePreview(taskController.currSelectedBuildingType);
-                        buildPreview.UpdatePreview(taskController.currSelectedBuildingType, taskController.lastClickTile);
+                        taskController.buildPreview.ChangePreview(taskController.currSelectedBuildingType);
+                        taskController.buildPreview.UpdatePreview(taskController.currSelectedBuildingType, taskController.lastClickTile);
 
                         return;
                     }
@@ -72,15 +70,15 @@ namespace LUP.PCR
                 Debug.Log("currBuildingType is NONE");
                 return;
             }
-            buildPreview.ChangePreview(taskController.currSelectedBuildingType);
+            taskController.buildPreview.ChangePreview(taskController.currSelectedBuildingType);
 
-            buildPreview.UpdatePreview(taskController.currSelectedBuildingType, taskController.lastClickTile);
+            taskController.buildPreview.UpdatePreview(taskController.currSelectedBuildingType, taskController.lastClickTile);
         }
 
         public void Close()
         {
             Debug.Log("Building State Close");
-            buildPreview.ResetPreview();
+            taskController.buildPreview.ResetPreview();
         }
 
     }

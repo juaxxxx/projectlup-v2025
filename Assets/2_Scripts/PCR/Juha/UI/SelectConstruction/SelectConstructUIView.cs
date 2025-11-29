@@ -11,6 +11,8 @@ namespace LUP.PCR
         private Button wheatFarmBtn;
         [SerializeField]
         private Button mushroomFarmBtn;
+        [SerializeField]
+        private Button powerStationBtn;
 
 
         // Back Button
@@ -26,10 +28,12 @@ namespace LUP.PCR
             backBtn?.onClick.AddListener(() => OnClickBack?.Invoke());
             wheatFarmBtn?.onClick.AddListener(() => OnClickSelectedBuilding?.Invoke());
             mushroomFarmBtn?.onClick.AddListener(() => OnClickSelectedBuilding?.Invoke());
+            powerStationBtn?.onClick.AddListener(() => OnClickSelectedBuilding?.Invoke());
 
 
             wheatFarmBtn?.onClick.AddListener(() => OnBuildingTypeChanged?.Invoke(BuildingType.WHEATFARM));
             mushroomFarmBtn?.onClick.AddListener(() => OnBuildingTypeChanged?.Invoke(BuildingType.MUSHROOMFARM));
+            powerStationBtn?.onClick.AddListener(() => OnBuildingTypeChanged?.Invoke(BuildingType.POWERSTATION));
         }
 
         public void Show()

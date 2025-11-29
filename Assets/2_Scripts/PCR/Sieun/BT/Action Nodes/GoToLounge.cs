@@ -6,6 +6,7 @@ namespace LUP.PCR
     {
         public GoToLounge(WorkerBlackboard blackboard) : base(blackboard) { }
         bool started = false;
+        Vector2Int loungePos;
 
         public override NodeState Evaluate()
         {
@@ -15,6 +16,7 @@ namespace LUP.PCR
             {
                 //@TODO : 구조 확정되면 라운지 위치 지정하기
                 //Mover.MoveTo(loungePos);
+                Mover.SetDestination(loungePos);
                 //SetData(BBKeys.TargetPosition, loungePos);
                 started = true;
 

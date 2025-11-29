@@ -28,6 +28,9 @@ namespace LUP.PCR
                     AddCanNotDigTile(tile);
                 }
             }
+
+            Debug.Log("DigWallPreview Init");
+
         }
 
         public void Show()

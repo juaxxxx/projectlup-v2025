@@ -6,14 +6,9 @@ namespace LUP.PCR
     {
         int gridWidth = 5;
         int gridHeight = 5;
-        int tileMapWidth = 28;
-        int tileMapHeight = 15;
 
         [SerializeField]
         private GameObject tilePrefab;
-
-        [SerializeField]
-        private GameObject dustPrefab;
 
         public Tile[,] tiles;
 
@@ -23,10 +18,10 @@ namespace LUP.PCR
 
         public void InitializeTileMap(TileInfo[,] tileInfoes)
         {
-            tiles = new Tile[tileMapWidth, tileMapHeight];
-            for (int i = 0; i < tileMapWidth; i++)
+            tiles = new Tile[GridSize.x, GridSize.y];
+            for (int i = 0; i < GridSize.x; i++)
             {
-                for (int j = 0; j < tileMapHeight; j++)
+                for (int j = 0; j < GridSize.y; j++)
                 {
                     if (tilePrefab)
                     {
@@ -39,26 +34,29 @@ namespace LUP.PCR
                     }
                 }
             }
+
+            Debug.Log("TileMap Init");
+
         }
 
-        public void GenerateObject()
-        {
-            for (int i = 0; i < 10; i++)
-            {
-                for (int j = 0; j < 10; j++)
-                {
-                    if (dustPrefab)
-                    {
-                        if (tiles[i, j].tileInfo.tileType == TileType.WALL)
-                        {
-                            Instantiate(dustPrefab,
-                            new Vector3(j * gridWidth + 2.5f, -i * gridHeight - 2.5f, -2.5f),
-                            Quaternion.identity, this.transform);
-                        }
-                    }
-                }
-            }
-        }
+        //public void GenerateObject()
+        //{
+        //    for (int i = 0; i < 10; i++)
+        //    {
+        //        for (int j = 0; j < 10; j++)
+        //        {
+        //            if (dustPrefab)
+        //            {
+        //                if (tiles[i, j].tileInfo.tileType == TileType.WALL)
+        //                {
+        //                    Instantiate(dustPrefab,
+        //                    new Vector3(j * gridWidth + 2.5f, -i * gridHeight - 2.5f, -2.5f),
+        //                    Quaternion.identity, this.transform);
+        //                }
+        //            }
+        //        }
+        //    }
+        //}
     }
 
 

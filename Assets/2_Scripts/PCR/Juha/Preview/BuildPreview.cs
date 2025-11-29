@@ -6,6 +6,9 @@ namespace LUP.PCR
     {
         [SerializeField]
         GameObject wheatFarmPreview;
+        [SerializeField]
+        GameObject powerStationPreview;
+
 
         [SerializeField]
         Material canBuildMaterial;
@@ -21,12 +24,13 @@ namespace LUP.PCR
 
         private void Awake()
         {
-            buildingPlacementRules = GetComponent<BuildingPlacementRules>();
+            buildingPlacementRules = gameObject.AddComponent<BuildingPlacementRules>();
         }
 
         private void Start()
         {
             wheatFarmPreview.SetActive(false);
+            powerStationPreview.SetActive(false);
             canBuild = false;
         }
 
@@ -35,6 +39,8 @@ namespace LUP.PCR
             this.tileMap = tileMap;
             buildingPlacementRules.Init(tileMap);
             currPreview = null;
+
+            Debug.Log("BuildPreview Init");
         }
 
         public void ResetPreview()
@@ -97,6 +103,9 @@ namespace LUP.PCR
 
                     break;
 
+                case BuildingType.POWERSTATION:
+                    currPreview = powerStationPreview;
+                    break;
                 default:
 
                     break;

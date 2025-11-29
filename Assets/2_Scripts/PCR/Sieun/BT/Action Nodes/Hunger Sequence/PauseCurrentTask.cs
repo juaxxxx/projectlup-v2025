@@ -8,8 +8,10 @@ namespace LUP.PCR
 
         public override NodeState Evaluate()
         {
-            //RefreshCachedReferences();
+            RefreshCachedReferences();
+            
             bool isWorking = GetData<bool>(BBKeys.IsWorking);
+            
             if (isWorking)
                 return NodeState.SUCCESS;
 

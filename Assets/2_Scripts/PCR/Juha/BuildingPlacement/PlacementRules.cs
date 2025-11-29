@@ -59,7 +59,7 @@ namespace LUP.PCR
             switch (type)
             {
                 case BuildingType.WHEATFARM:
-                    placementSize = new Vector2Int(4, 1);
+                    placementSize = new Vector2Int(3, 1);
                     break;
                 case BuildingType.MUSHROOMFARM:
                     placementSize = new Vector2Int(2, 1);
