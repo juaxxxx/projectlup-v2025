@@ -60,15 +60,6 @@ namespace LUP.DSG
 
         private void Awake()
         {
-            StageInitializeInvoker.OnDSGStagePostInitialize += PostInitialize;
-        }
-        private void OnDestroy()
-        {
-            StageInitializeInvoker.OnDSGStagePostInitialize -= PostInitialize;
-        }
-
-        private void PostInitialize(DeckStrategyStage stage)
-        {
             owner = GetComponent<Character>();
             originPosition = owner.gameObject.transform.position;
         }
