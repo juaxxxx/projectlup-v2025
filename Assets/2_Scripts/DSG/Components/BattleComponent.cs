@@ -5,7 +5,6 @@ using System.Collections;
 using TMPro;
 using UnityEngine;
 using System.Collections.Generic;
-using static LUP.DSG.ResultCharacterDisplay;
 using static UnityEditor.Experimental.GraphView.GraphView;
 using static UnityEngine.GraphicsBuffer;
 using static UnityEngine.UI.GridLayoutGroup;
@@ -55,13 +54,20 @@ namespace LUP.DSG
 
         public event Action<ERangeType> OnAttackStarted;
         public event Action<bool> OnReachedTargetPos;
-        public event Action OnMeleeAttack;
-        public event Action OnEndMelee;
 
         [SerializeField]
         private GameObject damageLogPrefab;
 
-        void Start()
+        private void Awake()
+        {
+            StageInitializeInvoker.OnDSGStagePostInitialize += PostInitialize;
+        }
+        private void OnDestroy()
+        {
+            StageInitializeInvoker.OnDSGStagePostInitialize -= PostInitialize;
+        }
+
+        private void PostInitialize(DeckStrategyStage stage)
         {
             owner = GetComponent<Character>();
             originPosition = owner.gameObject.transform.position;

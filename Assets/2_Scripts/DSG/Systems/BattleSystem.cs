@@ -1,3 +1,4 @@
+using LUP.Define;
 using LUP.DSG.Utils.Enums;
 using System;
 using System.Collections;
@@ -10,7 +11,6 @@ using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
 using UnityEngine.TextCore.Text;
 using UnityEngine.UI;
-using LUP.DSG.Utils.Enums;
 
 namespace LUP.DSG
 {
@@ -61,6 +61,8 @@ namespace LUP.DSG
 
         void Awake()
         {
+            StageInitializeInvoker.OnDSGStagePostInitialize += PostInitialize;
+
             if (Instance == null)
             {
                 Instance = this;
@@ -71,17 +73,12 @@ namespace LUP.DSG
             }
         }
 
-        private void OnEnable()
+        private void OnDestroy()
         {
-            StageEnterSystem.OnAfterDSGStageEnter += Initialize;
+            StageInitializeInvoker.OnDSGStagePostInitialize -= PostInitialize;
         }
 
-        private void OnDisable()
-        {
-            StageEnterSystem.OnAfterDSGStageEnter -= Initialize;
-        }
-
-        private void Initialize(DeckStrategyStage stage)
+        private void PostInitialize(DeckStrategyStage stage)
         {
             for (int i = 0; i < enemySlots.Length; i++)
             {
@@ -364,7 +361,7 @@ namespace LUP.DSG
                 ApplyMVP(mvp, i + 1, character.Name, character.Color, character.Score, character.Prefab);
             }
 
-            SceneManager.LoadScene("DeckBattleResultScene");
+            LUP.StageManager.Instance.GetCurrentStage().LoadStage(StageKind.DSG, 3);
         }
         public void BackupDeadCharacter(string name, Color color, float score, GameObject prefab)
         {

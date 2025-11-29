@@ -18,9 +18,17 @@ namespace LUP.DSG
         public event System.Action OnCPUpdated;
         public OwnedCharacterInfo characterInfo { get; private set; }
 
-        void Awake()
+        private void Awake()
         {
-            // 토글 버튼의 start가 LineupSlot의 Start보다 먼저 실행되어 모델을 생성하지 못할 수도 있기에 Awake에서 호출
+            StageInitializeInvoker.OnDSGStageInitialize += Initialize;
+        }
+        private void OnDestroy()
+        {
+            StageInitializeInvoker.OnDSGStageInitialize -= Initialize;
+        }
+
+        private void Initialize(DeckStrategyStage stage)
+        {
             slotTransform = this.transform;
             character = Instantiate(CharacterModelPrefab, slotTransform);
             character.gameObject.SetActive(false);

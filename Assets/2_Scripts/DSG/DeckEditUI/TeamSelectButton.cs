@@ -14,17 +14,16 @@ namespace LUP.DSG
 
         public int teamIndex;
 
-        private void OnEnable()
+        private void Awake()
         {
-            StageEnterSystem.OnAfterDSGStageEnter += Initialize;
+            StageInitializeInvoker.OnDSGStagePostInitialize += PostInitialize;
+        }
+        private void OnDestroy()
+        {
+            StageInitializeInvoker.OnDSGStagePostInitialize -= PostInitialize;
         }
 
-        private void OnDisable()
-        {
-            StageEnterSystem.OnAfterDSGStageEnter -= Initialize;
-        }
-
-        private void Initialize(DeckStrategyStage stage)
+        private void PostInitialize(DeckStrategyStage stage)
         {
             formationSystem = FindAnyObjectByType<FormationSystem>();
 
@@ -34,19 +33,6 @@ namespace LUP.DSG
                 toggle.isOn = true;
             }
         }
-
-        //public IEnumerator OnStageEnter()
-        //{
-        //    formationSystem = FindAnyObjectByType<FormationSystem>();
-
-        //    toggle.onValueChanged.AddListener(OnToggleChanged);
-        //    if (teamIndex == 0)
-        //    {
-        //        toggle.isOn = true;
-        //    }
-
-        //    yield return null;
-        //}
 
         void OnToggleChanged(bool isOn)
         {

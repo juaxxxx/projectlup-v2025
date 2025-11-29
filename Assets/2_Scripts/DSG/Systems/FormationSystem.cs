@@ -11,9 +11,6 @@ namespace LUP.DSG
         [SerializeField]
         DataCenter dataCenter;
 
-        [SerializeField]
-        //private TeamDataTable teamDataTable;
-
         public GameObject[] slots = new GameObject[5];
 
         public UserData.Team selectedTeam { get; private set; }
@@ -32,11 +29,6 @@ namespace LUP.DSG
         public CharacterPlacedHandler placedHandler;
         public CharacterReleasedHandler releaseHandler;
 
-        private void CreateSlot(int index)
-        {
-
-        }
-
         public void PlaceTeam(int teamIndex)
         {
             selectedTeamIndex = teamIndex;
@@ -53,18 +45,8 @@ namespace LUP.DSG
 
                 selectedCount = 0;
                 selectedTeam = runtimeData.Teams[selectedTeamIndex];
-                //if (runtimeData.Teams[selectedTeamIndex] == null) return;
                 ApplyPlaceTeam();
             }
-
-            //selectedTeamIndex = teamIndex;
-            //if (teamDataTable.teams[selectedTeamIndex] == null) return;
-            //ResetCharacterList(teamDataTable.teams[selectedTeamIndex]);
-
-            //selectedCount = 0;
-            //selectedTeam = teamDataTable.teams[selectedTeamIndex];
-
-            //ApplyPlaceTeam();
         }
 
         public void ApplyPlaceTeam()
@@ -173,13 +155,6 @@ namespace LUP.DSG
 
         public void SaveTeam()
         {
-            //for (int i = 0; i < slots.Length; ++i)
-            //{
-            //    LineupSlot slot = slots[i].GetComponent<LineupSlot>();
-            //    if (teamDataTable.teams[selectedTeamIndex] == null) teamDataTable.teams[selectedTeamIndex] = new UserData.Team();
-            //    teamDataTable.teams[selectedTeamIndex] = selectedTeam;
-            //}
-
             DeckStrategyStage stage = LUP.StageManager.Instance.GetCurrentStage() as DeckStrategyStage;
             if (stage == null) return;
             DeckStrategyRuntimeData runtimeData = (DeckStrategyRuntimeData)stage.RuntimeData;

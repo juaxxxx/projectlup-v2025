@@ -16,8 +16,6 @@ namespace LUP.DSG
         private void Awake()
         {
             textMesh = GetComponentInChildren<TMP_Text>();
-            if (textMesh == null)
-                return;
         }
 
         public void Setup(float damage)

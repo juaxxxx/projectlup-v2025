@@ -1,20 +1,24 @@
 ﻿using LUP.DSG;
+using LUP.DSG.Utils.Enums;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.UI;
 
 namespace LUP
 {
-    public static class StageEnterSystem
+    public static class StageInitializeInvoker
     {
         // base.OnStageEnter() 이후 초기화 지점
-        public static event Action<DeckStrategyStage> OnAfterDSGStageEnter;
+        public static event Action<DeckStrategyStage> OnDSGStageInitialize;
+        public static event Action<DeckStrategyStage> OnDSGStagePostInitialize;
 
         public static void Invoke(DeckStrategyStage stage)
         {
-            OnAfterDSGStageEnter?.Invoke(stage);
+            OnDSGStageInitialize?.Invoke(stage);
+            OnDSGStagePostInitialize?.Invoke(stage);
         }
     }
 
@@ -46,46 +50,20 @@ namespace LUP
         {
             yield return base.OnStageEnter();
 
-            StageEnterSystem.Invoke(this);
+            DeckStrategyRuntimeData runtimeData = (DeckStrategyRuntimeData)RuntimeData;
+            if (runtimeData.OwnedCharacterList == null || runtimeData.OwnedCharacterList.Count <= 0)
+            {
+                OwnedCharacterTable testCharacterTable
+                    = Resources.Load<OwnedCharacterTable>("Data/DSG/ScriptableObjects/OwnedCharacter/OwnedCharacterListTable");
+                if (testCharacterTable != null)
+                {
+                    runtimeData.OwnedCharacterList = testCharacterTable.ownedCharacterList;
+                }
+            }
 
-            //구현부
-            //ToggleGroup toggleGroup = FindAnyObjectByType<ToggleGroup>();
-            //if (toggleGroup != null)
-            //{
-            //    TeamSelectButton[] teamSelectButtons = toggleGroup.transform.GetComponentsInChildren<TeamSelectButton>();
-            //    if (teamSelectButtons.Length > 0)
-            //    {
-            //        List<Coroutine> running = new List<Coroutine>();
-
-            //        foreach (TeamSelectButton button in teamSelectButtons)
-            //        {
-            //            Coroutine coroutine = StartCoroutine(button.OnStageEnter());
-            //            running.Add(coroutine);
-            //        }
-
-            //        foreach (Coroutine coroutine in running)
-            //        {
-            //            yield return coroutine;
-            //        }
-            //    }
-            //}
-
-            OnStageEnterFinished();
+            StageInitializeInvoker.Invoke(this);
 
             yield return null;
-        }
-
-        public void OnStageEnterFinished()
-        {
-            DataCenter dataCenter = FindAnyObjectByType<DataCenter>();
-            if (dataCenter != null)
-            {
-                dataCenter.SetOwnedCharacterList();
-            }
-            CharactersList charactersList = FindAnyObjectByType<CharactersList>();
-            if (charactersList != null)
-            {
-            }
         }
 
         public override IEnumerator OnStageStay()
@@ -166,6 +144,50 @@ namespace LUP
             // }
 
             base.SaveRuntimeDataList(runtimeDataList);
+        }
+
+        public CharacterData FindCharacterData(int id, int level)
+        {
+            foreach (DeckCharacterStaticData data in CharacterDataList)
+            {
+                if (data.CharacterId == id)
+                {
+                    DeckStrategyRuntimeData deckStrategyRuntimeData = (DeckStrategyRuntimeData)RuntimeData;
+                    if (deckStrategyRuntimeData == null || deckStrategyRuntimeData.OwnedCharacterList.Count == 0) return null;
+
+                    int statusId = id * 100 + level;
+
+                    foreach (DeckStaticData statusData in DeckDataList)
+                    {
+                        if (statusData.tableId == statusId)
+                        {
+                            CharacterData characterData = new CharacterData();
+                            characterData.ID = id;
+                            characterData.characterName = data.CharacterName;
+                            characterData.type = (EAttributeType)data.AttributeType;
+                            characterData.rangeType = (ERangeType)data.RangeType;
+                            characterData.maxHp = statusData.hp;
+                            characterData.attack = statusData.attack;
+                            characterData.defense = statusData.defense;
+                            characterData.speed = statusData.speed;
+
+                            return characterData;
+                        }
+                    }
+                }
+            }
+
+            return null;
+        }
+
+        public void ChangeScene(int sceneIndex)
+        {
+            //0: main
+            //1: edit
+            //2: battle
+            //3: result
+
+            LoadStage(StageKind, sceneIndex);
         }
 
     }

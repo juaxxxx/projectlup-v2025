@@ -20,12 +20,6 @@ namespace LUP.DSG
         private Image checkedImage;
         private bool isSelected = false;
 
-        void Awake()
-        {
-            if (!typeof(T).IsEnum)
-                throw new ArgumentException($"{typeof(T)} is not an Enum type");
-        }
-
         public void Register(CharacterFilterPanel panel, GameObject buttonObject, T enumVal)
         {
             filterPanel = panel;
