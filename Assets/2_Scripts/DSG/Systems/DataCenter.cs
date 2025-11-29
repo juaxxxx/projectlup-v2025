@@ -23,11 +23,6 @@ namespace LUP.DSG
             return null;
         }
 
-        public List<OwnedCharacterInfo> GetOwnedCharacterList()
-        {
-            return ownedCharacterTable.ownedCharacterList;
-        }
-
         public GameObject GetCharacterPrefab(int modelID)
         {
             CharacterModelData modelData = FindCharacterModel(modelID);

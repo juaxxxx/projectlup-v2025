@@ -401,14 +401,14 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 40700518}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
   m_LocalPosition: {x: 0, y: 0, z: 7.5099998}
-  m_LocalScale: {x: 0.5, y: 1, z: 0.5}
+  m_LocalScale: {x: 0.3, y: 0.3, z: 0.3}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1180890745}
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: -1.62, y: 0}
@@ -429,6 +429,8 @@ MonoBehaviour:
   CharacterModelPrefab: {fileID: 4561612084908179858, guid: 7964f414def70654893d974c3a7b78ec, type: 3}
   isPlaced: 0
   AttackedPosition: {fileID: 1180890745}
+  dataCenter: {fileID: 0}
+  modelID: 0
 --- !u!1 &50297709
 GameObject:
   m_ObjectHideFlags: 0
@@ -2044,6 +2046,8 @@ MonoBehaviour:
   CharacterModelPrefab: {fileID: 4561612084908179858, guid: 7964f414def70654893d974c3a7b78ec, type: 3}
   isPlaced: 0
   AttackedPosition: {fileID: 126472034}
+  dataCenter: {fileID: 0}
+  modelID: 0
 --- !u!114 &589298279
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2164,14 +2168,14 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 589298277}
-  m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
+  m_LocalRotation: {x: 0, y: -0.7071068, z: 0, w: 0.7071068}
   m_LocalPosition: {x: 0, y: 0, z: 11.19}
-  m_LocalScale: {x: 0.5, y: 1, z: 0.5}
+  m_LocalScale: {x: 0.3, y: 0.3, z: 0.3}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 126472034}
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: -90, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 5.66, y: 0}
@@ -2214,6 +2218,8 @@ MonoBehaviour:
   CharacterModelPrefab: {fileID: 4561612084908179858, guid: 7964f414def70654893d974c3a7b78ec, type: 3}
   isPlaced: 0
   AttackedPosition: {fileID: 1443737012}
+  dataCenter: {fileID: 0}
+  modelID: 0
 --- !u!114 &595504553
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2334,14 +2340,14 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 595504551}
-  m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
+  m_LocalRotation: {x: 0, y: -0.7071068, z: 0, w: 0.7071068}
   m_LocalPosition: {x: 0, y: 0, z: 7.71}
-  m_LocalScale: {x: 0.5, y: 1, z: 0.5}
+  m_LocalScale: {x: 0.3, y: 0.3, z: 0.3}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1443737012}
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: -90, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 5.5699997, y: 0}
@@ -2675,14 +2681,14 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 636051258}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
   m_LocalPosition: {x: 0, y: 0, z: 11.12}
-  m_LocalScale: {x: 0.5, y: 1, z: 0.5}
+  m_LocalScale: {x: 0.3, y: 0.3, z: 0.3}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1512416462}
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: -0.5, y: 0}
@@ -2703,6 +2709,8 @@ MonoBehaviour:
   CharacterModelPrefab: {fileID: 4561612084908179858, guid: 7964f414def70654893d974c3a7b78ec, type: 3}
   isPlaced: 0
   AttackedPosition: {fileID: 1512416462}
+  dataCenter: {fileID: 0}
+  modelID: 0
 --- !u!1 &643018106
 GameObject:
   m_ObjectHideFlags: 0
@@ -3895,14 +3903,14 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 895510914}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
   m_LocalPosition: {x: 0, y: 0, z: 7.6}
-  m_LocalScale: {x: 0.5, y: 1, z: 0.5}
+  m_LocalScale: {x: 0.3, y: 0.3, z: 0.3}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 859521233}
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0.09, y: 0}
@@ -3923,6 +3931,8 @@ MonoBehaviour:
   CharacterModelPrefab: {fileID: 1283442271}
   isPlaced: 0
   AttackedPosition: {fileID: 859521233}
+  dataCenter: {fileID: 0}
+  modelID: 0
 --- !u!1 &940836024
 GameObject:
   m_ObjectHideFlags: 0
@@ -4414,14 +4424,14 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1072193027}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
   m_LocalPosition: {x: 0, y: 0, z: 9.22}
-  m_LocalScale: {x: 0.5, y: 1, z: 0.5}
+  m_LocalScale: {x: 0.3, y: 0.3, z: 0.3}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 832698303}
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: -0.95, y: 0}
@@ -4442,6 +4452,8 @@ MonoBehaviour:
   CharacterModelPrefab: {fileID: 4561612084908179858, guid: 7964f414def70654893d974c3a7b78ec, type: 3}
   isPlaced: 0
   AttackedPosition: {fileID: 832698303}
+  dataCenter: {fileID: 0}
+  modelID: 0
 --- !u!1 &1074448245
 GameObject:
   m_ObjectHideFlags: 0
@@ -4471,8 +4483,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 36ec254000067f44cb8e36cf24563b3e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ownedCharacterTable: {fileID: 11400000, guid: 1a11f21ae57c3d34aa6847a855019259, type: 2}
-  characterDataTable: {fileID: 11400000, guid: ed07d8c7ee4d90840a2dafe10f2ca495, type: 2}
   characterModelDataTable: {fileID: 11400000, guid: 8e5a2cc3fdef4b04698bae1932d8687b, type: 2}
   mvpData: {fileID: 11400000, guid: b5420738ed619244288d3ed612d3f9fe, type: 2}
 --- !u!4 &1074448247
@@ -5285,6 +5295,8 @@ MonoBehaviour:
   CharacterModelPrefab: {fileID: 4561612084908179858, guid: 7964f414def70654893d974c3a7b78ec, type: 3}
   isPlaced: 0
   AttackedPosition: {fileID: 1212523068}
+  dataCenter: {fileID: 0}
+  modelID: 0
 --- !u!114 &1285335461
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5405,14 +5417,14 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1285335459}
-  m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
+  m_LocalRotation: {x: 0, y: -0.7071068, z: 0, w: 0.7071068}
   m_LocalPosition: {x: 0, y: 0, z: 9.97}
-  m_LocalScale: {x: 0.5, y: 1, z: 0.5}
+  m_LocalScale: {x: 0.3, y: 0.3, z: 0.3}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1212523068}
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: -90, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 4.72, y: 0}
@@ -5731,6 +5743,8 @@ MonoBehaviour:
   CharacterModelPrefab: {fileID: 4561612084908179858, guid: 7964f414def70654893d974c3a7b78ec, type: 3}
   isPlaced: 0
   AttackedPosition: {fileID: 1779897886}
+  dataCenter: {fileID: 0}
+  modelID: 0
 --- !u!114 &1372342692
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5851,14 +5865,14 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1372342690}
-  m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
+  m_LocalRotation: {x: 0, y: -0.7071068, z: 0, w: 0.7071068}
   m_LocalPosition: {x: 0, y: 0, z: 9.36}
-  m_LocalScale: {x: 0.5, y: 1, z: 0.5}
+  m_LocalScale: {x: 0.3, y: 0.3, z: 0.3}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1779897886}
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: -90, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 6.41, y: 0}
@@ -6448,14 +6462,14 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1462758778}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
   m_LocalPosition: {x: 0, y: 0, z: 9.44}
-  m_LocalScale: {x: 0.5, y: 1, z: 0.5}
+  m_LocalScale: {x: 0.3, y: 0.3, z: 0.3}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 796638457}
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0.79, y: 0}
@@ -6476,6 +6490,8 @@ MonoBehaviour:
   CharacterModelPrefab: {fileID: 1283442271}
   isPlaced: 0
   AttackedPosition: {fileID: 796638457}
+  dataCenter: {fileID: 0}
+  modelID: 0
 --- !u!1 &1471830727
 GameObject:
   m_ObjectHideFlags: 0
@@ -7328,6 +7344,8 @@ MonoBehaviour:
   CharacterModelPrefab: {fileID: 4561612084908179858, guid: 7964f414def70654893d974c3a7b78ec, type: 3}
   isPlaced: 0
   AttackedPosition: {fileID: 1236116453}
+  dataCenter: {fileID: 0}
+  modelID: 0
 --- !u!114 &1743930047
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7448,14 +7466,14 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1743930045}
-  m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
+  m_LocalRotation: {x: 0, y: -0.7071068, z: 0, w: 0.7071068}
   m_LocalPosition: {x: 0, y: 0, z: 7.87}
-  m_LocalScale: {x: 0.5, y: 1, z: 0.5}
+  m_LocalScale: {x: 0.3, y: 0.3, z: 0.3}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1236116453}
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: -90, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 7.22, y: 0}

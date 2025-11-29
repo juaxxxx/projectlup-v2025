@@ -18,6 +18,10 @@ namespace LUP.DSG
         public event System.Action OnCPUpdated;
         public OwnedCharacterInfo characterInfo { get; private set; }
 
+        public DataCenter dataCenter;
+
+        [SerializeField] private int modelID;
+
         private void Awake()
         {
             StageInitializeInvoker.OnDSGStageInitialize += Initialize;
@@ -30,9 +34,9 @@ namespace LUP.DSG
         private void Initialize(DeckStrategyStage stage)
         {
             slotTransform = this.transform;
-            character = Instantiate(dataCenter.GetCharacterPrefab(modelID).GetComponent<Character>(), slotTransform);
+            character = Instantiate(CharacterModelPrefab, slotTransform.position, slotTransform.rotation);
 
-            character.transform.localPosition = Vector3.zero;
+            //character.transform.localPosition = Vector3.zero;
             character.transform.localScale = Vector3.one;
 
             character.gameObject.SetActive(false);
