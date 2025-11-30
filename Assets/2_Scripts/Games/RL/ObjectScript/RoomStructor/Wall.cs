@@ -3,6 +3,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 
 using System.Collections;
+using static UnityEngine.Rendering.DebugUI;
 
 namespace LUP.RL
 {
@@ -28,7 +29,7 @@ namespace LUP.RL
                 WallMaterial = NoiseWallRenderer.material;
 
                 NoiseWallRenderer.enabled = false;
-                WallMaterial.SetFloat("_Distortion", 0.0f);
+                WallMaterial.SetFloat("_Distortion", 5.0f);
             }
         }
 
@@ -43,8 +44,10 @@ namespace LUP.RL
             if (distortionCoroutine != null)
                 StopCoroutine(distortionCoroutine);
 
-            distortionCoroutine = StartCoroutine(ChangeDistortion(WallMaterial.GetFloat("_Distortion"), 0.05f, 1.5f));
+            Vector3 hitPosition = other.ClosestPoint(transform.position);
 
+            //distortionCoroutine = StartCoroutine(ChangeDistortion(WallMaterial.GetFloat("_Distortion"), 0.05f, 1.5f));
+            WallMaterial.SetVector("_StartPosition", hitPosition);
         }
 
         private void OnTriggerExit(Collider other)
@@ -56,7 +59,7 @@ namespace LUP.RL
             if (distortionCoroutine != null)
                 StopCoroutine(distortionCoroutine);
 
-            distortionCoroutine = StartCoroutine(ChangeDistortion(WallMaterial.GetFloat("_Distortion"), 0f, 1.5f));
+            //distortionCoroutine = StartCoroutine(ChangeDistortion(WallMaterial.GetFloat("_Distortion"), 0f, 1.5f));
 
             // 감소가 끝나면 렌더러 끄기
             StartCoroutine(DisableRendererAfterDelay(1.0f));
