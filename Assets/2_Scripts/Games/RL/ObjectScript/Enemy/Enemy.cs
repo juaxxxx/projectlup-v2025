@@ -67,10 +67,7 @@ namespace LUP.RL
             {
                 Die();
 
-                if (blackBoard)
-                {
-                    blackBoard.Alive = false;
-                }
+              
                     
             }
         }
@@ -80,6 +77,10 @@ namespace LUP.RL
 
             ObjectOnEnemyDied?.Invoke(this);
 
+          
+             blackBoard.Alive = false;
+
+           
             behaviorTree.ResetWorkingNodeIndex();
         }
 

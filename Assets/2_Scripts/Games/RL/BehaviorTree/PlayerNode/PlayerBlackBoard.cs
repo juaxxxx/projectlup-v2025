@@ -46,10 +46,7 @@ namespace LUP.RL
             {
 
                 if (e == null) continue;
-                if (e.TargetPoint == null)
-                {
-                    Debug.Log("point null");
-                }
+              
                 float dist = Vector3.Distance(Health.transform.position, e.TargetPoint.position);
                 if (dist < minDist)
                 {

@@ -9,8 +9,7 @@ namespace LUP.RL
         public StageData stageData;
         public GameObject enemyprefab;
         public GameObject hpbarPrefab;
-
-        private List<GameObject> spawnedEnemies = new();
+        public List<Enemy> spawnedEnemies = new();
         // Start is called once before the first execution of Update after the MonoBehaviour is created
 
         public void Init(StageData data)
@@ -26,16 +25,31 @@ namespace LUP.RL
             foreach (Vector2Int pos in stageData.enemySpawn)
             {
                 Vector3 worldPos = new Vector3(pos.x, 1.5f, pos.y);
-                GameObject enemyobj = Instantiate(enemyprefab, worldPos, Quaternion.identity, roomParent);
-
-                Enemy enemy = enemyobj.GetComponent<Enemy>();
+                Enemy enemy = Instantiate(enemyprefab, worldPos, Quaternion.identity, roomParent)
+                  .GetComponent<Enemy>();
                 enemy.HpbarPrefab = hpbarPrefab;
-                spawnedEnemies.Add(enemyobj);
+                spawnedEnemies.Add(enemy);
             }
 
             Debug.Log($"{spawnedEnemies.Count}付府狼 利 积己 肯丰 (何葛: {roomParent.name})");
         }
 
-    }
 
+
+        private void OnEnable()
+        {
+            Enemy.ObjectOnEnemyDied += HandleEnemyDeath;
+        }
+
+        private void OnDisable()
+        {
+            Enemy.ObjectOnEnemyDied -= HandleEnemyDeath;
+        }
+
+        private void HandleEnemyDeath(Enemy enemy)
+        {
+            spawnedEnemies.Remove(enemy);
+        }
+
+    }
 }
