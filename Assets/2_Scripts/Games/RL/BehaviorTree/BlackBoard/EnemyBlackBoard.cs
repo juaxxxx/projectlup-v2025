@@ -1,6 +1,7 @@
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
+using static UnityEngine.GraphicsBuffer;
 
 namespace LUP.RL
 {
@@ -65,6 +66,7 @@ namespace LUP.RL
             {
                 if (AtkCollTime == 0)
                 {
+                    RotateHelper.LookAtTarget(enemy.transform, targetPos, 8f);
                     shooter.TryShoot(targetPos, enemy.EnemyStats.Attack);
 
                     // 쿨타임 리필

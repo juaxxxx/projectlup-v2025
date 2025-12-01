@@ -1,4 +1,5 @@
 using LUP.ES;
+using LUP.ST;
 using UnityEngine;
 using static UnityEngine.GraphicsBuffer;
 
@@ -45,12 +46,16 @@ namespace LUP.RL
         {
 
         }
+        //Instantiate(bulletData.bulletPrefab, spawnPoint.position, rot);
 
         public override void OnAnimationInTargetRate()
         {
+            //TODO
+            RotateHelper.LookAtTarget(bb.Health.transform, target.TargetPoint.transform, 8f);
             bb.Shooter.TryShoot(target.TargetPoint.transform, bb.Health.Adata.currentData.Attack);
             lastFireTime = Time.time;
         }
+     
     }
 
 }

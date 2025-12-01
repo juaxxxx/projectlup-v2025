@@ -21,25 +21,24 @@ namespace LUP.RL
         private EnemyBehaviorTree behaviorTree;
         [SerializeField] private float hpbaroffsetY = 5;
         public Transform TargetPoint;
-        void Start()
+    
+        private void Awake()
         {
             EnemyStats.MaxHp = 50;
             EnemyStats.Hp = EnemyStats.MaxHp;
             EnemyStats.Attack = 0;
             EnemyStats.speed = 3;
+     
+        }
+        void Start()
+        {
 
             healthSystem = new HealthCenter(EnemyStats.MaxHp);
-            if (healthSystem == null)
-            {
-                Debug.Log("health null");
-                return;
-
-            }
+            if (healthSystem == null) return;
+    
             GameObject barObj = Instantiate(HpbarPrefab, transform.position + Vector3.up * hpbaroffsetY, Quaternion.identity);
-            if(barObj == null)
-            {
-                Debug.Log("bar¾øÀ½");
-            }
+            if (barObj == null) return;
+      
             hpbar = barObj.GetComponent<Hpbar>();
             hpbar.Init(this);
             hpbar.SetHealthSystem(healthSystem);
@@ -66,9 +65,6 @@ namespace LUP.RL
             if (healthSystem.CurrentHp <= 0)
             {
                 Die();
-
-              
-                    
             }
         }
         private void Die()
@@ -76,15 +72,9 @@ namespace LUP.RL
             OnEnemyDied?.Invoke(expValue);
 
             ObjectOnEnemyDied?.Invoke(this);
-
-          
              blackBoard.Alive = false;
-
-           
             behaviorTree.ResetWorkingNodeIndex();
         }
-
-
         // Update is called once per frame
         void Update()
         {

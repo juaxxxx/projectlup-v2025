@@ -9,7 +9,6 @@ namespace LUP.RL
         public int CurrentHp { get; private set; }
 
         public event Action<int, int> OnHpChanged;  // current, max
-        private Hpbar hpbar;
 
         public HealthCenter(int maxHp)
         {
