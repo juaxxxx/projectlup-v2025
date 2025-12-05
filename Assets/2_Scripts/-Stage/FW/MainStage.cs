@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using static UnityEngine.Rendering.DebugUI;
 namespace LUP
 {
     public class MainStage : BaseStage
@@ -15,7 +16,8 @@ namespace LUP
         private VersionsData versionsdata;
         [SerializeField]
         private AssetBundle AB;
-
+        [SerializeField]
+        private CurrentQuestListData currentQuestListData;
 
         protected override void Awake() 
         {
@@ -34,16 +36,18 @@ namespace LUP
             if (Input.GetKeyDown(KeyCode.R))
             {
                 versionsdata.SaveData();
+                currentQuestListData.SaveData();
             }
 
             if (Input.GetKeyDown(KeyCode.F))
             {
                 versionsdata.assetbundlehash = "1231";
+                QuestManager.Instance.SaveActiveQuests();
             }
 
             if (Input.GetKeyDown(KeyCode.D))
             {
-                Debug.Log("versionsdata.assetbundlehash : " + versionsdata.assetbundlehash);
+                QuestManager.Instance.Trigger(123, 1);
             }
         }
 
@@ -88,6 +92,18 @@ namespace LUP
                     if (runtimeData is VersionsData versionData)
                     {
                         versionsdata = versionData;
+                    }
+                }
+            }
+
+            runtimeDatas = base.GetRuntimeData(this, 2);
+            if (runtimeDatas != null && runtimeDatas.Count > 0)
+            {
+                foreach (var runtimeData in runtimeDatas)
+                {
+                    if (runtimeData is CurrentQuestListData versionData)
+                    {
+                        currentQuestListData = versionData;
                     }
                 }
             }
