@@ -28,19 +28,6 @@ namespace LUP.DSG
             SetAnimationState(currentState);
         }
 
-        public void EndDashLoop(bool attackEnded)
-        {
-            if (attackEnded)
-            {
-                currentState = EAnimStateType.EndDash_Bwd;
-            }
-            else
-            {
-                currentState = EAnimStateType.EndDash_Fwd;
-            }
-            SetAnimationState(currentState);
-        }
-
         public void StartMeleeAnimation()
         {
             currentState = EAnimStateType.Attack_Melee;

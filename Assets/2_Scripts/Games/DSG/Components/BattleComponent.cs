@@ -55,7 +55,6 @@ namespace LUP.DSG
         public event Action<float> OnChangeGauge;
 
         public event Action<ERangeType> OnAttackStarted;
-        public event Action<bool> OnReachedTargetPos;
 
         [SerializeField]
         private GameObject damageLogPrefab;
@@ -93,12 +92,14 @@ namespace LUP.DSG
         {
             if (owner.AnimationComp.currentState == EAnimStateType.StartDash_Fwd)
             {
+                Debug.Log(targetPosition);
+                Debug.Log(impactApplied);
                 transform.position = Vector3.MoveTowards(gameObject.transform.position, targetPosition, 0.5f);
                 if (Vector3.Distance(transform.position,targetSlot.AttackedPosition.position) < 0.01f)
                 {
                     if (!impactApplied)
                     {
-                        OnReachedTargetPos?.Invoke(false);
+                        owner.AnimationComp.OnEndFwdDashEvent();
 
                         targetPosition = originPosition;
                         impactApplied = true;
@@ -108,7 +109,7 @@ namespace LUP.DSG
                 {
                     if (!impactApplied)
                     {
-                        OnReachedTargetPos?.Invoke(false);
+                        owner.AnimationComp.OnEndFwdDashEvent();
 
                         targetPosition = originPosition;
                         impactApplied = true;
@@ -117,13 +118,16 @@ namespace LUP.DSG
             }
             else if (owner.AnimationComp.currentState == EAnimStateType.StartDash_Bwd)
             {
+                Debug.Log(targetPosition);
+                Debug.Log(impactApplied);
                 transform.position = Vector3.MoveTowards(gameObject.transform.position, targetPosition, 0.5f);
                 if (Vector3.Distance(transform.position, originPosition) < 0.01f)
                 {
+                    owner.AnimationComp.OnEndBwdDashEvent();
                     impactApplied = false;
                     isUsingSkill = false;
                     isAttacking = false;
-                    OnReachedTargetPos?.Invoke(true);
+                    //OnReachedTargetPos?.Invoke(true);
                 }
             }
             else if (bullet != null)
