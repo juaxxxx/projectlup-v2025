@@ -1,8 +1,7 @@
 using System.Collections;
 using System.Threading;
 using UnityEngine;
-using static UnityEditor.Progress;
-using static UnityEditor.Rendering.FilterWindow;
+
 namespace LUP.ST
 {
 

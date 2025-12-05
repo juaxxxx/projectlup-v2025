@@ -8,10 +8,16 @@ namespace LUP.ST
         public float detectRange = 15f;
         MeleeBlackBoard bb;
 
-        void Awake() { bb = GetComponent<MeleeBlackBoard>(); }
+        void Awake() 
+        { 
+            bb = GetComponent<MeleeBlackBoard>();
+        }
 
         void Update()
         {
+            if (bb.IsAttackingFlag)
+                return;
+
             Collider[] hits = Physics.OverlapSphere(transform.position, detectRange, targetMask);
             Transform best = null; float bestDist = float.MaxValue;
             foreach (Collider h in hits)

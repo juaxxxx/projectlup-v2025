@@ -39,12 +39,19 @@ namespace LUP.ST
         // 엄폐(홈)으로 돌아가기: 단순 MoveTowards
         public NodeState Cover()
         {
+            if (bb.IsAttackingFlag)
+                return NodeState.FAILURE;
+
             Vector3 dst = bb.HomePos;
             float dist = Vector3.Distance(transform.position, dst);
             if (dist <= bb.CoverRadius)
             {
                 if (!bb.InCover)
+                {
                     Debug.Log($"{name} ▶ Cover 완료 (엄폐 도착)");
+                }
+                if (bb.HomeForward.sqrMagnitude > 0.001f)
+                    transform.rotation = Quaternion.LookRotation(bb.HomeForward, Vector3.up);
                 bb.InCover = true;
                 return NodeState.SUCCESS;
             }
@@ -69,6 +76,9 @@ namespace LUP.ST
         // MoveToEnemy: 타겟 null -> FAILURE, 도달 시 공격 포함 또는 SUCCESS 처리
         public NodeState MoveToEnemy()
         {
+            if (bb.IsAttackingFlag)
+                return NodeState.FAILURE;
+
             if (bb.Target == null)
             {
                 Debug.Log($"{name} ▶ MoveToEnemy 실패 (Target 없음)");
@@ -93,7 +103,8 @@ namespace LUP.ST
             {
                 Debug.Log($"{name} ▶ 공격 사거리 진입");
                 visual?.SetMoving(false);
-                return MeleeAttackLoop();
+                //return MeleeAttackLoop();
+                return NodeState.SUCCESS;
             }
 
             // 아직 공격 거리 밖이면 이동
@@ -108,17 +119,35 @@ namespace LUP.ST
         // 근접 공격 루프: 공격 중엔 정지, 히트 타이밍에서 데미지 적용
         public NodeState MeleeAttackLoop()
         {
+            if (!stats.IsAttacking)
+            {
+                if (bb.Target == null || bb.DistToTarget > stats.AttackRange)
+                {
+                    bb.IsAttackingFlag = false;          
+                    stats.CancelAttack();
+                    if (rb != null) rb.isKinematic = false;
+                    isStopped = false;
+                    visual?.SetMoving(true);
+                    return NodeState.FAILURE;
+                }
+            }
+
             // 정지(공격시 위치 고정)
             visual?.SetMoving(false);
             isStopped = true;
 
             // 공격 중엔 밀리지 않게
-            if (rb != null) rb.isKinematic = true;
-            isStopped = true;
+            if (rb != null)
+            {
+                rb.isKinematic = true;
+                rb.linearVelocity = Vector3.zero;
+                rb.angularVelocity = Vector3.zero;
+            }
 
             if (stats.IsDead)
             {
                 Debug.Log($"{name} ▶ 공격 중 사망");
+                bb.IsAttackingFlag = false;
                 return NodeState.FAILURE;
             }
 
@@ -128,6 +157,7 @@ namespace LUP.ST
                 if (!stats.CanStartAttack()) return NodeState.RUNNING;
                 Debug.Log($"{name} ▶ 공격 시작");
                 stats.StartAttack();
+                bb.IsAttackingFlag = true;
                 hasAppliedHit = false;
             }
 
@@ -171,6 +201,9 @@ namespace LUP.ST
                 // 한 회 공격 완료: 탄창 감소
                 bb.Ammo = Mathf.Max(0, bb.Ammo - 1);
                 Debug.Log($"{name} ▶ 공격 종료 (남은 탄창: {bb.Ammo})");
+                bb.IsAttackingFlag = false;
+                isStopped = false;
+                if (rb != null) rb.isKinematic = false;
                 // 공격 후 행동: 탄창 있으면 SUCCESS(상위에서 계속 공격/이동 판단)
                 // 만약 Ammo==0이면 상위 시퀀스에서 Cover->Reload로 이동
                 return NodeState.SUCCESS;
@@ -194,6 +227,9 @@ namespace LUP.ST
         // 단순한 MoveTowards 래퍼
         private void MoveTowards(Vector3 destination)
         {
+            if (bb.IsAttackingFlag)
+                return;
+
             if (isStopped) return;
 
             // 목표를 바라보기 (부드럽게)

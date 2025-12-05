@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Unity.VisualScripting.Antlr3.Runtime.Misc;
 using UnityEngine;
 namespace LUP.ST
 {
@@ -29,6 +30,8 @@ namespace LUP.ST
                     new ActionNode(Cover),
                     new ActionNode(Reload)
                 })),
+
+                new Decorator(() => bb.IsAttackingFlag, new ActionNode(MeleeAttack)),
 
                 new Decorator(() => bb.CanAttack(), new ActionNode(MeleeAttack)),
 

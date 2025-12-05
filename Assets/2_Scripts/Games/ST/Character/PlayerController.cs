@@ -12,6 +12,8 @@ namespace LUP.ST
         [Header("디버그 설정")]
         public bool showInputDebug = true;
 
+        private bool prevManualMode = false;
+
         void Awake()
         {
             rangedCharacter = GetComponent<RangeBlackBoard>();
@@ -25,6 +27,18 @@ namespace LUP.ST
 
         void Update()
         {
+            if (rangedCharacter == null)
+                return;
+
+            // ★ 수동 모드로 "갓 진입한" 순간 감지
+            if (rangedCharacter.manualMode && !prevManualMode)
+            {
+                // 이 캐릭터를 새로 조작하기 시작함
+                weaponActions?.OnEnterManualMode();
+            }
+
+            prevManualMode = rangedCharacter.manualMode;
+
             HandlePlayerInput();
         }
 

@@ -270,9 +270,9 @@ GameObject:
   - component: {fileID: 207264726}
   - component: {fileID: 207264725}
   - component: {fileID: 207264730}
-  m_Layer: 7
+  m_Layer: 3
   m_Name: Cube (3)
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -420,9 +420,9 @@ GameObject:
   - component: {fileID: 239233013}
   - component: {fileID: 239233012}
   - component: {fileID: 239233017}
-  m_Layer: 7
+  m_Layer: 3
   m_Name: Cube (1)
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -691,9 +691,9 @@ GameObject:
   - component: {fileID: 1189277400}
   - component: {fileID: 1189277399}
   - component: {fileID: 1189277398}
-  m_Layer: 7
+  m_Layer: 3
   m_Name: Cube (5)
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -841,9 +841,9 @@ GameObject:
   - component: {fileID: 1497171669}
   - component: {fileID: 1497171668}
   - component: {fileID: 1497171667}
-  m_Layer: 7
+  m_Layer: 3
   m_Name: Cube (4)
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1133,6 +1133,8 @@ MonoBehaviour:
   InCover: 0
   HomePos: {x: 0, y: 0, z: 0}
   CoverRadius: 0.7
+  HomeForward: {x: 0, y: 0, z: 0}
+  IsAttackingFlag: 0
   Ammo: 10
   MaxAmmo: 10
   noEnemyReturnDelay: 5
@@ -1194,9 +1196,9 @@ GameObject:
   - component: {fileID: 1906394801}
   - component: {fileID: 1906394800}
   - component: {fileID: 1906394805}
-  m_Layer: 7
+  m_Layer: 3
   m_Name: Cube
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1344,9 +1346,9 @@ GameObject:
   - component: {fileID: 1994503858}
   - component: {fileID: 1994503857}
   - component: {fileID: 1994503862}
-  m_Layer: 7
+  m_Layer: 3
   m_Name: Cube (2)
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

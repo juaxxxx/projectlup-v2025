@@ -12,10 +12,12 @@ namespace LUP.ST
         public GameObject bulletPrefab;
         public Transform firePoint;
         public Transform enemyTransform;
+        public LayerMask aimMask;
 
         //public float autoReloadDelay = 1f; // 1초 이상 사격 안하면 재장전
         //public float reloadTime = 1f; // 재장전 소요 시간
         private float lastFireTime = -999f;
+        public float maxManualAimAngle = 90f;
 
         private bool isReloading = false;
         private float reloadStartTime;
@@ -102,9 +104,7 @@ namespace LUP.ST
         {
             // 재장전 중이면 발사 불가
             if (isReloading)
-            {
                 return NodeState.FAILURE;
-            }
 
             // 탄약이 없으면 발사 불가
             if (!character.HasAmmo())
@@ -113,36 +113,49 @@ namespace LUP.ST
                 return NodeState.FAILURE;
             }
 
-
             float fireRate = stats != null ? stats.AttackSpeed : 0.1f;
-            // 자동 발사 연사 속도 제한 체크
             if (Time.time - lastFireTime < fireRate)
-            {
-                return NodeState.RUNNING; // 아직 발사 시간이 안됨
-            }
-            // 탄약 소모 및 발사
-            character.currentAmmo--;
-            lastFireTime = Time.time; // 사격 시간 기록
-            Debug.Log($"{character.characterName}: 수동 발사! 남은 탄약: {character.currentAmmo}");
+                return NodeState.RUNNING;
 
+            // 1) 마우스 레이 → targetPoint 구하기 (현재 쓰는 aimMask 사용)
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             Vector3 targetPoint;
 
-            if (Physics.Raycast(ray, out RaycastHit hit))
+            if (Physics.Raycast(ray, out RaycastHit hit, 100f, aimMask, QueryTriggerInteraction.Ignore))
                 targetPoint = hit.point;
             else
                 targetPoint = ray.GetPoint(100f);
 
-            Vector3 direction = targetPoint - firePoint.position;
+            // 2) 시야각 제한 체크 (Y는 무시하고 수평 기준)
+            Vector3 dirWorld = targetPoint - firePoint.position;
+            Vector3 dirFlat = new Vector3(dirWorld.x, 0f, dirWorld.z);
+
+            if (dirFlat.sqrMagnitude < 0.0001f)
+                return NodeState.FAILURE; // 너무 가까우면 무시
+
+            dirFlat.Normalize();
+
+            Vector3 forwardFlat = new Vector3(transform.forward.x, 0f, transform.forward.z).normalized;
+            float angle = Vector3.Angle(forwardFlat, dirFlat);
+
+            if (angle > maxManualAimAngle)
+            {
+                // 시야각 밖 → 입력 무시
+                // Debug.Log($"{character.characterName}: 시야각 밖 입력 (angle={angle:F1})");
+                return NodeState.FAILURE;
+            }
+
+            // 3) 실제 발사 처리
+            character.currentAmmo--;
+            lastFireTime = Time.time;
+
+            Vector3 direction = dirWorld;  // 위에서 만든 dirWorld 그대로 사용
             ShootBullet(direction);
 
             SetColor(Color.blue);
-
-            //한번만 발사하고 싶으면 아래 코드 활성화
-            //character.playerInputExists = false;
-
             return NodeState.SUCCESS;
         }
+
 
         public NodeState FireAuto(RangeBlackBoard character)
         {
@@ -168,19 +181,55 @@ namespace LUP.ST
             character.currentAmmo--;
             lastFireTime = Time.time;
 
-            Transform target = enemyTransform;
+            Vector3 direction;
 
-            if (target == null)
+            if (character.manualMode && character.playerInputExists)
             {
-                target = FindNearestEnemy();
+                Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+                Vector3 targetPoint;
+
+                if (Physics.Raycast(ray, out RaycastHit hit, 100f, aimMask, QueryTriggerInteraction.Ignore))
+                    targetPoint = hit.point;
+                else
+                    targetPoint = ray.GetPoint(100f);
+
+                Vector3 dirWorld = targetPoint - firePoint.position;
+                Vector3 dirFlat = new Vector3(dirWorld.x, 0f, dirWorld.z);
+
+                if (dirFlat.sqrMagnitude < 0.0001f)
+                    return NodeState.FAILURE;
+
+                dirFlat.Normalize();
+                Vector3 forwardFlat = new Vector3(transform.forward.x, 0f, transform.forward.z).normalized;
+                float angle = Vector3.Angle(forwardFlat, dirFlat);
+
+                if (angle > maxManualAimAngle)
+                    return NodeState.FAILURE;
+
+                direction = dirWorld;
+            }
+            else
+            {
+                // 평소처럼 자동 타겟팅
+                Transform target = enemyTransform;
+
+                if (target == null)
+                {
+                    target = FindNearestEnemy();
+                }
+
+                if (target == null)
+                {
+                    // 타겟이 아예 없으면 이번 발사는 실패로 처리
+                    SetColor(Color.green);
+                    return NodeState.FAILURE;
+                }
+
+                direction = target.position - firePoint.position;
             }
 
-            if (target != null)
-            {
-                Vector3 direction = target.position - firePoint.position;
-                ShootBullet(direction);
-                Debug.Log($"{character.characterName}: 자동 발사! 남은 탄약: {character.currentAmmo}");
-            }
+            ShootBullet(direction);
+            Debug.Log($"{character.characterName}: 자동 발사! 남은 탄약: {character.currentAmmo}");
 
             SetColor(Color.cyan);
             return NodeState.RUNNING;
@@ -273,5 +322,33 @@ namespace LUP.ST
 
         // 재장전 상태 확인용
         public bool IsReloading => isReloading;
+
+        public void OnEnterManualMode()
+        {
+            // 1. 재장전 강제 종료 (원한다면 유지해도 되지만, 입력 무시 안 되게 하려면 끄는 게 편함)
+            if (isReloading)
+            {
+                isReloading = false;
+                Debug.Log($"{character.characterName}: 수동 모드 진입 - 재장전 상태 해제");
+            }
+
+            // 2. 쿨타임 초기화: 수동 모드로 바뀐 순간 바로 쏠 수 있게
+            if (stats != null)
+            {
+                lastFireTime = Time.time - stats.AttackSpeed;
+            }
+            else
+            {
+                lastFireTime = -999f;
+            }
+
+            if (!character.HasAmmo())
+            {
+                StartReload();
+            }
+            
+
+            Debug.Log($"{character.characterName}: 수동 모드 진입 - 쿨타임/재장전 상태 리셋");
+        }
     }
 }

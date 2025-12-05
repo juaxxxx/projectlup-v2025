@@ -8,6 +8,9 @@ namespace LUP.ST
         public bool InCover;
         public Vector3 HomePos;
         public float CoverRadius = 0.7f;
+        public Vector3 HomeForward;
+
+        public bool IsAttackingFlag = false;
 
         public int Ammo = 5, MaxAmmo = 5;
 
@@ -20,6 +23,7 @@ namespace LUP.ST
         {
             stats = GetComponent<StatComponent>();
             HomePos = transform.position;
+            HomeForward = transform.forward;
             lastEnemySeenTime = Time.time;
         }
 
@@ -35,8 +39,15 @@ namespace LUP.ST
         public bool CanAttack()
         {
             if (Ammo <= 0 || Target == null) return false;
-            bool inRange = DistToTarget <= stats.AttackRange;
-            return inRange && (stats.CanStartAttack() || stats.IsAttacking);
+
+            float dist = Vector3.Distance(transform.position, Target.position);
+            DistToTarget = dist; 
+
+            bool inRange = dist <= stats.AttackRange;
+            bool ready = stats.CanStartAttack() || stats.IsAttacking;
+
+
+            return inRange && ready;
         }
         public bool IsEnemyWithinDetectionRange()
         {

@@ -2005,13 +2005,13 @@ MonoBehaviour:
   defense: 0
   moveSpeed: 5
   attackRange: 2
-  attackSpeed: 1
+  attackSpeed: 2
   attackCooldown: 1
   bulletSpeed: 500
   criticalChance: 0
   criticalDamage: 1.5
   buffDuration: 10
-  maxMoveDistance: 20
+  maxMoveDistance: 30
   isAttacking: 0
   attackStartTime: -999
   lastAttackEndTime: -999
@@ -2030,7 +2030,7 @@ MonoBehaviour:
   targetMask:
     serializedVersion: 2
     m_Bits: 8
-  detectRange: 20
+  detectRange: 30
 --- !u!114 &2177133379515551212
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2048,6 +2048,8 @@ MonoBehaviour:
   InCover: 0
   HomePos: {x: 0, y: 0, z: 0}
   CoverRadius: 0.7
+  HomeForward: {x: 0, y: 0, z: 0}
+  IsAttackingFlag: 0
   Ammo: 10
   MaxAmmo: 10
   noEnemyReturnDelay: 5
@@ -2116,7 +2118,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 96
+  m_Constraints: 112
   m_CollisionDetection: 0
 --- !u!136 &8795728463303794659
 CapsuleCollider:
