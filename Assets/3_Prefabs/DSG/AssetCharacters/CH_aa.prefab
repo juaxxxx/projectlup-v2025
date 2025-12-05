@@ -55,7 +55,7 @@ PrefabInstance:
     - target: {fileID: 5866666021909216657, guid: 4587e35c40845f040a927b0eed51e361, type: 3}
       propertyPath: m_Controller
       value: 
-      objectReference: {fileID: 9100000, guid: 4c7dcc5c0fede9142958e88f875702f3, type: 2}
+      objectReference: {fileID: 9100000, guid: ad8ce7243ba79824a838951c8c6550c6, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -76,11 +76,6 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 1452291544614146218}
   m_SourcePrefab: {fileID: 100100000, guid: 4587e35c40845f040a927b0eed51e361, type: 3}
---- !u!137 &1742658249003528674 stripped
-SkinnedMeshRenderer:
-  m_CorrespondingSourceObject: {fileID: 7500829582323976533, guid: 4587e35c40845f040a927b0eed51e361, type: 3}
-  m_PrefabInstance: {fileID: 8086044572266526903}
-  m_PrefabAsset: {fileID: 0}
 --- !u!95 &2404345076129678630 stripped
 Animator:
   m_CorrespondingSourceObject: {fileID: 5866666021909216657, guid: 4587e35c40845f040a927b0eed51e361, type: 3}
@@ -103,8 +98,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d02750f963c98fa42b41ea78f2674793, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bodySkin: {fileID: 1742658249003528674}
-  headSkin: {fileID: 9174145040174959000}
   isEnemy: 0
   battleIndex: -1
   characterUIPrefab: {fileID: 2879139995223357689, guid: d947c9b7fcf7dab45b738fe9fc92abfa, type: 3}
@@ -164,8 +157,3 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   animator: {fileID: 2404345076129678630}
---- !u!137 &9174145040174959000 stripped
-SkinnedMeshRenderer:
-  m_CorrespondingSourceObject: {fileID: -8113662451844533969, guid: 4587e35c40845f040a927b0eed51e361, type: 3}
-  m_PrefabInstance: {fileID: 8086044572266526903}
-  m_PrefabAsset: {fileID: 0}

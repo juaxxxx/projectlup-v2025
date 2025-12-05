@@ -16,7 +16,6 @@ namespace LUP.DSG
             DataCenter dataCenter = FindFirstObjectByType<DataCenter>();
             if (modelPrefab == null)
             {
-                Debug.LogWarning("MVP ¸ðµ¨ ÇÁ¸®ÆÕÀÌ ¾ø½À´Ï´Ù!");
                 return;
             }
 
@@ -37,7 +36,7 @@ namespace LUP.DSG
             Animator anim = currentModel.GetComponent<Animator>();
             if (anim != null)
             {
-                anim.Play("Idle", 0, 0f);
+                anim.Play("Buff", 0, 0f);
             }
         }
 
