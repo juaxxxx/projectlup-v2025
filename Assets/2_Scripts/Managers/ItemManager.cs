@@ -18,7 +18,7 @@ namespace LUP
         {
             itemDatabase.Clear();
 
-            LUPItemData[] items = Resources.LoadAll<LUPItemData>("Items");
+            LUPItemData[] items = Resources.LoadAll<LUPItemData>("Data/Items");
 
             foreach (var item in items)
             {
@@ -39,8 +39,6 @@ namespace LUP
         public IItemable GetItem(int itemID)
         {
             if (itemID == 0)
-
-
             {
                 Debug.LogWarning("ItemID가 유효하지 않습니다.");
                 return null;
@@ -52,6 +50,26 @@ namespace LUP
             }
 
             Debug.LogWarning($"아이템을 찾을 수 없습니다: {itemID}");
+            return null;
+        }
+
+        public IItemable GetItem(string itemName)
+        {
+            if (string.IsNullOrEmpty(itemName))
+            {
+                Debug.LogWarning("아이템 이름이 유효하지 않습니다.");
+                return null;
+            }
+
+            foreach (var item in itemDatabase.Values)
+            {
+                if (item.ItemName == itemName)
+                {
+                    return item;
+                }
+            }
+
+            Debug.LogWarning($"아이템을 찾을 수 없습니다: {itemName}");
             return null;
         }
 

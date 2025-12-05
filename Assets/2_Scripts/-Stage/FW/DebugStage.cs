@@ -22,34 +22,36 @@ namespace LUP
 
         void Start()
         {
-            //testInventory.LoadInventory(saveFileName);
-            //testInventory.AddItem(gold, 50);
+            testInventory.LoadInventory(saveFileName);
+            gold = ItemManager.Instance.GetItem("gold");
+            if (gold != null)
+                testInventory.AddItem(gold, 50);
         }
 
         void Update()
         {
-            //if (Input.GetKeyDown(KeyCode.Space))
-            //{
-            //    IItemable gold = ItemManager.Instance.GetItem("gold");
-            //    testInventory.AddItem(gold, 50);
+            if (Input.GetKeyDown(KeyCode.Space))
+            {
+                gold = ItemManager.Instance.GetItem("gold");
+                testInventory.AddItem(gold, 50);
 
-            //    testInventory.SaveInventory(saveFileName);
-            //    Debug.Log($"[DebugStage] 인벤토리 세이브 완료: {saveFileName}");
-            //}
+                testInventory.SaveInventory(saveFileName);
+                Debug.Log($"[DebugStage] 인벤토리 세이브 완료: {saveFileName}");
+            }
 
-            //// L키로 인벤토리 로드 (추가 기능)
-            //if (Input.GetKeyDown(KeyCode.L))
-            //{
-            //    if (testInventory != null)
-            //    {
-            //        testInventory.LoadInventory(saveFileName);
-            //        Debug.Log($"[DebugStage] 인벤토리 로드 완료: {saveFileName}");
-            //    }
-            //    else
-            //    {
-            //        Debug.LogWarning("[DebugStage] 로드할 인벤토리가 없습니다!");
-            //    }
-            //}
+            // L키로 인벤토리 로드 (추가 기능)
+            if (Input.GetKeyDown(KeyCode.L))
+            {
+                if (testInventory != null)
+                {
+                    testInventory.LoadInventory(saveFileName);
+                    Debug.Log($"[DebugStage] 인벤토리 로드 완료: {saveFileName}");
+                }
+                else
+                {
+                    Debug.LogWarning("[DebugStage] 로드할 인벤토리가 없습니다!");
+                }
+            }
         }
 
 
