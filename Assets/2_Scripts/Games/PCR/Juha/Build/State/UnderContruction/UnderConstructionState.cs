@@ -11,14 +11,20 @@ namespace LUP.PCR
             Debug.Log("UnderContructionState Enter");
 
             // 건설중 UI 활성화
-            building.ConstructScreen.SetActive(true);
+            if (building.ConstructScreen)
+            {
+                building.ConstructScreen.SetActive(true);
+            }
+
             // 시간 등 데이터 변수 초기화
             constructionData.Reset(building.currConstructionData.time);
         }
         public void Exit(BuildingBase building)
         {
-            building.ConstructScreen.SetActive(false);
-
+            if (building.ConstructScreen)
+            {
+                building.ConstructScreen.SetActive(false);
+            }
             // 건설 취소.
             Debug.Log("UnderContructionState Exit");
         }

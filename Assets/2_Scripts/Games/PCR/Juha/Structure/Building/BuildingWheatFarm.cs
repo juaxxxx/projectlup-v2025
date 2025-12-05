@@ -39,7 +39,10 @@ namespace LUP.PCR
 
         public override void Init()
         {
-            ConstructScreen.SetActive(false);
+            if(ConstructScreen)
+            {
+                ConstructScreen.SetActive(false);
+            }
             // 작업자 있는지 데이터 필요.
             hasWork = true;
 

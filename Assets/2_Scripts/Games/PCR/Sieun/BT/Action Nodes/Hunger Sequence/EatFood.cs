@@ -25,6 +25,7 @@ namespace LUP.PCR
                 //}
 
                currentHunger = 0f;
+               timer = 0f;
                OwnerAI.Hunger = currentHunger;
                SetData<float>(BBKeys.Hunger, currentHunger);
 
