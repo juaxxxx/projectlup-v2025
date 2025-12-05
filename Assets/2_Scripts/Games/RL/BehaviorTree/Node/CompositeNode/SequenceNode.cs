@@ -15,7 +15,7 @@ namespace LUP.RL
                 return NodeState.Fail;
             }
 
-            for(int i = currWorkingNodeIndex; i < childListNodes.Count; i++)
+            for(int i = 0; i < childListNodes.Count; i++)
             {
                 NodeState compositNodeResult = childListNodes[i].Evaluate();
 

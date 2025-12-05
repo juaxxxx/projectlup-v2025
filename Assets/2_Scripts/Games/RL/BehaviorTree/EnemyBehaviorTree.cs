@@ -160,7 +160,7 @@ namespace LUP.RL
 
             List<(ConditionCheckEnum, bool)> whishConditions = new()
                 {
-                    (ConditionCheckEnum.INHITTEDSTATE, false),
+                    //(ConditionCheckEnum.INHITTEDSTATE, false),
                     (ConditionCheckEnum.INREADYTOATK, true)
                 };
             BlackboardMultiConditionNode inHittedState_InReadyToAtk = new BlackboardMultiConditionNode(enemyBlackBoard, whishConditions, actionAttack);

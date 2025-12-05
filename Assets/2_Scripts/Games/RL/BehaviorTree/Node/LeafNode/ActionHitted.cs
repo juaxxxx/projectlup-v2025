@@ -14,6 +14,15 @@ namespace LUP.RL
 
             //UnityEngine.Debug.Log("Action Hitted");
 
+            if(behaviorTree.GetCurrentAnimState().IsName("Attack"))
+            {
+                blackBoard.InHittedState = false;
+                blackBoard.OnHitted = false;
+
+                nodeState = NodeState.Fail;
+                return nodeState;
+            }
+
             if (isAnimOnPlayed)
             {
                 nodeState = NodeState.Running;
