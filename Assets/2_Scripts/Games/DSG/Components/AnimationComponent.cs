@@ -20,14 +20,11 @@ namespace LUP.DSG
 
         public void StartAttackAnimation(ERangeType type)
         {
-            Debug.Log($"[AnimComp] StartAttackAnimation: type={type}");
-
             if (type == ERangeType.Range)
                 currentState = EAnimStateType.Attack_Range;
             else
                 currentState = EAnimStateType.StartDash_Fwd;
 
-            Debug.Log($"[AnimComp] currentState={currentState}");
             SetAnimationState(currentState);
         }
 
@@ -70,7 +67,6 @@ namespace LUP.DSG
 
         private void SetAnimationState(EAnimStateType type)
         {
-            Debug.Log($"[AnimComp] SetAnimationState ¡æ CharacterState={(int)type}");
             animator.SetInteger("CharacterState", (int)type);
         }
 
