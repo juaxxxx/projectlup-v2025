@@ -6,9 +6,11 @@ namespace LUP.RL
 {
     public class EnemyBlackBoard : BlackBoard
     {
-       private Enemy enemy;
-       private ShooterComp shooter;
-        [SerializeField] private float FullAttackCoolTime = 2f;
+        [HideInInspector]
+        public Enemy enemy;
+
+       [HideInInspector]
+       public ShooterComp shooter;
         private void Start()
         {
             {
@@ -60,20 +62,20 @@ namespace LUP.RL
             if (AtkCollTime < 0)
             
                 AtkCollTime = 0;
-            
-            if (enemy.Type == EnemyType.Ranged && shooter != null)
-            {
-                if (AtkCollTime == 0)
-                {
-                    shooter.TryShoot(targetPos, enemy.EnemyStats.Attack);
 
-                    // 쿨타임 리필
-                    AtkCollTime = FullAttackCoolTime;   
-                }
+            //if (enemy.Type == EnemyType.Ranged && shooter != null)
+            //{
+            //    if (AtkCollTime == 0)
+            //    {
+            //        shooter.TryShoot(targetPos, enemy.EnemyStats.Attack);
 
-                // 원거리 몬스터는 아래 로직 안 타게 종료
-                return;
-            }
+            //        // 쿨타임 리필
+            //        AtkCollTime = FullAttackCoolTime;
+            //    }
+
+            //    // 원거리 몬스터는 아래 로직 안 타게 종료
+            //    return;
+            //}
 
 
             {

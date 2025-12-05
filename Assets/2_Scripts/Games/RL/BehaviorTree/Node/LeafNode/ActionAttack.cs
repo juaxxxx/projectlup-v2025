@@ -1,3 +1,4 @@
+using LUP.ES;
 using LUP.ST;
 using UnityEngine;
 
@@ -46,6 +47,12 @@ namespace LUP.RL
         public override void OnAnimationInTargetRate()
         {
             //현재 애니메이션이, AnimController의 TargetRate일 경우 한번 호출(다른 상태 진입시, 초기화)
+
+            EnemyBlackBoard enemyBlackBoard = (EnemyBlackBoard)blackBoard;
+            if (enemyBlackBoard)
+            {
+                enemyBlackBoard.shooter.TryShoot(blackBoard.targetPos, enemyBlackBoard.enemy.EnemyStats.Attack);
+            }
         }
 
         void TurnToTarget()
