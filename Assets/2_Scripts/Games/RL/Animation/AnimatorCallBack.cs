@@ -27,8 +27,13 @@ public class AnimatorCallBack : StateMachineBehaviour
 
     public override void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        animEndCallBack?.Invoke(stateInfo);
-        alreadyanimCallBacked = false;
+        if(stateInfo.normalizedTime > 0.8)
+        {
+            animEndCallBack?.Invoke(stateInfo);
+            alreadyanimCallBacked = false;
+        }
+
+        
     }
 
     public override void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
