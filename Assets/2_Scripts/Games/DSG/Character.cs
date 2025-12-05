@@ -47,7 +47,7 @@ namespace LUP.DSG
             if (battleComp != null && animationComp != null)
             {
                 battleComp.OnAttackStarted -= animationComp.StartAttackAnimation;
-                battleComp.OnReachedTargetPos -= animationComp.EndDashLoop;
+                //battleComp.OnReachedTargetPos -= animationComp.EndDashLoop;
                 battleComp.OnDamaged -= animationComp.PlayHittedAnimation;
                 battleComp.OnDie -= animationComp.PlayDiedAnimation;
 
@@ -90,7 +90,6 @@ namespace LUP.DSG
                 scoreComp = GetComponent<ScoreComponent>();
 
             battleComp.OnAttackStarted += animationComp.StartAttackAnimation;
-            battleComp.OnReachedTargetPos += animationComp.EndDashLoop;
             battleComp.OnDamaged += animationComp.PlayHittedAnimation;
             battleComp.OnDie += animationComp.PlayDiedAnimation;
 
