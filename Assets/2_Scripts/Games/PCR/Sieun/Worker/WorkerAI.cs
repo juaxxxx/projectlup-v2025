@@ -169,9 +169,6 @@ namespace LUP.PCR
             {
                 // 배고프게 만들기
                 Hunger = Mathf.Clamp(hunger + Time.deltaTime * 0.1f, 0, 3);
-                
-            
-            
             }
 
             // protected, private 보호수준에 막힘.

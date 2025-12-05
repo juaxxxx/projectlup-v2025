@@ -7,8 +7,11 @@ namespace LUP.PCR
     public class UnitMover : MonoBehaviour
     {
         public Vector3 CurrentDestination => currentDestination;
+        public bool IsMoving => path != null && currentIndex < path.Count;
+
         [SerializeField] public AGridMap gridMap;
         [SerializeField] float moveSpeed = 5f;
+        [SerializeField] float rotateSpeed = 10f;
 
         private APathfinding pathfinder;
         private List<ANode> path;
@@ -111,17 +114,34 @@ namespace LUP.PCR
 
         public void MoveAlongPath()
         {
-            if (path == null || currentIndex >= path.Count) { return; }
-
+            if (!IsMoving) return;
+            
             //Vector3 targetNodePos = gridMap.GetNodeWorldPosition(path[currentIndex]);
             Vector3 targetPos = gridMap.GetNodeFootPosition(path[currentIndex]);
+
+            Vector3 direction = (targetPos - transform.position);
+            direction.y = 0;
+
+            if (direction != Vector3.zero)
+            {
+                Quaternion targetRotation = Quaternion.LookRotation(direction);
+
+                transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, rotateSpeed * Time.deltaTime);
+            }
+
+
 
             transform.position = Vector3.MoveTowards(transform.position, targetPos, moveSpeed * Time.deltaTime);
 
             if (Vector3.Distance(transform.position, targetPos) < 0.1f)
             {
                 currentIndex++;
+                // 도착하면 path가 null이 되거나 index가 초과되어 IsMoving이 자동으로 false가 됨
             }
+
+
+
+
         }
 
         
