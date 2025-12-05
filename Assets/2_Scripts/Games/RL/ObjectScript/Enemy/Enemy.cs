@@ -23,7 +23,7 @@ namespace LUP.RL
         public Transform TargetPoint;
         void Start()
         {
-            EnemyStats.MaxHp = 50;
+            EnemyStats.MaxHp = 20;
             EnemyStats.Hp = EnemyStats.MaxHp;
             EnemyStats.Attack = 0;
             EnemyStats.speed = 3;

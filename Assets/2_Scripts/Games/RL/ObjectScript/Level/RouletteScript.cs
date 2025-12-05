@@ -6,12 +6,11 @@ using UnityEngine;
 using UnityEngine.UI;
 public class RouletteScript : MonoBehaviour
 {
- 
     private PlatformAdapter adapter;
     [Header("UI References")]
     [SerializeField] private Button spinButton;
-    [SerializeField] private GameObject roulette;
-    [SerializeField] private GameObject roulettePanel;
+    [SerializeField] private GameObject RoulletPanel;
+    [SerializeField] private GameObject RoulletImagel;
     [SerializeField] private GameObject resultPanel;
     [SerializeField] private Image resultImage;
 
@@ -27,13 +26,13 @@ public class RouletteScript : MonoBehaviour
     void Start()
     {
         if (spinButton == null) return;
-       
+
         spinButton.onClick.AddListener(OnButtonClick);
         adapter = new PlatformAdapter();
         adapter.LinkToPlatform();
         resultPanel.SetActive(false);
         //룰렛에  버프리스트연결
-       buffList.AddRange(adapter.gainableBuffDatas);
+        buffList.AddRange(adapter.gainableBuffDatas);
     }
     void OnButtonClick()
     {
@@ -46,7 +45,7 @@ public class RouletteScript : MonoBehaviour
             //버튼 비활성화
             spinButton.interactable = false;
             currentSpeed = 300f;
-       
+
         }
         else if (!isSpinning && isResultReady)
         {
@@ -54,14 +53,14 @@ public class RouletteScript : MonoBehaviour
 
             ShowResult();
         }
-        
+
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        if(other.CompareTag("Player"))
+        if (other.CompareTag("Player"))
         {
-            roulette.gameObject.SetActive(true);
+            RoulletPanel.gameObject.SetActive(true);
             Time.timeScale = 0;
 
         }
@@ -75,7 +74,7 @@ public class RouletteScript : MonoBehaviour
     {
         if (isSpinning)
         {
-            roulettePanel.transform.Rotate(0, 0, currentSpeed);
+            RoulletImagel.transform.Rotate(0, 0, currentSpeed);
             currentSpeed *= 0.98f;
 
             if (currentSpeed < 1f)
@@ -98,14 +97,14 @@ public class RouletteScript : MonoBehaviour
 
         Debug.Log($"당첨: {selectedBuff.buffName}");
         resultPanel.SetActive(true);
-        roulettePanel.SetActive(false);
+        RoulletImagel.SetActive(false);
         Time.timeScale = 1;
         StartCoroutine(CloseResultAfterDelay(2f));
     }
     IEnumerator CloseResultAfterDelay(float delay)
     {
         yield return new WaitForSeconds(delay);
-        roulette.SetActive(false);
+        RoulletPanel.SetActive(false);
         Destroy(gameObject);
     }
 }

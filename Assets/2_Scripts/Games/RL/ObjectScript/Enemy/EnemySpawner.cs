@@ -11,7 +11,10 @@ namespace LUP.RL
         public GameObject hpbarPrefab;
         public List<Enemy> spawnedEnemies = new();
         // Start is called once before the first execution of Update after the MonoBehaviour is created
-
+        //private void Awake()
+        //{
+        //    spawnedEnemies = new List<Enemy>();
+        //}
         public void Init(StageData data)
         {
             stageData = data;
@@ -29,9 +32,10 @@ namespace LUP.RL
                   .GetComponent<Enemy>();
                 enemy.HpbarPrefab = hpbarPrefab;
                 spawnedEnemies.Add(enemy);
+                Debug.Log($"{spawnedEnemies.Count}付府狼 利 积己 肯丰 Enemy::{spawnedEnemies.Count})");
             }
 
-            Debug.Log($"{spawnedEnemies.Count}付府狼 利 积己 肯丰 (何葛: {roomParent.name})");
+   
         }
 
 
@@ -48,7 +52,9 @@ namespace LUP.RL
 
         private void HandleEnemyDeath(Enemy enemy)
         {
+
             spawnedEnemies.Remove(enemy);
+            Debug.Log($"{enemy.name} enemy, {spawnedEnemies.Count}");       
         }
 
     }

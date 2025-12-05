@@ -1972,7 +1972,7 @@ MonoBehaviour:
     speed: 0
     MaxHp: 0
     Exp: 0
-  expValue: 10
+  expValue: 5
   gridPos: {x: 0, y: 0}
   HpbarPrefab: {fileID: 3769882633132983047, guid: 9e482a2640f931a429d283a4c86f98be, type: 3}
   hpbaroffsetY: 5
@@ -2037,7 +2037,8 @@ MonoBehaviour:
   Target: {fileID: 0}
   targetPos: {fileID: 0}
   agent: {fileID: 0}
-  FullAttackCoolTime: 2
+  enemy: {fileID: 0}
+  shooter: {fileID: 0}
 --- !u!114 &8136602650305438762
 MonoBehaviour:
   m_ObjectHideFlags: 0

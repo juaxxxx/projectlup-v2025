@@ -31,8 +31,8 @@ namespace LUP.RL
         }
         public void Update()
         {
-            if (target == null)
-                Debug.Log("target null");
+            if (target == null) return;
+                //Debug.Log("target null");
            
         Vector3 worldPos = target.transform.position + offset;
        

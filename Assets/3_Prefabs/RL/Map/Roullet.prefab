@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 3498781939235216262}
   - component: {fileID: 1894389340838956821}
   - component: {fileID: 9119876134199550724}
+  - component: {fileID: 5275930730387359857}
   m_Layer: 0
   m_Name: Roullet
   m_TagString: Untagged
@@ -116,17 +117,30 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5282182174267594856}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 60a1af7f4caf7484dab696bd91058f05, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   spinButton: {fileID: 0}
   roulette: {fileID: 5282182174267594856}
-  roulettePanel: {fileID: 0}
-  resultPanel: {fileID: 0}
+  roulettePanel: {fileID: 4414689588285614007, guid: 44f5087564f9cbc4d88de75c69267e96, type: 3}
+  resultPanel: {fileID: 4414689588285614007, guid: 44f5087564f9cbc4d88de75c69267e96, type: 3}
   resultImage: {fileID: 0}
   buffList:
   - {fileID: 11400000, guid: 54e6e3dae78328742aeb2291cf27c713, type: 2}
   - {fileID: 11400000, guid: 0c3a784d4aa1c854f852eeda7d6407c6, type: 2}
   - {fileID: 11400000, guid: f7008bd66f0663c4489aa8210f7cbbb2, type: 2}
+--- !u!114 &5275930730387359857
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5282182174267594856}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d8a0162e01df3af47ade8e1904334b90, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  roulettePanel: {fileID: 4414689588285614007, guid: 44f5087564f9cbc4d88de75c69267e96, type: 3}

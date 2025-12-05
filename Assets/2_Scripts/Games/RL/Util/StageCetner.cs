@@ -34,12 +34,7 @@ namespace LUP.RL
         public GridGenerator gridSystem;
         private int currentStage = 0;
         public bool GameClear = false;
-        private EnemySpawner currentSpawner;
-        private NavMeshSurface surfcae;
-        public void Start()
-        {
-            surfcae = FindFirstObjectByType<NavMeshSurface>();
-        }
+        public EnemySpawner currentSpawner;
         public void LoadNextRoom()
         {
             ClearPreviousRoom();
@@ -85,7 +80,6 @@ namespace LUP.RL
         {
             currentRoom = Instantiate(data.roomprefab, Vector3.zero, Quaternion.identity, roomParent);
 
-            surfcae.BuildNavMesh();
             var bb = player.GetComponent<PlayerBlackBoard>();
             if (bb != null)
                 bb.SetCurrentRoom(currentRoom.transform);
@@ -112,7 +106,7 @@ namespace LUP.RL
         {
             GameObject spawnerObj = Instantiate(enemySpawnerPrefab, Vector3.zero, Quaternion.identity, currentRoom.transform);
             EnemySpawner spawner = spawnerObj.GetComponent<EnemySpawner>();
-
+            currentSpawner = spawner;   
             spawner.Init(data);
         }
         private void SpawnObstacles(StageData data)
@@ -128,12 +122,29 @@ namespace LUP.RL
         }
         public bool IsCurrentRoomCleared()
         {
-            if (currentSpawner == null)
+            if (currentStage == 0)
+            {
+                Debug.Log("첫 번째 스테이지 자동 클리어");
                 return true;
+            }
+            //Debug.Log($"호출");
+            //if (currentSpawner == null)
+            //{
+            //    Debug.Log($"spawner null 호출");
+            //    return true;
+            //}
             // Destroy이 된 Enemy들이 null로 남아있을 수 있기때문에.
-            currentSpawner.spawnedEnemies.RemoveAll(e => e == null);
-
-            return currentSpawner.spawnedEnemies.Count == 0;
+            currentSpawner.spawnedEnemies.RemoveAll(e => e == null || e.Equals(null));
+            if (currentSpawner.spawnedEnemies.Count == 0)
+            {
+                Debug.Log($"몬스터 개수 : {currentSpawner.spawnedEnemies.Count}");
+                return true;
+            }
+            else
+            {
+                Debug.Log($"false {currentSpawner.spawnedEnemies.Count}");
+                return false;
+            }
         }
         public int GetStageNum()
         {
