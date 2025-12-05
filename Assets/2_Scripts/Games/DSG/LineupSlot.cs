@@ -101,6 +101,7 @@ namespace LUP.DSG
 
             if (character != null)
             {
+                character.DestroyUI();
                 Destroy(character.gameObject);
                 character = null;
             }

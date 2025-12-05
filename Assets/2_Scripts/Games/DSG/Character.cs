@@ -58,25 +58,6 @@ namespace LUP.DSG
 
         private void Initialize(DeckStrategyStage stage)
         {
-            Canvas[] canvases = FindObjectsByType<Canvas>(FindObjectsSortMode.None);
-            foreach (var canvas in canvases)
-            {
-                if (canvas.CompareTag("CharacterUI"))
-                {
-                    GameObject ui = Instantiate(characterUIPrefab, canvas.transform);
-                    characterInfoUI = ui.GetComponentInChildren<CharacterInfoUI>();
-                    characterInfoUI.SetTarget(transform);
-                    characterInfoUI.gameObject.SetActive(false);
-
-                    chracterBattleUI = ui.GetComponentInChildren<CharacterBattleUI>();
-                    chracterBattleUI.Init(this);
-                    chracterBattleUI.SetTarget(transform);
-                    chracterBattleUI.gameObject.SetActive(false);
-
-                    break;
-                }
-            }
-
         }
         public void ManualInitializeAfterSpawn()
         {
@@ -95,17 +76,30 @@ namespace LUP.DSG
 
             animationComp.OnHitAttack += battleComp.ApplyDamageOnce;
             animationComp.OnShootRangeAttack += battleComp.TrySpawnProjectileForRangedAttack;
+
+            Canvas[] canvases = FindObjectsByType<Canvas>(FindObjectsSortMode.None);
+            foreach (var canvas in canvases)
+            {
+                if (canvas.CompareTag("CharacterUI"))
+                {
+                    GameObject ui = Instantiate(characterUIPrefab, canvas.transform);
+                    characterInfoUI = ui.GetComponentInChildren<CharacterInfoUI>();
+                    characterInfoUI.SetTarget(transform);
+                    characterInfoUI.gameObject.SetActive(false);
+
+                    chracterBattleUI = ui.GetComponentInChildren<CharacterBattleUI>();
+                    chracterBattleUI.Init(this);
+                    chracterBattleUI.SetTarget(transform);
+                    chracterBattleUI.gameObject.SetActive(false);
+
+                    break;
+                }
+            }
         }
 
         private void PostInitialize(DeckStrategyStage stage)
-        {/*
-            battleComp.OnAttackStarted += animationComp.StartAttackAnimation;
-            battleComp.OnReachedTargetPos += animationComp.EndDashLoop;
-            battleComp.OnDamaged += animationComp.PlayHittedAnimation;
-            battleComp.OnDie += animationComp.PlayDiedAnimation;
+        {
 
-            animationComp.OnHitAttack += battleComp.ApplyDamageOnce;
-            animationComp.OnShootRangeAttack += battleComp.TrySpawnProjectileForRangedAttack;*/
         }
 
         public void EndTurn()
@@ -145,11 +139,10 @@ namespace LUP.DSG
             characterData = data;
             characterModelData = modelData;
             gameObject.SetActive(true);
-            if (characterInfoUI != null)
-            {
-                characterInfoUI.SetCharacterInfo(data.type, info.characterLevel);
-                characterInfoUI.gameObject.SetActive(true);
-            }
+            if (characterInfoUI == null) return;
+
+            characterInfoUI.SetCharacterInfo(data.type, info.characterLevel);
+            characterInfoUI.gameObject.SetActive(true);
 
             UpdateCombatPower();
         }
@@ -174,10 +167,20 @@ namespace LUP.DSG
         public void ActiveBattleUI()
         {
             if (chracterBattleUI == null) return;
+
             chracterBattleUI.Init(this);
 
             chracterBattleUI.gameObject.SetActive(true);
             characterInfoUI.gameObject.SetActive(false);
+        }
+
+        public void DestroyUI()
+        {
+            characterInfoUI.gameObject.SetActive(false);
+            chracterBattleUI.gameObject.SetActive(false);
+            Destroy(characterInfoUI);
+            Destroy(chracterBattleUI);
+
         }
     }
 }
