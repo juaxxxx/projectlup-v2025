@@ -33,7 +33,7 @@ namespace LUP.PCR
         [SerializeField] private ProductableBuilding restaurantBuilding = null;
         [SerializeField] private ProductableBuilding loungeBuilding = null;
 
-
+        // 
         public WorkerBlackboard LocalBlackboard { get; private set; }
         public float Hunger
         {
@@ -42,6 +42,17 @@ namespace LUP.PCR
             {
                 hunger = value;
                 LocalBlackboard.SetValue(BBKeys.Hunger, hunger);
+
+                CheckHungerState();
+            }
+        }
+        private void CheckHungerState()
+        {
+            bool shouldBeHungry = hunger >= HungerRules.HungryThreshold;
+
+            if (isHunger != shouldBeHungry)
+            {
+                IsHunger = shouldBeHungry;
             }
         }
 
@@ -51,14 +62,11 @@ namespace LUP.PCR
             set
             {
                 isHunger = value;
-                if (hunger >= HungerRules.Hunger)
-                {
-                    isHunger = true;
-                }
                 LocalBlackboard.SetValue(BBKeys.IsHunger, isHunger);
             }
         }
 
+        
 
         public bool IsWorking
         {
@@ -69,10 +77,6 @@ namespace LUP.PCR
                 LocalBlackboard.SetValue(BBKeys.IsWorking, isWorking);
             }
         }
-
-       
-
-
         public bool HasNewTask
         {
             get => hasNewTask;
@@ -82,19 +86,17 @@ namespace LUP.PCR
                 LocalBlackboard.SetValue(BBKeys.HasNewTask, hasNewTask);
             }
         }
-        
-        public void InitBTRules()
-        {
-            isHunger = hunger >= HungerRules.Hunger;
-        }
+
         public void InitBTReferences()
         {
-            //currBuildings
             worker = GetComponent<Worker>();
             mover = GetComponent<UnitMover>();
             LocalBlackboard = new WorkerBlackboard();
 
             InitBlackboard();
+
+            CheckHungerState();
+            
             SettingBT();
         }
 
@@ -166,7 +168,10 @@ namespace LUP.PCR
             if(!isHunger)
             {
                 // 배고프게 만들기
-                Hunger = Mathf.Clamp01(hunger + Time.deltaTime * 0.1f);
+                Hunger = Mathf.Clamp(hunger + Time.deltaTime * 0.1f, 0, 3);
+                
+            
+            
             }
 
             // protected, private 보호수준에 막힘.

@@ -16,21 +16,7 @@ namespace LUP.PCR
         [HideInInspector] public List<ANode> pathToDraw;
         [HideInInspector] public ANode debugStartNode;
         [HideInInspector] public ANode debugTargetNode;
-
-
-
-        //[SerializeField] int gridXCount = 10;
-        //[SerializeField] int gridYCount = 10;
-
-        /// <summary>
-        /// 데이터 연결 전 워커 행동트리 테스트용 임시데이터
-        /// PCRGameSystem 혹은 초기화 매니저에서 호출해야 함
-        /// <param name="tileData">PCRDataCenter의 TileInfo 배열</param>
-        /// </summary>
-        /// 
-
-
-
+       
         public void InitMap(TileInfo[,] tileData)
         {
             gridStartPoint = transform.position;
@@ -98,10 +84,18 @@ namespace LUP.PCR
 
             return null;
         }
-        public Vector3 GetNodeWorldPosition(ANode node)
+        //public Vector3 GetNodeWorldPosition(ANode node)
+        //{
+        //    return node.worldPos;
+        //}
+
+        public Vector3 GetNodeFootPosition(ANode node)
         {
-            return node.worldPos;
+            Vector3 centerPos = node.worldPos;
+
+            return new Vector3(centerPos.x, centerPos.y - (tileSize / 2f), centerPos.z);
         }
+
 
         private void OnDrawGizmos()
         {

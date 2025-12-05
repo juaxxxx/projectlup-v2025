@@ -46,28 +46,27 @@ namespace LUP.PCR
         //    currentIndex = 0;
         //}
 
-        public void SetDestination(Vector3 worldPos)
-        {
-            if (gridMap == null || pathfinder == null) return;
+        //public void SetDestination(Vector3 worldPos)
+        //{
+        //    if (gridMap == null || pathfinder == null) return;
 
-            ANode startNode = gridMap.GetNodeFromWorldPosition(transform.position);
-            ANode targetNode = gridMap.GetNodeFromWorldPosition(worldPos);
+        //    ANode startNode = gridMap.GetNodeFromWorldPosition(transform.position);
+        //    ANode targetNode = gridMap.GetNodeFromWorldPosition(worldPos);
 
-            List<ANode> calculatedPath = pathfinder.FindPath(startNode, targetNode);
+        //    List<ANode> calculatedPath = pathfinder.FindPath(startNode, targetNode);
 
-            //@TODO : 만약 경로를 못 찾았으면 목적지만이라도 설정할지, 멈출지 결정
-            if (calculatedPath == null || calculatedPath.Count == 0)
-            {
-                currentDestination = worldPos;
-                path = null;
-            }
-            else
-            {
-                ProcessPath(calculatedPath);
-            }
+        //    //@TODO : 만약 경로를 못 찾았으면 목적지만이라도 설정할지, 멈출지 결정
+        //    if (calculatedPath == null || calculatedPath.Count == 0)
+        //    {
+        //        currentDestination = worldPos;
+        //        path = null;
+        //    }
+        //    else
+        //    {
+        //        ProcessPath(calculatedPath);
+        //    }
+        //}
 
-            //MoveAlongPath();
-        }
         public void SetDestination(Vector2Int gridPos)
         {
             if (gridMap == null || pathfinder == null) return;
@@ -107,19 +106,25 @@ namespace LUP.PCR
 
             gridMap.pathToDraw = path;
 
-            currentDestination = gridMap.GetNodeWorldPosition(path[path.Count - 1]);
+            currentDestination = gridMap.GetNodeFootPosition(path[path.Count - 1]);
         }
 
         public void MoveAlongPath()
         {
             if (path == null || currentIndex >= path.Count) { return; }
 
-            Vector3 targetPos = gridMap.GetNodeWorldPosition(path[currentIndex]);
+            //Vector3 targetNodePos = gridMap.GetNodeWorldPosition(path[currentIndex]);
+            Vector3 targetPos = gridMap.GetNodeFootPosition(path[currentIndex]);
+
             transform.position = Vector3.MoveTowards(transform.position, targetPos, moveSpeed * Time.deltaTime);
 
             if (Vector3.Distance(transform.position, targetPos) < 0.1f)
+            {
                 currentIndex++;
+            }
         }
+
+        
 
         // BT - 목적지 도착 확인용
         public bool IsArrived()
