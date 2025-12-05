@@ -54,6 +54,8 @@ namespace LUP.DSG
 
         [SerializeField]
         private DataCenter dataCenter;
+        [SerializeField]
+        private SkillUIPanel skillUIPanel;
 
         public static BattleSystem Instance { get; private set; }
         private Dictionary<string, (Color Color, float Score)> deadScores = new();
@@ -265,6 +267,7 @@ namespace LUP.DSG
                 List<LineupSlot> targetList = GetSkillTargets(currentChar);
                 currentChar.BattleComp.Skill(targetList);
                 StartCoroutine(WaitForAttackEnd(currentChar));
+                skillUIPanel.ShowSkillPanel(currentChar);
             }
             else
             {
