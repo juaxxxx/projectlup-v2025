@@ -11,6 +11,7 @@ namespace LUP.RL
     {
         [HideInInspector]
         public Vector3 WorldPosition;
+        public float TargetDistortion = 5f;
         public GameObject NoiseObject;
 
         private MeshRenderer NoiseWallRenderer;
@@ -23,13 +24,13 @@ namespace LUP.RL
         {
             WorldPosition = this.transform.position;
 
-            if(NoiseObject)
+            if (NoiseObject)
             {
                 NoiseWallRenderer = NoiseObject.GetComponent<MeshRenderer>();
                 WallMaterial = NoiseWallRenderer.material;
 
                 NoiseWallRenderer.enabled = false;
-                WallMaterial.SetFloat("_Distortion", 5.0f);
+                //WallMaterial.SetFloat("_Distortion", 5.0f);
             }
         }
 
@@ -40,14 +41,26 @@ namespace LUP.RL
 
             if (NoiseWallRenderer) NoiseWallRenderer.enabled = true;
 
-            // 이전 코루틴이 실행 중이면 멈추기
             if (distortionCoroutine != null)
+            {
                 StopCoroutine(distortionCoroutine);
+                distortionCoroutine = null;
+            }
+
 
             Vector3 hitPosition = other.ClosestPoint(transform.position);
 
-            //distortionCoroutine = StartCoroutine(ChangeDistortion(WallMaterial.GetFloat("_Distortion"), 0.05f, 1.5f));
+            distortionCoroutine = StartCoroutine(ChangeDistortion(WallMaterial.GetFloat("_Distortion"), TargetDistortion, 2.0f));
             WallMaterial.SetVector("_StartPosition", hitPosition);
+        }
+
+        void OnTriggerStay(Collider other)
+        {
+            if (other.gameObject.CompareTag("Player") == false)
+                return;
+
+            Vector3 StayedPosition = other.ClosestPoint(transform.position);
+            WallMaterial.SetVector("_StartPosition", StayedPosition);
         }
 
         private void OnTriggerExit(Collider other)
@@ -55,13 +68,15 @@ namespace LUP.RL
             if (!other.gameObject.CompareTag("Player"))
                 return;
 
-            // 이전 코루틴이 실행 중이면 멈추기
             if (distortionCoroutine != null)
+            {
                 StopCoroutine(distortionCoroutine);
+                distortionCoroutine = null;
+            }
 
-            //distortionCoroutine = StartCoroutine(ChangeDistortion(WallMaterial.GetFloat("_Distortion"), 0f, 1.5f));
 
-            // 감소가 끝나면 렌더러 끄기
+            distortionCoroutine = StartCoroutine(ChangeDistortion(WallMaterial.GetFloat("_Distortion"), 0f, 0.5f));
+
             StartCoroutine(DisableRendererAfterDelay(1.0f));
         }
 
