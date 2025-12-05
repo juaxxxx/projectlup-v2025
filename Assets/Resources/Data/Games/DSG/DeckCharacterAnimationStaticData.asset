@@ -1,0 +1,107 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d273e7d0e49385241913b4615a3a9f6f, type: 3}
+  m_Name: DeckCharacterAnimationStaticData
+  m_EditorClassIdentifier: 
+  associatedWorksheet: 
+  START_ROW: 1
+  DataList:
+  - TableId: 1
+    ModelId: 0
+    AnimationId: 0
+    AnimationName: BlockingLoop
+    AnimationPath: Assets/Resources/Characters/Animations/Combat/BlockingLoop.fbx
+  - TableId: 0
+    ModelId: 0
+    AnimationId: 0
+    AnimationName: BowShot
+    AnimationPath: Assets/Resources/Characters/Animations/Combat/BowShot.fbx
+  - TableId: 0
+    ModelId: 0
+    AnimationId: 0
+    AnimationName: Buff
+    AnimationPath: Assets/Resources/Characters/Animations/Combat/Buff.fbx
+  - TableId: 0
+    ModelId: 0
+    AnimationId: 0
+    AnimationName: CastingLoop
+    AnimationPath: Assets/Resources/Characters/Animations/Combat/CastingLoop.fbx
+  - TableId: 0
+    ModelId: 0
+    AnimationId: 0
+    AnimationName: GetHit
+    AnimationPath: Assets/Resources/Characters/Animations/Combat/GetHit.fbx
+  - TableId: 0
+    ModelId: 0
+    AnimationId: 0
+    AnimationName: Death
+    AnimationPath: Assets/Resources/Characters/Animations/Combat/Death.fbx
+  - TableId: 0
+    ModelId: 0
+    AnimationId: 0
+    AnimationName: IdleCombat
+    AnimationPath: Assets/Resources/Characters/Animations/Combat/IdleCombat.fbx
+  - TableId: 0
+    ModelId: 0
+    AnimationId: 0
+    AnimationName: MeeleeAttack_OneHanded
+    AnimationPath: Assets/Resources/Characters/Animations/Combat/MeeleeAttack_OneHanded.fbx
+  - TableId: 0
+    ModelId: 0
+    AnimationId: 0
+    AnimationName: MeeleeAttack_TwoHanded
+    AnimationPath: Assets/Resources/Characters/Animations/Combat/MeeleeAttack_TwoHanded.fbx
+  - TableId: 0
+    ModelId: 0
+    AnimationId: 0
+    AnimationName: PunchLeft
+    AnimationPath: Assets/Resources/Characters/Animations/Combat/PunchLeft.fbx
+  - TableId: 0
+    ModelId: 0
+    AnimationId: 0
+    AnimationName: PunchRight
+    AnimationPath: Assets/Resources/Characters/Animations/Combat/PunchRight.fbx
+  - TableId: 0
+    ModelId: 0
+    AnimationId: 0
+    AnimationName: SpellCast
+    AnimationPath: Assets/Resources/Characters/Animations/Combat/SpellCast.fbx
+  - TableId: 0
+    ModelId: 0
+    AnimationId: 0
+    AnimationName: SpinAttack_TwoHanded
+    AnimationPath: Assets/Resources/Characters/Animations/Combat/SpinAttack_TwoHanded.fbx
+  - TableId: 0
+    ModelId: 0
+    AnimationId: 0
+    AnimationName: SpinAttack_TwoWeapons
+    AnimationPath: Assets/Resources/Characters/Animations/Combat/SpinAttack_TwoWeapons.fbx
+  - TableId: 0
+    ModelId: 0
+    AnimationId: 0
+    AnimationName: SpinLoop_TwoHanded
+    AnimationPath: Assets/Resources/Characters/Animations/Combat/SpinLoop_TwoHanded.fbx
+  - TableId: 0
+    ModelId: 0
+    AnimationId: 0
+    AnimationName: SpinToWin_OneHanded
+    AnimationPath: Assets/Resources/Characters/Animations/Combat/SpinToWin_OneHanded.fbx
+  - TableId: 0
+    ModelId: 0
+    AnimationId: 0
+    AnimationName: SpinToWin_TwoHanded
+    AnimationPath: Assets/Resources/Characters/Animations/Combat/SpinToWin_TwoHanded.fbx
+  - TableId: 0
+    ModelId: 0
+    AnimationId: 0
+    AnimationName: StunnedLoop
+    AnimationPath: Assets/Resources/Characters/Animations/Combat/StunnedLoop.fbx

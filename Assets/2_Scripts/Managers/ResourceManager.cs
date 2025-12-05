@@ -76,22 +76,22 @@ namespace LUP
             switch (type)
             {
                 case Define.StageKind.ST:
-                    folderPath = "Data/ST";
+                    folderPath = "Data/Games/ST";
                     break;
                 case Define.StageKind.DSG:
-                    folderPath = "Data/DSG";
+                    folderPath = "Data/Games/DSG";
                     break;
                 case Define.StageKind.ES:
-                    folderPath = "Data/ES";
+                    folderPath = "Data/Games/ES";
                     break;
                 case Define.StageKind.RL:
-                    folderPath = "Data/RL";
+                    folderPath = "Data/Games/RL";
                     break;
                 case Define.StageKind.Main:
-                    folderPath = "Data/PCR";
+                    folderPath = "Data/Games/PCR";
                     break;
                 case Define.StageKind.Tutorial:
-                    folderPath = "Data/FW";
+                    folderPath = "Data/Games/FW";
                     break;
             }
 

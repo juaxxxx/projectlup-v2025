@@ -2,9 +2,6 @@
 
 namespace LUP.Define
 {
-    /// <summary>
-    /// Resource
-    /// </summary>
     public enum VideoResourceType
     {
         Sample,
@@ -76,5 +73,12 @@ namespace LUP.Define
         Quest = 5,       // 퀘스트/키 아이템
         Currency = 6,    // 화폐
     }
+
+    /// </summary>
+    public enum DataSourceType
+    {
+        CSV
+    }
+
 }
 

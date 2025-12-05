@@ -8,6 +8,7 @@ namespace LUP
 
         [SerializeField] private Inventory testInventory;
         [SerializeField] private string saveFileName = "debug_inventory";
+        IItemable gold;
 
         protected override void Awake()
         {
@@ -22,8 +23,6 @@ namespace LUP
         void Start()
         {
             //testInventory.LoadInventory(saveFileName);
-
-            //IItemable gold = ItemManager.Instance.GetItem("gold");
             //testInventory.AddItem(gold, 50);
         }
 

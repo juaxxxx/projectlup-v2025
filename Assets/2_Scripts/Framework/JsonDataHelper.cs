@@ -49,7 +49,7 @@ public static class JsonDataHelper
 
         #if UNITY_EDITOR
         // 개발 중: 프로젝트 폴더
-        basePath = Path.Combine(Application.dataPath, "./Resources/SavedData");
+        basePath = Path.Combine(Application.dataPath, "./Resources/Data/SavedData");
         #else
         // 출시 후: OS 표준 경로 추후 사용
         basePath = Application.persistentDataPath;
