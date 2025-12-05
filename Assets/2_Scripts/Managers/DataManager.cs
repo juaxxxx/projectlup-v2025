@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using NUnit.Framework;
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace LUP
@@ -39,8 +41,17 @@ namespace LUP
                     data = JsonDataHelper.LoadData<DeckStrategyRuntimeData>(filename);
                     break;
                 case LUP.Define.StageKind.Main:
-                    filename = Define.RuntimeDataTypes.ToFilename(Define.RuntimeDataType.Versions);
-                    data = JsonDataHelper.LoadData<VersionsData>(filename);
+                    switch (stagetype)
+                    {
+                        case 1:
+                            filename = Define.RuntimeDataTypes.ToFilename(Define.RuntimeDataType.Versions);
+                            data = JsonDataHelper.LoadData<VersionsData>(filename);
+                            break;
+                        case 2:
+                            filename = Define.RuntimeDataTypes.ToFilename(Define.RuntimeDataType.QuestList);
+                            data = JsonDataHelper.LoadData<CurrentQuestListData>(filename);
+                            break;
+                    }
                     break;
                 case LUP.Define.StageKind.PCR:
                     filename = Define.RuntimeDataTypes.ToFilename(Define.RuntimeDataType.ProductionRuntime);

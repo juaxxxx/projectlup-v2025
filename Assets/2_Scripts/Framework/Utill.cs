@@ -43,7 +43,8 @@ namespace LUP.Define
         DeckStrategyRuntime,
         ExtractionShooterRuntime,
         ProductionRuntime,
-        Versions
+        Versions,
+        QuestList,
     }
 
     public static class RuntimeDataTypes
@@ -57,7 +58,8 @@ namespace LUP.Define
                 RuntimeDataType.DeckStrategyRuntime => "deckstrategy_runtime.json",
                 RuntimeDataType.ExtractionShooterRuntime => "extractionshooter_runtime.json",
                 RuntimeDataType.ProductionRuntime => "production_runtime.json",
-                RuntimeDataType.Versions => "Versions.json"
+                RuntimeDataType.Versions => "Versions.json",
+                RuntimeDataType.QuestList => "CurrentQuestListData.json"
             };
         }
 

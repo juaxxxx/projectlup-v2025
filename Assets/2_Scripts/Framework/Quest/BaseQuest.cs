@@ -13,6 +13,7 @@ namespace LUP
     public class BaseQuest : ScriptableObject
     {
         public string QuestName;
+        public int QuestID;
         public QuestGoal[] Goals;
 
         [System.NonSerialized]
