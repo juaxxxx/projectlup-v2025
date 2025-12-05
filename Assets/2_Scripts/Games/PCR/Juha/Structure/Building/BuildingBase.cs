@@ -16,14 +16,19 @@ namespace LUP.PCR
         public string buildingName;
         public int level;
         public Vector2Int entrancePos; // 작업자 도달 위치
+        public PCRResourceCenter resourceCenter;
+        public GameObject ConstructScreen;
 
         protected IBuildState currBuildState;
+        protected bool hasWork;
 
         public abstract void Init();// 건물 정보랑 상태 가져올 매개변수 확장 필요
 
         public abstract void CompleteContruction();
 
         public abstract void Upgrade();
+
+        public abstract void DeliverToInventory();
 
         public void OpenBuildingUI()
         {
@@ -42,7 +47,20 @@ namespace LUP.PCR
             currBuildState.Enter(this);
         }
 
+        // TODO: 임시 입구 설정. 입구가 왼쪽도 있어야하고 오른쪽도 있어야하는 느낌..
+        public void SetEntrance(Vector2Int pivotPos)
+        {
+            entrancePos = pivotPos;
+        }
 
+        public void EnterWorker()
+        {
+            hasWork = true;
+        }
+
+        public void ExitWorker()
+        {
+            hasWork = false;
+        }
     }
-
 }

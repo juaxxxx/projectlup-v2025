@@ -27,6 +27,11 @@ namespace LUP.PCR
 
         private void Update()
         {
+            if (!hasWork)
+            {
+                return;
+            }
+
             // 추후에 가속 아이템 적용 가능하게 만들어야 한다.
             float deltaTime = Time.deltaTime;
             currBuildState?.Tick(this, deltaTime);
@@ -34,6 +39,13 @@ namespace LUP.PCR
 
         public override void Init()
         {
+            if(ConstructScreen)
+            {
+                ConstructScreen.SetActive(false);
+            }
+            // 작업자 있는지 데이터 필요.
+            hasWork = true;
+
             // 저장된 건물 정보랑 상태 가져오기
             SetupProductionData();
 
@@ -47,7 +59,7 @@ namespace LUP.PCR
         }
         public override void Upgrade()
         {
-            ChangeState(productableState);
+            ChangeState(constructState);
         }
         public override void InteractForTouch()
         {
@@ -102,7 +114,9 @@ namespace LUP.PCR
 
             if (currStorage == maxStorage)
             {
-                StopProduction();
+                DeliverToInventory();
+                StartProduction();
+                //StopProduction();
             }
             else
             {
@@ -110,6 +124,13 @@ namespace LUP.PCR
             }
         }
 
+        public override void DeliverToInventory()
+        {
+            resourceCenter.AddResource(productableBuildingData.resource, currStorage);
+            currStorage = 0;
+        }
+       
+    
     }
 
 }

@@ -4,33 +4,49 @@ namespace LUP.PCR
 {
     public class GoToLounge : WorkerBlackboardNode
     {
+        BuildingBase loungePlace;
+
         public GoToLounge(WorkerBlackboard blackboard) : base(blackboard) { }
-        bool started = false;
-        Vector2Int loungePos;
 
-        public override NodeState Evaluate()
+        protected override void OnStart()
         {
-            if (Mover == null) return NodeState.FAILURE;
-
-            if (!started)
+            if (HasData(BBKeys.Lounge))
             {
-                //@TODO : 구조 확정되면 라운지 위치 지정하기
-                //Mover.MoveTo(loungePos);
-                Mover.SetDestination(loungePos);
-                //SetData(BBKeys.TargetPosition, loungePos);
-                started = true;
-
-                if (!Mover.IsArrived())
+                loungePlace = GetData<BuildingBase>(BBKeys.Lounge);
+                
+                if(loungePlace == null)
                 {
-                    Debug.Log("라운지로 이동 중...");
+                    Debug.Log("3. 라운지가 없습니다.");
                 }
-
-                return NodeState.RUNNING;
+                else if (Mover != null)
+                {
+                    //@TODO : OnStart() 안에서 호출하면..라운지 위치가 바뀔 때 어떻게 대응할지 고민하기 
+                    Mover.SetDestination(loungePlace.entrancePos); 
+                    //SetData<Vector2Int>(BBKeys.TargetPosition, LoungeBuilding.entrancePos);
+                }
             }
+        }
 
-            Debug.Log("라운지 도착. 휴식 중...");
-            started = false;
-            return NodeState.SUCCESS;
+
+        protected override NodeState OnUpdate()
+        {
+            if (Mover == null || loungePlace == null) { return NodeState.FAILURE; }
+            {
+                if (Mover.IsArrived())
+                {
+                    Debug.Log("3. 라운지 도착. 휴식 중...");
+
+                    return NodeState.SUCCESS;
+                }
+                else
+                {
+                    Mover.MoveAlongPath();
+
+                    Debug.Log("3. 라운지로 이동 중...");
+
+                    return NodeState.RUNNING;
+                }
+            }
         }
     }
 }

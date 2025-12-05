@@ -6,23 +6,33 @@ namespace LUP.PCR
     {
         public EatFood(WorkerBlackboard blackboard) : base(blackboard) { }
         float timer = 0f;
-        float duration = 3f;
-
-        public override NodeState Evaluate()
+        float duration = 1f;
+        int logLoopCount = 0;
+        protected override NodeState OnUpdate()
         {
             float currentHunger = GetData<float>(BBKeys.Hunger);
             
             if (timer < duration)
             {
                 timer += Time.deltaTime;
-                Debug.Log($"식사 중... {timer:F1}/{duration}");
+                Debug.Log($"1-4. 식사 중... {timer:F1}/{duration}");
                 return NodeState.RUNNING;
             }
+            else
+            {
+                //if(logLoopCount == 0)
+                //{
+                //}
 
+               currentHunger = 0f;
+               timer = 0f;
+               OwnerAI.Hunger = currentHunger;
+               SetData<float>(BBKeys.Hunger, currentHunger);
 
-            currentHunger = 0f;
-            Debug.Log("식사 완료!");
-            return NodeState.SUCCESS;
+               Debug.Log("1-4. 식사 완료!");
+               return NodeState.SUCCESS;
+
+            }
         }
     }
 

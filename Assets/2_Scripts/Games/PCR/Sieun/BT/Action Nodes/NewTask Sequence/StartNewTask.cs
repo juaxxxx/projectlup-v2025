@@ -8,15 +8,20 @@ namespace LUP.PCR
         float timer = 0f;
         float duration = 3f;
 
-
-        public override NodeState Evaluate()
+        protected override NodeState OnUpdate()
         {
             ProductableBuilding building = GetData<ProductableBuilding>(BBKeys.TargetBuilding);
-            if (building == null) return NodeState.FAILURE;
-
-            OwnerAI?.StartWorkingAt(building);
-            SetData(BBKeys.HasNewTask, false);
-            return NodeState.SUCCESS;
+            
+            if (building == null)
+            {
+                return NodeState.FAILURE;
+            }
+            else
+            {
+                SetData(BBKeys.HasNewTask, false);
+                SetData(BBKeys.IsWorking, true);
+                return NodeState.SUCCESS;
+            }
         }
     }
 }

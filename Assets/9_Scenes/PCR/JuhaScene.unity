@@ -1025,6 +1025,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   wheatFarmPreview: {fileID: 1228743261}
   powerStationPreview: {fileID: 0}
+  stoneMinePreview: {fileID: 0}
+  moleFarmPreview: {fileID: 0}
+  workStationPreview: {fileID: 0}
+  restaurantPreview: {fileID: 0}
   canBuildMaterial: {fileID: 2100000, guid: e83917b034519d34498dfbc4287a6ffe, type: 2}
   canNotBuildMaterial: {fileID: 2100000, guid: 044b5dbc77c50624ea56fc58511daff3, type: 2}
   canBuild: 0
@@ -1380,6 +1384,31 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1574250943}
   m_CullTransparentMesh: 1
+--- !u!1 &2134029566 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6893828821333912245, guid: cdc75119459fb3a4694c648952622ce5, type: 3}
+  m_PrefabInstance: {fileID: 7142311245950955112}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &2134029569
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2134029566}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e440d28d067510d429110e31aaa529a4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  food: 0
+  vegfruit: 0
+  meat: 0
+  water: 0
+  stone: 0
+  iron: 0
+  coal: 0
+  power: 0
 --- !u!1001 &7142311245950955112
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1428,6 +1457,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3489063902991163802, guid: cdc75119459fb3a4694c648952622ce5, type: 3}
+      propertyPath: resourceCenter
+      value: 
+      objectReference: {fileID: 2134029569}
     - target: {fileID: 3770741666171774173, guid: cdc75119459fb3a4694c648952622ce5, type: 3}
       propertyPath: wallSpawnTransform
       value: 
@@ -1440,10 +1473,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: PCRGameSystem
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 1335741885925663309, guid: cdc75119459fb3a4694c648952622ce5, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 6893828821333912245, guid: cdc75119459fb3a4694c648952622ce5, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2134029569}
   m_SourcePrefab: {fileID: 100100000, guid: cdc75119459fb3a4694c648952622ce5, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:

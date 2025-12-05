@@ -22,6 +22,8 @@ namespace LUP.PCR
         private DigWallPreview digWallPreview;
         [SerializeField]
         private BuildPreview buildPreview;
+        [SerializeField]
+        private PCRResourceCenter resourceCenter;
 
         private void Awake()
         {
@@ -33,6 +35,7 @@ namespace LUP.PCR
             buildPreview = GetComponentInChildren<BuildPreview>();
             taskController = GetComponentInChildren<TaskController>();
             uiCenter = GetComponentInChildren<PCRUICenter>();
+            resourceCenter = GetComponentInChildren<PCRResourceCenter>();
         }
 
         private void Start()
@@ -40,8 +43,10 @@ namespace LUP.PCR
             // PCRDataCenter Init
             dataCenter.InitData();
 
+            resourceCenter.InitInventory();
+
             // BuildingSystem Init
-            buildingSystem.InitBuildingSystem(dataCenter, buildingGenerator, buildPreview);
+            buildingSystem.InitBuildingSystem(dataCenter, buildingGenerator, buildPreview, tileMap, resourceCenter);
 
             // TileMap Init
             tileMap.InitializeTileMap(dataCenter.tileInfoes);

@@ -13,11 +13,16 @@ namespace LUP.PCR
         [SerializeField]
         private GameObject wheatFarmPrefab;
         [SerializeField]
-        private GameObject mushroomFarmPrefab;
+        private GameObject moleFarmPrefab;
         [SerializeField]
         private GameObject restaurantPrefab;
         [SerializeField]
         private GameObject powerStationPrefab;
+        [SerializeField]
+        private GameObject stoneMinePrefab;
+        [SerializeField]
+        private GameObject workStationPrefab;
+
 
         [SerializeField]
         private GameObject dustPrefab;
@@ -48,19 +53,27 @@ namespace LUP.PCR
             switch (type)
             {
                 case BuildingType.WHEATFARM:
-                    buildingObject = Instantiate(wheatFarmPrefab, pos, Quaternion.identity);
+                    buildingObject = Instantiate(wheatFarmPrefab, pos, Quaternion.identity, buildingSpawnTransform);
 
                     break;
-                case BuildingType.MUSHROOMFARM:
-                    buildingObject = Instantiate(mushroomFarmPrefab, pos, Quaternion.identity);
+                case BuildingType.MOLEFARM:
+                    buildingObject = Instantiate(moleFarmPrefab, pos, Quaternion.identity, buildingSpawnTransform);
 
                     break;
                 case BuildingType.RESTAURANT:
-                    buildingObject = Instantiate(restaurantPrefab, pos, Quaternion.identity);
+                    buildingObject = Instantiate(restaurantPrefab, pos, Quaternion.identity, buildingSpawnTransform);
                     
                     break;
                 case BuildingType.POWERSTATION:
-                    buildingObject = Instantiate(powerStationPrefab, pos, Quaternion.identity);
+                    buildingObject = Instantiate(powerStationPrefab, pos, Quaternion.identity, buildingSpawnTransform);
+
+                    break;
+                case BuildingType.STONEMINE:
+                    buildingObject = Instantiate(stoneMinePrefab, pos, Quaternion.identity, buildingSpawnTransform);
+                    
+                    break;
+                case BuildingType.WORKSTATION:
+                    buildingObject = Instantiate(workStationPrefab, pos, Quaternion.identity, buildingSpawnTransform);
 
                     break;
             }
@@ -71,7 +84,6 @@ namespace LUP.PCR
             }
 
             BuildingBase building = buildingObject.GetComponent<BuildingBase>();
-
             return building;
         }
 

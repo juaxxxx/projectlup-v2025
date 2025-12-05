@@ -65,11 +65,23 @@ namespace LUP.PCR
                     placementSize = new Vector2Int(2, 1);
                     break;
                 case BuildingType.MOLEFARM:
-                    placementSize = new Vector2Int(4, 1);
+                    placementSize = new Vector2Int(3, 1);
                     break;
                 case BuildingType.RESTAURANT:
                     placementSize = new Vector2Int(3, 1);
                     break;
+                case BuildingType.POWERSTATION:
+                    placementSize = new Vector2Int(2, 1);
+                    break;
+                case BuildingType.STONEMINE:
+                case BuildingType.IRONMINE:
+                case BuildingType.COALMINE:
+                    placementSize = new Vector2Int(1, 1);
+                    break;
+                case BuildingType.WORKSTATION:
+                    placementSize = new Vector2Int(2, 1);
+                    break;
+                   
             }
         }
     }

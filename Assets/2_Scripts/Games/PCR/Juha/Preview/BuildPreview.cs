@@ -8,6 +8,14 @@ namespace LUP.PCR
         GameObject wheatFarmPreview;
         [SerializeField]
         GameObject powerStationPreview;
+        [SerializeField]
+        GameObject stoneMinePreview;
+        [SerializeField]
+        GameObject moleFarmPreview;
+        [SerializeField]
+        GameObject workStationPreview;
+        [SerializeField]
+        GameObject restaurantPreview;
 
 
         [SerializeField]
@@ -31,6 +39,7 @@ namespace LUP.PCR
         {
             wheatFarmPreview.SetActive(false);
             powerStationPreview.SetActive(false);
+            stoneMinePreview.SetActive(false);
             canBuild = false;
         }
 
@@ -50,6 +59,11 @@ namespace LUP.PCR
 
         public void UpdatePreview(BuildingType type, Tile tile)
         {
+            if (tile == null)
+            {
+                return;
+            }
+
             currPreview.SetActive(true);
             Vector3 newPos = new Vector3(tile.gameObject.transform.position.x, tile.gameObject.transform.position.y, tile.gameObject.transform.position.z);
             currPreview.transform.position = tile.gameObject.transform.position;
@@ -100,11 +114,20 @@ namespace LUP.PCR
                     break;
 
                 case BuildingType.MOLEFARM:
-
+                    currPreview = moleFarmPreview;
                     break;
 
                 case BuildingType.POWERSTATION:
                     currPreview = powerStationPreview;
+                    break;
+                case BuildingType.STONEMINE:
+                    currPreview = stoneMinePreview;
+                    break;
+                case BuildingType.WORKSTATION:
+                    currPreview = workStationPreview;
+                    break;
+                case BuildingType.RESTAURANT:
+                    currPreview = restaurantPreview;
                     break;
                 default:
 

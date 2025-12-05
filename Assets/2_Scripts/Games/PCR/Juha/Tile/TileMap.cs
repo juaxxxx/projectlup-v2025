@@ -12,10 +12,6 @@ namespace LUP.PCR
 
         public Tile[,] tiles;
 
-        // 이건 어디서 할지 고민좀 해보자.
-        //tileMap.UpdateAllDigWallPreview(digWallPreview);
-        //tileMap.GenerateObject();
-
         public void InitializeTileMap(TileInfo[,] tileInfoes)
         {
             tiles = new Tile[GridSize.x, GridSize.y];
@@ -39,24 +35,52 @@ namespace LUP.PCR
 
         }
 
-        //public void GenerateObject()
-        //{
-        //    for (int i = 0; i < 10; i++)
-        //    {
-        //        for (int j = 0; j < 10; j++)
-        //        {
-        //            if (dustPrefab)
-        //            {
-        //                if (tiles[i, j].tileInfo.tileType == TileType.WALL)
-        //                {
-        //                    Instantiate(dustPrefab,
-        //                    new Vector3(j * gridWidth + 2.5f, -i * gridHeight - 2.5f, -2.5f),
-        //                    Quaternion.identity, this.transform);
-        //                }
-        //            }
-        //        }
-        //    }
-        //}
+        public void UpdateTilebyBuilding(BuildingType type, Tile pivotTile)
+        {
+            Vector2Int placementSize = new Vector2Int(0, 0);
+
+            switch (type)
+            {
+                case BuildingType.WHEATFARM:
+                    placementSize = new Vector2Int(3, 1);
+                    break;
+                case BuildingType.MUSHROOMFARM:
+                    placementSize = new Vector2Int(2, 1);
+                    break;
+                case BuildingType.MOLEFARM:
+                    placementSize = new Vector2Int(3, 1);
+                    break;
+                case BuildingType.RESTAURANT:
+                    placementSize = new Vector2Int(3, 1);
+                    break;
+                case BuildingType.POWERSTATION:
+                    placementSize = new Vector2Int(2, 1);
+                    break;
+                case BuildingType.STONEMINE:
+                case BuildingType.IRONMINE:
+                case BuildingType.COALMINE:
+                    placementSize = new Vector2Int(1, 1);
+                    break;
+                case BuildingType.WORKSTATION:
+                    placementSize = new Vector2Int(2, 1);
+                    break;
+            }
+
+            int x = pivotTile.tileInfo.pos.x;
+            int y = pivotTile.tileInfo.pos.y;
+
+            for (int i = 0; i < placementSize.x; i++)
+            {
+                for (int j = 0; j < placementSize.y; j++)
+                {
+                    int nx = x + i;
+                    int ny = y + j;
+
+                    tiles[nx, ny].tileInfo.tileType = TileType.BUILDING;
+                    tiles[nx, ny].tileInfo.buildingType = type;
+                }
+            }
+        }
     }
 
 

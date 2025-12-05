@@ -31,6 +31,7 @@ namespace LUP.PCR
         private void Start()
         {
             currentState = null;
+            lastClickTile = null;
             currSelectedBuildingType = BuildingType.NONE;
         }
 

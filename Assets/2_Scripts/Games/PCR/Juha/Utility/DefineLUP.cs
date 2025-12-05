@@ -6,8 +6,8 @@ namespace LUP.PCR
     // 테스트용 사라질 예정
     public static class GridSize
     {
-        public static int x = 10;
-        public static int y = 10;
+        public static int x = 21;
+        public static int y = 20;
     }
 
 
@@ -22,11 +22,19 @@ namespace LUP.PCR
     public enum BuildingType
     {
         NONE,
-        MUSHROOMFARM,
-        WHEATFARM,
-        MOLEFARM,
-        RESTAURANT,
+        CONTROLTOWER,
         POWERSTATION,
+        RESTAURANT,
+        LABORATORY,
+        WATERTREATMENTPLANT,
+        WORKSTATION,
+        WHEATFARM,
+        MUSHROOMFARM,
+        STONEMINE,
+        IRONMINE,
+        COALMINE,
+        MOLEFARM,
+        DAIRYFARM,
     }
 
     public enum WallType
@@ -41,8 +49,10 @@ namespace LUP.PCR
         STONE,
         COAL,
         IRON,
-        WHEAT,
-        MUSHROOM,
+        VEGFRUIT,
+        MEAT,
+        WATER,
+        FOOD,
         POWER,
     }
 
@@ -77,5 +87,14 @@ namespace LUP.PCR
     {
         BuildingWheatFarm,
         BuildingMushroomFarm,
+    }
+
+    public enum ActiveUIType
+    {
+        None,
+        Main,
+        SelectConstrcut,
+        ConstructionDecision,
+        ProductableBuilding,
     }
 }

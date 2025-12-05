@@ -7,8 +7,6 @@ namespace LUP.PCR
     {
         int gridWidth = 5;
         int gridHeight = 5;
-        int tileMapWidth = 28;
-        int tileMapHeight = 15;
 
         TestDataset testDataset;
 
@@ -28,7 +26,7 @@ namespace LUP.PCR
 
         public void InitData()
         {
-            tileInfoes = new TileInfo[tileMapWidth, tileMapHeight];
+            tileInfoes = new TileInfo[GridSize.x, GridSize.y];
 
             for (int i = 0; i < GridSize.x; i++)
             {

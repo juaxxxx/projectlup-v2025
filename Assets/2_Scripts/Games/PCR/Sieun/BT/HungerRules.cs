@@ -4,6 +4,6 @@ namespace LUP.PCR
 {
     public static class HungerRules
     {
-        public const float Hunger = 0.7f;
+        public const float HungryThreshold = 3.0f;
     }
 }

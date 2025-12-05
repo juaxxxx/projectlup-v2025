@@ -5,23 +5,24 @@ namespace LUP.PCR
 {
     public sealed class SelectorNode : BTNode
     {
-        List<BTNode> children;
-        public SelectorNode(List<BTNode> nodes) { children = nodes; }
-
-        public override BTNode.NodeState Evaluate()
+        private List<BTNode> nodes = new List<BTNode>();
+        public SelectorNode(List<BTNode> nodes)
         {
-            foreach (BTNode child in children)
+            this.nodes = nodes;
+        }
+
+        protected override BTNode.NodeState OnUpdate()
+        {
+            foreach (BTNode node in nodes)
             {
-                NodeState result = child.Evaluate();
-                switch (result)
+                switch (node.Evaluate())
                 {
-                    case BTNode.NodeState.RUNNING:
-                        return BTNode.NodeState.RUNNING;
-                    case BTNode.NodeState.SUCCESS:
-                        return BTNode.NodeState.SUCCESS;
+                    case NodeState.RUNNING:
+                        return NodeState.RUNNING;
+                    case NodeState.SUCCESS:
+                        return NodeState.SUCCESS;
                     case NodeState.FAILURE:
                         continue;
-
                 }
             }
             return NodeState.FAILURE;

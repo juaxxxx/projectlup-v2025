@@ -7,6 +7,8 @@ namespace LUP.PCR
     public class BuildingSystem : MonoBehaviour
     {
         private BuildingGenerator buildingGenerator;
+        private TileMap tileMap;
+        private PCRResourceCenter resourceCenter;
 
         private Dictionary<int, WallBase> currWalls;
         private Dictionary<int, BuildingBase> currBuildings;
@@ -16,10 +18,13 @@ namespace LUP.PCR
         private int buildingId = 1; // 테스트 Id.
 
         // Load Wall, Building Data
-        public void InitBuildingSystem(PCRDataCenter dataCenter, BuildingGenerator buildingGenerator, BuildPreview buildPreview)
+        public void InitBuildingSystem(PCRDataCenter dataCenter, BuildingGenerator buildingGenerator,
+            BuildPreview buildPreview, TileMap tileMap, PCRResourceCenter resourceCenter)
         {
             this.buildingGenerator = buildingGenerator;
             this.buildPreview = buildPreview;
+            this.tileMap = tileMap;
+            this.resourceCenter = resourceCenter;
 
             List<WallDataInfo> wallInfoes = dataCenter.wallDatas;
             currWalls = new Dictionary<int, WallBase>();
@@ -77,10 +82,17 @@ namespace LUP.PCR
             if (building != null)
             {
                 // @TODO: Id 설정 만들어야 한다.
+
+                building.resourceCenter = resourceCenter;
+
                 if (!currBuildings.ContainsKey(buildingId))
                 {
                     currBuildings.Add(buildingId, building);
                 }
+
+                tileMap.UpdateTilebyBuilding(type, pivotTile);
+                building.SetEntrance(pivotTile.tileInfo.pos);
+
                 buildingId++;
             }
         }

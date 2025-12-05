@@ -4,27 +4,28 @@ namespace LUP.PCR
 {
     public sealed class SequenceNode : BTNode
     {
-        List<BTNode> children;
-        public SequenceNode(List<BTNode> BTNodes) { children = BTNodes; 
-}
-        public override NodeState Evaluate()
+        private List<BTNode> nodes = new List<BTNode>();
+        public SequenceNode(List<BTNode> nodes)
         {
-            foreach (BTNode child in children)
+            this.nodes = nodes; 
+        }
+        protected override BTNode.NodeState OnUpdate()
+        {
+            foreach (BTNode node in nodes)
             {
-                NodeState result = child.Evaluate();
-                switch (result)
+                switch (node.Evaluate())
                 {
-                    case BTNode.NodeState.RUNNING:
-                        return BTNode.NodeState.RUNNING;
-                    case BTNode.NodeState.FAILURE:
-                        return BTNode.NodeState.FAILURE;
-                    case BTNode.NodeState.SUCCESS:
+                    case NodeState.RUNNING:
+                        return NodeState.RUNNING;
+                    case NodeState.FAILURE:
+                        return NodeState.FAILURE;
+                    case NodeState.SUCCESS:
                         continue;
-
                 }
             }
             return NodeState.SUCCESS;
         }
     }
+
 
 }

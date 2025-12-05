@@ -7,25 +7,39 @@ namespace LUP.PCR
     public abstract class WorkerBlackboardNode : BTNode
     {
         protected readonly WorkerBlackboard BB;
-        protected WorkerAI OwnerAI { get; private set; }
-        protected Worker WorkerComp { get; private set; }
-        protected IUnitMoveable Mover { get; private set; }
-        protected WorkerBlackboardNode(WorkerBlackboard blackboard) : base() // 기존 BTNode 생성자 호출
+        private WorkerAI ownerAI;
+        private Worker workerComp;
+        private UnitMover mover;
+        protected WorkerBlackboardNode(WorkerBlackboard blackboard) : base()
         {
             this.BB = blackboard;
-
-            // 지연 초기화: 생성 시점에 아직 참조할 컴포넌트가 없을 수 있으므로 TryGet로 안전하게 캐싱
-            if (BB.TryGetValue<WorkerAI>(BBKeys.OwnerAI, out var ai)) OwnerAI = ai;
-            if (BB.TryGetValue<Worker>(BBKeys.Self, out var w)) WorkerComp = w;
-            if (BB.TryGetValue<IUnitMoveable>(BBKeys.UnitMover, out var m)) Mover = m;
         }
-
-        // 만약 런타임 도중 OwnerAI/Worker/Mover가 등록될 수 있으니 필요 시 재로딩 가능
-        protected void RefreshCachedReferences()
+        protected WorkerAI OwnerAI
         {
-            if (OwnerAI == null && BB.TryGetValue<WorkerAI>(BBKeys.OwnerAI, out var ai)) OwnerAI = ai;
-            if (WorkerComp == null && BB.TryGetValue<Worker>(BBKeys.Self, out var w)) WorkerComp = w;
-            if (Mover == null && BB.TryGetValue<IUnitMoveable>(BBKeys.UnitMover, out var m)) Mover = m;
+            get
+            {
+                if (ownerAI == null)
+                    BB.TryGetValue(BBKeys.OwnerAI, out ownerAI);
+                return ownerAI;
+            }
+        }
+        protected Worker WorkerComp
+        {
+            get
+            {
+                if (workerComp == null)
+                    BB.TryGetValue(BBKeys.Self, out workerComp);
+                return workerComp;
+            }
+        }
+        protected UnitMover Mover
+        {
+            get
+            {
+                if (mover == null)
+                    BB.TryGetValue(BBKeys.UnitMover, out mover);
+                return mover;
+            }
         }
 
         // 자식 노드들이 편하게 쓰라고 만든 헬퍼 함수들

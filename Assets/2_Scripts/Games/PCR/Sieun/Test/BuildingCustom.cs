@@ -108,5 +108,11 @@ namespace LUP.PCR
                 StartProduction();
             }
         }
+
+        public override void DeliverToInventory()
+        {
+            resourceCenter.AddResource(productableBuildingData.resource, currStorage);
+            currStorage = 0;
+        }
     }
 }

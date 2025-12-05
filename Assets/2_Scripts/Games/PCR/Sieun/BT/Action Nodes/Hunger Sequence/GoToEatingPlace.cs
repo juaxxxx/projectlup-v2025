@@ -4,28 +4,55 @@ namespace LUP.PCR
 {
     public class GoToEatingPlace : WorkerBlackboardNode
     {
+        private BuildingBase eatingPlace;
+        private bool hasNewTask;
+        private ProductableBuilding targetBuilding;
+
+
         public GoToEatingPlace(WorkerBlackboard blackboard) : base(blackboard) { }
 
-        public override NodeState Evaluate()
+        protected override void OnStart()
         {
-            UnitMover mover = GetData<UnitMover>(BBKeys.UnitMover);
-            Vector3 eatingPos = GetData<Vector3>(BBKeys.TargetPosition);
+            if (HasData(BBKeys.Restaurant))
+            {
+                eatingPlace = GetData<BuildingBase>(BBKeys.Restaurant);
 
-            if (eatingPos == null || mover == null)
-            {
-                return NodeState.FAILURE;
+                if (eatingPlace == null)
+                {
+                    Debug.Log("1-3. 식당이 없습니다.");
+                }
+                else if (Mover != null)
+                {
+                    Mover.SetDestination(eatingPlace.entrancePos);
+                    //SetData<Vector2Int>(BBKeys.TargetPosition, restaurantBuilding.entrancePos);
+                }
             }
-  
-            bool isArrived = mover.IsArrived();
-            if (isArrived)
+        }
+        protected override NodeState OnUpdate()
+        {
+            if (Mover == null || eatingPlace == null) { return NodeState.FAILURE; }
+
+            if (Mover.IsArrived())
             {
+                Debug.Log("1-3. 식당 도착!");
                 return NodeState.SUCCESS;
             }
-            
-            mover.SetDestination(eatingPos);
-            Debug.Log("식당으로 이동 중...");
-            return NodeState.RUNNING;
+            else
+            {
+                Mover.MoveAlongPath();
+                
+                Debug.Log("1-3. 식당으로 이동 중...");
+
+                hasNewTask = GetData<bool>(BBKeys.HasNewTask);
+                targetBuilding = GetData<ProductableBuilding>(BBKeys.TargetBuilding);
+
+                // AssignTask 검사용
+                Debug.Log($"현재 작업 보유 상태 : {hasNewTask},  타겟 건물 : {targetBuilding}");
+
+                return NodeState.RUNNING;
+            }
         }
+
     }
 
 }

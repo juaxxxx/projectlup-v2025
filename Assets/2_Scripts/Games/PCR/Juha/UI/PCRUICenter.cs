@@ -24,6 +24,31 @@ namespace LUP.PCR
         private FarmTaskUIPresenter farmTaskPresenter;
         private ConstructionDecisionPresenter constructionDecisionPresenter;
 
+        private ActiveUIType uiType;
+        private BuildingBase currBuilding;
+
+        private void Start()
+        {
+            uiType = ActiveUIType.None;
+            currBuilding = null;
+        }
+
+        private void Update()
+        {
+            if (uiType == ActiveUIType.ProductableBuilding)
+            {
+                if (currBuilding != null)
+                {
+                    ProductableBuilding building = currBuilding as ProductableBuilding;
+
+                    if (building)
+                    {
+                        farmTaskPresenter.UpdateUI(building);
+                    }
+                }
+            }
+        }
+
         public void InitUI(TaskController controller)
         {
             taskController = controller;
@@ -73,6 +98,7 @@ namespace LUP.PCR
         public void ReturnToMainScreen()
         {
             // 메인화면을 제외한 나머지 Hide
+            uiType = ActiveUIType.Main;
 
             mainPresenter.Show();
             selectConstructPresenter.Hide();
@@ -80,13 +106,20 @@ namespace LUP.PCR
 
         public void OpenProductableTask(ProductableBuilding building)
         {
-            BuildingWheatFarm wheatFarm = building as BuildingWheatFarm;
-            if (wheatFarm)
-            {
-                farmTaskPresenter.UpdateUI(building);
-                farmTaskPresenter.Show();
-                mainPresenter.Hide();
-            }
+            //BuildingWheatFarm wheatFarm = building as BuildingWheatFarm;
+            //if (wheatFarm)
+            //{
+            //    farmTaskPresenter.UpdateUI(building);
+            //    farmTaskPresenter.Show();
+            //    mainPresenter.Hide();
+            //}
+            currBuilding = building;
+
+            farmTaskPresenter.UpdateUI(building);
+            farmTaskPresenter.Show();
+            mainPresenter.Hide();
+
+            uiType = ActiveUIType.ProductableBuilding;
         }
     }
 
