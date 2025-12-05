@@ -33,7 +33,7 @@ namespace LUP.DSG
         private GameObject bulletPrefab;
 
         private GameObject bullet;
-        private float bulletSpeed = 0.8f;
+        private float bulletSpeed = 0.3f;
 
         private bool impactApplied = false;
 
@@ -42,6 +42,8 @@ namespace LUP.DSG
         private float knockbackDuration = 0.2f;
         private float knockbackTimer = 0f;
         private bool isKnockback = false;
+
+        private Vector3 projectileTargetPosition;
 
         public bool isAlive { get; private set; } = true;
         public bool isSkillOn { get; private set; } = false;
@@ -126,13 +128,13 @@ namespace LUP.DSG
             }
             else if (bullet != null)
             {
-                Vector3 dir = targetPosition - bullet.transform.position;
+                Vector3 dir = projectileTargetPosition - bullet.transform.position;
                 float distanceToTarget = dir.magnitude;
                 float moveDistance = bulletSpeed;
 
                 if (distanceToTarget <= moveDistance)
                 {
-                    bullet.transform.position = targetPosition;
+                    bullet.transform.position = projectileTargetPosition;
 
                     if (!impactApplied)
                     {
@@ -288,8 +290,13 @@ namespace LUP.DSG
         {
             if (owner.characterData.rangeType != ERangeType.Range)
                 return;
+            Vector3 spawnPos = originPosition;
+            spawnPos.y += 1.2f;
 
-            bullet = Instantiate(bulletPrefab, originPosition, Quaternion.identity);
+            bullet = Instantiate(bulletPrefab, spawnPos, Quaternion.identity);
+
+            projectileTargetPosition = targetSlot.AttackedPosition.position;
+            projectileTargetPosition.y += 1.2f;
         }
 
         public virtual void Die()
