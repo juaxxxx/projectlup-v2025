@@ -4,6 +4,8 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "Skill Info Data", menuName = "Scriptable Objects/Skill Info")]
 public class SkillInfoData : ScriptableObject
 {
+    public string Skillname;
+
     public int targetCount;
     public Vector3 AttackPosition;
     public bool bIsDamaged;

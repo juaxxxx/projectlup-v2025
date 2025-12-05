@@ -10,6 +10,9 @@ using static UnityEngine.GraphicsBuffer;
 using static UnityEngine.UI.GridLayoutGroup;
 using System.Runtime.CompilerServices;
 using System.Linq;
+using UnityEngine.UIElements;
+using Unity.Mathematics;
+using LUP.DSG.Utils;
 
 namespace LUP.DSG
 {
@@ -206,9 +209,17 @@ namespace LUP.DSG
             if (targetSlot == null || targetSlot.character == null || targetSlot.character.BattleComp == null)
                 return;
 
-            float damage = owner.characterData.attack;
+            DamageContext ctx = new DamageContext
+            {
+                attack = owner.characterData.attack,
+                enemyDefence = targetChar.characterData.defense,
+                Type = owner.characterData.type,
+                enemyType = targetChar.characterData.type
+            };
 
-            targetChar.BattleComp.TakeDamage(1);
+            float damage = DamageCalculator.Calculator(ctx);
+
+            targetChar.BattleComp.TakeDamage(damage);
             owner.ScoreComp.UpdateDamageDealt(damage);
 
             PlusGuage(50);
@@ -222,8 +233,16 @@ namespace LUP.DSG
             {
                 if (skillInfo.bIsDamaged)
                 {
-                    float damage = owner.characterData.attack + skillInfo.damage;
-                    SkillTargetSlot[i].character.BattleComp.TakeDamage(1);
+                    DamageContext ctx = new DamageContext
+                    {
+                        attack = owner.characterData.attack,
+                        enemyDefence = SkillTargetSlot[i].character.characterData.defense,
+                        Type = owner.characterData.type,
+                        enemyType = SkillTargetSlot[i].character.characterData.type
+                    };
+
+                    float damage = DamageCalculator.Calculator(ctx) + skillInfo.damage;
+                    SkillTargetSlot[i].character.BattleComp.TakeDamage(damage);
                     owner.ScoreComp.UpdateDamageDealt(damage);
                 }
 

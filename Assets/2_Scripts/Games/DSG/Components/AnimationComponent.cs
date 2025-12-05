@@ -1,5 +1,6 @@
 using LUP.DSG.Utils.Enums;
 using System;
+using TMPro;
 using UnityEngine;
 
 namespace LUP.DSG
@@ -10,6 +11,12 @@ namespace LUP.DSG
 
         public event Action OnHitAttack;
         public event Action OnShootRangeAttack;
+
+        [SerializeField]
+        private ParticleSystem HitFVX;
+
+        [SerializeField]
+        private ParticleSystem AttackFVX;
 
         public EAnimStateType currentState { get; private set; }
 
@@ -44,6 +51,10 @@ namespace LUP.DSG
         {
             currentState = EAnimStateType.Hitted;
             SetAnimationState(currentState);
+
+            ParticleSystem go = Instantiate(HitFVX, transform.position, Quaternion.identity);
+            go.Play();
+            Destroy(go.gameObject, go.main.duration);
         }
 
         public void PlayDiedAnimation(int index)
@@ -65,6 +76,10 @@ namespace LUP.DSG
         public void OnShootRangeAttackEvent()
         {
             OnShootRangeAttack?.Invoke();
+
+            ParticleSystem go = Instantiate(AttackFVX, transform.position, Quaternion.identity);
+            go.Play();
+            Destroy(go.gameObject, go.main.duration);
         }
 
         public void OnAttackEndEvent()
@@ -90,6 +105,13 @@ namespace LUP.DSG
             currentState = EAnimStateType.Idle;
             SetAnimationState(currentState);
 
+        }
+
+        public void OnPunchEffect()
+        {
+            ParticleSystem go = Instantiate(AttackFVX, transform.position, Quaternion.identity);
+            go.Play();
+            Destroy(go.gameObject, go.main.duration);
         }
     }
 }
