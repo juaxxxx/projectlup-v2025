@@ -12,9 +12,9 @@ namespace LUP.RL
         {
             //UnityEngine.Debug.Log("Action Wait");
 
-            if(behaviorTree.GetCurrentAnimState().IsName("Wait") == false)
+            if(behaviorTree.GetCurrentAnimState().IsName("Idle") == false)
             {
-                behaviorTree.PlayAnimation(ActionState.Wait, this);
+                behaviorTree.PlayAnimation(ActionState.Idle, this);
 
                 SetNavAgentDeActivate(true);
             }

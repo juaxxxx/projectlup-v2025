@@ -12,7 +12,7 @@ namespace LUP.RL
         MoveTo,
         Attack,
         Hitted,
-        Wait,
+        Idle,
         Die
     }
 
@@ -102,8 +102,8 @@ namespace LUP.RL
                     calledAnimName = "Hitted";
                     break;
 
-                case ActionState.Wait:
-                    calledAnimName = "Wait";
+                case ActionState.Idle:
+                    calledAnimName = "Idle";
                     break;
 
                 case ActionState.Die:
@@ -118,7 +118,7 @@ namespace LUP.RL
 
             stateInfo = GetCurrentAnimState();
 
-            if (stateInfo.IsName("Wait") || stateInfo.IsName("MoveTo"))
+            if (stateInfo.IsName("Idle") || stateInfo.IsName("MoveTo"))
             {
                 currentRunningLeaf = caller;
                 Animator.Play(calledAnimName);

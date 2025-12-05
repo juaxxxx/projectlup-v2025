@@ -21,9 +21,9 @@ namespace LUP.RL
             float v = joystick.fixedJoystick.Vertical;
             if (Mathf.Abs(h) < 0.05f && Mathf.Abs(v) < 0.05f)
             {
-                if (bt.GetCurrentAnimState().IsName("Wait") == false && bt.GetCurrentAnimState().IsName("Attack") == false)
+                if (bt.GetCurrentAnimState().IsName("Idle") == false && bt.GetCurrentAnimState().IsName("Attack") == false)
                 {
-                    bt.PlayAnimation(ActionState.Wait, this);
+                    bt.PlayAnimation(ActionState.Idle, this);
                 }
 
 
