@@ -1,0 +1,41 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5040bcec03b29bd42a81303d6c0fadfc, type: 3}
+  m_Name: DeckCharacterModelStaticData
+  m_EditorClassIdentifier: 
+  associatedWorksheet: 
+  START_ROW: 1
+  DataList:
+  - ModelId: 1
+    ModelName: CH_F001
+    ModelPath: Assets/Resources/Characters/_prefabs/CH_F001.prefab
+    Material: 0
+  - ModelId: 2
+    ModelName: CH_F002
+    ModelPath: Assets/Resources/Characters/_prefabs/CH_F002.prefab
+    Material: 0
+  - ModelId: 3
+    ModelName: CH_F003
+    ModelPath: Assets/Resources/Characters/_prefabs/CH_F003.prefab
+    Material: 0
+  - ModelId: 4
+    ModelName: CH_M001
+    ModelPath: Assets/Resources/Characters/_prefabs/CH_M001.prefab
+    Material: 0
+  - ModelId: 5
+    ModelName: CH_M002
+    ModelPath: Assets/Resources/Characters/_prefabs/CH_M002.prefab
+    Material: 0
+  - ModelId: 6
+    ModelName: CH_M003
+    ModelPath: Assets/Resources/Characters/_prefabs/CH_M003.prefab
+    Material: 0

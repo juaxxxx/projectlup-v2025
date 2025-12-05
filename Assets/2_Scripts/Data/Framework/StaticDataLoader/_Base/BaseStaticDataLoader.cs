@@ -1,12 +1,12 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
-using System.Reflection;
 using UnityEditor;
 using UnityEngine;
 
 public abstract class BaseStaticDataLoader : ScriptableObject
 {
-    protected abstract string URL { get; }
+    [Header("데이터 소스 설정")]
+    [SerializeField] public LUP.Define.DataSourceType sourceType = LUP.Define.DataSourceType.CSV;
 
     [Header("스프레드 시트의 시트 이름")][SerializeField] public string associatedWorksheet = "";
     [Header("읽기 시작할 행 번호")][SerializeField] public int START_ROW = 1;
@@ -16,165 +16,79 @@ public abstract class BaseStaticDataLoader : ScriptableObject
 
 public abstract class BaseStaticDataLoader<T> : BaseStaticDataLoader where T : new()
 {
-    [Header("스프레드시트에서 읽혀져 직렬화 된 오브젝트")][SerializeField]
+    [Header("스프레드시트에서 읽혀져 직렬화 된 오브젝트")]
+    [SerializeField]
     public List<T> DataList = new List<T>();
+
+    protected abstract string CSV_URL { get; }
 
     public List<T> GetDataList() => DataList;
 
-    protected void ParseSheet(string csvData)
+    public override IEnumerator LoadSheet()
     {
-        Debug.Log($"[{GetType().Name}] ParseSheet called with {csvData.Length} chars");
-        Debug.Log($"[{GetType().Name}] START_ROW = {START_ROW}");
+        IDataSourceAdapter adapter = CreateAdapter(sourceType);
 
-        // CSV 파서 사용 (따옴표 안의 쉼표/개행 처리)
-        string[] lines = CSVParser.SplitLines(csvData);
-        Debug.Log($"[{GetType().Name}] Split into {lines.Length} lines");
+        string url = GetURL(sourceType);
 
-        // START_ROW는 1-based, 배열은 0-based이므로 -1 필요
-        int headerIndex = START_ROW - 1;
-
-        if (lines.Length <= headerIndex)
+        if (string.IsNullOrEmpty(url))
         {
-            Debug.LogWarning($"[{GetType().Name}] Not enough lines in CSV (have {lines.Length}, need at least {headerIndex + 1})");
-            return;
+            Debug.LogError($"[{GetType().Name}] URL is empty for source type: {sourceType}");
+            yield break;
         }
 
-        // START_ROW에서 헤더 읽기
-        string[] headers = CSVParser.ParseLine(lines[headerIndex]);
-        Debug.Log($"[{GetType().Name}] Headers from row {START_ROW} (index {headerIndex}): {string.Join(", ", headers)}");
+        Debug.Log($"[{GetType().Name}] Loading data from {sourceType} source: {url}");
 
-        Dictionary<string, int> headerMap = new Dictionary<string, int>();
-        for (int i = 0; i < headers.Length; i++)
+        // 어댑터 데이터 로드
+        string rawData = null;
+        string error = null;
+
+        yield return adapter.LoadData(url,
+            data => rawData = data,
+            err => error = err);
+
+        // 에러 체크
+        if (!string.IsNullOrEmpty(error))
         {
-            string headerName = headers[i].Trim();
-            headerMap[headerName] = i;
+            Debug.LogError($"[{GetType().Name}] Failed to load data: {error}");
+            yield break;
         }
 
-        DataList.Clear();
-
-        int successCount = 0;
-        int failCount = 0;
-
-        // START_ROW + 1부터 데이터 읽기 (헤더 다음 행부터)
-        for (int i = headerIndex + 1; i < lines.Length; i++)
+        // rawData null 체크
+        if (string.IsNullOrEmpty(rawData))
         {
-            if (string.IsNullOrWhiteSpace(lines[i]))
-                continue;
-
-            // CSV 파서 사용 (따옴표로 감싸진 필드 처리)
-            string[] values = CSVParser.ParseLine(lines[i]);
-
-            try
-            {
-                T data = ParseDataRow(values, headerMap);
-                if (data != null)
-                {
-                    DataList.Add(data);
-                    successCount++;
-                }
-                else
-                {
-                    failCount++;
-                }
-            }
-            catch (System.Exception e)
-            {
-                Debug.LogWarning($"[{GetType().Name}] Failed to parse line {i}: {e.Message}");
-                failCount++;
-            }
+            Debug.LogError($"[{GetType().Name}] Loaded data is null or empty. URL: {url}");
+            yield break;
         }
 
-        Debug.Log($"[{GetType().Name}] Loaded {DataList.Count} entries (Success: {successCount}, Failed: {failCount})");
+        Debug.Log($"[{GetType().Name}] Data loaded successfully. Size: {rawData.Length} chars");
+
+        // 어댑터 파싱
+        DataList = adapter.ParseToObjects<T>(rawData, START_ROW);
+        Debug.Log($"[{GetType().Name}] Successfully loaded {DataList.Count} entries from {sourceType}");
     }
 
-    protected virtual T ParseDataRow(string[] values, Dictionary<string, int> headerMap)
+    private IDataSourceAdapter CreateAdapter(LUP.Define.DataSourceType type)
     {
-        T instance = new T();
-        FieldInfo[] fields = typeof(T).GetFields(BindingFlags.Public | BindingFlags.Instance);
-
-        foreach (FieldInfo field in fields)
+        switch (type)
         {
-            ColumnAttribute columnAttr = field.GetCustomAttribute<ColumnAttribute>();
-
-            if (columnAttr == null)
-                continue;
-
-            string headerName = columnAttr.HeaderName;
-
-            if (!headerMap.ContainsKey(headerName))
-            {
-                if (columnAttr.Required)
-                {
-                    Debug.LogWarning($"[{GetType().Name}] Required column '{headerName}' not found in headers");
-                }
-                continue;
-            }
-
-            int columnIndex = headerMap[headerName];
-
-            if (columnIndex >= values.Length)
-            {
-                Debug.LogWarning($"[{GetType().Name}] Column '{headerName}' index {columnIndex} out of range (values length: {values.Length})");
-                continue;
-            }
-
-            string value = values[columnIndex].Trim();
-
-            try
-            {
-                // 타입별 파싱
-                if (field.FieldType == typeof(string))
-                {
-                    field.SetValue(instance, value);
-                }
-                else if (field.FieldType == typeof(int))
-                {
-                    if (int.TryParse(value, out int intValue))
-                        field.SetValue(instance, intValue);
-                    else
-                        Debug.LogWarning($"[{GetType().Name}] Failed to parse '{value}' as int for field '{field.Name}'");
-                }
-                else if (field.FieldType == typeof(float))
-                {
-                    if (float.TryParse(value, out float floatValue))
-                        field.SetValue(instance, floatValue);
-                    else
-                        Debug.LogWarning($"[{GetType().Name}] Failed to parse '{value}' as float for field '{field.Name}'");
-                }
-                else if (field.FieldType == typeof(bool))
-                {
-                    if (bool.TryParse(value, out bool boolValue))
-                        field.SetValue(instance, boolValue);
-                    else
-                        Debug.LogWarning($"[{GetType().Name}] Failed to parse '{value}' as bool for field '{field.Name}'");
-                }
-                else if (field.FieldType == typeof(double))
-                {
-                    if (double.TryParse(value, out double doubleValue))
-                        field.SetValue(instance, doubleValue);
-                    else
-                        Debug.LogWarning($"[{GetType().Name}] Failed to parse '{value}' as double for field '{field.Name}'");
-                }
-                else if (field.FieldType == typeof(long))
-                {
-                    if (long.TryParse(value, out long longValue))
-                        field.SetValue(instance, longValue);
-                    else
-                        Debug.LogWarning($"[{GetType().Name}] Failed to parse '{value}' as long for field '{field.Name}'");
-                }
-                else
-                {
-                    Debug.LogWarning($"[{GetType().Name}] Unsupported field type: {field.FieldType} for field '{field.Name}'");
-                }
-            }
-            catch (System.Exception e)
-            {
-                Debug.LogWarning($"[{GetType().Name}] Failed to set field '{field.Name}': {e.Message}");
-            }
+            case LUP.Define.DataSourceType.CSV:
+                return new CSVDataSourceAdapter();
+            default:
+                throw new System.NotImplementedException($"Adapter for {type} not implemented");
         }
-
-        return instance;
     }
+
+    private string GetURL(LUP.Define.DataSourceType type)
+    {
+        switch (type)
+        {
+            case LUP.Define.DataSourceType.CSV:
+                return CSV_URL;
+            default:
+                return "";
+        }
+    }
+
 }
 
 #if UNITY_EDITOR
@@ -205,23 +119,9 @@ public class BaseStaticDataReaderEditor : Editor
     {
         try
         {
+            Debug.Log("[BaseStaticData] Starting LoadDataAsync...");
             IEnumerator coroutine = data.LoadSheet();
-
-            while (coroutine.MoveNext())
-            {
-                if (coroutine.Current != null)
-                {
-                    if (coroutine.Current is UnityEngine.Networking.UnityWebRequestAsyncOperation asyncOp)
-                    {
-                        Debug.Log("[BaseStaticData] Waiting for web request...");
-                        while (!asyncOp.isDone)
-                        {
-                            await System.Threading.Tasks.Task.Delay(100);
-                        }
-                        Debug.Log("[BaseStaticData] Web request completed!");
-                    }
-                }
-            }
+            await ProcessCoroutine(coroutine);
 
             EditorUtility.SetDirty(data);
             AssetDatabase.SaveAssets();
@@ -230,6 +130,41 @@ public class BaseStaticDataReaderEditor : Editor
         catch (System.Exception e)
         {
             Debug.LogError($"[BaseStaticData] Error: {e.Message}\n{e.StackTrace}");
+        }
+    }
+
+    private async System.Threading.Tasks.Task ProcessCoroutine(IEnumerator coroutine)
+    {
+        while (coroutine.MoveNext())
+        {
+            object current = coroutine.Current;
+
+            if (current == null)
+            {
+                // null인 경우 yield return null과 같음
+                await System.Threading.Tasks.Task.Delay(10);
+            }
+            else if (current is IEnumerator nestedCoroutine)
+            {
+                // 중첩된 코루틴 재귀 처리
+                Debug.Log("[BaseStaticData] Processing nested coroutine...");
+                await ProcessCoroutine(nestedCoroutine);
+            }
+            else if (current is UnityEngine.Networking.UnityWebRequestAsyncOperation asyncOp)
+            {
+                // UnityWebRequest 대기
+                Debug.Log("[BaseStaticData] Waiting for web request...");
+                while (!asyncOp.isDone)
+                {
+                    await System.Threading.Tasks.Task.Delay(100);
+                }
+                Debug.Log("[BaseStaticData] Web request completed!");
+            }
+            else
+            {
+                // 기타 yield 처리
+                await System.Threading.Tasks.Task.Delay(10);
+            }
         }
     }
 }

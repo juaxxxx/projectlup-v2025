@@ -1,0 +1,97 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8644d60f7551af54aa1e77c936f216fa, type: 3}
+  m_Name: PCRProductionStaticData
+  m_EditorClassIdentifier: 
+  associatedWorksheet: Production_ProductionData
+  START_ROW: 1
+  DataList:
+  - BuildingType: 7
+    Level: 1
+    ProductionTime: 10
+    StorageCapacity: 180
+  - BuildingType: 7
+    Level: 2
+    ProductionTime: 15
+    StorageCapacity: 184
+  - BuildingType: 7
+    Level: 3
+    ProductionTime: 20
+    StorageCapacity: 192
+  - BuildingType: 7
+    Level: 4
+    ProductionTime: 25
+    StorageCapacity: 200
+  - BuildingType: 7
+    Level: 5
+    ProductionTime: 35
+    StorageCapacity: 212
+  - BuildingType: 7
+    Level: 6
+    ProductionTime: 45
+    StorageCapacity: 228
+  - BuildingType: 7
+    Level: 7
+    ProductionTime: 55
+    StorageCapacity: 244
+  - BuildingType: 7
+    Level: 8
+    ProductionTime: 65
+    StorageCapacity: 264
+  - BuildingType: 7
+    Level: 9
+    ProductionTime: 75
+    StorageCapacity: 420
+  - BuildingType: 7
+    Level: 10
+    ProductionTime: 85
+    StorageCapacity: 450
+  - BuildingType: 7
+    Level: 11
+    ProductionTime: 95
+    StorageCapacity: 480
+  - BuildingType: 7
+    Level: 12
+    ProductionTime: 105
+    StorageCapacity: 680
+  - BuildingType: 7
+    Level: 13
+    ProductionTime: 110
+    StorageCapacity: 720
+  - BuildingType: 7
+    Level: 14
+    ProductionTime: 115
+    StorageCapacity: 760
+  - BuildingType: 7
+    Level: 15
+    ProductionTime: 120
+    StorageCapacity: 800
+  - BuildingType: 7
+    Level: 16
+    ProductionTime: 125
+    StorageCapacity: 840
+  - BuildingType: 7
+    Level: 17
+    ProductionTime: 130
+    StorageCapacity: 880
+  - BuildingType: 7
+    Level: 18
+    ProductionTime: 135
+    StorageCapacity: 1150
+  - BuildingType: 7
+    Level: 19
+    ProductionTime: 140
+    StorageCapacity: 1200
+  - BuildingType: 7
+    Level: 20
+    ProductionTime: 150
+    StorageCapacity: 1300
