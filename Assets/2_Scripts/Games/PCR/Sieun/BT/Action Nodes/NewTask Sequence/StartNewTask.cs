@@ -11,6 +11,7 @@ namespace LUP.PCR
         protected override NodeState OnUpdate()
         {
             ProductableBuilding building = GetData<ProductableBuilding>(BBKeys.TargetBuilding);
+            
             if (building == null)
             {
                 return NodeState.FAILURE;
@@ -18,6 +19,7 @@ namespace LUP.PCR
             else
             {
                 SetData(BBKeys.HasNewTask, false);
+                SetData(BBKeys.IsWorking, true);
                 return NodeState.SUCCESS;
             }
         }

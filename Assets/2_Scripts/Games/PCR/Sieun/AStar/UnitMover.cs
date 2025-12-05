@@ -70,13 +70,30 @@ namespace LUP.PCR
         //    }
         //}
 
+        ANode GetStartNodeByPhysics()
+        {
+            RaycastHit hit;
+
+            if (Physics.Raycast(transform.position + Vector3.up * 0.5f, Vector3.down, out hit, 2.0f))
+            {
+                return gridMap.GetNodeFromWorldPosition(hit.point);
+            }
+            // 공중에 떠 있거나 감지 실패시 기존 방식 사용
+            return gridMap.GetNodeFromWorldPosition(transform.position);
+        }
+
         public void SetDestination(Vector2Int gridPos)
         {
             if (gridMap == null || pathfinder == null) return;
 
-            // 시작점은 현재 유닛의 월드 위치를 기준으로 찾음
+            //ANode startNode = gridMap.GetNodeFromWorldPosition(transform.position);
+            ANode startNode = GetStartNodeByPhysics();
+            
+            if (!startNode.isWalkable)
+            {
+                startNode = FindNearestWalkableNode(startNode);
+            }
 
-            ANode startNode = gridMap.GetNodeFromWorldPosition(transform.position);
             ANode targetNode = gridMap.GetNodeFromGridPos(gridPos);
 
             gridMap.debugStartNode = startNode;
@@ -102,6 +119,37 @@ namespace LUP.PCR
             }
 
         }
+
+        private ANode FindNearestWalkableNode(ANode centerNode)
+        {
+            if (centerNode.isWalkable) return centerNode;
+
+            ANode nearest = null;
+            float minDist = float.MaxValue;
+
+            for (int x = -1; x <= 1; x++)
+            {
+                for (int y = -1; y <= 1; y++)
+                {
+                    if (x == 0 && y == 0) continue;
+
+                    Vector2Int neighborPos = new Vector2Int(centerNode.indexX + x, centerNode.indexY + y);
+                    ANode neighbor = gridMap.GetNodeFromGridPos(neighborPos);
+
+                    if (neighbor != null && neighbor.isWalkable)
+                    {
+                        float dist = Vector3.Distance(transform.position, neighbor.worldPos);
+                        if (dist < minDist)
+                        {
+                            minDist = dist;
+                            nearest = neighbor;
+                        }
+                    }
+                }
+            }
+            return nearest;
+        }
+
         private void ProcessPath(List<ANode> newPath)
         {
             path = newPath;
@@ -139,12 +187,7 @@ namespace LUP.PCR
                 // 도착하면 path가 null이 되거나 index가 초과되어 IsMoving이 자동으로 false가 됨
             }
 
-
-
-
         }
-
-        
 
         // BT - 목적지 도착 확인용
         public bool IsArrived()
@@ -153,7 +196,6 @@ namespace LUP.PCR
             {
                 return Vector3.Distance(transform.position, currentDestination) < 0.2f;
             }
-
             return false;
         }
         public void Stop()

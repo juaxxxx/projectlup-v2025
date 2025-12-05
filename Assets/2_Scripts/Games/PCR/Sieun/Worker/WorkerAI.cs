@@ -148,7 +148,7 @@ namespace LUP.PCR
         {
             new IsNewTaskChecker(LocalBlackboard),
             new GoToNewTaskLocation(LocalBlackboard),
-            //new StartNewTask(LocalBlackboard)
+            new StartNewTask(LocalBlackboard)
         });
 
         // Root Selector: 배고픔 → 작업/휴식
@@ -193,24 +193,24 @@ namespace LUP.PCR
         // 지금은 임시로 버튼UI OnClick(미리 오브젝트 자체를 지정)으로 건물 위치가 지정되게 했다.
         public void AssignTask(ProductableBuilding building)
         {
-            CancelOrReplaceCurrentTask();
+           // CancelOrReplaceCurrentTask();
 
             currentTaskBuilding = building;
             HasNewTask = true;
             LocalBlackboard.SetValue(BBKeys.HasNewTask, true);
             LocalBlackboard.SetValue(BBKeys.TargetBuilding, currentTaskBuilding);
         }
-        private void CancelOrReplaceCurrentTask()
-        {
-            if (currentTaskBuilding != null)
-            {
-                currentTaskBuilding = null;
-            }
-            LocalBlackboard.Remove(BBKeys.TargetBuilding);
-            LocalBlackboard.Remove(BBKeys.TargetPosition);
-            IsWorking = false;
-            HasNewTask = false;
-        }
+        //private void CancelOrReplaceCurrentTask()
+        //{
+        //    if (currentTaskBuilding != null)
+        //    {
+        //        currentTaskBuilding = null;
+        //    }
+        //    LocalBlackboard.Remove(BBKeys.TargetBuilding);
+        //    LocalBlackboard.Remove(BBKeys.TargetPosition);
+        //    IsWorking = false;
+        //    HasNewTask = false;
+        //}
     }
 
 }

@@ -5,6 +5,9 @@ namespace LUP.PCR
     public class GoToEatingPlace : WorkerBlackboardNode
     {
         private BuildingBase eatingPlace;
+        private bool hasNewTask;
+        private ProductableBuilding targetBuilding;
+
 
         public GoToEatingPlace(WorkerBlackboard blackboard) : base(blackboard) { }
 
@@ -39,10 +42,17 @@ namespace LUP.PCR
                 Mover.MoveAlongPath();
                 
                 Debug.Log("1-3. 식당으로 이동 중...");
-                
+
+                hasNewTask = GetData<bool>(BBKeys.HasNewTask);
+                targetBuilding = GetData<ProductableBuilding>(BBKeys.TargetBuilding);
+
+                // AssignTask 검사용
+                Debug.Log($"현재 작업 보유 상태 : {hasNewTask},  타겟 건물 : {targetBuilding}");
+
                 return NodeState.RUNNING;
             }
         }
+
     }
 
 }

@@ -34,7 +34,6 @@ namespace LUP.PCR
             {
                 Debug.Log("2-2. 새 작업지 도착.");
                 //@TODO : 작업건물에 작업자가 도착했음을 어떻게 알릴지 고민하기
-
                 return NodeState.SUCCESS;
             }
             else
