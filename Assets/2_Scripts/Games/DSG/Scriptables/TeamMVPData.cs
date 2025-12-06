@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-[CreateAssetMenu(fileName = "TeamMVPData", menuName = "Team MVP Data", order = int.MaxValue)]
+[CreateAssetMenu(fileName = "TeamMVPData", menuName = "DSG/Team MVP Data", order = int.MaxValue)]
 public class TeamMVPData : ScriptableObject
 {
     public string battleResult;

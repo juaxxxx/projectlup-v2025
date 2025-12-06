@@ -37,7 +37,7 @@ namespace LUP.DSG
             SetSlot("MVP4", "Image", "Text_Name", "Score", "Text_Score", mvp.char4Name, mvp.char4Color, mvp.char4Score, mvp.char1Score);
             SetSlot("MVP5", "Image", "Text_Name", "Score", "Text_Score", mvp.char5Name, mvp.char5Color, mvp.char5Score, mvp.char1Score);
 
-            SetMainMVP("MVP", "Text_Name", mvp.char1Name);
+            SetMainMVP("MVP/RawImage", "Text_Name", mvp.char1Name);
             ShowMVPModelIfAvailable(mvp);
         }
 
@@ -95,20 +95,17 @@ namespace LUP.DSG
         {
             if (mvp == null)
             {
-                Debug.LogWarning("MVP 데이터가 없습니다!");
                 return;
             }
 
             if (mvp.char1Prefab == null)
             {
-                Debug.LogWarning("MVP1 프리팹이 비어 있습니다!");
                 return;
             }
 
             MVPModelViewer viewer = FindFirstObjectByType<MVPModelViewer>();
             if (viewer == null)
             {
-                Debug.LogWarning("MVPModelViewer 오브젝트를 찾을 수 없습니다!");
                 return;
             }
 
