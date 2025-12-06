@@ -16,6 +16,8 @@ namespace LUP.ES
 
         void ShowInteractionTimerUI();
 
-        void HideInteractionTimerUI();  
+        void HideInteractionTimerUI();
+
+        Transform transform { get; }
     }
 }

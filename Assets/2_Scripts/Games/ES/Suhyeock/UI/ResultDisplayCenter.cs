@@ -14,14 +14,14 @@ namespace LUP.ES
         public GameObject ItemDisplayContent;
         public GameObject itemSlotPrefab;
         public Text resultHeader;
-        public Button lobbyButton;
+        //public Button lobbyButton;
 
         private Transform contentParent;
         private List<Item> items;
         private void Start()
         {
             resultPanel.SetActive(false);
-            lobbyButton.onClick.AddListener(LoadLobby);
+            //lobbyButton.onClick.AddListener(LoadLobby);
 
             contentParent = ItemDisplayContent.transform;
             if (eventBroker != null )

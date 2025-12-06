@@ -3724,14 +3724,14 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 191976435}
-        m_TargetAssemblyTypeName: PlayButton, Assembly-CSharp
-        m_MethodName: LoadInGame
-        m_Mode: 1
+      - m_Target: {fileID: 348770327}
+        m_TargetAssemblyTypeName: LUP.ExtractionShooterStage, Assembly-CSharp
+        m_MethodName: SceneChange
+        m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
+          m_IntArgument: 1
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
@@ -49878,10 +49878,10 @@ RectTransform:
 SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
+  - {fileID: 348770328}
   - {fileID: 1075544478}
   - {fileID: 1280612071}
   - {fileID: 1008334528}
   - {fileID: 450493840}
   - {fileID: 418766367}
   - {fileID: 1182163835}
-  - {fileID: 348770328}
