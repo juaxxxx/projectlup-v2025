@@ -170,23 +170,6 @@ namespace LUP.PCR
                 // 배고프게 만들기
                 Hunger = Mathf.Clamp(hunger + Time.deltaTime * 0.1f, 0, 3);
             }
-
-            // protected, private 보호수준에 막힘.
-            // @TODO: ProductableBuilding의 currBuildState 가져오는 방법 고민하기 
-            //if (currentTaskBuilding != null && currentTaskBuilding.currBuildState is ProductableState pState && pState != null)
-            //{
-            //    // @TODO: ProductableState data를 블랙보드에 등록할 수 있는 함수 필요.
-            //    // 블랙보드 생산 데이터 업데이트
-            //    LocalBlackboard.SetValue(BBKeys.ProductionStateData, pState.data);
-            //    LocalBlackboard.SetValue(BBKeys.IsProductionCompleted, pState.data.IsCompleted);
-            //    LocalBlackboard.SetValue(BBKeys.ProductionProgress, pState.data.Progress);
-
-            //btTimer += Time.deltaTime;
-            //if (btTimer >= btTickInterval)
-            //{
-            //    btTimer = 0f;
-            //}
-            //}
         }
 
         //@TODO : AssignTask()를 어디서 어떻게 호출하게 할지 생각하기

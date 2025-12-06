@@ -3,7 +3,6 @@ using UnityEngine;
 
 namespace LUP.PCR
 {
-    // @TODO: 에셋 적용 시 [RequireComponent(typeof(CharacterController))] 추가
     public class UnitMover : MonoBehaviour
     {
         public Vector3 CurrentDestination => currentDestination;

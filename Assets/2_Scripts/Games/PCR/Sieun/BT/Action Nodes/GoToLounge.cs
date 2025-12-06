@@ -20,7 +20,6 @@ namespace LUP.PCR
                 }
                 else if (Mover != null)
                 {
-                    //@TODO : OnStart() 안에서 호출하면..라운지 위치가 바뀔 때 어떻게 대응할지 고민하기 
                     Mover.SetDestination(loungePlace.entrancePos); 
                     //SetData<Vector2Int>(BBKeys.TargetPosition, LoungeBuilding.entrancePos);
                 }
