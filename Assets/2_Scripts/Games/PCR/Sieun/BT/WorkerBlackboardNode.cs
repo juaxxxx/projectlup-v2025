@@ -10,10 +10,26 @@ namespace LUP.PCR
         private WorkerAI ownerAI;
         private Worker workerComp;
         private UnitMover mover;
+
+        private NodeState? lastReturnState = null;
+
         protected WorkerBlackboardNode(WorkerBlackboard blackboard) : base()
         {
-            this.BB = blackboard;
+            BB = blackboard;
         }
+
+        protected NodeState ReturnAndLog(NodeState newState, string message)
+        {
+            if (lastReturnState != newState)
+            {
+                Debug.Log($"[{this.GetType().Name}] {message} (ป๓ลย: {newState})");
+                lastReturnState = newState;
+            }
+
+            return newState;
+        }
+
+
         protected WorkerAI OwnerAI
         {
             get

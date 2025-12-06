@@ -4,13 +4,14 @@ namespace LUP.PCR
 {
     public class StartNewTask : WorkerBlackboardNode
     {
-        public StartNewTask(WorkerBlackboard blackboard) : base(blackboard) { }
+        public StartNewTask(WorkerBlackboard bb) : base(bb) { }
         float timer = 0f;
         float duration = 3f;
 
         protected override NodeState OnUpdate()
         {
-            ProductableBuilding building = GetData<ProductableBuilding>(BBKeys.TargetBuilding);
+            ProductableBuilding building = GetData<ProductableBuilding>(BBKeys.AssignedWorkplace);
+            //bool hasNewTask = GetData<bool>(BBKeys.HasNewTask);
             
             if (building == null)
             {
@@ -27,9 +28,9 @@ namespace LUP.PCR
             else
             {
                 timer = 0f;
-                SetData(BBKeys.HasNewTask, false);
-                SetData(BBKeys.IsWorking, true);
-                BB.Remove(BBKeys.TargetBuilding);
+                BB.Remove(BBKeys.AssignedWorkplace);
+                SetData(BBKeys.IsWorking, false);
+                
                 Debug.Log("2-3. 작업 완료.");
                 return NodeState.SUCCESS;
             }

@@ -4,21 +4,14 @@ namespace LUP.PCR
 { 
     public class IsNewTaskChecker : WorkerBlackboardNode
     {
-        public IsNewTaskChecker(WorkerBlackboard blackboard) : base(blackboard) { }
+        public IsNewTaskChecker(WorkerBlackboard bb) : base(bb) { }
         protected override NodeState OnUpdate()
         {
-            ProductableBuilding building = GetData<ProductableBuilding>(BBKeys.TargetBuilding);
-            bool hasNewTask = GetData<bool>(BBKeys.HasNewTask);
+            ProductableBuilding building = GetData<ProductableBuilding>(BBKeys.AssignedWorkplace);
 
-            return building != null && hasNewTask ?
-            LogAndReturn(NodeState.SUCCESS, "2-1. 새 작업 발생!")
-            : LogAndReturn(NodeState.FAILURE, "2-1. 할당된 작업이 없습니다.");
-        }
-
-        T LogAndReturn<T>(T value, string message)
-        {
-            Debug.Log(message + $" (값: {value})");
-            return value;
+            return building != null
+                ? ReturnAndLog(NodeState.SUCCESS, "2-1. 예약된 작업이 있습니다.")
+                : ReturnAndLog(NodeState.FAILURE, "2-1. 할당된 작업이 없습니다.");
         }
     }
 }

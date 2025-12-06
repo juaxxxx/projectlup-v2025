@@ -36,6 +36,5 @@ namespace LUP.PCR
         }
         protected virtual void OnStart() { }
         protected abstract NodeState OnUpdate();
-
     }
 }

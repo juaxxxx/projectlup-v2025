@@ -104,7 +104,7 @@ namespace LUP.PCR
 
             foreach (var node in grid)
             {
-                Gizmos.color = node.isWalkable ? new Color(0, 1, 0, 0.3f) : new Color(1, 0, 0, 0.3f);
+                Gizmos.color = node.isWalkable ? new Color(0, 1, 0, 0.05f) : new Color(1, 0, 0, 0.3f);
                 Gizmos.DrawCube(node.worldPos, Vector3.one * (tileSize * 0.9f));
             }
 

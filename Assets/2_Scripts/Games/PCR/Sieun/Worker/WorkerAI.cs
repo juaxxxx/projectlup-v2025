@@ -12,14 +12,8 @@ namespace LUP.PCR
         [Header("State")]
         [SerializeField] private float hunger = 0;
         private bool isHunger = false;
-
-        //@TODO : 일하고 있는 상태를 어떤식으로 정의할지 고민하기.
         private bool isWorking = true; 
-        private bool hasNewTask = false;
-
-        [Header("BT Time")]
-        private float btTickInterval = 0.1f;
-        private float btTimer = 0f;
+        //private bool hasNewTask = false;
 
         [Header("Component")]
         private Worker worker;
@@ -31,7 +25,7 @@ namespace LUP.PCR
         [Header("Task")]
         private ProductableBuilding currentTaskBuilding = null;
         [SerializeField] private ProductableBuilding restaurantBuilding = null;
-        [SerializeField] private ProductableBuilding loungeBuilding = null;
+        [SerializeField] private ProductableBuilding workerStationBuilding = null;
 
         // 
         public WorkerBlackboard LocalBlackboard { get; private set; }
@@ -66,8 +60,6 @@ namespace LUP.PCR
             }
         }
 
-        
-
         public bool IsWorking
         {
             get => isWorking;
@@ -77,16 +69,7 @@ namespace LUP.PCR
                 LocalBlackboard.SetValue(BBKeys.IsWorking, isWorking);
             }
         }
-        public bool HasNewTask
-        {
-            get => hasNewTask;
-            set
-            {
-                hasNewTask = value;
-                LocalBlackboard.SetValue(BBKeys.HasNewTask, hasNewTask);
-            }
-        }
-
+        
         public void InitBTReferences()
         {
             worker = GetComponent<Worker>();
@@ -94,9 +77,7 @@ namespace LUP.PCR
             LocalBlackboard = new WorkerBlackboard();
 
             InitBlackboard();
-
             CheckHungerState();
-            
             SettingBT();
         }
 
@@ -111,21 +92,16 @@ namespace LUP.PCR
             LocalBlackboard.SetValue(BBKeys.Hunger, hunger);
             LocalBlackboard.SetValue(BBKeys.IsHunger, IsHunger);
 
-            // 건물 생성되는 시점부터 자동으로 초기화될 위치 : 식당, 라운지
+            // 건물 생성되는 시점부터 자동으로 초기화될 위치 : 식당, 작업 스테이션
             LocalBlackboard.SetValue<BuildingBase>(BBKeys.Restaurant, restaurantBuilding);
-            LocalBlackboard.SetValue<BuildingBase>(BBKeys.Lounge, loungeBuilding);
-
-            LocalBlackboard.SetValue<Vector2Int>(BBKeys.TargetPosition, restaurantBuilding.entrancePos);
-            LocalBlackboard.SetValue<Vector2Int>(BBKeys.TargetPosition, loungeBuilding.entrancePos);
+            LocalBlackboard.SetValue<BuildingBase>(BBKeys.WorkerStation, workerStationBuilding);
 
             // @TODO : currentTaskBuilding을 받을 AssignTask()를 어디서 호출하게 할지 생각하기
             // 워커 시작 위치 : 라운지
-            currentTaskBuilding = loungeBuilding;
-            LocalBlackboard.SetValue<BuildingBase>(BBKeys.TargetBuilding, currentTaskBuilding); 
-            LocalBlackboard.SetValue<Vector2Int>(BBKeys.TargetPosition, currentTaskBuilding.entrancePos);
-
-            LocalBlackboard.SetValue(BBKeys.HasNewTask, hasNewTask);
-            LocalBlackboard.SetValue(BBKeys.IsWorking, isWorking);
+           // currentTaskBuilding = workerStationBuilding;
+           // LocalBlackboard.SetValue<BuildingBase>(BBKeys.AssignedWorkplace, currentTaskBuilding); 
+           // LocalBlackboard.SetValue(BBKeys.HasNewTask, hasNewTask);
+           LocalBlackboard.SetValue(BBKeys.IsWorking, isWorking);
 
         }
 
@@ -156,7 +132,7 @@ namespace LUP.PCR
         {
             hungerSequence,
             workingSequence,
-            new GoToLounge(LocalBlackboard)
+            new GoToWorkerStation(LocalBlackboard)
         });
         }
 
@@ -177,23 +153,11 @@ namespace LUP.PCR
         public void AssignTask(ProductableBuilding building)
         {
            // CancelOrReplaceCurrentTask();
-
             currentTaskBuilding = building;
-            HasNewTask = true;
-            LocalBlackboard.SetValue(BBKeys.HasNewTask, true);
-            LocalBlackboard.SetValue(BBKeys.TargetBuilding, currentTaskBuilding);
+            //HasNewTask = true;
+            //LocalBlackboard.SetValue(BBKeys.HasNewTask, true);
+            LocalBlackboard.SetValue(BBKeys.AssignedWorkplace, currentTaskBuilding);
         }
-        //private void CancelOrReplaceCurrentTask()
-        //{
-        //    if (currentTaskBuilding != null)
-        //    {
-        //        currentTaskBuilding = null;
-        //    }
-        //    LocalBlackboard.Remove(BBKeys.TargetBuilding);
-        //    LocalBlackboard.Remove(BBKeys.TargetPosition);
-        //    IsWorking = false;
-        //    HasNewTask = false;
-        //}
     }
 
 }

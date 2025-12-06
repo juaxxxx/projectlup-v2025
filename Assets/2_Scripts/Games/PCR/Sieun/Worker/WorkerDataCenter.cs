@@ -7,7 +7,6 @@ namespace LUP.PCR
     public class WorkerDataCenter : MonoBehaviour
     {
         [SerializeField] PCRDataCenter pcrDataCenter;
-        //[SerializeField] TestBuildingSystem testBuildingSystem;
         [SerializeField] AGridMap aGrid;
         [SerializeField] WorkerAI workerAI;
         [HideInInspector] public TileInfo[,] tileInfoes;

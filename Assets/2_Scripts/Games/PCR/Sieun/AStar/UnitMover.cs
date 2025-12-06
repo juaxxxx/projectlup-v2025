@@ -22,21 +22,21 @@ namespace LUP.PCR
             pathfinder = new APathfinding(gridMap);
         }
 
-        void Update()
-        {
-            //@TODO : FindPath(RaycastHit hit) UI랑 연동되게 수정하기
-            //if (Input.GetMouseButtonDown(0))
-            //{
-            //    Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        //void Update()
+        //{
+        //    //@TODO : FindPath(RaycastHit hit) UI랑 연동되게 수정하기
+        //    if (Input.GetMouseButtonDown(0))
+        //    {
+        //        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 
-            //    // 바닥과 충돌 검사
-            //    if (Physics.Raycast(ray, out RaycastHit hit))
-            //    {
-            //        FindPath(hit);
-            //    }
-            //}
-            //MoveAlongPath();
-        }
+        //        // 바닥과 충돌 검사
+        //        if (Physics.Raycast(ray, out RaycastHit hit))
+        //        {
+        //            FindPath(hit);
+        //        }
+        //    }
+        //    MoveAlongPath();
+        //}
 
         //void FindPath(RaycastHit hit)
         //{
