@@ -1,4 +1,4 @@
-namespace UserData
+namespace LUP.DSG
 {
     [System.Serializable]
     public class Team

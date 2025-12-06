@@ -124,7 +124,7 @@ namespace LUP.DSG
                 DeckStrategyRuntimeData deckStrategyRuntimeData = (DeckStrategyRuntimeData)RuntimeData;
                 if (deckStrategyRuntimeData != null && deckStrategyRuntimeData.Teams.Count == 0)
                 {
-                    deckStrategyRuntimeData.Teams.AddRange(new UserData.Team[6]);
+                    deckStrategyRuntimeData.Teams.AddRange(new LUP.DSG.Team[6]);
                 }
             }
         }

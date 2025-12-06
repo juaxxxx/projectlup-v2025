@@ -128,7 +128,8 @@ namespace LUP.DSG
             if (stage == null) return;
 
             CharacterData data = stage.FindCharacterData(info.characterID, info.characterLevel);
-            CharacterModelData modelData = dataCenter.FindCharacterModel(info.characterModelID);
+            CharacterModelData modelData = stage.FindCharacterModel(info.characterModelID);
+            //CharacterModelData modelData = dataCenter.FindCharacterModel(info.characterModelID);
 
             if (data == null || modelData == null) return;
 

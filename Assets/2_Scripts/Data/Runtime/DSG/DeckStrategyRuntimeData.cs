@@ -11,7 +11,7 @@ public class DeckStrategyRuntimeData : BaseRuntimeData
     private List<OwnedCharacterInfo> ownedCharacterList = new List<OwnedCharacterInfo>();
 
     [SerializeField]
-    private List<UserData.Team> teams = new List<UserData.Team>();
+    private List<LUP.DSG.Team> teams = new List<LUP.DSG.Team>();
 
     public int PlayerId
     {
@@ -25,7 +25,7 @@ public class DeckStrategyRuntimeData : BaseRuntimeData
         set => SetValue(ref ownedCharacterList, value);
     }
 
-    public List<UserData.Team> Teams
+    public List<LUP.DSG.Team> Teams
     {
         get => teams;
         set => SetValue(ref teams, value);

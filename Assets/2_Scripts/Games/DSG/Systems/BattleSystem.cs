@@ -19,7 +19,7 @@ namespace LUP.DSG
         //private UserData.Team friendlyTeam = new UserData.Team();
 
         [SerializeField]
-        private UserData.Team enemyTeam;
+        private Team enemyTeam;
 
         public GameObject[] friendlySlots = new GameObject[5];
         public GameObject[] enemySlots = new GameObject[5];

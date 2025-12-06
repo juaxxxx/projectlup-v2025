@@ -151,7 +151,10 @@ namespace LUP.DSG
             var itemUI = Instantiate(iconPrefab, contentParent.transform);
             var icon = itemUI.GetComponent<CharacterIcon>();
 
-            var modelData = dataCenter.FindCharacterModel(characterInfo.characterModelID);
+            DeckStrategyStage stage = LUP.StageManager.Instance.GetCurrentStage() as DeckStrategyStage;
+            if (stage == null) return;
+
+            var modelData = stage.FindCharacterModel(characterInfo.characterModelID);
             icon.Init();
             icon.SetIconData(characterInfo, type, modelData.material.color, characterInfo.characterLevel, false);
         }

@@ -1,7 +1,7 @@
 using UnityEditor;
 using UnityEngine;
 
-[CustomPropertyDrawer(typeof(UserData.Team))]
+[CustomPropertyDrawer(typeof(LUP.DSG.Team))]
 public class TeamDrawer : PropertyDrawer
 {
     public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
