@@ -32,7 +32,7 @@ public class RouletteScript : MonoBehaviour
         adapter.LinkToPlatform();
      
         //·ê·¿¿¡  ¹öÇÁ¸®½ºÆ®¿¬°á
-        buffList.AddRange(adapter.gainableBuffDatas);
+        //buffList.AddRange(adapter.gainableBuffDatas);
     }
     void OnButtonClick()
     {
