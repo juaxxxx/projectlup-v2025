@@ -2459,6 +2459,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   characterSelectPanel: {fileID: 196126177}
+  OptionPanel: {fileID: 0}
 --- !u!1 &757503225
 GameObject:
   m_ObjectHideFlags: 0
@@ -5807,7 +5808,7 @@ CanvasRenderer:
 SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
+  - {fileID: 808929815}
   - {fileID: 685678780}
   - {fileID: 2049130477}
   - {fileID: 176034367}
-  - {fileID: 808929815}
