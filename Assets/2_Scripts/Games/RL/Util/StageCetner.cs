@@ -8,6 +8,7 @@ using Unity.AI.Navigation;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.SceneManagement;
+using static UnityEditor.Experimental.GraphView.GraphView;
 namespace LUP.RL
 {
 
@@ -22,6 +23,7 @@ namespace LUP.RL
 
         [Header("플레이어 Transform")]
         public Transform player;
+        private PlayerMove[] players;
 
         [Header("UI 연결")]
         public TextMeshProUGUI stageText;
@@ -80,9 +82,18 @@ namespace LUP.RL
         {
             currentRoom = Instantiate(data.roomprefab, Vector3.zero, Quaternion.identity, roomParent);
 
-            var bb = player.GetComponent<PlayerBlackBoard>();
-            if (bb != null)
-                bb.SetCurrentRoom(currentRoom.transform);
+            players = FindObjectsByType<PlayerMove>(FindObjectsSortMode.None);
+
+            for(int i = 0; i < players.Length; i++)
+            {
+                var bb = players[i].gameObject.GetComponent<PlayerBlackBoard>();
+                if (bb != null)
+                    bb.SetCurrentRoom(currentRoom.transform);
+            }
+
+            //var bb = player.GetComponent<PlayerBlackBoard>();
+            //if (bb != null)
+            //    bb.SetCurrentRoom(currentRoom.transform);
         }
 
 

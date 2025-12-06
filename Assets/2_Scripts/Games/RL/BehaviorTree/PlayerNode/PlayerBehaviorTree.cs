@@ -10,11 +10,8 @@ namespace LUP.RL
         private PlayerBlackBoard bb;
         [SerializeField] private JoyStickSC joystick;
 
-        //[SerializeField] private Archer playerArcher;
-        //[SerializeField] private PlayerMove move;
-        //[SerializeField] private PlayerArrowShooter move;
-
-        [SerializeField] private Animator animator;
+        [HideInInspector] 
+        private Animator animator;
         protected AnimatorStateInfo stateInfo;
         protected PlayerLeafNode currentRunningLeafNode;
 
@@ -36,6 +33,8 @@ namespace LUP.RL
 
         private void Start()
         {
+            animator = GetComponent<Animator>();
+
             if (animator != null)
             {
                 AnimatorCallBack[] animatorCallBacks = animator.GetBehaviours<AnimatorCallBack>();
