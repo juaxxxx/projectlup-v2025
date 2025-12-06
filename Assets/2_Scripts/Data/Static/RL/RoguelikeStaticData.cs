@@ -11,5 +11,5 @@ public class RoguelikeStaticData
     [Column("ATKCOLLTIMEDURATION")] public string ATKCOLLTIMEDURATION;
     [Column("ChapterMaxRoomNum")] public string ChapterMaxRoomNum;
     [Column("ChapterPreviewImageId")] public string ChapterPreviewImageId;
+    [Column("EnemySpawnPoint")] public int EnemySpawner;
 }
-              

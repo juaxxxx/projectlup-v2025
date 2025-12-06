@@ -19,7 +19,8 @@ namespace LUP.RL
         public GameObject gameResultPanel;
         public GameObject gamePausePanel;
 
-        PlatformAdapter platformAdapter;
+        [HideInInspector]
+        public PlatformAdapter platformAdapter;
 
         [SerializeField]
         private ChapterData chapterData;

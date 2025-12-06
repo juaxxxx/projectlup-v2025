@@ -31,6 +31,7 @@ public class PlatformAdapter
     public int LastSeletedCharacter { get; set; }
 
     private RoguelikeRuntimeData runtimesaveData;
+    private List<RoguelikeStaticData> staticData;
 
     public void LinkToPlatform()
     {
@@ -41,6 +42,7 @@ public class PlatformAdapter
         {
             //await waitUntilPlatformDataReady();
             runtimesaveData = (RoguelikeRuntimeData)platform.RuntimeData;
+            staticData = platform.DataList;
         }
 
 
