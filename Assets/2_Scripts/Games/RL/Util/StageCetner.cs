@@ -113,7 +113,7 @@ namespace LUP.RL
             if (tile == null) return;
 
             Vector3 spawnPos = tile.worldPos;
-            spawnPos.y = 1.5f;
+            spawnPos.y = 0.5f;
             player.position = spawnPos;
         }
         private void SpawnEnemies(StageData data)
