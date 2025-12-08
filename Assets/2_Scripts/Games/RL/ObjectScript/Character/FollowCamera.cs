@@ -20,7 +20,7 @@ namespace LUP.RL
 
         void Start()
         {
-            FindTarget();
+            //FindTarget();
         }
 
         public void FindTarget()
@@ -48,6 +48,9 @@ namespace LUP.RL
         // Update is called once per frame
         void Update()
         {
+            if (!player || !room)
+                return;
+
             Vector3 playerPosition = player.gameObject.transform.position;
             Vector3 followedPosition = new Vector3(playerPosition.x, this.transform.position.y, playerPosition.z - ViewportZOffset);
 

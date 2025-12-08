@@ -7,6 +7,7 @@ namespace LUP.RL
     {
         public WeaponType weaponType = WeaponType.None;
         public Transform weaponHandPos;
+        public Vector3 weaponPos;
         public Vector3 rotate;
     }
 }

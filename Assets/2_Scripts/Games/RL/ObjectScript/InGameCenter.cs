@@ -124,6 +124,8 @@ namespace LUP.RL
             ///////////
 
             Confirm.onClick.AddListener(UploadGameResult);
+
+            SpawnPlayer();
         }
 
         // Update is called once per frame
@@ -192,6 +194,36 @@ namespace LUP.RL
                 }
             }
 
+        }
+
+        void SpawnPlayer()
+        {
+            Vector3 pos = new Vector3(0, 0.7f, 0);
+            Quaternion rot = Quaternion.identity;
+
+            GameObject character = Instantiate(characterData.CharacterPrefab, pos, rot);
+
+            WeaponHand weaponHand = character.GetComponent<WeaponHand>();
+
+            if(weaponHand)
+            {
+                Transform weaponHandPos = weaponHand.weaponHandPos;
+                GameObject weaponPrefab = characterData.WeaponPrefab;
+
+                if (weaponHandPos && weaponPrefab)
+                {
+                    GameObject weapon = Instantiate(weaponPrefab, weaponHandPos);
+
+                    weapon.transform.localPosition = weaponHand.weaponPos;
+                    weapon.transform.localRotation = Quaternion.Euler(weaponHand.rotate);
+                }
+            }
+
+            FollowCamera followCamera = FindFirstObjectByType<FollowCamera>();
+            if(followCamera)
+            {
+                followCamera.FindTarget();
+            }
         }
 
         void OnMoveToNextRoom()
