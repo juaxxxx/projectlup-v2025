@@ -1,5 +1,3 @@
-using UnityEngine;
-
 namespace LUP.DSG.Utils.Enums
 {
     public enum EAnimStateType
@@ -9,8 +7,12 @@ namespace LUP.DSG.Utils.Enums
         StartDash_Bwd,
         EndDash_Fwd,
         EndDash_Bwd,
-        Attack_Melee,
-        Attack_Range,
+        Attack_NoHand,
+        Attack_Melee_OneHanded,
+        Attack_Melee_TwoHanded,
+        Attack_Range_Magic,
+        Attack_Range_Rifle,
+        Attack_Range_Throw,
         Hitted,
         Died,
     }

@@ -57,7 +57,8 @@ namespace LUP.DSG
         public event Action<int> OnDie;
         public event Action<float> OnChangeGauge;
 
-        public event Action<ERangeType> OnAttackStarted;
+        public event Action<EWeaponType> OnAttackStarted;
+        public event Action OnStartDash;
 
         [SerializeField]
         private GameObject damageLogPrefab;
@@ -307,11 +308,22 @@ namespace LUP.DSG
         }
         private void HandleAttackStart()
         {
-            OnAttackStarted?.Invoke(owner.characterData.rangeType);
+            switch(owner.weaponType)
+            {
+                case EWeaponType.Melee_OneHanded:
+                case EWeaponType.Melee_TwoHanded:
+                    OnStartDash?.Invoke();
+                    break;
+                case EWeaponType.Magic:
+                case EWeaponType.Gun_Rifle:
+                case EWeaponType.Throw:
+                    AttackStart();
+                    break;
+            }
         }
         public void TrySpawnProjectileForRangedAttack()
         {
-            if (owner.characterData.rangeType != ERangeType.Range)
+            if (owner.weaponType != EWeaponType.Magic && owner.weaponType != EWeaponType.Gun_Rifle && owner.weaponType != EWeaponType.Throw)
                 return;
             Vector3 spawnPos = originPosition;
             spawnPos.y += 1.2f;
@@ -370,6 +382,11 @@ namespace LUP.DSG
             currGauge = 0;
             isSkillOn = false;
             OnChangeGauge?.Invoke(currGauge);
+        }
+
+        public void AttackStart()
+        {
+            OnAttackStarted?.Invoke(owner.weaponType);
         }
     }
 }

@@ -1,3 +1,5 @@
+using LUP.DSG.Utils.Enums;
+using System.Buffers;
 using System.Runtime.CompilerServices;
 using UnityEngine;
 using static UnityEngine.UI.GridLayoutGroup;
@@ -10,7 +12,6 @@ namespace LUP.DSG
         private BattleComponent battleComp;
         private ScoreComponent scoreComp;
         private AnimationComponent animationComp;
-
         public StatusEffectComponent StatusEffectComp => statusEffectComp;
         public BattleComponent BattleComp => battleComp;
         public ScoreComponent ScoreComp => scoreComp;
@@ -28,6 +29,8 @@ namespace LUP.DSG
 
         private CharacterInfoUI characterInfoUI;
         private CharacterBattleUI chracterBattleUI;
+
+        public EWeaponType weaponType;
 
         private void Awake()
         {
@@ -47,12 +50,13 @@ namespace LUP.DSG
             if (battleComp != null && animationComp != null)
             {
                 battleComp.OnAttackStarted -= animationComp.StartAttackAnimation;
-                //battleComp.OnReachedTargetPos -= animationComp.EndDashLoop;
                 battleComp.OnDamaged -= animationComp.PlayHittedAnimation;
                 battleComp.OnDie -= animationComp.PlayDiedAnimation;
+                battleComp.OnStartDash -= animationComp.StartDashAnimation;
 
                 animationComp.OnHitAttack -= battleComp.ApplyDamageOnce;
                 animationComp.OnShootRangeAttack -= battleComp.TrySpawnProjectileForRangedAttack;
+                animationComp.OnAttackStart -= battleComp.AttackStart;
             }
         }
 
@@ -73,9 +77,11 @@ namespace LUP.DSG
             battleComp.OnAttackStarted += animationComp.StartAttackAnimation;
             battleComp.OnDamaged += animationComp.PlayHittedAnimation;
             battleComp.OnDie += animationComp.PlayDiedAnimation;
+            battleComp.OnStartDash += animationComp.StartDashAnimation;
 
             animationComp.OnHitAttack += battleComp.ApplyDamageOnce;
             animationComp.OnShootRangeAttack += battleComp.TrySpawnProjectileForRangedAttack;
+            animationComp.OnAttackStart += battleComp.AttackStart;
 
             Canvas[] canvases = FindObjectsByType<Canvas>(FindObjectsSortMode.None);
             foreach (var canvas in canvases)
@@ -181,7 +187,6 @@ namespace LUP.DSG
             chracterBattleUI.gameObject.SetActive(false);
             Destroy(characterInfoUI);
             Destroy(chracterBattleUI);
-
         }
     }
 }

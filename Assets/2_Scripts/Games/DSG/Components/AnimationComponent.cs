@@ -11,6 +11,7 @@ namespace LUP.DSG
 
         public event Action OnHitAttack;
         public event Action OnShootRangeAttack;
+        public event Action OnAttackStart;
 
         [SerializeField]
         private ParticleSystem HitFVX;
@@ -25,19 +26,40 @@ namespace LUP.DSG
             currentState = EAnimStateType.Idle;
         }
 
-        public void StartAttackAnimation(ERangeType type)
+        public void StartDashAnimation()
         {
-            if (type == ERangeType.Range)
-                currentState = EAnimStateType.Attack_Range;
-            else
-                currentState = EAnimStateType.StartDash_Fwd;
+            currentState = EAnimStateType.StartDash_Fwd;
+            SetAnimationState(currentState);
+        }
+
+        public void StartAttackAnimation(EWeaponType weaponType)
+        {
+            switch (weaponType)
+            {
+                case EWeaponType.Melee_OneHanded:
+                    currentState = EAnimStateType.Attack_Melee_OneHanded;
+                    break;
+                case EWeaponType.Melee_TwoHanded:
+                    currentState = EAnimStateType.Attack_Melee_TwoHanded;
+                    break;
+                case EWeaponType.Gun_Rifle:
+                    currentState = EAnimStateType.Attack_Range_Rifle;
+                    break;
+                case EWeaponType.Magic:
+                    currentState = EAnimStateType.Attack_Range_Magic;
+                    break;
+                case EWeaponType.Throw:
+                    currentState = EAnimStateType.Attack_Range_Throw;
+                    break;
+                default:
+                    break;
+            }
 
             SetAnimationState(currentState);
         }
 
         public void StartMeleeAnimation()
         {
-            currentState = EAnimStateType.Attack_Melee;
             SetAnimationState(currentState);
         }
 
@@ -87,12 +109,11 @@ namespace LUP.DSG
         {
             currentState = EAnimStateType.Idle;
             EndMeleeAnimation();
-            //OnAttackEnd?.Invoke();
         }
 
         public void OnEndFwdDashEvent()
         {
-            StartMeleeAnimation();
+            OnAttackStart?.Invoke();
         }
 
         public void OnEndBwdDashEvent()
