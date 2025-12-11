@@ -12,8 +12,7 @@ namespace LUP.PCR
         [Header("State")]
         [SerializeField] private float hunger = 0;
         private bool isHunger = false;
-        private bool hasTask = true; 
-        //private bool hasNewTask = false;
+        private bool hasTask = false; 
 
         [Header("Component")]
         private Worker worker;
@@ -34,9 +33,9 @@ namespace LUP.PCR
         //@TODO: BuildingSystem에 있는 실제 currBuildings 및 건물타입ID로 건물 조회해서 entrancePos 접근하기.
         // 지금은 임시로 건물 프리팹 자체에서 직접 entrancePos 를 가져온다.
         [Header("Task")]
-        private ProductableBuilding currentTaskBuilding = null;
-        [SerializeField] private ProductableBuilding restaurantBuilding = null;
-        [SerializeField] private ProductableBuilding workerStationBuilding = null;
+        private BuildingBase currentTaskBuilding = null;
+        [SerializeField] private BuildingBase restaurantBuilding = null;
+        [SerializeField] private BuildingBase workerStationBuilding = null;
 
         // 
         public WorkerBlackboard LocalBlackboard { get; private set; }
@@ -109,9 +108,8 @@ namespace LUP.PCR
 
             // @TODO : currentTaskBuilding을 받을 AssignTask()를 어디서 호출하게 할지 생각하기
             // 워커 시작 위치 : 라운지
-           // currentTaskBuilding = workerStationBuilding;
-           // LocalBlackboard.SetValue<BuildingBase>(BBKeys.AssignedWorkplace, currentTaskBuilding); 
-           // LocalBlackboard.SetValue(BBKeys.HasNewTask, hasNewTask);
+           //currentTaskBuilding = workerStationBuilding;
+           LocalBlackboard.SetValue<BuildingBase>(BBKeys.AssignedWorkplace, currentTaskBuilding); 
            LocalBlackboard.SetValue(BBKeys.HasTask, hasTask);
 
         }
@@ -161,7 +159,7 @@ namespace LUP.PCR
 
         //@TODO : AssignTask()를 어디서 어떻게 호출하게 할지 생각하기
         // 지금은 임시로 버튼UI OnClick(미리 오브젝트 자체를 지정)으로 건물 위치가 지정되게 했다.
-        public void AssignTask(ProductableBuilding building)
+        public void AssignTask(BuildingBase building)
         {
            // CancelOrReplaceCurrentTask();
             currentTaskBuilding = building;

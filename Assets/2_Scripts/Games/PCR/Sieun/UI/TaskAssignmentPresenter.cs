@@ -1,0 +1,68 @@
+using System.Collections.Generic;
+using UnityEngine;
+
+namespace LUP.PCR
+{
+
+    public class TaskAssignmentPresenter : MonoBehaviour
+    {
+        [Header("References")]
+        [SerializeField] private TaskAssignmentView view;
+        [SerializeField] private WorkerDataCenter dataCenter;
+
+        [Header("Data Source")]
+        // @TODO : BuildingSystem 에서 가져와야 함
+        [SerializeField] private List<BuildingBase> allBuildings;
+
+        private BuildingBase currentSelectedBuilding;
+
+        private void Start()
+        {
+            view.OnBuildingClick += HandleBuildingSelected;
+            view.OnWorkerClick += HandleWorkerSelected;
+
+            view.UpdateStatusText("작업을 지시할 건물을 선택하세요.");
+            view.RenderBuildingList(allBuildings);
+            view.ClearWorkerList();
+        }
+
+        private void HandleBuildingSelected(BuildingBase building)
+        {
+
+            currentSelectedBuilding = building;
+
+            view.UpdateStatusText($"선택됨: {building.name}\n투입할 작업자를 선택하세요.");
+
+            List<WorkerAI> idleWorkers = dataCenter.GetIdleWorkers();
+
+            if (idleWorkers.Count == 0)
+            {
+                view.UpdateStatusText($"선택됨: {building.name}\n(가용한 작업자가 없습니다)");
+                view.ClearWorkerList();
+            }
+            else
+            {
+                Debug.Log($"[Presenter] 뷰에게 작업자 {idleWorkers.Count}명 표시 요청");
+                view.RenderWorkerList(idleWorkers);
+            }
+        }
+
+        private void HandleWorkerSelected(WorkerAI worker)
+        {
+            if (currentSelectedBuilding == null) return;
+
+            // AssignTask 내부에서 HasTask = true가 되면서 상태 변경됨
+            worker.AssignTask(currentSelectedBuilding);
+
+            view.UpdateStatusText($"할당 완료!\n{worker.name} -> {currentSelectedBuilding}");
+
+            currentSelectedBuilding = null;
+
+            view.ClearWorkerList();
+            view.UpdateStatusText("작업을 지시할 건물을 선택하세요.");
+        }
+
+
+
+    }
+}

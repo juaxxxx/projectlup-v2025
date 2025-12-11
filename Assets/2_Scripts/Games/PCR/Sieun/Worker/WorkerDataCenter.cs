@@ -22,7 +22,6 @@ namespace LUP.PCR
             }
         }
 
-
         private void Awake()
         {
             pcrDataCenter = GetComponentInChildren<PCRDataCenter>();
@@ -62,6 +61,26 @@ namespace LUP.PCR
 
             }
         }
+        public List<WorkerAI> GetIdleWorkers()
+        {
+            List<WorkerAI> idleList = new List<WorkerAI>();
+
+            for (int i = 0; i < workers.Count; i++)
+            {
+                WorkerAI w = workers[i];
+                // 작업자가 존재하고, 예약된 작업이 없을 때만 추가
+                if (w != null && !w.HasTask)
+                {
+                    idleList.Add(w);
+                }
+
+            }
+
+            Debug.Log($"전체 워커 {workers.Count}명 / 일 가능 워커 : {idleList.Count}명");
+
+            return idleList;
+        }
+
     }
 }
 
