@@ -1,4 +1,5 @@
 using LUP.RL;
+using System.Numerics;
 using UnityEngine;
 
 public class ProjectileBase : MonoBehaviour
@@ -7,6 +8,8 @@ public class ProjectileBase : MonoBehaviour
     private GameObject owner;
     private int damage;
     private Transform target;
+
+    public float ProjectileRotateSpeed = 100.0f;
 
     public void Init(BulletData data, GameObject Owner, int Damage, Transform Target)
     {
@@ -41,7 +44,13 @@ public class ProjectileBase : MonoBehaviour
             return;
         }
       
-        Vector3 dir = (target.position - transform.position).normalized;
+        UnityEngine.Vector3 dir = (target.position - transform.position).normalized;
         transform.position += dir * bulletData.Speed * Time.deltaTime;
+
+        //UnityEngine.Vector3 weaponAngle = transform.localEulerAngles;
+        //weaponAngle.x += ProjectileRotateSpeed * Time.deltaTime;
+        //transform.localEulerAngles = weaponAngle;
+
+        transform.localRotation *= UnityEngine.Quaternion.Euler(ProjectileRotateSpeed * Time.deltaTime, 0f, 0f);
     }
 }

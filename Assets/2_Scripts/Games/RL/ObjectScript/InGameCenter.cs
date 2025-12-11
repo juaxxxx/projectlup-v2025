@@ -208,6 +208,12 @@ namespace LUP.RL
 
                     weapon.transform.localPosition = weaponHand.weaponPos;
                     weapon.transform.localRotation = Quaternion.Euler(weaponHand.rotate);
+
+                    if(weaponHand.weaponType == WeaponType.Throw)
+                    {
+                        character.GetComponent<FireSystem>().bulletData.bulletPrefab = characterData.GetWeaponProjecTile();
+                    }
+
                 }
             }
 

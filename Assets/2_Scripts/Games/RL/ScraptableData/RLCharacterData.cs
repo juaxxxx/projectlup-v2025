@@ -19,6 +19,7 @@ public class RLCharacterData : ScriptableObject, IDisplayable
     [SerializeField] private Sprite characterPreviewImage;
     [SerializeField] private GameObject characterPrefab;
     [SerializeField] private GameObject weaponPrefab;
+    [SerializeField] private GameObject weaponProjecTile = null;
     [SerializeField] public BaseStats stats;
 
     public GameObject CharacterPrefab => characterPrefab;
@@ -38,5 +39,7 @@ public class RLCharacterData : ScriptableObject, IDisplayable
     public int GetExtraInfo() { return canSeletable; }
 
     public void SetExtraInfo(int extraInfo) { canSeletable = extraInfo; }
+
+    public GameObject GetWeaponProjecTile() {  return weaponProjecTile; }
 
 }
