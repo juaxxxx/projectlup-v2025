@@ -87,7 +87,7 @@ namespace LUP
                 case Define.StageKind.RL:
                     folderPath = "Data/Games/RL";
                     break;
-                case Define.StageKind.Main:
+                case Define.StageKind.PCR:
                     folderPath = "Data/Games/PCR";
                     break;
                 case Define.StageKind.Tutorial:

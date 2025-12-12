@@ -1,13 +1,9 @@
-using JetBrains.Annotations;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.UIElements;
 
 namespace LUP.PCR
 {
     public class BuildingWheatFarm : ProductableBuilding
     {
-
         private void Awake()
         {
             buildingEvents = new BuildingEvents();
@@ -71,13 +67,14 @@ namespace LUP.PCR
             // 지금은 초기값으로 초기화하는 작업으로 테스트
             // 미리 저장된 값 대신 임의의 값으로 대체
             // 다음에는 저장된 데이터를 받아와서 갱신해준다.
-            level = 0;
+            level = 1;
             currStorage = 0;
             buildingName = "WheatFarm";
 
+            ProductionStage stage = LUP.StageManager.Instance.GetCurrentStage() as ProductionStage;
+            currentConstructionData = stage.FindCurrentConstructionData((int)BuildingType.WHEATFARM, level);
             if (level >= 0 && level < productableBuildingData.constructionData.Length)
             {
-                currConstructionData = productableBuildingData.constructionData[level];
                 maxStorage = productableBuildingData.productionData[level].storageCapacity;
             }
         }

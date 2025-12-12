@@ -48,8 +48,11 @@ namespace LUP.PCR
             hasWork = true;
 
             // 임시 건축 데이터 할당.
-            currConstructionData = new ConstructionData();
-            currConstructionData.time = 10;
+            int level = 1;
+
+            ProductionStage stage = LUP.StageManager.Instance.GetCurrentStage() as ProductionStage;
+            currentConstructionData = stage.FindCurrentConstructionData((int)BuildingType.WORKSTATION, level);
+
 
             // 지금은 테스트를 위해 그냥 건설 시작할 때만 구현
             ChangeState(constructState);

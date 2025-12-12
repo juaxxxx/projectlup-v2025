@@ -10,7 +10,8 @@ namespace LUP.PCR
         // SO 관리.. 인스턴스로 생성해서 사용해야 독립적으로 관리 가능한가?
         // 아니면 그냥 고정 값을 가져오는 용도로만 사용하자.
         // ex) 기본 건설, 생산 시간, 생산 가능 자원 등
-        public ConstructionData currConstructionData;
+        public PCRConstructionStaticData currentConstructionData;
+
         public BuildingEvents buildingEvents;
 
         public string buildingName;

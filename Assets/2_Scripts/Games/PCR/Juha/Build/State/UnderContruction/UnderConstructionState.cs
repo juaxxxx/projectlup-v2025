@@ -17,7 +17,7 @@ namespace LUP.PCR
             }
 
             // 시간 등 데이터 변수 초기화
-            constructionData.Reset(building.currConstructionData.time);
+            constructionData.Reset(building.currentConstructionData.constructionTime);
         }
         public void Exit(BuildingBase building)
         {

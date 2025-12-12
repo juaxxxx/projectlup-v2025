@@ -14,6 +14,10 @@ namespace LUP.PCR
         public List<BuildingDataInfo> buildingDatas;
         public TileInfo[,] tileInfoes;
 
+        public PCRConstructionStaticData constructionData;
+        public PCRProductionStaticData productionData;
+        //public PCRBuildingStaticData buildingData;
+
         private void Awake()
         {
             testDataset = new TestDataset();

@@ -7,7 +7,8 @@ namespace LUP
     public class ProductionStage : BaseStage
     {
         public BaseRuntimeData RuntimeData;
-        public List<PCRConstructionStaticData> DataList;
+        public List<PCRConstructionStaticData> constructionDataList;
+        public List<PCRProductionStaticData> productionDataList;
 
         // 변수명은 예시이니 바꾸셔도 됩니다.
         public Inventory PCRInven;
@@ -64,13 +65,21 @@ namespace LUP
             List<BaseStaticDataLoader> loaders = base.GetStaticData(this, 1);
             List<BaseRuntimeData> runtimeDatas = base.GetRuntimeData(this, 1);
 
+            Debug.Log("GetDatas");
+
             if (loaders != null && loaders.Count > 0)
             {
                 foreach (var loader in loaders)
                 {
-                    if (loader is PCRConstructionStaticDataLoader pcrLoader)
+                    if (loader is PCRConstructionStaticDataLoader pcrConstructionLoader)
                     {
-                        DataList = pcrLoader.GetDataList();
+                        Debug.Log("ConstructionLoad");
+                        constructionDataList = pcrConstructionLoader.GetDataList();
+                    }
+                    else if (loader is PCRProductionStaticDataLoader pcrProductionLoader)
+                    {
+                        Debug.Log("ProductionLoad");
+                        productionDataList = pcrProductionLoader.GetDataList();
                     }
                 }
             }
@@ -99,6 +108,54 @@ namespace LUP
             base.SaveRuntimeDataList(runtimeDataList);
         }
 
+        public PCRConstructionStaticData FindCurrentConstructionData(int buildingType, int level)
+        {
+            if (constructionDataList == null || constructionDataList.Count <= 0)
+            {
+                Debug.LogError("[ProductionStage] constructionDataList이 비어있습니다.");
+                return null;
+            }
+
+            foreach (PCRConstructionStaticData data in constructionDataList)
+            {
+                if (data.buildingType == buildingType)
+                {
+                    if (data.level == level)
+                    {
+                        return data;
+                    }
+                }
+            }
+
+            return null;
+        }
+
+        public PCRProductionStaticData FindCurrentProductionData(int buildingType, int level)
+        {
+            if (productionDataList == null || productionDataList.Count <= 0)
+            {
+                Debug.LogError("[ProductionStage] ProductionDataList이 비어있습니다.");
+                return null;
+            }
+
+            foreach (PCRProductionStaticData data in productionDataList)
+            {
+                if (data.buildingType == buildingType)
+                {
+                    if (data.level == level)
+                    {
+                        return data;
+                    }
+                }
+            }
+
+            return null;
+        }
+
+        // buildingData
+
+        // InitialBuilding
+        // InitialWalldata
     }
 }
 

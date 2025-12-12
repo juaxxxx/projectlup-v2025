@@ -12,86 +12,567 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8644d60f7551af54aa1e77c936f216fa, type: 3}
   m_Name: PCRProductionStaticData
   m_EditorClassIdentifier: 
+  sourceType: 0
   associatedWorksheet: Production_ProductionData
   START_ROW: 1
   DataList:
-  - BuildingType: 7
-    Level: 1
-    ProductionTime: 10
+  - buildingType: 7
+    level: 1
+    productionPerHour: 360
     StorageCapacity: 180
-  - BuildingType: 7
-    Level: 2
-    ProductionTime: 15
+  - buildingType: 7
+    level: 2
+    productionPerHour: 390
     StorageCapacity: 184
-  - BuildingType: 7
-    Level: 3
-    ProductionTime: 20
+  - buildingType: 7
+    level: 3
+    productionPerHour: 420
     StorageCapacity: 192
-  - BuildingType: 7
-    Level: 4
-    ProductionTime: 25
+  - buildingType: 7
+    level: 4
+    productionPerHour: 450
     StorageCapacity: 200
-  - BuildingType: 7
-    Level: 5
-    ProductionTime: 35
+  - buildingType: 7
+    level: 5
+    productionPerHour: 480
     StorageCapacity: 212
-  - BuildingType: 7
-    Level: 6
-    ProductionTime: 45
+  - buildingType: 7
+    level: 6
+    productionPerHour: 510
     StorageCapacity: 228
-  - BuildingType: 7
-    Level: 7
-    ProductionTime: 55
+  - buildingType: 7
+    level: 7
+    productionPerHour: 540
     StorageCapacity: 244
-  - BuildingType: 7
-    Level: 8
-    ProductionTime: 65
+  - buildingType: 7
+    level: 8
+    productionPerHour: 570
     StorageCapacity: 264
-  - BuildingType: 7
-    Level: 9
-    ProductionTime: 75
+  - buildingType: 7
+    level: 9
+    productionPerHour: 600
     StorageCapacity: 420
-  - BuildingType: 7
-    Level: 10
-    ProductionTime: 85
+  - buildingType: 7
+    level: 10
+    productionPerHour: 630
     StorageCapacity: 450
-  - BuildingType: 7
-    Level: 11
-    ProductionTime: 95
+  - buildingType: 7
+    level: 11
+    productionPerHour: 660
     StorageCapacity: 480
-  - BuildingType: 7
-    Level: 12
-    ProductionTime: 105
+  - buildingType: 7
+    level: 12
+    productionPerHour: 690
     StorageCapacity: 680
-  - BuildingType: 7
-    Level: 13
-    ProductionTime: 110
+  - buildingType: 7
+    level: 13
+    productionPerHour: 720
     StorageCapacity: 720
-  - BuildingType: 7
-    Level: 14
-    ProductionTime: 115
+  - buildingType: 7
+    level: 14
+    productionPerHour: 750
     StorageCapacity: 760
-  - BuildingType: 7
-    Level: 15
-    ProductionTime: 120
+  - buildingType: 7
+    level: 15
+    productionPerHour: 780
     StorageCapacity: 800
-  - BuildingType: 7
-    Level: 16
-    ProductionTime: 125
+  - buildingType: 7
+    level: 16
+    productionPerHour: 810
     StorageCapacity: 840
-  - BuildingType: 7
-    Level: 17
-    ProductionTime: 130
+  - buildingType: 7
+    level: 17
+    productionPerHour: 840
     StorageCapacity: 880
-  - BuildingType: 7
-    Level: 18
-    ProductionTime: 135
+  - buildingType: 7
+    level: 18
+    productionPerHour: 870
     StorageCapacity: 1150
-  - BuildingType: 7
-    Level: 19
-    ProductionTime: 140
+  - buildingType: 7
+    level: 19
+    productionPerHour: 900
     StorageCapacity: 1200
-  - BuildingType: 7
-    Level: 20
-    ProductionTime: 150
+  - buildingType: 7
+    level: 20
+    productionPerHour: 930
+    StorageCapacity: 1300
+  - buildingType: 8
+    level: 1
+    productionPerHour: 360
+    StorageCapacity: 180
+  - buildingType: 8
+    level: 2
+    productionPerHour: 390
+    StorageCapacity: 184
+  - buildingType: 8
+    level: 3
+    productionPerHour: 420
+    StorageCapacity: 192
+  - buildingType: 8
+    level: 4
+    productionPerHour: 450
+    StorageCapacity: 200
+  - buildingType: 8
+    level: 5
+    productionPerHour: 480
+    StorageCapacity: 212
+  - buildingType: 8
+    level: 6
+    productionPerHour: 510
+    StorageCapacity: 228
+  - buildingType: 8
+    level: 7
+    productionPerHour: 540
+    StorageCapacity: 244
+  - buildingType: 8
+    level: 8
+    productionPerHour: 570
+    StorageCapacity: 264
+  - buildingType: 8
+    level: 9
+    productionPerHour: 600
+    StorageCapacity: 420
+  - buildingType: 8
+    level: 10
+    productionPerHour: 630
+    StorageCapacity: 450
+  - buildingType: 8
+    level: 11
+    productionPerHour: 660
+    StorageCapacity: 480
+  - buildingType: 8
+    level: 12
+    productionPerHour: 690
+    StorageCapacity: 680
+  - buildingType: 8
+    level: 13
+    productionPerHour: 720
+    StorageCapacity: 720
+  - buildingType: 8
+    level: 14
+    productionPerHour: 750
+    StorageCapacity: 760
+  - buildingType: 8
+    level: 15
+    productionPerHour: 780
+    StorageCapacity: 800
+  - buildingType: 8
+    level: 16
+    productionPerHour: 810
+    StorageCapacity: 840
+  - buildingType: 8
+    level: 17
+    productionPerHour: 840
+    StorageCapacity: 880
+  - buildingType: 8
+    level: 18
+    productionPerHour: 870
+    StorageCapacity: 1150
+  - buildingType: 8
+    level: 19
+    productionPerHour: 900
+    StorageCapacity: 1200
+  - buildingType: 8
+    level: 20
+    productionPerHour: 930
+    StorageCapacity: 1300
+  - buildingType: 9
+    level: 1
+    productionPerHour: 360
+    StorageCapacity: 180
+  - buildingType: 9
+    level: 2
+    productionPerHour: 390
+    StorageCapacity: 184
+  - buildingType: 9
+    level: 3
+    productionPerHour: 420
+    StorageCapacity: 192
+  - buildingType: 9
+    level: 4
+    productionPerHour: 450
+    StorageCapacity: 200
+  - buildingType: 9
+    level: 5
+    productionPerHour: 480
+    StorageCapacity: 212
+  - buildingType: 9
+    level: 6
+    productionPerHour: 510
+    StorageCapacity: 228
+  - buildingType: 9
+    level: 7
+    productionPerHour: 540
+    StorageCapacity: 244
+  - buildingType: 9
+    level: 8
+    productionPerHour: 570
+    StorageCapacity: 264
+  - buildingType: 9
+    level: 9
+    productionPerHour: 600
+    StorageCapacity: 420
+  - buildingType: 9
+    level: 10
+    productionPerHour: 630
+    StorageCapacity: 450
+  - buildingType: 9
+    level: 11
+    productionPerHour: 660
+    StorageCapacity: 480
+  - buildingType: 9
+    level: 12
+    productionPerHour: 690
+    StorageCapacity: 680
+  - buildingType: 9
+    level: 13
+    productionPerHour: 720
+    StorageCapacity: 720
+  - buildingType: 9
+    level: 14
+    productionPerHour: 750
+    StorageCapacity: 760
+  - buildingType: 9
+    level: 15
+    productionPerHour: 780
+    StorageCapacity: 800
+  - buildingType: 9
+    level: 16
+    productionPerHour: 810
+    StorageCapacity: 840
+  - buildingType: 9
+    level: 17
+    productionPerHour: 840
+    StorageCapacity: 880
+  - buildingType: 9
+    level: 18
+    productionPerHour: 870
+    StorageCapacity: 1150
+  - buildingType: 9
+    level: 19
+    productionPerHour: 900
+    StorageCapacity: 1200
+  - buildingType: 9
+    level: 20
+    productionPerHour: 930
+    StorageCapacity: 1300
+  - buildingType: 10
+    level: 1
+    productionPerHour: 360
+    StorageCapacity: 180
+  - buildingType: 10
+    level: 2
+    productionPerHour: 390
+    StorageCapacity: 184
+  - buildingType: 10
+    level: 3
+    productionPerHour: 420
+    StorageCapacity: 192
+  - buildingType: 10
+    level: 4
+    productionPerHour: 450
+    StorageCapacity: 200
+  - buildingType: 10
+    level: 5
+    productionPerHour: 480
+    StorageCapacity: 212
+  - buildingType: 10
+    level: 6
+    productionPerHour: 510
+    StorageCapacity: 228
+  - buildingType: 10
+    level: 7
+    productionPerHour: 540
+    StorageCapacity: 244
+  - buildingType: 10
+    level: 8
+    productionPerHour: 570
+    StorageCapacity: 264
+  - buildingType: 10
+    level: 9
+    productionPerHour: 600
+    StorageCapacity: 420
+  - buildingType: 10
+    level: 10
+    productionPerHour: 630
+    StorageCapacity: 450
+  - buildingType: 10
+    level: 11
+    productionPerHour: 660
+    StorageCapacity: 480
+  - buildingType: 10
+    level: 12
+    productionPerHour: 690
+    StorageCapacity: 680
+  - buildingType: 10
+    level: 13
+    productionPerHour: 720
+    StorageCapacity: 720
+  - buildingType: 10
+    level: 14
+    productionPerHour: 750
+    StorageCapacity: 760
+  - buildingType: 10
+    level: 15
+    productionPerHour: 780
+    StorageCapacity: 800
+  - buildingType: 10
+    level: 16
+    productionPerHour: 810
+    StorageCapacity: 840
+  - buildingType: 10
+    level: 17
+    productionPerHour: 840
+    StorageCapacity: 880
+  - buildingType: 10
+    level: 18
+    productionPerHour: 870
+    StorageCapacity: 1150
+  - buildingType: 10
+    level: 19
+    productionPerHour: 900
+    StorageCapacity: 1200
+  - buildingType: 10
+    level: 20
+    productionPerHour: 930
+    StorageCapacity: 1300
+  - buildingType: 11
+    level: 1
+    productionPerHour: 360
+    StorageCapacity: 180
+  - buildingType: 11
+    level: 2
+    productionPerHour: 390
+    StorageCapacity: 184
+  - buildingType: 11
+    level: 3
+    productionPerHour: 420
+    StorageCapacity: 192
+  - buildingType: 11
+    level: 4
+    productionPerHour: 450
+    StorageCapacity: 200
+  - buildingType: 11
+    level: 5
+    productionPerHour: 480
+    StorageCapacity: 212
+  - buildingType: 11
+    level: 6
+    productionPerHour: 510
+    StorageCapacity: 228
+  - buildingType: 11
+    level: 7
+    productionPerHour: 540
+    StorageCapacity: 244
+  - buildingType: 11
+    level: 8
+    productionPerHour: 570
+    StorageCapacity: 264
+  - buildingType: 11
+    level: 9
+    productionPerHour: 600
+    StorageCapacity: 420
+  - buildingType: 11
+    level: 10
+    productionPerHour: 630
+    StorageCapacity: 450
+  - buildingType: 11
+    level: 11
+    productionPerHour: 660
+    StorageCapacity: 480
+  - buildingType: 11
+    level: 12
+    productionPerHour: 690
+    StorageCapacity: 680
+  - buildingType: 11
+    level: 13
+    productionPerHour: 720
+    StorageCapacity: 720
+  - buildingType: 11
+    level: 14
+    productionPerHour: 750
+    StorageCapacity: 760
+  - buildingType: 11
+    level: 15
+    productionPerHour: 780
+    StorageCapacity: 800
+  - buildingType: 11
+    level: 16
+    productionPerHour: 810
+    StorageCapacity: 840
+  - buildingType: 11
+    level: 17
+    productionPerHour: 840
+    StorageCapacity: 880
+  - buildingType: 11
+    level: 18
+    productionPerHour: 870
+    StorageCapacity: 1150
+  - buildingType: 11
+    level: 19
+    productionPerHour: 900
+    StorageCapacity: 1200
+  - buildingType: 11
+    level: 20
+    productionPerHour: 930
+    StorageCapacity: 1300
+  - buildingType: 12
+    level: 1
+    productionPerHour: 360
+    StorageCapacity: 180
+  - buildingType: 12
+    level: 2
+    productionPerHour: 390
+    StorageCapacity: 184
+  - buildingType: 12
+    level: 3
+    productionPerHour: 420
+    StorageCapacity: 192
+  - buildingType: 12
+    level: 4
+    productionPerHour: 450
+    StorageCapacity: 200
+  - buildingType: 12
+    level: 5
+    productionPerHour: 480
+    StorageCapacity: 212
+  - buildingType: 12
+    level: 6
+    productionPerHour: 510
+    StorageCapacity: 228
+  - buildingType: 12
+    level: 7
+    productionPerHour: 540
+    StorageCapacity: 244
+  - buildingType: 12
+    level: 8
+    productionPerHour: 570
+    StorageCapacity: 264
+  - buildingType: 12
+    level: 9
+    productionPerHour: 600
+    StorageCapacity: 420
+  - buildingType: 12
+    level: 10
+    productionPerHour: 630
+    StorageCapacity: 450
+  - buildingType: 12
+    level: 11
+    productionPerHour: 660
+    StorageCapacity: 480
+  - buildingType: 12
+    level: 12
+    productionPerHour: 690
+    StorageCapacity: 680
+  - buildingType: 12
+    level: 13
+    productionPerHour: 720
+    StorageCapacity: 720
+  - buildingType: 12
+    level: 14
+    productionPerHour: 750
+    StorageCapacity: 760
+  - buildingType: 12
+    level: 15
+    productionPerHour: 780
+    StorageCapacity: 800
+  - buildingType: 12
+    level: 16
+    productionPerHour: 810
+    StorageCapacity: 840
+  - buildingType: 12
+    level: 17
+    productionPerHour: 840
+    StorageCapacity: 880
+  - buildingType: 12
+    level: 18
+    productionPerHour: 870
+    StorageCapacity: 1150
+  - buildingType: 12
+    level: 19
+    productionPerHour: 900
+    StorageCapacity: 1200
+  - buildingType: 12
+    level: 20
+    productionPerHour: 930
+    StorageCapacity: 1300
+  - buildingType: 13
+    level: 1
+    productionPerHour: 10
+    StorageCapacity: 180
+  - buildingType: 13
+    level: 2
+    productionPerHour: 15
+    StorageCapacity: 184
+  - buildingType: 13
+    level: 3
+    productionPerHour: 20
+    StorageCapacity: 192
+  - buildingType: 13
+    level: 4
+    productionPerHour: 25
+    StorageCapacity: 200
+  - buildingType: 13
+    level: 5
+    productionPerHour: 35
+    StorageCapacity: 212
+  - buildingType: 13
+    level: 6
+    productionPerHour: 45
+    StorageCapacity: 228
+  - buildingType: 13
+    level: 7
+    productionPerHour: 55
+    StorageCapacity: 244
+  - buildingType: 13
+    level: 8
+    productionPerHour: 65
+    StorageCapacity: 264
+  - buildingType: 13
+    level: 9
+    productionPerHour: 75
+    StorageCapacity: 420
+  - buildingType: 13
+    level: 10
+    productionPerHour: 85
+    StorageCapacity: 450
+  - buildingType: 13
+    level: 11
+    productionPerHour: 95
+    StorageCapacity: 480
+  - buildingType: 13
+    level: 12
+    productionPerHour: 105
+    StorageCapacity: 680
+  - buildingType: 13
+    level: 13
+    productionPerHour: 110
+    StorageCapacity: 720
+  - buildingType: 13
+    level: 14
+    productionPerHour: 115
+    StorageCapacity: 760
+  - buildingType: 13
+    level: 15
+    productionPerHour: 120
+    StorageCapacity: 800
+  - buildingType: 13
+    level: 16
+    productionPerHour: 125
+    StorageCapacity: 840
+  - buildingType: 13
+    level: 17
+    productionPerHour: 130
+    StorageCapacity: 880
+  - buildingType: 13
+    level: 18
+    productionPerHour: 135
+    StorageCapacity: 1150
+  - buildingType: 13
+    level: 19
+    productionPerHour: 140
+    StorageCapacity: 1200
+  - buildingType: 13
+    level: 20
+    productionPerHour: 150
     StorageCapacity: 1300

@@ -9,6 +9,8 @@ namespace LUP.PCR
         // 읽기전용 데이터
         public ProductableBuildingData productableBuildingData;
 
+        
+
         protected IBuildState constructState;
         protected IBuildState productableState;
 

@@ -1,8 +1,8 @@
 [System.Serializable]
 public class PCRProductionStaticData
 {
-    [Column("BuildingType")] public int BuildingType;
-    [Column("Level")] public int Level;
-    [Column("ProductionTime")] public int ProductionTime;
+    [Column("BuildingType")] public int buildingType;
+    [Column("Level")] public int level;
+    [Column("ProductionPerHour")] public float productionPerHour;
     [Column("StorageCapacity")] public int StorageCapacity;
 }
