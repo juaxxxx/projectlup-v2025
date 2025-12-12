@@ -63,8 +63,8 @@ namespace LUP
 
                 foreach (var staticData in dataList)
                 {
-                    // LUPItemStaticData인지 확인
-                    if (staticData is LUPItemStaticData itemStaticData)
+                    // IItemStaticData 인터페이스를 구현했는지 확인 (모든 게임의 아이템 지원)
+                    if (staticData is IItemStaticData itemStaticData)
                     {
                         var itemData = itemStaticData.ToItemData();
 
@@ -84,7 +84,7 @@ namespace LUP
                     else
                     {
                         skippedCount++;
-                        Debug.LogWarning($"[ItemManager] LUPItemStaticData가 아닌 타입 발견: {staticData?.GetType().Name ?? "null"}");
+                        Debug.LogWarning($"[ItemManager] IItemStaticData 인터페이스를 구현하지 않은 타입 발견: {staticData?.GetType().Name ?? "null"}");
                     }
                 }
 
@@ -119,7 +119,7 @@ namespace LUP
 
                 foreach (var staticData in dataList)
                 {
-                    if (staticData is LUPItemStaticData itemStaticData)
+                    if (staticData is IItemStaticData itemStaticData)
                     {
                         var itemData = itemStaticData.ToItemData();
 

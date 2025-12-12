@@ -4,7 +4,7 @@ using System.Collections.Generic;
 namespace LUP
 {
     [Serializable]
-    public class LUPItemStaticData : ICustomFieldSupport
+    public class ESItemStaticData : IItemStaticData
     {
         // ===== 필수 필드 (모든 시트에 있어야 함) =====
         [Column("ItemID", Required = true)]
