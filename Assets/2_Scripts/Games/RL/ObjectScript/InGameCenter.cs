@@ -374,7 +374,7 @@ namespace LUP.RL
 
         void ShowGameResult()
         {
-            Time.timeScale = 0;
+            //Time.timeScale = 0;
 
             ResultGainItemScrollPanel resultIteScrollPanel = inGamePopupPanels.GetComponentInChildren<ResultGainItemScrollPanel>(true);
             resultIteScrollPanel.SetScrollPanelType(ScrollRect.MovementType.Elastic, LayoutDirection.Grid);
