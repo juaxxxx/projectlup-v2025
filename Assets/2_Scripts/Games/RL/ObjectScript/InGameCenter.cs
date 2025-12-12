@@ -70,8 +70,8 @@ namespace LUP.RL
       
         void Start()
         {
-            PlayerSpawner spawner = FindFirstObjectByType<PlayerSpawner>();
-            spawner.playerSpawn();
+            //PlayerSpawner spawner = FindFirstObjectByType<PlayerSpawner>();
+            //spawner.playerSpawn();
         }
 
         public void InitializeCenter()
