@@ -6,41 +6,58 @@ namespace LUP.PCR
 {
     public class WorkerDataCenter : MonoBehaviour
     {
+        
+        [Header("단일 건물")]
+        [SerializeField] private BuildingBase restaurant;
+        [SerializeField] private BuildingBase station;
+
+        [Header("시스템")]
         [SerializeField] PCRDataCenter pcrDataCenter;
         [SerializeField] AGridMap aGrid;
+        [HideInInspector] public TileInfo[,] tileInfoes;
+
+        [Header("작업자 데이터")]
         [SerializeField] private const int maxWorkerCount = 50;
         [SerializeField] private List<WorkerAI> workers = new List<WorkerAI>(maxWorkerCount);
-        [HideInInspector] public TileInfo[,] tileInfoes;
+
+        private bool isInitialized = false;
+        private void Awake()
+        {
+            Initialize();
+        }
+        private void Initialize()
+        {
+            if (isInitialized) return;
+
+            // 컴포넌트 찾기 로직
+            if (!pcrDataCenter) pcrDataCenter = GetComponentInChildren<PCRDataCenter>();
+            if (!restaurant) restaurant = GetComponentInChildren<BuildingRestaurant>();
+            if (!station) station = GetComponentInChildren<BuildingWorkStation>();
+
+            isInitialized = true;
+        }
 
         // 외부에서 워커를 등록하는 함수
         public void RegisterWorker(WorkerAI newWorker)
         {
-            if(!workers.Contains(newWorker))
+            if (!isInitialized)
+            {
+                Initialize();
+            }
+
+            if (!workers.Contains(newWorker))
             {
                 workers.Add(newWorker);
+
                 newWorker.InitBTReferences();
+                newWorker.SetGlobalBuildings(restaurant, station);
             }
         }
 
-        private void Awake()
-        {
-            pcrDataCenter = GetComponentInChildren<PCRDataCenter>();
-        }
 
         private void Start()
         {
             aGrid.InitMap(pcrDataCenter.tileInfoes);
-
-            int count = workers.Count;
-
-            for (int i = 0; i < count; i++)
-            {
-                if (workers[i] != null)
-                {
-                    workers[i].InitBTReferences();
-                }
-            }
-
         }
 
         private void Update()

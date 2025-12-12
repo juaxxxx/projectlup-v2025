@@ -22,7 +22,7 @@ namespace LUP.PCR
         [SerializeField] private Sprite iconHungry;
         [SerializeField] private Sprite iconIdle;
 
-        public event Action<BuildingBase> OnBuildingClick;
+        public event Action<ProductableBuilding> OnBuildingClick;
         public event Action<WorkerAI> OnWorkerClick;
 
         public void UpdateStatusText(string message)
@@ -33,13 +33,13 @@ namespace LUP.PCR
             }
         }
 
-        public void RenderBuildingList(List<BuildingBase> buildings)
+        public void RenderBuildingList(List<ProductableBuilding> buildings)
         {
             ClearContent(buildingListContent);
 
             for(int i = 0; i < buildings.Count; i++)
             {
-                BuildingBase building = buildings[i];
+                ProductableBuilding building = buildings[i];
                 BuildingUIItem item = Instantiate(buildingItemPrefab, buildingListContent);
 
                 item.Setup(building, () => OnBuildingClick?.Invoke(building));

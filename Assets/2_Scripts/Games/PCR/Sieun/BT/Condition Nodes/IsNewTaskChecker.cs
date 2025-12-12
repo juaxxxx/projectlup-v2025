@@ -7,7 +7,7 @@ namespace LUP.PCR
         public IsNewTaskChecker(WorkerBlackboard bb) : base(bb) { }
         protected override NodeState OnUpdate()
         {
-            ProductableBuilding building = GetData<ProductableBuilding>(BBKeys.AssignedWorkplace);
+            BuildingBase building = GetData<BuildingBase>(BBKeys.AssignedWorkplace);
 
             return building != null
                 ? ReturnAndLog(NodeState.SUCCESS, "2-1. 예약된 작업이 있습니다.")

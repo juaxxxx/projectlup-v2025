@@ -15,7 +15,7 @@ namespace LUP.PCR
             if(HasData(GetBuildingKey()))
             {
                 targetBuilding = GetData<BuildingBase>(GetBuildingKey());
-                
+
                 // OnStart에서는 강제로 경로를 한번 계산
                 if (targetBuilding != null)
                 {
@@ -43,6 +43,8 @@ namespace LUP.PCR
             }
             else
             {
+                Debug.Log($"{targetBuilding.buildingName}으로 이동 중---! ");
+
                 Mover.MoveAlongPath();
                 return NodeState.RUNNING;
             }

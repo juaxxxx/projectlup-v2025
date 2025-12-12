@@ -2033,7 +2033,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 334294950}
-  - component: {fileID: 334294951}
+  - component: {fileID: 334294952}
   m_Layer: 7
   m_Name: RestaurantBuilding
   m_TagString: Untagged
@@ -2059,7 +2059,7 @@ Transform:
   - {fileID: 1840646585}
   m_Father: {fileID: 199444451}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &334294951
+--- !u!114 &334294952
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -2068,20 +2068,20 @@ MonoBehaviour:
   m_GameObject: {fileID: 334294949}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dace2b9e216cf464ea8025f9b88ea3b8, type: 3}
+  m_Script: {fileID: 11500000, guid: 9859ea4faa4afa94082a251accf2438c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   currConstructionData:
     time: 0
     cost: []
-  buildingName: "\uC2DD\uB2F9"
+  buildingName: 
   level: 0
   entrancePos: {x: 8, y: 6}
-  resourceCenter: {fileID: 0}
-  ConstructScreen: {fileID: 0}
-  productableBuildingData: {fileID: 11400000, guid: 477503be9cc824447a12834273c4f617, type: 2}
-  currStorage: 20
-  maxStorage: 100
+  resourceCenter: {fileID: 7261110364362034691}
+  ConstructScreen: {fileID: 775949896629871894}
+  currFood: 0
+  maxStorage: 0
+  currStorage: 0
 --- !u!1 &338299848
 GameObject:
   m_ObjectHideFlags: 0
@@ -2114,11 +2114,11 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 2054147642}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 200}
+  m_AnchorMin: {x: 0.5, y: 1}
+  m_AnchorMax: {x: 0.5, y: 1}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 373.722, y: 98.164795}
-  m_Pivot: {x: 0.5, y: 0.5}
+  m_Pivot: {x: 0.5, y: 1}
 --- !u!222 &338299851
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -6960,12 +6960,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e3d2e194f70315943a9a0899592bd048, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  view: {fileID: 1273074794}
-  dataCenter: {fileID: 8252966066458280047}
-  allBuildings:
-  - {fileID: 73259817589786366}
-  - {fileID: 334294951}
-  - {fileID: 1728057372}
+  view: {fileID: 0}
+  dataCenter: {fileID: 0}
+  buildingGroup: {fileID: 199444450}
+  allBuildings: []
 --- !u!1 &1273074789
 GameObject:
   m_ObjectHideFlags: 0
@@ -9013,8 +9011,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hunger: 0
-  restaurantBuilding: {fileID: 334294951}
-  workerStationBuilding: {fileID: 1728057372}
 --- !u!114 &1538482498
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10302,7 +10298,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1728057371}
-  - component: {fileID: 1728057372}
+  - component: {fileID: 1728057373}
   m_Layer: 7
   m_Name: WorkerStationBuilding
   m_TagString: Untagged
@@ -10329,7 +10325,7 @@ Transform:
   - {fileID: 7471953444710888109}
   m_Father: {fileID: 199444451}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1728057372
+--- !u!114 &1728057373
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -10338,20 +10334,19 @@ MonoBehaviour:
   m_GameObject: {fileID: 1728057367}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dace2b9e216cf464ea8025f9b88ea3b8, type: 3}
+  m_Script: {fileID: 11500000, guid: 83f3f6976a1d69e46bd80bc0188e0d62, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   currConstructionData:
     time: 0
     cost: []
-  buildingName: "\uB77C\uC6B4\uC9C0"
+  buildingName: 
   level: 0
   entrancePos: {x: 9, y: 3}
-  resourceCenter: {fileID: 0}
-  ConstructScreen: {fileID: 0}
-  productableBuildingData: {fileID: 11400000, guid: 477503be9cc824447a12834273c4f617, type: 2}
-  currStorage: 20
-  maxStorage: 100
+  resourceCenter: {fileID: 7261110364362034691}
+  ConstructScreen: {fileID: 775949896629871894}
+  maxStorage: 0
+  currStorage: 0
 --- !u!1 &1730542466
 GameObject:
   m_ObjectHideFlags: 0
@@ -11837,8 +11832,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hunger: 0
-  restaurantBuilding: {fileID: 334294951}
-  workerStationBuilding: {fileID: 1728057372}
 --- !u!114 &1988456684
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -101949,8 +101942,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hunger: 0
-  restaurantBuilding: {fileID: 334294951}
-  workerStationBuilding: {fileID: 1728057372}
 --- !u!114 &7887829692337253121
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -105798,6 +105789,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6ed3cf45dbe19c641b8c4e10bb2aed5e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  restaurant: {fileID: 0}
+  station: {fileID: 0}
   pcrDataCenter: {fileID: 2420444792131912474}
   aGrid: {fileID: 1926665717}
   workers: []

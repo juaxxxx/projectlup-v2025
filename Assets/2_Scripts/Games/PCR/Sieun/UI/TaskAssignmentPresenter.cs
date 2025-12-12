@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 namespace LUP.PCR
@@ -12,10 +13,26 @@ namespace LUP.PCR
 
         [Header("Data Source")]
         // @TODO : BuildingSystem 에서 가져와야 함
-        [SerializeField] private List<BuildingBase> allBuildings;
+        
+        [SerializeField] private GameObject buildingGroup;
+        [SerializeField] private List<ProductableBuilding> allBuildings;
 
         private BuildingBase currentSelectedBuilding;
 
+        private void Awake()
+        {
+            view = GetComponentInChildren<TaskAssignmentView>();
+            dataCenter = this.transform.root.GetComponent<WorkerDataCenter>();
+
+            if (buildingGroup != null)
+            {
+                allBuildings = new List<ProductableBuilding>();
+
+                allBuildings.Clear();
+
+                buildingGroup.GetComponentsInChildren<ProductableBuilding>(true, allBuildings);
+            }
+        }
         private void Start()
         {
             view.OnBuildingClick += HandleBuildingSelected;
@@ -26,7 +43,7 @@ namespace LUP.PCR
             view.ClearWorkerList();
         }
 
-        private void HandleBuildingSelected(BuildingBase building)
+        private void HandleBuildingSelected(ProductableBuilding building)
         {
 
             currentSelectedBuilding = building;
