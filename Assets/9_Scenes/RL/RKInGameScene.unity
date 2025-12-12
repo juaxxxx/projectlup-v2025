@@ -6629,6 +6629,87 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
+--- !u!1001 &1175202894020929963
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 614753838906169305, guid: cdb5df7c1bd875a45a3007a738cfffe0, type: 3}
+      propertyPath: optionParent
+      value: 
+      objectReference: {fileID: 1495318605}
+    - target: {fileID: 614753838906169305, guid: cdb5df7c1bd875a45a3007a738cfffe0, type: 3}
+      propertyPath: buffSelectionUI
+      value: 
+      objectReference: {fileID: 2128353275}
+    - target: {fileID: 614753838906169305, guid: cdb5df7c1bd875a45a3007a738cfffe0, type: 3}
+      propertyPath: optionButtonPrefab
+      value: 
+      objectReference: {fileID: 1206683448}
+    - target: {fileID: 3156615683441192991, guid: cdb5df7c1bd875a45a3007a738cfffe0, type: 3}
+      propertyPath: joystick
+      value: 
+      objectReference: {fileID: 1119547936}
+    - target: {fileID: 4222652525464850397, guid: cdb5df7c1bd875a45a3007a738cfffe0, type: 3}
+      propertyPath: fireSystem
+      value: 
+      objectReference: {fileID: 7698136277304301033}
+    - target: {fileID: 4433485072373464197, guid: cdb5df7c1bd875a45a3007a738cfffe0, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -1.2128254
+      objectReference: {fileID: 0}
+    - target: {fileID: 4433485072373464197, guid: cdb5df7c1bd875a45a3007a738cfffe0, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 1.75
+      objectReference: {fileID: 0}
+    - target: {fileID: 4433485072373464197, guid: cdb5df7c1bd875a45a3007a738cfffe0, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -7.22009
+      objectReference: {fileID: 0}
+    - target: {fileID: 4433485072373464197, guid: cdb5df7c1bd875a45a3007a738cfffe0, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.7431448
+      objectReference: {fileID: 0}
+    - target: {fileID: 4433485072373464197, guid: cdb5df7c1bd875a45a3007a738cfffe0, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4433485072373464197, guid: cdb5df7c1bd875a45a3007a738cfffe0, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0.6691307
+      objectReference: {fileID: 0}
+    - target: {fileID: 4433485072373464197, guid: cdb5df7c1bd875a45a3007a738cfffe0, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4433485072373464197, guid: cdb5df7c1bd875a45a3007a738cfffe0, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4433485072373464197, guid: cdb5df7c1bd875a45a3007a738cfffe0, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 84
+      objectReference: {fileID: 0}
+    - target: {fileID: 4433485072373464197, guid: cdb5df7c1bd875a45a3007a738cfffe0, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7762829838312188981, guid: cdb5df7c1bd875a45a3007a738cfffe0, type: 3}
+      propertyPath: m_Name
+      value: Character_OnhandSwrod
+      objectReference: {fileID: 0}
+    - target: {fileID: 7762829838312188981, guid: cdb5df7c1bd875a45a3007a738cfffe0, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: cdb5df7c1bd875a45a3007a738cfffe0, type: 3}
 --- !u!1001 &1889008041870668900
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -7387,7 +7468,7 @@ PrefabInstance:
       objectReference: {fileID: 165684266}
     - target: {fileID: 7541701515102328502, guid: 5311c77fba3e40240b9ae0cf847a2125, type: 3}
       propertyPath: m_Name
-      value: Character_Short
+      value: Character_TowHandSword
       objectReference: {fileID: 0}
     - target: {fileID: 7541701515102328502, guid: 5311c77fba3e40240b9ae0cf847a2125, type: 3}
       propertyPath: m_IsActive
@@ -7415,6 +7496,7 @@ SceneRoots:
   - {fileID: 884638501}
   - {fileID: 7367041932190035498}
   - {fileID: 7698136277304301030}
+  - {fileID: 1175202894020929963}
   - {fileID: 7950659723295535283}
   - {fileID: 6034125147303571388}
   - {fileID: 2005227802}

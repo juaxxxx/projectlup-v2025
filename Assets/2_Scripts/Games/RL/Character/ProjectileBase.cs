@@ -10,6 +10,7 @@ public class ProjectileBase : MonoBehaviour
     private Transform target;
 
     public float ProjectileRotateSpeed = 100.0f;
+    public float LifeTime = 10.0f;
 
     public void Init(BulletData data, GameObject Owner, int Damage, Transform Target)
     {
@@ -38,6 +39,8 @@ public class ProjectileBase : MonoBehaviour
 
     private void Update()
     {
+        LifeTime -= Time.deltaTime;
+
         if (target == null)
         {
             transform.position += transform.forward * bulletData.Speed * Time.deltaTime;
@@ -46,11 +49,12 @@ public class ProjectileBase : MonoBehaviour
       
         UnityEngine.Vector3 dir = (target.position - transform.position).normalized;
         transform.position += dir * bulletData.Speed * Time.deltaTime;
-
-        //UnityEngine.Vector3 weaponAngle = transform.localEulerAngles;
-        //weaponAngle.x += ProjectileRotateSpeed * Time.deltaTime;
-        //transform.localEulerAngles = weaponAngle;
-
         transform.localRotation *= UnityEngine.Quaternion.Euler(ProjectileRotateSpeed * Time.deltaTime, 0f, 0f);
+
+        if(LifeTime < 0)
+        {
+            Destroy(gameObject);
+        }
+
     }
 }

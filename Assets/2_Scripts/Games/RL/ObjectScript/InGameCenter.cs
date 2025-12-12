@@ -211,6 +211,7 @@ namespace LUP.RL
 
                     if(weaponHand.weaponType == WeaponType.Throw)
                     {
+                        SetCustumProjectile(character);
                         character.GetComponent<FireSystem>().bulletData.bulletPrefab = characterData.GetWeaponProjecTile();
                     }
 
@@ -218,6 +219,7 @@ namespace LUP.RL
 
                 else if(weaponHand.weaponType == WeaponType.Magic)
                 {
+                    SetCustumProjectile(character);
                     character.GetComponent<FireSystem>().bulletData.bulletPrefab = characterData.GetWeaponProjecTile();
                 }
             }
@@ -373,6 +375,15 @@ namespace LUP.RL
             }
 
             return gainedItem;
+        }
+
+        void SetCustumProjectile(GameObject character)
+        {
+            BulletData custumBulletData = ScriptableObject.CreateInstance<BulletData>();
+            custumBulletData.bulletPrefab = characterData.GetWeaponProjecTile();
+            custumBulletData.Speed = characterData.projecTileSpeed;
+
+            character.GetComponent<FireSystem>().bulletData = custumBulletData;
         }
     }
 }

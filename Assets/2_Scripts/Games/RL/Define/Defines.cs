@@ -13,6 +13,7 @@ namespace Roguelike.Define
     {
         None,
         Gun,
+        OneHandSword,
         TwoHandSword,
         Throw,
         Magic

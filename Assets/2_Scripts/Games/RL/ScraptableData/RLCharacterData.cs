@@ -20,7 +20,9 @@ public class RLCharacterData : ScriptableObject, IDisplayable
     [SerializeField] private GameObject characterPrefab;
     [SerializeField] private GameObject weaponPrefab;
     [SerializeField] private GameObject weaponProjecTile = null;
+    [SerializeField] public int projecTileSpeed = 0;
     [SerializeField] public BaseStats stats;
+
 
     public GameObject CharacterPrefab => characterPrefab;
     public GameObject WeaponPrefab => weaponPrefab;
