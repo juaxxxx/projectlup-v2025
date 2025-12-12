@@ -18,7 +18,7 @@ public class PlatformAdapter
     public ChapterData[] chapterDatas { get; private set; }
     public RLCharacterData[] characterDatas { get; private set; }
 
-    public ItemData[] spawnableItemDatas { get; private set; }
+    //public ItemData[] spawnableItemDatas { get; private set; }
 
     public ItemData[] inventoryItmeDatas { get; private set; }
 
@@ -124,17 +124,17 @@ public class PlatformAdapter
 
     }
 
-    public bool LoadSpawnableItemData()
-    {
-        spawnableItemDatas = testPlatform.spawnableItemDatas;
+    //public bool LoadSpawnableItemData()
+    //{
+    //    spawnableItemDatas = testPlatform.spawnableItemDatas;
 
-        if(spawnableItemDatas.Length == 0)
-        {
-            return false;
-        }
+    //    if(spawnableItemDatas.Length == 0)
+    //    {
+    //        return false;
+    //    }
 
-        return true;
-    }
+    //    return true;
+    //}
 
     public void ApplyGameResult(Dictionary<ItemData, int> gainItem, ChapterData resultCapter, RLCharacterData resultCharacter, bool stageCleared = true)
     {

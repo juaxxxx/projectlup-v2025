@@ -73,6 +73,13 @@ namespace LUP.RL
             spawnedEnemies.Remove(enemy);
             Debug.Log($"{enemy.name} enemy, {spawnedEnemies.Count}");
 
+            InGameCenter.itemSpawner.SpawnItem(enemy.transform);
+
+            if(spawnedEnemies.Count == 0)
+            {
+                InGameCenter.RoomClear();
+            }
+
         }
 
     }

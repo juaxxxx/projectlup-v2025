@@ -86,5 +86,25 @@ namespace Roguelike.Define
 
 
     }
+
+    public enum ItemType
+    {
+        Commodities = 1,
+        equipment = 2,
+
+        Max
+
+    }
+    public enum RLSpanableItem
+    {
+        Wood = 10001,
+        Meat = 10002,
+        Coin = 10003,
+
+        Gun_N = 20001,
+        Javelin_N = 20002,
+
+        Max
+    }
 }
 

@@ -393,6 +393,53 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 86061445}
   m_CullTransparentMesh: 1
+--- !u!1 &158861900
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 158861901}
+  - component: {fileID: 158861902}
+  m_Layer: 0
+  m_Name: ItemSpawner
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &158861901
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 158861900}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 884638501}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &158861902
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 158861900}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 25c271a07f5c83d4486e5d1812b93ec7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  commoditiesPrefab: {fileID: 4847828870351137405, guid: 672ce3f3e78f87547a29acc9aab87149, type: 3}
+  equipmentPrefab: {fileID: 7453162596359211281, guid: fe8a7fa127c797849aa208e694444443, type: 3}
+  SpawnCrystalPoolNum: 10
 --- !u!1 &213585842
 GameObject:
   m_ObjectHideFlags: 0
@@ -3051,6 +3098,7 @@ Transform:
   - {fileID: 1119547935}
   - {fileID: 1580161889}
   - {fileID: 2078515834}
+  - {fileID: 158861901}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &964748061
@@ -6377,7 +6425,6 @@ MonoBehaviour:
   DebugBtn: {fileID: 359245200}
   DebugPanel: {fileID: 814423453}
   Confirm: {fileID: 1261940684}
-  stage: {fileID: 884638500}
 --- !u!4 &2078515834
 Transform:
   m_ObjectHideFlags: 0

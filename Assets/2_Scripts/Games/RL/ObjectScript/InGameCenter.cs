@@ -30,7 +30,7 @@ namespace LUP.RL
         [SerializeField]
         private RLCharacterData characterData;
 
-        private ItemData[] spawnableItemDatas;
+        //private ItemData[] spawnableItemDatas;
         private Dictionary<ItemData, int> gainItem = new Dictionary<ItemData, int>();
 
         private StageController stageController;
@@ -68,6 +68,8 @@ namespace LUP.RL
 
         private RoguelikeStage stage;
 
+        [HideInInspector]
+        public ItemSpawner itemSpawner;
 
         private void Awake()
         {
@@ -80,6 +82,13 @@ namespace LUP.RL
 
             if (stage == null)
                 Debug.Log("Fail To Find Stage Object");
+
+            itemSpawner = FindFirstObjectByType<ItemSpawner>();
+            if(itemSpawner)
+            {
+                itemSpawner.OnItemGained += OnGainSpawnableItem;
+            }
+
         }
 
         public void InitializeCenter()
@@ -89,7 +98,7 @@ namespace LUP.RL
             if (platformAdapter != null)
             {
                 platformAdapter.LinkToPlatform();
-                platformAdapter.LoadSpawnableItemData();
+                //platformAdapter.LoadSpawnableItemData();
 
                 LoadInGameData();
 
@@ -122,11 +131,11 @@ namespace LUP.RL
             //Temp
             debugMode = false;
 
-            AddItem1Btn.onClick.AddListener(AddItem1);
-            AddItem2Btn.onClick.AddListener(AddItem2);
-            AddItem3Btn.onClick.AddListener(AddItem3);
+            //AddItem1Btn.onClick.AddListener(AddItem1);
+            //AddItem2Btn.onClick.AddListener(AddItem2);
+            //AddItem3Btn.onClick.AddListener(AddItem3);
 
-            AddTestItemBtn.onClick.AddListener(AddTestItem);
+            //AddTestItemBtn.onClick.AddListener(AddTestItem);
 
             ClearGameBtn.onClick.AddListener(GameClear);
             DebugBtn.onClick.AddListener(ChangeDebugMode);
@@ -153,7 +162,7 @@ namespace LUP.RL
         void LoadInGameData()
         {
             LoadSelectionData();
-            LoadSpawnableItemData();
+            //LoadSpawnableItemData();
         }
         public void RegisterPlayer(GameObject newplayer)
         {
@@ -186,18 +195,18 @@ namespace LUP.RL
             }
         }
 
-        void LoadSpawnableItemData()
-        {
-            if (platformAdapter.LoadSpawnableItemData())
-            {
-                spawnableItemDatas = platformAdapter.spawnableItemDatas;
-            }
+        //void LoadSpawnableItemData()
+        //{
+        //    if (platformAdapter.LoadSpawnableItemData())
+        //    {
+        //        spawnableItemDatas = platformAdapter.spawnableItemDatas;
+        //    }
 
-            else
-            {
-                UnityEngine.Debug.LogWarning("SpawnableItemData is Empty!", this.gameObject);
-            }
-        }
+        //    else
+        //    {
+        //        UnityEngine.Debug.LogWarning("SpawnableItemData is Empty!", this.gameObject);
+        //    }
+        //}
 
         void InitInGameUIElement()
         {
@@ -266,6 +275,8 @@ namespace LUP.RL
 
             OnPlayerCharacterSpawned?.Invoke(character);
 
+            itemSpawner.SetPlayerPos(character.transform);
+
             FollowCamera followCamera = FindFirstObjectByType<FollowCamera>();
             if(followCamera)
             {
@@ -303,7 +314,7 @@ namespace LUP.RL
 
         public void OnEnemyDie(Transform diePosition)
         {
-            AddItem(spawnableItemDatas[0]);
+            //AddItem(spawnableItemDatas[0]);
         }
 
         public void AddItem(ItemData pickedItem)
@@ -319,27 +330,32 @@ namespace LUP.RL
             }
         }
 
-        void AddItem1()
-        {
-            AddItem(spawnableItemDatas[0]);
-        }
+        //void AddItem1()
+        //{
+        //    AddItem(spawnableItemDatas[0]);
+        //}
 
-        void AddItem2()
-        {
-            AddItem(spawnableItemDatas[1]);
-        }
+        //void AddItem2()
+        //{
+        //    AddItem(spawnableItemDatas[1]);
+        //}
 
-        void AddItem3()
-        {
-            AddItem(spawnableItemDatas[2]);
-        }
+        //void AddItem3()
+        //{
+        //    AddItem(spawnableItemDatas[2]);
+        //}
 
-        void AddTestItem()
-        {
-            ItemData TestItem = ScriptableObject.CreateInstance<ItemData>();
-            TestItem.SetDisplayableImage(spawnableItemDatas[2].GetDisplayableImage());
+        //void AddTestItem()
+        //{
+        //    ItemData TestItem = ScriptableObject.CreateInstance<ItemData>();
+        //    TestItem.SetDisplayableImage(spawnableItemDatas[2].GetDisplayableImage());
 
-            AddItem(TestItem);
+        //    AddItem(TestItem);
+        //}
+
+        public void RoomClear()
+        {
+            itemSpawner.OnRoomCleared();
         }
 
         void GameClear()
@@ -383,6 +399,12 @@ namespace LUP.RL
             AddTestItemBtn.gameObject.SetActive(enable);
 
             ClearGameBtn.gameObject.SetActive(enable);
+        }
+
+        void OnGainSpawnableItem(int itemID)
+        {
+            IItemable item = ItemManager.Instance.GetItem(itemID);
+            stage.inventory.AddItem(item, 1);
         }
 
         void ShowGameResult()
