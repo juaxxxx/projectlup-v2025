@@ -17,6 +17,9 @@ namespace LUP.ST
         public float noEnemyReturnDelay = 5f;      
         private float lastEnemySeenTime = 0f;
 
+        [SerializeField] private Transform cameraFocusPoint;
+        public Transform CameraFocusPoint => cameraFocusPoint;
+
         private StatComponent stats;
 
         void Awake()

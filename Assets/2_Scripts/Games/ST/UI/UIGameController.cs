@@ -18,6 +18,10 @@ namespace LUP.ST
         [SerializeField] private Color selectedColor = Color.yellow;
         [SerializeField] private Color disabledColor = Color.gray;
 
+        [Header("카메라")]
+        [SerializeField] private CameraController cameraController;
+        [SerializeField] private List<Transform> cameraSlotPoints = new List<Transform>();
+
         private bool isSkillAuto = true;
         private int currentSelectedIndex = -1;
 
@@ -30,7 +34,8 @@ namespace LUP.ST
             InitializeCharacters();   // 씬에서 캐릭터 찾고, 왼쪽→오른쪽으로 정렬
             SetupButtons();           // 버튼에 캐릭터 매핑 및 활성/비활성 설정
             InitSkillAutoModeUI();    // AUTO 버튼 텍스트 초기화
-            SelectInitialManualRanged(); // 가장 왼쪽 원거리 캐릭터를 수동 모드로 선택
+            //SelectInitialManualRanged(); // 가장 왼쪽 원거리 캐릭터를 수동 모드로 선택
+            DeselectAllCharacters();
         }
 
 
@@ -87,21 +92,15 @@ namespace LUP.ST
 
                 if (i < allCharacters.Count)
                 {
-                    GameObject characterGO = allCharacters[i];
-                    bool isRanged = characterGO.GetComponent<RangeBlackBoard>() != null;
-
-                    // 원거리만 클릭 가능
-                    btn.interactable = isRanged;
+                    // 해당 슬롯에 캐릭터가 있으면 원거리/근거리 관계없이 선택 가능
+                    btn.interactable = true;
 
                     int index = i;
-                    if (isRanged)
-                    {
-                        btn.onClick.AddListener(() => OnCharacterSelected(index));
-                    }
+                    btn.onClick.AddListener(() => OnCharacterSelected(index));
                 }
                 else
                 {
-                    // 캐릭터가 없는 슬롯은 비활성
+                    // 캐릭터 없는 버튼은 비활성
                     btn.interactable = false;
                 }
             }
@@ -164,13 +163,14 @@ namespace LUP.ST
             if (index < 0 || index >= allCharacters.Count)
                 return;
 
-            GameObject go = allCharacters[index];
-            if (go.GetComponent<RangeBlackBoard>() == null)
+            // 같은 버튼 다시 누르면 → 선택 해제 + 오버뷰
+            if (index == currentSelectedIndex)
             {
-                // 방어 코드 (버튼은 이미 막혀 있지만 혹시 모르니 한 번 더 체크)
+                DeselectAllCharacters();
                 return;
             }
 
+            // 새 캐릭터 선택
             SelectCharacter(index);
         }
 
@@ -183,15 +183,47 @@ namespace LUP.ST
                 r.playerInputExists = false;
             }
 
-            // 2) 선택된 캐릭터만 수동 모드로 전환 (원거리인 경우에만)
             GameObject selected = allCharacters[index];
-            RangeBlackBoard ranged = selected.GetComponent<RangeBlackBoard>();
 
+            RangeBlackBoard ranged = selected.GetComponent<RangeBlackBoard>();
+            MeleeBlackBoard melee = selected.GetComponent<MeleeBlackBoard>();
+
+            // 2) 선택된 캐릭터가 원거리라면 → 수동 모드 ON
             if (ranged != null)
             {
                 ranged.manualMode = true;
                 Debug.Log($"{ranged.characterName} 선택 (원거리 수동 모드)");
             }
+
+            // 3) 카메라 포인트 결정
+            Transform camPoint = null;
+
+            if (ranged != null)
+            {
+                // 원거리: 슬롯 카메라 사용 (SlotCam)
+                if (cameraSlotPoints != null && index < cameraSlotPoints.Count)
+                {
+                    camPoint = cameraSlotPoints[index];
+                }
+            }
+            else if (melee != null)
+            {
+                // 근거리: 캐릭터에 달린 MeleeCamPoint 사용
+                if (melee.CameraFocusPoint != null)
+                    camPoint = melee.CameraFocusPoint;
+                else
+                    camPoint = melee.transform; // 예외: 포인트 안 넣었을 때
+            }
+
+            // 4) 카메라 이동
+            if (camPoint != null)
+            {
+                cameraController?.FocusOnPoint(camPoint);
+            }
+
+            // 5) 줌 가능 여부 갱신 (원거리만 줌 허용)
+            bool canZoom = ranged != null;   // 원거리면 true, 근거리면 false
+            cameraController?.SetZoomEnabled(canZoom);
 
             currentSelectedIndex = index;
             UpdateCharacterPanelColors();
@@ -253,5 +285,24 @@ namespace LUP.ST
                 }
             }
         }
+
+        private void DeselectAllCharacters()
+        {
+            foreach (var r in rangedCharacters)
+            {
+                r.manualMode = false;
+                r.playerInputExists = false;
+            }
+
+            currentSelectedIndex = -1;
+            UpdateCharacterPanelColors();
+
+            // 카메라 전체 보기로 복귀
+            cameraController?.SetOverviewMode();
+            cameraController?.SetZoomEnabled(false);
+
+            Debug.Log("수동 조작 캐릭터 없음 → 전체 풀 오토 + 카메라 오버뷰");
+        }
+
     }
 }

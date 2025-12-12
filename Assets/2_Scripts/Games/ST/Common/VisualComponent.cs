@@ -39,22 +39,6 @@ namespace LUP.ST
             InitializeVisuals();
         }
 
-        // OnValidate 수정 - 모델 재생성 대신 업데이트만
-        void OnValidate()
-        {
-            if (!Application.isPlaying && modelPrefab != null)
-            {
-                // 지연 실행으로 DestroyImmediate 오류 방지
-                UnityEditor.EditorApplication.delayCall += () =>
-                {
-                    if (this != null)
-                    {
-                        InitializeVisuals();
-                    }
-                };
-            }
-        }
-
         private void InitializeVisuals()
         {
             modelInstance = transform.Find("Model")?.gameObject;

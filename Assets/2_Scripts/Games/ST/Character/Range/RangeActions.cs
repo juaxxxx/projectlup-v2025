@@ -232,7 +232,7 @@ namespace LUP.ST
             Debug.Log($"{character.characterName}: 자동 발사! 남은 탄약: {character.currentAmmo}");
 
             SetColor(Color.cyan);
-            return NodeState.RUNNING;
+            return NodeState.SUCCESS;
         }
 
         public NodeState Cover(RangeBlackBoard character)
