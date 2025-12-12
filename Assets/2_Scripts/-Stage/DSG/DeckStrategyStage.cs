@@ -231,7 +231,6 @@ namespace LUP.DSG
 
             if (battleSystem != null)
             {
-                battleSystem.EndBattle("Defeat");
                 LoadStage(StageKind, 2);
             }
         }

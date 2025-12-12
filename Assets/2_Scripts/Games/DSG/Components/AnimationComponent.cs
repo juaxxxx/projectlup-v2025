@@ -71,7 +71,7 @@ namespace LUP.DSG
             currentState = EAnimStateType.Hitted;
             SetAnimationState(currentState);
 
-            owner.ActioneffectPool.PlayVFX(ActionEffect.GetHitBasic,transform.position, Quaternion.identity,1.0f);
+            owner.ActioneffectPool.PlayVFX(ActionEffect.GetHitBasic,transform.position, Quaternion.identity,1.0f); //@TODO 캐릭터마다 애니메이션을 갖고있을지 생각해봐야됨
         }
 
         public void PlayDiedAnimation(int index)

@@ -220,8 +220,18 @@ namespace LUP.DSG
 
             float damage = DamageCalculator.Calculator(ctx);
 
-            targetChar.BattleComp.TakeDamage(damage);
+            targetChar.BattleComp.TakeDamage(1000);
             owner.ScoreComp.UpdateDamageDealt(damage);
+
+            Camera mainCam = Camera.main;
+            if (mainCam != null)
+            {
+                var shaker = mainCam.GetComponent<BattleCameraDirector>();
+                if (shaker == null)
+                    shaker = mainCam.gameObject.AddComponent<BattleCameraDirector>();
+
+                shaker.StartCoroutine(shaker.Shake(0.2f, 0.2f));
+            }
 
             PlusGuage(50);
         }
@@ -254,6 +264,16 @@ namespace LUP.DSG
                 }
             }
 
+            Camera mainCam = Camera.main;
+            if (mainCam != null)
+            {
+                var shaker = mainCam.GetComponent<BattleCameraDirector>();
+                if (shaker == null)
+                    shaker = mainCam.gameObject.AddComponent<BattleCameraDirector>();
+
+                shaker.StartCoroutine(shaker.Shake(0.2f, 0.2f));
+            }
+
             InitGuage();
         }
 
@@ -274,16 +294,6 @@ namespace LUP.DSG
                 Quaternion rot = Quaternion.LookRotation(Camera.main.transform.forward);
                 GameObject log = Instantiate(damageLogPrefab, headPos, rot);
                 log.GetComponent<DamageLog>()?.Setup(amount);
-            }
-
-            Camera mainCam = Camera.main;
-            if (mainCam != null)
-            {
-                var shaker = mainCam.GetComponent<CameraShake>();
-                if (shaker == null)
-                    shaker = mainCam.gameObject.AddComponent<CameraShake>();
-
-                shaker.StartCoroutine(shaker.Shake(0.2f, 0.2f));
             }
 
             FindFirstObjectByType<HitVignetteEffect>()?.PlayDamageEffect();
