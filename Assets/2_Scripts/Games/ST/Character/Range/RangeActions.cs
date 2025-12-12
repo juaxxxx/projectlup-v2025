@@ -229,7 +229,7 @@ namespace LUP.ST
             }
 
             ShootBullet(direction);
-            Debug.Log($"{character.characterName}: 자동 발사! 남은 탄약: {character.currentAmmo}");
+//            Debug.Log($"{character.characterName}: 자동 발사! 남은 탄약: {character.currentAmmo}");
 
             SetColor(Color.cyan);
             return NodeState.SUCCESS;
@@ -280,7 +280,7 @@ namespace LUP.ST
             isReloading = true;
             reloadStartTime = Time.time;
             SetColor(Color.yellow);
-            Debug.Log($"{character.characterName}: 재장전 시작! (1초 소요)");
+            //Debug.Log($"{character.characterName}: 재장전 시작! (1초 소요)");
         }
 
         private void CompleteReload()
@@ -289,7 +289,7 @@ namespace LUP.ST
             character.currentAmmo = character.maxAmmo;
             isReloading = false;
             SetColor(Color.white);
-            Debug.Log($"{character.characterName}: 재장전 완료! {oldAmmo} -> {character.currentAmmo}");
+            //Debug.Log($"{character.characterName}: 재장전 완료! {oldAmmo} -> {character.currentAmmo}");
         }
         private Transform FindNearestEnemy()
         {
@@ -329,7 +329,7 @@ namespace LUP.ST
             if (isReloading)
             {
                 isReloading = false;
-                Debug.Log($"{character.characterName}: 수동 모드 진입 - 재장전 상태 해제");
+               // Debug.Log($"{character.characterName}: 수동 모드 진입 - 재장전 상태 해제");
             }
 
             // 2. 쿨타임 초기화: 수동 모드로 바뀐 순간 바로 쏠 수 있게
@@ -348,7 +348,7 @@ namespace LUP.ST
             }
             
 
-            Debug.Log($"{character.characterName}: 수동 모드 진입 - 쿨타임/재장전 상태 리셋");
+           // Debug.Log($"{character.characterName}: 수동 모드 진입 - 쿨타임/재장전 상태 리셋");
         }
     }
 }

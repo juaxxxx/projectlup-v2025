@@ -19,6 +19,7 @@ namespace LUP.ST
 
         public static NodeState Attack(MonsterData data)
         {
+            Debug.Log($"{data.name}: Attack 진입!");
             if (data.target == null) return NodeState.FAILURE;
 
             RangeBlackBoard targetInfo = data.target.GetComponent<RangeBlackBoard>();
@@ -34,6 +35,7 @@ namespace LUP.ST
             // 원거리 공격
             if (data.bulletPrefab != null && data.firePoint != null)
             {
+                Debug.Log($"{data.name}: 공격 시작!");
                 if (!data.Stats.IsAttacking && data.Stats.CanStartAttack())
                 {
                     data.Stats.StartAttack();
@@ -65,6 +67,7 @@ namespace LUP.ST
             // 근접 공격
             else
             {
+                Debug.Log($"{data.name}: 공격 시작!");
                 if (!data.Stats.IsAttacking && data.Stats.CanStartAttack())
                 {
                     data.Stats.StartAttack();
@@ -98,6 +101,14 @@ namespace LUP.ST
         {
 
             if (data.target == null) return NodeState.FAILURE;
+
+            // 공격 범위 도달하면 SUCCESS (플레이어처럼)
+            float distance = Vector3.Distance(data.transform.position, data.target.position);
+            if (distance <= data.Stats.AttackRange)
+            {
+                data.Visual?.SetMoving(false);
+                return NodeState.SUCCESS;
+            }
 
             data.ResetColor();
             data.Visual?.SetMoving(true);

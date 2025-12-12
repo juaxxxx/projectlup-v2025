@@ -62,13 +62,16 @@ namespace LUP.ST
             if (animator == null)
             {
                 animator = modelInstance.GetComponentInChildren<Animator>();
-                Debug.Log($"Animator 찾기: {(animator != null ? "성공" : "실패")}");
             }
 
             if (animator != null && animatorController != null)
             {
-                animator.runtimeAnimatorController = animatorController;
-                Debug.Log($"AnimatorController 설정: {animatorController.name}");
+                animator.applyRootMotion = false;
+
+                if (animatorController != null)
+                {
+                    animator.runtimeAnimatorController = animatorController;
+                }
             }
 
         }
