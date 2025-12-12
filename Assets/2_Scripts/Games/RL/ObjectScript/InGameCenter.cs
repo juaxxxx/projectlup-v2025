@@ -164,9 +164,6 @@ namespace LUP.RL
                 return;
             }
 
-          
-
-
             playerMove = player.GetComponent<PlayerMove>();
             if (PlayerMove == null)
             {
@@ -302,6 +299,11 @@ namespace LUP.RL
 
             gamePausePanel.SetActive(true);
             buffScrollPanel.OpenPanel(buffs, DisplayableDataType.ItemData);
+        }
+
+        public void OnEnemyDie(Transform diePosition)
+        {
+            AddItem(spawnableItemDatas[0]);
         }
 
         public void AddItem(ItemData pickedItem)

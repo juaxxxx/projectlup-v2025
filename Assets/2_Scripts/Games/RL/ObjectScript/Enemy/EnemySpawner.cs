@@ -15,10 +15,12 @@ namespace LUP.RL
 
         private List<Enemy> SpawnedEnemies = new();
         public List<Enemy> spawnedEnemies => SpawnedEnemies;
+
+        private InGameCenter InGameCenter;
     
         private void Start()
         {
-        
+            InGameCenter = FindFirstObjectByType<InGameCenter>();
         }
         public void Init(StageData data)
         {
@@ -65,9 +67,12 @@ namespace LUP.RL
 
         private void HandleEnemyDeath(Enemy enemy)
         {
+            if (InGameCenter)
+                InGameCenter.OnEnemyDie(enemy.transform);
 
             spawnedEnemies.Remove(enemy);
-            Debug.Log($"{enemy.name} enemy, {spawnedEnemies.Count}");       
+            Debug.Log($"{enemy.name} enemy, {spawnedEnemies.Count}");
+
         }
 
     }
