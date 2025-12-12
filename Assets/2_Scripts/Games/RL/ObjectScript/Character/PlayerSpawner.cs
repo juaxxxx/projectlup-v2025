@@ -15,10 +15,9 @@ namespace LUP.RL
         void Start()
         {
             grid = FindFirstObjectByType<GridGenerator>();
-            Debug.Log("그리드할당");
             //grid = GridGenerator.Instance;
         }
-        public GameObject Spawn()
+        public GameObject playerSpawn()
         {
             Debug.Log("spawn");
 
@@ -33,20 +32,12 @@ namespace LUP.RL
 
             // 카메라 세팅을 마지막에
             FollowCamera cam = FindFirstObjectByType<FollowCamera>();
-            cam.SetTarget(move);   // 이게 Update보다 늦게 실행될 수 있음 → null 체크 필수
-
+            cam.SetTarget(move); 
+            cam.FindTarget();
             return playerInstance;
         }
 
-        //public void RepositionPlayer()
-        //{
-        //    if (playerInstance == null)
-        //        return;
-
-        //    Vector3 pos = GetGridWorldPos(fixedSpawnGrid);
-        //    playerInstance.transform.position = pos;
-        //}
-
+  
         private Vector3 GetGridWorldPos(Vector2Int gridPos)
         {
             if (grid == null)

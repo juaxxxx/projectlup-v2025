@@ -10,6 +10,7 @@ namespace LUP.RL
 {
     public class InGameCenter : MonoBehaviour
     {
+        public static InGameCenter Instance;
         [Header("레벨데이터")]
         public LevelDataTable levelTable;
 
@@ -55,11 +56,22 @@ namespace LUP.RL
         private CircleButton pauseBtn;
         public Button Confirm;
 
-        private Archer controlledPlayer = null;
+        private GameObject player;
+        private PlayerMove playerMove;
 
+        public GameObject Player => player;
+        public PlayerMove PlayerMove => playerMove;
+
+        private Archer controlledPlayer = null;
+        private void Awake()
+        {
+            Instance = this;
+        }
+      
         void Start()
         {
- 
+            PlayerSpawner spawner = FindFirstObjectByType<PlayerSpawner>();
+            spawner.playerSpawn();
         }
 
         public void InitializeCenter()
@@ -132,7 +144,26 @@ namespace LUP.RL
             LoadSelectionData();
             LoadSpawnableItemData();
         }
+        public void RegisterPlayer(GameObject newplayer)
+        {
+            player = newplayer;
+            if (player == null)
+            {
+                Debug.LogError("RegisterPlayer failed: player is null");
+                return;
+            }
 
+          
+
+
+            playerMove = player.GetComponent<PlayerMove>();
+            if (PlayerMove == null)
+            {
+                Debug.LogError("RegisterPlayer failed: PlayerMove not found");
+            }
+
+            Debug.Log($"Player registered to InGameCenter: {player.name}");
+        }
         void LoadSelectionData()
         {
             if (platformAdapter.LoadSelectionData())
