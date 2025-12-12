@@ -19,6 +19,7 @@ namespace LUP.DSG
 
         public CharacterData characterData { get; private set; }
         public CharacterModelData characterModelData { get; private set; }
+        public OwnedCharacterInfo characterInfo { get; private set; }
 
         public bool isEnemy = false;
         public int battleIndex = -1;
@@ -30,6 +31,7 @@ namespace LUP.DSG
         private CharacterInfoUI characterInfoUI;
         private CharacterBattleUI chracterBattleUI;
 
+        public int IconCacheKey { get; private set; }
         public EWeaponType weaponType;
 
         private void Awake()
@@ -137,9 +139,11 @@ namespace LUP.DSG
             CharacterModelData modelData = stage.FindCharacterModel(info.characterModelID);
             //CharacterModelData modelData = dataCenter.FindCharacterModel(info.characterModelID);
 
+            IconCacheKey = info.characterID;
+
             if (data == null || modelData == null) return;
 
-            //characterInfo = info;
+            characterInfo = info;
             battleComp.SetHp(data.maxHp);
             BattleComp.SetMaxGauge(100);
 

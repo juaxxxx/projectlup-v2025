@@ -26,6 +26,18 @@ namespace LUP.DSG
 
         public int selectedSlot = -1;
 
+        public float iconWidth = 1000f;
+        public float iconHeight = 1000f;
+
+        private void OnEnable()
+        {
+            IconBootstrapper.OnAllIconsGenerated += RefreshIcon;
+        }
+
+        private void OnDisable()
+        {
+            IconBootstrapper.OnAllIconsGenerated -= RefreshIcon;
+        }
         public void Init()
         {
             FormationSystem formationSystem = FindAnyObjectByType<FormationSystem>();
@@ -34,31 +46,29 @@ namespace LUP.DSG
 
             selectedButton.Init();
             selectedButton.button.onClick.AddListener(OnButtonClicked);
+
+            SetIconRectSize(iconWidth, iconHeight);
         }
 
-        public void SetIconData(OwnedCharacterInfo info, EAttributeType type, Color portraitColor, int characterLevel, bool isChecked)
+        public void SetIconData(OwnedCharacterInfo info, EAttributeType type,
+                        Color portraitColor, int characterLevel, bool isChecked)
         {
-            level.text = "Lv." + characterLevel.ToString();
+            characterInfo = info;
 
-            portrait.color = portraitColor;
+            level.text = "Lv." + characterLevel;
 
-            if (type == EAttributeType.ROCK)
+            int characterId = info.characterID;
+
+            if (CharacterIconCache.TryGetByCharacterId(characterId, out var sprite))
             {
-                attributeIcon.color = Color.red;
-            }
-            else if (type == EAttributeType.SCISSORS)
-            {
-                attributeIcon.color = Color.green;
+                portrait.sprite = sprite;
+                portrait.color = Color.white;
             }
             else
             {
-                attributeIcon.color = Color.blue;
-            }
-
-            characterInfo = info;
-            if(isChecked)
-            {
-                selectedButton.ButtonClicked();
+                // 아직 안 만들어졌으면 일단 색만 입힘
+                portrait.sprite = null;
+                portrait.color = portraitColor;
             }
         }
 
@@ -79,5 +89,37 @@ namespace LUP.DSG
                 charactersList.UpdateCheckedList(characterInfo.characterID, selectedButton.isSelected);
             }
         }
+        private void RefreshIcon()
+        {
+            if (characterInfo == null)
+                return;
+
+            int characterId = characterInfo.characterID;
+
+            if (CharacterIconCache.TryGetByCharacterId(characterId, out var sprite))
+            {
+                Debug.Log($"[CharacterIcon] Refresh 성공: {characterId}");
+
+                portrait.sprite = sprite;
+                portrait.color = Color.white;
+                portrait.preserveAspect = true;
+            }
+            else
+            {
+                Debug.LogWarning($"[CharacterIcon] Refresh 실패(아직 없음): {characterId}");
+            }
+
+        }
+
+        public void SetIconRectSize(float width, float height)
+        {
+            var rt = portrait.rectTransform;
+
+            rt.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, width);
+            rt.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, height);
+
+            rt.localScale = Vector3.one;
+        }
+
     }
 }
