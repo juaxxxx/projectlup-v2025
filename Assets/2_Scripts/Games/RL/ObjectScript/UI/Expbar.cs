@@ -31,6 +31,7 @@ namespace LUP.RL
         void OnPlayerCharacterSpanwed(GameObject playerObj)
         {
             archer = playerObj.GetComponent<Archer>();
+            archer.OnExpChanged += UpdateUi;
             UpdateUi();
         }
 
@@ -44,28 +45,10 @@ namespace LUP.RL
             int requirExp = levelTable.levelList[level - 1].RequiredExp;
             //비율   계산  
             float ratio = (float)Exp / requirExp;
-            Debug.Log($"현재 경험치 비율: {ratio}");
             if (fillCoroutine != null)
                 StopCoroutine(fillCoroutine);
             fillCoroutine = StartCoroutine(SmoothFill(ratio));
             levelText.text = $"Lv. {level}";
-        }
-        public void OnGainExp(int gainedExp)
-        {
-            archer.Adata.xp += gainedExp;
-
-            int requiredExp = levelTable.levelList[archer.Adata.level - 1].RequiredExp;
-
-            // 레벨업 조건 체크
-            while (archer.Adata.xp >= requiredExp)
-            {
-                archer.Adata.xp -= requiredExp;
-                archer.Adata.level++;
-
-                requiredExp = levelTable.levelList[archer.Adata.level - 1].RequiredExp;
-            }
-
-            UpdateUi();
         }
         private IEnumerator SmoothFill(float target)
         {

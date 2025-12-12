@@ -31,14 +31,12 @@ namespace LUP.RL
         {
             if (currentRoom == null)
             {
-                Debug.Log("null currentroom");
                 return null;
             }
 
             Enemy[] enemies = currentRoom.GetComponentsInChildren<Enemy>(false);
             if (enemies.Length == 0)
             {
-                Debug.Log("null length");
                 return null;
             }
             Enemy closest = null;
