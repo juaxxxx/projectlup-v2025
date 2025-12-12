@@ -4,9 +4,9 @@ using System.Collections.Generic;
 namespace LUP
 {
     [Serializable]
-    public class ESItemStaticData : IItemStaticData
+    public class RLItemStaticData : IItemStaticData
     {
-        // ===== í•„ìˆ˜ í•„ë“œ (ëª¨ë“  ì‹œíŠ¸ì— ìˆì–´ì•¼ í•¨) =====
+        // ===== ÇÊ¼ö ÇÊµå (¸ğµç ½ÃÆ®¿¡ ÀÖ¾î¾ß ÇÔ) =====
         [Column("ItemID", Required = true)]
         public int ItemID;
 
@@ -16,7 +16,7 @@ namespace LUP
         [Column("ItemType", Required = true)]
         public string ItemType;
 
-        // ===== ì„ íƒ í•„ë“œ (ì‹œíŠ¸ì— ìˆìœ¼ë©´ ë¡œë“œ, ì—†ìœ¼ë©´ ê¸°ë³¸ê°’) =====
+        // ===== ¼±ÅÃ ÇÊµå (½ÃÆ®¿¡ ÀÖÀ¸¸é ·Îµå, ¾øÀ¸¸é ±âº»°ª) =====
         [Column("IconPath")]
         public string IconPath = "";
 
@@ -29,19 +29,19 @@ namespace LUP
         [Column("Description")]
         public string Description = "";
 
-        // ===== í™•ì¥ í•„ë“œ (ìë™ ìˆ˜ì§‘ë¨) =====
+        // ===== È®Àå ÇÊµå (ÀÚµ¿ ¼öÁıµÊ) =====
         private Dictionary<string, string> customFields = new Dictionary<string, string>();
 
         public LUPItemData ToItemData()
         {
             var item = new LUPItemData();
 
-            // í•„ìˆ˜ í•„ë“œ ì„¤ì •
+            // ÇÊ¼ö ÇÊµå ¼³Á¤
             item.SetItemID(ItemID);
             item.SetItemName(ItemName);
             item.SetItemType(ParseItemType(ItemType));
 
-            // ì„ íƒ í•„ë“œ ì„¤ì •
+            // ¼±ÅÃ ÇÊµå ¼³Á¤
             if (!string.IsNullOrEmpty(IconPath))
                 item.SetIconPath(IconPath);
 
@@ -54,7 +54,7 @@ namespace LUP
             if (!string.IsNullOrEmpty(Description))
                 item.SetDescription(Description);
 
-            // í™•ì¥ í•„ë“œ ì„¤ì •
+            // È®Àå ÇÊµå ¼³Á¤
             if (customFields != null && customFields.Count > 0)
             {
                 item.SetCustomFields(customFields);
@@ -63,7 +63,7 @@ namespace LUP
             return item;
         }
 
-        // ICustomFieldSupport êµ¬í˜„
+        // ICustomFieldSupport ±¸Çö
         public void SetCustomField(string fieldName, string value)
         {
             if (customFields == null)
