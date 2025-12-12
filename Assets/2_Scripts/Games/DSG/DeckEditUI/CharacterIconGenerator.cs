@@ -67,5 +67,59 @@ namespace LUP.DSG
 
             Destroy(instance);
         }
+        public IEnumerator GenerateIconByModelRoutine(DeckStrategyStage stage, int modelId)
+        {
+            // modelId 기준으로 이미 캐시에 있으면 스킵
+            if (CharacterIconCache.TryGetByModelId(modelId, out _))
+            {
+                Debug.Log($"[CharacterIconGenerator] modelId {modelId} 는 이미 캐시에 있음, 스킵");
+                yield break;
+            }
+
+            if (stage == null)
+            {
+                Debug.LogError("[CharacterIconGenerator] stage 가 null 입니다. (GenerateIconByModelRoutine)");
+                yield break;
+            }
+
+            GameObject prefab = stage.GetCharacterPrefab(modelId);
+            if (prefab == null)
+            {
+                Debug.LogError($"[CharacterIconGenerator] modelId {modelId} 프리팹을 찾지 못했습니다. (GenerateIconByModelRoutine)");
+                yield break;
+            }
+
+            Debug.Log($"[CharacterIconGenerator] Instantiate prefab {prefab.name} for modelId={modelId} (model-only)");
+
+            var instance = Instantiate(prefab, characterPivot.position, characterPivot.rotation);
+
+            yield return new WaitForEndOfFrame();
+
+            RenderTexture currentRT = RenderTexture.active;
+            RenderTexture.active = renderTexture;
+
+            Texture2D tex = new Texture2D(
+                renderTexture.width,
+                renderTexture.height,
+                TextureFormat.RGBA32,
+                false
+            );
+            tex.ReadPixels(new Rect(0, 0, renderTexture.width, renderTexture.height), 0, 0);
+            tex.Apply();
+
+            RenderTexture.active = currentRT;
+
+            Sprite sprite = Sprite.Create(
+                tex,
+                new Rect(0, 0, tex.width, tex.height),
+                new Vector2(0.5f, 0.5f),
+                100f
+            );
+            CharacterIconCache.SetByModelId(modelId, sprite);
+
+            Debug.Log($"[CharacterIconGenerator] 아이콘 생성 완료 (model-only). modelId={modelId}");
+
+            Destroy(instance);
+        }
     }
 }

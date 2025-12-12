@@ -42,7 +42,8 @@ namespace LUP.DSG
 
         public void SetSelectedCharacter(OwnedCharacterInfo info, bool isEnemy)
         {
-            Debug.Log("SetSelectedCharacter");
+            Debug.Log($"[LineupSlot] SetSelectedCharacter »£√‚µ : " +
+          $"slot={name}, info={(info != null)}, deckStage={(deckStage != null)}");
             if (info == null)
             {
                 return;

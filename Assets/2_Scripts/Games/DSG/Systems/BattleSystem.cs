@@ -161,6 +161,13 @@ namespace LUP.DSG
 
 
                 var icon = Instantiate(iconPrefab, characterSequenceList);
+                var bg = icon.transform.Find("Background")?.GetComponent<Image>();
+                if (bg != null)
+                {
+                    var c = character.isEnemy ? Color.red : Color.blue;
+                    c.a = 0.6f;
+                    bg.color = c;
+                }
                 var portrait = icon.transform.Find("Portrait")?.GetComponent<Image>();
                 if (portrait != null)
                 {

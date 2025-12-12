@@ -50,22 +50,56 @@ namespace LUP.DSG
 
             if (runtime.OwnedCharacterList == null || runtime.OwnedCharacterList.Count == 0)
             {
-                Debug.LogWarning("[IconBootstrapper] OwnedCharacterList 가 비어 있습니다.");
                 yield break;
             }
-
-            Debug.Log($"[IconBootstrapper] OwnedCharacterList Count = {runtime.OwnedCharacterList.Count}");
-
-            foreach (var owned in runtime.OwnedCharacterList)
+            if (runtime.OwnedCharacterList != null)
             {
-                int characterId = owned.characterID;   // 캐시에 쓸 키
-                int modelId = owned.characterModelID;       // 프리팹 찾을 모델 ID (실제 필드 이름으로 수정!)
+                foreach (var owned in runtime.OwnedCharacterList)
+                {
+                    int characterId = owned.characterID;
+                    int modelId = owned.characterModelID;
 
-                Debug.Log($"[IconBootstrapper] Generate icon. characterId={characterId}, modelId={modelId}");
-                yield return iconGenerator.GenerateIconRoutine(stage, characterId, modelId);
+                    yield return iconGenerator.GenerateIconRoutine(stage, characterId, modelId);
+                }
             }
-            Debug.Log("[IconBootstrapper] 모든 아이콘 생성 완료");
-            OnAllIconsGenerated?.Invoke();
+            var modelIdSet = new HashSet<int>();
+
+            // OwnedCharacterList의 modelId
+            if (runtime.OwnedCharacterList != null)
+            {
+                foreach (var owned in runtime.OwnedCharacterList)
+                {
+                    modelIdSet.Add(owned.characterModelID);
+                }
+            }
+            if (runtime.Teams != null)
+            {
+                foreach (var team in runtime.Teams)
+                {
+                    if (team == null || team.characters == null) continue;
+
+                    foreach (var ch in team.characters)
+                    {
+                        if (ch == null) continue;
+                        modelIdSet.Add(ch.characterModelID);
+                    }
+                }
+            }
+            if (stage.characterModelDataTable != null && stage.characterModelDataTable.characterModelDataList != null)
+            {
+                foreach (var modelData in stage.characterModelDataTable.characterModelDataList)
+                {
+                    if (modelData == null) continue;
+
+                    int modelId = modelData.ID;
+
+                    if (CharacterIconCache.TryGetByModelId(modelId, out _))
+                        continue;
+
+                    yield return iconGenerator.GenerateIconByModelRoutine(stage, modelId);
+                }
+            }
+            IconBootstrapper.OnAllIconsGenerated?.Invoke();
         }
     }
 }
