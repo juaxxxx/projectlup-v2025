@@ -25,8 +25,13 @@ namespace LUP.DSG
         [SerializeField] private RectTransform panel;
         [SerializeField] private Slider healthSlider;
         [SerializeField] private Slider gaugeSlider;
+        [SerializeField] private Image centerAreaImage;
 
         [SerializeField] private List<StatusSpritePair> spritePairs;
+
+        [SerializeField] private Sprite paperIcon;
+        [SerializeField] private Sprite rockIcon;
+        [SerializeField] private Sprite scissorsIcon;
 
         private Dictionary<EStatusEffectType, Sprite> statusSprites;
         private Dictionary<EStatusEffectType, Image> activeIcons;
@@ -57,6 +62,24 @@ namespace LUP.DSG
             character.StatusEffectComp.OnEffectAdded = OnEffectAdded;
             character.StatusEffectComp.OnEffectRemoved = OnEffectRemoved;
             character.StatusEffectComp.OnEffectEndTurn = OnEffectEndTurn;
+
+            Sprite typeIcon = null;
+            switch (character.characterData.type)
+            {
+                case EAttributeType.ROCK:
+                    typeIcon = rockIcon;
+                    break;
+                case EAttributeType.PAPER:
+                    typeIcon = paperIcon;
+                    break;
+                case EAttributeType.SCISSORS:
+                    typeIcon = scissorsIcon;
+                    break;
+                default:
+                    typeIcon = null; break;
+            }
+
+            centerAreaImage.sprite = typeIcon;
         }
 
         private void OnDisable()

@@ -1312,6 +1312,7 @@ GameObject:
   - component: {fileID: 330585545}
   - component: {fileID: 330585544}
   - component: {fileID: 330585547}
+  - component: {fileID: 330585548}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -1387,7 +1388,7 @@ Transform:
   m_GameObject: {fileID: 330585543}
   serializedVersion: 2
   m_LocalRotation: {x: 0.28368056, y: 0, z: 0, w: 0.95891887}
-  m_LocalPosition: {x: 2.2, y: 3.3, z: 3.72}
+  m_LocalPosition: {x: 2.5, y: 3.3, z: 3.72}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1437,6 +1438,22 @@ MonoBehaviour:
     m_MipBias: 0
     m_VarianceClampScale: 0.9
     m_ContrastAdaptiveSharpening: 0
+--- !u!114 &330585548
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 330585543}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 35213a165498d8742908042cd6924e6d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  friendlyIntroCamPosition: {x: 2.8, y: 1.3, z: 7.6}
+  friendlyIntroCamRotation: {x: 0, y: -60, z: 0}
+  enemyIntroCamPosition: {x: 1.6, y: 1.3, z: 7.8}
+  enemyIntroCamRotation: {x: 0, y: 57, z: 0}
 --- !u!1 &410087039
 GameObject:
   m_ObjectHideFlags: 0
@@ -2572,6 +2589,7 @@ GameObject:
   - component: {fileID: 613301455}
   - component: {fileID: 613301457}
   - component: {fileID: 613301458}
+  - component: {fileID: 613301459}
   m_Layer: 0
   m_Name: Stage
   m_TagString: Untagged
@@ -2681,12 +2699,32 @@ MonoBehaviour:
   iconPrefab: {fileID: 3685334297540631434, guid: b39a11e25687b7d4aa2a1d1bd620775f, type: 3}
   battleCanvas: {fileID: 455280774}
   formationCanvas: {fileID: 1971460223}
+  characterUICanvas: {fileID: 257151344}
   roundText: {fileID: 2052518663}
   turnText: {fileID: 672804684}
   playerCP: {fileID: 50297711}
   enemyCP: {fileID: 1365322796}
   dataCenter: {fileID: 1074448246}
   skillUIPanel: {fileID: 1956401281}
+--- !u!114 &613301459
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 613301454}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3fcccb942bf92d341ac6a6fae1b75247, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  effectpairs:
+  - name: 0
+    particlePrefab: {fileID: 1210069404974878, guid: fbab27c98b168764eb295cfff1e9f61f, type: 3}
+  - name: 1
+    particlePrefab: {fileID: 1610259402245616, guid: 09a2baab97fbf474f9499bf610686e4d, type: 3}
+  - name: 2
+    particlePrefab: {fileID: 1485466043327710, guid: 3e914ef784028124db1daf7002a87cc8, type: 3}
   iconSize: 1000
 --- !u!1 &636051258
 GameObject:
@@ -4107,7 +4145,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 613301458}
         m_TargetAssemblyTypeName: LUP.DSG.BattleSystem, Assembly-CSharp
-        m_MethodName: BattleStart
+        m_MethodName: OnClickBattleStartButton
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -4653,7 +4691,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a34310dbdf6adfb42955f3834e0a54f5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  battleSystem: {fileID: 888336116}
+  battleSystem: {fileID: 0}
 --- !u!114 &1147488605
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7194,7 +7232,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: -90, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 7, y: 0}
+  m_AnchoredPosition: {x: 6.6, y: 0}
   m_SizeDelta: {x: 1, y: 1}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1779897885
@@ -7901,6 +7939,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   panel: {fileID: 2490712918577406793, guid: d27d559d06c58e747944df1fadd2a817, type: 3}
   canvas: {fileID: 455280778}
+  battle: {fileID: 613301458}
 --- !u!1 &1971460223
 GameObject:
   m_ObjectHideFlags: 0
@@ -8530,6 +8569,7 @@ SceneRoots:
   - {fileID: 410087041}
   - {fileID: 832575519}
   - {fileID: 517911650}
+  - {fileID: 1074448247}
   - {fileID: 257151348}
   - {fileID: 1971460227}
   - {fileID: 455280778}

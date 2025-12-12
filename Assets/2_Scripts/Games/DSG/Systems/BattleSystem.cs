@@ -1,3 +1,4 @@
+using DG.Tweening;
 using LUP.Define;
 using LUP.DSG.Utils.Enums;
 using System;
@@ -6,6 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using TMPro;
 using Unity.VisualScripting;
+using UnityEditor.SceneManagement;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
@@ -32,6 +34,8 @@ namespace LUP.DSG
         private GameObject battleCanvas;
         [SerializeField]
         private GameObject formationCanvas;
+        [SerializeField]
+        private GameObject characterUICanvas;
 
         [SerializeField]
         private TextMeshProUGUI roundText;
@@ -46,7 +50,8 @@ namespace LUP.DSG
         private List<Character> battleSequence = new List<Character>();
         private List<GameObject> sequenceImage = new List<GameObject>();
 
-        private IAttackTargetSelector targetSelector;
+        private ChainedTargetSelector targetSelector;
+        private PickRandomTarget randomTargetSelector;
 
         private int currentTurnIndex = 0;
         private int currentRound = 1;
@@ -54,8 +59,6 @@ namespace LUP.DSG
 
         [SerializeField]
         private DataCenter dataCenter;
-        [SerializeField]
-        private SkillUIPanel skillUIPanel;
 
         public float iconSize = 1000f;
 
@@ -63,11 +66,14 @@ namespace LUP.DSG
         private Dictionary<string, (Color Color, float Score)> deadScores = new();
         private List<(string Name, Color Color, float Score, GameObject Prefab)> deadCharacterData = new();
 
+        public event Action<Character> onStartAttack;
+        public event Action<Character> onStartSkill;
+
         void Awake()
         {
             StageInitializeInvoker.OnDSGStagePostInitialize += Initialize;
             StageInitializeInvoker.OnDSGStagePostInitialize += PostInitialize;
-            
+
             if (Instance == null)
             {
                 Instance = this;
@@ -86,7 +92,7 @@ namespace LUP.DSG
 
         private void PostInitialize(DeckStrategyStage stage)
         {
-            
+
         }
         private void Initialize(DeckStrategyStage stage)
         {
@@ -105,9 +111,11 @@ namespace LUP.DSG
                 friendlySlot.OnCPUpdated += UpdatePlayerCP;
             }
 
+            randomTargetSelector = new PickRandomTarget(this);
+
             targetSelector = new ChainedTargetSelector(new PickWeakTarget(this),
                 new PickHighestHpTarget(this),
-                new PickRandomTarget(this));
+                randomTargetSelector);
         }
 
         private void Update()
@@ -240,9 +248,26 @@ namespace LUP.DSG
             UpdateUI();
         }
 
-        public void BattleStart()
+        public void OnClickBattleStartButton()
+        {
+            if (friendlySlots.Length <= 0)
+            {
+                return; //@TODO friendlyslot 비어있음 이미지 띄우기
+            }
+
+            StartCoroutine(BattleStart());
+        }
+
+        public IEnumerator BattleStart()
         {
             isBattleStart = true;
+            formationCanvas.SetActive(false);
+            characterUICanvas.SetActive(false);
+
+            //카메라 배틀 인트로
+            Camera camera = Camera.main;
+            BattleCameraDirector Director = camera.GetComponent<BattleCameraDirector>();
+            yield return Director.PlayBattleIntroSequence().WaitForCompletion();
 
             for (int i = 0; i < friendlySlots.Length; i++)
             {
@@ -264,8 +289,8 @@ namespace LUP.DSG
                 }
             }
 
-            formationCanvas.SetActive(false);
             battleCanvas.SetActive(true);
+            characterUICanvas.SetActive(true);
 
             SortBattleSequence();
 
@@ -294,18 +319,19 @@ namespace LUP.DSG
             if (turnText != null)
                 turnText.text = $"{currentChar.characterData.characterName} Turn";
 
-            if(currentChar.BattleComp.isSkillOn)
+            if (currentChar.BattleComp.isSkillOn)
             {
-                List<LineupSlot> targetList = GetSkillTargets(currentChar);
+                List<LineupSlot> targetList = randomTargetSelector.SelectcountEnemyTargets(currentChar, currentChar.BattleComp.skillInfo.targetCount);
                 currentChar.BattleComp.Skill(targetList);
                 StartCoroutine(WaitForAttackEnd(currentChar));
-                skillUIPanel.ShowSkillPanel(currentChar);
+                onStartSkill?.Invoke(currentChar);
             }
             else
             {
                 LineupSlot targetslot = targetSelector.SelectEnemyTarget(currentChar);
                 currentChar.BattleComp.Attack(targetslot);
                 StartCoroutine(WaitForAttackEnd(currentChar));
+                onStartAttack?.Invoke(currentChar);
             }
 
             return;
@@ -381,11 +407,11 @@ namespace LUP.DSG
                 }
             }
 
-            
+
             foreach (var d in deadCharacterData)
             {
                 if (!friendlyChars.Exists(x => x.Name == d.Name))
-                    friendlyChars.Add((d.Name, d.Color, d.Score,d.Prefab));
+                    friendlyChars.Add((d.Name, d.Color, d.Score, d.Prefab));
             }
 
             var ranked = friendlyChars.OrderByDescending(x => x.Score).ToList();
@@ -445,28 +471,6 @@ namespace LUP.DSG
                     break;
             }
         }
-        private List<LineupSlot> GetSkillTargets(Character caster)
-        {
-            var result = new List<LineupSlot>();
-            int targetCount = 1;
-
-            PickRandomTarget randomSelector = new PickRandomTarget(this);
-
-            if (caster.BattleComp.skillInfo != null)
-                targetCount = Mathf.Max(1, caster.BattleComp.skillInfo.targetCount);
-
-            for (int i = 0; i < targetCount; i++)
-            {
-                var target = randomSelector.SelectEnemyTarget(caster);
-                if (target == null)
-                    break;
-
-                if (!result.Contains(target))
-                    result.Add(target);
-            }
-
-            return result;
-        }
         private void UpdateUI()
         {
             if (roundText != null)
@@ -504,20 +508,6 @@ namespace LUP.DSG
             CheckBattleEnd();
         }
 
-        //private IEnumerator WaitforSkillEnd(Character currentChar)
-        //{
-        //    yield return new WaitWhile(() => currentChar.BattleComp.isUsingSkill);
-
-        //    if (currentTurnIndex < sequenceImage.Count && sequenceImage[currentTurnIndex] != null)
-        //    {
-        //        sequenceImage[currentTurnIndex].SetActive(false);
-        //    }
-
-        //    currentTurnIndex++;
-        //    UpdateUI();
-
-        //    CheckBattleEnd();
-        //}
         public void NextRound()
         {
             if (!isBattleStart || battleSequence.Count == 0)
@@ -608,10 +598,14 @@ namespace LUP.DSG
             if (allEnemyDead)
             {
                 EndBattle("Victory");
+                DeckStrategyStage stage = GetComponent<DeckStrategyStage>();
+                stage.BattleEnd();
             }
             else if (allFriendDead)
             {
                 EndBattle("Defeat");
+                DeckStrategyStage stage = GetComponent<DeckStrategyStage>();
+                stage.BattleEnd();
             }
         }
         private void OnDieIndexCharacter(int index)

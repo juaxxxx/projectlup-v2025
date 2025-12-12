@@ -7,22 +7,19 @@ namespace LUP.DSG
 {
     public class AnimationComponent : MonoBehaviour
     {
+        private Character owner;
+
         public Animator animator;
 
         public event Action OnHitAttack;
         public event Action OnShootRangeAttack;
         public event Action OnAttackStart;
 
-        [SerializeField]
-        private ParticleSystem HitFVX;
-
-        [SerializeField]
-        private ParticleSystem AttackFVX;
-
         public EAnimStateType currentState { get; private set; }
 
         void Start()
         {
+            owner = GetComponent<Character>();
             currentState = EAnimStateType.Idle;
         }
 
@@ -74,9 +71,7 @@ namespace LUP.DSG
             currentState = EAnimStateType.Hitted;
             SetAnimationState(currentState);
 
-            ParticleSystem go = Instantiate(HitFVX, transform.position, Quaternion.identity);
-            go.Play();
-            Destroy(go.gameObject, go.main.duration);
+            owner.ActioneffectPool.PlayVFX(ActionEffect.GetHitBasic,transform.position, Quaternion.identity,1.0f); //@TODO 캐릭터마다 애니메이션을 갖고있을지 생각해봐야됨
         }
 
         public void PlayDiedAnimation(int index)
@@ -100,9 +95,7 @@ namespace LUP.DSG
         {
             OnShootRangeAttack?.Invoke();
 
-            ParticleSystem go = Instantiate(AttackFVX, transform.position, Quaternion.identity);
-            go.Play();
-            Destroy(go.gameObject, go.main.duration);
+            owner.ActioneffectPool.PlayVFX(ActionEffect.AttackBasic, transform.position, Quaternion.identity, 1.0f);
         }
 
         public void OnAttackEndEvent()
@@ -131,9 +124,7 @@ namespace LUP.DSG
 
         public void OnPunchEffect()
         {
-            ParticleSystem go = Instantiate(AttackFVX, transform.position, Quaternion.identity);
-            go.Play();
-            Destroy(go.gameObject, go.main.duration);
+            owner.ActioneffectPool.PlayVFX(ActionEffect.AttackBasic, transform.position, Quaternion.identity, 1.0f);
         }
     }
 }

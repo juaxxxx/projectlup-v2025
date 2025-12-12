@@ -8,38 +8,23 @@ namespace LUP.DSG
         protected readonly BattleSystem battle;
         protected AttackTargetSelectorBase(BattleSystem battlesystem) => battle = battlesystem;
         public abstract LineupSlot SelectEnemyTarget(Character attacker);
-
+        public virtual TargetPatternType PatternType => TargetPatternType.None;
         protected List<LineupSlot> GetAliveTargetList(Character character)
         {
             if (character == null && battle == null)
                 return null;
 
             List<LineupSlot> slots = new List<LineupSlot>();
+            GameObject[] otherSlots = character.isEnemy ? battle.friendlySlots : battle.enemySlots;
 
-            if (character.isEnemy)
+            int length = otherSlots.Length;
+
+            for (int i = 0; i < length; i++)
             {
-                int length = battle.friendlySlots.Length;
-
-                for (int i = 0; i < length; i++)
+                LineupSlot slot = otherSlots[i].GetComponent<LineupSlot>();
+                if (IsAlive(slot.character))
                 {
-                    LineupSlot slot = battle.friendlySlots[i].GetComponent<LineupSlot>();
-                    if (IsAlive(slot.character))
-                    {
-                        slots.Add(slot);
-                    }
-                }
-            }
-            else
-            {
-                int length = battle.enemySlots.Length;
-
-                for (int i = 0; i < length; i++)
-                {
-                    LineupSlot slot = battle.enemySlots[i].GetComponent<LineupSlot>();
-                    if (IsAlive(slot.character))
-                    {
-                        slots.Add(slot);
-                    }
+                    slots.Add(slot);
                 }
             }
 

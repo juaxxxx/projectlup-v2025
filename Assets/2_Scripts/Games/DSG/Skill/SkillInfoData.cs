@@ -1,7 +1,7 @@
 using LUP.DSG.Utils.Enums;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "Skill Info Data", menuName = "Scriptable Objects/Skill Info")]
+[CreateAssetMenu(fileName = "Skill Info Data", menuName = "DSG/Scriptable Objects/Skill Info")]
 public class SkillInfoData : ScriptableObject
 {
     public string Skillname;

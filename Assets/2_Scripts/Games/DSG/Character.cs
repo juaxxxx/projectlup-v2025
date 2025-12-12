@@ -28,6 +28,8 @@ namespace LUP.DSG
         [SerializeField]
         private GameObject characterUIPrefab;
 
+        public EffectPool ActioneffectPool;
+
         private CharacterInfoUI characterInfoUI;
         private CharacterBattleUI chracterBattleUI;
 
@@ -43,6 +45,7 @@ namespace LUP.DSG
             battleComp = GetComponent<BattleComponent>();
             scoreComp = GetComponent<ScoreComponent>();
             animationComp = GetComponent<AnimationComponent>();
+            ActioneffectPool = FindAnyObjectByType<EffectPool>();
         }
         private void OnDestroy()
         {
