@@ -19,6 +19,11 @@ namespace LUP.DSG
         [SerializeField]
         private Vector3 enemyIntroCamRotation;
 
+        private void FixedUpdate()
+        {
+            
+        }
+
         public IEnumerator Shake(float duration, float magnitude)
         {
             Vector3 originalPos = transform.localPosition;

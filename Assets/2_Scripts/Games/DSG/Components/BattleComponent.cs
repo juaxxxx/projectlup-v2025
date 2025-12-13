@@ -62,6 +62,8 @@ namespace LUP.DSG
         [SerializeField]
         private GameObject damageLogPrefab;
 
+        private BattleCameraDirector battleCameraDirector;
+
         private void Awake()
         {
             owner = GetComponent<Character>();
@@ -96,6 +98,8 @@ namespace LUP.DSG
         {
             if (owner.AnimationComp.currentState == EAnimStateType.StartDash_Fwd)
             {
+                Camera.main.transform.position = new Vector3(transform.position.x, transform.position.y, battleCameraDirector.transform.position.z);
+
                 Debug.Log(targetPosition);
                 Debug.Log(impactApplied);
                 transform.position = Vector3.MoveTowards(gameObject.transform.position, targetPosition, (moveSpeed * Time.deltaTime));
@@ -193,6 +197,13 @@ namespace LUP.DSG
             HandleAttackStart();
 
             isAttacking = true;
+
+            if(!battleCameraDirector)
+            {
+                Camera camera = Camera.main;
+                battleCameraDirector = camera.GetComponent<BattleCameraDirector>();
+            }
+
         }
         public void ApplyDamageOnce()
         {
