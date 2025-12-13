@@ -16,8 +16,9 @@ namespace LUP.ES
         public float InteractionRadius = 2.0f;
         public FixedJoystick leftJoystick;
         public FixedJoystick rightJoystick;
-        public LayerMask InteractableLayer;
         public EventBroker eventBroker;
+        public int CurrentWeaponID = 2;
+        [HideInInspector]
         public Weapon weapon;
         public InteractionDetector InteractionDetector;
         [HideInInspector]
@@ -30,10 +31,10 @@ namespace LUP.ES
         public bool isInteractionButtonPressed = false;
         [HideInInspector]
         public bool isReloadButtonPressed = false;
-
         [HideInInspector]
         public PlayerOverheadUI playerOverheadUI;
-
+        [HideInInspector]
+        public WeaponEquip weaponEquip;
         public void ResetInteractionState()
         {
             //isCastingInteraction = false;

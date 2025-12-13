@@ -23,18 +23,19 @@ namespace LUP.ES
                 //Vector3 dir = new Vector3(horizontal, 0f, Vertical);
                 //dir.Normalize();
                 //characterController.transform.forward = dir;
-                blackboard.weapon.Attack();
+                bool isAttack = blackboard.weapon.Attack();
                 blackboard.playerOverheadUI.UpdateAmmoUI();
                 blackboard.weapon.state = WeaponState.ATTACKING;
-                if (blackboard.animator != null)
+                if (blackboard.animator != null && isAttack)
                 {
-                    blackboard.animator.SetBool("IsAttacking", true);
+                    //blackboard.animator.SetBool("IsAttacking", true);
+                    blackboard.animator.SetTrigger("Attack");
                 }
-                return NodeState.Running;
-            }
-            if (blackboard.animator != null)
-            {
-                blackboard.animator.SetBool("IsAttacking", false);
+                else
+                {
+                    blackboard.animator.ResetTrigger("Attack");
+                }
+                    return NodeState.Running;
             }
             blackboard.weapon.state = WeaponState.READY;
             return NodeState.Success;
@@ -44,7 +45,7 @@ namespace LUP.ES
         {
             if (blackboard.animator != null)
             {
-                blackboard.animator.SetBool("IsAttacking", false);
+                blackboard.animator.ResetTrigger("Attack");
             }
         }
     }

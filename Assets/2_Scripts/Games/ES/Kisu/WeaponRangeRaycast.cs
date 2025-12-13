@@ -8,6 +8,7 @@ namespace LUP.ES
         public float maxRange = 10f;
         public LayerMask obstacleMask;
         public Transform firePoint;
+        private Transform aimPivot;
         //public GunData gunData; // 현재 총의 데이터
         private Gun gun;
 
@@ -26,6 +27,7 @@ namespace LUP.ES
 
         void Start()
         {
+            aimPivot = transform.root;
             FixBulletRenderSettings();
             
             gun = GetComponent<Gun>();
@@ -92,8 +94,8 @@ namespace LUP.ES
                 maxRange = gun.weaponItem.data.range;
             }
 
-            Vector3 start = origin.position;
-            Vector3 dir = origin.forward;
+            Vector3 start = firePoint.position;
+            Vector3 dir = aimPivot.forward; //origin.forward;
             Vector3 end = start + dir * maxRange;
 
             visibleLine.SetPosition(0, start);

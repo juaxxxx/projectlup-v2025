@@ -7,6 +7,7 @@ namespace LUP.ES
     {
         PlayerBlackboard blackboard;
         private bool isReloadingStarted = false;
+        private float animationReloadTime = 2.2f;
 
         public ReloadAction(PlayerBlackboard blackboard)
         {
@@ -36,6 +37,9 @@ namespace LUP.ES
                 blackboard.isReloadButtonPressed = false;
                 if (blackboard.animator != null)
                 {
+                    RangedWeaponItemData gunData = blackboard.weapon.weaponItem.data as RangedWeaponItemData;
+                    float speedMultiplier = animationReloadTime / gunData.reloadTime;
+                    blackboard.animator.SetFloat("ReloadSpeedMultiplier", speedMultiplier);
                     blackboard.animator.SetBool("IsReloading", true);
                 }
                 return NodeState.Running;

@@ -17,15 +17,25 @@ MonoBehaviour:
   - id: 1
     name: Pistol
     prefab: {fileID: 1836695343964729576, guid: 66867298641304d40abd969c925616d1, type: 3}
+    positionOffset: {x: 0.021, y: 0.064, z: 0.049}
+    rotationOffset: {x: -81.993, y: -109.532, z: 198.186}
   - id: 2
     name: SMG
     prefab: {fileID: 8677327599439511839, guid: 8d0e58f00b82c6347a1f13c3b39e3466, type: 3}
+    positionOffset: {x: 0, y: 0, z: 0}
+    rotationOffset: {x: 0, y: 0, z: 0}
   - id: 3
     name: AR
-    prefab: {fileID: 5299303744127655611, guid: 2a2f16cdd4c89404487f91502dceb931, type: 3}
+    prefab: {fileID: 1192050510234001585, guid: 2a2f16cdd4c89404487f91502dceb931, type: 3}
+    positionOffset: {x: 0.0017, y: 0.0708, z: 0.0352}
+    rotationOffset: {x: -77.766, y: -103.67, z: 196.486}
   - id: 4
-    name: LMG
+    name: Rifle
     prefab: {fileID: 3934984825118650818, guid: 497470e4098af474ebd6518c04e84f3d, type: 3}
+    positionOffset: {x: 0, y: 0.073, z: 0.042}
+    rotationOffset: {x: -81.197, y: -105.986, z: 191.215}
   - id: 9
     name: Sword
     prefab: {fileID: 0}
+    positionOffset: {x: 0, y: 0, z: 0}
+    rotationOffset: {x: 0, y: 0, z: 0}

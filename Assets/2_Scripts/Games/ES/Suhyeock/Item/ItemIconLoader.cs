@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace LUP.ES
 {
-    [CreateAssetMenu(fileName = "ItemIconLoader", menuName = "Scriptable Objects/ItemIconLoader")]
+    [CreateAssetMenu(fileName = "ItemIconLoader", menuName = "ES/ItemIconLoader")]
     public class ItemIconLoader : ScriptableObject
     {
         public List<ItemIconEntry> iconEntries = new List<ItemIconEntry>();

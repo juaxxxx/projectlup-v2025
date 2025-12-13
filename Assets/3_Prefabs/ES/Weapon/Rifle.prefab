@@ -1,5 +1,36 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &3493289765919091467
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1358699377147199492}
+  m_Layer: 0
+  m_Name: LeftHandGrip
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1358699377147199492
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3493289765919091467}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0.30739367, y: -0.030233983, z: 0.9457855, w: 0.100422695}
+  m_LocalPosition: {x: -0.076, y: -0.006, z: 0.287}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1997052901840064402}
+  m_LocalEulerAnglesHint: {x: 6.83, y: 35.415, z: 170.061}
 --- !u!1 &3934984825118650818
 GameObject:
   m_ObjectHideFlags: 0
@@ -16,12 +47,12 @@ GameObject:
   - component: {fileID: 8987734589359937546}
   - component: {fileID: 165566541711121442}
   m_Layer: 0
-  m_Name: LMG
+  m_Name: Rifle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1997052901840064402
 Transform:
   m_ObjectHideFlags: 0
@@ -31,11 +62,12 @@ Transform:
   m_GameObject: {fileID: 3934984825118650818}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.15, y: 1.4, z: 0.92}
-  m_LocalScale: {x: 0.32606, y: 0.3394, z: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 864882058977452168}
+  - {fileID: 1358699377147199492}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &7195182267382997118
@@ -45,7 +77,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3934984825118650818}
-  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+  m_Mesh: {fileID: 2137939090080494850, guid: 1ad12ae36a8f6e64abc57f3e294d2a3d, type: 3}
 --- !u!23 &3008153255133264456
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -126,6 +158,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   eventBroker: {fileID: 0}
   state: 0
+  leftHandGrip: {fileID: 1358699377147199492}
   itemDataBase: {fileID: 11400000, guid: ffa906b5ab3afad469ad0d4351c62bd0, type: 2}
   selectedWeaponId: 4
   bulletPrefab: {fileID: 2483286614301856516, guid: fef8209ee94c87b4e86881c79985187f, type: 3}
@@ -160,11 +193,11 @@ MonoBehaviour:
   maxRange: 10
   obstacleMask:
     serializedVersion: 2
-    m_Bits: 942
+    m_Bits: 479
   firePoint: {fileID: 864882058977452168}
   visibleColor: {r: 0, g: 1, b: 0, a: 1}
   blockedColor: {r: 1, g: 0, b: 0, a: 1}
-  lineWidth: 0.5
+  lineWidth: 0.2
   bulletPrefab: {fileID: 0}
 --- !u!1 &6032253684019119799
 GameObject:
@@ -191,7 +224,7 @@ Transform:
   m_GameObject: {fileID: 6032253684019119799}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0.059, z: 0.845}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

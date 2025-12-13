@@ -2730,7 +2730,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &403642254
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8096,7 +8096,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 952822958}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 368292210}
+        m_TargetAssemblyTypeName: LUP.ExtractionShooterStage, Assembly-CSharp
+        m_MethodName: SceneChange
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &952822958
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -15410,7 +15422,6 @@ MonoBehaviour:
   ItemDisplayContent: {fileID: 463346687}
   itemSlotPrefab: {fileID: 6511714564501465791, guid: 46f7f8b739eb9dc479396202e8bd6f49, type: 3}
   resultHeader: {fileID: 1513585871}
-  lobbyButton: {fileID: 952822957}
 --- !u!1 &2079175748
 GameObject:
   m_ObjectHideFlags: 0
@@ -16321,6 +16332,7 @@ Transform:
 SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
+  - {fileID: 368292211}
   - {fileID: 1757783613}
   - {fileID: 1901680712}
   - {fileID: 43814373}
@@ -16356,4 +16368,3 @@ SceneRoots:
   - {fileID: 2007614150}
   - {fileID: 1875345589}
   - {fileID: 819139524}
-  - {fileID: 368292211}

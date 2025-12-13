@@ -8,10 +8,12 @@ namespace LUP.ES
         public Transform spine;
         [HideInInspector]
         public PlayerBlackboard blackboard;
+        public Vector3 spineOffset;
         // Start is called once before the first execution of Update after the MonoBehaviour is created
         void Start()
         {
             blackboard = GetComponent<PlayerBlackboard>();
+            blackboard.animator.SetLayerWeight(1, 1);
         }
 
         // Update is called once per frame
@@ -20,12 +22,15 @@ namespace LUP.ES
             if (blackboard.healthComponent.isDead == true)
                 return;
             UpdateAnimation();
-            if (blackboard.weapon.state == WeaponState.ATTACKING ||
-                blackboard.weapon.state == WeaponState.RELOADING)
-            {
-                Vector3 targetPosition = spine.transform.position + transform.forward * 10f;
-                spine.transform.LookAt(targetPosition);
-            }
+            //if (blackboard.weapon.state == WeaponState.ATTACKING ||
+            //    blackboard.weapon.state == WeaponState.RELOADING ||
+            //    blackboard.moveState == MoveState.IDLE)
+            //{
+            //}
+            
+            Vector3 targetPosition = spine.transform.position + transform.forward * 10f;
+            spine.transform.LookAt(targetPosition);
+            spine.Rotate(spineOffset);
         }
 
         void UpdateAnimation()
@@ -40,15 +45,15 @@ namespace LUP.ES
             blackboard.animator.SetFloat("InputX", localMove.x, 0.1f, Time.deltaTime);
             blackboard.animator.SetFloat("InputY", localMove.z, 0.1f, Time.deltaTime);
 
-            if (blackboard.weapon.state == WeaponState.ATTACKING ||
-                blackboard.weapon.state == WeaponState.RELOADING)
-            {
-                blackboard.animator.SetLayerWeight(1, 1);
-            }
-            else
-            {
-                blackboard.animator.SetLayerWeight(1, 0);
-            }
+            //if (blackboard.weapon.state == WeaponState.ATTACKING ||
+            //    blackboard.weapon.state == WeaponState.RELOADING)
+            //{
+            //    blackboard.animator.SetLayerWeight(1, 1);
+            //}
+            //else
+            //{
+            //    blackboard.animator.SetLayerWeight(1, 0);
+            //}
         }
     }
 

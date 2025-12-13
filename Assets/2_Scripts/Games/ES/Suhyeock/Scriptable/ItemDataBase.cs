@@ -5,15 +5,15 @@ using UnityEngine;
 
 namespace LUP.ES
 {
-    [CreateAssetMenu(fileName = "ItemDataBase", menuName = "Scriptable Objects/ItemDataBase")]
+    [CreateAssetMenu(fileName = "ItemDataBase", menuName = "ES/ItemDataBase")]
     public class ItemDataBase : ScriptableObject
     {
         [SerializeReference]
         public List<BaseItemData> items = new List<BaseItemData> {
-                new RangedWeaponItemData(1, "Pistol", "Pistol",  5f, 10f, 0.3f, 10f, 8,  1.2f),
+                new RangedWeaponItemData(1, "Pistol", "Pistol",  5f, 5f, 0.3f, 10f, 8,  1.2f),
                 new RangedWeaponItemData(2, "SMG", "SMG",  15f, 7f, 0.1f, 25f, 20, 1.3f),
                 new RangedWeaponItemData(3, "AR", "AR",  20f, 10f, 0.15f, 20f, 30, 2.0f),
-                new RangedWeaponItemData(4, "LMG", "LMG",  17f, 20f, 0.12f, 25f, 100, 4.0f),
+                new RangedWeaponItemData(4, "Rifle", "Rfile",  45f, 20f, 0.7f, 25f, 10, 4.0f),
                 new ArmorItemData(5, "Helmet", "Helmet",5, ArmorSlot.Head ),
                 new ArmorItemData(6, "BodyArmor", "BodyArmor",5, ArmorSlot.Body ),
                 new ConsumableItemData(7, "Bandage", "Bandage", 5.0f, 5.0f, EffectType.Heal, 30.0f, 3),

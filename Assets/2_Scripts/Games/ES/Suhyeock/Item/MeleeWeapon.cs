@@ -24,14 +24,14 @@ namespace LUP.ES
         {
             
 
-            
+
         }
 
-        public override void Attack()
+        public override bool Attack()
         {
             if (Time.time < nextAttackTime)
             {
-                return;
+                return false;
             }
 
             nextAttackTime = Time.time + weaponItem.data.timeBetAttack;
@@ -58,17 +58,18 @@ namespace LUP.ES
                     }
                 }
             }
+            return true;
 
         }
 
-        private void OnDrawGizmos()
-        {
-            if (Application.isPlaying)
-            {
-                Gizmos.color = Color.red;
-                Gizmos.DrawWireSphere(playerTransform.position, weaponItem.data.range);
-            }
-        }
+        //private void OnDrawGizmos()
+        //{
+        //    if (Application.isPlaying)
+        //    {
+        //        Gizmos.color = Color.red;
+        //        Gizmos.DrawWireSphere(playerTransform.position, weaponItem.data.range);
+        //    }
+        //}
     }
 
 }

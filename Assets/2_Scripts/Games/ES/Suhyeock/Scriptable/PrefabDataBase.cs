@@ -3,15 +3,17 @@ using UnityEngine;
 
 namespace LUP.ES
 {
-    [CreateAssetMenu(fileName = "PrefabDataBase", menuName = "Scriptable Objects/PrefabDataBase")]
+    [CreateAssetMenu(fileName = "PrefabDataBase", menuName = "ES/PrefabDataBase")]
     public class PrefabDataBase : ScriptableObject
     {
         [System.Serializable]
         public class ItemPrefabEntry
         {
             public int id;              // 자동 입력됨
-            public string name;         // 자동 입력됨 (알아보기 쉽게)
-            public GameObject prefab;   // 유저가 직접 연결할 곳
+            public string name;         // 자동 입력됨
+            public GameObject prefab;   // 직접 연결할 곳
+            public Vector3 positionOffset; // 위치 보정값
+            public Vector3 rotationOffset; // 회전 보정값
         }
 
         // [핵심 2] 원본 데이터베이스 연결 (여기에 ItemDataBase를 넣으세요)
@@ -63,19 +65,20 @@ namespace LUP.ES
                     });
                 }
             }
-
-            // (선택사항) ID 순서대로 정렬
-            //prefabList = prefabList.OrderBy(x => x.id).ToList();
-
-            Debug.Log("ID 동기화 완료! 프리팹을 연결해주세요.");
         }
 
         // 런타임에 프리팹을 가져오는 함수
         public GameObject GetPrefab(int id)
         {
-            var entry = prefabList.Find(x => x.id == id);
+            ItemPrefabEntry entry = prefabList.Find(x => x.id == id);
             if (entry != null) return entry.prefab;
             return null;
+        }
+
+        public ItemPrefabEntry GetEntry(int id)
+        {
+            ItemPrefabEntry entry = prefabList.Find(x => x.id == id);
+            return entry;
         }
     }
 

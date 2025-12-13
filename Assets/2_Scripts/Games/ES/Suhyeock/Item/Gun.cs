@@ -14,6 +14,7 @@ namespace LUP.ES
         public GameObject bulletPrefab;
         private BulletObjectPool bulletPool;
         public Transform firePoint;
+        private Transform aimPivot;
 
         [HideInInspector]
         public int ammoRemain = 0;
@@ -22,13 +23,11 @@ namespace LUP.ES
         private float nextAttackTime = 0f;
 
         private FollowCamera cameraScript;
-        private void Awake()
+        public void Init(int id)
         {
+            aimPivot = transform.root;
             bulletPool = GetComponent<BulletObjectPool>();
-        }
-
-        private void Start()
-        {
+            selectedWeaponId = id;
             state = WeaponState.READY;
             BaseItemData itemData = itemDataBase.GetItemByID(selectedWeaponId);
             RangedWeaponItemData weaponData = itemData as RangedWeaponItemData;
@@ -45,11 +44,11 @@ namespace LUP.ES
                 cameraScript = camObj.GetComponent<FollowCamera>();
             }
         }
-        public override void Attack()
+        public override bool Attack()
         {
             if (Time.time < nextAttackTime)
             {
-                return;
+                return false;
             }
 
             nextAttackTime = Time.time + weaponItem.data.timeBetAttack;
@@ -58,12 +57,13 @@ namespace LUP.ES
             RangedWeaponItemData data = weaponItem.data as RangedWeaponItemData;
             if (bullet != null)
             {
-                bullet.Init(bulletPool, firePoint.position, firePoint.rotation, data.range, data.damage, data.bulletSpeed);
+                Quaternion shootRotation = aimPivot.rotation;
+                bullet.Init(bulletPool, firePoint.position, shootRotation, data.range, data.damage, data.bulletSpeed);
                 magAmmo--;
                 cameraScript.Shake(0.08f, 0.03f);
-                return;
+                return true;
             }
-            return;
+            return false;
         }
 
         public void Reload()

@@ -19,9 +19,16 @@ namespace LUP.ES
         public WeaponState state;
         [HideInInspector]
         public WeaponItem weaponItem;
+        public Transform leftHandGrip;
+        public abstract bool Attack();
 
-        public abstract void Attack();
+        private void Start()
+        {
+            eventBroker = FindAnyObjectByType<EventBroker>();
+        }
     }
-}
 
+   
+    
+}
 

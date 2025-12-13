@@ -15,13 +15,15 @@ namespace LUP.ES
         {
             characterController = GetComponent<CharacterController>();
             blackboard = GetComponent<PlayerBlackboard>();
-            blackboard.weapon.eventBroker = blackboard.eventBroker;
             blackboard.playerOverheadUI = GetComponent<PlayerOverheadUI>();
             
         }
         void Start()
         {
+            blackboard.weaponEquip = GetComponent<WeaponEquip>();
+            blackboard.weaponEquip.Init();
             SetupBehaviorTree();
+            
         }
 
         // Update is called once per frame

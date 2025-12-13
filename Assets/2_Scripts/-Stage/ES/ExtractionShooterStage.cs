@@ -96,6 +96,12 @@ namespace LUP
 
             base.SaveRuntimeDataList(runtimeDataList);
         }
+
+        public void SceneChange(int sceneNumber)
+        {
+            Time.timeScale = 1f;
+            LoadStage(StageKind, sceneNumber);
+        }
     }
 }
 

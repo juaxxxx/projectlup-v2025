@@ -1025,13 +1025,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fc2213e485c231449a2b4e41d530b83d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  eventBroker: {fileID: 0}
-  itemCenter: {fileID: 0}
   resultPanel: {fileID: 1761131963}
   ItemDisplayContent: {fileID: 1217470068}
   itemSlotPrefab: {fileID: 6511714564501465791, guid: 46f7f8b739eb9dc479396202e8bd6f49, type: 3}
   resultHeader: {fileID: 637667666}
-  lobbyButton: {fileID: 33149924}
 --- !u!1001 &252722860
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1926,7 +1923,7 @@ Camera:
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 3583
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0
@@ -8537,6 +8534,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1661900842}
     m_Modifications:
+    - target: {fileID: 2128159984013774325, guid: 7cb9f22aaa26d684cb6315a9f884f88b, type: 3}
+      propertyPath: m_Materials.Array.size
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2639954624592253183, guid: 7cb9f22aaa26d684cb6315a9f884f88b, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0.02
@@ -8559,11 +8560,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2639954624592253183, guid: 7cb9f22aaa26d684cb6315a9f884f88b, type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2639954624592253183, guid: 7cb9f22aaa26d684cb6315a9f884f88b, type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2639954624592253183, guid: 7cb9f22aaa26d684cb6315a9f884f88b, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -8581,6 +8582,18 @@ PrefabInstance:
       propertyPath: playerTransform
       value: 
       objectReference: {fileID: 1661900842}
+    - target: {fileID: 4421157750894981586, guid: 7cb9f22aaa26d684cb6315a9f884f88b, type: 3}
+      propertyPath: meshColor.b
+      value: 0.025919914
+      objectReference: {fileID: 0}
+    - target: {fileID: 4421157750894981586, guid: 7cb9f22aaa26d684cb6315a9f884f88b, type: 3}
+      propertyPath: meshColor.g
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4421157750894981586, guid: 7cb9f22aaa26d684cb6315a9f884f88b, type: 3}
+      propertyPath: meshColor.r
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6699912051311791607, guid: 7cb9f22aaa26d684cb6315a9f884f88b, type: 3}
       propertyPath: m_Name
       value: Sword
@@ -8589,7 +8602,8 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 5949244950311067539, guid: 7cb9f22aaa26d684cb6315a9f884f88b, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
@@ -8602,6 +8616,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: -8382978363877592038, guid: 67e92f84d29c07245b1dec3c9e6bac90, type: 3}
+      propertyPath: spineOffset.y
+      value: 25
+      objectReference: {fileID: 0}
     - target: {fileID: 884996925007334372, guid: 67e92f84d29c07245b1dec3c9e6bac90, type: 3}
       propertyPath: canvas
       value: 
@@ -8677,7 +8695,7 @@ PrefabInstance:
     - target: {fileID: 6348856284375335552, guid: 67e92f84d29c07245b1dec3c9e6bac90, type: 3}
       propertyPath: weapon
       value: 
-      objectReference: {fileID: 4848599011562273061}
+      objectReference: {fileID: 0}
     - target: {fileID: 6348856284375335552, guid: 67e92f84d29c07245b1dec3c9e6bac90, type: 3}
       propertyPath: animator
       value: 
@@ -8694,6 +8712,10 @@ PrefabInstance:
       propertyPath: rightJoystick
       value: 
       objectReference: {fileID: 1413288532}
+    - target: {fileID: 6348856284375335552, guid: 67e92f84d29c07245b1dec3c9e6bac90, type: 3}
+      propertyPath: CurrentWeaponID
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 6384529989836699630, guid: 67e92f84d29c07245b1dec3c9e6bac90, type: 3}
       propertyPath: m_Name
       value: Gun
@@ -8714,17 +8736,6 @@ PrefabInstance:
       addedObject: {fileID: 523753207}
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 67e92f84d29c07245b1dec3c9e6bac90, type: 3}
---- !u!114 &4848599011562273061 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 1266129875108989236, guid: 67e92f84d29c07245b1dec3c9e6bac90, type: 3}
-  m_PrefabInstance: {fileID: 4848599011562273060}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 076d19924a689434798052219c55fee6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &5310075924510903261
 PrefabInstance:
   m_ObjectHideFlags: 0
