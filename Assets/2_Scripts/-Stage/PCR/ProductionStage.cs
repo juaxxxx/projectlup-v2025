@@ -2,11 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace LUP
+namespace LUP.PCR
 {
     public class ProductionStage : BaseStage
     {
-        public BaseRuntimeData RuntimeData;
+        public BaseRuntimeData productionRuntimeData;
         public List<PCRConstructionStaticData> constructionDataList;
         public List<PCRProductionStaticData> productionDataList;
 
@@ -30,11 +30,30 @@ namespace LUP
         {
 
         }
-
         public override IEnumerator OnStageEnter()
         {
             yield return base.OnStageEnter();
+
             //구현부
+            ProductionRuntimeData runtimeData = productionRuntimeData as ProductionRuntimeData;
+            if (runtimeData == null)
+            {
+                Debug.LogWarning("[PCRStage] productionRuntimeData가 없습니다.");
+
+                if (runtimeData.BuildingInfoList == null || runtimeData.BuildingInfoList.Count <= 0)
+                {
+                    Debug.LogWarning("[PCRStage] BuildingInfoList가 없습니다.");
+
+                    // 없으면 초기 건물 리스트 입력하기. (일단 따라서 테스트해보기)
+                    InitialBuildingSettingTable initalBuildingTable = Resources.Load<InitialBuildingSettingTable>("Data/Games/PCR/SO/InitialBuildingSettingTable");
+                    if (initalBuildingTable != null)
+                    {
+                        runtimeData.BuildingInfoList = initalBuildingTable.buildingList;
+                    }
+                }
+
+            }
+
 
             // InventoryManager를 통해 PCR 인벤토리 로드 및 등록
             PCRInven = InventoryManager.Instance.LoadOrCreateInventory("PCR", "PCRInventory.json");
@@ -65,32 +84,30 @@ namespace LUP
             List<BaseStaticDataLoader> loaders = base.GetStaticData(this, 1);
             List<BaseRuntimeData> runtimeDatas = base.GetRuntimeData(this, 1);
 
-            Debug.Log("GetDatas");
-
+            // static
             if (loaders != null && loaders.Count > 0)
             {
                 foreach (var loader in loaders)
                 {
                     if (loader is PCRConstructionStaticDataLoader pcrConstructionLoader)
                     {
-                        Debug.Log("ConstructionLoad");
                         constructionDataList = pcrConstructionLoader.GetDataList();
                     }
                     else if (loader is PCRProductionStaticDataLoader pcrProductionLoader)
                     {
-                        Debug.Log("ProductionLoad");
                         productionDataList = pcrProductionLoader.GetDataList();
                     }
                 }
             }
 
+            // runtime
             if (runtimeDatas != null && runtimeDatas.Count > 0)
             {
                 foreach (var runtimeData in runtimeDatas)
                 {
                     if (runtimeData is ProductionRuntimeData pcrRuntimeData)
                     {
-                        RuntimeData = pcrRuntimeData;
+                        productionRuntimeData = pcrRuntimeData;
                     }
                 }
             }
@@ -100,9 +117,9 @@ namespace LUP
         {
             List<BaseRuntimeData> runtimeDataList = new List<BaseRuntimeData>();
 
-            if (RuntimeData != null)
+            if (productionRuntimeData != null)
             {
-                runtimeDataList.Add(RuntimeData);
+                runtimeDataList.Add(productionRuntimeData);
             }
 
             base.SaveRuntimeDataList(runtimeDataList);

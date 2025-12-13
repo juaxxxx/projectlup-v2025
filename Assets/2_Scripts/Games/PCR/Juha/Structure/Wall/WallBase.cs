@@ -8,7 +8,12 @@ namespace LUP.PCR
 
         public bool CanDig(int digPower)
         {
-            return wallInfo.Durability <= digPower;
+            if (wallInfo != null)
+            {
+                return wallInfo.wallType <= digPower;
+            }
+
+            return true;
         }
     }
 
