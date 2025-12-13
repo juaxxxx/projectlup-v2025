@@ -2186,6 +2186,7 @@ MonoBehaviour:
   defaultFov: 60
   zoomedFov: 30
   zoomLerpSpeed: 10
+  zoomLookDistance: 30
 --- !u!1 &335821999
 GameObject:
   m_ObjectHideFlags: 0
@@ -6343,11 +6344,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 767011371}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fbd5222f02994d34c80070dd078942d1, type: 3}
+  m_Script: {fileID: 11500000, guid: 5d9f7e4b7e26a9542953c96b46deb420, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  areaSize: {x: 60, y: 2}
-  spawnHeight: 2
+  areaSize: {x: 20, y: 2}
+  spawnHeight: 0
   gizmoColor: {r: 0, g: 1, b: 0, a: 1}
 --- !u!4 &767011373
 Transform:
@@ -6358,7 +6359,7 @@ Transform:
   m_GameObject: {fileID: 767011371}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -3.91544, y: -5.8059196, z: 40.277267}
+  m_LocalPosition: {x: -3.91544, y: -3.5, z: 40.277267}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -13991,11 +13992,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 1777509193}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fbd5222f02994d34c80070dd078942d1, type: 3}
+  m_Script: {fileID: 11500000, guid: 5d9f7e4b7e26a9542953c96b46deb420, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  areaSize: {x: 60, y: 2}
-  spawnHeight: 2
+  areaSize: {x: 20, y: 2}
+  spawnHeight: 0
   gizmoColor: {r: 0, g: 1, b: 0, a: 1}
 --- !u!4 &1777509195
 Transform:
@@ -15877,37 +15878,31 @@ MonoBehaviour:
   m_GameObject: {fileID: 2040641703}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ce975e91eb98a344181bb340ef91202b, type: 3}
+  m_Script: {fileID: 11500000, guid: b40c52af4fa66c843ba841b0f6a4a458, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   monsterPrefabs:
-  - {fileID: 7855042958750180503, guid: aacd98a491e1b8d4c9f89d1ee56eb24b, type: 3}
   - {fileID: 7855042958750180503, guid: 493464c16c0d00b4aa6a32b0205f9cc7, type: 3}
-  poolSize: 40
+  - {fileID: 7855042958750180503, guid: 7d04c6faa26c56942b71cdbebb684d51, type: 3}
+  - {fileID: 7855042958750180503, guid: 12df89f95ca9bc94090861eaf14194b9, type: 3}
+  - {fileID: 7855042958750180503, guid: 6cc30340fba80134086e64b2f45fcf79, type: 3}
+  poolSize: 20
   spawnMode: 1
-  spawnPoints:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  spawnPoints: []
   spawnAreas:
   - {fileID: 767011372}
   - {fileID: 1777509194}
   waves:
-  - waveName: 1
-    monsterCount: 20
-    spawnInterval: 2
-    delayBeforeNextWave: 2
-  - waveName: 2
-    monsterCount: 20
-    spawnInterval: 1.5
-    delayBeforeNextWave: 2
-  - waveName: 3
-    monsterCount: 20
+  - waveName: wav1
+    monsterCount: 1
     spawnInterval: 1
-    delayBeforeNextWave: 2
+    delayBeforeNextWave: 1
+    monsters:
+    - prefab: {fileID: 7855042958750180503, guid: 7d04c6faa26c56942b71cdbebb684d51, type: 3}
+      count: 1
+      spawnDelay: 1
+    useRandomSpawn: 0
+    randomSpawnCount: 0
   autoStartWaves: 1
   showDebugLogs: 1
 --- !u!4 &2040641705

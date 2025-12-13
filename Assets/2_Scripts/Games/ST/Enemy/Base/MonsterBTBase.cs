@@ -1,54 +1,56 @@
 using UnityEngine;
 using System.Collections.Generic;
+
 namespace LUP.ST
 {
-
-    public class MonsterBT : BehaviorTreeBase
+    public abstract class MonsterBTBase : BehaviorTreeBase
     {
-        private MonsterData data;
+        protected MonsterData data;
 
-        void Awake()
+        protected virtual void Awake()
         {
             data = GetComponent<MonsterData>();
         }
 
-        protected override BaseNode SetupTree()
+        protected BaseNode DeadSequence()
         {
-            BaseNode root = new Selector(new List<BaseNode>
-        {
-            // 1. Dead
-            new Sequence(new List<BaseNode>
+            return new Sequence(new List<BaseNode>
             {
                 new ConditionNode(() => MonsterConditions.CheckHPZero(data)),
                 new ActionNode(() => MonsterActions.Dead(data))
-            }),
+            });
+        }
 
-            // 2. Stunned
-            new Sequence(new List<BaseNode>
+        protected BaseNode StunnedSequence()
+        {
+            return new Sequence(new List<BaseNode>
             {
                 new ConditionNode(() => MonsterConditions.CheckIsStunned(data)),
                 new ActionNode(() => MonsterActions.Idle(data))
-            }),
+            });
+        }
 
-            // 3. Using Skill
-            new Sequence(new List<BaseNode>
+        protected BaseNode UsingSkillSequence()
+        {
+            return new Sequence(new List<BaseNode>
             {
                 new ConditionNode(() => MonsterConditions.CheckIsUsingSkill(data)),
                 new ActionNode(() => MonsterActions.Idle(data))
-            }),
+            });
+        }
 
-            // 4. Attack
-            new Sequence(new List<BaseNode>
+        protected BaseNode AttackSequence()
+        {
+            return new Sequence(new List<BaseNode>
             {
                 new ConditionNode(() => MonsterConditions.CheckInAttackRange(data)),
                 new ActionNode(() => MonsterActions.Attack(data))
-            }),
+            });
+        }
 
-            // 6. Move (Fallback)
-            new ActionNode(() => MonsterActions.MoveToPlayer(data))
-        });
-
-            return root;
+        protected BaseNode MoveToPlayerAction()
+        {
+            return new ActionNode(() => MonsterActions.MoveToPlayer(data));
         }
     }
 }

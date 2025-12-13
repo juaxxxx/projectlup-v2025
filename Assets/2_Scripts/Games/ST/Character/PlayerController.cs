@@ -19,10 +19,6 @@ namespace LUP.ST
             rangedCharacter = GetComponent<RangeBlackBoard>();
             weaponActions = GetComponent<RangeActions>();
 
-            if (showInputDebug)
-            {
-                Debug.Log($"PlayerController √ ±‚»≠: {gameObject.name}");
-            }
         }
 
         void Update()

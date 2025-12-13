@@ -5,6 +5,9 @@ namespace LUP.ST
 
     public class MonsterData : MonoBehaviour, IPoolable
     {
+        [Header("몬스터 타입")]
+        public MonsterType monsterType = MonsterType.Grunt;
+
         [Header("드롭")]
         public DropTable dropTable;
         public GameObject dropPrefab;
@@ -22,11 +25,6 @@ namespace LUP.ST
         public float stunDuration = 2f;
         public float skillDuration = 2f;
 
-        [Header("엄폐 설정")]
-        public LayerMask coverLayer;
-        public float coverCheckDistance = 5f;
-        public float hideCooldown = 10f;
-        [HideInInspector] public float lastHideTime = -999f;
 
 
         // 상태 플래그
@@ -36,15 +34,19 @@ namespace LUP.ST
         [HideInInspector] public float skillEndTime = 0f;
         [HideInInspector] public bool isHiding = false;
         [HideInInspector] public Vector3 hidePosition;
+        [HideInInspector] public bool isAttackingFlag = false;
+        [HideInInspector] public bool hasAppliedHit = false;
 
         private MonsterSpawner spawner;
         private StatComponent stats;
+        private VisualComponent visual;
         private Renderer rend;
         private Color originalColor;
 
         void Awake()
         {
             stats = GetComponent<StatComponent>();
+            visual = GetComponent<VisualComponent>();
             if (stats == null)
             {
                 Debug.LogError($"{gameObject.name}: StatComponent가 없습니다!");
@@ -81,8 +83,8 @@ namespace LUP.ST
             //타겟 없어지면 바로 다른 타겟 잡기
             if (target != null)
             {
-                RangeBlackBoard targetInfo = target.GetComponent<RangeBlackBoard>();
-                if (targetInfo != null && targetInfo.IsHpZero())
+                StatComponent targetStats = target.GetComponent<StatComponent>();
+                if (targetStats != null && targetStats.IsDead)
                 {
                     Debug.Log($"{gameObject.name}: 타겟 {target.name} 사망! 다른 타겟 찾기...");
                     FindNearestPlayer();
@@ -95,7 +97,6 @@ namespace LUP.ST
             isStunned = false;
             isUsingSkill = false;
             isHiding = false;
-            lastHideTime = -999f;
             lastRetargetTime = 0f;
 
             if (stats != null)
@@ -151,6 +152,7 @@ namespace LUP.ST
         }
 
         public StatComponent Stats => stats;
+        public VisualComponent Visual => visual;
         public bool IsDead => stats != null && stats.IsDead;
 
         public void ApplyStun()
@@ -183,6 +185,12 @@ namespace LUP.ST
             if (players.Length == 0) return;
             if (players.Length == 1)
             {
+                StatComponent stats = players[0].GetComponent<StatComponent>();
+                if (stats != null && stats.IsDead)
+                {
+                    target = null;
+                    return;
+                }
                 target = players[0].transform;
                 return;
             }
@@ -192,8 +200,8 @@ namespace LUP.ST
 
             foreach (GameObject player in players)
             {
-                RangeBlackBoard playerInfo = player.GetComponent<RangeBlackBoard>();
-                if (playerInfo != null && playerInfo.IsHpZero())
+                StatComponent playerStats = player.GetComponent<StatComponent>();
+                if (playerStats != null && playerStats.IsDead)
                 {
                     continue;  // 죽었으면 스킵!
                 }
@@ -247,9 +255,7 @@ namespace LUP.ST
                 Gizmos.color = Color.red;
                 Gizmos.DrawWireSphere(transform.position, stats.AttackRange);
 
-                Gizmos.color = Color.green;
-                Vector3 dir = (target.position - transform.position).normalized;
-                Gizmos.DrawRay(transform.position, dir * coverCheckDistance);
+
             }
         }
     }

@@ -8,7 +8,7 @@ namespace LUP.ST
     {
         [Header("몬스터 설정")]
         [SerializeField] private MonsterData[] monsterPrefabs;
-        [SerializeField] private int poolSize = 50;
+        [SerializeField] private int poolSize = 20;
 
         [Header("스폰 방식 선택")]
         [SerializeField] private SpawnMode spawnMode = SpawnMode.Area;
@@ -30,6 +30,16 @@ namespace LUP.ST
 
         private int currentWaveIndex = 0;
         private bool isSpawning = false;
+        private int aliveMonsterCount = 0;
+
+        public int CurrentWave => currentWaveIndex;
+        public int AliveMonsters => aliveMonsterCount;
+        public bool IsSpawning => isSpawning;
+
+        // 이벤트
+        public System.Action<int> OnWaveStart;      // 웨이브 번호
+        public System.Action<int> OnWaveComplete;   // 웨이브 번호
+        public System.Action OnAllWavesComplete;
 
         public enum SpawnMode
         {
@@ -76,39 +86,129 @@ namespace LUP.ST
             {
                 WaveData wave = waves[currentWaveIndex];
 
-                if (showDebugLogs)
-                    Debug.Log($"=== {wave.waveName} 시작! ===");
-
                 yield return StartCoroutine(SpawnWave(wave));
 
                 currentWaveIndex++;
 
                 if (currentWaveIndex < waves.Count)
                 {
-                    if (showDebugLogs)
-                        Debug.Log($"다음 웨이브까지 {wave.delayBeforeNextWave}초 대기...");
-
                     yield return new WaitForSeconds(wave.delayBeforeNextWave);
                 }
             }
-
-            if (showDebugLogs)
-                Debug.Log("=== 모든 웨이브 완료! ===");
         }
-
         private IEnumerator SpawnWave(WaveData wave)
         {
             isSpawning = true;
 
-            for (int i = 0; i < wave.monsterCount; i++)
+            if (wave.useRandomSpawn)
             {
-                SpawnMonster();
-                yield return new WaitForSeconds(wave.spawnInterval);
+                // 랜덤 스폰 모드
+                for (int i = 0; i < wave.randomSpawnCount; i++)
+                {
+                    MonsterData prefab = wave.GetRandomMonster();
+                    if (prefab != null)
+                    {
+                        SpawnMonster(prefab);
+                    }
+                    yield return new WaitForSeconds(wave.spawnInterval);
+                }
+            }
+            else
+            {
+                // 순차 스폰 모드
+                foreach (var (prefab, delay) in wave.GetSpawnSequence())
+                {
+                    if (delay > 0)
+                    {
+                        yield return new WaitForSeconds(delay);
+                    }
+
+                    SpawnMonster(prefab);
+
+                    yield return new WaitForSeconds(wave.spawnInterval);
+                }
             }
 
             isSpawning = false;
         }
 
+        /// <summary>
+        /// 특정 프리팹으로 몬스터 스폰
+        /// </summary>
+        public void SpawnMonster(MonsterData prefab)
+        {
+            if (prefab == null)
+            {
+                Debug.LogError("스폰할 몬스터 프리팹이 null입니다!");
+                return;
+            }
+
+            if (!monsterPools.ContainsKey(prefab))
+            {
+                Debug.LogError($"{prefab.name}의 Pool이 없습니다! monsterPrefabs에 추가하세요.");
+                return;
+            }
+
+            Vector3 spawnPosition;
+            Quaternion spawnRotation;
+            GetSpawnTransform(out spawnPosition, out spawnRotation);
+
+            ObjectPool<MonsterData> pool = monsterPools[prefab];
+            MonsterData monster = pool.Get(spawnPosition, spawnRotation);
+            monster.SetSpawner(this);
+
+            aliveMonsterCount++;
+
+            if (showDebugLogs)
+                Debug.Log($"스폰: {monster.name} at {spawnPosition}");
+        }
+
+        /// <summary>
+        /// 랜덤 몬스터 스폰 (기존 방식 호환)
+        /// </summary>
+        public void SpawnRandomMonster()
+        {
+            if (monsterPrefabs.Length == 0)
+            {
+                Debug.LogError("MonsterPrefabs가 없습니다!");
+                return;
+            }
+
+            MonsterData randomPrefab = monsterPrefabs[Random.Range(0, monsterPrefabs.Length)];
+            SpawnMonster(randomPrefab);
+        }
+
+        private void GetSpawnTransform(out Vector3 position, out Quaternion rotation)
+        {
+            if (spawnMode == SpawnMode.Point)
+            {
+                if (spawnPoints.Count == 0)
+                {
+                    Debug.LogError("SpawnPoint가 없습니다!");
+                    position = transform.position;
+                    rotation = Quaternion.identity;
+                    return;
+                }
+
+                SpawnPoint spawnPoint = spawnPoints[Random.Range(0, spawnPoints.Count)];
+                position = spawnPoint.GetSpawnPosition();
+                rotation = spawnPoint.GetSpawnRotation();
+            }
+            else
+            {
+                if (spawnAreas.Count == 0)
+                {
+                    Debug.LogError("SpawnArea가 없습니다!");
+                    position = transform.position;
+                    rotation = Quaternion.identity;
+                    return;
+                }
+
+                SpawnArea spawnArea = spawnAreas[Random.Range(0, spawnAreas.Count)];
+                position = spawnArea.GetRandomPosition();
+                rotation = spawnArea.GetSpawnRotation();
+            }
+        }
         public void SpawnMonster()
         {
             if (monsterPrefabs.Length == 0)
@@ -183,6 +283,15 @@ namespace LUP.ST
                 currentWaveIndex++;
             }
         }
+        [ContextMenu("Skip To Next Wave")]
+        public void SkipToNextWave()
+        {
+            ClearAllMonsters();
+            if (currentWaveIndex < waves.Count)
+            {
+                currentWaveIndex++;
+            }
+        }
         void Update()
         {
             if (Input.GetKeyDown(KeyCode.Space))
@@ -200,6 +309,18 @@ namespace LUP.ST
             if (showDebugLogs && monsterPools != null)
             {
                 int y = 10;
+
+                // 웨이브 정보
+                string waveInfo = currentWaveIndex < waves.Count
+                    ? $"Wave: {currentWaveIndex + 1}/{waves.Count} - {waves[currentWaveIndex].waveName}"
+                    : "All Waves Complete!";
+                GUI.Label(new Rect(10, y, 400, 20), waveInfo);
+                y += 20;
+
+                GUI.Label(new Rect(10, y, 300, 20), $"Alive Monsters: {aliveMonsterCount}");
+                y += 25;
+
+                // 풀 정보
                 int totalActive = 0;
                 int totalAvailable = 0;
                 int totalCount = 0;

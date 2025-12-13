@@ -27,9 +27,18 @@ namespace LUP.ST
 
         public static bool CheckInAttackRange(MonsterData data)
         {
-            if (data.target == null) return false;
+            if (data.target == null)
+            {
+                Debug.Log($"{data.name}: 타겟 없음");
+                return false;
+            }
 
             float distance = Vector3.Distance(data.transform.position, data.target.position);
+            float attackRange = data.Stats.AttackRange;
+            bool inRange = distance <= attackRange;
+
+            Debug.Log($"{data.name}: 거리={distance:F2}, 공격범위={attackRange}, 범위내={inRange}");
+
             return distance <= data.Stats.AttackRange;
         }
 
@@ -38,25 +47,6 @@ namespace LUP.ST
             return data.Stats.CurrentHealth <= data.Stats.MaxHealth * 0.3f;
         }
 
-        public static bool CheckCoverAhead(MonsterData data)
-        {
-            if (data.target == null) return false;
 
-            Vector3 dir = (data.target.position - data.transform.position).normalized;
-            RaycastHit hit;
-
-            if (Physics.Raycast(data.transform.position, dir, out hit, data.coverCheckDistance, data.coverLayer))
-            {
-                data.hidePosition = hit.point - dir * 1f;
-                return true;
-            }
-
-            return false;
-        }
-
-        public static bool CheckHideCooldownOK(MonsterData data)
-        {
-            return (Time.time - data.lastHideTime) >= data.hideCooldown;
-        }
     }
 }

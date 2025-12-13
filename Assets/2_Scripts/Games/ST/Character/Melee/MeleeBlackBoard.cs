@@ -37,7 +37,7 @@ namespace LUP.ST
         }
 
         // 트리에서 쓰는 조건
-        public bool IsHpZero() => stats.IsDead;
+        public bool IsHpZero() => stats != null && stats.IsDead;
         public bool HasAttackChance() => Ammo > 0;
         public bool CanAttack()
         {

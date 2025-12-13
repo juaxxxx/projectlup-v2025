@@ -55,19 +55,23 @@ namespace LUP.ST
                 modelInstance.transform.localPosition = modelOffset;  // (0,0,0) 이어야 함
                 modelInstance.transform.localRotation = Quaternion.identity;
                 modelInstance.transform.localScale = Vector3.one * modelScale;
+
             }
 
             animator = modelInstance.GetComponent<Animator>();
             if (animator == null)
             {
                 animator = modelInstance.GetComponentInChildren<Animator>();
-                Debug.Log($"Animator 찾기: {(animator != null ? "성공" : "실패")}");
             }
 
             if (animator != null && animatorController != null)
             {
-                animator.runtimeAnimatorController = animatorController;
-                Debug.Log($"AnimatorController 설정: {animatorController.name}");
+                animator.applyRootMotion = false;
+
+                if (animatorController != null)
+                {
+                    animator.runtimeAnimatorController = animatorController;
+                }
             }
 
         }
