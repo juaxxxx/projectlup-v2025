@@ -1,4 +1,4 @@
-using System;
+ï»¿using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -26,7 +26,7 @@ namespace LUP.PCR
             }
         }
 
-        // ÇØ½Ã(¼ýÀÚ)°ª ºñ±³ ·ÎÁ÷
+        // í•´ì‹œ(ìˆ«ìž)ê°’ ë¹„êµ ë¡œì§
         public bool Equals(WorkerBlackboardKey other) => hashKey == other.hashKey;
         public override bool Equals(object obj) => obj is WorkerBlackboardKey other && Equals(other);
         public override int GetHashCode() => hashKey;

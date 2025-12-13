@@ -1,4 +1,4 @@
-using UnityEngine;
+ï»¿using UnityEngine;
 
 namespace LUP.PCR
 { 
@@ -10,8 +10,8 @@ namespace LUP.PCR
             BuildingBase building = GetData<BuildingBase>(BBKeys.AssignedWorkplace);
 
             return building != null
-                ? ReturnAndLog(NodeState.SUCCESS, "2-1. ¿¹¾àµÈ ÀÛ¾÷ÀÌ ÀÖ½À´Ï´Ù.")
-                : ReturnAndLog(NodeState.FAILURE, "2-1. ÇÒ´çµÈ ÀÛ¾÷ÀÌ ¾ø½À´Ï´Ù.");
+                ? ReturnAndLog(NodeState.SUCCESS, "2-1. ì˜ˆì•½ëœ ì‘ì—…ì´ ìˆìŠµë‹ˆë‹¤.")
+                : ReturnAndLog(NodeState.FAILURE, "2-1. í• ë‹¹ëœ ì‘ì—…ì´ ì—†ìŠµë‹ˆë‹¤.");
         }
     }
 }

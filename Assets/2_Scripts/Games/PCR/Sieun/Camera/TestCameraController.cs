@@ -1,4 +1,4 @@
-using TMPro.Examples;
+Ôªøusing TMPro.Examples;
 using UnityEngine;
 
 namespace LUP.PCR
@@ -22,7 +22,7 @@ namespace LUP.PCR
         private void OnMouseEnter()
         {
             FocusOn(this.transform.position);
-            // Debug.Log($"[Camera] {name} ∆˜ƒøΩ∫");
+            // Debug.Log($"[Camera] {name} Ìè¨Ïª§Ïä§");
         }
     }
  }

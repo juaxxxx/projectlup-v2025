@@ -1,4 +1,4 @@
-using UnityEngine;
+ï»¿using UnityEngine;
 
 namespace LUP.PCR
 {
@@ -13,7 +13,7 @@ namespace LUP.PCR
             if (building != null) 
             {
                 building.ExitWorker();
-                Debug.Log($"1-2. ¹è°íÇÄÀ¸·Î ÀÎÇØ {building.buildingName} ÀÛ¾÷À» Ãë¼ÒÇß½À´Ï´Ù.");
+                Debug.Log($"1-2. ë°°ê³ í””ìœ¼ë¡œ ì¸í•´ {building.buildingName} ì‘ì—…ì„ ì·¨ì†Œí–ˆìŠµë‹ˆë‹¤.");
             }
 
             OwnerAI.HasTask = false;

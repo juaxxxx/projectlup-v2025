@@ -1,7 +1,7 @@
-using System.Collections.Generic;
+ï»¿using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-//using TMPro; //@TODO : TMP ÆùÆ®·Î º¯°æ
+//using TMPro; //@TODO : TMP í°íŠ¸ë¡œ ë³€ê²½
 using System;
 
 
@@ -9,16 +9,16 @@ namespace LUP.PCR
 {
     public class TaskAssignmentView : MonoBehaviour
     {
-        [Header("UI ÄÁÅ×ÀÌ³Ê")]
+        [Header("UI ì»¨í…Œì´ë„ˆ")]
         [SerializeField] private Transform buildingListContent;
         [SerializeField] private Transform workerListContent;
         [SerializeField] private Text statusText;
 
-        [Header("ÇÁ¸®ÆÕ")]
+        [Header("í”„ë¦¬íŒ¹")]
         [SerializeField] BuildingUIItem buildingItemPrefab;
         [SerializeField] WorkerUIItem workerItemPrefab;
 
-        [Header("¾ÆÀÌÄÜ")]
+        [Header("ì•„ì´ì½˜")]
         [SerializeField] private Sprite iconHungry;
         [SerializeField] private Sprite iconIdle;
 

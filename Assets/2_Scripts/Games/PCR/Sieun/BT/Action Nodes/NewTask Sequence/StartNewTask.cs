@@ -1,4 +1,4 @@
-using UnityEngine;
+ï»¿using UnityEngine;
 
 namespace LUP.PCR
 {
@@ -20,7 +20,7 @@ namespace LUP.PCR
             else if(timer < duration)
             {
                 timer += Time.deltaTime;
-                Debug.Log($"2-3. ÇÒ´ç¹ÞÀº ÀÛ¾÷ ÁøÇàÁß... {timer:F1}/{duration}");
+                Debug.Log($"2-3. í• ë‹¹ë°›ì€ ìž‘ì—… ì§„í–‰ì¤‘... {timer:F1}/{duration}");
                 OwnerAI.HasTask = true;
 
                 return NodeState.RUNNING;
@@ -31,7 +31,7 @@ namespace LUP.PCR
                 BB.Remove(BBKeys.AssignedWorkplace);
                 OwnerAI.HasTask = false;
                 
-                Debug.Log("2-3. ÀÛ¾÷ ¿Ï·á.");
+                Debug.Log("2-3. ìž‘ì—… ì™„ë£Œ.");
                 return NodeState.SUCCESS;
             }
         }

@@ -1,4 +1,4 @@
-using UnityEngine;
+Ôªøusing UnityEngine;
 
 namespace LUP.PCR
 {
@@ -14,7 +14,7 @@ namespace LUP.PCR
             if (timer < duration)
             {
                 timer += Time.deltaTime;
-                return ReturnAndLog(NodeState.RUNNING, $"1-4. ΩƒªÁ ¡ﬂ... {timer:F1}/{duration}");
+                return ReturnAndLog(NodeState.RUNNING, $"1-4. ÏãùÏÇ¨ Ï§ë... {timer:F1}/{duration}");
             }
             else
             {
@@ -23,7 +23,7 @@ namespace LUP.PCR
                OwnerAI.Hunger = currentHunger;
                //SetData<float>(BBKeys.Hunger, currentHunger);
 
-               return ReturnAndLog(NodeState.SUCCESS, $"1-4. ΩƒªÁ ¡ﬂ... {timer:F1}/{duration}");
+               return ReturnAndLog(NodeState.SUCCESS, $"1-4. ÏãùÏÇ¨ Ï§ë... {timer:F1}/{duration}");
             }
         }
     }

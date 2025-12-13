@@ -1,4 +1,4 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -7,16 +7,16 @@ namespace LUP.PCR
     public class WorkerDataCenter : MonoBehaviour
     {
 
-        [Header("´ÜÀÏ °Ç¹°")]
+        [Header("ë‹¨ì¼ ê±´ë¬¼")]
         [SerializeField] private BuildingBase restaurant;
         [SerializeField] private BuildingBase station;
 
-        [Header("½Ã½ºÅÛ")]
+        [Header("ì‹œìŠ¤í…œ")]
         [SerializeField] PCRDataCenter pcrDataCenter;
         [SerializeField] AGridMap aGrid;
         [HideInInspector] public TileInfo[,] tileInfoes;
 
-        [Header("ÀÛ¾÷ÀÚ µ¥ÀÌÅÍ")]
+        [Header("ì‘ì—…ì ë°ì´í„°")]
         [SerializeField] private const int maxWorkerCount = 50;
         [SerializeField] private List<WorkerAI> workers = new List<WorkerAI>(maxWorkerCount);
 
@@ -29,7 +29,7 @@ namespace LUP.PCR
         {
             if (isInitialized) return;
 
-            // ÄÄÆ÷³ÍÆ® Ã£±â ·ÎÁ÷
+            // ì»´í¬ë„ŒíŠ¸ ì°¾ê¸° ë¡œì§
             if (!pcrDataCenter) pcrDataCenter = GetComponentInChildren<PCRDataCenter>();
             if (!restaurant) restaurant = GetComponentInChildren<BuildingRestaurant>();
             if (!station) station = GetComponentInChildren<BuildingWorkStation>();
@@ -37,7 +37,7 @@ namespace LUP.PCR
             isInitialized = true;
         }
 
-        // ¿ÜºÎ¿¡¼­ ¿öÄ¿¸¦ µî·ÏÇÏ´Â ÇÔ¼ö
+        // ì™¸ë¶€ì—ì„œ ì›Œì»¤ë¥¼ ë“±ë¡í•˜ëŠ” í•¨ìˆ˜
         public void RegisterWorker(WorkerAI newWorker)
         {
             if (!isInitialized)
@@ -56,7 +56,7 @@ namespace LUP.PCR
 
         public void InitWorkers()
         {
-            // Å×½ºÆ®¿ë
+            // í…ŒìŠ¤íŠ¸ìš©
             for (int i = 0; i < workers.Count; i++)
             {
                 workers[i].InitWorkerData(i, $"Chulsoo_{i + 1}");
@@ -103,7 +103,7 @@ namespace LUP.PCR
             for (int i = 0; i < workers.Count; i++)
             {
                 WorkerAI w = workers[i];
-                // ÀÛ¾÷ÀÚ°¡ Á¸ÀçÇÏ°í, ¿¹¾àµÈ ÀÛ¾÷ÀÌ ¾øÀ» ¶§¸¸ Ãß°¡
+                // ì‘ì—…ìê°€ ì¡´ì¬í•˜ê³ , ì˜ˆì•½ëœ ì‘ì—…ì´ ì—†ì„ ë•Œë§Œ ì¶”ê°€
                 if (w != null && !w.HasTask)
                 {
                     idleList.Add(w);
@@ -120,7 +120,7 @@ namespace LUP.PCR
             WorkerAI bestWorker = null;
 
             float minScore = float.MaxValue;
-            float tolerance = 0.1f; // ¿ÀÂ÷ ¹üÀ§
+            float tolerance = 0.1f; // ì˜¤ì°¨ ë²”ìœ„
 
             ANode targetNode = aGrid.GetNodeFromGridPos(targetGridPos);
 
@@ -144,7 +144,7 @@ namespace LUP.PCR
                     continue;
                 }
 
-                // ¸ÇÇØÆ° °Å¸®
+                // ë§¨í•´íŠ¼ ê±°ë¦¬
                 int dx = Mathf.Abs(workerNode.indexX - targetNode.indexX);
                 int dy = Mathf.Abs(workerNode.indexY - targetNode.indexY);
 

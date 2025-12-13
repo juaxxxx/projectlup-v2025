@@ -1,4 +1,4 @@
-using UnityEngine;
+ï»¿using UnityEngine;
 
 namespace LUP.PCR
 {
@@ -7,7 +7,7 @@ namespace LUP.PCR
         public static GlobalBlackboard Instance { get; private set; }
         public WorkerBlackboard BB { get; private set; } = new WorkerBlackboard();
 
-        // Àü¿ª ÀÌº¥Æ® ¿¹ : ³·/¹ã º¯°æ µî
+        // ì „ì—­ ì´ë²¤íŠ¸ ì˜ˆ : ë‚®/ë°¤ ë³€ê²½ ë“±
         // public event Action<string> OnGloablEvent
 
         //public void RaiseGlobalEvent(string evt)

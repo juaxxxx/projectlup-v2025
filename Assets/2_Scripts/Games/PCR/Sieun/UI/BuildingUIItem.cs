@@ -1,7 +1,7 @@
-using System.Collections.Generic;
+Ôªøusing System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-//using TMPro; //@TODO : TMP ∆˘∆Æ∑Œ ∫Ø∞Ê
+//using TMPro; //@TODO : TMP Ìè∞Ìä∏Î°ú Î≥ÄÍ≤Ω
 using System;
 
 namespace LUP.PCR
@@ -15,7 +15,7 @@ namespace LUP.PCR
         {
             if (nameText != null)
             {
-                nameText.text = building.buildingName; // //@TODO : building.buildingName¿∏∑Œ ∞°¡Æø¿±‚
+                nameText.text = building.buildingName; // //@TODO : building.buildingNameÏúºÎ°ú Í∞ÄÏ†∏Ïò§Í∏∞
             }
 
             btn.onClick.RemoveAllListeners();
