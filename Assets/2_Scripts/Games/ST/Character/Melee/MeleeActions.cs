@@ -21,18 +21,63 @@ namespace LUP.ST
 
         private Rigidbody rb;
 
+        private bool deathStarted = false;
+        private int deathStateHash = 0;
+        private const int AnimLayer = 0;
+
+        private Animator anim;
+
         void Awake()
         {
             bb = GetComponent<MeleeBlackBoard>();
             stats = GetComponent<StatComponent>();
             visual = GetComponent<VisualComponent>();
             rb = GetComponent<Rigidbody>();
+
+            anim = visual != null ? visual.Animator : null;
         }
 
         // 사망: 애니 등 실행. 트리는 Retire가 RUNNING이면 멈춘다고 가정
         public NodeState Retire()
         {
-            Debug.Log($"{name} ▶ Retire (사망)");
+            if(!deathStarted)
+            {
+                deathStarted = true;
+
+                isStopped = true;
+                visual?.SetMoving(false);
+                stats?.CancelAttack();
+
+                gameObject.tag = "Untagged";
+                gameObject.layer = LayerMask.NameToLayer("Dead");
+
+                foreach (var col in GetComponentsInChildren<Collider>())
+                    col.enabled = false;
+
+                if(rb != null)
+                {
+                    rb.linearVelocity = Vector3.zero;
+                    rb.angularVelocity = Vector3.zero;
+                    rb.isKinematic = true;
+                }
+            }
+
+            if(anim == null)
+                return NodeState.SUCCESS;
+
+            AnimatorStateInfo info = anim.IsInTransition(AnimLayer)
+                ? anim.GetNextAnimatorStateInfo(AnimLayer)
+                : anim.GetCurrentAnimatorStateInfo(AnimLayer);
+
+            if(deathStateHash == 0)
+                deathStateHash = info.shortNameHash;
+
+            if(info.shortNameHash == deathStateHash && info.normalizedTime >= 1f)
+            {
+                Debug.Log($"{name} retired");
+                return NodeState.SUCCESS;
+            }
+
             return NodeState.RUNNING;
         }
 

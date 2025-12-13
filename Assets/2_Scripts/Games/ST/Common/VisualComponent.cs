@@ -18,6 +18,7 @@ namespace LUP.ST
         private GameObject modelInstance;
         private StatComponent statComponent;
         private Animator animator;
+        public Animator Animator => animator;
 
         // 이동 추적
         private Vector3 lastPosition;

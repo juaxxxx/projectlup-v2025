@@ -24,6 +24,12 @@ namespace LUP.ST
 
         private Rigidbody rb;
 
+        private bool deathStarted = false;
+        private int deathStateHash = 0;
+        private const int AnimLayer = 0;
+
+        private Animator anim;
+
         void Awake()
         {
             rend = GetComponent<Renderer>();
@@ -31,10 +37,6 @@ namespace LUP.ST
             stats = GetComponent<StatComponent>();
             rb = GetComponent<Rigidbody>();
             visual = GetComponent<VisualComponent>();
-            if (stats != null)
-            {
-                stats.OnDeath += HandleDeath;
-            }
         }
 
         void Update()
@@ -42,14 +44,6 @@ namespace LUP.ST
             if (!character.manualMode)  // 자동 모드일 때만 자동 리로드
             {
                 CheckAutoReload();
-            }
-        }
-
-        void OnDestroy()
-        {
-            if (stats != null)
-            {
-                stats.OnDeath -= HandleDeath;
             }
         }
 
@@ -64,14 +58,6 @@ namespace LUP.ST
                 {
                     StartReload();
                 }
-            }
-        }
-
-        private void HandleDeath()
-        {
-            if (character != null)
-            {
-                Debug.Log($"{character.characterName} 사망!");
             }
         }
 
@@ -95,9 +81,60 @@ namespace LUP.ST
 
         public NodeState Retire(RangeBlackBoard character)
         {
-            
-            Debug.Log($"{name} ▶ Retire (사망)");
-            return NodeState.SUCCESS;
+            if (!deathStarted)
+            {
+                deathStarted = true;
+
+                if (character != null)
+                {
+                    character.manualMode = false;
+                    character.playerInputExists = false;
+                    character.enemyInRange = false;
+                }
+
+                if (TryGetComponent<PlayerController>(out var pc))
+                {
+                    pc.enabled = false;
+                }
+
+                if (TryGetComponent<EnemyDetector>(out var detector))
+                {
+                    detector.enabled = false;
+                }
+
+                gameObject.tag = "Untagged";
+                gameObject.layer = LayerMask.NameToLayer("Dead");
+
+                foreach (var col in GetComponentsInChildren<Collider>())
+                    col.enabled = false;
+
+                if (rb != null)
+                {
+                    rb.linearVelocity = Vector3.zero;
+                    rb.angularVelocity = Vector3.zero;
+                    rb.isKinematic = true;
+                }
+
+                visual?.SetMoving(false);
+            }
+
+            if (anim == null)
+                return NodeState.SUCCESS;
+
+            AnimatorStateInfo info = anim.IsInTransition(AnimLayer)
+                ? anim.GetNextAnimatorStateInfo(AnimLayer)
+                : anim.GetCurrentAnimatorStateInfo(AnimLayer);
+
+            if (deathStateHash == 0)
+                deathStateHash = info.shortNameHash;
+
+            if (info.shortNameHash == deathStateHash && info.normalizedTime >= 1f)
+            {
+                Debug.Log($"{name} Retire");
+                return NodeState.SUCCESS;
+            }
+
+            return NodeState.RUNNING;
         }
 
         public NodeState FireManual(RangeBlackBoard character)
