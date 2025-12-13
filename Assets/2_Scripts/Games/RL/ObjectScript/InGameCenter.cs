@@ -66,7 +66,7 @@ namespace LUP.RL
         private Archer controlledPlayer = null;
 
 
-        private RoguelikeStage stage;
+        //private RoguelikeStage stage;
 
         [HideInInspector]
         public ItemSpawner itemSpawner;
@@ -78,10 +78,10 @@ namespace LUP.RL
       
         private void Start()
         {
-            stage = FindFirstObjectByType<RoguelikeStage>();
+            //stage = FindFirstObjectByType<RoguelikeStage>();
 
-            if (stage == null)
-                Debug.Log("Fail To Find Stage Object");
+            //if (stage == null)
+            //    Debug.Log("Fail To Find Stage Object");
 
             itemSpawner = FindFirstObjectByType<ItemSpawner>();
             if(itemSpawner)
@@ -150,8 +150,8 @@ namespace LUP.RL
 
             SpawnPlayer();
 
-            IItemable item = ItemManager.Instance.GetItem("Wood");
-            stage.inventory.AddItem(item, 5);
+            //IItemable item = ItemManager.Instance.GetItem("Wood");
+            //stage.inventory.AddItem(item, 5);
         }
 
         // Update is called once per frame
@@ -368,7 +368,6 @@ namespace LUP.RL
         void OnGainSpawnableItem(int itemID)
         {
             IItemable item = ItemManager.Instance.GetItem(itemID);
-            stage.inventory.AddItem(item, 1);
 
             string itemName = item.ItemName;
             for(int i = 0; i < spawnableItemDatas.Length; i++)
@@ -378,6 +377,8 @@ namespace LUP.RL
                     AddItem(spawnableItemDatas[i]);
                 }
             }
+
+
         }
 
         void ShowGameResult()

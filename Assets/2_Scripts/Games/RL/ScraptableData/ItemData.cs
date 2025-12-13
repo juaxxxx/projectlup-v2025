@@ -1,22 +1,31 @@
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "ItemData", menuName = "Scriptable Objects/ItemData")]
-public class ItemData : ScriptableObject, IDisplayable
+using LUP.Define;
+
+namespace LUP.RL
 {
-    [SerializeField]
-    private string itemName;
+    [CreateAssetMenu(fileName = "ItemData", menuName = "Scriptable Objects/ItemData")]
+    public class ItemData : ScriptableObject, IDisplayable
+    {
+        [SerializeField]
+        private string itemName;
 
-    [SerializeField]
-    private Sprite itemImage;
+        [SerializeField]
+        private Sprite itemImage;
 
-    [SerializeField]
-    private int itemAmount;
+        [SerializeField]
+        private int itemAmount;
 
-    public string GetDisplayableName() { return itemName; }
-    public Sprite GetDisplayableImage() { return itemImage; }
+        public ItemType itemType;
 
-    public void SetDisplayableImage(Sprite image) { itemImage = image; }
+        public string GetDisplayableName() { return itemName; }
+        public Sprite GetDisplayableImage() { return itemImage; }
 
-    public int GetExtraInfo() { return itemAmount; }
-    public void SetExtraInfo(int amount) { itemAmount = amount; }
+        public void SetDisplayableImage(Sprite image) { itemImage = image; }
+
+        public int GetExtraInfo() { return itemAmount; }
+        public void SetExtraInfo(int amount) { itemAmount = amount; }
+    }
 }
+
+

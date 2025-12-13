@@ -17,6 +17,13 @@ namespace LUP.RL
 
         public Color btnActiveColor;
         public Color btnDeActiveColor;
+
+        private bool bIsChangeColor = true;
+
+        public void SetUseDefaultInteractColor(bool isChangeColor)
+        {
+            bIsChangeColor = isChangeColor;
+        }
         public bool Init()
         {
             btnBackGroundImage = gameObject.GetComponent<Image>();
@@ -31,7 +38,12 @@ namespace LUP.RL
             {
                 return false;
             }
-            btnBackGroundImage.color = btnDeActiveColor;
+
+            if(bIsChangeColor)
+            {
+                btnBackGroundImage.color = btnDeActiveColor;
+            }
+            
 
             return true;
         }

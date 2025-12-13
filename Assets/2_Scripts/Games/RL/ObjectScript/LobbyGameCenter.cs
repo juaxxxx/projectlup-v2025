@@ -14,7 +14,7 @@ namespace LUP.RL
     public class LobbyGameCenter : MonoBehaviour
     {
         PlatformAdapter platformAdapter;
-        private RoguelikeStage stage;
+        //private RoguelikeStage stage;
 
         [SerializeField]
         private Canvas mainCanvas;
@@ -57,10 +57,10 @@ namespace LUP.RL
 
         public void Start()
         {
-            stage = FindFirstObjectByType<RoguelikeStage>();
+            //stage = FindFirstObjectByType<RoguelikeStage>();
 
-            if (stage == null)
-                Debug.Log("Fail To Find Stage Object");
+            //if (stage == null)
+            //    Debug.Log("Fail To Find Stage Object");
         }
 
 
@@ -109,7 +109,7 @@ namespace LUP.RL
 
             Time.timeScale = 1;
 
-            var test = stage.inventory.GetAllItems();
+            //var test = stage.inventory.GetAllItems();
         }
 
         void Update()

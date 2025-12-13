@@ -3,81 +3,85 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class Test_Flatform : MonoBehaviour
+namespace LUP.RL
 {
-    [SerializeField]
-    private ChapterData[] rogueLikeChapterDatas;
-
-    [SerializeField]
-    private RLCharacterData[] rogueLikecharacterDatas;
-
-    [SerializeField]
-    private ItemData[] rogueLikespawnableItemDatas;
-
-    [SerializeField]
-    private ItemData[] rogueLikeInventoryItmeDatas;
-
-    [SerializeField]
-    private BuffData[] rogueLikeBuffDatas;
-
-    public ChapterData[] chapterDatas => (ChapterData[])rogueLikeChapterDatas.Clone();
-    public RLCharacterData[] characterDatas => (RLCharacterData[])rogueLikecharacterDatas.Clone();
-
-    public ItemData[] spawnableItemDatas => (ItemData[])rogueLikespawnableItemDatas.Clone();
-    public BuffData[] buffDatas => (BuffData[])rogueLikeBuffDatas.Clone();
-
-    public ItemData[] inventoryItmeDatas => (ItemData[])rogueLikeInventoryItmeDatas.Clone();
-
-    public ChapterData selectedChapter;
-    public RLCharacterData selectedCharacter;
-
-    public int LastSeletedChapter { get; private set; } = -1;
-    public int LastSeletedCharacter { get; private set; } = -1;
-
-    private static bool isOriginal = false;
-
-    public void Awake()
+    public class Test_Flatform : MonoBehaviour
     {
-        if(!isOriginal)
+        [SerializeField]
+        private ChapterData[] rogueLikeChapterDatas;
+
+        [SerializeField]
+        private RLCharacterData[] rogueLikecharacterDatas;
+
+        [SerializeField]
+        private ItemData[] rogueLikespawnableItemDatas;
+
+        //[SerializeField]
+        //private ItemData[] rogueLikeInventoryItmeDatas;
+
+        [SerializeField]
+        private BuffData[] rogueLikeBuffDatas;
+
+        public ChapterData[] chapterDatas => (ChapterData[])rogueLikeChapterDatas.Clone();
+        public RLCharacterData[] characterDatas => (RLCharacterData[])rogueLikecharacterDatas.Clone();
+
+        public ItemData[] spawnableItemDatas => (ItemData[])rogueLikespawnableItemDatas.Clone();
+        public BuffData[] buffDatas => (BuffData[])rogueLikeBuffDatas.Clone();
+
+        //public ItemData[] inventoryItmeDatas => (ItemData[])rogueLikeInventoryItmeDatas.Clone();
+
+        public ChapterData selectedChapter;
+        public RLCharacterData selectedCharacter;
+
+        public int LastSeletedChapter { get; private set; } = -1;
+        public int LastSeletedCharacter { get; private set; } = -1;
+
+        private static bool isOriginal = false;
+
+        public void Awake()
         {
-            DontDestroyOnLoad(this);
-            isOriginal = true;
+            if (!isOriginal)
+            {
+                DontDestroyOnLoad(this);
+                isOriginal = true;
+            }
+
+            else
+            {
+                Destroy(this);
+            }
         }
 
-        else
+        public void LoadRogueLikeGameScene(string gameSceneName)
         {
-            Destroy(this);
+            SceneManager.LoadScene(gameSceneName);
+
         }
-    }
 
-    public void LoadRogueLikeGameScene(string gameSceneName)
-    {
-        SceneManager.LoadScene(gameSceneName);
+        public void LoadRogueLikeLobbyScene(string lobbySceneName)
+        {
+            SceneManager.LoadScene(lobbySceneName);
+        }
 
-    }
+        public void UploadSelectionDataToFlatform(ChapterData selectChapter, RLCharacterData selectCharacter)
+        {
+            selectedChapter = selectChapter;
+            selectedCharacter = selectCharacter;
+        }
 
-    public void LoadRogueLikeLobbyScene(string lobbySceneName)
-    {
-        SceneManager.LoadScene(lobbySceneName);
-    }
+        //public (ChapterData, RLCharacterData) GetSelectionData()
+        //{
+        //    return (selectedChapter, selectedCharacter);
+        //}
 
-    public void UploadSelectionDataToFlatform(ChapterData selectChapter, RLCharacterData selectCharacter)
-    {
-        selectedChapter = selectChapter;
-        selectedCharacter = selectCharacter;
-    }
-
-    //public (ChapterData, RLCharacterData) GetSelectionData()
-    //{
-    //    return (selectedChapter, selectedCharacter);
-    //}
-
-    public void UploadGameResult(Dictionary<ItemData, int> gainItem, int resultChapter, int resultCharacter)
-    {
-        //gainItem
-        LastSeletedChapter = resultChapter;
-        LastSeletedCharacter = resultCharacter;
+        public void UploadGameResult(Dictionary<ItemData, int> gainItem, int resultChapter, int resultCharacter)
+        {
+            //gainItem
+            LastSeletedChapter = resultChapter;
+            LastSeletedCharacter = resultCharacter;
 
 
+        }
     }
 }
+

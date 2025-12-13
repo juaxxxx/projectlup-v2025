@@ -4,107 +4,112 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
-public class RouletteScript : MonoBehaviour
+
+namespace LUP.RL
 {
-    private PlatformAdapter adapter;
-    [Header("UI References")]
-    [SerializeField] private Button spinButton;
-    [SerializeField] private GameObject RoulletPanel;
-    [SerializeField] private GameObject RoulletImagel;
-    [SerializeField] private GameObject resultPanel;
-    [SerializeField] private Image resultImage;
-
-    [Header("Buff List")]
-    public List<BuffData> buffList = new();
-
-    private bool isSpinning = false;
-    private bool isResultReady = false;
-    private float currentSpeed = 0;
-    private BuffData selectedBuff;
-
-
-    void Start()
+    public class RouletteScript : MonoBehaviour
     {
-        if (spinButton == null) return;
-        resultPanel.SetActive(false);
-        spinButton.onClick.AddListener(OnButtonClick);
-        adapter = new PlatformAdapter();
-        adapter.LinkToPlatform();
-     
-        //·ê·¿¿¡  ¹öÇÁ¸®½ºÆ®¿¬°á
-        //buffList.AddRange(adapter.gainableBuffDatas);
-    }
-    void OnButtonClick()
-    {
-        if (!isSpinning && !isResultReady)
+        private PlatformAdapter adapter;
+        [Header("UI References")]
+        [SerializeField] private Button spinButton;
+        [SerializeField] private GameObject RoulletPanel;
+        [SerializeField] private GameObject RoulletImagel;
+        [SerializeField] private GameObject resultPanel;
+        [SerializeField] private Image resultImage;
+
+        [Header("Buff List")]
+        public List<BuffData> buffList = new();
+
+        private bool isSpinning = false;
+        private bool isResultReady = false;
+        private float currentSpeed = 0;
+        private BuffData selectedBuff;
+
+
+        void Start()
         {
-            Debug.Log("·ê·¿ ½ÃÀÛ!");
-            Time.timeScale = 1;
-            isSpinning = true;
+            if (spinButton == null) return;
+            resultPanel.SetActive(false);
+            spinButton.onClick.AddListener(OnButtonClick);
+            adapter = new PlatformAdapter();
+            adapter.LinkToPlatform();
 
-            //¹öÆ° ºñÈ°¼ºÈ­
-            spinButton.interactable = false;
-            currentSpeed = 300f;
-
+            //·ê·¿¿¡  ¹öÇÁ¸®½ºÆ®¿¬°á
+            //buffList.AddRange(adapter.gainableBuffDatas);
         }
-        else if (!isSpinning && isResultReady)
+        void OnButtonClick()
         {
-            spinButton.interactable = false;
-
-            ShowResult();
-        }
-
-    }
-
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.CompareTag("Player"))
-        {
-            RoulletPanel.gameObject.SetActive(true);
-            Time.timeScale = 0;
-
-        }
-    }
-    void SelectRandomBuff()
-    {
-        int rand = Random.Range(0, buffList.Count);
-        selectedBuff = buffList[rand];
-    }
-    private void Update()
-    {
-        if (isSpinning)
-        {
-            RoulletImagel.transform.Rotate(0, 0, currentSpeed);
-            currentSpeed *= 0.98f;
-
-            if (currentSpeed < 1f)
+            if (!isSpinning && !isResultReady)
             {
-                currentSpeed = 0;
-                isSpinning = false;
-                isResultReady = true;
-                spinButton.interactable = true;
-                Debug.Log("È¸Àü ³¡");
-                SelectRandomBuff();
+                Debug.Log("·ê·¿ ½ÃÀÛ!");
+                Time.timeScale = 1;
+                isSpinning = true;
+
+                //¹öÆ° ºñÈ°¼ºÈ­
+                spinButton.interactable = false;
+                currentSpeed = 300f;
+
+            }
+            else if (!isSpinning && isResultReady)
+            {
+                spinButton.interactable = false;
+
+                ShowResult();
+            }
+
+        }
+
+        private void OnTriggerEnter(Collider other)
+        {
+            if (other.CompareTag("Player"))
+            {
+                RoulletPanel.gameObject.SetActive(true);
+                Time.timeScale = 0;
+
             }
         }
+        void SelectRandomBuff()
+        {
+            int rand = Random.Range(0, buffList.Count);
+            selectedBuff = buffList[rand];
+        }
+        private void Update()
+        {
+            if (isSpinning)
+            {
+                RoulletImagel.transform.Rotate(0, 0, currentSpeed);
+                currentSpeed *= 0.98f;
 
-    }
-    void ShowResult()
-    {
-        int randIndex = Random.Range(0, buffList.Count);
-        BuffData selectedBuff = buffList[randIndex];
-        resultImage.sprite = selectedBuff.GetDisplayableImage();
+                if (currentSpeed < 1f)
+                {
+                    currentSpeed = 0;
+                    isSpinning = false;
+                    isResultReady = true;
+                    spinButton.interactable = true;
+                    Debug.Log("È¸Àü ³¡");
+                    SelectRandomBuff();
+                }
+            }
 
-        Debug.Log($"´çÃ·: {selectedBuff.buffName}");
-        resultPanel.SetActive(true);
-        RoulletImagel.SetActive(false);
-        Time.timeScale = 1;
-        StartCoroutine(CloseResultAfterDelay(2f));
-    }
-    IEnumerator CloseResultAfterDelay(float delay)
-    {
-        yield return new WaitForSeconds(delay);
-        RoulletPanel.SetActive(false);
-        Destroy(gameObject);
+        }
+        void ShowResult()
+        {
+            int randIndex = Random.Range(0, buffList.Count);
+            BuffData selectedBuff = buffList[randIndex];
+            resultImage.sprite = selectedBuff.GetDisplayableImage();
+
+            Debug.Log($"´çÃ·: {selectedBuff.buffName}");
+            resultPanel.SetActive(true);
+            RoulletImagel.SetActive(false);
+            Time.timeScale = 1;
+            StartCoroutine(CloseResultAfterDelay(2f));
+        }
+        IEnumerator CloseResultAfterDelay(float delay)
+        {
+            yield return new WaitForSeconds(delay);
+            RoulletPanel.SetActive(false);
+            Destroy(gameObject);
+        }
     }
 }
+
