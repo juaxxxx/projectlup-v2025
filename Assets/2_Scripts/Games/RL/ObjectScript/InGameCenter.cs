@@ -41,17 +41,17 @@ namespace LUP.RL
         public Action<GameObject> OnPlayerCharacterSpawned;
 
         //------Temp Test Button
-        public Button AddItem1Btn;
-        public Button AddItem2Btn;
-        public Button AddItem3Btn;
-        public Button AddTestItemBtn;
+        //public Button AddItem1Btn;
+        //public Button AddItem2Btn;
+        //public Button AddItem3Btn;
+        //public Button AddTestItemBtn;
 
-        public Button ClearGameBtn;
-        public Button DebugBtn;
+        //public Button ClearGameBtn;
+        //public Button DebugBtn;
 
-        private bool debugMode = false;
+        //private bool debugMode = false;
 
-        public GameObject DebugPanel;
+        //public GameObject DebugPanel;
         //------------------------
 
         private CircleButton pauseBtn;
@@ -129,20 +129,20 @@ namespace LUP.RL
             InitInGameUIElement();
 
             //Temp
-            debugMode = false;
+            //debugMode = false;
 
-            //AddItem1Btn.onClick.AddListener(AddItem1);
-            //AddItem2Btn.onClick.AddListener(AddItem2);
-            //AddItem3Btn.onClick.AddListener(AddItem3);
+            ////AddItem1Btn.onClick.AddListener(AddItem1);
+            ////AddItem2Btn.onClick.AddListener(AddItem2);
+            ////AddItem3Btn.onClick.AddListener(AddItem3);
 
-            //AddTestItemBtn.onClick.AddListener(AddTestItem);
+            ////AddTestItemBtn.onClick.AddListener(AddTestItem);
 
-            ClearGameBtn.onClick.AddListener(GameClear);
-            DebugBtn.onClick.AddListener(ChangeDebugMode);
+            //ClearGameBtn.onClick.AddListener(GameClear);
+            //DebugBtn.onClick.AddListener(ChangeDebugMode);
 
-            SetDebugMode(debugMode);
+            //SetDebugMode(debugMode);
 
-            DebugPanel.SetActive(false);
+            //DebugPanel.SetActive(false);
             ///////////
 
             Confirm.onClick.AddListener(UploadGameResult);
@@ -370,36 +370,36 @@ namespace LUP.RL
 
         }
 
-        void ChangeDebugMode()
-        {
-            debugMode = !debugMode;
+        //void ChangeDebugMode()
+        //{
+        //    debugMode = !debugMode;
 
-            SetDebugMode(debugMode);
-        }
+        //    SetDebugMode(debugMode);
+        //}
 
-        void SetDebugMode(bool enable)
-        {
-            if(enable)
-            {
-                Time.timeScale = 0f;
-            }
+        //void SetDebugMode(bool enable)
+        //{
+        //    if(enable)
+        //    {
+        //        Time.timeScale = 0f;
+        //    }
 
-            else
-            {
-                Time.timeScale = 1f;
-            }
+        //    else
+        //    {
+        //        Time.timeScale = 1f;
+        //    }
 
                 
 
-            DebugPanel.SetActive(enable);
+        //    DebugPanel.SetActive(enable);
 
-            AddItem1Btn.gameObject.SetActive(enable);
-            AddItem2Btn.gameObject.SetActive(enable);
-            AddItem3Btn.gameObject.SetActive(enable);
-            AddTestItemBtn.gameObject.SetActive(enable);
+        //    AddItem1Btn.gameObject.SetActive(enable);
+        //    AddItem2Btn.gameObject.SetActive(enable);
+        //    AddItem3Btn.gameObject.SetActive(enable);
+        //    AddTestItemBtn.gameObject.SetActive(enable);
 
-            ClearGameBtn.gameObject.SetActive(enable);
-        }
+        //    ClearGameBtn.gameObject.SetActive(enable);
+        //}
 
         void OnGainSpawnableItem(int itemID)
         {
