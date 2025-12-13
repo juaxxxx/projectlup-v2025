@@ -17,6 +17,14 @@ namespace LUP.RL
 
         public override NodeState Evaluate()
         {
+            if(bb.Move.isMoving)
+            {
+                MeleeSystem mls = bb.Shooter.meleeWeapon.GetComponent<MeleeSystem>();
+                if (mls != null)
+                    mls.ForceDisableHitbox();
+            }
+        
+            
             float h = joystick.fixedJoystick.Horizontal;
             float v = joystick.fixedJoystick.Vertical;
             if (Mathf.Abs(h) < 0.05f && Mathf.Abs(v) < 0.05f)
@@ -35,6 +43,7 @@ namespace LUP.RL
                 if (bt.GetCurrentAnimState().IsName("MoveTo") == false)
                 {
                     bt.PlayAnimation(ActionState.MoveTo, this);
+
                 }
 
                 bb.Move.MoveByJoystick(h, v);
@@ -50,5 +59,6 @@ namespace LUP.RL
         {
 
         }
+        
     }
 }

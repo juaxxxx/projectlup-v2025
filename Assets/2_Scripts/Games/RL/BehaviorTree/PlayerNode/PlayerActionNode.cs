@@ -8,6 +8,8 @@ namespace LUP.RL
     {
         private readonly PlayerBlackBoard bb;
         private readonly PlayerBehaviorTree bt;
+
+        private MeleeSystem meleeSystem;
         private Enemy target;
         private float lastFireTime = 0f;
 
@@ -30,8 +32,7 @@ namespace LUP.RL
                 //Debug.Log("actio Node call NULL Target");
                 return NodeState.Fail;
             }
-
-
+  
 
             if (bt.GetCurrentAnimState().IsName("Attack") == false)
             {
@@ -44,13 +45,14 @@ namespace LUP.RL
 
         public override void OnPlayerAnimationEnd(AnimatorStateInfo animInfo)
         {
-
+          
         }
 
         public override void OnAnimationInTargetRate()
         {
-            //RotateHelper.LookAtTarget(bb.Health.transform, target.TargetPoint.transform, 8f);
-            bb.Shooter.TryShoot(target.TargetPoint.transform, bb.Health.Adata.currentData.Attack);
+     
+            bb.Shooter.TryAttack(target.TargetPoint.transform, bb.Health.Adata.currentData.Attack);
+           
             lastFireTime = Time.time;
         }
    

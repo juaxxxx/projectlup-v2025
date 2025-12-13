@@ -9,7 +9,7 @@ namespace Roguelike.Define
         Short
     }
 
-    public enum WeaponType
+    public enum RWeaponType
     {
         None,
         Gun,

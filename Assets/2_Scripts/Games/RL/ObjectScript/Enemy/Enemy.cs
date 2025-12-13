@@ -77,7 +77,7 @@ namespace LUP.RL
  
             ObjectOnEnemyDied?.Invoke(this);
             OnEnemyDied?.Invoke(expValue);
-
+            
             //behaviorTree.ResetWorkingNodeIndex();
         }
 

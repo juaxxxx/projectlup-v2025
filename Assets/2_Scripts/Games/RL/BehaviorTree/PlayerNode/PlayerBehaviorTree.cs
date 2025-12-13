@@ -15,6 +15,7 @@ namespace LUP.RL
         protected AnimatorStateInfo stateInfo;
         protected PlayerLeafNode currentRunningLeafNode;
 
+      
         private void Awake()
         {
             bb = GetComponent<PlayerBlackBoard>();
@@ -23,7 +24,7 @@ namespace LUP.RL
                 Debug.LogError("PlayerBlackBoard가 Player에 붙어 있지 않습니다!");
                 return;
             }
-
+           
             bb.Initialize(gameObject);
             if (joystick == null) joystick = FindFirstObjectByType<JoyStickSC>();
 

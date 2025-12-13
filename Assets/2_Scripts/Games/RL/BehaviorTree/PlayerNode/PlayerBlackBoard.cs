@@ -8,6 +8,8 @@ namespace LUP.RL
         public PlayerMove Move { get;  set; }
         public ShooterComp Shooter { get;  set; }
         public Transform currentRoom;
+        [SerializeField]
+        private int attackRanage;
         public void Initialize(GameObject player)
         {
             Move = player.GetComponent<PlayerMove>();
@@ -40,7 +42,7 @@ namespace LUP.RL
                 return null;
             }
             Enemy closest = null;
-            float minDist = Mathf.Infinity;
+            float minDist = attackRanage;
 
             foreach (var e in enemies)
             {

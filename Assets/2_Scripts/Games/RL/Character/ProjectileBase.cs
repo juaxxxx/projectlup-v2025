@@ -24,8 +24,11 @@ public class ProjectileBase : MonoBehaviour
     {
         Enemy enemy = other.GetComponent<Enemy>();
         Archer player = other.GetComponent <Archer>();
-
-        if (enemy)
+        if(owner == this)
+        {
+            return;
+        }
+        else if (enemy)
         {
             enemy.TakeDamage(damage);
             Destroy(gameObject);

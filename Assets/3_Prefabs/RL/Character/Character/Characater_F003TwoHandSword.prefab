@@ -2531,6 +2531,7 @@ GameObject:
   - component: {fileID: 940147698664845262}
   - component: {fileID: 4565055029744188784}
   - component: {fileID: -8916505213670709273}
+  - component: {fileID: 3673444283788110230}
   m_Layer: 0
   m_Name: Characater_F003TwoHandSword
   m_TagString: Player
@@ -2621,6 +2622,9 @@ MonoBehaviour:
   buffSelectionUI: {fileID: 0}
   optionParent: {fileID: 0}
   optionButtonPrefab: {fileID: 0}
+  hpbar: {fileID: 0}
+  HpbarPrefab: {fileID: 0}
+  hpbaroffsetY: 5
 --- !u!114 &4569725393367992981
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2662,7 +2666,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 21c1e07004dc0504abb42c4aa24bb6e5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fireSystem: {fileID: 0}
+  fireSystem: {fileID: 3474553915367472426}
+  weapon: {fileID: -8916505213670709273}
+  meleeWeapon: {fileID: 3673444283788110230}
 --- !u!114 &3474553915367472426
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2691,6 +2697,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentRoom: {fileID: 0}
+  attackRanage: 2
   OnHit: 0
 --- !u!54 &4565055029744188784
 Rigidbody:
@@ -2735,6 +2742,20 @@ MonoBehaviour:
   weaponHandPos: {fileID: 2988717444787214632}
   weaponPos: {x: -0.109, y: 0.05, z: 0.058}
   rotate: {x: 0, y: 0, z: 71.983}
+--- !u!114 &3673444283788110230
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6828710996149563988}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ded84a7a93447164591c93089a74f9f2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hitcolider: {fileID: 4885234373655859314, guid: 45e6fd756c3ad2a4d812cf3d248bcf67, type: 3}
+  attackRange: 0.5
 --- !u!1 &6865476572672903943
 GameObject:
   m_ObjectHideFlags: 0

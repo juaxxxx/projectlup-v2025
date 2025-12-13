@@ -1,29 +1,38 @@
+using LUP.ES;
+using Roguelike.Define;
 using UnityEngine;
 
 namespace LUP.RL
 {
     public class ShooterComp : MonoBehaviour
     {
-        [HideInInspector]
         public FireSystem fireSystem;
+        public WeaponHand weapon;
+        public MeleeSystem meleeWeapon;
 
-        private void Start()
+
+        public void TryAttack(Transform target, int damage)
         {
-            fireSystem = GetComponent<FireSystem>();
-
-            if( fireSystem == null )
+            if (!weapon) return;
+            switch (weapon.weaponType)
             {
-                Debug.LogError("Fail To Find fireSystem");
-            }
-        }
+                case RWeaponType.Throw:
+                    fireSystem.TryFire(target, damage);
 
-        public void TryShoot(Transform target, int damage)
-        {
-            if (fireSystem)
-            {
-                fireSystem.TryFire(target, damage);
+                    break;
+                case RWeaponType.TwoHandSword:
+                    meleeWeapon.MeleeAttack(damage);
+
+                    break;
+                    //case RWeaponType.OneHandSword;
+
+
             }
-            
+
+
         }
+     
     }
-}
+
+
+    }

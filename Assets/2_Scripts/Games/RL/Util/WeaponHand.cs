@@ -5,7 +5,7 @@ namespace LUP.RL
 {
     public class WeaponHand : MonoBehaviour
     {
-        public WeaponType weaponType = WeaponType.None;
+        public RWeaponType weaponType = RWeaponType.None;
         public Transform weaponHandPos;
         public Vector3 weaponPos;
         public Vector3 rotate;

@@ -241,8 +241,9 @@ namespace LUP.RL
             GameObject character = Instantiate(characterData.CharacterPrefab, pos, rot);
 
             WeaponHand weaponHand = character.GetComponent<WeaponHand>();
-
-            if(weaponHand)
+            FireSystem fireSystem = character.GetComponent<FireSystem>();
+            MeleeSystem meleeSystem = character.GetComponent<MeleeSystem>();
+            if (weaponHand)
             {
                 Transform weaponHandPos = weaponHand.weaponHandPos;
                 GameObject weaponPrefab = characterData.WeaponPrefab;
@@ -254,15 +255,23 @@ namespace LUP.RL
                     weapon.transform.localPosition = weaponHand.weaponPos;
                     weapon.transform.localRotation = Quaternion.Euler(weaponHand.rotate);
 
-                    if(weaponHand.weaponType == WeaponType.Throw)
+                    if(weaponHand.weaponType == RWeaponType.Throw)
                     {
                         SetCustumProjectile(character);
                         character.GetComponent<FireSystem>().bulletData.bulletPrefab = characterData.GetWeaponProjecTile();
                     }
+                    else if(weaponHand.weaponType == RWeaponType.TwoHandSword)
+                    {
+                        Collider hitcol = weapon.GetComponent<Collider>();
+                        if(hitcol && meleeSystem)
+                        {
+                            meleeSystem.hitcolider = hitcol;
+                        }
+                    }
 
                 }
 
-                else if(weaponHand.weaponType == WeaponType.Magic)
+                else if(weaponHand.weaponType == RWeaponType.Magic)
                 {
                     SetCustumProjectile(character);
                     character.GetComponent<FireSystem>().bulletData.bulletPrefab = characterData.GetWeaponProjecTile();

@@ -67,7 +67,7 @@ namespace LUP.RL
             //{
             //    if (AtkCollTime == 0)
             //    {
-            //        shooter.TryShoot(targetPos, enemy.EnemyStats.Attack);
+            //        shooter.TryAttack(targetPos, enemy.EnemyStats.Attack);
 
             //        // 쿨타임 리필
             //        AtkCollTime = FullAttackCoolTime;

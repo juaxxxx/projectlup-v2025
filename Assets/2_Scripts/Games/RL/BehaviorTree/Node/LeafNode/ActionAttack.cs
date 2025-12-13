@@ -13,7 +13,7 @@ namespace LUP.RL
         }
         public override NodeState Evaluate()
         {
-            UnityEngine.Debug.Log("Action Attack");
+            //UnityEngine.Debug.Log("Action Attack");
             if (isAnimOnPlayed)
             {
                 nodeState = NodeState.Running;
@@ -37,7 +37,7 @@ namespace LUP.RL
 
         public override void OnAnimationEnd(AnimatorStateInfo animInfo)
         {
-            UnityEngine.Debug.Log("Hit Animation Ended");
+            //UnityEngine.Debug.Log("Hit Animation Ended");
             isAnimOnPlayed = false;
             nodeState = NodeState.Success;
             blackBoard.InAtkState = false;
@@ -51,8 +51,10 @@ namespace LUP.RL
             EnemyBlackBoard enemyBlackBoard = (EnemyBlackBoard)blackBoard;
             if (enemyBlackBoard)
             {
-                enemyBlackBoard.shooter.TryShoot(blackBoard.targetPos, enemyBlackBoard.enemy.EnemyStats.Attack);
+                
+                enemyBlackBoard.shooter.TryAttack(blackBoard.targetPos, enemyBlackBoard.enemy.EnemyStats.Attack);
             }
+
         }
 
         void TurnToTarget()
