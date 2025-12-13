@@ -1,6 +1,7 @@
 using UnityEngine;
 using DG.Tweening;
 using UnityEngine.UI;
+using TMPro;
 
 namespace LUP.DSG
 {
@@ -11,7 +12,7 @@ namespace LUP.DSG
         [SerializeField] private BattleSystem battle;
 
         private Vector2 OurhiddenPos = new Vector2(-1530, 405);
-        private Vector2 OurshowPos = new Vector2(-680, 405);
+        private Vector2 OurshowPos = new Vector2(-720, 405);
 
         private Vector2 EnmyhiddenPos = new Vector2(1594, 405);
         private Vector2 EnmyshowPos = new Vector2(707, 405);
@@ -29,10 +30,17 @@ namespace LUP.DSG
 
         public void ShowSkillPanel(Character Attacker)
         {
-            //@TODO targetcharacterData에 나중에 icon을 넣을 예정 거기서 뽑아서 paneliocon에 넣어주기 스킬이름도 마찬가지
-
-
             GameObject Object = Instantiate(panel, canvas);
+
+            TextMeshProUGUI skillNameText = Object.transform.Find("SkillBanner/SkillName").GetComponent<TextMeshProUGUI>();
+            skillNameText.text = Attacker.BattleComp.skillInfo.Skillname;
+
+            Sprite AttackerIcon;
+            CharacterIconCache.TryGetByModelId(Attacker.characterModelData.ID, out AttackerIcon);
+
+            Image ObjectIcon = Object.transform.Find("SkillBanner/PlayerIcon").GetComponent<Image>();
+            ObjectIcon.sprite = AttackerIcon;
+
             RectTransform rt = Object.GetComponent<RectTransform>();
             Sequence seq = DOTween.Sequence();
 

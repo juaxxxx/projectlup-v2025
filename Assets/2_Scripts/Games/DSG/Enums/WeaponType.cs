@@ -8,5 +8,5 @@ namespace LUP.DSG.Utils.Enums
         Gun_Rifle,
         Magic,
         Throw
-    } 
+    }
 }

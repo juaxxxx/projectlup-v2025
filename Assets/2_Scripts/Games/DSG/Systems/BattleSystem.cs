@@ -55,6 +55,7 @@ namespace LUP.DSG
 
         private int currentTurnIndex = 0;
         private int currentRound = 1;
+        private float currentGameSpeed = 1f;
         private bool isBattleStart = false;
 
         [SerializeField]
@@ -166,8 +167,6 @@ namespace LUP.DSG
                 Character character = battleSequence[i];
                 character.battleIndex = i;
 
-
-
                 var icon = Instantiate(iconPrefab, characterSequenceList);
                 var bg = icon.transform.Find("Background")?.GetComponent<Image>();
                 if (bg != null)
@@ -265,9 +264,10 @@ namespace LUP.DSG
             characterUICanvas.SetActive(false);
 
             //카메라 배틀 인트로
-            Camera camera = Camera.main;
-            BattleCameraDirector Director = camera.GetComponent<BattleCameraDirector>();
-            yield return Director.PlayBattleIntroSequence().WaitForCompletion();
+            //Camera camera = Camera.main;
+            //BattleCameraDirector Director = camera.GetComponent<BattleCameraDirector>();
+            //yield return Director.PlayBattleIntroSequence().WaitForCompletion();
+            yield return null;
 
             for (int i = 0; i < friendlySlots.Length; i++)
             {
@@ -612,6 +612,49 @@ namespace LUP.DSG
         {
             sequenceImage[index].gameObject.SetActive(false);
         }
-    }
+        public void OnClickPauseButton()
+        {
+            float Curr = Time.timeScale;
+            TextMeshProUGUI pauseText = battleCanvas.transform.Find("RightTop/PauseButton/PauseText").GetComponent<TextMeshProUGUI>();
 
+            if (Curr == 0f)
+            {
+                pauseText.SetText("Pause");
+                Time.timeScale = currentGameSpeed;
+            }
+            else
+            {
+                pauseText.SetText("Resume");
+                Time.timeScale = 0f;
+            }
+        }
+        public void OnClickSpeedButton()
+        {
+            if (currentGameSpeed == 0f)
+            {
+                return;
+            }
+
+            TextMeshProUGUI speedText = battleCanvas.transform.Find("RightTop/SpeedButton/SpeedText").GetComponent<TextMeshProUGUI>();
+
+            if (currentGameSpeed == 1f)
+            {
+                speedText.SetText("2X");
+                Time.timeScale = 2f;
+                currentGameSpeed = Time.timeScale;
+            }
+            else if (currentGameSpeed == 2f)
+            {
+                speedText.SetText("4X");
+                Time.timeScale = 4f;
+                currentGameSpeed = Time.timeScale;
+            }
+            else
+            {
+                speedText.SetText("1X");
+                Time.timeScale = 1f;
+                currentGameSpeed = Time.timeScale;
+            }
+        }
+    }
 }

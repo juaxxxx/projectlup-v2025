@@ -36,10 +36,11 @@ namespace LUP.DSG
         private GameObject bulletPrefab;
 
         private GameObject bullet;
-        private float bulletSpeed = 0.3f;
+        private float bulletSpeed = 0.2f;
+        [SerializeField]
+        private float moveSpeed = 6.0f;
 
         private bool impactApplied = false;
-
         private Vector3 knockbackTarget;
         private float knockbackDistance = 0.4f;
         private float knockbackDuration = 0.2f;
@@ -87,6 +88,7 @@ namespace LUP.DSG
                     if (!isAlive)
                     {
                         owner.ClearCharacterInfo();
+                        
                     }
                 }
             }
@@ -98,7 +100,7 @@ namespace LUP.DSG
             {
                 Debug.Log(targetPosition);
                 Debug.Log(impactApplied);
-                transform.position = Vector3.MoveTowards(gameObject.transform.position, targetPosition, 0.5f);
+                transform.position = Vector3.MoveTowards(gameObject.transform.position, targetPosition, (moveSpeed * Time.deltaTime));
                 if (Vector3.Distance(transform.position,targetSlot.AttackedPosition.position) < 0.01f)
                 {
                     if (!impactApplied)
@@ -124,7 +126,7 @@ namespace LUP.DSG
             {
                 Debug.Log(targetPosition);
                 Debug.Log(impactApplied);
-                transform.position = Vector3.MoveTowards(gameObject.transform.position, targetPosition, 0.5f);
+                transform.position = Vector3.MoveTowards(gameObject.transform.position, targetPosition, (moveSpeed * Time.deltaTime));
                 if (Vector3.Distance(transform.position, originPosition) < 0.01f)
                 {
                     owner.AnimationComp.OnEndBwdDashEvent();

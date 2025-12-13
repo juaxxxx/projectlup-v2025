@@ -23,7 +23,7 @@ namespace LUP.DSG.Utils
 
             result = result - context.enemyDefence;
 
-            Mathf.Clamp(result, 0, result);
+            result = Mathf.Clamp(result, 0, result);
             return result;
         }
 

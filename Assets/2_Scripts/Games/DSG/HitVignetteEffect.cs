@@ -50,7 +50,6 @@ namespace LUP.DSG
             vignetteImage.color = color;
             currentCoroutine = null;
         }
-
     }
 }
 
