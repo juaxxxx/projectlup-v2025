@@ -11,6 +11,8 @@ namespace LUP.RL
 
        [HideInInspector]
        public ShooterComp shooter;
+
+        private MeleeSystem meleesysys;
         private void Start()
         {
             {
@@ -34,6 +36,11 @@ namespace LUP.RL
                 {
                     shooter = enemy.GetComponent<ShooterComp>();
                 }
+                //else if(enemy.Type ==  EnemyType.Melee)
+                //{
+                //    Debug.Log("melee system 할당완료 \n enemy blackboard");
+                //    meleesysys = enemy.GetComponent<MeleeSystem>();
+                //}
             }
 
 

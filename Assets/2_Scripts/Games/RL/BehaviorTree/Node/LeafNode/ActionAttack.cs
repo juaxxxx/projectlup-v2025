@@ -51,8 +51,11 @@ namespace LUP.RL
             EnemyBlackBoard enemyBlackBoard = (EnemyBlackBoard)blackBoard;
             if (enemyBlackBoard)
             {
-                
-                enemyBlackBoard.shooter.TryAttack(blackBoard.targetPos, enemyBlackBoard.enemy.EnemyStats.Attack);
+
+                if (enemyBlackBoard.shooter)
+                {
+                    enemyBlackBoard.shooter.TryAttack(blackBoard.targetPos, enemyBlackBoard.enemy.EnemyStats.Attack);
+                }
             }
 
         }

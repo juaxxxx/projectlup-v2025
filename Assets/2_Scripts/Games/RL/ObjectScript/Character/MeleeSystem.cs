@@ -9,8 +9,6 @@ namespace LUP.RL
         private GameObject Owner;
         public Collider hitcolider;
 
-        [SerializeField]
-        private float attackRange;
 
         private void Update()
         {
@@ -25,7 +23,7 @@ namespace LUP.RL
         public void EnableHitbox()
         {
             hitcolider.enabled = true;
-            Debug.Log("Hitbox On");
+            Debug.Log($"{hitcolider}Hitbox On");
         }
         public void DisableHitbox()
         {
@@ -36,7 +34,6 @@ namespace LUP.RL
    
         public void MeleeAttack(int damage)
         {
-            Debug.Log("데미지 세팅");
             Damage = damage;
             
         }
@@ -50,12 +47,14 @@ namespace LUP.RL
         {
 
             Enemy enemy = other.GetComponent<Enemy>();
+            Archer archer = other.GetComponent<Archer>();
             if (hitcolider.enabled == false) return;
             if (other.gameObject == Owner) return;
 
             if (enemy == null) return;
+            Debug.Log($"충돌한객체 : {other}");
 
-            enemy.TakeDamage(Damage); Debug.Log($"충돌한 객체 : {other} : 받은 데미지 : ${Damage}");
+            //enemy.TakeDamage(Damage); Debug.Log($"충돌한 객체 : {other} : 받은 데미지 : ${Damage}");
             
             
 

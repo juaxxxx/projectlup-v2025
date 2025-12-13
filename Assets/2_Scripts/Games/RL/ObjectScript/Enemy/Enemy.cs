@@ -1,5 +1,6 @@
 using JetBrains.Annotations;
 using LUP.RL;
+using Roguelike.Define;
 using System;
 using UnityEngine;
 namespace LUP.RL

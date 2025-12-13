@@ -1998,6 +1998,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1182011767329298578}
   - component: {fileID: 3541017596381906417}
+  - component: {fileID: 5737626666022035505}
   m_Layer: 0
   m_Name: BattleAxe_GEO
   m_TagString: Untagged
@@ -2014,8 +2015,8 @@ Transform:
   m_GameObject: {fileID: 5137523185117141474}
   serializedVersion: 2
   m_LocalRotation: {x: -0.000000037748947, y: 1.110223e-16, z: -6.982262e-17, w: 1}
-  m_LocalPosition: {x: -0.0000000036727874, y: 6.6794154e-11, z: 0.000000011614305}
-  m_LocalScale: {x: 0.9999999, y: 0.9999999, z: 1}
+  m_LocalPosition: {x: 0.15, y: 6.6794154e-11, z: 0.35}
+  m_LocalScale: {x: 1.0380952, y: 0.9999999, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1680393261219834051}
@@ -2148,6 +2149,27 @@ SkinnedMeshRenderer:
     m_Center: {x: 1.0588423, y: 0.4010395, z: 0.20165712}
     m_Extent: {x: 0.33335304, y: 0.07804152, z: 0.665615}
   m_DirtyAABB: 0
+--- !u!135 &5737626666022035505
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5137523185117141474}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Radius: 0.24
+  m_Center: {x: 1.0196122, y: 1.4988521, z: 0.19824758}
 --- !u!1 &5572101513370013724
 GameObject:
   m_ObjectHideFlags: 0
@@ -3951,6 +3973,9 @@ GameObject:
   - component: {fileID: 499112899708964800}
   - component: {fileID: 2616535689786105532}
   - component: {fileID: 2626498203049357490}
+  - component: {fileID: 881578514394593449}
+  - component: {fileID: 8245328761410837577}
+  - component: {fileID: 1900462777050990848}
   m_Layer: 0
   m_Name: Enemy_short
   m_TagString: Enemy
@@ -4107,7 +4132,7 @@ MonoBehaviour:
   AtkCoolTimeRecoverySpeed: 1
   HittedAccumTime: 0
   RampageTime: 3
-  TargetDistance: 100
+  TargetDistance: 50
   Target: {fileID: 234494353712929494}
   targetPos: {fileID: 0}
   agent: {fileID: 0}
@@ -4148,6 +4173,50 @@ NavMeshAgent:
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 2
+--- !u!114 &881578514394593449
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8845519063124067650}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ded84a7a93447164591c93089a74f9f2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hitcolider: {fileID: 5737626666022035505}
+--- !u!114 &8245328761410837577
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8845519063124067650}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 21c1e07004dc0504abb42c4aa24bb6e5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  fireSystem: {fileID: 0}
+  weapon: {fileID: 1900462777050990848}
+  meleeWeapon: {fileID: 881578514394593449}
+--- !u!114 &1900462777050990848
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8845519063124067650}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e324571cbc24f634c8dcb7a2415324c6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  weaponType: 3
+  weaponHandPos: {fileID: 1680393261219834051}
+  weaponPos: {x: 0, y: 0, z: 0}
+  rotate: {x: 0, y: 0, z: 0}
 --- !u!1 &8862526753528994941
 GameObject:
   m_ObjectHideFlags: 0
