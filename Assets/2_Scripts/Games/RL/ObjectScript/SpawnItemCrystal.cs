@@ -6,7 +6,7 @@ namespace LUP.RL
 {
     public class SpawnItemCrystal : MonoBehaviour
     {
-        public float flyingSpeed = 50f;
+        public float flyingSpeed = 10f;
 
         [HideInInspector]
         public int itemID = 0;

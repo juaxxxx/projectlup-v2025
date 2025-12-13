@@ -30,7 +30,7 @@ namespace LUP.RL
         [SerializeField]
         private RLCharacterData characterData;
 
-        //private ItemData[] spawnableItemDatas;
+        private ItemData[] spawnableItemDatas;
         private Dictionary<ItemData, int> gainItem = new Dictionary<ItemData, int>();
 
         private StageController stageController;
@@ -98,7 +98,8 @@ namespace LUP.RL
             if (platformAdapter != null)
             {
                 platformAdapter.LinkToPlatform();
-                //platformAdapter.LoadSpawnableItemData();
+
+                LoadSpawnableItemData();
 
                 LoadInGameData();
 
@@ -195,18 +196,13 @@ namespace LUP.RL
             }
         }
 
-        //void LoadSpawnableItemData()
-        //{
-        //    if (platformAdapter.LoadSpawnableItemData())
-        //    {
-        //        spawnableItemDatas = platformAdapter.spawnableItemDatas;
-        //    }
-
-        //    else
-        //    {
-        //        UnityEngine.Debug.LogWarning("SpawnableItemData is Empty!", this.gameObject);
-        //    }
-        //}
+        void LoadSpawnableItemData()
+        {
+            if (platformAdapter != null)
+            {
+                spawnableItemDatas = platformAdapter.spawnableItemDatas;
+            }
+        }
 
         void InitInGameUIElement()
         {
@@ -369,42 +365,19 @@ namespace LUP.RL
             gameClear = true;
 
         }
-
-        //void ChangeDebugMode()
-        //{
-        //    debugMode = !debugMode;
-
-        //    SetDebugMode(debugMode);
-        //}
-
-        //void SetDebugMode(bool enable)
-        //{
-        //    if(enable)
-        //    {
-        //        Time.timeScale = 0f;
-        //    }
-
-        //    else
-        //    {
-        //        Time.timeScale = 1f;
-        //    }
-
-                
-
-        //    DebugPanel.SetActive(enable);
-
-        //    AddItem1Btn.gameObject.SetActive(enable);
-        //    AddItem2Btn.gameObject.SetActive(enable);
-        //    AddItem3Btn.gameObject.SetActive(enable);
-        //    AddTestItemBtn.gameObject.SetActive(enable);
-
-        //    ClearGameBtn.gameObject.SetActive(enable);
-        //}
-
         void OnGainSpawnableItem(int itemID)
         {
             IItemable item = ItemManager.Instance.GetItem(itemID);
             stage.inventory.AddItem(item, 1);
+
+            string itemName = item.ItemName;
+            for(int i = 0; i < spawnableItemDatas.Length; i++)
+            {
+                if (spawnableItemDatas[i].GetDisplayableName() == itemName)
+                {
+                    AddItem(spawnableItemDatas[i]);
+                }
+            }
         }
 
         void ShowGameResult()

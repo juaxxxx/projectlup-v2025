@@ -2340,8 +2340,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 0}
   m_HandleRect: {fileID: 883555149}
   m_Direction: 0
-  m_Value: -0.0000008346688
-  m_Size: 0.42477876
+  m_Value: -0.0000009408117
+  m_Size: 0.48967552
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -10079,7 +10079,6 @@ MonoBehaviour:
   selectedChapter: {fileID: 0}
   selectedCharacter: {fileID: 0}
   IsInitializeReady: 0
-  stage: {fileID: 529481088}
 --- !u!4 &1088144377
 Transform:
   m_ObjectHideFlags: 0
@@ -10921,6 +10920,8 @@ MonoBehaviour:
   - {fileID: 11400000, guid: e721468ea88d69c4fa56d6845958a1ec, type: 2}
   - {fileID: 11400000, guid: c0b8c501bd3ddd84cbdf6708590f7efc, type: 2}
   - {fileID: 11400000, guid: f1074bc8798ca3b4687cd131edefad56, type: 2}
+  - {fileID: 11400000, guid: 8957b0d18b819d042841c741c0e85896, type: 2}
+  - {fileID: 11400000, guid: f033e8dbd9abdab429d21e22542ca2dc, type: 2}
   rogueLikeInventoryItmeDatas:
   - {fileID: 11400000, guid: 8957b0d18b819d042841c741c0e85896, type: 2}
   - {fileID: 11400000, guid: 8957b0d18b819d042841c741c0e85896, type: 2}
@@ -14596,7 +14597,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 46.5
+  m_fontSize: 50
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -22818,7 +22819,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 28.6
+  m_fontSize: 30
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -24655,7 +24656,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 29.5
+  m_fontSize: 30
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -30095,7 +30096,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 18.5
+  m_fontSize: 21.35
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1

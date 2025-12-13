@@ -18,7 +18,7 @@ public class PlatformAdapter
     public ChapterData[] chapterDatas { get; private set; }
     public RLCharacterData[] characterDatas { get; private set; }
 
-    //public ItemData[] spawnableItemDatas { get; private set; }
+    public ItemData[] spawnableItemDatas { get; private set; }
 
     public ItemData[] inventoryItmeDatas { get; private set; }
 
@@ -77,6 +77,8 @@ public class PlatformAdapter
 
         inventoryItmeDatas = testPlatform.inventoryItmeDatas;
 
+        spawnableItemDatas = testPlatform.spawnableItemDatas;
+
         if ((chapterDatas == null || chapterDatas.Length == 0) ||
             (characterDatas == null || characterDatas.Length == 0))
         {
@@ -123,18 +125,6 @@ public class PlatformAdapter
         //testPlatform.LoadRogueLikeGameScene(RoguelikeScene.GameScene);
 
     }
-
-    //public bool LoadSpawnableItemData()
-    //{
-    //    spawnableItemDatas = testPlatform.spawnableItemDatas;
-
-    //    if(spawnableItemDatas.Length == 0)
-    //    {
-    //        return false;
-    //    }
-
-    //    return true;
-    //}
 
     public void ApplyGameResult(Dictionary<ItemData, int> gainItem, ChapterData resultCapter, RLCharacterData resultCharacter, bool stageCleared = true)
     {
