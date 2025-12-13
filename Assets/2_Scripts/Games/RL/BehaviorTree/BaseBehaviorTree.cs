@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 //using UnityEditor;
@@ -25,9 +26,12 @@ namespace LUP.RL
         protected EnemyBlackBoard enemyBlackBoard;
         protected CompositeNode topCompositeNode;
 
-        private LeafNode currentRunningLeaf;
+        [HideInInspector]
+        public LeafNode currentRunningLeaf;
 
         public GameObject thisCharacter;
+
+
 
         private void Awake()
         {
@@ -108,8 +112,8 @@ namespace LUP.RL
 
                 case ActionState.Die:
                     calledAnimName = "Die";
-                    currentRunningLeaf = caller;
                     Animator.Play(calledAnimName, 0, 0.0f);
+                    currentRunningLeaf = caller;
                     return;
 
                 default:

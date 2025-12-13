@@ -25,11 +25,17 @@ namespace LUP.RL
 
         public override void OnAnimationInTargetRate()
         {
+            if (behaviorTree.currentRunningLeaf != this)
+                return;
+
             MonoBehaviour.Destroy(behaviorTree.thisCharacter);
         }
 
         public override void OnAnimationEnd(AnimatorStateInfo animInfo)
         {
+            if (behaviorTree.currentRunningLeaf != this)
+                return;
+
             MonoBehaviour.Destroy(behaviorTree.thisCharacter);
         }
     }

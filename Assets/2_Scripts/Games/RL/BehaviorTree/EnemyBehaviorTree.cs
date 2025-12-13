@@ -67,8 +67,6 @@ namespace LUP.RL
                 SelectorNode bottomSelector = new SelectorNode(bottomSelectorChildNodes);
 
 
-
-
                 List<Node> topSequenceChildNodes = new List<Node>();
 
                 ReduceHP reduceHP = new ReduceHP(enemyBlackBoard, this);

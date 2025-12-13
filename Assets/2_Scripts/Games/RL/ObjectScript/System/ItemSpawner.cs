@@ -8,6 +8,8 @@ namespace LUP.RL
 {
     public class ItemSpawner : MonoBehaviour
     {
+        public Transform SpawnPool;
+
         // Start is called once before the first execution of Update after the MonoBehaviour is created
         public GameObject commoditiesPrefab;
         public GameObject equipmentPrefab;
@@ -48,6 +50,9 @@ namespace LUP.RL
                 for(int count = 0; count < SpawnCrystalPoolNum; count++ )
                 {
                     GameObject obj = Instantiate(targetPrefabObject);
+
+                    obj.transform.SetParent(SpawnPool);
+
                     obj.SetActive(false);
                     poolDictionaray[itemType].Enqueue(obj);
                 }
