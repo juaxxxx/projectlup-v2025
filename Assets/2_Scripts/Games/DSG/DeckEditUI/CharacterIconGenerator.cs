@@ -12,6 +12,9 @@ namespace LUP.DSG
         [SerializeField] private Camera previewCamera;
         [SerializeField] private Transform characterPivot;
         [SerializeField] private RenderTexture renderTexture;
+        [SerializeField] private RuntimeAnimatorController controller;
+
+        private AnimatorOverrideController portraitOverride;
 
         public IEnumerator GenerateIconRoutine(DeckStrategyStage stage, int cacheKeyCharacterId, int modelId)
         {
@@ -36,7 +39,12 @@ namespace LUP.DSG
 
             Debug.Log($"[CharacterIconGenerator] Instantiate prefab {prefab.name} for characterId={cacheKeyCharacterId}, modelId={modelId}");
 
-            var instance = Instantiate(prefab, characterPivot.position, characterPivot.rotation);
+            GameObject instance = Instantiate(prefab, characterPivot.position, characterPivot.rotation);
+
+            instance.GetComponent<Animator>().runtimeAnimatorController = controller;
+
+            Transform transform = instance.GetComponent<PortraitTransform>().portraitTransform;
+            previewCamera.transform.position = new Vector3(previewCamera.transform.position.x, transform.position.y, previewCamera.transform.position.z);
 
             yield return new WaitForEndOfFrame();
 
