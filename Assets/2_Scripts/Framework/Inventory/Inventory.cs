@@ -33,11 +33,9 @@ namespace LUP
                 return false;
             }
 
-            // slots가 null이면 초기화
             if (slots == null)
                 slots = new Dictionary<string, InventorySlot>();
 
-            // 기존 스택 가능한 슬롯 찾기
             InventorySlot stackableSlot = null;
             foreach (var slot in slots.Values)
             {
@@ -48,14 +46,13 @@ namespace LUP
                 }
             }
 
-            // 스택 추가
             if (stackableSlot != null)
             {
                 if (stackableSlot.TryAddQuantity(quantity))
                 {
                     OnItemAdded?.Invoke(item, quantity);
                     Debug.Log($"[Inventory] AddItem: {item.ItemName} x{quantity} (스택 추가)");
-                    NotifyValueChanged();  // ← 자동 저장 트리거!
+                    NotifyValueChanged();  
                     return true;
                 }
 
@@ -69,7 +66,6 @@ namespace LUP
                 return AddItem(item, remaining);
             }
 
-            // 새 슬롯 생성
             string slotKey = GenerateSlotKey(item.ItemID);
             slots[slotKey] = new InventorySlot(item, quantity);
 
@@ -105,7 +101,7 @@ namespace LUP
                 OnItemUsed?.Invoke(slot.Item);
             }
 
-            RemoveItem(itemID, quantity);  // RemoveItem이 NotifyValueChanged 호출
+            RemoveItem(itemID, quantity); 
             return true;
         }
 
@@ -129,7 +125,7 @@ namespace LUP
             }
 
             OnItemRemoved?.Invoke(slot.Item, quantity);
-            NotifyValueChanged();  // ← 자동 저장 트리거!
+            NotifyValueChanged();  
             return true;
         }
 
@@ -168,7 +164,7 @@ namespace LUP
                 slots = new Dictionary<string, InventorySlot>();
 
             slots.Clear();
-            NotifyValueChanged();  // ← 자동 저장 트리거!
+            NotifyValueChanged();  
         }
 
         private string GenerateSlotKey(int itemID)

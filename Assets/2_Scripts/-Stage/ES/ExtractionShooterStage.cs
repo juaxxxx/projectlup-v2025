@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using UnityEngine;
 
 namespace LUP
 {
@@ -8,18 +9,23 @@ namespace LUP
         public BaseRuntimeData RuntimeData;
         public List<ExtractionStaticData> DataList;
 
-        protected override void Awake() 
+        // 변수명은 예시이니 바꾸셔도 됩니다.
+        public Inventory ESInven;
+
+        protected override void Awake()
         {
             base.Awake();
             StageKind = Define.StageKind.ES;
+
+            // 파일명은 팀끼리 구분되기만 하면 자유롭게 사용하셔도 됩니다.
+            ESInven.filename = "ESInventory.json";
         }
-        // Start is called once before the first execution of Update after the MonoBehaviour is created
+
         void Start()
         {
 
         }
 
-        // Update is called once per frame
         void Update()
         {
 
@@ -29,7 +35,33 @@ namespace LUP
         {
             yield return base.OnStageEnter();
             //구현부
-            
+
+            // Inventory 생성 및 파일명 설정
+            string inventoryFilename = ESInven.filename;
+
+            if (JsonDataHelper.FileExists(inventoryFilename))
+            {
+                // 기존 인벤토리 로드
+                ESInven = JsonDataHelper.LoadData<Inventory>(inventoryFilename);
+                if (ESInven != null)
+                {
+                    ESInven.filename = inventoryFilename;
+                    ESInven.InitializeFromJson();  // Dictionary 복원
+                    Debug.Log("[ESStage] 인벤토리 로드 완료");
+                }
+                else
+                {
+                    Debug.LogWarning("[ESStage] 인벤토리 로드 실패, 새로 생성");
+                    ESInven = new Inventory();
+                    ESInven.filename = inventoryFilename;
+                }
+            }
+            else
+            {
+                ESInven = new Inventory();
+                ESInven.filename = inventoryFilename;
+                Debug.Log("[ESStage] 새 인벤토리 생성");
+            }
 
             yield return null;
         }
