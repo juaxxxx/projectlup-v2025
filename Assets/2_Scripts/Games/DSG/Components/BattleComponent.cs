@@ -133,7 +133,9 @@ namespace LUP.DSG
                     impactApplied = false;
                     isUsingSkill = false;
                     isAttacking = false;
-                    //OnReachedTargetPos?.Invoke(true);
+
+                    ObjectFader fader = GetComponent<ObjectFader>();
+                    fader.OffFade();
                 }
             }
             else if (bullet != null)
@@ -337,6 +339,9 @@ namespace LUP.DSG
                         battleCameraDirector = camera.GetComponent<BattleCameraDirector>();
                         battleCameraDirector.FocusOnTarget(targetPosition);
                     }
+
+                    ObjectFader fader = GetComponent<ObjectFader>();
+                    fader.isActive = true;
                     break;
                 case EWeaponType.Magic:
                 case EWeaponType.Gun_Rifle:
@@ -356,7 +361,6 @@ namespace LUP.DSG
 
             projectileTargetPosition = targetSlots[0].AttackedPosition.position;
             projectileTargetPosition.y += 1.2f;
-
 
             if (!battleCameraDirector)
             {

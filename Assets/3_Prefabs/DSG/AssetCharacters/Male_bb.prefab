@@ -74,9 +74,6 @@ PrefabInstance:
       addedObject: {fileID: 8711541134163961164}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: d13ae30e3e6e1e94a90e5083e25ecf5f, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 4638436934005335655}
-    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: d13ae30e3e6e1e94a90e5083e25ecf5f, type: 3}
-      insertIndex: -1
       addedObject: {fileID: 4777127972420566167}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: d13ae30e3e6e1e94a90e5083e25ecf5f, type: 3}
       insertIndex: -1
@@ -84,6 +81,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: d13ae30e3e6e1e94a90e5083e25ecf5f, type: 3}
       insertIndex: -1
       addedObject: {fileID: 3842976168692850094}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: d13ae30e3e6e1e94a90e5083e25ecf5f, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 4638436934005335655}
   m_SourcePrefab: {fileID: 100100000, guid: d13ae30e3e6e1e94a90e5083e25ecf5f, type: 3}
 --- !u!4 &377382964888197327 stripped
 Transform:
@@ -144,20 +144,6 @@ MonoBehaviour:
   bulletPrefab: {fileID: 1159801650698535097, guid: e6e6cd0df923f974286ea66ff9cba1e8, type: 3}
   skillInfo: {fileID: 11400000, guid: e3100d60c56df594cb89fa4545765a59, type: 2}
   damageLogPrefab: {fileID: 7683064257652862875, guid: a1f113c2e8dff434092bc754de6b349e, type: 3}
---- !u!114 &4638436934005335655
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2919570491952277942}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: aa722f751adc0f34f8830e2c508ff9e9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  fadeSpeed: 1
-  doFade: 0
 --- !u!114 &4777127972420566167
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -195,6 +181,22 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   portraitTransform: {fileID: 4633623372529733932}
+--- !u!114 &4638436934005335655
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2919570491952277942}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa722f751adc0f34f8830e2c508ff9e9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  fadeSpeed: 1
+  doFade: 0
+  isActive: 0
+  proximityRaduis: 3
 --- !u!4 &4633623372529733932 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7208261743932278219, guid: d13ae30e3e6e1e94a90e5083e25ecf5f, type: 3}

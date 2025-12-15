@@ -174,10 +174,10 @@ PrefabInstance:
       addedObject: {fileID: 3162540017125810514}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 0ca2d0ffb67ca4c429f3b727214fdefd, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 4979400351283460379}
+      addedObject: {fileID: 2402993123171030772}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 0ca2d0ffb67ca4c429f3b727214fdefd, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 2402993123171030772}
+      addedObject: {fileID: 4979400351283460379}
   m_SourcePrefab: {fileID: 100100000, guid: 0ca2d0ffb67ca4c429f3b727214fdefd, type: 3}
 --- !u!4 &427666989607555124 stripped
 Transform:
@@ -272,6 +272,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7162272663ce2954da53bbf656bc7258, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &2402993123171030772
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7865231982193158318}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dde920bbfd409944f82d2343b1b9b46a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  portraitTransform: {fileID: 427666989607555124}
 --- !u!114 &4979400351283460379
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -286,16 +299,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   fadeSpeed: 1
   doFade: 0
---- !u!114 &2402993123171030772
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7865231982193158318}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dde920bbfd409944f82d2343b1b9b46a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  portraitTransform: {fileID: 427666989607555124}
+  isActive: 0
+  proximityRaduis: 3

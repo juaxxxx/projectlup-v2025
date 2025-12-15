@@ -39,9 +39,6 @@ namespace LUP.DSG
 
         private void Awake()
         {
-            StageInitializeInvoker.OnDSGStagePostInitialize += PostInitialize;
-            StageInitializeInvoker.OnDSGStageInitialize += Initialize;
-
             statusEffectComp = GetComponent<StatusEffectComponent>();
             battleComp = GetComponent<BattleComponent>();
             scoreComp = GetComponent<ScoreComponent>();
@@ -50,9 +47,6 @@ namespace LUP.DSG
         }
         private void OnDestroy()
         {
-            StageInitializeInvoker.OnDSGStagePostInitialize -= PostInitialize;
-            StageInitializeInvoker.OnDSGStageInitialize -= Initialize;
-
             if (battleComp != null && animationComp != null)
             {
                 battleComp.OnAttackStarted -= animationComp.StartAttackAnimation;
@@ -66,9 +60,6 @@ namespace LUP.DSG
             }
         }
 
-        private void Initialize(DeckStrategyStage stage)
-        {
-        }
         public void ManualInitializeAfterSpawn()
         {
             if (battleComp == null)
@@ -107,11 +98,6 @@ namespace LUP.DSG
                     break;
                 }
             }
-        }
-
-        private void PostInitialize(DeckStrategyStage stage)
-        {
-
         }
 
         public void EndTurn()
