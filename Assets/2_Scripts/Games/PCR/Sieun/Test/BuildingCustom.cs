@@ -67,7 +67,7 @@ namespace LUP.PCR
             {
                 ProductionStage stage = LUP.StageManager.Instance.GetCurrentStage() as ProductionStage;
 
-                currentConstructionData = stage.FindCurrentConstructionData((int)BuildingType.POWERSTATION, level);
+                currentConstructionData = stage.GetCurrentConstructionData((int)BuildingType.POWERSTATION, level);
                 maxStorage = productableBuildingData.productionData[level].storageCapacity;
             }
         }

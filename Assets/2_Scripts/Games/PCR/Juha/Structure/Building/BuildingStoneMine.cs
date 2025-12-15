@@ -72,7 +72,7 @@ namespace LUP.PCR
             if (level >= 0 && level < productableBuildingData.constructionData.Length)
             {
                 ProductionStage stage = LUP.StageManager.Instance.GetCurrentStage() as ProductionStage;
-                currentConstructionData = stage.FindCurrentConstructionData((int)BuildingType.STONEMINE, level);
+                currentConstructionData = stage.GetCurrentConstructionData((int)BuildingType.STONEMINE, level);
                 maxStorage = productableBuildingData.productionData[level].storageCapacity;
             }
         }

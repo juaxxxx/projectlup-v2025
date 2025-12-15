@@ -51,7 +51,7 @@ namespace LUP.PCR
             int level = 1;
 
             ProductionStage stage = LUP.StageManager.Instance.GetCurrentStage() as ProductionStage;
-            currentConstructionData = stage.FindCurrentConstructionData((int)BuildingType.WORKSTATION, level);
+            currentConstructionData = stage.GetCurrentConstructionData((int)BuildingType.WORKSTATION, level);
 
 
             // 지금은 테스트를 위해 그냥 건설 시작할 때만 구현

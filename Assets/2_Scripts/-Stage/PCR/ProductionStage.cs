@@ -7,8 +7,13 @@ namespace LUP.PCR
     public class ProductionStage : BaseStage
     {
         public BaseRuntimeData productionRuntimeData;
+
+        public List<BuildingStaticData> buildingDataList;
         public List<PCRConstructionStaticData> constructionDataList;
         public List<PCRProductionStaticData> productionDataList;
+        public List<InitialBuildingStaticData> initialBuildingDataList;
+        public List<InitialWallStaticData> initialWallDataList;
+
 
         // 변수명은 예시이니 바꾸셔도 됩니다.
         public Inventory PCRInven;
@@ -19,13 +24,11 @@ namespace LUP.PCR
             StageKind = Define.StageKind.PCR;
         }
 
-        // Start is called once before the first execution of Update after the MonoBehaviour is created
         void Start()
         {
 
         }
 
-        // Update is called once per frame
         void Update()
         {
 
@@ -34,25 +37,7 @@ namespace LUP.PCR
         {
             yield return base.OnStageEnter();
 
-            //구현부
-            ProductionRuntimeData runtimeData = productionRuntimeData as ProductionRuntimeData;
-            if (runtimeData == null)
-            {
-                Debug.LogWarning("[PCRStage] productionRuntimeData가 없습니다.");
-
-                if (runtimeData.BuildingInfoList == null || runtimeData.BuildingInfoList.Count <= 0)
-                {
-                    Debug.LogWarning("[PCRStage] BuildingInfoList가 없습니다.");
-
-                    // 없으면 초기 건물 리스트 입력하기. (일단 따라서 테스트해보기)
-                    InitialBuildingSettingTable initalBuildingTable = Resources.Load<InitialBuildingSettingTable>("Data/Games/PCR/SO/InitialBuildingSettingTable");
-                    if (initalBuildingTable != null)
-                    {
-                        runtimeData.BuildingInfoList = initalBuildingTable.buildingList;
-                    }
-                }
-
-            }
+            LoadFirstGameData();
 
 
             // InventoryManager를 통해 PCR 인벤토리 로드 및 등록
@@ -97,6 +82,18 @@ namespace LUP.PCR
                     {
                         productionDataList = pcrProductionLoader.GetDataList();
                     }
+                    else if (loader is BuildingStaticDataLoader pcrBuildingLoader)
+                    {
+                        buildingDataList = pcrBuildingLoader.GetDataList();
+                    }
+                    else if (loader is InitialBuildingStaticDataLoader pcrInitialBuildingLoader)
+                    {
+                        initialBuildingDataList = pcrInitialBuildingLoader.GetDataList();
+                    }
+                    else if (loader is InitialWallStaticDataLoader pcrInitialWallLoader)
+                    {
+                        initialWallDataList = pcrInitialWallLoader.GetDataList();
+                    }
                 }
             }
 
@@ -125,7 +122,59 @@ namespace LUP.PCR
             base.SaveRuntimeDataList(runtimeDataList);
         }
 
-        public PCRConstructionStaticData FindCurrentConstructionData(int buildingType, int level)
+        private void LoadFirstGameData()
+        {
+            ProductionRuntimeData runtimeData = productionRuntimeData as ProductionRuntimeData;
+            if (runtimeData == null)
+            {
+                Debug.LogWarning("[PCRStage] runtimeData가 없습니다.");
+                return;
+            }
+            if (runtimeData.HasSavedGame)
+            {
+                Debug.LogWarning("[PCRStage] 이미 저장된 게임 데이터가 존재합니다.");
+                return;
+            }
+
+            // 건물 초기 데이터
+            {
+                Debug.LogWarning("[PCRStage] BuildingInfoList First Load");
+
+                List<BuildingInfo> newBuildingDataList = new List<BuildingInfo>();
+
+                int id = 1;
+                foreach (InitialBuildingStaticData initialBuildingData in initialBuildingDataList)
+                {
+                    BuildingInfo newBuildingInfo = new BuildingInfo(id, 1, new Vector2Int(initialBuildingData.x, initialBuildingData.y), initialBuildingData.buildingType);
+
+                    newBuildingDataList.Add(newBuildingInfo);
+                    id++;
+                }
+
+                runtimeData.BuildingInfoList = newBuildingDataList;
+            }
+
+            // 벽 초기 데이터
+            {
+                Debug.LogWarning("[PCRStage] WallInfoList First Load");
+
+                List<WallInfo> newWallDataList = new List<WallInfo>();
+
+                foreach(InitialWallStaticData initialWallData in initialWallDataList)
+                {
+                    WallInfo newWallInfo = new WallInfo(initialWallData.wallType, new Vector2Int(initialWallData.x, initialWallData.y));
+
+                    newWallDataList.Add(newWallInfo);
+                }
+
+                runtimeData.WallInfoList = newWallDataList;
+            }
+
+
+            runtimeData.HasSavedGame = true;
+        }
+
+        public PCRConstructionStaticData GetCurrentConstructionData(int buildingType, int level)
         {
             if (constructionDataList == null || constructionDataList.Count <= 0)
             {
@@ -147,7 +196,7 @@ namespace LUP.PCR
             return null;
         }
 
-        public PCRProductionStaticData FindCurrentProductionData(int buildingType, int level)
+        public PCRProductionStaticData GetCurrentProductionData(int buildingType, int level)
         {
             if (productionDataList == null || productionDataList.Count <= 0)
             {
@@ -169,10 +218,47 @@ namespace LUP.PCR
             return null;
         }
 
-        // buildingData
+        public BuildingStaticData GetCurrentBuildingData(int buildingType)
+        {
+            if (buildingDataList == null || buildingDataList.Count <= 0)
+            {
+                Debug.LogError("[ProductionStage] buildingDataList이 비어있습니다.");
+                return null;
+            }
 
-        // InitialBuilding
-        // InitialWalldata
+            foreach (BuildingStaticData data in buildingDataList)
+            {
+                if (data.buildingType == buildingType)
+                {
+                    return data;
+                }
+            }
+
+            return null;
+        }
+
+        public List<InitialBuildingStaticData> GetInitialBuildingDataList()
+        {
+            if (initialBuildingDataList == null)
+            {
+                Debug.LogError("[ProductionStage] InitialBuildingDataList이 비어있습니다.");
+                return null;
+            }
+
+            return initialBuildingDataList;
+        }
+
+        public List<InitialWallStaticData> GetInitialWallDataList()
+        {
+            if (initialWallDataList == null)
+            {
+                Debug.LogError("[ProductionStage] InitialWallDataList이 비어있습니다.");
+                return null;
+            }
+
+            return initialWallDataList;
+        }
+
     }
 }
 
