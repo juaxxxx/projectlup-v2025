@@ -19,9 +19,13 @@ namespace LUP.RL
         {
             if(bb.Move.isMoving)
             {
-                MeleeSystem mls = bb.Shooter.meleeWeapon.GetComponent<MeleeSystem>();
-                if (mls != null)
-                    mls.ForceDisableHitbox();
+                if(bb.Shooter.meleeWeapon != null)
+                {
+                    MeleeSystem mls = bb.Shooter.meleeWeapon.GetComponent<MeleeSystem>();
+                    if (mls != null)
+                        mls.ForceDisableHitbox();
+                }
+                
             }
         
             

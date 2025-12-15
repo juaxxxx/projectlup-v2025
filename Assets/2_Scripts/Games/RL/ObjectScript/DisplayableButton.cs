@@ -79,7 +79,6 @@ public class DisplayableButton : MonoBehaviour , IDisplayable
 
         return bindedAction;
     }
-
     public string GetDisplayableName()
     {
         return btnName;

@@ -19,7 +19,7 @@ namespace LUP.RL
         public ChapterData[] chapterDatas { get; private set; }
         public RLCharacterData[] characterDatas { get; private set; }
 
-        public ItemData[] spawnableItemDatas { get; private set; }
+        //public ItemData[] spawnableItemDatas { get; private set; }
 
         //public ItemData[] inventoryItmeDatas { get; private set; }
 
@@ -81,7 +81,7 @@ namespace LUP.RL
 
             //inventoryItmeDatas = testPlatform.inventoryItmeDatas;
 
-            spawnableItemDatas = testPlatform.spawnableItemDatas;
+            //spawnableItemDatas = testPlatform.spawnableItemDatas;
 
             if ((chapterDatas == null || chapterDatas.Length == 0) ||
                 (characterDatas == null || characterDatas.Length == 0))
@@ -202,21 +202,27 @@ namespace LUP.RL
 
                 int itemAmount = inventorySlots[i].Quantity;
                 string itemName = item.ItemName;
+                Sprite itemIcon = item.Icon;
 
                 ItemData dynamicInventoryItemData = ScriptableObject.CreateInstance<ItemData>();
 
-                for (int count = 0; count < spawnableItemDatas.Length; count++)
-                {
-                    if (spawnableItemDatas[count].GetDisplayableName() == itemName)
-                    {
-                        dynamicInventoryItemData.SetDisplayableImage(spawnableItemDatas[count].GetDisplayableImage());
-                        dynamicInventoryItemData.SetExtraInfo(itemAmount);
-                        dynamicInventoryItemData.itemType = item.Type;
-                        break;
-                    }
-                }
+                dynamicInventoryItemData.SetDisplayableImage(itemIcon);
+                dynamicInventoryItemData.SetExtraInfo(itemAmount);
+                dynamicInventoryItemData.itemType = item.Type;
 
                 RLInventory[i] = dynamicInventoryItemData;
+
+                //for (int count = 0; count < spawnableItemDatas.Length; count++)
+                //{
+                //    if (spawnableItemDatas[count].GetDisplayableName() == itemName)
+                //    {
+                //        dynamicInventoryItemData.SetDisplayableImage(spawnableItemDatas[count].GetDisplayableImage());
+                //        dynamicInventoryItemData.SetExtraInfo(itemAmount);
+                //        dynamicInventoryItemData.itemType = item.Type;
+                //        break;
+                //    }
+                //}
+
             }
 
             return RLInventory;

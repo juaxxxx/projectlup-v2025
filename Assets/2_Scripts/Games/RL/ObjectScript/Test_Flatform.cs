@@ -13,8 +13,8 @@ namespace LUP.RL
         [SerializeField]
         private RLCharacterData[] rogueLikecharacterDatas;
 
-        [SerializeField]
-        private ItemData[] rogueLikespawnableItemDatas;
+        //[SerializeField]
+        //private ItemData[] rogueLikespawnableItemDatas;
 
         //[SerializeField]
         //private ItemData[] rogueLikeInventoryItmeDatas;
@@ -25,7 +25,7 @@ namespace LUP.RL
         public ChapterData[] chapterDatas => (ChapterData[])rogueLikeChapterDatas.Clone();
         public RLCharacterData[] characterDatas => (RLCharacterData[])rogueLikecharacterDatas.Clone();
 
-        public ItemData[] spawnableItemDatas => (ItemData[])rogueLikespawnableItemDatas.Clone();
+        //public ItemData[] spawnableItemDatas => (ItemData[])rogueLikespawnableItemDatas.Clone();
         public BuffData[] buffDatas => (BuffData[])rogueLikeBuffDatas.Clone();
 
         //public ItemData[] inventoryItmeDatas => (ItemData[])rogueLikeInventoryItmeDatas.Clone();

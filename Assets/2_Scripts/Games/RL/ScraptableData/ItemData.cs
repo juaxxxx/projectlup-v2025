@@ -22,6 +22,7 @@ namespace LUP.RL
         public Sprite GetDisplayableImage() { return itemImage; }
 
         public void SetDisplayableImage(Sprite image) { itemImage = image; }
+        public void SetItemName(string name) { itemName = name; }
 
         public int GetExtraInfo() { return itemAmount; }
         public void SetExtraInfo(int amount) { itemAmount = amount; }

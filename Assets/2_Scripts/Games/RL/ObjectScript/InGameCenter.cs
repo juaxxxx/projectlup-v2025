@@ -30,7 +30,7 @@ namespace LUP.RL
         [SerializeField]
         private RLCharacterData characterData;
 
-        private ItemData[] spawnableItemDatas;
+        //private ItemData[] spawnableItemDatas;
         private Dictionary<ItemData, int> gainItem = new Dictionary<ItemData, int>();
 
         private StageController stageController;
@@ -99,8 +99,6 @@ namespace LUP.RL
             {
                 platformAdapter.LinkToPlatform();
 
-                LoadSpawnableItemData();
-
                 LoadInGameData();
 
             }
@@ -129,29 +127,9 @@ namespace LUP.RL
 
             InitInGameUIElement();
 
-            //Temp
-            //debugMode = false;
-
-            ////AddItem1Btn.onClick.AddListener(AddItem1);
-            ////AddItem2Btn.onClick.AddListener(AddItem2);
-            ////AddItem3Btn.onClick.AddListener(AddItem3);
-
-            ////AddTestItemBtn.onClick.AddListener(AddTestItem);
-
-            //ClearGameBtn.onClick.AddListener(GameClear);
-            //DebugBtn.onClick.AddListener(ChangeDebugMode);
-
-            //SetDebugMode(debugMode);
-
-            //DebugPanel.SetActive(false);
-            ///////////
-
             Confirm.onClick.AddListener(UploadGameResult);
 
             SpawnPlayer();
-
-            //IItemable item = ItemManager.Instance.GetItem("Wood");
-            //stage.inventory.AddItem(item, 5);
         }
 
         // Update is called once per frame
@@ -163,7 +141,6 @@ namespace LUP.RL
         void LoadInGameData()
         {
             LoadSelectionData();
-            //LoadSpawnableItemData();
         }
         public void RegisterPlayer(GameObject newplayer)
         {
@@ -193,14 +170,6 @@ namespace LUP.RL
             else
             {
                 UnityEngine.Debug.LogError("Fail To Load Selection Data", this.gameObject);
-            }
-        }
-
-        void LoadSpawnableItemData()
-        {
-            if (platformAdapter != null)
-            {
-                spawnableItemDatas = platformAdapter.spawnableItemDatas;
             }
         }
 
@@ -335,29 +304,6 @@ namespace LUP.RL
             }
         }
 
-        //void AddItem1()
-        //{
-        //    AddItem(spawnableItemDatas[0]);
-        //}
-
-        //void AddItem2()
-        //{
-        //    AddItem(spawnableItemDatas[1]);
-        //}
-
-        //void AddItem3()
-        //{
-        //    AddItem(spawnableItemDatas[2]);
-        //}
-
-        //void AddTestItem()
-        //{
-        //    ItemData TestItem = ScriptableObject.CreateInstance<ItemData>();
-        //    TestItem.SetDisplayableImage(spawnableItemDatas[2].GetDisplayableImage());
-
-        //    AddItem(TestItem);
-        //}
-
         public void RoomClear()
         {
             itemSpawner.OnRoomCleared();
@@ -377,15 +323,21 @@ namespace LUP.RL
         void OnGainSpawnableItem(int itemID)
         {
             IItemable item = ItemManager.Instance.GetItem(itemID);
+            ItemData gaindedItem = ScriptableObject.CreateInstance<ItemData>();
 
-            string itemName = item.ItemName;
-            for(int i = 0; i < spawnableItemDatas.Length; i++)
-            {
-                if (spawnableItemDatas[i].GetDisplayableName() == itemName)
-                {
-                    AddItem(spawnableItemDatas[i]);
-                }
-            }
+            gaindedItem.SetItemName(item.ItemName);
+            gaindedItem.SetDisplayableImage(item.Icon);
+
+            AddItem(gaindedItem);
+
+            //string itemName = item.ItemName;
+            //for(int i = 0; i < spawnableItemDatas.Length; i++)
+            //{
+            //    if (spawnableItemDatas[i].GetDisplayableName() == itemName)
+            //    {
+            //        AddItem(spawnableItemDatas[i]);
+            //    }
+            //}
 
 
         }
