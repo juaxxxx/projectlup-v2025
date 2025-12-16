@@ -6,9 +6,10 @@ namespace LUP.PCR
     {
         Vector2 minAnchor;
         Vector2 maxAnchor;
+
         private void Start()
         {
-            var Myrect = this.GetComponent<RectTransform>();
+            RectTransform rect = this.GetComponent<RectTransform>();
 
             minAnchor = Screen.safeArea.min;
             maxAnchor = Screen.safeArea.max;
@@ -19,13 +20,10 @@ namespace LUP.PCR
             maxAnchor.x /= Screen.width;
             maxAnchor.y /= Screen.height;
 
-
-            Myrect.anchorMin = minAnchor;
-            Myrect.anchorMax = maxAnchor;
-
+            rect.anchorMin = minAnchor;
+            rect.anchorMax = maxAnchor;
         }
     }
-
 }
 
 
