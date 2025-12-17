@@ -19,6 +19,7 @@ namespace LUP.ES
                 new ConsumableItemData(7, "Bandage", "Bandage", 5.0f, 5.0f, EffectType.Heal, 30.0f, 3),
                 new MaterialItemData(8, "Key", "Key", MaterialTier.Common, 5),
                 new MeleeWeaponItemData(9, "Sword", "Sword", 30.0f, 2f, 0.8f, 160f),
+                new ThrowingWeaponData(10, "Rock", "Sword", 30.0f, 10f, 0.9f, 1.0f, 2.0f),
         };
 
         private Dictionary<int, BaseItemData> itemDictionary;
