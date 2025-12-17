@@ -1,7 +1,8 @@
+using LUP.ES;
 using Roguelike.Define;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
-using System;
 namespace LUP.RL
 {
     public class Archer : MonoBehaviour
@@ -25,6 +26,8 @@ namespace LUP.RL
         [SerializeField]
         private Hpbar hpbar;
         public GameObject HpbarPrefab;
+
+        public HealthCenter healthCenter;
         [SerializeField] private float hpbaroffsetY = 5;
         void Awake()
         {
@@ -40,17 +43,42 @@ namespace LUP.RL
         //구독 
         private void Start()
         {
-        
-        GameObject barObj = Instantiate(HpbarPrefab, transform.position + Vector3.up * hpbaroffsetY, Quaternion.identity);
-            if(barObj == null)
+            healthCenter = new HealthCenter(Adata.currentData.MaxHp);
+            if (healthCenter == null)
             {
-                Debug.Log("bar없음");
+                Debug.Log("health null");
+                return;
+
             }
-    //hpbar = barObj.GetComponent<Hpbar>();
-    //        hpbar.Init(this);
-    //hpbar.SetHealthSystem(healthSystem);
-    //ShowBuffSelection();
-    }
+       
+            GameObject barObj = Instantiate(HpbarPrefab, transform.position + Vector3.up * hpbaroffsetY, Quaternion.identity);
+        
+            hpbar = barObj.GetComponent<Hpbar>();
+            hpbar.Init(this);
+            hpbar.SetHealthSystem(healthCenter);
+            //Hpbar playerbar = Instantiate(HpbarPrefab);
+            //playerbar.Init(this);
+            //hpbar = Instantiate(HpbarPrefab);  // 변수에 할당
+
+            //GameObject barObj = Instantiate(HpbarPrefab, transform.position + Vector3.up * hpbaroffsetY, Quaternion.identity);
+            //if (barObj == null)
+            //{
+            //    Debug.Log("bar없음");
+            //}
+            //hpbar = barObj.GetComponent<Hpbar>();
+            //hpbar.Init(this);
+            //hpbar.SetHealthSystem(healthCenter);
+            //hpbar.Init(this);  // Init 한 번만 호출
+            //GameObject barObj = Instantiate(HpbarPrefab, transform.positiosn + Vector3.up * hpbaroffsetY, Quaternion.identity);
+            //if (barObj == null)
+            //{
+            //    Debug.Log("bar없음");
+            //}
+            //hpbar = barObj.GetComponent<Hpbar>();
+            //hpbar.Init(this);
+            //hpbar.SetHealthSystem(healthCenter);
+            //ShowBuffSelection();
+        }
         //버프 뽑기
         void ShowBuffSelection()
         {

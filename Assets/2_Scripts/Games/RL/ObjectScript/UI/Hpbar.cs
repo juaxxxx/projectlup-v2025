@@ -9,37 +9,49 @@ namespace LUP.RL
     public class Hpbar : MonoBehaviour
     {
         public Slider slider;
-        private Enemy target;
+        private Transform target;  // Enemy -> Transform으로 변경
         private Camera cam;
         public RectTransform rect;
         public Vector3 offset = new Vector3(0, 2f, 0);
         [SerializeField] private Image fillImage;
+
+        // 통합 Init 메서드
+        public void Init(Transform targetTransform, HealthCenter health)
+        {
+            target = targetTransform;
+            SetHealthSystem(health);
+        }
+
+        // 기존 Enemy용 (호환성 유지)
         public void Init(Enemy enemy)
         {
-            target = enemy;
-            slider.maxValue = enemy.EnemyStats.MaxHp;
-            slider.value = enemy.EnemyStats.MaxHp;
-
+            Init(enemy.transform, enemy.healthCenter);
         }
+
+        // Player용 호출
+        public void Init(Archer archer)
+        {
+            Init(archer.transform, archer.healthCenter);
+        }
+
         void Awake()
         {
             slider = GetComponentInChildren<Slider>();
         }
+
         private void Start()
         {
             cam = Camera.main;
         }
+
         public void Update()
         {
             if (target == null) return;
-                //Debug.Log("target null");
-           
-        Vector3 worldPos = target.transform.position + offset;
-       
-        Vector3 screenPos = cam.WorldToScreenPoint(worldPos);
 
-            if (screenPos.z < 0) return; // 카메라 뒤면 무시
+            Vector3 worldPos = target.position + offset;
+            Vector3 screenPos = cam.WorldToScreenPoint(worldPos);
 
+            if (screenPos.z < 0) return;
             rect.position = screenPos;
         }
 
@@ -54,10 +66,9 @@ namespace LUP.RL
         public void UpdateBar(int current, int max)
         {
             slider.value = current;
-            if(current <= 0)
+            if (current <= 0)
             {
-                Destroy(gameObject);
-                //gameObject.SetActive(false);
+                //Destroy(gameObject);
             }
         }
     }

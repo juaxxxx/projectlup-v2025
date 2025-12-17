@@ -17,7 +17,8 @@ namespace LUP.RL
         public Vector2Int gridPos;
         private Hpbar hpbar;
         public GameObject HpbarPrefab;
-        public HealthCenter healthSystem;
+
+        public HealthCenter healthCenter;
         private EnemyBlackBoard blackBoard;
         private EnemyBehaviorTree behaviorTree;
         [SerializeField] private float hpbaroffsetY = 5;
@@ -29,8 +30,8 @@ namespace LUP.RL
             EnemyStats.Attack = 0;
             EnemyStats.speed = 3;
 
-            healthSystem = new HealthCenter(EnemyStats.MaxHp);
-            if (healthSystem == null)
+            healthCenter = new HealthCenter(EnemyStats.MaxHp);
+            if (healthCenter == null)
             {
                 Debug.Log("health null");
                 return;
@@ -43,7 +44,7 @@ namespace LUP.RL
             }
             hpbar = barObj.GetComponent<Hpbar>();
             hpbar.Init(this);
-            hpbar.SetHealthSystem(healthSystem);
+            hpbar.SetHealthSystem(healthCenter);
 
 
             blackBoard = gameObject.GetComponent<EnemyBlackBoard>();
@@ -55,7 +56,7 @@ namespace LUP.RL
         }
         public void TakeDamage(int damage)
         {
-            healthSystem.Damage(damage);
+            healthCenter.Damage(damage);
 
             if(blackBoard)
             {
@@ -64,7 +65,7 @@ namespace LUP.RL
             }
                 
 
-            if (healthSystem.CurrentHp <= 0)
+            if (healthCenter.CurrentHp <= 0)
             {
                 Die();
 
