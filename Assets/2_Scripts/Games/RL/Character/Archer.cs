@@ -42,7 +42,9 @@ namespace LUP.RL
 
         void Awake()
         {
+           
             InitializeCharacter();
+            healthCenter = new HealthCenter(RuntimeData.currentData.MaxHp);
 
         }
         private void Start()
@@ -57,11 +59,11 @@ namespace LUP.RL
             }
             runtimeData = new RunTimeData(characterTemplate);
             OnArcherDataReady?.Invoke();
-            Debug.Log($"[Archer] 캐릭터 초기화 완료 - 체력: {runtimeData.currentData}, 공격력: {runtimeData.currentData.Attack}");
+            Debug.Log($"[Archer] 캐릭터 초기화 완료 - 체력: {runtimeData.currentData.MaxHp}, 공격력: {runtimeData.currentData.Attack}");
         }
         private void InitaliUI()
         {
-            healthCenter = new HealthCenter(RuntimeData.currentData.MaxHp);
+          
 
 
             GameObject barObj = Instantiate(HpbarPrefab, transform.position + Vector3.up * hpbaroffsetY, Quaternion.identity);
@@ -139,8 +141,25 @@ namespace LUP.RL
         }
         private void OnEnable()
         {
+         
             Enemy.OnEnemyDied += GainExp;
+            if(healthCenter != null)
+            {
+                Debug.Log("구독");
+                healthCenter.OnDead += Die;
+            }
+         
 
+        }
+        public void TakeDamage(int damage)
+        {
+            healthCenter.Damage(damage);
+
+        }
+        private void Die()
+        {
+            Debug.Log("플레이어 사망");
+            Destroy(gameObject, 0.1f);
         }
         private void OnDisable()
         {
@@ -169,5 +188,6 @@ namespace LUP.RL
             ShowBuffSelection();
             Debug.Log($"레벨{RuntimeData.level}, 체력 :  {RuntimeData.currentData.Hp} ,  공격력  {RuntimeData.currentData.Attack}");
         }
+        
     }
 }

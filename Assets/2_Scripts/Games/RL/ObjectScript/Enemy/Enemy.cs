@@ -7,44 +7,58 @@ namespace LUP.RL
 {
     public class Enemy : MonoBehaviour
     {
+        [Header("Enemy Info")]
         [SerializeField] private EnemyType enemyType;
         public EnemyType Type => enemyType;
+
+
+        [Header("Stats")]
         public BaseStats EnemyStats;
         public int expValue = 10;
-        public static event Action<int> OnEnemyDied;
-        public delegate void EnemyDeathHandler(Enemy deadEnemy);
-        public static event EnemyDeathHandler ObjectOnEnemyDied;
-        public Vector2Int gridPos;
-        private Hpbar hpbar;
-        public GameObject HpbarPrefab;
 
+        [Header("Grid")]
+        public Vector2Int gridPos;
+
+        [Header("Hpbar")]
+        public GameObject hpbarPrefab;
+        [SerializeField] private float hpbarOffsetY = 5f;
+        private Hpbar hpbar;
+        
+        public static event Action<int> OnEnemyDied;
+        public static event Action<Enemy> ObjectOnEnemyDied;
+        
+
+        public delegate void EnemyDeathHandler(Enemy deadEnemy);
+ 
+
+        [Header("Runtime")]
         public HealthCenter healthCenter;
         private EnemyBlackBoard blackBoard;
         private EnemyBehaviorTree behaviorTree;
-        [SerializeField] private float hpbaroffsetY = 5;
+
         public Transform TargetPoint;
-        void Start()
+        private void Awake()
         {
             EnemyStats.MaxHp = 20;
             EnemyStats.Hp = EnemyStats.MaxHp;
-            EnemyStats.Attack = 0;
-            EnemyStats.speed = 3;
-
             healthCenter = new HealthCenter(EnemyStats.MaxHp);
-            if (healthCenter == null)
-            {
-                Debug.Log("health null");
-                return;
-
-            }
-            GameObject barObj = Instantiate(HpbarPrefab, transform.position + Vector3.up * hpbaroffsetY, Quaternion.identity);
+        }
+        void Start()
+        {
+          
+            EnemyStats.Attack = 5;
+            EnemyStats.speed = 3;
+            
+      
+       
+            GameObject barObj = Instantiate(hpbarPrefab, transform.position + Vector3.up * hpbarOffsetY, Quaternion.identity);
             if(barObj == null)
             {
                 Debug.Log("bar¾øÀ½");
             }
             hpbar = barObj.GetComponent<Hpbar>();
             hpbar.Init(this);
-            hpbar.SetHealthSystem(healthCenter);
+            //hpbar.SetHealthSystem(healthCenter);
 
 
             blackBoard = gameObject.GetComponent<EnemyBlackBoard>();
@@ -54,6 +68,7 @@ namespace LUP.RL
         {
             gridPos = new Vector2Int(x, z);
         }
+
         public void TakeDamage(int damage)
         {
             healthCenter.Damage(damage);
@@ -63,23 +78,24 @@ namespace LUP.RL
                 if(blackBoard.InAtkState == false)
                     blackBoard.OnHitted = true;
             }
-                
-
-            if (healthCenter.CurrentHp <= 0)
-            {
-                Die();
-
-              
-                    
-            }
+        }
+        private void OnEnable()
+        {
+            healthCenter.OnDead += Die;
+        }
+        private void OnDisable()
+        {
+            healthCenter.OnDead -= Die;
         }
         private void Die()
         {
              blackBoard.Alive = false;
- 
+          
             ObjectOnEnemyDied?.Invoke(this);
             OnEnemyDied?.Invoke(expValue);
-            
+            Destroy(gameObject, 0.1f);
+            Debug.Log($"{this.name}»ç¸Á");
+
             //behaviorTree.ResetWorkingNodeIndex();
         }
 

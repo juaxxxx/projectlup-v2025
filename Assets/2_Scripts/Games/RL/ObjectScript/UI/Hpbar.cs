@@ -68,7 +68,7 @@ namespace LUP.RL
             slider.value = current;
             if (current <= 0)
             {
-                //Destroy(gameObject);
+                Destroy(gameObject);
             }
         }
     }

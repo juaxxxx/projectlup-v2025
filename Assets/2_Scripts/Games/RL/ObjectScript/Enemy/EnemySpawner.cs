@@ -44,7 +44,7 @@ namespace LUP.RL
                 Enemy enemy = Instantiate(entry.enemy.prefab, worldPos, Quaternion.identity, roomParent.transform)
                   .GetComponent<Enemy>();
 
-                enemy.HpbarPrefab = hpbarPrefab;
+                enemy.hpbarPrefab= hpbarPrefab;
                 SpawnedEnemies.Add(enemy);
                 Debug.Log("spawn success");
             }
@@ -71,7 +71,6 @@ namespace LUP.RL
                 InGameCenter.OnEnemyDie(enemy.transform);
 
             spawnedEnemies.Remove(enemy);
-            Debug.Log($"{enemy.name} enemy, {spawnedEnemies.Count}");
 
             InGameCenter.itemSpawner.SpawnItem(enemy.transform);
 

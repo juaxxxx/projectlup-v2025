@@ -22,12 +22,10 @@ namespace LUP.RL
             switch (weapon.weaponType)
             {
                 case RWeaponType.Throw:
-                    Debug.Log("로그");
                     fireSystem.TryFire(target, damage);
 
                     break;
                 case RWeaponType.TwoHandSword:
-                    Debug.Log($"{ this.name} 공격");
                     meleeWeapon.MeleeAttack(damage);
 
                     break;

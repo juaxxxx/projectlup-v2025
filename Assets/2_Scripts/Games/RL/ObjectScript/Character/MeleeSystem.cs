@@ -23,13 +23,11 @@ namespace LUP.RL
         public void EnableHitbox()
         {
             hitcolider.enabled = true;
-            Debug.Log($"{hitcolider}Hitbox On");
         }
         public void DisableHitbox()
         {
             if (Damage <= 0) return;
             hitcolider.enabled = false;
-            Debug.Log("Hitbox OFF");
         }
    
         public void MeleeAttack(int damage)
@@ -52,9 +50,8 @@ namespace LUP.RL
             if (other.gameObject == Owner) return;
 
             if (enemy == null) return;
-            Debug.Log($"충돌한객체 : {other}");
 
-            //enemy.TakeDamage(Damage); Debug.Log($"충돌한 객체 : {other} : 받은 데미지 : ${Damage}");
+            enemy.TakeDamage(Damage); Debug.Log($"충돌한 객체 : {other} : 받은 데미지 : ${Damage}");
             
             
 

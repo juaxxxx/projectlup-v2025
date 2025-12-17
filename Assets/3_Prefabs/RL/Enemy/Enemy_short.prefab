@@ -4067,14 +4067,14 @@ MonoBehaviour:
   enemyType: 0
   EnemyStats:
     Hp: 0
-    Attack: 0
+    Attack: 5
     speed: 0
     MaxHp: 0
     Exp: 0
   expValue: 10
   gridPos: {x: 0, y: 0}
-  HpbarPrefab: {fileID: 3769882633132983047, guid: 9e482a2640f931a429d283a4c86f98be, type: 3}
-  hpbaroffsetY: 5
+  hpbarPrefab: {fileID: 3769882633132983047, guid: 9e482a2640f931a429d283a4c86f98be, type: 3}
+  hpbarOffsetY: 5
   TargetPoint: {fileID: 7817998646823636333}
 --- !u!54 &4586143398316460639
 Rigidbody:
