@@ -63,13 +63,9 @@ namespace LUP.RL
         }
         private void InitaliUI()
         {
-          
-
-
             GameObject barObj = Instantiate(HpbarPrefab, transform.position + Vector3.up * hpbaroffsetY, Quaternion.identity);
             hpbar = barObj.GetComponent<Hpbar>();
             hpbar.Init(this);
-            hpbar.SetHealthSystem(healthCenter);
         }
 
      
