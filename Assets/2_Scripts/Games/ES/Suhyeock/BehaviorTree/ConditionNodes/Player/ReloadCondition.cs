@@ -12,7 +12,7 @@ namespace LUP.ES
 
         public override NodeState Evaluate()
         {
-            if(blackboard.weapon.weaponItem.data.weaponType == WeaponType.Melee)
+            if(blackboard.weapon.weaponItem.data.weaponType == WeaponType.Melee || blackboard.weapon.weaponItem.data.weaponType == WeaponType.Throwing)
                 return NodeState.Failure;
             Gun gun = blackboard.weapon as Gun;
             if (gun == null)

@@ -13,19 +13,20 @@ MonoBehaviour:
   m_Name: ItemDataBase
   m_EditorClassIdentifier: 
   items:
-  - rid: 6702098710549758045
-  - rid: 6702098710549758046
-  - rid: 6702098710549758047
-  - rid: 6702098710549758048
-  - rid: 6702098710549758049
-  - rid: 6702098710549758050
-  - rid: 6702098710549758051
-  - rid: 6702098710549758052
-  - rid: 6702098710549758053
+  - rid: 1904950495194382446
+  - rid: 1904950495194382447
+  - rid: 1904950495194382448
+  - rid: 1904950495194382449
+  - rid: 1904950495194382450
+  - rid: 1904950495194382451
+  - rid: 1904950495194382452
+  - rid: 1904950495194382453
+  - rid: 1904950495194382454
+  - rid: 1904950495194382455
   references:
     version: 2
     RefIds:
-    - rid: 6702098710549758045
+    - rid: 1904950495194382446
       type: {class: RangedWeaponItemData, ns: LUP.ES, asm: Assembly-CSharp}
       data:
         id: 1
@@ -40,7 +41,7 @@ MonoBehaviour:
         bulletSpeed: 10
         magCapacity: 8
         reloadTime: 1.2
-    - rid: 6702098710549758046
+    - rid: 1904950495194382447
       type: {class: RangedWeaponItemData, ns: LUP.ES, asm: Assembly-CSharp}
       data:
         id: 2
@@ -55,7 +56,7 @@ MonoBehaviour:
         bulletSpeed: 25
         magCapacity: 20
         reloadTime: 1.3
-    - rid: 6702098710549758047
+    - rid: 1904950495194382448
       type: {class: RangedWeaponItemData, ns: LUP.ES, asm: Assembly-CSharp}
       data:
         id: 3
@@ -70,7 +71,7 @@ MonoBehaviour:
         bulletSpeed: 20
         magCapacity: 30
         reloadTime: 2
-    - rid: 6702098710549758048
+    - rid: 1904950495194382449
       type: {class: RangedWeaponItemData, ns: LUP.ES, asm: Assembly-CSharp}
       data:
         id: 4
@@ -85,7 +86,7 @@ MonoBehaviour:
         bulletSpeed: 25
         magCapacity: 10
         reloadTime: 4
-    - rid: 6702098710549758049
+    - rid: 1904950495194382450
       type: {class: ArmorItemData, ns: LUP.ES, asm: Assembly-CSharp}
       data:
         id: 5
@@ -95,7 +96,7 @@ MonoBehaviour:
         itemType: 2
         defense: 5
         armorSlot: 0
-    - rid: 6702098710549758050
+    - rid: 1904950495194382451
       type: {class: ArmorItemData, ns: LUP.ES, asm: Assembly-CSharp}
       data:
         id: 6
@@ -105,7 +106,7 @@ MonoBehaviour:
         itemType: 2
         defense: 5
         armorSlot: 1
-    - rid: 6702098710549758051
+    - rid: 1904950495194382452
       type: {class: ConsumableItemData, ns: LUP.ES, asm: Assembly-CSharp}
       data:
         id: 7
@@ -117,7 +118,7 @@ MonoBehaviour:
         useTime: 5
         effectType: 0
         effectValue: 30
-    - rid: 6702098710549758052
+    - rid: 1904950495194382453
       type: {class: MaterialItemData, ns: LUP.ES, asm: Assembly-CSharp}
       data:
         id: 8
@@ -126,7 +127,7 @@ MonoBehaviour:
         stackSize: 5
         itemType: 4
         tier: 0
-    - rid: 6702098710549758053
+    - rid: 1904950495194382454
       type: {class: MeleeWeaponItemData, ns: LUP.ES, asm: Assembly-CSharp}
       data:
         id: 9
@@ -139,3 +140,17 @@ MonoBehaviour:
         range: 2
         timeBetAttack: 0.8
         attackAngle: 160
+    - rid: 1904950495194382455
+      type: {class: ThrowingWeaponData, ns: LUP.ES, asm: Assembly-CSharp}
+      data:
+        id: 10
+        iconName: Sword
+        name: Rock
+        stackSize: 1
+        itemType: 1
+        weaponType: 2
+        damage: 30
+        range: 10
+        timeBetAttack: 0.9
+        attackRadius: 1
+        arcHeight: 2

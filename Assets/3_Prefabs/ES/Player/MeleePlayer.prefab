@@ -348,7 +348,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   healthComponent: {fileID: 0}
-  speed: 7
+  speed: 5
   InteractionRadius: 2
   leftJoystick: {fileID: 0}
   rightJoystick: {fileID: 0}
@@ -376,7 +376,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   OverheadUIPrefab: {fileID: 2506230549702261924, guid: 3317ddb0f6e85474c81374de37eabbe3, type: 3}
-  canvas: {fileID: 0}
   YOffset: 140
   eventBroker: {fileID: 0}
 --- !u!114 &1574792847692350273
@@ -481,7 +480,8 @@ PrefabInstance:
       value: CH_M003
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: 8272619201492474596, guid: 296e02d0c6596654da8c8401c21ab1f1, type: 3}
     m_AddedGameObjects: []
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 5709367397638674836, guid: 296e02d0c6596654da8c8401c21ab1f1, type: 3}

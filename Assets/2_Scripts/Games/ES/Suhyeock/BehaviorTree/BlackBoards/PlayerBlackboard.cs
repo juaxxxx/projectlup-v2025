@@ -15,7 +15,9 @@ namespace LUP.ES
     public class PlayerBlackboard : BaseBlackboard
     {
         public float InteractionRadius = 2.0f;
+        [HideInInspector]
         public FixedJoystick leftJoystick;
+        [HideInInspector]
         public FixedJoystick rightJoystick;
         public int CurrentWeaponID = 2;
         [HideInInspector]
@@ -46,10 +48,21 @@ namespace LUP.ES
             interactingObject = null;
         }
 
-        private void Start()
+        protected override void Awake()
         {
+            base.Awake();
             animator = GetComponentInChildren<Animator>();
             playerIK = GetComponentInChildren<PlayerIK>();
+            GameObject leftObj = GameObject.Find("Left Fixed Joystick");
+            if (leftObj != null)
+                leftJoystick = leftObj.GetComponent<FixedJoystick>();
+
+            GameObject rightObj = GameObject.Find("Right Fixed Joystick");
+            if (rightObj != null)
+                rightJoystick = rightObj.GetComponent<FixedJoystick>();
+        }
+        private void Start()
+        {
             eventBroker = FindAnyObjectByType<EventBroker>();
         }
 
