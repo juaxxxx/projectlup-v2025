@@ -154,6 +154,7 @@ GameObject:
   - component: {fileID: 1574792847692350273}
   - component: {fileID: 5873969557981213748}
   - component: {fileID: 4592253938660812637}
+  - component: {fileID: -4880518105603264755}
   m_Layer: 4
   m_Name: MeleePlayer
   m_TagString: Player
@@ -420,6 +421,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   prefabDataBase: {fileID: 11400000, guid: fb1caddb15bfdaf4594ab5f29cfbb8b2, type: 2}
   isRightHand: 1
+--- !u!114 &-4880518105603264755
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8745652737564829069}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 331fac1522026c94da924c2e92f840ef, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  detector: {fileID: 0}
+  playerBlackboard: {fileID: 0}
+  interactButton: {fileID: 0}
 --- !u!1001 &627218663523251989
 PrefabInstance:
   m_ObjectHideFlags: 0

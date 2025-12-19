@@ -7,11 +7,11 @@ namespace LUP.ES
     public class ExtractionHandler : MonoBehaviour
     {
         [Header("참조")]
-        public InteractionDetector detector;
-        public PlayerBlackboard playerBlackboard;
+        private InteractionDetector detector;
+        private PlayerBlackboard playerBlackboard;
 
         [Header("설정")]
-        public Button interactButton;
+        private Button interactButton;
 
         private bool isTimerRunning = false;
 
@@ -20,6 +20,10 @@ namespace LUP.ES
 
         void Start()
         {
+            playerBlackboard = FindAnyObjectByType<PlayerBlackboard>();
+            detector = GetComponentInChildren<InteractionDetector>();
+            interactButton = GameObject.Find("Interact Button").GetComponent<Button>();
+            
             if (interactButton != null)
             {
                 interactButton.onClick.AddListener(HandleButtonPress);
