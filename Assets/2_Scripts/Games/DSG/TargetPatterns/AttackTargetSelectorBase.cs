@@ -34,8 +34,9 @@ namespace LUP.DSG
         }
         protected bool IsAlive(Character character)
         {
+            if (character == null) return false;
+
             return character.characterData != null &&
-                   character.BattleComp != null &&
                    character.BattleComp.isAlive;
         }
     }

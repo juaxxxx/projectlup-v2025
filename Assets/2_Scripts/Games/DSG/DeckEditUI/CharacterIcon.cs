@@ -73,9 +73,11 @@ namespace LUP.DSG
             }
 
             FormationSystem system = FindFirstObjectByType<FormationSystem>();
-            Sprite typeIcon = system.GetTypeByAttributeImage(type);
+            AttributeTypeImage typeIcon = system.GetTypeByAttributeImage(type);
 
-            attributeIcon.sprite = typeIcon;
+            attributeIcon.sprite = typeIcon.TypeIcon;
+            attributeIcon.color = typeIcon.TypeColor;
+
         }
 
         public void OnButtonClicked()

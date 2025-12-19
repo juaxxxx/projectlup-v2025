@@ -196,6 +196,10 @@ namespace LUP.DSG
                 return;
 
             targetSlots = targets;
+
+            if (targetSlots.Count < 1)
+                return;
+
             targetPosition = targetSlots[0].AttackedPosition.position;
             HandleAttackStart();
 

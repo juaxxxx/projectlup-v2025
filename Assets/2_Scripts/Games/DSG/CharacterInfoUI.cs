@@ -56,12 +56,13 @@ namespace LUP.DSG
             levelText.text = sb.ToString();
 
             FormationSystem system = FindFirstObjectByType<FormationSystem>();
-            Sprite typeIcon = system.GetTypeByAttributeImage(attribute);
+            AttributeTypeImage typeIcon = system.GetTypeByAttributeImage(attribute);
 
-            if (typeIcon == null)
+            if (typeIcon.TypeIcon == null)
                 return;
 
-            attributeIcon.sprite = typeIcon;
+            attributeIcon.sprite = typeIcon.TypeIcon;
+            attributeIcon.color = typeIcon.TypeColor;
         }
     }
 }

@@ -25,10 +25,9 @@ namespace LUP.DSG
             int mincount = Mathf.Min(Alive.Count, count);
 
             Utils.Enums.EAttributeType type = Attacker.characterData.type;
-
             switch (type)
             {
-                case EAttributeType.ROCK: //°ø°ÝÀÚÀÇ typeÀ» °¡Á®¿Í ¾àÁ¡ÀÎ ÀûÀÌÀÖ´ÂÁö 5¹ø(Front)ºÎÅÍ È®ÀÎÇÔ
+                case EAttributeType.ROCK: //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ typeï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ö´ï¿½ï¿½ï¿½ 5ï¿½ï¿½(Front)ï¿½ï¿½ï¿½ï¿½ È®ï¿½ï¿½ï¿½ï¿½
                     {
                         return GetWeakTargets(Alive, EAttributeType.SCISSORS, mincount);
                     }
@@ -59,7 +58,6 @@ namespace LUP.DSG
         private List<LineupSlot> GetWeakTargets(List<LineupSlot> Alive,EAttributeType type, int count)
         {
             List<LineupSlot> Slots = new List<LineupSlot>();
-
             for (int i = Alive.Count - 1; i >= 0; i--)
             {
                 if (Alive[i].character.characterData.type == type)

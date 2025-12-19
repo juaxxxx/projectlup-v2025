@@ -60,9 +60,10 @@ namespace LUP.DSG
             character.StatusEffectComp.OnEffectEndTurn = OnEffectEndTurn;
 
             FormationSystem system = FindFirstObjectByType<FormationSystem>();
-            Sprite typeIcon = system.GetTypeByAttributeImage(character.characterData.type);
+            AttributeTypeImage typeIcon = system.GetTypeByAttributeImage(character.characterData.type);
 
-            centerAreaImage.sprite = typeIcon;
+            centerAreaImage.sprite = typeIcon.TypeIcon;
+            centerAreaImage.color = typeIcon.TypeColor;
         }
 
         private void OnDisable()

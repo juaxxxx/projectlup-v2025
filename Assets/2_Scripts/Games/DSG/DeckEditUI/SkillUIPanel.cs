@@ -51,6 +51,7 @@ namespace LUP.DSG
                 Transform banner = Object.transform.Find("SkillBanner");
                 Image bannerImage = banner.GetComponent<Image>();
 
+
                 bannerImage.color = Color.red;
 
                 seq.Append(rt.DOAnchorPos(EnmyshowPos, slideDuration).SetEase(Ease.OutCubic));

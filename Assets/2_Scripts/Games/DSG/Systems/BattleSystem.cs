@@ -1,4 +1,5 @@
 using DG.Tweening;
+using DG.Tweening.Core.Easing;
 using LUP.Define;
 using LUP.DSG.Utils.Enums;
 using Mono.Cecil;
@@ -36,6 +37,8 @@ namespace LUP.DSG
         private GameObject formationCanvas;
         [SerializeField]
         private GameObject characterUICanvas;
+        [SerializeField]
+        private RectTransform EmptyMessage;
 
         [SerializeField]
         private TextMeshProUGUI roundText;
@@ -51,7 +54,6 @@ namespace LUP.DSG
         private List<GameObject> sequenceImage = new List<GameObject>();
 
         private ChainedTargetSelector targetSelector;
-        private PickRandomTarget randomTargetSelector;
 
         private int currentTurnIndex = 0;
         private int currentRound = 1;
@@ -112,11 +114,9 @@ namespace LUP.DSG
                 friendlySlot.OnCPUpdated += UpdatePlayerCP;
             }
 
-            randomTargetSelector = new PickRandomTarget(this);
-
             targetSelector = new ChainedTargetSelector(new PickWeakTarget(this),
                 new PickHighestHpTarget(this),
-                randomTargetSelector);
+                new PickRandomTarget(this));
         }
 
         private void Update()
@@ -250,12 +250,19 @@ namespace LUP.DSG
 
         public void OnClickBattleStartButton()
         {
-            if (friendlySlots.Length <= 0)
+            if(FriendlySlotsIsEmpty() || EnemySlotsIsEmpty())
             {
-                return; //@TODO friendlyslot 비어있음 이미지 띄우기
+                ViewWarningMessage();
+                return;
             }
 
             StartCoroutine(BattleStart());
+        }
+        private IEnumerable ViewWarningMessage()
+        {
+            EmptyMessage.gameObject.SetActive(true);
+            yield return new WaitForSeconds(2);
+            EmptyMessage.gameObject.SetActive(false);
         }
 
         public IEnumerator BattleStart()
@@ -326,7 +333,7 @@ namespace LUP.DSG
             }
             else
             {
-                List<LineupSlot> targetslot = targetSelector.SelectEnemyTargets(currentChar, 2);
+                List<LineupSlot> targetslot = targetSelector.SelectEnemyTargets(currentChar, 1);
                 currentChar.BattleComp.Attack(targetslot);
                 StartCoroutine(WaitForAttackEnd(currentChar));
                 onStartAttack?.Invoke(currentChar);
@@ -420,6 +427,8 @@ namespace LUP.DSG
                 Debug.Log($"[EndBattle-SAVE] #1 name={mvp.char1Name} score={mvp.char1Score} icon={(mvp.char1Icon ? mvp.char1Icon.name : "NULL")}");
                 Debug.Log($"[EndBattle-SAVE] #2 name={mvp.char2Name} score={mvp.char2Score} icon={(mvp.char2Icon ? mvp.char2Icon.name : "NULL")}");
             }
+
+            Time.timeScale = 1f;
         }
         public void BackupDeadCharacter(string name, int charid, float score, GameObject prefab)
         {
@@ -611,12 +620,14 @@ namespace LUP.DSG
                 EndBattle("Victory");
                 DeckStrategyStage stage = GetComponent<DeckStrategyStage>();
                 stage.BattleEnd();
+                Time.timeScale = 1f;
             }
             else if (allFriendDead)
             {
                 EndBattle("Defeat");
                 DeckStrategyStage stage = GetComponent<DeckStrategyStage>();
                 stage.BattleEnd();
+                Time.timeScale = 1f;
             }
         }
         private void OnDieIndexCharacter(int index)
@@ -687,6 +698,34 @@ namespace LUP.DSG
                 Time.timeScale = 1f;
                 currentGameSpeed = Time.timeScale;
             }
+        }
+
+        public bool FriendlySlotsIsEmpty()
+        {
+            for(int i = 0; i < friendlySlots.Length; i++)
+            {
+                LineupSlot slot = friendlySlots[i].GetComponent<LineupSlot>();
+                if(slot.character == null)
+                {
+                    continue;
+                }
+                return false;
+            }
+            return true;   
+        }
+
+        public bool EnemySlotsIsEmpty()
+        {
+            for (int i = 0; i < enemySlots.Length; i++)
+            {
+                LineupSlot slot = enemySlots[i].GetComponent<LineupSlot>();
+                if (slot.character == null)
+                {
+                    continue;
+                }
+                return false;
+            }
+            return true;
         }
     }
 }

@@ -1,12 +1,23 @@
 using LUP.DSG.Utils.Enums;
 using ST;
 using System.Collections;
+using System.Drawing;
 using Unity.VisualScripting;
 //using UnityEditor;
 using UnityEngine;
 
 namespace LUP.DSG
 {
+    public readonly struct AttributeTypeImage
+    {
+        public readonly Sprite TypeIcon;
+        public readonly UnityEngine.Color TypeColor;
+        public AttributeTypeImage(Sprite icon, UnityEngine.Color color)
+        {
+            TypeIcon = icon;
+            TypeColor = color;
+        }
+    }
     public class FormationSystem : MonoBehaviour
     {
         [SerializeField]
@@ -220,25 +231,19 @@ namespace LUP.DSG
             }
         }
 
-        public Sprite GetTypeByAttributeImage(EAttributeType type)
+        public AttributeTypeImage GetTypeByAttributeImage(EAttributeType type)
         {
-            Sprite typeIcon = null;
             switch (type)
             {
                 case EAttributeType.ROCK:
-                    typeIcon = rockIcon;
-                    break;
+                    return new AttributeTypeImage(rockIcon, UnityEngine.Color.red);
                 case EAttributeType.PAPER:
-                    typeIcon = paperIcon;
-                    break;
+                    return new AttributeTypeImage(paperIcon, UnityEngine.Color.blue);
                 case EAttributeType.SCISSORS:
-                    typeIcon = scissorsIcon;
-                    break;
+                    return new AttributeTypeImage(scissorsIcon, UnityEngine.Color.yellow);
                 default:
-                    typeIcon = null; break;
+                    return new AttributeTypeImage(null, UnityEngine.Color.white);
             }
-
-            return typeIcon;
         }
     }
 
