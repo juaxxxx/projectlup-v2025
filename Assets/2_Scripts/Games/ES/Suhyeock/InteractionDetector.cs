@@ -5,6 +5,7 @@ namespace LUP.ES
 {
     public class InteractionDetector : MonoBehaviour
     {
+        [HideInInspector]
         public EventBroker eventBroker;
         public PlayerBlackboard blackboard;
         private SphereCollider detectionCollider;
@@ -12,6 +13,7 @@ namespace LUP.ES
 
         private void Start()
         {
+            eventBroker = FindAnyObjectByType<EventBroker>();
             detectionCollider = gameObject.AddComponent<SphereCollider>();
             detectionCollider.radius = blackboard.InteractionRadius;
             detectionCollider.isTrigger = true;

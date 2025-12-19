@@ -8,16 +8,20 @@ namespace LUP.ES
     {
         IDLE,
         MOVING,
+        INTERACTING
     }
 
 
     public class PlayerBlackboard : BaseBlackboard
     {
         public float InteractionRadius = 2.0f;
+        [HideInInspector]
         public FixedJoystick leftJoystick;
+        [HideInInspector]
         public FixedJoystick rightJoystick;
-        public EventBroker eventBroker;
         public int CurrentWeaponID = 2;
+        [HideInInspector]
+        public EventBroker eventBroker;
         [HideInInspector]
         public Weapon weapon;
         public InteractionDetector InteractionDetector;
@@ -35,15 +39,37 @@ namespace LUP.ES
         public PlayerOverheadUI playerOverheadUI;
         [HideInInspector]
         public WeaponEquip weaponEquip;
+        [HideInInspector]
+        public PlayerIK playerIK;
+    
         public void ResetInteractionState()
         {
             //isCastingInteraction = false;
             interactingObject = null;
         }
 
+        protected override void Awake()
+        {
+            base.Awake();
+            animator = GetComponentInChildren<Animator>();
+            playerIK = GetComponentInChildren<PlayerIK>();
+            GameObject leftObj = GameObject.Find("Left Fixed Joystick");
+            if (leftObj != null)
+                leftJoystick = leftObj.GetComponent<FixedJoystick>();
+
+            GameObject rightObj = GameObject.Find("Right Fixed Joystick");
+            if (rightObj != null)
+                rightJoystick = rightObj.GetComponent<FixedJoystick>();
+        }
         private void Start()
         {
-            animator = GetComponentInChildren<Animator>();
+            eventBroker = FindAnyObjectByType<EventBroker>();
+        }
+
+        public void SetWeaponVisible(bool isVisible)
+        {
+            weapon.SetWeaponVisible(isVisible);
+            playerIK.SetIsActivateIK(isVisible);
         }
     }
 }

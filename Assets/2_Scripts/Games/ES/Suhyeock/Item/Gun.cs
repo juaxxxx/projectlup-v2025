@@ -21,9 +21,17 @@ namespace LUP.ES
         [HideInInspector]
         public int magAmmo = 0;
         private float nextAttackTime = 0f;
+     
+        private WeaponRangeRaycast weaponRangeRaycast;
 
         private FollowCamera cameraScript;
-        public void Init(int id)
+
+        protected override void Start()
+        {
+            base.Start();
+            weaponRangeRaycast = GetComponent<WeaponRangeRaycast>();
+        }
+        public override void Init(int id)
         {
             aimPivot = transform.root;
             bulletPool = GetComponent<BulletObjectPool>();
@@ -43,7 +51,21 @@ namespace LUP.ES
             {
                 cameraScript = camObj.GetComponent<FollowCamera>();
             }
+
+            weaponRenderers =  GetComponentsInChildren<Renderer>();
         }
+        public override void SetWeaponVisible(bool isVisible)
+        {
+            if (weaponRenderers != null)
+            {
+                foreach (Renderer r in weaponRenderers)
+                {
+                    r.enabled = isVisible;
+                }
+            }
+            weaponRangeRaycast.SetIsVisible(isVisible);
+        }
+
         public override bool Attack()
         {
             if (Time.time < nextAttackTime)
@@ -64,6 +86,15 @@ namespace LUP.ES
                 return true;
             }
             return false;
+        }
+
+        public override bool CanAttack()
+        {
+            if (Time.time < nextAttackTime)
+            {
+                return false;
+            }
+            return true;
         }
 
         public void Reload()

@@ -7,6 +7,7 @@ namespace LUP.ES
     {
         Melee,
         Ranged,
+        Throwing,
     }
 
     [Serializable]

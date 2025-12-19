@@ -11,15 +11,20 @@ namespace LUP.ES
 
         private float currentLeftHandWeight = 0f;
 
+        private bool isActivateIK = true;
+
         // Start is called once before the first execution of Update after the MonoBehaviour is created
         void Start()
         {
             animator = GetComponent<Animator>();
-            blackboard = GetComponentInParent<PlayerBlackboard>(); // 블랙보드 위치에 따라 수정 필요
+            blackboard = GetComponentInParent<PlayerBlackboard>();
         }
 
         void OnAnimatorIK(int layerIndex)
         {
+            if (isActivateIK == false)
+                return;
+
             if (animator == null || blackboard.weapon == null) return;
 
             float targetWeight = maxWeight;
@@ -50,6 +55,11 @@ namespace LUP.ES
                 animator.SetIKPositionWeight(AvatarIKGoal.LeftHand, 0);
                 animator.SetIKRotationWeight(AvatarIKGoal.LeftHand, 0);
             }
+        }
+
+        public void SetIsActivateIK(bool isAtivate)
+        {
+            isActivateIK = isAtivate;
         }
     }
 }

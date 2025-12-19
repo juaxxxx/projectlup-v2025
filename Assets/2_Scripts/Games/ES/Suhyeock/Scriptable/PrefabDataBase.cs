@@ -16,14 +16,11 @@ namespace LUP.ES
             public Vector3 rotationOffset; // 회전 보정값
         }
 
-        // [핵심 2] 원본 데이터베이스 연결 (여기에 ItemDataBase를 넣으세요)
         public ItemDataBase itemDataBase;
 
-        // 실제 프리팹 리스트
         public List<ItemPrefabEntry> prefabList = new List<ItemPrefabEntry>();
 
         // =========================================================
-        // [핵심 3] 자동 동기화 버튼 기능
         // 인스펙터 우클릭 메뉴에 "Sync IDs from ItemDB" 버튼을 만듭니다.
         // =========================================================
         [ContextMenu("Sync IDs from ItemDB")]

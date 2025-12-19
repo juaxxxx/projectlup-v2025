@@ -5,9 +5,13 @@ namespace LUP.ES
 {
     public class ButtonInputHandler : MonoBehaviour
     {
-        public PlayerBlackboard blackboard;
+        private PlayerBlackboard blackboard;
         public GameObject pausePanel;
 
+        private void Start()
+        {
+            blackboard = FindAnyObjectByType<PlayerBlackboard>();   
+        }
         public void OnInteractPressed()
         {
             blackboard.isInteractionButtonPressed = true;

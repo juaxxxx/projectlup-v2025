@@ -33,6 +33,8 @@ namespace LUP.ES
             target.ShowInteractionTimerUI();
             blackboard.interactingObject = target;
             blackboard.StartCoroutine(LookAtTargert(target));
+            blackboard.moveState = MoveState.INTERACTING;
+            blackboard.SetWeaponVisible(false);
             return NodeState.Success;
         }
 

@@ -43,6 +43,7 @@ namespace LUP.ES
                 if (blackboard.animator != null)
                     blackboard.animator.SetBool("IsInteracting", false);
                 blackboard.ResetInteractionState();
+                blackboard.SetWeaponVisible(true);
                 return NodeState.Success;
             }
             if (blackboard.animator != null)
@@ -61,6 +62,7 @@ namespace LUP.ES
                 if (blackboard.animator != null)
                 {
                     blackboard.animator.SetBool("IsInteracting", false);
+                    blackboard.SetWeaponVisible(true);
                 }
             }
         }

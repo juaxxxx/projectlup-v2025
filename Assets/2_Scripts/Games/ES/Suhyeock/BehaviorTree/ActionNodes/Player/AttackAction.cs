@@ -6,7 +6,6 @@ namespace LUP.ES
     {
         private PlayerBlackboard blackboard;
         private CharacterController characterController;
-
         public AttackAction(PlayerBlackboard blackboard, CharacterController characterController)
         {
             this.blackboard = blackboard;
@@ -20,22 +19,31 @@ namespace LUP.ES
 
             if (horizontal != 0 || Vertical != 0)
             {
-                //Vector3 dir = new Vector3(horizontal, 0f, Vertical);
-                //dir.Normalize();
-                //characterController.transform.forward = dir;
-                bool isAttack = blackboard.weapon.Attack();
+                switch (blackboard.weapon.weaponItem.data.weaponType)
+                {
+                    case WeaponType.Ranged:
+                        bool isAttack = blackboard.weapon.Attack();
+                        if (blackboard.animator != null && isAttack)
+                            blackboard.animator.SetTrigger("Attack");
+                        blackboard.weapon.state = WeaponState.ATTACKING;
+                        break;
+                    case WeaponType.Melee:
+                    case WeaponType.Throwing:
+                        if (blackboard.weapon.CanAttack() && blackboard.weapon.state == WeaponState.READY)
+                        {
+                            if (blackboard.animator != null)
+                            {
+                                blackboard.animator.SetTrigger("Attack");
+                                blackboard.weapon.state = WeaponState.ATTACKING;
+                            }
+                        }
+                        break;
+                    default:
+                        break;
+                }
                 blackboard.playerOverheadUI.UpdateAmmoUI();
-                blackboard.weapon.state = WeaponState.ATTACKING;
-                if (blackboard.animator != null && isAttack)
-                {
-                    //blackboard.animator.SetBool("IsAttacking", true);
-                    blackboard.animator.SetTrigger("Attack");
-                }
-                else
-                {
-                    blackboard.animator.ResetTrigger("Attack");
-                }
-                    return NodeState.Running;
+                
+                return NodeState.Running;
             }
             blackboard.weapon.state = WeaponState.READY;
             return NodeState.Success;

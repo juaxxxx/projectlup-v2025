@@ -22,6 +22,7 @@ namespace LUP.ES
         public float attackSize = 2f;
         public float patrolRadius = 5f;
         public LayerMask LayerMask;
+        [HideInInspector]
         public Transform playerTransform;
 
         [HideInInspector]
@@ -47,6 +48,7 @@ namespace LUP.ES
 
         public void Start()
         {
+            playerTransform = FindAnyObjectByType<PlayerBlackboard>().transform;
             lootSpawner = GetComponent<LootSpawner>();
             navMeshAgent = GetComponent<NavMeshAgent>();
             navMeshAgent.speed = speed;

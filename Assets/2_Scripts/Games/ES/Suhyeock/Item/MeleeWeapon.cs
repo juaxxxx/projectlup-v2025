@@ -8,23 +8,36 @@ namespace LUP.ES
         public ItemDataBase itemDataBase; //임시
         public int selectedWeaponId = 5; //임시
         public LayerMask targetLayer;
-        public Transform playerTransform;
         private float nextAttackTime = 0f;
+        [HideInInspector]
+        public Transform playerTransform;
         // Start is called once before the first execution of Update after the MonoBehaviour is created
-        void Start()
+
+        protected override void Start()
         {
+            base.Start();
+            
+
+        }
+        public override void SetWeaponVisible(bool isVisible)
+        {
+            if (weaponRenderers != null)
+            {
+                foreach (Renderer r in weaponRenderers)
+                {
+                    r.enabled = isVisible;
+                }
+            }
+        }
+
+        public override void Init(int id)
+        {
+            selectedWeaponId = id;
             state = WeaponState.READY;
             BaseItemData itemData = itemDataBase.GetItemByID(selectedWeaponId);
             MeleeWeaponItemData weaponData = itemData as MeleeWeaponItemData;
             weaponItem = new WeaponItem(weaponData);
-        }
-
-        // Update is called once per frame
-        void Update()
-        {
-            
-
-
+            playerTransform = FindAnyObjectByType<PlayerBlackboard>().transform;
         }
 
         public override bool Attack()
@@ -60,6 +73,15 @@ namespace LUP.ES
             }
             return true;
 
+        }
+
+        public override bool CanAttack()
+        {
+            if (Time.time < nextAttackTime)
+            {
+                return false;
+            }
+            return true;
         }
 
         //private void OnDrawGizmos()

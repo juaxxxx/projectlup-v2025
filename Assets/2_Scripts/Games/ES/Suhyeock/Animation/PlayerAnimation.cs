@@ -45,15 +45,17 @@ namespace LUP.ES
             blackboard.animator.SetFloat("InputX", localMove.x, 0.1f, Time.deltaTime);
             blackboard.animator.SetFloat("InputY", localMove.z, 0.1f, Time.deltaTime);
 
-            //if (blackboard.weapon.state == WeaponState.ATTACKING ||
-            //    blackboard.weapon.state == WeaponState.RELOADING)
-            //{
-            //    blackboard.animator.SetLayerWeight(1, 1);
-            //}
-            //else
-            //{
-            //    blackboard.animator.SetLayerWeight(1, 0);
-            //}
+            if (blackboard.weapon.state == WeaponState.ATTACKING ||
+                blackboard.weapon.state == WeaponState.RELOADING ||
+                blackboard.moveState == MoveState.MOVING ||
+                blackboard.moveState == MoveState.IDLE)
+            {
+                blackboard.animator.SetLayerWeight(1, 1);
+            }
+            else
+            {
+                blackboard.animator.SetLayerWeight(1, 0);
+            }
         }
     }
 

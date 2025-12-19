@@ -1,3 +1,4 @@
+using Unity.VisualScripting;
 using UnityEngine;
 
 namespace LUP.ES
@@ -23,6 +24,7 @@ namespace LUP.ES
         private LineRenderer visibleLine;
         private LineRenderer blockedLine;
 
+        private bool isVisible = true;
         Transform origin => firePoint != null ? firePoint : transform;
 
         void Start()
@@ -89,6 +91,9 @@ namespace LUP.ES
 
         void Update()
         {
+            if (isVisible == false)
+                return;
+
             if (gun != null)
             {
                 maxRange = gun.weaponItem.data.range;
@@ -113,6 +118,13 @@ namespace LUP.ES
             {
                 blockedLine.enabled = false;
             }
+        }
+
+        public void SetIsVisible(bool isVisible)
+        {
+            this.isVisible = isVisible;
+            visibleLine.enabled = isVisible;
+            blockedLine.enabled = isVisible;
         }
     }
 }

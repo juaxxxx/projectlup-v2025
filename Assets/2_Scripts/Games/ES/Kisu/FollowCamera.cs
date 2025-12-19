@@ -4,20 +4,28 @@ using UnityEngine.UIElements;
 namespace LUP.ES
 {
     public class FollowCamera : MonoBehaviour
-    {
-        [SerializeField] private Joystick aimJoystick;
-        [SerializeField] private bool followX = true, followY = true, followZ = true;
-        [SerializeField] private Transform target;
-        [SerializeField] private Vector3 defaultOffset = new Vector3(0, 6, -6);
+    { 
+        [SerializeField] 
+        private Joystick aimJoystick;
+        [SerializeField] 
+        private bool followX = true, followY = true, followZ = true;
+        [SerializeField] 
+        private Vector3 defaultOffset = new Vector3(0, 6, -6);
 
-        [SerializeField] private float smoothTime = 0.12f; // 값이 클수록 더 천천히 따라갑니다
-        [SerializeField] private float maxSpeed = 20f;
+        [SerializeField] 
+        private float smoothTime = 0.12f; // 값이 클수록 더 천천히 따라갑니다
+        [SerializeField] 
+        private float maxSpeed = 20f;
 
 
-        [SerializeField] private float lookAheadDistance = 3.0f; // 조준 시 카메라가 이동하는 최대 거리
-        [SerializeField] private float lookAheadSmoothTime = 0.2f; // 조준 이동의 부드러움 정도
-        [SerializeField] private float deadZone = 0.1f; // 조이스틱 입력 무시 임계값
+        [SerializeField] 
+        private float lookAheadDistance = 3.0f; // 조준 시 카메라가 이동하는 최대 거리
+        [SerializeField] 
+        private float lookAheadSmoothTime = 0.2f; // 조준 이동의 부드러움 정도
+        [SerializeField] 
+        private float deadZone = 0.1f; // 조이스틱 입력 무시 임계값
 
+        private Transform target;
         private Vector3 currentVelocity;
         private Vector3 currentAimOffset;
         private Vector3 aimVelocity;
@@ -26,6 +34,10 @@ namespace LUP.ES
         private float shakeMagnitude = 0f;
         private Vector3 shakeOffset = Vector3.zero;
 
+        private void Start()
+        {
+            target = FindAnyObjectByType<PlayerBlackboard>().transform;
+        }
         private void LateUpdate()
         {
             if (target == null) return;

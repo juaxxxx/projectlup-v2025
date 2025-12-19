@@ -7,6 +7,7 @@ namespace LUP.ES
 {
     public class LootDisplayCenter : MonoBehaviour
     {
+        [HideInInspector]
         public EventBroker eventBroker;
         public Inventory inventory;
         public GameObject itemSlotPrefab;
@@ -17,6 +18,7 @@ namespace LUP.ES
 
         private void Start()
         {
+            eventBroker = FindAnyObjectByType<EventBroker>();
             eventBroker.OnCloseLootDisplay += CloseLootPanel;
             eventBroker.OnOpenLootDisplay += ShowLootItems;
 

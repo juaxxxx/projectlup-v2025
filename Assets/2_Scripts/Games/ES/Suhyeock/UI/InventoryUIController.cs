@@ -7,8 +7,9 @@ namespace LUP.ES
 {
     public class InventoryUIController : MonoBehaviour
     {
+        [HideInInspector]
         public EventBroker eventBroker;
-
+        [HideInInspector]
         public Inventory inventory;
         public GameObject iventoryDisplayPanel;
 
@@ -22,6 +23,8 @@ namespace LUP.ES
         private bool isOpen = false;
         private void Start()
         {
+            eventBroker = FindAnyObjectByType<EventBroker>();
+            inventory = FindAnyObjectByType<Inventory>();
             iventoryDisplayPanel.SetActive(isOpen);
             eventBroker.OnInventoryVisibilityChanged += SetInventoryOpen;
             inventory.OnInventoryUpdated += UpdateUI;

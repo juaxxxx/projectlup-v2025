@@ -20,12 +20,19 @@ namespace LUP.ES
         [HideInInspector]
         public WeaponItem weaponItem;
         public Transform leftHandGrip;
-        public abstract bool Attack();
 
-        private void Start()
+        protected Renderer[] weaponRenderers;
+        public abstract bool Attack();
+        public abstract void SetWeaponVisible(bool isVisible);
+        public abstract bool CanAttack();
+        public abstract void Init(int id);
+        protected virtual void Start()
         {
             eventBroker = FindAnyObjectByType<EventBroker>();
         }
+
+       
+
     }
 
    

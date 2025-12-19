@@ -6,7 +6,7 @@ namespace LUP
 {
     public class ExtractionShooterStage : BaseStage
     {
-        public BaseRuntimeData RuntimeData;
+        public ExtractionRuntimeData RuntimeData;
         public List<ExtractionStaticData> DataList;
 
         // 변수명은 예시이니 바꾸셔도 됩니다.
@@ -82,6 +82,12 @@ namespace LUP
                         RuntimeData = ESRuntimeData;
                     }
                 }
+            }
+
+            if (RuntimeData != null)
+            {
+                RuntimeData.PlayerID = 0;
+                RuntimeData.WeaponID = 0;
             }
         }
 
