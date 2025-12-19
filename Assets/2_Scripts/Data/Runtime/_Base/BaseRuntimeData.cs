@@ -43,31 +43,6 @@ public abstract class BaseRuntimeData
         SaveData();
     }
 
-    // List 사용시 이걸 쓰셔야 자동저장 됩니다
-    protected void AddToList<T>(List<T> list, T item)
-    {
-        list.Add(item);
-        NotifyValueChanged();
-    }
-
-    // List 사용시 이걸 쓰셔야 자동저장 됩니다
-    protected bool RemoveFromList<T>(List<T> list, T item)
-    {
-        bool removed = list.Remove(item);
-        if (removed)
-        {
-            NotifyValueChanged();
-        }
-        return removed;
-    }
-
-    // List 사용시 이걸 쓰셔야 자동저장 됩니다
-    protected void ClearList<T>(List<T> list)
-    {
-        list.Clear();
-        NotifyValueChanged();
-    }
-
     public abstract void ResetData();
 
     public void SaveData()
