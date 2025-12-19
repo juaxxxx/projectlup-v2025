@@ -117,7 +117,7 @@ namespace LUP.ST
             animator?.SetTrigger("Reload");
         }
 
-        public void SetMoving(bool moving)  // ← 여기 있어요!
+        public void SetMoving(bool moving) 
         {
             if (animator != null)
             {
@@ -137,9 +137,23 @@ namespace LUP.ST
 
         private void OnDeath()
         {
+            PlayDeathAnimation();
+        }
+
+        public void PlayDeathAnimation()
+        {
             if (animator != null)
             {
                 animator.SetBool("IsDead", true);
+            }
+        }
+
+
+        public void ResetDeathAnimation()
+        {
+            if (animator != null)
+            {
+                animator.SetBool("IsDead", false);
             }
         }
 

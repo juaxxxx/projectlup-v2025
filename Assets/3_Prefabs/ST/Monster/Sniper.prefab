@@ -65,6 +65,8 @@ MonoBehaviour:
   skillEndTime: 0
   isHiding: 0
   hidePosition: {x: 0, y: 0, z: 0}
+  isAttackingFlag: 0
+  hasAppliedHit: 0
 --- !u!114 &8731306736451821969
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -89,15 +91,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d79aa2818530ed4489e9c8a9627f6eb6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 100
+  maxHealth: 300
   currentHealth: 0
-  attackDamage: 30
+  attackDamage: 50
   defense: 0
-  moveSpeed: 5
+  moveSpeed: 2
   attackRange: 30
-  attackSpeed: 1
+  attackSpeed: 2
   attackCooldown: 3
-  bulletSpeed: 30
+  bulletSpeed: 50
   criticalChance: 0
   criticalDamage: 1.5
   buffDuration: 10
@@ -118,7 +120,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   modelPrefab: {fileID: 919132149155446097, guid: 0ca2d0ffb67ca4c429f3b727214fdefd, type: 3}
-  animatorController: {fileID: 9100000, guid: 7a5f41f6a28886f4ebb30ac9903be1ab, type: 2}
+  animatorController: {fileID: 9100000, guid: bd899b5cb9a7ce740be0921d99f025f8, type: 2}
   modelOffset: {x: 0, y: 0, z: 0}
   modelScale: 1
 --- !u!54 &160674595871317187
@@ -146,7 +148,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 0
+  m_Constraints: 112
   m_CollisionDetection: 0
 --- !u!136 &5929084774207938005
 CapsuleCollider:
@@ -161,7 +163,7 @@ CapsuleCollider:
     m_Bits: 4294967295
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 8
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0

@@ -1,5 +1,7 @@
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+
 namespace LUP.ST
 {
 
@@ -25,14 +27,16 @@ namespace LUP.ST
         public float stunDuration = 2f;
         public float skillDuration = 2f;
 
-
+        [Header("사망 설정")]
+        public float deathAnimationDuration = 2f;  // 죽는 애니메이션 길이
+        private bool isDying = false;  // 중복 호출 방지
 
         // 상태 플래그
         [HideInInspector] public bool isStunned = false;
         [HideInInspector] public float stunEndTime = 0f;
         [HideInInspector] public bool isUsingSkill = false;
         [HideInInspector] public float skillEndTime = 0f;
-        [HideInInspector] public bool isHiding = false;
+        //[HideInInspector] public bool isHiding = false;
         [HideInInspector] public Vector3 hidePosition;
         [HideInInspector] public bool isAttackingFlag = false;
         [HideInInspector] public bool hasAppliedHit = false;
@@ -96,8 +100,14 @@ namespace LUP.ST
         {
             isStunned = false;
             isUsingSkill = false;
-            isHiding = false;
+            //isHiding = false;
             lastRetargetTime = 0f;
+            isDying = false;
+
+            var bt = GetComponent<MonsterBTBase>();
+            if (bt != null) bt.enabled = true;
+
+            Visual?.ResetDeathAnimation();
 
             if (stats != null)
             {
@@ -125,7 +135,29 @@ namespace LUP.ST
 
         public void Die()
         {
+            //DropRewards();
+            if (isDying) return;  // 이미 죽는 중이면 무시
+
+            StartCoroutine(DieCoroutine());
+        }
+
+        private IEnumerator DieCoroutine()
+        {
+            isDying = true;
+
+            // 죽음 애니메이션 재생
+            Visual?.PlayDeathAnimation();
+
+            // BT 멈추기 (더 이상 행동 안 하게)
+            var bt = GetComponent<MonsterBTBase>();
+            if (bt != null) bt.enabled = false;
+
+            // 애니메이션 대기
+            yield return new WaitForSeconds(deathAnimationDuration);
+
+            // 드롭 및 풀 반환
             DropRewards();
+
             if (spawner != null)
             {
                 spawner.ReturnToPool(this);
@@ -135,6 +167,7 @@ namespace LUP.ST
                 gameObject.SetActive(false);
             }
         }
+
         public void SetColor(Color color)
         {
             if (rend != null)

@@ -65,6 +65,8 @@ MonoBehaviour:
   skillEndTime: 0
   isHiding: 0
   hidePosition: {x: 0, y: 0, z: 0}
+  isAttackingFlag: 0
+  hasAppliedHit: 0
 --- !u!114 &8731306736451821969
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -89,11 +91,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d79aa2818530ed4489e9c8a9627f6eb6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 10000
+  maxHealth: 200
   currentHealth: 0
   attackDamage: 10
   defense: 0
-  moveSpeed: 5
+  moveSpeed: 2
   attackRange: 10
   attackSpeed: 1
   attackCooldown: 1
@@ -118,7 +120,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   modelPrefab: {fileID: 919132149155446097, guid: cc1712ea388d853459b64b2f4348dc18, type: 3}
-  animatorController: {fileID: 9100000, guid: 7a5f41f6a28886f4ebb30ac9903be1ab, type: 2}
+  animatorController: {fileID: 9100000, guid: 56007d9327cc9f74283a768567dfb3cb, type: 2}
   modelOffset: {x: 0, y: 0, z: 0}
   modelScale: 1
 --- !u!54 &160674595871317187
@@ -129,7 +131,7 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2683933692437760362}
   serializedVersion: 4
-  m_Mass: 10
+  m_Mass: 0.0000001
   m_Drag: 0
   m_AngularDrag: 0.05
   m_CenterOfMass: {x: 0, y: 0, z: 0}
@@ -146,7 +148,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 0
+  m_Constraints: 112
   m_CollisionDetection: 0
 --- !u!136 &5929084774207938005
 CapsuleCollider:
@@ -161,7 +163,7 @@ CapsuleCollider:
     m_Bits: 4294967295
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 8
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
@@ -199,7 +201,7 @@ Transform:
   m_GameObject: {fileID: 6946080643914874094}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0.5}
+  m_LocalPosition: {x: 0, y: 0.5, z: 0.5}
   m_LocalScale: {x: 0.19999999, y: 0.19999999, z: 0.19999999}
   m_ConstrainProportionsScale: 0
   m_Children: []

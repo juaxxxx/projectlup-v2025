@@ -61,6 +61,7 @@ namespace LUP.ST
                 if (data.bulletPrefab != null && data.firePoint != null)
                 {
                     // 원거리 공격
+                    Vector3 targetCenter = data.target.position + Vector3.up * 1f;  //중앙 조준
                     Vector3 direction = (data.target.position - data.firePoint.position).normalized;
                     CombatUtility.ShootBullet(
                         data.Stats,
