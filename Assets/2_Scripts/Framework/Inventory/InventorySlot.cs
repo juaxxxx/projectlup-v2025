@@ -13,8 +13,13 @@ namespace LUP
 
         bool IsUsable { get; }
 
-        // ������ ���� ȣ��� (��ü�� ������ �� �������� ����)
         void OnUse();
+
+        int GetInt(string fieldName, int defaultValue = 0);
+        float GetFloat(string fieldName, float defaultValue = 0f);
+        string GetString(string fieldName, string defaultValue = "");
+        bool GetBool(string fieldName, bool defaultValue = false);
+        bool HasCustomField(string fieldName);
     }
 
     public class InventorySlot
