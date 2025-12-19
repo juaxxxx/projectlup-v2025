@@ -262,16 +262,29 @@ namespace LUP.ST
                     return NodeState.FAILURE;
                 }
 
-                direction = target.position - firePoint.position;
+                LookAtTarget(target);
+
+                Vector3 targetCenter = target.position + Vector3.up * 1f;
+                direction = targetCenter - firePoint.position;
             }
 
             ShootBullet(direction);
-//            Debug.Log($"{character.characterName}: 자동 발사! 남은 탄약: {character.currentAmmo}");
-
             SetColor(Color.cyan);
             return NodeState.SUCCESS;
         }
+        private void LookAtTarget(Transform target)
+        {
+            if (target == null) return;
 
+            // Y축 회전만 (좌우로만 바라봄)
+            Vector3 direction = target.position - transform.position;
+            direction.y = 0;
+
+            if (direction.sqrMagnitude > 0.001f)
+            {
+                transform.rotation = Quaternion.LookRotation(direction);
+            }
+        }
         public NodeState Cover(RangeBlackBoard character)
         {
             SetColor(Color.green);
