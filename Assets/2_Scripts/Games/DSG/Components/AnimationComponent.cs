@@ -17,10 +17,18 @@ namespace LUP.DSG
 
         public EAnimStateType currentState { get; private set; }
 
+        private BattleCameraDirector battleCameraDirector;
+
         void Start()
         {
             owner = GetComponent<Character>();
             currentState = EAnimStateType.Idle;
+
+            if (!battleCameraDirector)
+            {
+                Camera camera = Camera.main;
+                battleCameraDirector = camera.GetComponent<BattleCameraDirector>();
+            }
         }
 
         public void StartDashAnimation()
@@ -64,6 +72,7 @@ namespace LUP.DSG
         {
             currentState = EAnimStateType.StartDash_Bwd;
             SetAnimationState(currentState);
+            battleCameraDirector.BackToOriginPos();
         }
 
         public void PlayHittedAnimation(float damage)

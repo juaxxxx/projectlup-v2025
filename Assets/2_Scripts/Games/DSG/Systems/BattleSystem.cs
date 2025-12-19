@@ -322,10 +322,7 @@ namespace LUP.DSG
 
             if (currentChar.BattleComp.isSkillOn)
             {
-                List<LineupSlot> targetList = randomTargetSelector.SelectEnemyTargets(currentChar, currentChar.BattleComp.skillInfo.targetCount);
-                currentChar.BattleComp.Skill(targetList);
-                StartCoroutine(WaitForAttackEnd(currentChar));
-                onStartSkill?.Invoke(currentChar);
+                StartCoroutine(FocusSkillCaster(currentChar));
             }
             else
             {
@@ -626,6 +623,25 @@ namespace LUP.DSG
         {
             sequenceImage[index].gameObject.SetActive(false);
         }
+
+        private IEnumerator FocusSkillCaster(Character currentChar)
+        {
+            currentChar.BattleComp.isAttacking = true;
+            onStartSkill?.Invoke(currentChar);
+            Camera camera = Camera.main;
+            Transform cameraOrigin = camera.transform;
+            BattleCameraDirector Director = camera.GetComponent<BattleCameraDirector>();
+            LineupSlot currentSlot = currentChar.GetComponentInParent<LineupSlot>();
+            Transform focusTransform = currentSlot.FocusedPosition;
+            yield return Director.FocusOnSkillCaster(focusTransform, cameraOrigin).WaitForCompletion();
+
+            Director.FocusOnTarget(cameraOrigin.position);
+
+            List<LineupSlot> targetList = randomTargetSelector.SelectEnemyTargets(currentChar, currentChar.BattleComp.skillInfo.targetCount);
+            currentChar.BattleComp.Skill(targetList);
+            StartCoroutine(WaitForAttackEnd(currentChar));
+        }
+
         public void OnClickPauseButton()
         {
             float Curr = Time.timeScale;
@@ -642,6 +658,7 @@ namespace LUP.DSG
                 Time.timeScale = 0f;
             }
         }
+
         public void OnClickSpeedButton()
         {
             float Curr = Time.timeScale; //@TODO 구조개선 timescale XX

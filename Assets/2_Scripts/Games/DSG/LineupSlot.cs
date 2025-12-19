@@ -11,6 +11,7 @@ namespace LUP.DSG
         public Character character { get; private set; }
 
         public Transform AttackedPosition;
+        public Transform FocusedPosition;
 
         public event System.Action OnCPUpdated;
         public OwnedCharacterInfo characterInfo { get; private set; }

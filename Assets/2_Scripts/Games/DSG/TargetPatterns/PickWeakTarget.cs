@@ -25,7 +25,6 @@ namespace LUP.DSG
             int mincount = Mathf.Min(Alive.Count, count);
 
             Utils.Enums.EAttributeType type = Attacker.characterData.type;
-            int k = 0;
 
             switch (type)
             {
@@ -60,7 +59,6 @@ namespace LUP.DSG
         private List<LineupSlot> GetWeakTargets(List<LineupSlot> Alive,EAttributeType type, int count)
         {
             List<LineupSlot> Slots = new List<LineupSlot>();
-            int k = 0;
 
             for (int i = Alive.Count - 1; i >= 0; i--)
             {

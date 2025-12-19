@@ -1,12 +1,15 @@
+using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
-using DG.Tweening;
 
 namespace LUP.DSG
 {
     public class BattleCameraDirector : MonoBehaviour
     {
+        private Vector3 originPosition;
+
         [SerializeField]
         private Vector3 friendlyIntroCamPosition;
 
@@ -18,6 +21,16 @@ namespace LUP.DSG
 
         [SerializeField]
         private Vector3 enemyIntroCamRotation;
+
+        private void Awake()
+        {
+            originPosition = transform.position;
+        }
+
+        private void FixedUpdate()
+        {
+            
+        }
 
         public IEnumerator Shake(float duration, float magnitude)
         {
@@ -57,6 +70,29 @@ namespace LUP.DSG
 
             seq.Append(transform.DOMove(originPos, 1f));
             seq.Join(transform.DORotateQuaternion(originRot, 1f));
+
+            return seq;
+        }
+
+        public void FocusOnTarget(Vector3 targetPosition)
+        {
+            transform.DOMoveX(targetPosition.x, 0.5f);
+        }
+
+        public void BackToOriginPos(float delay = 0f)
+        {
+            transform.DOMoveX(originPosition.x, 0.5f).SetDelay(delay);
+        }
+
+        public Tween FocusOnSkillCaster(Transform targetTransform, Transform cameraOriginPos)
+        {
+            Sequence seq = DOTween.Sequence();
+            seq.Append(transform.DOMove(targetTransform.position, 1f));
+            seq.Join(transform.DORotateQuaternion(targetTransform.rotation, 1f));
+            seq.AppendInterval(0.5f);
+
+            seq.Append(transform.DOMove(cameraOriginPos.position, 1f));
+            seq.Join(transform.DORotateQuaternion(cameraOriginPos.rotation, 1f));
 
             return seq;
         }

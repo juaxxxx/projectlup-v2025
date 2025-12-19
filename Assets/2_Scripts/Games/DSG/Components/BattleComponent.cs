@@ -1,17 +1,19 @@
+using LUP.DSG.Utils;
 using LUP.DSG.Utils.Enums;
 using NUnit.Framework;
 using System;
 using System.Collections;
-using TMPro;
-using UnityEngine;
 using System.Collections.Generic;
+using System.Linq;
+using System.Runtime.CompilerServices;
+using TMPro;
+using Unity.Mathematics;
+using Unity.VisualScripting;
+using UnityEngine;
+using UnityEngine.UIElements;
 using static UnityEngine.GraphicsBuffer;
 using static UnityEngine.UI.GridLayoutGroup;
-using System.Runtime.CompilerServices;
-using System.Linq;
-using UnityEngine.UIElements;
-using Unity.Mathematics;
-using LUP.DSG.Utils;
+using DG.Tweening;
 
 namespace LUP.DSG
 {
@@ -61,6 +63,8 @@ namespace LUP.DSG
 
         [SerializeField]
         private GameObject damageLogPrefab;
+
+        private BattleCameraDirector battleCameraDirector;
 
         private void Awake()
         {
@@ -131,7 +135,9 @@ namespace LUP.DSG
                     impactApplied = false;
                     isUsingSkill = false;
                     isAttacking = false;
-                    //OnReachedTargetPos?.Invoke(true);
+
+                    ObjectFader fader = GetComponent<ObjectFader>();
+                    fader.FaderOff();
                 }
             }
             else if (bullet != null)
@@ -148,6 +154,7 @@ namespace LUP.DSG
                     {
                         ApplyDamageOnce();
                         impactApplied = true;
+                        battleCameraDirector.BackToOriginPos(0.5f);
                     }
 
                     StartCoroutine(WaitForRangeAttackEnd());
@@ -311,8 +318,6 @@ namespace LUP.DSG
 
         public void Skill(List<LineupSlot> targetList)
         {
-            if (isAttacking || isUsingSkill) return;
-
             targetSlots = targetList;
             targetPosition = skillInfo.AttackPosition;
 
@@ -328,6 +333,16 @@ namespace LUP.DSG
                 case EWeaponType.Melee_OneHanded:
                 case EWeaponType.Melee_TwoHanded:
                     OnStartDash?.Invoke();
+                    if (!battleCameraDirector)
+                    {
+                        Camera camera = Camera.main;
+                        battleCameraDirector = camera.GetComponent<BattleCameraDirector>();
+                    }
+
+                    battleCameraDirector.FocusOnTarget(targetPosition);
+
+                    ObjectFader fader = GetComponent<ObjectFader>();
+                    fader.FaderOn(targetSlots);
                     break;
                 case EWeaponType.Magic:
                 case EWeaponType.Gun_Rifle:
@@ -347,6 +362,14 @@ namespace LUP.DSG
 
             projectileTargetPosition = targetSlots[0].AttackedPosition.position;
             projectileTargetPosition.y += 1.2f;
+
+            if (!battleCameraDirector)
+            {
+                Camera camera = Camera.main;
+                battleCameraDirector = camera.GetComponent<BattleCameraDirector>();
+            }
+
+            battleCameraDirector.FocusOnTarget(projectileTargetPosition);
         }
 
         public virtual void Die()
@@ -410,6 +433,15 @@ namespace LUP.DSG
         public void AttackStart()
         {
             OnAttackStarted?.Invoke(owner.weaponType);
+        }
+
+        public IEnumerator FocusSkillCaster()
+        {
+            Transform cameraOrigin = Camera.main.transform;
+
+            yield return battleCameraDirector.FocusOnSkillCaster(transform, cameraOrigin).WaitForCompletion();
+
+            battleCameraDirector.FocusOnTarget(targetPosition);
         }
     }
 }

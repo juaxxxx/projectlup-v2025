@@ -174,10 +174,10 @@ PrefabInstance:
       addedObject: {fileID: 3162540017125810514}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 0ca2d0ffb67ca4c429f3b727214fdefd, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 4979400351283460379}
+      addedObject: {fileID: 2402993123171030772}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 0ca2d0ffb67ca4c429f3b727214fdefd, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 2402993123171030772}
+      addedObject: {fileID: 4979400351283460379}
   m_SourcePrefab: {fileID: 100100000, guid: 0ca2d0ffb67ca4c429f3b727214fdefd, type: 3}
 --- !u!4 &427666989607555124 stripped
 Transform:
@@ -246,6 +246,7 @@ MonoBehaviour:
   isAttacking: 0
   isUsingSkill: 0
   bulletPrefab: {fileID: 1159801650698535097, guid: e6e6cd0df923f974286ea66ff9cba1e8, type: 3}
+  moveSpeed: 6
   skillInfo: {fileID: 11400000, guid: e3100d60c56df594cb89fa4545765a59, type: 2}
   damageLogPrefab: {fileID: 7683064257652862875, guid: a1f113c2e8dff434092bc754de6b349e, type: 3}
 --- !u!114 &9143530735697544761
@@ -272,20 +273,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7162272663ce2954da53bbf656bc7258, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &4979400351283460379
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7865231982193158318}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: aa722f751adc0f34f8830e2c508ff9e9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  fadeSpeed: 1
-  doFade: 0
 --- !u!114 &2402993123171030772
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -299,3 +286,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   portraitTransform: {fileID: 427666989607555124}
+--- !u!114 &4979400351283460379
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7865231982193158318}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa722f751adc0f34f8830e2c508ff9e9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  fadeSpeed: 0.1
+  doFade: 0
+  isActive: 0
+  proximityRadius: 2
+  ignoreTargets: []
