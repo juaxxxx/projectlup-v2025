@@ -419,6 +419,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   prefabDataBase: {fileID: 11400000, guid: fb1caddb15bfdaf4594ab5f29cfbb8b2, type: 2}
+  isRightHand: 1
 --- !u!1001 &627218663523251989
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -489,7 +490,7 @@ PrefabInstance:
       addedObject: {fileID: 5976359081337080269}
     - targetCorrespondingSourceObject: {fileID: 5709367397638674836, guid: 296e02d0c6596654da8c8401c21ab1f1, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 7718483337792129988}
+      addedObject: {fileID: 6070729771206610297}
   m_SourcePrefab: {fileID: 100100000, guid: 296e02d0c6596654da8c8401c21ab1f1, type: 3}
 --- !u!1 &5156598943957610113 stripped
 GameObject:
@@ -510,7 +511,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   leftHandWeight: 1
   maxWeight: 1
---- !u!114 &7718483337792129988
+--- !u!114 &6070729771206610297
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -519,7 +520,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 5156598943957610113}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 46a85f3914d91e34cb72302e7ceff7d6, type: 3}
+  m_Script: {fileID: 11500000, guid: 94a78230560bb5e469f784672db00414, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!4 &5531611971240014907 stripped

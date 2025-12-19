@@ -6385,7 +6385,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   StageKind: 6
+  RuntimeData:
+    filename: 
   DataList: []
+  ESInven:
+    filename: 
+    _serializedSlots: []
 --- !u!4 &348770328
 Transform:
   m_ObjectHideFlags: 0
@@ -21419,11 +21424,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eb0b3a7c232f1254f89ea60b7d0e1411, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  extractionShooterStage: {fileID: 348770327}
   characters:
   - {fileID: 905132857}
   - {fileID: 831503713}
   - {fileID: 1440198271}
-  - {fileID: 1347414053}
 --- !u!1001 &1013874854
 PrefabInstance:
   m_ObjectHideFlags: 0

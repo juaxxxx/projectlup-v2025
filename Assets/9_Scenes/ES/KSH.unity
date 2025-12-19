@@ -685,7 +685,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8745652737564829069, guid: 97bd3a83e21e01e40a6795ed5bc80c97, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -8715,6 +8715,10 @@ PrefabInstance:
       propertyPath: spineOffset.y
       value: 90
       objectReference: {fileID: 0}
+    - target: {fileID: 3506545580059947036, guid: 67e92f84d29c07245b1dec3c9e6bac90, type: 3}
+      propertyPath: isRightHand
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5331537617709518517, guid: 67e92f84d29c07245b1dec3c9e6bac90, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -8777,7 +8781,7 @@ PrefabInstance:
       objectReference: {fileID: 1413288532}
     - target: {fileID: 6348856284375335552, guid: 67e92f84d29c07245b1dec3c9e6bac90, type: 3}
       propertyPath: CurrentWeaponID
-      value: 3
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6384529989836699630, guid: 67e92f84d29c07245b1dec3c9e6bac90, type: 3}
       propertyPath: m_Name
@@ -8793,7 +8797,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7395278910700784524, guid: 67e92f84d29c07245b1dec3c9e6bac90, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

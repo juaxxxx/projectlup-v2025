@@ -13,23 +13,22 @@ MonoBehaviour:
   m_Name: ItemDataBase
   m_EditorClassIdentifier: 
   items:
-  - rid: 1904950495194382446
-  - rid: 1904950495194382447
-  - rid: 1904950495194382448
-  - rid: 1904950495194382449
-  - rid: 1904950495194382450
-  - rid: 1904950495194382451
-  - rid: 1904950495194382452
-  - rid: 1904950495194382453
-  - rid: 1904950495194382454
-  - rid: 1904950495194382455
+  - rid: 6702098846560026898
+  - rid: 6702098846560026899
+  - rid: 6702098846560026900
+  - rid: 6702098846560026901
+  - rid: 6702098846560026902
+  - rid: 6702098846560026903
+  - rid: 6702098846560026904
+  - rid: 6702098846560026905
+  - rid: 6702098846560026906
   references:
     version: 2
     RefIds:
-    - rid: 1904950495194382446
+    - rid: 6702098846560026898
       type: {class: RangedWeaponItemData, ns: LUP.ES, asm: Assembly-CSharp}
       data:
-        id: 1
+        id: 0
         iconName: Pistol
         name: Pistol
         stackSize: 1
@@ -41,25 +40,10 @@ MonoBehaviour:
         bulletSpeed: 10
         magCapacity: 8
         reloadTime: 1.2
-    - rid: 1904950495194382447
+    - rid: 6702098846560026899
       type: {class: RangedWeaponItemData, ns: LUP.ES, asm: Assembly-CSharp}
       data:
-        id: 2
-        iconName: SMG
-        name: SMG
-        stackSize: 1
-        itemType: 1
-        weaponType: 1
-        damage: 15
-        range: 7
-        timeBetAttack: 0.1
-        bulletSpeed: 25
-        magCapacity: 20
-        reloadTime: 1.3
-    - rid: 1904950495194382448
-      type: {class: RangedWeaponItemData, ns: LUP.ES, asm: Assembly-CSharp}
-      data:
-        id: 3
+        id: 1
         iconName: AR
         name: AR
         stackSize: 1
@@ -71,10 +55,10 @@ MonoBehaviour:
         bulletSpeed: 20
         magCapacity: 30
         reloadTime: 2
-    - rid: 1904950495194382449
+    - rid: 6702098846560026900
       type: {class: RangedWeaponItemData, ns: LUP.ES, asm: Assembly-CSharp}
       data:
-        id: 4
+        id: 2
         iconName: Rfile
         name: Rifle
         stackSize: 1
@@ -86,30 +70,30 @@ MonoBehaviour:
         bulletSpeed: 25
         magCapacity: 10
         reloadTime: 4
-    - rid: 1904950495194382450
+    - rid: 6702098846560026901
       type: {class: ArmorItemData, ns: LUP.ES, asm: Assembly-CSharp}
       data:
-        id: 5
+        id: 3
         iconName: Helmet
         name: Helmet
         stackSize: 1
         itemType: 2
         defense: 5
         armorSlot: 0
-    - rid: 1904950495194382451
+    - rid: 6702098846560026902
       type: {class: ArmorItemData, ns: LUP.ES, asm: Assembly-CSharp}
       data:
-        id: 6
+        id: 4
         iconName: BodyArmor
         name: BodyArmor
         stackSize: 1
         itemType: 2
         defense: 5
         armorSlot: 1
-    - rid: 1904950495194382452
+    - rid: 6702098846560026903
       type: {class: ConsumableItemData, ns: LUP.ES, asm: Assembly-CSharp}
       data:
-        id: 7
+        id: 5
         iconName: Bandage
         name: Bandage
         stackSize: 3
@@ -118,19 +102,19 @@ MonoBehaviour:
         useTime: 5
         effectType: 0
         effectValue: 30
-    - rid: 1904950495194382453
+    - rid: 6702098846560026904
       type: {class: MaterialItemData, ns: LUP.ES, asm: Assembly-CSharp}
       data:
-        id: 8
+        id: 6
         iconName: Key
         name: Key
         stackSize: 5
         itemType: 4
         tier: 0
-    - rid: 1904950495194382454
+    - rid: 6702098846560026905
       type: {class: MeleeWeaponItemData, ns: LUP.ES, asm: Assembly-CSharp}
       data:
-        id: 9
+        id: 7
         iconName: Sword
         name: Sword
         stackSize: 1
@@ -140,17 +124,17 @@ MonoBehaviour:
         range: 2
         timeBetAttack: 0.8
         attackAngle: 160
-    - rid: 1904950495194382455
+    - rid: 6702098846560026906
       type: {class: ThrowingWeaponData, ns: LUP.ES, asm: Assembly-CSharp}
       data:
-        id: 10
+        id: 8
         iconName: Sword
         name: Rock
         stackSize: 1
         itemType: 1
         weaponType: 2
         damage: 30
-        range: 10
+        range: 6
         timeBetAttack: 0.9
         attackRadius: 1
-        arcHeight: 2
+        arcHeight: 4

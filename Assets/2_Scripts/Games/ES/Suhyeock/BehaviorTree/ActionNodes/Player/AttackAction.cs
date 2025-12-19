@@ -28,7 +28,8 @@ namespace LUP.ES
                         blackboard.weapon.state = WeaponState.ATTACKING;
                         break;
                     case WeaponType.Melee:
-                        if(blackboard.weapon.CanAttack() && blackboard.weapon.state == WeaponState.READY)
+                    case WeaponType.Throwing:
+                        if (blackboard.weapon.CanAttack() && blackboard.weapon.state == WeaponState.READY)
                         {
                             if (blackboard.animator != null)
                             {
