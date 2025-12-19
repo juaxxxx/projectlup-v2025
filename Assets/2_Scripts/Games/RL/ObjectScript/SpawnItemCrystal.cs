@@ -11,7 +11,7 @@ namespace LUP.RL
         [HideInInspector]
         public int itemID = 0;
 
-        public ItemType itemType;
+        public RLDropItemType itemType;
 
         [HideInInspector]
         public bool bIsStageCleared = false;
@@ -37,7 +37,7 @@ namespace LUP.RL
             }
         }
 
-        public void SetSpawnItemInfo(ItemType type, int ItemID, Transform playerPos, ItemSpawner spawner)
+        public void SetSpawnItemInfo(RLDropItemType type, int ItemID, Transform playerPos, ItemSpawner spawner)
         {
             itemType = type;
             itemID = ItemID;
