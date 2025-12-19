@@ -13,6 +13,7 @@ namespace LUP.DSG
         {
             StageInitializeInvoker.OnDSGStagePostInitialize += PostInitialize;
         }
+
         private void OnDestroy()
         {
             StageInitializeInvoker.OnDSGStagePostInitialize -= PostInitialize;
@@ -27,15 +28,14 @@ namespace LUP.DSG
                 return;
             }
 
-            // 각 슬롯 자동 세팅
-            SetSlot("MVP1", mvpData.char1Name, mvpData.char1Color);
-            SetSlot("MVP2", mvpData.char2Name, mvpData.char2Color);
-            SetSlot("MVP3", mvpData.char3Name, mvpData.char3Color);
-            SetSlot("MVP4", mvpData.char4Name, mvpData.char4Color);
-            SetSlot("MVP5", mvpData.char5Name, mvpData.char5Color);
+            SetSlot("MVP1", mvpData.char1Name, mvpData.char1Icon);
+            SetSlot("MVP2", mvpData.char2Name, mvpData.char2Icon);
+            SetSlot("MVP3", mvpData.char3Name, mvpData.char3Icon);
+            SetSlot("MVP4", mvpData.char4Name, mvpData.char4Icon);
+            SetSlot("MVP5", mvpData.char5Name, mvpData.char5Icon);
         }
 
-        private void SetSlot(string slotName, string charName, Color color)
+        private void SetSlot(string slotName, string charName, Sprite icon)
         {
             Transform slot = transform.Find($"CharacterList_test/{slotName}");
             if (slot == null) return;
@@ -45,7 +45,19 @@ namespace LUP.DSG
 
             if (image != null)
             {
-                image.color = color; // 캐릭터 색상 표시
+                if (icon != null)
+                {
+                    image.sprite = icon;
+                    image.color = Color.white;
+                    image.preserveAspect = true;
+                    image.type = Image.Type.Simple;
+                    image.material = null;
+                }
+                else
+                {
+                    image.sprite = null;
+                    image.color = Color.gray;
+                }
             }
 
             if (text != null)

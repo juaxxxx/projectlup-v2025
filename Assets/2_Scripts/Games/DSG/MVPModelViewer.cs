@@ -13,30 +13,41 @@ namespace LUP.DSG
         public void ShowMVPModel(GameObject modelPrefab)
         {
             Clear();
-            DataCenter dataCenter = FindFirstObjectByType<DataCenter>();
+
             if (modelPrefab == null)
             {
+                Debug.LogWarning("[MVPModelViewer] modelPrefab is null");
                 return;
             }
 
-            var mvp = dataCenter.mvpData;
+            if (modelPoint == null)
+            {
+                Debug.LogError("[MVPModelViewer] modelPoint is not assigned (Inspector).");
+                return;
+            }
 
-            // 모델 생성
             currentModel = Instantiate(modelPrefab, modelPoint);
             currentModel.transform.localPosition = Vector3.zero;
             currentModel.transform.localRotation = Quaternion.Euler(0, 180, 0);
             currentModel.transform.localScale = Vector3.one * 1.2f;
 
-            Character character = currentModel.GetComponent<Character>();
-            
-            // 전용 레이어 적용 (카메라에만 보이게)
             int layer = LayerMask.NameToLayer("MVPDisplayModel");
-            SetLayerRecursively(currentModel, layer);
+            if (layer == -1)
+            {
+                Debug.LogError("[MVPModelViewer] Layer 'MVPDisplayModel' does not exist.");
+            }
+            else
+            {
+                SetLayerRecursively(currentModel, layer);
+            }
 
-            Animator anim = currentModel.GetComponent<Animator>();
+            Animator anim = currentModel.GetComponentInChildren<Animator>(true);
             if (anim != null)
             {
-                anim.Play("Buff", 0, 0f);
+                if (anim.runtimeAnimatorController != null)
+                {
+                    anim.Play("Buff", 0, 0f);
+                }
             }
         }
 

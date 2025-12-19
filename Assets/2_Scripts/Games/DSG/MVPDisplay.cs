@@ -1,4 +1,5 @@
 ﻿using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -7,11 +8,13 @@ namespace LUP.DSG
     public class MVPDisplay : MonoBehaviour
     {
         private DataCenter dataCenter;
+        private float average = 0;
 
         private void Awake()
         {
             StageInitializeInvoker.OnDSGStagePostInitialize += PostInitialize;
         }
+
         private void OnDestroy()
         {
             StageInitializeInvoker.OnDSGStagePostInitialize -= PostInitialize;
@@ -28,42 +31,86 @@ namespace LUP.DSG
             TMP_Text resultText = transform.Find("Text_Result")?.GetComponent<TMP_Text>();
             if (resultText != null)
             {
-                resultText.text = mvp.battleResult == "Victory" ? "Victory" : "Defeat";
+                resultText.text = (mvp.battleResult == "Victory") ? "Victory" : "Defeat";
             }
 
-            SetSlot("MVP1", "Image", "Text_Name", "Score", "Text_Score", mvp.char1Name, mvp.char1Color, mvp.char1Score, mvp.char1Score);
-            SetSlot("MVP2", "Image", "Text_Name", "Score", "Text_Score", mvp.char2Name, mvp.char2Color, mvp.char2Score, mvp.char1Score);
-            SetSlot("MVP3", "Image", "Text_Name", "Score", "Text_Score", mvp.char3Name, mvp.char3Color, mvp.char3Score, mvp.char1Score);
-            SetSlot("MVP4", "Image", "Text_Name", "Score", "Text_Score", mvp.char4Name, mvp.char4Color, mvp.char4Score, mvp.char1Score);
-            SetSlot("MVP5", "Image", "Text_Name", "Score", "Text_Score", mvp.char5Name, mvp.char5Color, mvp.char5Score, mvp.char1Score);
+            average = mvp.char1Score;
+
+            var icon1 = ResolveIcon(mvp.char1Icon, mvp.char1CharacterId, mvp.char1ModelId);
+            var icon2 = ResolveIcon(mvp.char2Icon, mvp.char2CharacterId, mvp.char2ModelId);
+            var icon3 = ResolveIcon(mvp.char3Icon, mvp.char3CharacterId, mvp.char3ModelId);
+            var icon4 = ResolveIcon(mvp.char4Icon, mvp.char4CharacterId, mvp.char4ModelId);
+            var icon5 = ResolveIcon(mvp.char5Icon, mvp.char5CharacterId, mvp.char5ModelId);
+
+            mvp.char1Icon = icon1;
+            mvp.char2Icon = icon2;
+            mvp.char3Icon = icon3;
+            mvp.char4Icon = icon4;
+            mvp.char5Icon = icon5;
+
+            SetSlot("MVP1", "Image", "Text_Name", "Score", "Text_Score", mvp.char1Name, icon1, mvp.char1Score, average);
+            SetSlot("MVP2", "Image", "Text_Name", "Score", "Text_Score", mvp.char2Name, icon2, mvp.char2Score, average);
+            SetSlot("MVP3", "Image", "Text_Name", "Score", "Text_Score", mvp.char3Name, icon3, mvp.char3Score, average);
+            SetSlot("MVP4", "Image", "Text_Name", "Score", "Text_Score", mvp.char4Name, icon4, mvp.char4Score, average);
+            SetSlot("MVP5", "Image", "Text_Name", "Score", "Text_Score", mvp.char5Name, icon5, mvp.char5Score, average);
 
             SetMainMVP("MVP/RawImage", "Text_Name", mvp.char1Name);
+
             ShowMVPModelIfAvailable(mvp);
         }
 
-        private void SetSlot(string slotName, string imageName, string textName, string sliderName, string scoreTextName, string charName
-            , Color color, float score, float maxScore)
+        private Sprite ResolveIcon(Sprite current, int charId, int modelId)
+        {
+            if (current != null) return current;
+
+            if (CharacterIconCache.TryGet(charId, modelId, out var cached))
+                return cached;
+
+            return null;
+        }
+
+        private void SetSlot(
+            string slotName,
+            string imageName,
+            string textName,
+            string sliderName,
+            string scoreTextName,
+            string charName,
+            Sprite icon,
+            float score,
+            float maxScore)
         {
             Transform slot = transform.Find(slotName);
-            if (slot == null)
-            {
-                return;
-            }
+            if (slot == null) return;
 
-            Image charcterImage = slot.Find(imageName)?.GetComponent<Image>();
+            Image characterImage = slot.Find(imageName)?.GetComponent<Image>();
             TMP_Text characterName = slot.Find(textName)?.GetComponent<TMP_Text>();
             Slider characterScore = slot.Find(sliderName)?.GetComponent<Slider>();
             TMP_Text scoreText = slot.Find(scoreTextName)?.GetComponent<TMP_Text>();
 
-            if (charcterImage != null)
+            if (characterImage != null)
             {
-                charcterImage.color = color;
+                if (icon != null)
+                {
+                    characterImage.sprite = icon;
+                    characterImage.color = Color.white;
+                    characterImage.preserveAspect = true;
+                    characterImage.type = Image.Type.Simple;
+                    characterImage.material = null;
+                }
+                else
+                {
+                    characterImage.sprite = null;
+                    characterImage.color = Color.gray;
+                }
             }
+
             if (characterName != null)
             {
                 characterName.text = string.IsNullOrEmpty(charName) ? "-" : charName;
             }
-            float ratio = (maxScore > 0) ? (score / maxScore) : 0;
+
+            float ratio = (maxScore > 0f) ? (score / maxScore) : 0f;
             if (characterScore != null)
             {
                 characterScore.value = ratio;
@@ -73,42 +120,27 @@ namespace LUP.DSG
             {
                 scoreText.text = $"{score:F0}";
             }
-
         }
 
         private void SetMainMVP(string slotName, string textName, string charName)
         {
             Transform slot = transform.Find(slotName);
-            if (slot == null)
-            {
-                return;
-            }
+            if (slot == null) return;
 
             TMP_Text characterName = slot.Find(textName)?.GetComponent<TMP_Text>();
-
             if (characterName != null)
             {
                 characterName.text = string.IsNullOrEmpty(charName) ? "-" : charName;
             }
         }
+
         private void ShowMVPModelIfAvailable(TeamMVPData mvp)
         {
-            if (mvp == null)
-            {
-                return;
-            }
-
-            if (mvp.char1Prefab == null)
-            {
-                return;
-            }
+            if (mvp == null) return;
+            if (mvp.char1Prefab == null) return;
 
             MVPModelViewer viewer = FindFirstObjectByType<MVPModelViewer>();
-            if (viewer == null)
-            {
-                return;
-            }
-
+            if (viewer == null) return;
             viewer.ShowMVPModel(mvp.char1Prefab);
         }
     }

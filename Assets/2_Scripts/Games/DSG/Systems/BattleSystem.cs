@@ -1,6 +1,7 @@
 using DG.Tweening;
 using LUP.Define;
 using LUP.DSG.Utils.Enums;
+using Mono.Cecil;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -65,7 +66,7 @@ namespace LUP.DSG
 
         public static BattleSystem Instance { get; private set; }
         private Dictionary<string, (Color Color, float Score)> deadScores = new();
-        private List<(string Name, Color Color, float Score, GameObject Prefab)> deadCharacterData = new();
+        private List<(string Name, int CharId, Sprite Icon, float Score, GameObject Prefab)> deadCharacterData = new();
 
         public event Action<Character> onStartAttack;
         public event Action<Character> onStartSkill;
@@ -370,21 +371,21 @@ namespace LUP.DSG
             var mvp = dataCenter.mvpData;
             mvp.battleResult = resultText;
 
-            // 2) 초기화
             mvp.char1Score = mvp.char2Score = mvp.char3Score = mvp.char4Score = mvp.char5Score = 0f;
             mvp.char1Name = mvp.char2Name = mvp.char3Name = mvp.char4Name = mvp.char5Name = "";
-            mvp.char1Color = mvp.char2Color = mvp.char3Color = mvp.char4Color = mvp.char5Color = Color.white;
-
+            mvp.char1CharacterId = mvp.char2CharacterId = mvp.char3CharacterId = mvp.char4CharacterId = mvp.char5CharacterId = 0;
             mvp.char1Prefab = mvp.char2Prefab = mvp.char3Prefab = mvp.char4Prefab = mvp.char5Prefab = null;
 
+            mvp.char1Icon = mvp.char2Icon = mvp.char3Icon = mvp.char4Icon = mvp.char5Icon = null;
 
-            var friendlyChars = new List<(string Name, Color Color, float Score, GameObject Prefab)>();
+            var friendlyChars = new List<(string Name, int CharId, Sprite Icon, float Score, GameObject Prefab)>();
 
             if (friendlySlots != null)
             {
                 foreach (var slotObj in friendlySlots)
                 {
                     if (slotObj == null) continue;
+
                     var slot = slotObj.GetComponent<LineupSlot>();
                     if (slot == null || slot.character == null) continue;
 
@@ -393,81 +394,94 @@ namespace LUP.DSG
 
                     string name = ch.characterData.characterName;
 
-                    Color color = Color.white;
-                    if (ch.characterModelData != null && ch.characterModelData.material != null)
-                    {
-                        try { color = ch.characterModelData.material.GetColor("_BaseColor"); }
-                        catch { color = ch.characterModelData.material.color; }
-                    }
+                    int charId = ch.IconCacheKey;
 
                     float score = ch.ScoreComp.CalculateMVPScore();
                     GameObject prefab = (ch.characterModelData != null) ? ch.characterModelData.prefab : null;
 
-                    friendlyChars.Add((name, color, score, prefab));
+                    CharacterIconCache.TryGetByCharacterId(charId, out Sprite icon);
+
+                    friendlyChars.Add((name, charId, icon, score, prefab));
                 }
             }
 
-
             foreach (var d in deadCharacterData)
             {
-                if (!friendlyChars.Exists(x => x.Name == d.Name))
-                    friendlyChars.Add((d.Name, d.Color, d.Score, d.Prefab));
+                if (!friendlyChars.Exists(x => x.CharId == d.CharId))
+                    friendlyChars.Add((d.Name, d.CharId, d.Icon, d.Score, d.Prefab));
             }
 
             var ranked = friendlyChars.OrderByDescending(x => x.Score).ToList();
-
-            if (ranked.Count == 0)
-            {
-                return;
-            }
+            if (ranked.Count == 0) return;
 
             for (int i = 0; i < Mathf.Min(5, ranked.Count); i++)
             {
-                var character = ranked[i];
+                var entry = ranked[i];
 
-                ApplyMVP(mvp, i + 1, character.Name, character.Color, character.Score, character.Prefab);
+                ApplyMVP(mvp, i + 1, entry.Name, entry.CharId, entry.Score, entry.Icon, entry.Prefab);
+                Debug.Log($"[EndBattle-SAVE] mvpInstanceID={mvp.GetInstanceID()} result={mvp.battleResult}");
+                Debug.Log($"[EndBattle-SAVE] #1 name={mvp.char1Name} score={mvp.char1Score} icon={(mvp.char1Icon ? mvp.char1Icon.name : "NULL")}");
+                Debug.Log($"[EndBattle-SAVE] #2 name={mvp.char2Name} score={mvp.char2Score} icon={(mvp.char2Icon ? mvp.char2Icon.name : "NULL")}");
             }
         }
-        public void BackupDeadCharacter(string name, Color color, float score, GameObject prefab)
+        public void BackupDeadCharacter(string name, int charid, float score, GameObject prefab)
         {
             if (deadCharacterData.Exists(x => x.Name == name))
                 return;
 
-            deadCharacterData.Add((name, color, score, prefab));
+            CharacterIconCache.TryGetByCharacterId(charid, out var icon);
+
+            deadCharacterData.Add((name, charid, icon, score, prefab));
         }
-        private void ApplyMVP(TeamMVPData data, int index, string name, Color color, float score, GameObject prefab = null)
+        private void ApplyMVP(
+                TeamMVPData data,
+                int index,
+                string name,
+                int charId,
+                float score,
+                Sprite icon,
+                GameObject prefab = null)
         {
             switch (index)
             {
                 case 1:
                     data.char1Name = name;
-                    data.char1Color = color;
+                    data.char1CharacterId = charId;
                     data.char1Score = score;
                     data.char1Prefab = prefab;
+                    data.char1Icon = icon;
                     break;
+
                 case 2:
                     data.char2Name = name;
-                    data.char2Color = color;
+                    data.char2CharacterId = charId;
                     data.char2Score = score;
                     data.char2Prefab = prefab;
+                    data.char2Icon = icon;
                     break;
+
                 case 3:
                     data.char3Name = name;
-                    data.char3Color = color;
+                    data.char3CharacterId = charId;
                     data.char3Score = score;
                     data.char3Prefab = prefab;
+                    data.char3Icon = icon;
                     break;
+
                 case 4:
                     data.char4Name = name;
-                    data.char4Color = color;
+                    data.char4CharacterId = charId;
                     data.char4Score = score;
                     data.char4Prefab = prefab;
+                    data.char4Icon = icon;
                     break;
+
                 case 5:
                     data.char5Name = name;
-                    data.char5Color = color;
+                    data.char5CharacterId = charId;
                     data.char5Score = score;
                     data.char5Prefab = prefab;
+                    data.char5Icon = icon;
                     break;
             }
         }

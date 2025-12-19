@@ -1365,7 +1365,7 @@ Animator:
   m_GameObject: {fileID: 8606755148461151098}
   m_Enabled: 1
   m_Avatar: {fileID: 9000000, guid: 25c0963ef36d1304db266b743ee0a4c6, type: 2}
-  m_Controller: {fileID: 9100000, guid: 6b48fc7d06bf93648aef13abb4be3ba2, type: 2}
+  m_Controller: {fileID: 9100000, guid: 9200c94448e60af44b746f5b9fc4c566, type: 2}
   m_CullingMode: 1
   m_UpdateMode: 0
   m_ApplyRootMotion: 1
@@ -1389,11 +1389,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d02750f963c98fa42b41ea78f2674793, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bodySkin: {fileID: 2706990786035198946}
-  headSkin: {fileID: 8907300813736130153}
   isEnemy: 0
   battleIndex: -1
   characterUIPrefab: {fileID: 2879139995223357689, guid: d947c9b7fcf7dab45b738fe9fc92abfa, type: 3}
+  ActioneffectPool: {fileID: 0}
+  weaponType: 0
 --- !u!114 &-8239860916997230199
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1924,11 +1924,6 @@ PrefabInstance:
 --- !u!4 &7770462223601093894 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1181638395601493957, guid: 349b132d389ffb64989655d7a2c3b12e, type: 3}
-  m_PrefabInstance: {fileID: 8912693916229161667}
-  m_PrefabAsset: {fileID: 0}
---- !u!23 &8907300813736130153 stripped
-MeshRenderer:
-  m_CorrespondingSourceObject: {fileID: 12711456526427306, guid: 349b132d389ffb64989655d7a2c3b12e, type: 3}
   m_PrefabInstance: {fileID: 8912693916229161667}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &8912693917133412929

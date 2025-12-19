@@ -353,14 +353,20 @@ namespace LUP.DSG
         public virtual void Die()
         {
             isAlive = false;
-            if (owner != null && owner.characterData != null && owner.characterModelData != null && owner.ScoreComp != null)
+
+            if (owner != null && owner.characterData != null && owner.ScoreComp != null)
             {
                 float score = owner.ScoreComp.CalculateMVPScore();
-                Color color = owner.characterModelData.material.GetColor("_BaseColor");
-                BattleSystem.Instance?.BackupDeadCharacter(owner.characterData.characterName, color, score, owner.characterModelData.prefab);
+                int charid = owner.IconCacheKey;
+
+                GameObject prefab = (owner.characterModelData != null) ? owner.characterModelData.prefab : null;
+
+                BattleSystem.Instance?.BackupDeadCharacter(owner.characterData.characterName, charid, score, prefab);
             }
+
             OnDie?.Invoke(owner.battleIndex);
         }
+
         private void TriggerKnockback()
         {
             if (isKnockback) return;
@@ -386,7 +392,7 @@ namespace LUP.DSG
 
             if (currGauge >= maxSkillGauge)
             {
-                isSkillOn = true;   // "´ÙÀ½ ÅÏ¿¡ ½ºÅ³ ¾µ ¼ö ÀÖÀ½"
+                isSkillOn = true;   // "ï¿½ï¿½ï¿½ï¿½ ï¿½Ï¿ï¿½ ï¿½ï¿½Å³ ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½"
             }
 
             OnChangeGauge?.Invoke(currGauge);
