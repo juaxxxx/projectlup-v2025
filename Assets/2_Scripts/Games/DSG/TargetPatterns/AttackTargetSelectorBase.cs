@@ -7,8 +7,10 @@ namespace LUP.DSG
     {
         protected readonly BattleSystem battle;
         protected AttackTargetSelectorBase(BattleSystem battlesystem) => battle = battlesystem;
-        public abstract LineupSlot SelectEnemyTarget(Character attacker);
+        public abstract List<LineupSlot> SelectEnemyTargets(Character Attacker, int count);
         public virtual TargetPatternType PatternType => TargetPatternType.None;
+
+
         protected List<LineupSlot> GetAliveTargetList(Character character)
         {
             if (character == null && battle == null)

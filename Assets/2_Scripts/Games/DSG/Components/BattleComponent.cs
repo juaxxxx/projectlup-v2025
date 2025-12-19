@@ -27,8 +27,7 @@ namespace LUP.DSG
         public bool isAttacking = false;
         public bool isUsingSkill = false;
 
-        private LineupSlot targetSlot;
-        private List<LineupSlot> SkillTargetSlot;
+        private List<LineupSlot> targetSlots;
         private Vector3 originPosition;
         private Vector3 targetPosition;
 
@@ -101,7 +100,7 @@ namespace LUP.DSG
                 Debug.Log(targetPosition);
                 Debug.Log(impactApplied);
                 transform.position = Vector3.MoveTowards(gameObject.transform.position, targetPosition, (moveSpeed * Time.deltaTime));
-                if (Vector3.Distance(transform.position,targetSlot.AttackedPosition.position) < 0.01f)
+                if (Vector3.Distance(transform.position, targetPosition) < 0.01f)
                 {
                     if (!impactApplied)
                     {
@@ -182,16 +181,16 @@ namespace LUP.DSG
             maxSkillGauge = gauge;
         }
 
-        public void Attack(LineupSlot target)
+        public void Attack(List<LineupSlot> targets)
         {
             //if (isAttacking) return;
             if (owner.AnimationComp.currentState != EAnimStateType.Idle) return;
 
-            if (target == null)
+            if (targets == null)
                 return;
 
-            targetSlot = target;
-            targetPosition = targetSlot.AttackedPosition.position;
+            targetSlots = targets;
+            targetPosition = targetSlots[0].AttackedPosition.position;
             HandleAttackStart();
 
             isAttacking = true;
@@ -204,26 +203,29 @@ namespace LUP.DSG
                 return;
             }
 
-            if (targetSlot == null)
+            if (targetSlots == null)
                 return;
 
-            var targetChar = targetSlot.character;
-
-            if (targetSlot == null || targetSlot.character == null || targetSlot.character.BattleComp == null)
-                return;
-
-            DamageContext ctx = new DamageContext
+            for(int i = 0; i < targetSlots.Count; i++)
             {
-                attack = owner.characterData.attack,
-                enemyDefence = targetChar.characterData.defense,
-                Type = owner.characterData.type,
-                enemyType = targetChar.characterData.type
-            };
+                var targetChar = targetSlots[i].character;
 
-            float damage = DamageCalculator.Calculator(ctx);
+                if (targetSlots == null || targetSlots[0].character == null || targetSlots[0].character.BattleComp == null)
+                    return;
 
-            targetChar.BattleComp.TakeDamage(damage);
-            owner.ScoreComp.UpdateDamageDealt(damage);
+                DamageContext ctx = new DamageContext
+                {
+                    attack = owner.characterData.attack,
+                    enemyDefence = targetChar.characterData.defense,
+                    Type = owner.characterData.type,
+                    enemyType = targetChar.characterData.type
+                };
+
+                float damage = DamageCalculator.Calculator(ctx);
+
+                targetChar.BattleComp.TakeDamage(damage);
+                owner.ScoreComp.UpdateDamageDealt(damage);
+            }
 
             Camera mainCam = Camera.main;
             if (mainCam != null)
@@ -235,34 +237,35 @@ namespace LUP.DSG
                 shaker.StartCoroutine(shaker.Shake(0.2f, 0.2f));
             }
 
+            targetSlots.Clear();
             PlusGuage(50);
         }
         public void ApplySkillDamage()
         {
-            if (SkillTargetSlot == null || SkillTargetSlot.Count <= 0)
+            if (targetSlots == null || targetSlots.Count <= 0)
                 return;
 
-            for (int i = 0; i < SkillTargetSlot.Count; i++)
+            for (int i = 0; i < targetSlots.Count; i++)
             {
                 if (skillInfo.bIsDamaged)
                 {
                     DamageContext ctx = new DamageContext
                     {
                         attack = owner.characterData.attack,
-                        enemyDefence = SkillTargetSlot[i].character.characterData.defense,
+                        enemyDefence = targetSlots[i].character.characterData.defense,
                         Type = owner.characterData.type,
-                        enemyType = SkillTargetSlot[i].character.characterData.type
+                        enemyType = targetSlots[i].character.characterData.type
                     };
 
                     float damage = DamageCalculator.Calculator(ctx) + skillInfo.damage;
-                    SkillTargetSlot[i].character.BattleComp.TakeDamage(damage);
+                    targetSlots[i].character.BattleComp.TakeDamage(damage);
                     owner.ScoreComp.UpdateDamageDealt(damage);
                 }
 
                 if (skillInfo.bIsStatusEffect)
                 {
                     IStatusEffect Status = owner.StatusEffectComp.CreateStatusEffect(skillInfo.effectType, skillInfo.operationType, skillInfo.stack, skillInfo.turn);
-                    SkillTargetSlot[i].character.StatusEffectComp.AddEffect(Status);
+                    targetSlots[i].character.StatusEffectComp.AddEffect(Status);
                 }
             }
 
@@ -311,7 +314,7 @@ namespace LUP.DSG
         {
             if (isAttacking || isUsingSkill) return;
 
-            SkillTargetSlot = targetList;
+            targetSlots = targetList;
             targetPosition = skillInfo.AttackPosition;
 
             HandleAttackStart();
@@ -343,7 +346,7 @@ namespace LUP.DSG
 
             bullet = Instantiate(bulletPrefab, spawnPos, Quaternion.identity);
 
-            projectileTargetPosition = targetSlot.AttackedPosition.position;
+            projectileTargetPosition = targetSlots[0].AttackedPosition.position;
             projectileTargetPosition.y += 1.2f;
         }
 
@@ -395,7 +398,7 @@ namespace LUP.DSG
             currGauge = 0;
             isSkillOn = false;
             isUsingSkill = false;
-            SkillTargetSlot.Clear();
+            targetSlots.Clear();
             OnChangeGauge?.Invoke(currGauge);
         }
 

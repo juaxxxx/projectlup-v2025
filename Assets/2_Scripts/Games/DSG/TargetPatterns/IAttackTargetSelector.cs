@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections.Generic;
 
 namespace LUP.DSG
 {
@@ -12,6 +13,6 @@ namespace LUP.DSG
     public interface IAttackTargetSelector
     {
         TargetPatternType PatternType { get; }
-        public LineupSlot SelectEnemyTarget(Character Attacker);
+        public List<LineupSlot> SelectEnemyTargets(Character Attacker,int count);
     }
 }

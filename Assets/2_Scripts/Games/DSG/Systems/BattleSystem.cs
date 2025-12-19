@@ -321,14 +321,14 @@ namespace LUP.DSG
 
             if (currentChar.BattleComp.isSkillOn)
             {
-                List<LineupSlot> targetList = randomTargetSelector.SelectcountEnemyTargets(currentChar, currentChar.BattleComp.skillInfo.targetCount);
+                List<LineupSlot> targetList = randomTargetSelector.SelectEnemyTargets(currentChar, currentChar.BattleComp.skillInfo.targetCount);
                 currentChar.BattleComp.Skill(targetList);
                 StartCoroutine(WaitForAttackEnd(currentChar));
                 onStartSkill?.Invoke(currentChar);
             }
             else
             {
-                LineupSlot targetslot = targetSelector.SelectEnemyTarget(currentChar);
+                List<LineupSlot> targetslot = targetSelector.SelectEnemyTargets(currentChar, 2);
                 currentChar.BattleComp.Attack(targetslot);
                 StartCoroutine(WaitForAttackEnd(currentChar));
                 onStartAttack?.Invoke(currentChar);

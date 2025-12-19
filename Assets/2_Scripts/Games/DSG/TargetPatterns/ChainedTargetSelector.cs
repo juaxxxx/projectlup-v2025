@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace LUP.DSG
@@ -10,23 +11,23 @@ namespace LUP.DSG
         {
             get { return TargetPatternType.None; }
         }
-        public LineupSlot SelectEnemyTarget(Character Attacker)
+        public List<LineupSlot> SelectEnemyTargets(Character Attacker, int count)
         {
             for (int i = 0; i < chain.Length; i++)
             {
-                LineupSlot slot = chain[i].SelectEnemyTarget(Attacker);
+                List<LineupSlot> slots = chain[i].SelectEnemyTargets(Attacker,count);
 
-                if (slot != null)
+                if (slots != null)
                 {
                     //Debug.Log($"Pattern : {chain[i]}");
-                    return slot;
+                    return slots;
                 }
 
             }
             return null;
         }
 
-        public LineupSlot SelectSettingTarget(Character Attacker,TargetPatternType targetPatternType)
+        public List<LineupSlot> SelectSettingTarget(Character Attacker,TargetPatternType targetPatternType,int count)
         {
             IAttackTargetSelector selector =
        System.Array.Find(chain, s => s.PatternType == targetPatternType); 
@@ -35,7 +36,7 @@ namespace LUP.DSG
                 return null;
 
             // 2) 찾아낸 selector로 실제 타겟 선택
-            return selector.SelectEnemyTarget(Attacker);
+            return selector.SelectEnemyTargets(Attacker,count);
         }
     }
 }
