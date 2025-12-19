@@ -648,7 +648,7 @@ namespace LUP.DSG
 
             Director.FocusOnTarget(cameraOrigin.position);
 
-            List<LineupSlot> targetList = randomTargetSelector.SelectEnemyTargets(currentChar, currentChar.BattleComp.skillInfo.targetCount);
+            List<LineupSlot> targetList = targetSelector.SelectEnemyTargets(currentChar, currentChar.BattleComp.skillInfo.targetCount);
             currentChar.BattleComp.Skill(targetList);
             StartCoroutine(WaitForAttackEnd(currentChar));
         }
