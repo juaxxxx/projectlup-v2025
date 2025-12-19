@@ -28,6 +28,7 @@ namespace LUP.DSG
                 return;
             }
 
+            // 아이콘 기반으로 세팅
             SetSlot("MVP1", mvpData.char1Name, mvpData.char1Icon);
             SetSlot("MVP2", mvpData.char2Name, mvpData.char2Icon);
             SetSlot("MVP3", mvpData.char3Name, mvpData.char3Icon);
@@ -52,6 +53,15 @@ namespace LUP.DSG
                     image.preserveAspect = true;
                     image.type = Image.Type.Simple;
                     image.material = null;
+
+                    RectTransform rt = image.rectTransform;
+
+                    rt.anchorMin = Vector2.one * 0.5f;
+                    rt.anchorMax = Vector2.one * 0.5f;
+                    rt.pivot = Vector2.one * 0.5f;
+
+                    rt.localScale = Vector3.one;
+                    rt.sizeDelta = new Vector2(250f, 250f);
                 }
                 else
                 {

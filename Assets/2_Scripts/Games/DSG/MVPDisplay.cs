@@ -97,6 +97,11 @@ namespace LUP.DSG
                     characterImage.preserveAspect = true;
                     characterImage.type = Image.Type.Simple;
                     characterImage.material = null;
+
+                    RectTransform rt = characterImage.rectTransform;
+                    rt.localScale = Vector3.one * 4f;  
+                    
+
                 }
                 else
                 {
