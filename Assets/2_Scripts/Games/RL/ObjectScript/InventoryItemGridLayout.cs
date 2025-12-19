@@ -59,7 +59,7 @@ namespace LUP.RL
             LoadInventoryItemData();
         }
 
-        void LoadInventoryItemData()
+        public void LoadInventoryItemData()
         {
             platformAdapter = new PlatformAdapter();
 
@@ -111,7 +111,7 @@ namespace LUP.RL
                 pannelController = FindFirstObjectByType<PannelController>();
             }
 
-            pannelController.PopEquipPanel(InventoryItmes[index]);
+            pannelController.PopEquipPanel(InventoryItmes[index], true);
 
         }
 

@@ -2,6 +2,7 @@ using Unity.VisualScripting.Antlr3.Runtime.Misc;
 using UnityEngine;
 
 using Roguelike.Define;
+using LUP.RL;
 
 [System.Serializable]
 public struct BaseStats
@@ -13,16 +14,17 @@ public struct BaseStats
     public int Exp;
 }
 
-//아이템 ID로 할당 & 조회
 [System.Serializable]
 public struct EquipmentData
 {
-    public int Weapon;
-    public int Helmet;
-    public int Armor;
-    public int Gloves;
-    public int Shoes;
-    public int Accessory;
+    public EquipData Weapon;
+    public EquipData Armor;
+    public EquipData Ring1;
+    public EquipData Ring2;
+    public EquipData Pet1;
+    public EquipData Pet2;
+    public EquipData Bracelet;
+    public EquipData Necklace;
 }
 
 [CreateAssetMenu(fileName = "CharacterData", menuName = "Scriptable Objects/CharacterData")]

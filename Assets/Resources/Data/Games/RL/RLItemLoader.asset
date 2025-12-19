@@ -64,7 +64,7 @@ MonoBehaviour:
     IconPath: Image\RL\ItemImage\Gun_N
     MaxStackSize: 0
     IsUsable: 0
-    Description: "\uD3C9\uBC94\uD55C \uCD1D \uC785\uB2C8\uB2E4."
+    Description: normal gun.
     serializedCustomFields:
     - key: Tier
       value: 1
@@ -73,12 +73,40 @@ MonoBehaviour:
     - key: Effects
       value: ATK:10
   - ItemID: 20002
+    ItemName: Gun_R
+    ItemType: 1
+    IconPath: GUI\icons\Flat\Shooter\Shotguns\Shotgun 14
+    MaxStackSize: 0
+    IsUsable: 0
+    Description: rare gun.
+    serializedCustomFields:
+    - key: Tier
+      value: 2
+    - key: EquipPos
+      value: 1
+    - key: Effects
+      value: ATK:13
+  - ItemID: 20003
+    ItemName: Gun_E
+    ItemType: 1
+    IconPath: GUI\icons\Flat\Shooter\Shotguns\Shotgun 6
+    MaxStackSize: 0
+    IsUsable: 0
+    Description: epick gun.
+    serializedCustomFields:
+    - key: Tier
+      value: 3
+    - key: EquipPos
+      value: 1
+    - key: Effects
+      value: ATK:20
+  - ItemID: 20004
     ItemName: Javelin_N
     ItemType: 1
     IconPath: Image\RL\ItemImage\Javelin_N
     MaxStackSize: 0
     IsUsable: 0
-    Description: "\uD3C9\uBC94\uD55C \uCC3D \uC785\uB2C8\uB2E4."
+    Description: normal Javelin.
     serializedCustomFields:
     - key: Tier
       value: 1
@@ -86,13 +114,13 @@ MonoBehaviour:
       value: 1
     - key: Effects
       value: ATK:5/HP:5
-  - ItemID: 20003
+  - ItemID: 20005
     ItemName: Armor_N
     ItemType: 2
-    IconPath: 
+    IconPath: GUI\icons\Flat\RPG\Armor 1
     MaxStackSize: 0
     IsUsable: 0
-    Description: "\uB0A1\uC740 \uAC11\uC637 \uC785\uB2C8\uB2E4."
+    Description: normal armor.
     serializedCustomFields:
     - key: Tier
       value: 1
@@ -100,3 +128,31 @@ MonoBehaviour:
       value: 2
     - key: Effects
       value: HP:15
+  - ItemID: 20006
+    ItemName: Armor_R
+    ItemType: 2
+    IconPath: GUI\icons\Flat\RPG\Armor 7
+    MaxStackSize: 0
+    IsUsable: 0
+    Description: rare armor.
+    serializedCustomFields:
+    - key: Tier
+      value: 2
+    - key: EquipPos
+      value: 2
+    - key: Effects
+      value: HP:20
+  - ItemID: 20007
+    ItemName: Armor_E
+    ItemType: 2
+    IconPath: GUI\icons\Flat\RPG\Armor 12
+    MaxStackSize: 0
+    IsUsable: 0
+    Description: epick armor.
+    serializedCustomFields:
+    - key: Tier
+      value: 3
+    - key: EquipPos
+      value: 2
+    - key: Effects
+      value: HP:30

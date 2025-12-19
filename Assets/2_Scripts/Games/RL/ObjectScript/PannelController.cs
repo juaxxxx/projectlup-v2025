@@ -17,6 +17,10 @@ namespace LUP.RL
 
     public class PannelController : MonoBehaviour
     {
+        [HideInInspector]
+        public LobbyGameCenter lobbyGameCenter;
+
+
         [SerializeField]
         PanelType currentPanel = PanelType.WORLD;
 
@@ -72,6 +76,7 @@ namespace LUP.RL
         public void InitPannelCntroller()
         {
             LobbyContentAblePannel[] pannelArray = FindObjectsByType<LobbyContentAblePannel>(FindObjectsSortMode.None);
+            lobbyGameCenter = FindFirstObjectByType<LobbyGameCenter>();
 
             for (int i = 0; i < pannelArray.Length; i++)
             {
@@ -127,6 +132,15 @@ namespace LUP.RL
                 {
                     RightEventPanel = worldEventBtnScrollPannels[i];
                 }
+            }
+
+            {
+                if(equipInfoPopupPanel)
+                {
+                    equipInfoPopupPanel.OnEquipReleased += OnItemReleased;
+                    equipInfoPopupPanel.OnEquipSelected += OnItemEquiped;
+                }
+                
             }
 
             CalrkParmas();
@@ -308,9 +322,29 @@ namespace LUP.RL
             warningPopUpPanel.gameObject.SetActive(true);
         }
 
-        public void PopEquipPanel(EquipData equipData)
+        public void PopEquipPanel(EquipData equipData, bool bIsInventory)
         {
-            equipInfoPopupPanel.PopupItemPanel(equipData, true);
+            equipInfoPopupPanel.PopupItemPanel(equipData, bIsInventory);
+        }
+
+        void OnItemEquiped(EquipData equipData)
+        {
+            InventorPanel lobbyInventoryPanel = (InventorPanel)lobbyPannels[(int)PanelType.INVENTORY];
+            lobbyInventoryPanel.OnItemEquiped(equipData);
+
+            lobbyGameCenter.platformAdapter.RemoveItemFromInventory(equipData.GetDisplayableName(), 1);
+
+            lobbyInventoryPanel.UpdateEquipInventoryGridPanel();
+        }
+
+        void OnItemReleased(EquipData equipData)
+        {
+            InventorPanel lobbyInventoryPanel = (InventorPanel)lobbyPannels[(int)PanelType.INVENTORY];
+            lobbyInventoryPanel.OnItemReleased(equipData);
+
+            lobbyGameCenter.platformAdapter.AddItemToInventory(equipData.GetDisplayableName(), 1);
+
+            lobbyInventoryPanel.UpdateEquipInventoryGridPanel();
         }
 
         void OnSwipeUp()

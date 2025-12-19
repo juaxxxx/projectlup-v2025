@@ -1,6 +1,8 @@
 using Roguelike.Define;
+using System;
 using System.Text;
 using TMPro;
+using Unity.Mathematics;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
@@ -18,6 +20,12 @@ namespace LUP.RL
 
     public class EquipInfoPopupPanel : MonoBehaviour
     {
+        public Action<EquipData> OnEquipSelected;
+        public Action<EquipData> OnEquipReleased;
+
+        private EquipData DisplayedEquipData;
+        private bool bIsClickedInInventory;
+
         public Button ExitBtn;
 
         public DisplayableImageBox Top_EquipNameImageBox;
@@ -38,8 +46,11 @@ namespace LUP.RL
             gameObject.SetActive(false);
         }
 
-        public void PopupItemPanel(EquipData equipData, bool bIsClickedInventory)
+        public void PopupItemPanel(EquipData equipData, bool bIsClickedAtInventory)
         {
+            DisplayedEquipData = equipData;
+            bIsClickedInInventory = bIsClickedAtInventory;
+
             ClearVerticalScrollView();
 
             Top_EquipNameImageBox.SetText(equipData.GetDisplayableName());
@@ -87,7 +98,7 @@ namespace LUP.RL
             Button.onClick.RemoveAllListeners();
             Button.onClick.AddListener(OnClicked);
 
-            Button_Text.SetText(bIsClickedInventory ? "Equip" : "Release");
+            Button_Text.SetText(bIsClickedAtInventory ? "Equip" : "Release");
 
             gameObject.SetActive(true);
         }
@@ -122,6 +133,7 @@ namespace LUP.RL
                 sb.Append(StatName);
                 sb.Append(" : ");
                 sb.Append(stat.value >= 0 ? "+" : "-");
+                sb.Append(math.abs(stat.value));
 
                 tmp.text = sb.ToString();
             }
@@ -134,7 +146,17 @@ namespace LUP.RL
 
         void OnClicked()
         {
+            if(bIsClickedInInventory == true)
+            {
+                OnEquipSelected?.Invoke(DisplayedEquipData);
+            }
 
+            else
+            {
+                OnEquipReleased?.Invoke(DisplayedEquipData);
+            }
+
+            gameObject.SetActive(false);
         }
     }
 }

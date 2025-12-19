@@ -7,6 +7,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using UnityEngine;
+using static UnityEditor.Progress;
 
 namespace LUP.RL
 {
@@ -223,6 +224,7 @@ namespace LUP.RL
                 Sprite equipIcon = item.Icon;
                 int equipTier = item.GetInt("Tier");
                 RLEquipPos equipPos = (RLEquipPos)item.GetInt("EquipPos");
+                string equipDescription = item.Description;
                 string equipEffects = item.GetString("Effects");
 
                 EquipData dynamicInventoryEquipData = ScriptableObject.CreateInstance<EquipData>();
@@ -232,6 +234,7 @@ namespace LUP.RL
                 dynamicInventoryEquipData.SetExtraInfo(equipTier);
                 dynamicInventoryEquipData.equipPos = equipPos;
                 dynamicInventoryEquipData.equipStats = ExtrackEquipEffect(equipEffects);
+                dynamicInventoryEquipData.equipDescription = equipDescription;
                 //dynamicInventoryEquipData.inventorySlotKey = 
 
                 Equips.Add(dynamicInventoryEquipData);
@@ -241,6 +244,22 @@ namespace LUP.RL
                 return null;
 
             return Equips.ToArray();
+        }
+
+        public void AddItemToInventory(string itemName, int gainNum)
+        {
+            IItemable item = ItemManager.Instance.GetItem(itemName);
+            //int id = item.ItemID;
+
+            roguelikeStage.inventory.AddItem(item, gainNum);
+        }
+
+        public void RemoveItemFromInventory(string itemName, int removeNum)
+        {
+            IItemable item = ItemManager.Instance.GetItem(itemName);
+            int id = item.ItemID;
+
+            roguelikeStage.inventory.RemoveItem(id, removeNum);
         }
 
         public async Task waitUntilPlatformDataReady()

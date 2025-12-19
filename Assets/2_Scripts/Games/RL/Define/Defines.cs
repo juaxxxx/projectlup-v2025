@@ -100,9 +100,11 @@ namespace Roguelike.Define
     {
         None = 0,
         Hand = 1,
-        Helmet = 2,
-        Armor = 3,
-        Shoes = 4
+        Body = 2,
+        Finger = 3,
+        Shorder = 4,
+        Arm = 5,
+        Neck = 6
     }
 
     public enum RLItemTier
@@ -119,8 +121,12 @@ namespace Roguelike.Define
         Coin = 10003,
 
         Gun_N = 20001,
-        Javelin_N = 20002,
-        Armor_N = 20003,
+        Gun_R = 20002,
+        Gun_E = 20003,
+        Javelin_N = 20004,
+        Armor_N = 20005,
+        Armor_R = 20006,
+        Armor_E = 20007,
 
         Max
     }
