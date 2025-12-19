@@ -1,12 +1,13 @@
 using System;
 using System.Collections.Generic;
+using UnityEngine;
 
 namespace LUP
 {
     [Serializable]
-    public class RLItemStaticData : IItemStaticData
+    public class RLItemStaticData : IItemStaticData, UnityEngine.ISerializationCallbackReceiver
     {
-        // ===== ÇÊ¼ö ÇÊµå (¸ğµç ½ÃÆ®¿¡ ÀÖ¾î¾ß ÇÔ) =====
+        // ===== ï¿½Ê¼ï¿½ ï¿½Êµï¿½ (ï¿½ï¿½ï¿½ ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½Ö¾ï¿½ï¿½ ï¿½ï¿½) =====
         [Column("ItemID", Required = true)]
         public int ItemID;
 
@@ -16,7 +17,7 @@ namespace LUP
         [Column("ItemType", Required = true)]
         public string ItemType;
 
-        // ===== ¼±ÅÃ ÇÊµå (½ÃÆ®¿¡ ÀÖÀ¸¸é ·Îµå, ¾øÀ¸¸é ±âº»°ª) =====
+        // ===== ï¿½ï¿½ï¿½ï¿½ ï¿½Êµï¿½ (ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Îµï¿½, ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½âº»ï¿½ï¿½) =====
         [Column("IconPath")]
         public string IconPath = "";
 
@@ -29,19 +30,24 @@ namespace LUP
         [Column("Description")]
         public string Description = "";
 
-        // ===== È®Àå ÇÊµå (ÀÚµ¿ ¼öÁıµÊ) =====
+        // ===== È®ï¿½ï¿½ ï¿½Êµï¿½ (ï¿½Úµï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½) =====
+        [System.NonSerialized]
         private Dictionary<string, string> customFields = new Dictionary<string, string>();
+
+        // ì§ë ¬í™”ë¥¼ ìœ„í•œ List
+        [SerializeField]
+        private List<CustomField> serializedCustomFields = new List<CustomField>();
 
         public LUPItemData ToItemData()
         {
             var item = new LUPItemData();
 
-            // ÇÊ¼ö ÇÊµå ¼³Á¤
+            // ï¿½Ê¼ï¿½ ï¿½Êµï¿½ ï¿½ï¿½ï¿½ï¿½
             item.SetItemID(ItemID);
             item.SetItemName(ItemName);
             item.SetItemType(ParseItemType(ItemType));
 
-            // ¼±ÅÃ ÇÊµå ¼³Á¤
+            // ï¿½ï¿½ï¿½ï¿½ ï¿½Êµï¿½ ï¿½ï¿½ï¿½ï¿½
             if (!string.IsNullOrEmpty(IconPath))
                 item.SetIconPath(IconPath);
 
@@ -54,7 +60,7 @@ namespace LUP
             if (!string.IsNullOrEmpty(Description))
                 item.SetDescription(Description);
 
-            // È®Àå ÇÊµå ¼³Á¤
+            // È®ï¿½ï¿½ ï¿½Êµï¿½ ï¿½ï¿½ï¿½ï¿½
             if (customFields != null && customFields.Count > 0)
             {
                 item.SetCustomFields(customFields);
@@ -63,7 +69,7 @@ namespace LUP
             return item;
         }
 
-        // ICustomFieldSupport ±¸Çö
+        // ICustomFieldSupport ï¿½ï¿½ï¿½ï¿½
         public void SetCustomField(string fieldName, string value)
         {
             if (customFields == null)
@@ -81,6 +87,33 @@ namespace LUP
             }
             UnityEngine.Debug.LogWarning($"[LUPItemStaticData] Invalid ItemType: {type}, defaulting to None");
             return Define.ItemType.None;
+        }
+
+        // ===== Unity ì§ë ¬í™” ì½œë°± =====
+        public void OnBeforeSerialize()
+        {
+            // Dictionaryë¥¼ Listë¡œ ë³€í™˜ (ì§ë ¬í™” ì „)
+            serializedCustomFields.Clear();
+            if (customFields != null)
+            {
+                foreach (var kvp in customFields)
+                {
+                    serializedCustomFields.Add(new CustomField { key = kvp.Key, value = kvp.Value });
+                }
+            }
+        }
+
+        public void OnAfterDeserialize()
+        {
+            // Listë¥¼ Dictionaryë¡œ ë³µì› (ì—­ì§ë ¬í™” í›„)
+            customFields = new Dictionary<string, string>();
+            if (serializedCustomFields != null)
+            {
+                foreach (var field in serializedCustomFields)
+                {
+                    customFields[field.key] = field.value;
+                }
+            }
         }
     }
 }

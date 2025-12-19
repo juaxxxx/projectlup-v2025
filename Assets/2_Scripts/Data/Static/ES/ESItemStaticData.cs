@@ -1,10 +1,11 @@
 using System;
 using System.Collections.Generic;
+using UnityEngine;
 
 namespace LUP
 {
     [Serializable]
-    public class ESItemStaticData : IItemStaticData
+    public class ESItemStaticData : IItemStaticData, UnityEngine.ISerializationCallbackReceiver
     {
         // ===== 필수 필드 (모든 시트에 있어야 함) =====
         [Column("ItemID", Required = true)]
@@ -30,7 +31,12 @@ namespace LUP
         public string Description = "";
 
         // ===== 확장 필드 (자동 수집됨) =====
+        [System.NonSerialized]
         private Dictionary<string, string> customFields = new Dictionary<string, string>();
+
+        // 직렬화를 위한 List
+        [SerializeField]
+        private List<CustomField> serializedCustomFields = new List<CustomField>();
 
         public LUPItemData ToItemData()
         {
@@ -81,6 +87,33 @@ namespace LUP
             }
             UnityEngine.Debug.LogWarning($"[LUPItemStaticData] Invalid ItemType: {type}, defaulting to None");
             return Define.ItemType.None;
+        }
+
+        // ===== Unity 직렬화 콜백 =====
+        public void OnBeforeSerialize()
+        {
+            // Dictionary를 List로 변환 (직렬화 전)
+            serializedCustomFields.Clear();
+            if (customFields != null)
+            {
+                foreach (var kvp in customFields)
+                {
+                    serializedCustomFields.Add(new CustomField { key = kvp.Key, value = kvp.Value });
+                }
+            }
+        }
+
+        public void OnAfterDeserialize()
+        {
+            // List를 Dictionary로 복원 (역직렬화 후)
+            customFields = new Dictionary<string, string>();
+            if (serializedCustomFields != null)
+            {
+                foreach (var field in serializedCustomFields)
+                {
+                    customFields[field.key] = field.value;
+                }
+            }
         }
     }
 }
