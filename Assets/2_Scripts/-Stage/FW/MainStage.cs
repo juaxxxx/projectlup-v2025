@@ -51,19 +51,11 @@ namespace LUP
             {
                 QuestManager.Instance.Trigger(123, 1);
             }
-
-            if (Input.GetKeyDown(KeyCode.O))
-            {
-                IItemable item = ItemManager.Instance.GetItem("체력포션");
-                inven.AddItem(item, 5);
-            }
         }
 
         public override IEnumerator OnStageEnter()
         {
             yield return base.OnStageEnter();
-
-            inven = InventoryManager.Instance.LoadOrCreateInventory("Main", "MainInventory.json");
 
             yield return null;
         }
