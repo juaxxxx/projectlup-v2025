@@ -15,7 +15,6 @@ namespace LUP.PCR
 
         void Start()
         {
-            Init();
 
             buildingEvents.OnBuildingSelected += OpenBuildingUI;
             buildingEvents.OnBuildingDeselected += CloseBuildingUI;
@@ -32,23 +31,62 @@ namespace LUP.PCR
             currBuildState?.Tick(this, deltaTime);
         }
 
-        public override void Init()
+        public override void Init(ProductionRuntimeData runtimeData)
         {
-            ConstructScreen.SetActive(false);
+            this.runtimeData = runtimeData;
+
+            // Production
+            productionInfo = runtimeData.GetProductionInfo(buildingInfo.buildingId);
+            if (productionInfo == null)
+            {
+                ProductionInfo newProductionInfo = new ProductionInfo(buildingInfo.buildingId, 0f, 0);
+                runtimeData.AddToList(runtimeData.ProductionInfoList, newProductionInfo);
+                productionInfo = newProductionInfo;
+            }
+
+            // Constructing Building
+            constructionInfo = runtimeData.GetConstructionInfo(buildingInfo.buildingId);
+            if (constructionInfo == null)
+            {
+                ConstructionInfo newConstructionInfo = new ConstructionInfo(buildingInfo.buildingId, 0f);
+                runtimeData.AddToList(runtimeData.ConstructionInfoList, newConstructionInfo);
+                constructionInfo = newConstructionInfo;
+            }
+
+            if (ConstructScreen)
+            {
+                ConstructScreen.SetActive(false);
+            }
 
             // 작업자 있는지 데이터 필요.
             hasWork = true;
+            buildingName = "StoneMine";
 
-            // 저장된 건물 정보랑 상태 가져오기
-            SetupProductionData();
+            ProductionStage stage = LUP.StageManager.Instance.GetCurrentStage() as ProductionStage;
+            currentConstructionData = stage.GetCurrentConstructionData((int)BuildingType.STONEMINE, buildingInfo.level);
+            currentProductionData = stage.GetCurrentProductionData((int)BuildingType.STONEMINE, buildingInfo.level);
+            maxStorage = currentProductionData.StorageCapacity;
 
-            // 지금은 테스트를 위해 그냥 건설 시작할 때만 구현
-            ChangeState(constructState);
+            if (buildingInfo.isConstructing)
+            {
+                ChangeState(constructState);
+            }
+            else
+            {
+                ChangeState(productableState);
+            }
         }
 
 
         public override void CompleteContruction()
         {
+            // 레벨업
+            buildingInfo.level++;
+            ProductionStage stage = LUP.StageManager.Instance.GetCurrentStage() as ProductionStage;
+            currentConstructionData = stage.GetCurrentConstructionData((int)BuildingType.STONEMINE, buildingInfo.level);
+            currentProductionData = stage.GetCurrentProductionData((int)BuildingType.STONEMINE, buildingInfo.level);
+            maxStorage = currentProductionData.StorageCapacity;
+
             ChangeState(productableState);
         }
         public override void Upgrade()
@@ -62,19 +100,7 @@ namespace LUP.PCR
 
         public override void SetupProductionData()
         {
-            // 지금은 초기값으로 초기화하는 작업으로 테스트
-            // 미리 저장된 값 대신 임의의 값으로 대체
-            // 다음에는 저장된 데이터를 받아와서 갱신해준다.
-            level = 1;
-            currStorage = 0;
-            buildingName = "StoneMine";
 
-            if (level >= 0 && level < productableBuildingData.constructionData.Length)
-            {
-                ProductionStage stage = LUP.StageManager.Instance.GetCurrentStage() as ProductionStage;
-                currentConstructionData = stage.GetCurrentConstructionData((int)BuildingType.STONEMINE, level);
-                maxStorage = productableBuildingData.productionData[level].storageCapacity;
-            }
         }
 
         public override void StartProduction()
@@ -105,9 +131,9 @@ namespace LUP.PCR
         public override void CompleteProduction()
         {
             Debug.Log("CompleteProduction");
-            currStorage = currStorage + 1 > maxStorage ? maxStorage : currStorage + 1;
+            productionInfo.currentStorage = productionInfo.currentStorage + 1 > maxStorage ? maxStorage : productionInfo.currentStorage + 1;
 
-            if (currStorage == maxStorage)
+            if (productionInfo.currentStorage == maxStorage)
             {
                 DeliverToInventory();
                 StartProduction();
@@ -121,8 +147,8 @@ namespace LUP.PCR
 
         public override void DeliverToInventory()
         {
-            resourceCenter.AddResource(productableBuildingData.resource, currStorage);
-            currStorage = 0;
+            resourceCenter.AddResource(ResourceType.STONE, productionInfo.currentStorage);
+            productionInfo.currentStorage = 0;
         }
     }
 

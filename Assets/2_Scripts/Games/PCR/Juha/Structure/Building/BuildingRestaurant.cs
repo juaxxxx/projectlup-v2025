@@ -22,15 +22,9 @@ namespace LUP.PCR
 
         private void Start()
         {
-            // 현재는 건설 시작만 있다.
-            Init();
-
-            // 현재는 생산 데이터를 초기값으로 갱신한다.
-            SetupRestaurantData();
 
             buildingEvents.OnBuildingSelected += OpenBuildingUI;
             buildingEvents.OnBuildingDeselected += CloseBuildingUI;
-            // 메인 UI 중 비활성화 시켰던 기능 활성화 추가
         }
 
         private void Update()
@@ -45,17 +39,41 @@ namespace LUP.PCR
             currBuildState?.Tick(this, deltaTime);
         }
 
-        public override void Init()
+        public override void Init(ProductionRuntimeData runtimeData)
         {
-            ConstructScreen.SetActive(false);
+            this.runtimeData = runtimeData;
+
+
+            // Constructing Building
+            constructionInfo = runtimeData.GetConstructionInfo(buildingInfo.buildingId);
+            if (constructionInfo == null)
+            {
+                ConstructionInfo newConstructionInfo = new ConstructionInfo(buildingInfo.buildingId, 0f);
+                runtimeData.AddToList(runtimeData.ConstructionInfoList, newConstructionInfo);
+                constructionInfo = newConstructionInfo;
+            }
+
+            if (ConstructScreen)
+            {
+                ConstructScreen.SetActive(false);
+            }
 
             // 작업자 있는지 데이터 필요.
             hasWork = true;
+            buildingName = "Restaurant";
 
-            // 저장된 건물 정보랑 상태 가져오기
+            ProductionStage stage = LUP.StageManager.Instance.GetCurrentStage() as ProductionStage;
+            currentConstructionData = stage.GetCurrentConstructionData((int)BuildingType.RESTAURANT, buildingInfo.level);
 
-            // 지금은 테스트를 위해 그냥 건설 시작할 때만 구현
-            ChangeState(new UnderConstructionState());
+
+            if (buildingInfo.isConstructing)
+            {
+                ChangeState(constructState);
+            }
+            else
+            {
+                ChangeState(completeState);
+            }
         }
 
         public override void InteractForTouch()
@@ -65,6 +83,11 @@ namespace LUP.PCR
 
         public override void CompleteContruction()
         {
+            // 레벨업
+            buildingInfo.level++;
+            ProductionStage stage = LUP.StageManager.Instance.GetCurrentStage() as ProductionStage;
+            currentConstructionData = stage.GetCurrentConstructionData((int)BuildingType.WHEATFARM, buildingInfo.level);
+
             ChangeState(completeState);
         }
 

@@ -4,20 +4,26 @@ namespace LUP.PCR
 {
     public class ProductableState : IBuildState
     {
-        private ProductableStateData data;
+        public float totalTime;         // 시간당 생산률
+        public float progressRatio;     // 진행률 (누적 진행 시간 / 총 건설 시간)
+        public bool isCompledted;       // 완료 여부
+        public bool isStarted;          // 생산 시작 여부
+        public bool isActiveInteract;
+
         private ProductableBuilding productableBuilding;
+        private ProductionInfo currentProductionInfo;
+
 
         public void Enter(BuildingBase building)
         {
             Debug.Log("ProductableState Enter");
 
             productableBuilding = building as ProductableBuilding;
+            currentProductionInfo = productableBuilding.GetProductionInfo();
+            building.GetBuildingInfo().isConstructing = false;
 
             if (productableBuilding)
             {
-                float totalTime = productableBuilding.productableBuildingData.productionData[productableBuilding.level].productionTime;
-                data = new ProductableStateData(totalTime);
-
                 Start();
             }
         }
@@ -25,7 +31,7 @@ namespace LUP.PCR
         public void Exit(BuildingBase building)
         {
             Debug.Log("ProductableState Exit");
-            data.Reset(0);
+            Reset();
         }
 
         public void Tick(BuildingBase building, float deltaTime)
@@ -40,12 +46,12 @@ namespace LUP.PCR
                 return;
             }
 
-            data.elapsedTime += deltaTime;
-            data.progressRatio = Mathf.Clamp01(data.elapsedTime / data.totalTime);
+            currentProductionInfo.elapsedTime += deltaTime;
+            progressRatio = Mathf.Clamp01(currentProductionInfo.elapsedTime / totalTime);
 
-            if (data.progressRatio >= 1f)
+            if (progressRatio >= 1f)
             {
-                data.isCompledted = true;
+                isCompledted = true;
 
                 Complete();
             }
@@ -62,27 +68,34 @@ namespace LUP.PCR
 
         public bool IsCompleted()
         {
-            return data.isCompledted;
+            return isCompledted;
         }
 
         public bool IsStarted()
         {
-            return data.isStarted;
+            return isStarted;
         }
 
+        public void Reset()
+        {
+            currentProductionInfo.elapsedTime = 0f;
+            totalTime = 3600f / productableBuilding.currentProductionData.productionPerHour;
+            progressRatio = 0f;
+            isCompledted = false;
+            isStarted = false;
+            isActiveInteract = false;
+        }
 
         public void Start()
         {
-            float totalTime = productableBuilding.productableBuildingData.productionData[productableBuilding.level].productionTime;
-            data.Reset(totalTime);
-            data.isStarted = true;
-            data.isCompledted = false;
+            Reset();
+            isStarted = true;
+            isCompledted = false;
         }
 
         public void Stop()
         {
-            float totalTime = productableBuilding.productableBuildingData.productionData[productableBuilding.level].productionTime;
-            data.Reset(totalTime);
+            Reset();
         }
     }
 

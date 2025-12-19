@@ -11,13 +11,13 @@ namespace LUP.PCR
 
         public void UpdateData(ProductableBuilding building)
         {
-            int level = building.level;
+            int level = building.GetBuildingInfo().level;
             uiData.SetData(level,
                 building.buildingName,
-                building.productableBuildingData.productionData[level].productionTime,
-                building.currStorage,
+                (int)building.currentProductionData.productionPerHour,
+                building.GetProductionInfo().currentStorage,
                 building.maxStorage,
-                building.productableBuildingData.buildingData.powerCost);
+                building.buildingStaticData.power);
         }
     }
 }

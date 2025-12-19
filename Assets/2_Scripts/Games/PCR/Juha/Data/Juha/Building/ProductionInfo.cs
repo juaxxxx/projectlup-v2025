@@ -7,13 +7,13 @@ namespace LUP.PCR
     {
         public int buildingId;
         public float elapsedTime;
-        public int currentCapacity;
+        public int currentStorage;
 
-        public ProductionInfo(int buildingId, float elapsedTime, int currentCapacity)
+        public ProductionInfo(int buildingId, float elapsedTime, int currentStorage)
         {
             this.buildingId = buildingId;
             this.elapsedTime = elapsedTime;
-            this.currentCapacity = currentCapacity;
+            this.currentStorage = currentStorage;
         }
     }
 }

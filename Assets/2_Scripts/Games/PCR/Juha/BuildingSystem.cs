@@ -1,8 +1,5 @@
 using UnityEngine;
-using UnityEngine.InputSystem;
 using System.Collections.Generic;
-using UnityEditorInternal;
-using LUP.RL;
 
 namespace LUP.PCR
 {
@@ -14,6 +11,8 @@ namespace LUP.PCR
 
         private List<WallInfo> curWallInfoList;
         private List<BuildingInfo> curBuildingInfoList;
+        private List<ProductionInfo> curProductionInfoList;
+        private List<ConstructionInfo> curConstructionInfoList;
 
         private Dictionary<int, BuildingBase> currBuildings;
 
@@ -37,8 +36,10 @@ namespace LUP.PCR
 
             pcrRuntimeData = stage.productionRuntimeData as ProductionRuntimeData;
 
-            curBuildingInfoList = stage.GetBuildingInfoList();
-            curWallInfoList = stage.GetWallInfoList();
+            curBuildingInfoList = pcrRuntimeData.BuildingInfoList;
+            curWallInfoList = pcrRuntimeData.WallInfoList;
+            curProductionInfoList = pcrRuntimeData.ProductionInfoList;
+            curConstructionInfoList = pcrRuntimeData.ConstructionInfoList;
 
             foreach (WallInfo wallInfo in curWallInfoList)
             {
@@ -123,8 +124,8 @@ namespace LUP.PCR
                 tileMap.UpdateTilebyBuilding((BuildingType)buildingInfo.buildingType, pivotTile);
                 building.SetEntrance(pivotTile.tileInfo.pos);
                 building.SetBuildingInfo(buildingInfo);
-                // TODO: 건물 만들고 런타임 데이터로 초기화.
-                //building.Init();
+
+                building.Init(pcrRuntimeData);
             }
         }
 
@@ -154,11 +155,11 @@ namespace LUP.PCR
                 {
                     currBuildings.Add(id, building);
                 }
-
+                
                 tileMap.UpdateTilebyBuilding(type, pivotTile);
                 building.SetEntrance(pivotTile.tileInfo.pos);
 
-                BuildingInfo newBuildingInfo = new BuildingInfo(id, 0, pivotTile.tileInfo.pos, (int)type);
+                BuildingInfo newBuildingInfo = new BuildingInfo(id, 0, pivotTile.tileInfo.pos, (int)type, true);
                 building.SetBuildingInfo(newBuildingInfo);
 
                 pcrRuntimeData.AddToList(curBuildingInfoList, newBuildingInfo);

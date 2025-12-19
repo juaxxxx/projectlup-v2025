@@ -2,7 +2,7 @@
     "filename": "production_runtime.json",
     "playerId": 0,
     "hasSavedGame": true,
-    "buildingId": 6,
+    "buildingId": 5,
     "buildingInfoList": [
         {
             "buildingId": 1,
@@ -11,7 +11,8 @@
                 "x": 8,
                 "y": 1
             },
-            "buildingType": 2
+            "buildingType": 2,
+            "isConstructing": false
         },
         {
             "buildingId": 2,
@@ -20,7 +21,8 @@
                 "x": 8,
                 "y": 3
             },
-            "buildingType": 7
+            "buildingType": 7,
+            "isConstructing": false
         },
         {
             "buildingId": 3,
@@ -29,7 +31,8 @@
                 "x": 7,
                 "y": 6
             },
-            "buildingType": 3
+            "buildingType": 3,
+            "isConstructing": false
         },
         {
             "buildingId": 4,
@@ -38,20 +41,45 @@
                 "x": 14,
                 "y": 6
             },
-            "buildingType": 9
-        },
-        {
-            "buildingId": 5,
-            "level": 0,
-            "gridPos": {
-                "x": 11,
-                "y": 3
-            },
-            "buildingType": 7
+            "buildingType": 9,
+            "isConstructing": false
         }
     ],
-    "productionInfoList": [],
-    "constructionInfoList": [],
+    "productionInfoList": [
+        {
+            "buildingId": 1,
+            "elapsedTime": 0.5066721439361572,
+            "currentStorage": 0
+        },
+        {
+            "buildingId": 2,
+            "elapsedTime": 0.5066721439361572,
+            "currentStorage": 0
+        },
+        {
+            "buildingId": 4,
+            "elapsedTime": 0.5066721439361572,
+            "currentStorage": 0
+        }
+    ],
+    "constructionInfoList": [
+        {
+            "buildingId": 1,
+            "elapsedTime": 0.0
+        },
+        {
+            "buildingId": 2,
+            "elapsedTime": 0.0
+        },
+        {
+            "buildingId": 3,
+            "elapsedTime": 0.0
+        },
+        {
+            "buildingId": 4,
+            "elapsedTime": 0.0
+        }
+    ],
     "wallInfoList": [
         {
             "wallType": 1,
@@ -378,6 +406,13 @@
         {
             "wallType": 1,
             "gridPos": {
+                "x": 11,
+                "y": 2
+            }
+        },
+        {
+            "wallType": 1,
+            "gridPos": {
                 "x": 12,
                 "y": 2
             }
@@ -624,6 +659,13 @@
             "wallType": 1,
             "gridPos": {
                 "x": 11,
+                "y": 4
+            }
+        },
+        {
+            "wallType": 1,
+            "gridPos": {
+                "x": 12,
                 "y": 4
             }
         },

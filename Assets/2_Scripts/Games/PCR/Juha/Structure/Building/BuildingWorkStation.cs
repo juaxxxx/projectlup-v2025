@@ -20,9 +20,6 @@ namespace LUP.PCR
 
         private void Start()
         {
-            // 현재는 생산 데이터를 초기값으로 갱신한다.
-            // 현재는 건설 시작만 있다.
-            Init();
 
             buildingEvents.OnBuildingSelected += OpenBuildingUI;
             buildingEvents.OnBuildingDeselected += CloseBuildingUI;
@@ -40,26 +37,49 @@ namespace LUP.PCR
             currBuildState?.Tick(this, deltaTime);
         }
 
-        public override void Init()
+        public override void Init(ProductionRuntimeData runtimeData)
         {
-            ConstructScreen.SetActive(false);
+            this.runtimeData = runtimeData;
+
+            // Constructing Building
+            constructionInfo = runtimeData.GetConstructionInfo(buildingInfo.buildingId);
+            if (constructionInfo == null)
+            {
+                ConstructionInfo newConstructionInfo = new ConstructionInfo(buildingInfo.buildingId, 0f);
+                runtimeData.AddToList(runtimeData.ConstructionInfoList, newConstructionInfo);
+                constructionInfo = newConstructionInfo;
+            }
+
+            if (ConstructScreen)
+            {
+                ConstructScreen.SetActive(false);
+            }
 
             // 작업자 있는지 데이터 필요.
             hasWork = true;
-
-            // 임시 건축 데이터 할당.
-            int level = 1;
+            buildingName = "WorkStation";
 
             ProductionStage stage = LUP.StageManager.Instance.GetCurrentStage() as ProductionStage;
-            currentConstructionData = stage.GetCurrentConstructionData((int)BuildingType.WORKSTATION, level);
+            currentConstructionData = stage.GetCurrentConstructionData((int)BuildingType.WORKSTATION, buildingInfo.level);
 
-
-            // 지금은 테스트를 위해 그냥 건설 시작할 때만 구현
-            ChangeState(constructState);
+            if (buildingInfo.isConstructing)
+            {
+                ChangeState(constructState);
+            }
+            else
+            {
+                ChangeState(completeState);
+            }
         }
 
         public override void CompleteContruction()
-        {
+        {            
+            // 레벨업
+            buildingInfo.level++;
+            ProductionStage stage = LUP.StageManager.Instance.GetCurrentStage() as ProductionStage;
+            currentConstructionData = stage.GetCurrentConstructionData((int)BuildingType.WORKSTATION, buildingInfo.level);
+
+
             ChangeState(completeState);
         }
 

@@ -7,14 +7,13 @@ namespace LUP.PCR
     public abstract class ProductableBuilding : BuildingBase
     {
         // 읽기전용 데이터
-        public ProductableBuildingData productableBuildingData;
+        public PCRProductionStaticData currentProductionData;
 
-        
+        protected ProductionInfo productionInfo;
 
         protected IBuildState constructState;
         protected IBuildState productableState;
 
-        public int currStorage;
         public int maxStorage;
 
         public abstract void SetupProductionData();
@@ -24,6 +23,17 @@ namespace LUP.PCR
         public abstract void StopProduction();
 
         public abstract void CompleteProduction();
+
+        public ProductionInfo GetProductionInfo()
+        {
+            return productionInfo;
+        }
+
+        public void SetProductionInfo(ProductionInfo info)
+        {
+            productionInfo = info;
+        }
+
     }
 
 }

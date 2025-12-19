@@ -4,7 +4,14 @@ namespace LUP.PCR
 {
     public class UnderConstructionState : IBuildState
     {
-        private UnderContructionData constructionData;
+        public float elapsedTime;       // 누적 진행 시간
+        public float totalTime;         // 총 건설 시간
+        public float progressRatio;     // 진행률 (누적 진행 시간 / 총 건설 시간)
+        public bool isCompledted;       // 완료 여부
+        public bool isStarted;          // 생산 시작 여부
+
+        private BuildingBase building;
+        private ConstructionInfo currentConstructionInfo;
 
         public void Enter(BuildingBase building)
         {
@@ -16,8 +23,10 @@ namespace LUP.PCR
                 building.ConstructScreen.SetActive(true);
             }
 
-            // 시간 등 데이터 변수 초기화
-            constructionData.Reset(building.currentConstructionData.constructionTime);
+            currentConstructionInfo = building.GetConstructionInfo();
+            building.GetBuildingInfo().isConstructing = true;
+
+            Start();
         }
         public void Exit(BuildingBase building)
         {
@@ -25,19 +34,57 @@ namespace LUP.PCR
             {
                 building.ConstructScreen.SetActive(false);
             }
+
+            Stop();
             // 건설 취소.
             Debug.Log("UnderContructionState Exit");
         }
         public void Tick(BuildingBase building, float deltaTime)
         {
-            // 건설 시간 갱신
-            constructionData.Tick(deltaTime);
+            if (!isStarted)
+            {
+                return;
+            }
+            if (isCompledted)
+            {
+                return;
+            }
 
-            if (constructionData.isCompledted)
+            elapsedTime += deltaTime;
+            progressRatio = Mathf.Clamp01(elapsedTime / totalTime);
+
+            if (progressRatio >= 1f)
+            {
+                isCompledted = true;
+            }
+
+            if (isCompledted)
             {
                 building.CompleteContruction();
             }
         }
+
+        public void Reset()
+        {
+            elapsedTime = currentConstructionInfo.elapsedTime;
+            totalTime = building.currentConstructionData.constructionTime;
+            progressRatio = 0f;
+            isCompledted = false;
+            isStarted = false;
+        }
+
+        public void Start()
+        {
+            Reset();
+            isStarted = true;
+            isCompledted = false;
+        }
+
+        public void Stop()
+        {
+            Reset();
+        }
+
         public void Interact(BuildingBase building)
         {
             // 건설 진행도 UI 활성화

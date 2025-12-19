@@ -17,6 +17,14 @@ MonoBehaviour:
   START_ROW: 1
   DataList:
   - buildingType: 1
+    level: 0
+    constructionTime: 10
+    costCount: 2
+    resourceType1: 1
+    amount1: 5
+    resourceType2: 2
+    amount2: 0
+  - buildingType: 1
     level: 1
     constructionTime: 10
     costCount: 2
@@ -177,6 +185,14 @@ MonoBehaviour:
     resourceType2: 2
     amount2: 20000
   - buildingType: 2
+    level: 0
+    constructionTime: 10
+    costCount: 1
+    resourceType1: 1
+    amount1: 5
+    resourceType2: 0
+    amount2: 0
+  - buildingType: 2
     level: 1
     constructionTime: 10
     costCount: 1
@@ -337,6 +353,14 @@ MonoBehaviour:
     resourceType2: 0
     amount2: 0
   - buildingType: 3
+    level: 0
+    constructionTime: 10
+    costCount: 1
+    resourceType1: 1
+    amount1: 5
+    resourceType2: 0
+    amount2: 0
+  - buildingType: 3
     level: 1
     constructionTime: 10
     costCount: 1
@@ -495,6 +519,14 @@ MonoBehaviour:
     resourceType1: 1
     amount1: 29000
     resourceType2: 0
+    amount2: 0
+  - buildingType: 4
+    level: 0
+    constructionTime: 10
+    costCount: 2
+    resourceType1: 1
+    amount1: 5
+    resourceType2: 2
     amount2: 0
   - buildingType: 4
     level: 1
@@ -657,6 +689,14 @@ MonoBehaviour:
     resourceType2: 2
     amount2: 20000
   - buildingType: 5
+    level: 0
+    constructionTime: 10
+    costCount: 1
+    resourceType1: 1
+    amount1: 5
+    resourceType2: 0
+    amount2: 0
+  - buildingType: 5
     level: 1
     constructionTime: 10
     costCount: 1
@@ -817,6 +857,14 @@ MonoBehaviour:
     resourceType2: 0
     amount2: 0
   - buildingType: 6
+    level: 0
+    constructionTime: 10
+    costCount: 1
+    resourceType1: 1
+    amount1: 5
+    resourceType2: 0
+    amount2: 0
+  - buildingType: 6
     level: 1
     constructionTime: 10
     costCount: 1
@@ -977,6 +1025,14 @@ MonoBehaviour:
     resourceType2: 0
     amount2: 0
   - buildingType: 7
+    level: 0
+    constructionTime: 10
+    costCount: 1
+    resourceType1: 1
+    amount1: 5
+    resourceType2: 0
+    amount2: 0
+  - buildingType: 7
     level: 1
     constructionTime: 10
     costCount: 1
@@ -1137,6 +1193,14 @@ MonoBehaviour:
     resourceType2: 0
     amount2: 0
   - buildingType: 8
+    level: 0
+    constructionTime: 10
+    costCount: 1
+    resourceType1: 1
+    amount1: 5
+    resourceType2: 0
+    amount2: 0
+  - buildingType: 8
     level: 1
     constructionTime: 10
     costCount: 1
@@ -1297,6 +1361,14 @@ MonoBehaviour:
     resourceType2: 0
     amount2: 0
   - buildingType: 9
+    level: 0
+    constructionTime: 10
+    costCount: 1
+    resourceType1: 1
+    amount1: 5
+    resourceType2: 0
+    amount2: 0
+  - buildingType: 9
     level: 1
     constructionTime: 10
     costCount: 1
@@ -1457,6 +1529,14 @@ MonoBehaviour:
     resourceType2: 0
     amount2: 0
   - buildingType: 10
+    level: 0
+    constructionTime: 10
+    costCount: 1
+    resourceType1: 1
+    amount1: 5
+    resourceType2: 0
+    amount2: 0
+  - buildingType: 10
     level: 1
     constructionTime: 10
     costCount: 1
@@ -1617,6 +1697,14 @@ MonoBehaviour:
     resourceType2: 0
     amount2: 0
   - buildingType: 11
+    level: 0
+    constructionTime: 10
+    costCount: 1
+    resourceType1: 1
+    amount1: 5
+    resourceType2: 0
+    amount2: 0
+  - buildingType: 11
     level: 1
     constructionTime: 10
     costCount: 1
@@ -1777,6 +1865,14 @@ MonoBehaviour:
     resourceType2: 0
     amount2: 0
   - buildingType: 12
+    level: 0
+    constructionTime: 10
+    costCount: 1
+    resourceType1: 1
+    amount1: 5
+    resourceType2: 0
+    amount2: 0
+  - buildingType: 12
     level: 1
     constructionTime: 10
     costCount: 1
@@ -1934,6 +2030,14 @@ MonoBehaviour:
     costCount: 1
     resourceType1: 1
     amount1: 29000
+    resourceType2: 0
+    amount2: 0
+  - buildingType: 13
+    level: 1
+    constructionTime: 10
+    costCount: 1
+    resourceType1: 1
+    amount1: 5
     resourceType2: 0
     amount2: 0
   - buildingType: 13

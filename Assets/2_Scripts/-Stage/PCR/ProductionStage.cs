@@ -151,7 +151,7 @@ namespace LUP.PCR
 
                 foreach (InitialBuildingStaticData initialBuildingData in initialBuildingDataList)
                 {
-                    BuildingInfo newBuildingInfo = new BuildingInfo(runtimeData.GenerateId(), 1, new Vector2Int(initialBuildingData.x, initialBuildingData.y), initialBuildingData.buildingType);
+                    BuildingInfo newBuildingInfo = new BuildingInfo(runtimeData.GenerateId(), 1, new Vector2Int(initialBuildingData.x, initialBuildingData.y), initialBuildingData.buildingType, false);
 
                     newBuildingDataList.Add(newBuildingInfo);
                 }
