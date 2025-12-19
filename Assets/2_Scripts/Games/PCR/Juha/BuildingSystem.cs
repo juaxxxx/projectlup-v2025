@@ -1,6 +1,8 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 using System.Collections.Generic;
+using UnityEditorInternal;
+using LUP.RL;
 
 namespace LUP.PCR
 {
@@ -10,36 +12,38 @@ namespace LUP.PCR
         private TileMap tileMap;
         private PCRResourceCenter resourceCenter;
 
-        private Dictionary<int, WallBase> currWalls;
+        private List<WallInfo> curWallInfoList;
+        private List<BuildingInfo> curBuildingInfoList;
+
         private Dictionary<int, BuildingBase> currBuildings;
 
         private BuildPreview buildPreview;
+        private DigWallPreview digWallPreview;
 
-        private int buildingId = 1; // 테스트 Id.
+        private ProductionRuntimeData pcrRuntimeData;
 
-        // Load Wall, Building Data
-        public void InitBuildingSystem(PCRDataCenter dataCenter, BuildingGenerator buildingGenerator,
-            BuildPreview buildPreview, TileMap tileMap, PCRResourceCenter resourceCenter)
+        public void InitBuildingSystem(BuildingGenerator buildingGenerator,
+            BuildPreview buildPreview, DigWallPreview digWallPreview, TileMap tileMap, PCRResourceCenter resourceCenter)
         {
             this.buildingGenerator = buildingGenerator;
             this.buildPreview = buildPreview;
+            this.digWallPreview = digWallPreview;
             this.tileMap = tileMap;
             this.resourceCenter = resourceCenter;
 
-            List<WallDataInfo> wallInfoes = dataCenter.wallDatas;
-            currWalls = new Dictionary<int, WallBase>();
             currBuildings = new Dictionary<int, BuildingBase>();
 
-            // 임시 id 할당
-            int wallId = 1;
+            ProductionStage stage = StageManager.Instance.GetCurrentStage() as ProductionStage;
 
-            // wall Init
-            for (int i = 0; i < wallInfoes.Count; i++)
+            pcrRuntimeData = stage.productionRuntimeData as ProductionRuntimeData;
+
+            curBuildingInfoList = stage.GetBuildingInfoList();
+            curWallInfoList = stage.GetWallInfoList();
+
+            foreach (WallInfo wallInfo in curWallInfoList)
             {
-                WallType wallType = wallInfoes[i].type;
-                Vector2Int wallPos = wallInfoes[i].pos;
 
-                GameObject wallObject = buildingGenerator.CreateInitWall(wallType, wallPos);
+                GameObject wallObject = buildingGenerator.CreateWall(wallInfo);
                 if (!wallObject)
                 {
                     Debug.Log("wallObject is null");
@@ -47,26 +51,81 @@ namespace LUP.PCR
                 }
 
                 WallBase wall = wallObject.GetComponent<WallBase>();
-
                 if (!wall)
                 {
                     Debug.Log("WallBase is Null");
                     continue;
                 }
 
-                if (!currWalls.ContainsKey(wallId))
-                {
-                    currWalls.Add(wallId, wall);
-                }
-                else
-                {
-                    Debug.Log("wallId already exists");
-                }
+                wall.SetWallInfo(wallInfo);
+                tileMap.UpdateTilebyWall((WallType)wallInfo.wallType, wallInfo.gridPos);
+            }
 
-                wallId++;
+            foreach(BuildingInfo buildingInfo in curBuildingInfoList)
+            {
+                CreateInitialBuilding(buildingInfo);
             }
 
             Debug.Log("BuildingSystem Init");
+        }
+
+        public void RemoveWall(WallBase wall)
+        {
+            //foreach (WallInfo wallInfo in curWallInfoList)
+            //{
+            //    if (wallInfo.gridPos == wall.GetWallInfo().gridPos)
+            //    {
+            //        if (curWallInfoList.Remove(wallInfo))
+            //        {
+            //            Debug.Log("벽 제거 적용 완료!");
+            //            break;
+            //        }
+            //    }
+            //}
+            pcrRuntimeData.RemoveFromList(curWallInfoList, wall.GetWallInfo());
+
+            UpdateDigTile(wall);
+            Destroy(wall.gameObject);
+        }
+
+
+        public void UpdateDigTile(WallBase wall)
+        {
+            Tile tile = tileMap.GetTile(wall.GetWallInfo().gridPos);
+
+            if (tile)
+            {
+                if (tile.tileInfo.tileType == TileType.WALL)
+                {
+                    digWallPreview.RemoveCanDigTile(tile);
+                    tile.HideCanDigWallMark();
+                    digWallPreview.AddCanNotDigTile(tile);
+                    tile.SetTileInfo(new TileInfo(TileType.PATH, BuildingType.NONE, WallType.NONE, tile.tileInfo.pos, tile.tileInfo.id));
+                }
+            }
+        }
+
+        public void CreateInitialBuilding(BuildingInfo buildingInfo)
+        {
+            BuildingBase building = buildingGenerator.CreateBuilding((BuildingType)buildingInfo.buildingType, tileMap.GetTile(buildingInfo.gridPos));
+
+            if (building != null)
+            {
+                building.resourceCenter = resourceCenter;
+
+                if (!currBuildings.ContainsKey(buildingInfo.buildingId))
+                {
+                    currBuildings.Add(buildingInfo.buildingId, building);
+                }
+
+                Tile pivotTile = tileMap.GetTile(buildingInfo.gridPos);
+
+                tileMap.UpdateTilebyBuilding((BuildingType)buildingInfo.buildingType, pivotTile);
+                building.SetEntrance(pivotTile.tileInfo.pos);
+                building.SetBuildingInfo(buildingInfo);
+                // TODO: 건물 만들고 런타임 데이터로 초기화.
+                //building.Init();
+            }
         }
 
         public void CreateBuilding(BuildingType type, Tile pivotTile)
@@ -85,15 +144,24 @@ namespace LUP.PCR
 
                 building.resourceCenter = resourceCenter;
 
-                if (!currBuildings.ContainsKey(buildingId))
+                ProductionStage stage = StageManager.Instance.GetCurrentStage() as ProductionStage;
+                if (stage == null) return;
+                ProductionRuntimeData runtimeData = stage.productionRuntimeData as ProductionRuntimeData;
+
+                int id = runtimeData.GenerateId();
+
+                if (!currBuildings.ContainsKey(id))
                 {
-                    currBuildings.Add(buildingId, building);
+                    currBuildings.Add(id, building);
                 }
 
                 tileMap.UpdateTilebyBuilding(type, pivotTile);
                 building.SetEntrance(pivotTile.tileInfo.pos);
 
-                buildingId++;
+                BuildingInfo newBuildingInfo = new BuildingInfo(id, 0, pivotTile.tileInfo.pos, (int)type);
+                building.SetBuildingInfo(newBuildingInfo);
+
+                pcrRuntimeData.AddToList(curBuildingInfoList, newBuildingInfo);
             }
         }
     }

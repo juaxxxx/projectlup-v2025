@@ -26,6 +26,8 @@ public abstract class BaseRuntimeData
         saveDelay = delay;
     }
 
+
+
     protected void SetValue<T>(ref T field, T value)
     {
         if (!EqualityComparer<T>.Default.Equals(field, value))
@@ -71,5 +73,30 @@ public abstract class BaseRuntimeData
     private void SaveDataImmediate()
     {
         JsonDataHelper.SaveData(this, filename);
+    }
+
+    // List 사용시 이걸 쓰셔야 자동저장 됩니다
+    public void AddToList<T>(List<T> list, T item)
+    {
+        list.Add(item);
+        NotifyValueChanged();
+    }
+
+    // List 사용시 이걸 쓰셔야 자동저장 됩니다
+    public bool RemoveFromList<T>(List<T> list, T item)
+    {
+        bool removed = list.Remove(item);
+        if (removed)
+        {
+            NotifyValueChanged();
+        }
+        return removed;
+    }
+
+    // List 사용시 이걸 쓰셔야 자동저장 됩니다
+    public void ClearList<T>(List<T> list)
+    {
+        list.Clear();
+        NotifyValueChanged();
     }
 }

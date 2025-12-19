@@ -4,7 +4,17 @@ namespace LUP.PCR
 {
     public abstract class WallBase : StructureBase
     {
-        WallInfo wallInfo;
+        protected WallInfo wallInfo;
+
+        public WallInfo GetWallInfo()
+        {
+            return wallInfo;
+        }
+
+        public void SetWallInfo(WallInfo wallInfo)
+        {
+            this.wallInfo = wallInfo;
+        }
 
         public bool CanDig(int digPower)
         {

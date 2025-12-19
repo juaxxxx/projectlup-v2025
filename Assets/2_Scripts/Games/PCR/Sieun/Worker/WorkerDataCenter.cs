@@ -75,7 +75,7 @@ namespace LUP.PCR
 
         private void Start()
         {
-            aGrid.InitMap(pcrDataCenter.tileInfoes);
+            //aGrid.InitMap(pcrDataCenter.tileInfoes);
         }
 
         private void Update()

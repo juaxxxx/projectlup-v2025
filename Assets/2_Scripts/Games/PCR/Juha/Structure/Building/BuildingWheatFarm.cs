@@ -72,7 +72,7 @@ namespace LUP.PCR
             buildingName = "WheatFarm";
 
             ProductionStage stage = LUP.StageManager.Instance.GetCurrentStage() as ProductionStage;
-            currentConstructionData = stage.FindCurrentConstructionData((int)BuildingType.WHEATFARM, level);
+            currentConstructionData = stage.GetCurrentConstructionData((int)BuildingType.WHEATFARM, level);
             if (level >= 0 && level < productableBuildingData.constructionData.Length)
             {
                 maxStorage = productableBuildingData.productionData[level].storageCapacity;

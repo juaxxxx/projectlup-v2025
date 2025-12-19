@@ -12,7 +12,7 @@ namespace LUP.PCR
 
         public Tile[,] tiles;
 
-        public void InitializeTileMap(TileInfo[,] tileInfoes)
+        public void InitTileMap()
         {
             tiles = new Tile[GridSize.x, GridSize.y];
             for (int i = 0; i < GridSize.x; i++)
@@ -26,13 +26,26 @@ namespace LUP.PCR
                             new Vector3(i * gridWidth + 2.5f, -j * gridHeight - 2.5f, -2.5f),
                             Quaternion.identity, this.transform);
                         tiles[i, j] = tile.GetComponent<Tile>();
-                        tiles[i, j].SetTileInfo(tileInfoes[i, j]);
+                        tiles[i, j].SetTileInfo(new TileInfo(TileType.PATH, BuildingType.NONE, WallType.NONE, new Vector2Int(i, j), 1));
                     }
                 }
             }
 
             Debug.Log("TileMap Init");
+        }
 
+        public Tile GetTile(Vector2Int pos)
+        {
+            return tiles[pos.x, pos.y];
+        }
+
+        public void UpdateTilebyWall(WallType type, Vector2Int pos)
+        {
+            int x = pos.x;
+            int y = pos.y;
+
+            tiles[x, y].tileInfo.tileType = TileType.WALL;
+            tiles[x, y].tileInfo.wallType = type;
         }
 
         public void UpdateTilebyBuilding(BuildingType type, Tile pivotTile)

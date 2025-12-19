@@ -28,8 +28,6 @@ namespace LUP.PCR
                 // 클릭시 UI가 포함이면 리턴한다.
                 if (EventSystem.current.IsPointerOverGameObject()) return;
 
-                Debug.Log("벽 발굴 시도");
-
                 var pos = Mouse.current.position.ReadValue();
                 var ray = Camera.main.ScreenPointToRay(pos);
                 RaycastHit wallHit;
@@ -48,14 +46,10 @@ namespace LUP.PCR
 
                 if (Physics.Raycast(ray, out wallHit, 1000f, LayerMask.GetMask("Wall")))
                 {
-                    var structure = wallHit.collider.GetComponent<WallBase>();
-                    if (structure)
+                    WallBase wall = wallHit.collider.GetComponent<WallBase>();
+                    if (wall)
                     {
-                        // 추후에 부술 수 있는 벽인지 판단할 수 있어야 한다.
-                        structure.InteractForTouch();
-                        // 벽 표시 갱신
-                        UpdateDigTile();
-
+                        taskController.buildingSystem.RemoveWall(wall);
                         taskController.ReturnToIdleState();
                     }
                     else
@@ -65,7 +59,6 @@ namespace LUP.PCR
                 }
                 else
                 {
-                    Debug.Log("아냐 취소해");
                     taskController.ReturnToIdleState();
                 }
             }
@@ -84,20 +77,6 @@ namespace LUP.PCR
             Debug.Log("DigWall State Close");
             taskController.digWallPreview.Hide();
         }
-
-        public void UpdateDigTile()
-        {
-            Tile tile = taskController.lastClickTile;
-            if (tile)
-            {
-                if (tile.tileInfo.tileType == TileType.WALL)
-                {
-                    taskController.digWallPreview.RemoveCanDigTile(tile);
-                    tile.HideCanDigWallMark();
-                    taskController.digWallPreview.AddCanNotDigTile(tile);
-                    tile.SetTileInfo(new TileInfo(TileType.PATH, BuildingType.NONE, WallType.NONE, tile.tileInfo.pos, tile.tileInfo.id));
-                }
-            }
 
             //var pos = Mouse.current.position.ReadValue();
             //var ray = Camera.main.ScreenPointToRay(pos);
@@ -119,7 +98,6 @@ namespace LUP.PCR
             //    }
             //}
 
-        }
     }
 
 }

@@ -192,13 +192,13 @@ namespace LUP
 
         public void OnBeforeSerialize()
         {
-            Debug.Log($"[Inventory] OnBeforeSerialize 호출 - slots.Count: {slots?.Count ?? 0}");
+            //Debug.Log($"[Inventory] OnBeforeSerialize 호출 - slots.Count: {slots?.Count ?? 0}");
             SyncToSerializedList();
         }
 
         public void OnAfterDeserialize()
         {
-            Debug.Log($"[Inventory] OnAfterDeserialize 호출 - _serializedSlots.Count: {_serializedSlots?.Count ?? 0}");
+            //Debug.Log($"[Inventory] OnAfterDeserialize 호출 - _serializedSlots.Count: {_serializedSlots?.Count ?? 0}");
         }
 
         private void SyncToSerializedList()
@@ -221,7 +221,7 @@ namespace LUP
                 });
             }
 
-            Debug.Log($"[Inventory] SyncToSerializedList 완료: {_serializedSlots.Count}개 슬롯");
+            //Debug.Log($"[Inventory] SyncToSerializedList 완료: {_serializedSlots.Count}개 슬롯");
         }
 
         public void InitializeFromJson()

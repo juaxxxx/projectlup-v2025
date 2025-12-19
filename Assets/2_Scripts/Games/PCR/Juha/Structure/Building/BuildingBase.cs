@@ -10,8 +10,9 @@ namespace LUP.PCR
         // SO 관리.. 인스턴스로 생성해서 사용해야 독립적으로 관리 가능한가?
         // 아니면 그냥 고정 값을 가져오는 용도로만 사용하자.
         // ex) 기본 건설, 생산 시간, 생산 가능 자원 등
-        public PCRConstructionStaticData currentConstructionData;
+        protected BuildingInfo buildingInfo;
 
+        public PCRConstructionStaticData currentConstructionData;
         public BuildingEvents buildingEvents;
 
         public string buildingName;
@@ -46,6 +47,16 @@ namespace LUP.PCR
             currBuildState?.Exit(this);
             currBuildState = state;
             currBuildState.Enter(this);
+        }
+
+        public BuildingInfo GetBuildingInfo()
+        {
+            return buildingInfo;
+        }
+
+        public void SetBuildingInfo(BuildingInfo buildingInfo)
+        {
+            this.buildingInfo = buildingInfo;
         }
 
         // TODO: 임시 입구 설정. 입구가 왼쪽도 있어야하고 오른쪽도 있어야하는 느낌..

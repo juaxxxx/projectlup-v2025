@@ -27,14 +27,14 @@ namespace LUP.PCR
         [SerializeField]
         private GameObject dustPrefab;
 
-        public GameObject CreateInitWall(WallType type, Vector2Int pos)
+        public GameObject CreateWall(WallInfo wallInfo)
         {
             GameObject wallObject = null;
 
-            switch (type)
+            switch ((WallType)wallInfo.wallType)
             {
                 case WallType.DUST:
-                    wallObject = Instantiate(dustPrefab, new Vector3(pos.x * 5 + 2.5f, -pos.y * 5 - 2.5f, -2.5f), Quaternion.identity, wallSpawnTransform);
+                    wallObject = Instantiate(dustPrefab, new Vector3(wallInfo.gridPos.x * 5 + 2.5f, -wallInfo.gridPos.y * 5 - 2.5f, -2.5f), Quaternion.identity, wallSpawnTransform);
 
                     break;
                 case WallType.STONE:
