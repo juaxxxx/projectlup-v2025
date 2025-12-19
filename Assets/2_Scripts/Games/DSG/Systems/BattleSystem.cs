@@ -627,20 +627,25 @@ namespace LUP.DSG
         private IEnumerator FocusSkillCaster(Character currentChar)
         {
             currentChar.BattleComp.isAttacking = true;
-
             onStartSkill?.Invoke(currentChar);
             Camera camera = Camera.main;
             Transform cameraOrigin = camera.transform;
             BattleCameraDirector Director = camera.GetComponent<BattleCameraDirector>();
-            yield return Director.FocusOnSkillCaster(currentChar.transform, cameraOrigin).WaitForCompletion();
+            LineupSlot currentSlot = currentChar.GetComponentInParent<LineupSlot>();
+            Transform focusTransform = currentSlot.FocusedPosition;
+            yield return Director.FocusOnSkillCaster(focusTransform, cameraOrigin).WaitForCompletion();
 
             Director.FocusOnTarget(cameraOrigin.position);
 
-            List<LineupSlot> targetList = randomTargetSelector.SelectcountEnemyTargets(currentChar, currentChar.BattleComp.skillInfo.targetCount);
+            List<LineupSlot> targetList = randomTargetSelector.SelectEnemyTargets(currentChar, currentChar.BattleComp.skillInfo.targetCount);
             currentChar.BattleComp.Skill(targetList);
             StartCoroutine(WaitForAttackEnd(currentChar));
         }
-    }
+
+        public void OnClickPauseButton()
+        {
+            float Curr = Time.timeScale;
+            TextMeshProUGUI pauseText = battleCanvas.transform.Find("RightTop/PauseButton/PauseText").GetComponent<TextMeshProUGUI>();
 
             if (Curr == 0f)
             {
@@ -653,6 +658,7 @@ namespace LUP.DSG
                 Time.timeScale = 0f;
             }
         }
+
         public void OnClickSpeedButton()
         {
             float Curr = Time.timeScale; //@TODO 구조개선 timescale XX

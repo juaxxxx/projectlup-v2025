@@ -318,7 +318,7 @@ namespace LUP.DSG
 
         public void Skill(List<LineupSlot> targetList)
         {
-            SkillTargetSlot = targetList;
+            targetSlots = targetList;
             targetPosition = skillInfo.AttackPosition;
 
             HandleAttackStart();
@@ -340,8 +340,9 @@ namespace LUP.DSG
                     }
 
                     battleCameraDirector.FocusOnTarget(targetPosition);
+
                     ObjectFader fader = GetComponent<ObjectFader>();
-                    fader.isActive = true;
+                    fader.FaderOn(targetSlots);
                     break;
                 case EWeaponType.Magic:
                 case EWeaponType.Gun_Rifle:

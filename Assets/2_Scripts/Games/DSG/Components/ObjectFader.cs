@@ -1,3 +1,4 @@
+using LUP.DSG;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 //using UnityEditor;
@@ -5,7 +6,7 @@ using UnityEngine;
 
 public class ObjectFader : MonoBehaviour
 {
-    public float fadeSpeed = 1.0f;
+    public float fadeSpeed = 0.5f;
     float curretOpacity;
     List<Material> materials = new List<Material>();
     public bool doFade = false;
@@ -58,7 +59,7 @@ public class ObjectFader : MonoBehaviour
         {
             ObjectFader objectFader = collider.GetComponentInChildren<ObjectFader>();
 
-            if(objectFader != null && objectFader.gameObject != gameObject)
+            if(objectFader != null && !ignoreTargets.Contains(objectFader))
             {
                 objectFader.doFade = true;
                 targets.Add(objectFader);
@@ -105,9 +106,14 @@ public class ObjectFader : MonoBehaviour
     //    Gizmos.DrawSphere(transform.position, proximityRadius);
     //}
 
-    public void FaderOn(List<ObjectFader> targets)
+    public void FaderOn(List<LineupSlot> targets)
     {
-        ignoreTargets = targets;
+        List<ObjectFader> ignores = new List<ObjectFader>();
+        foreach(LineupSlot target in targets)
+        {
+            ignores.Add(target.character.GetComponent<ObjectFader>());
+        }
+        ignoreTargets = ignores;
         ignoreTargets.Add(this);
         isActive = true;
     }

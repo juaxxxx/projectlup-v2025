@@ -16,12 +16,6 @@ namespace LUP.DSG
         [SerializeField] private RenderTexture renderTexture;
         [SerializeField] private RuntimeAnimatorController controller;
 
-        public static event Action<int, Sprite> OnCharacterIconReady;
-
-        private readonly HashSet<int> _inFlightCharacterIds = new HashSet<int>();
-
-        private AnimatorOverrideController portraitOverride;
-
         public IEnumerator GenerateIconRoutine(DeckStrategyStage stage, int cacheKeyCharacterId, int modelId)
         {
             if (CharacterIconCache.TryGetByCharacterId(cacheKeyCharacterId, out _))

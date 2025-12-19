@@ -84,25 +84,17 @@ namespace LUP.DSG
             transform.DOMoveX(originPosition.x, 0.5f).SetDelay(delay);
         }
 
-        public Tween FocusOnSkillCaster(Transform targetPos, Transform cameraOriginPos)
+        public Tween FocusOnSkillCaster(Transform targetTransform, Transform cameraOriginPos)
         {
             Sequence seq = DOTween.Sequence();
-            seq.Append(transform.DOMove(targetPos.position, 1f));
+            seq.Append(transform.DOMove(targetTransform.position, 1f));
+            seq.Join(transform.DORotateQuaternion(targetTransform.rotation, 1f));
             seq.AppendInterval(0.5f);
 
             seq.Append(transform.DOMove(cameraOriginPos.position, 1f));
-            //seq.Append(transform.DOMoveX(targetPos.position.x, 1f));
-            //seq.Append(transform.DOMoveY(targetPos.position.y, 1f));
-            //seq.Append(transform.DOMoveZ(targetPos.position.z, 1f));
+            seq.Join(transform.DORotateQuaternion(cameraOriginPos.rotation, 1f));
 
             return seq;
         }
-
-
-        public void FocusObject(GameObject gameObject)
-        {
-
-        }
-
     }
 }
