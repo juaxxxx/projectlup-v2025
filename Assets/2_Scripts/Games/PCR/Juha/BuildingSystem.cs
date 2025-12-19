@@ -20,6 +20,8 @@ namespace LUP.PCR
         private BuildPreview buildPreview;
         private DigWallPreview digWallPreview;
 
+        private ProductionRuntimeData pcrRuntimeData;
+
         public void InitBuildingSystem(BuildingGenerator buildingGenerator,
             BuildPreview buildPreview, DigWallPreview digWallPreview, TileMap tileMap, PCRResourceCenter resourceCenter)
         {
@@ -32,6 +34,8 @@ namespace LUP.PCR
             currBuildings = new Dictionary<int, BuildingBase>();
 
             ProductionStage stage = StageManager.Instance.GetCurrentStage() as ProductionStage;
+
+            pcrRuntimeData = stage.productionRuntimeData as ProductionRuntimeData;
 
             curBuildingInfoList = stage.GetBuildingInfoList();
             curWallInfoList = stage.GetWallInfoList();
@@ -78,11 +82,7 @@ namespace LUP.PCR
             //        }
             //    }
             //}
-
-            if (curWallInfoList.Remove(wall.GetWallInfo()))
-            {
-                Debug.Log("벽 제거 적용 완료!");
-            }
+            pcrRuntimeData.RemoveFromList(curWallInfoList, wall.GetWallInfo());
 
             UpdateDigTile(wall);
             Destroy(wall.gameObject);
@@ -160,7 +160,8 @@ namespace LUP.PCR
 
                 BuildingInfo newBuildingInfo = new BuildingInfo(id, 0, pivotTile.tileInfo.pos, (int)type);
                 building.SetBuildingInfo(newBuildingInfo);
-                curBuildingInfoList.Add(newBuildingInfo);
+
+                pcrRuntimeData.AddToList(curBuildingInfoList, newBuildingInfo);
             }
         }
     }
