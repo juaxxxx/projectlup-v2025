@@ -32,9 +32,9 @@ namespace LUP.RL
         [HideInInspector]
         public WorldEventBtnScrollPannel RightEventPanel;
 
-        //Temp
-        public WarningPopUpPanel testwarningPopUpPanel;
-        //Temp
+        //PopupPanel
+        public WarningPopUpPanel warningPopUpPanel;
+        public EquipInfoPopupPanel equipInfoPopupPanel;
 
         public float switchingDuration = 0.1f;
         private Coroutine scrollCoroutine;
@@ -305,7 +305,12 @@ namespace LUP.RL
 
         public void PopWarningPanel()
         {
-            testwarningPopUpPanel.gameObject.SetActive(true);
+            warningPopUpPanel.gameObject.SetActive(true);
+        }
+
+        public void PopEquipPanel(EquipData equipData)
+        {
+            equipInfoPopupPanel.PopupItemPanel(equipData, true);
         }
 
         void OnSwipeUp()

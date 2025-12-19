@@ -6,7 +6,7 @@ using TMPro;
 public class DisplayableImageBox : MonoBehaviour, IDisplayable
 {
     private string imageName = null;
-    private Sprite image;
+    private Sprite sprite;
     private TMP_Text numText;
     public int extraInfo = 0;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -35,16 +35,28 @@ public class DisplayableImageBox : MonoBehaviour, IDisplayable
     }
     public Sprite GetDisplayableImage()
     {
-        return image;
+        return sprite;
     }
     public void SetDisplayableImage(Sprite Inputimage)
     {
-        image = Inputimage;
+        sprite = Inputimage;
 
-        Image img = gameObject.GetComponent<Image>();
+        Image img = gameObject.GetComponentInChildren<Image>();
 
         if (img != null)
-            img.sprite = image;
+            img.sprite = sprite;
+    }
+
+    public void SetDisplayableImageBackGroundColor(Color color)
+    {
+        Image img = gameObject.GetComponent<Image>();
+        if (img != null)
+            img.color = color;
+    }
+
+    public void SetText(string Text)
+    {
+        numText.text = Text;
     }
 
     public int GetExtraInfo() { return extraInfo; }

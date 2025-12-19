@@ -23,6 +23,13 @@ MonoBehaviour:
     MaxStackSize: 99
     IsUsable: 0
     Description: Wood
+    serializedCustomFields:
+    - key: Tier
+      value: 0
+    - key: EquipPos
+      value: 0
+    - key: Effects
+      value: 0
   - ItemID: 10002
     ItemName: Meat
     ItemType: 4
@@ -30,6 +37,13 @@ MonoBehaviour:
     MaxStackSize: 99
     IsUsable: 0
     Description: Meat
+    serializedCustomFields:
+    - key: Tier
+      value: 0
+    - key: EquipPos
+      value: 0
+    - key: Effects
+      value: 0
   - ItemID: 10003
     ItemName: Coin
     ItemType: 4
@@ -37,24 +51,52 @@ MonoBehaviour:
     MaxStackSize: 99
     IsUsable: 0
     Description: Coin
+    serializedCustomFields:
+    - key: Tier
+      value: 0
+    - key: EquipPos
+      value: 0
+    - key: Effects
+      value: 0
   - ItemID: 20001
     ItemName: Gun_N
     ItemType: 1
     IconPath: Image\RL\ItemImage\Gun_N
     MaxStackSize: 0
     IsUsable: 0
-    Description: "\uD3C9\uBC94\uD55C \uCD1D \uC785\uB2C8\uB2E4.ATK:10"
+    Description: "\uD3C9\uBC94\uD55C \uCD1D \uC785\uB2C8\uB2E4."
+    serializedCustomFields:
+    - key: Tier
+      value: 1
+    - key: EquipPos
+      value: 1
+    - key: Effects
+      value: ATK:10
   - ItemID: 20002
     ItemName: Javelin_N
     ItemType: 1
     IconPath: Image\RL\ItemImage\Javelin_N
     MaxStackSize: 0
     IsUsable: 0
-    Description: "\uD3C9\uBC94\uD55C \uCC3D \uC785\uB2C8\uB2E4.ATK:5.HP:5"
+    Description: "\uD3C9\uBC94\uD55C \uCC3D \uC785\uB2C8\uB2E4."
+    serializedCustomFields:
+    - key: Tier
+      value: 1
+    - key: EquipPos
+      value: 1
+    - key: Effects
+      value: ATK:5/HP:5
   - ItemID: 20003
     ItemName: Armor_N
     ItemType: 2
     IconPath: 
     MaxStackSize: 0
     IsUsable: 0
-    Description: "\uB0A1\uC740 \uAC11\uC637 \uC785\uB2C8\uB2E4.HP:15"
+    Description: "\uB0A1\uC740 \uAC11\uC637 \uC785\uB2C8\uB2E4."
+    serializedCustomFields:
+    - key: Tier
+      value: 1
+    - key: EquipPos
+      value: 2
+    - key: Effects
+      value: HP:15

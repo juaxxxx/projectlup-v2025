@@ -209,17 +209,38 @@ namespace LUP.RL
         public EquipData[] GetInventoryEquips()
         {
             List<InventorySlot> inventorySlots = roguelikeStage.inventory.GetAllItems();
+            List<EquipData> Equips = new List<EquipData>();
 
             for(int i = 0; i < inventorySlots.Count;i++)
             {
                 InventorySlot slot = inventorySlots[i];
-                if (slot.Item.Type != Define.ItemType.Weapon || slot.Item.Type != Define.ItemType.Armor)
+                if (slot.Item.Type != Define.ItemType.Weapon && slot.Item.Type != Define.ItemType.Armor)
                     continue;
 
+                IItemable item = inventorySlots[i].Item;
 
+                string equipName = item.ItemName;
+                Sprite equipIcon = item.Icon;
+                int equipTier = item.GetInt("Tier");
+                RLEquipPos equipPos = (RLEquipPos)item.GetInt("EquipPos");
+                string equipEffects = item.GetString("Effects");
+
+                EquipData dynamicInventoryEquipData = ScriptableObject.CreateInstance<EquipData>();
+
+                dynamicInventoryEquipData.SetItemName(equipName);
+                dynamicInventoryEquipData.SetDisplayableImage(equipIcon);
+                dynamicInventoryEquipData.SetExtraInfo(equipTier);
+                dynamicInventoryEquipData.equipPos = equipPos;
+                dynamicInventoryEquipData.equipStats = ExtrackEquipEffect(equipEffects);
+                //dynamicInventoryEquipData.inventorySlotKey = 
+
+                Equips.Add(dynamicInventoryEquipData);
             }
 
-            return new EquipData[inventorySlots.Count];
+            if(Equips.Count == 0)
+                return null;
+
+            return Equips.ToArray();
         }
 
         public async Task waitUntilPlatformDataReady()
@@ -230,6 +251,37 @@ namespace LUP.RL
             }
 
             runtimesaveData = (RoguelikeRuntimeData)platform.RuntimeData;
+        }
+
+        EquipStat[] ExtrackEquipEffect(string effectText)
+        {
+            if (string.IsNullOrEmpty(effectText))
+                return Array.Empty<EquipStat>();
+
+            string[] statTokens = effectText.Split('/');
+
+            List<EquipStat> stats = new List<EquipStat>();
+
+            foreach (string token in statTokens)
+            {
+                // "ATK:5"
+                string[] pair = token.Split(':');
+                if (pair.Length != 2)
+                    continue;
+
+                string statName = pair[0];
+
+                if (!int.TryParse(pair[1], out int value))
+                    continue;
+
+                stats.Add(new EquipStat
+                {
+                    statName = statName,
+                    value = value
+                });
+            }
+
+            return stats.ToArray();
         }
     }
 }
