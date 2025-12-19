@@ -81,6 +81,8 @@ namespace LUP
             if (!JsonDataHelper.FileExists(filename))
             {
                 data.ResetData();
+                JsonDataHelper.SaveData(data, filename);
+                Debug.Log($"[DataManager] 새 런타임 데이터 생성 및 저장: {filename}");
             }
 
             runtimeDataList.Add(data);

@@ -14,8 +14,6 @@ namespace LUP
         [SerializeField] private string iconPath = "";
         [SerializeField] private int maxStackSize = 1;
         [SerializeField] private bool isUsable = false;
-
-        [Header("선택 필드")]
         [SerializeField] private string description = "";
 
         [System.NonSerialized] private Sprite _iconCache;
@@ -31,6 +29,7 @@ namespace LUP
         public Define.ItemType Type => itemType;
         public int MaxStackSize => maxStackSize;
         public bool IsUsable => isUsable;
+        public string Description => description;
 
         public Sprite Icon
         {
@@ -56,7 +55,6 @@ namespace LUP
         }
 
         // ===== 공통 접근자 =====
-        public string Description => description;
         public string IconPath => iconPath;
 
         // ===== 필수 필드 Setter (로더가 사용) =====
