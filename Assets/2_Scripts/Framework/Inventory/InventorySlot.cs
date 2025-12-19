@@ -4,15 +4,16 @@ namespace LUP
 {
     public interface IItemable
     {
-        int ItemID { get; }                      // ╟Мю╞ ID (гй╪Ж)
-        string ItemName { get; }                    // г╔╫ц©К юл╦╖
-        LUP.Define.ItemType Type { get; }           // ╬фюлеш е╦ют
-        int MaxStackSize { get; }                   // цж╢К ╫╨ец (1 = ╫╨ец ╨р╟║)
-        Sprite Icon { get; }                        // UI ╬фюлдэ
+        int ItemID { get; }                      // О©╫О©╫О©╫О©╫ ID (О©╫й╪О©╫)
+        string ItemName { get; }                    // г╔О©╫ц©О©╫ О©╫л╦О©╫
+        LUP.Define.ItemType Type { get; }           // О©╫О©╫О©╫О©╫О©╫О©╫ е╦О©╫О©╫
+        int MaxStackSize { get; }                   // О©╫ж╢О©╫ О©╫О©╫О©╫О©╫ (1 = О©╫О©╫О©╫О©╫ О©╫р╟О©╫)
+        Sprite Icon { get; }                        // UI О©╫О©╫О©╫О©╫О©╫О©╫
+        string Description { get; }                 // Л∙└Л²╢М┘° Л└╓К╙┘
 
         bool IsUsable { get; }
 
-        // ╬фюлеш ╩Г©К╫ц хёцБ╣й (╠╦ц╪юШ ╣©юшю╨ ╟╒ ╬фюлешюл ╠╦гЖ)
+        // О©╫О©╫О©╫О©╫О©╫О©╫ О©╫О©╫О©╫О©╫ хёО©╫О©╫О©╫ (О©╫О©╫ц╪О©╫О©╫ О©╫О©╫О©╫О©╫О©╫О©╫ О©╫О©╫ О©╫О©╫О©╫О©╫О©╫О©╫О©╫О©╫ О©╫О©╫О©╫О©╫)
         void OnUse();
     }
 
