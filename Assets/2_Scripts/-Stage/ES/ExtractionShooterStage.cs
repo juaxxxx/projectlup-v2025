@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using LUP.ES;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -9,6 +10,7 @@ namespace LUP
         public ExtractionRuntimeData RuntimeData;
         public List<ExtractionStaticData> DataList;
 
+        private CharacterSelector characterSelector;
         // 변수명은 예시이니 바꾸셔도 됩니다.
         public Inventory ESInven;
 
@@ -20,7 +22,7 @@ namespace LUP
 
         void Start()
         {
-
+            characterSelector = GetComponentInChildren<CharacterSelector>();
         }
 
         void Update()
@@ -35,6 +37,11 @@ namespace LUP
 
             // InventoryManager를 통해 ES 인벤토리 로드 및 등록
             ESInven = InventoryManager.Instance.LoadOrCreateInventory("ES", "ESInventory.json");
+
+            if(characterSelector != null)
+            {
+                characterSelector.Init();
+            }
 
             yield return null;
         }

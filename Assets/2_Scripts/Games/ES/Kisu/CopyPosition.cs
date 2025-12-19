@@ -4,7 +4,7 @@ namespace LUP.ES
 {
     public class CopyPosition : MonoBehaviour
     {
-        [SerializeField] private Transform target; // 플레이어
+        private Transform target; // 플레이어
         [SerializeField] private bool followX = true, followY = false, followZ = true;
 
         [SerializeField] private Vector2 minBounds; // 맵 최소 X,Z
@@ -12,6 +12,10 @@ namespace LUP.ES
 
         [SerializeField] private Camera minimapCamera; // 미니맵 카메라
 
+        private void Start()
+        {
+            target = FindAnyObjectByType<PlayerBlackboard>().transform;
+        }
         void Update()
         {
             if (!target) return;

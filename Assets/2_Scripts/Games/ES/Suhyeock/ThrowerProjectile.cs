@@ -21,7 +21,6 @@ namespace LUP.ES
 
     private void OnCollisionEnter(Collision collision)
     {
-        Debug.Log("ThrowerProjectile OnCollisionEnter");
         if (collision.gameObject.CompareTag("Player"))
             return;
         ApplyRadialDamage();

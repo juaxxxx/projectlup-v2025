@@ -527,7 +527,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4a29dc70e39221945a5c122f26f624d9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Player: {fileID: 127190287}
   SpawnPoints:
   - {fileID: 161768135}
   - {fileID: 697842887}
@@ -2268,6 +2267,8 @@ MonoBehaviour:
   StageKind: 6
   RuntimeData:
     filename: 
+    playerID: 0
+    weaponID: 0
   DataList: []
   ESInven:
     filename: 
@@ -16362,6 +16363,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6092301132668226899, guid: 354eff4c57f3531498de5d50dec295a1, type: 3}
+      propertyPath: playerSpawner
+      value: 
+      objectReference: {fileID: 36758272}
     - target: {fileID: 6092301132668226899, guid: 354eff4c57f3531498de5d50dec295a1, type: 3}
       propertyPath: extractionShooterStage
       value: 

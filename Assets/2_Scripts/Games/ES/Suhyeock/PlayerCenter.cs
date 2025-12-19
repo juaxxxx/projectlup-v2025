@@ -18,10 +18,10 @@ namespace LUP.ES
         private Dictionary<int, GameObject> playerDictionary;
         private GameObject currentCharacterInstance;
 
+        public PlayerSpawner playerSpawner;
 
         private void Awake()
         {
-            extractionShooterStage = FindAnyObjectByType<ExtractionShooterStage>();
             // 게임 시작 시 리스트를 딕셔너리로 변환 (최적화)
             playerDictionary = new Dictionary<int, GameObject>();
 
@@ -38,11 +38,15 @@ namespace LUP.ES
 
         public void SpawnPlayer()
         {
+            Debug.Log("SpawnPlayer");
+            extractionShooterStage = StageManager.Instance.GetCurrentStage() as ExtractionShooterStage;
+
             int playerID = extractionShooterStage.RuntimeData.PlayerID;
             int weaponID = extractionShooterStage.RuntimeData.WeaponID;
             if (playerDictionary.TryGetValue(playerID, out GameObject prefabToSpawn))
             {
-                currentCharacterInstance = Instantiate(prefabToSpawn, Vector3.zero, Quaternion.identity);
+                Transform spawnPoint = playerSpawner.GetPlayerSpawnPoint();
+                currentCharacterInstance = Instantiate(prefabToSpawn, spawnPoint.position, spawnPoint.rotation);
                 PlayerBlackboard playerBlackboard =  currentCharacterInstance.GetComponent<PlayerBlackboard>();
                 if (playerBlackboard != null)
                 {

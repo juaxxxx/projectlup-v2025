@@ -16,12 +16,7 @@ namespace LUP.ES
         {
             if (weapon != null)
             {
-                Debug.Log("OnAttackStart");
                 weapon.Attack();
-            }
-            else
-            {
-                Debug.Log("weapon != null");
             }
         }
 

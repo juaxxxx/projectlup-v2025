@@ -13,7 +13,7 @@ namespace LUP.ES
         void Start()
         {
             blackboard = GetComponent<PlayerBlackboard>();
-            blackboard.animator.SetLayerWeight(1, 1);
+            blackboard.animator.SetLayerWeight(1, 0);
         }
 
         // Update is called once per frame
@@ -22,15 +22,18 @@ namespace LUP.ES
             if (blackboard.healthComponent.isDead == true)
                 return;
             UpdateAnimation();
-            //if (blackboard.weapon.state == WeaponState.ATTACKING ||
-            //    blackboard.weapon.state == WeaponState.RELOADING ||
-            //    blackboard.moveState == MoveState.IDLE)
-            //{
-            //}
-            
-            Vector3 targetPosition = spine.transform.position + transform.forward * 10f;
-            spine.transform.LookAt(targetPosition);
-            spine.Rotate(spineOffset);
+            if (!blackboard.healthComponent.isDead)
+            {
+                if (blackboard.weapon.state == WeaponState.ATTACKING ||
+                    blackboard.weapon.state == WeaponState.RELOADING ||
+                    blackboard.moveState == MoveState.IDLE || blackboard.weapon.weaponItem.data.weaponType == WeaponType.Ranged)
+                {
+                    Vector3 targetPosition = spine.transform.position + transform.forward * 10f;
+                    spine.transform.LookAt(targetPosition);
+                    spine.Rotate(spineOffset);
+                }
+            }
+
         }
 
         void UpdateAnimation()
@@ -45,10 +48,13 @@ namespace LUP.ES
             blackboard.animator.SetFloat("InputX", localMove.x, 0.1f, Time.deltaTime);
             blackboard.animator.SetFloat("InputY", localMove.z, 0.1f, Time.deltaTime);
 
-            if (blackboard.weapon.state == WeaponState.ATTACKING ||
+            if (blackboard.healthComponent.isDead)
+            {
+                blackboard.animator.SetLayerWeight(1, 0);
+            }
+            else if (blackboard.weapon.state == WeaponState.ATTACKING ||
                 blackboard.weapon.state == WeaponState.RELOADING ||
-                blackboard.moveState == MoveState.MOVING ||
-                blackboard.moveState == MoveState.IDLE)
+                blackboard.moveState == MoveState.IDLE || blackboard.weapon.weaponItem.data.weaponType == WeaponType.Ranged)
             {
                 blackboard.animator.SetLayerWeight(1, 1);
             }

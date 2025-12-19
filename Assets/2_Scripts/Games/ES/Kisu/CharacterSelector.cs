@@ -4,12 +4,14 @@ namespace LUP.ES
 {
     public class CharacterSelector : MonoBehaviour
     {
-        public ExtractionShooterStage extractionShooterStage;
+        ExtractionShooterStage extractionShooterStage;
         public GameObject[] characters;
         private int currentIndex = 0;
 
-        void Start()
+        public void Init()
         {
+            extractionShooterStage = StageManager.Instance.GetCurrentStage() as ExtractionShooterStage;
+            currentIndex = extractionShooterStage.RuntimeData.PlayerID;
             switch (currentIndex)
             {
                 case 0:
@@ -27,8 +29,13 @@ namespace LUP.ES
                 default:
                     break;
             }
-            currentIndex = PlayerPrefs.GetInt("SelectedCharacterIndex", 0);
             ShowCharacter(currentIndex);
+        }
+        void Start()
+        {
+            
+            //currentIndex = PlayerPrefs.GetInt("SelectedCharacterIndex", 0);
+            
         }
 
         public void NextCharacter()
