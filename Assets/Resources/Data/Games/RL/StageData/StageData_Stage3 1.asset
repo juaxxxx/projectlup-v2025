@@ -10,10 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6b2a8fe0aa6a39a4c951130d7868e4cf, type: 3}
-  m_Name: StageData_Stage20
+  m_Name: StageData_Stage3 1
   m_EditorClassIdentifier: 
   StageName: Stage3
-  roomprefab: {fileID: 5892875016011890028, guid: 6a3fe74acabaecb45a3c8a76f7d3ebab, type: 3}
-  playerSpawn: {x: 1, y: 3}
-  enemySpawn: []
+  roomprefab: {fileID: 4316829406320920912, guid: fe61f40312a104a42af78b5253f462b3, type: 3}
+  playerSpawnPoint: {x: 0, y: 0}
+  enemySpawn:
+  - enemy: {fileID: 11400000, guid: 888621de1925e2141956ed167455a64a, type: 2}
+    gridPos: {x: 0, y: 0}
   obstacles: []
