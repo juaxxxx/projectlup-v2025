@@ -106,7 +106,7 @@ namespace LUP
             return dataList;
         }
 
-        private void LoadAssetBundles()
+        public void LoadAssetBundles()
         {
             {
                 AB_Video = AssetBundle.LoadFromFile(Path.Combine(Application.persistentDataPath, Path.Combine("LUP/assetbundles", "videos")));

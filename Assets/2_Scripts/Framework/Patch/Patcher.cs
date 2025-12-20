@@ -67,7 +67,7 @@ namespace LUP
             switch (assetbundlekind)
             {
                 case Define.AssetBundleKind.Video:
-                    filename = "video";
+                    filename = "videos";
                     break;
                 case Define.AssetBundleKind.Audio:
                     filename = "audio";
@@ -310,6 +310,8 @@ namespace LUP
 
             // 5. 버젼 저장
             yield return SaveVersions();
+
+            ResourceManager.Instance.LoadAssetBundles();
             Debug.Log("[Patcher] 패치 플로우 완료");
         }
 
