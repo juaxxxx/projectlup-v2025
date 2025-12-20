@@ -2,22 +2,16 @@
 
 namespace LUP.Define
 {
-    public enum VideoResourceType
-    {
-        Sample,
-    }
-    public enum SoundBGMResourceType
-    {
-        Sample,
-    }
-    public enum SoundSFXResourceType
-    {
-        Sample,
-    }
-
     public enum AssetBundleKind
     {
-        AssetBundle1 =0,
+        Video =0,
+        Audio = 1,
+        Image = 2,
+        VFX = 3,
+        GUI = 4,
+        Model = 5,
+        Shader = 6,
+        Data = 7,
         __MAX,
     }
     /// <summary>

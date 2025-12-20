@@ -66,8 +66,29 @@ namespace LUP
 
             switch (assetbundlekind)
             {
-                case Define.AssetBundleKind.AssetBundle1:
-                    filename = "staticdatas";
+                case Define.AssetBundleKind.Video:
+                    filename = "videos";
+                    break;
+                case Define.AssetBundleKind.Audio:
+                    filename = "audio";
+                    break;
+                case Define.AssetBundleKind.Image:
+                    filename = "image";
+                    break;
+                case Define.AssetBundleKind.VFX:
+                    filename = "vfx";
+                    break;
+                case Define.AssetBundleKind.GUI:
+                    filename = "gui";
+                    break;
+                case Define.AssetBundleKind.Model:
+                    filename = "models";
+                    break;
+                case Define.AssetBundleKind.Shader:
+                    filename = "shaders";
+                    break;
+                case Define.AssetBundleKind.Data:
+                    filename = "data";
                     break;
                 default:
                     Debug.LogWarning($"[Patcher] 정의되지 않은 AssetBundleKind: {assetbundlekind}");
@@ -100,7 +121,7 @@ namespace LUP
                     yield break;
                 }
 
-                string assetBundleDirectory = Path.Combine(Application.dataPath, "Resources/AssetBundles");
+                string assetBundleDirectory = Path.Combine(Application.persistentDataPath, "LUP/assetbundles");
                 if (!Directory.Exists(assetBundleDirectory))
                 {
                     Directory.CreateDirectory(assetBundleDirectory);
@@ -168,6 +189,8 @@ namespace LUP
                 Debug.Log("[Patcher] 로컬 VersionsData 로드 완료");
             }
 
+            yield return CheckVersions();
+
             yield break;
         }
 
@@ -224,9 +247,37 @@ namespace LUP
         {
             differentlist.Clear();
             // 지금 가진거(versionsdata)랑 서버(tempversionsdata)에 있는 버전 체크
-            if (versionsdata.assetbundlehash != tempversionsdata.assetbundlehash)
+            if (versionsdata.Videohash != tempversionsdata.Videohash)
             {
-                differentlist.Add(Define.AssetBundleKind.AssetBundle1);
+                differentlist.Add(Define.AssetBundleKind.Video);
+            }
+            if (versionsdata.Audiohash != tempversionsdata.Audiohash)
+            {
+                differentlist.Add(Define.AssetBundleKind.Audio);
+            }
+            if (versionsdata.Imagehash != tempversionsdata.Imagehash)
+            {
+                differentlist.Add(Define.AssetBundleKind.Image);
+            }
+            if (versionsdata.VFXhash != tempversionsdata.VFXhash)
+            {
+                differentlist.Add(Define.AssetBundleKind.VFX);
+            }
+            if (versionsdata.GUIhash != tempversionsdata.GUIhash)
+            {
+                differentlist.Add(Define.AssetBundleKind.GUI);
+            }
+            if (versionsdata.Modelhash != tempversionsdata.Modelhash)
+            {
+                differentlist.Add(Define.AssetBundleKind.Model);
+            }
+            if (versionsdata.Shaderhash != tempversionsdata.Shaderhash)
+            {
+                differentlist.Add(Define.AssetBundleKind.Shader);
+            }
+            if (versionsdata.Datahash != tempversionsdata.Datahash)
+            {
+                differentlist.Add(Define.AssetBundleKind.Data);
             }
             yield break;
         }
@@ -259,6 +310,8 @@ namespace LUP
 
             // 5. 버젼 저장
             yield return SaveVersions();
+
+            ResourceManager.Instance.LoadAssetBundles();
             Debug.Log("[Patcher] 패치 플로우 완료");
         }
 
@@ -275,6 +328,29 @@ namespace LUP
             {
                 //애셋번들들 쭉 확인해야함. for문이랑 enum+딕셔너리 사용예정
             }
+        }
+
+        private IEnumerator CheckVersions()
+        {
+           versionsdata.Videohash = LUP.ResourceManager.Instance.GetAssetBundle(Define.AssetBundleKind.Video).GetHashCode().ToString();
+
+            versionsdata.Audiohash = LUP.ResourceManager.Instance.GetAssetBundle(Define.AssetBundleKind.Audio).GetHashCode().ToString();
+
+            versionsdata.Imagehash = LUP.ResourceManager.Instance.GetAssetBundle(Define.AssetBundleKind.Image).GetHashCode().ToString();
+
+            versionsdata.VFXhash = LUP.ResourceManager.Instance.GetAssetBundle(Define.AssetBundleKind.VFX).GetHashCode().ToString();
+
+            versionsdata.GUIhash = LUP.ResourceManager.Instance.GetAssetBundle(Define.AssetBundleKind.GUI).GetHashCode().ToString();
+
+            versionsdata.Modelhash = LUP.ResourceManager.Instance.GetAssetBundle(Define.AssetBundleKind.Model).GetHashCode().ToString();
+
+            versionsdata.Shaderhash= LUP.ResourceManager.Instance.GetAssetBundle(Define.AssetBundleKind.Shader).GetHashCode().ToString();
+
+            versionsdata.Datahash = LUP.ResourceManager.Instance.GetAssetBundle(Define.AssetBundleKind.Data).GetHashCode().ToString();
+
+            versionsdata.SaveData();
+
+            yield break;
         }
     }
 }

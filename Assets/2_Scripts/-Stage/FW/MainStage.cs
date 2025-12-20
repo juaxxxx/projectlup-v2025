@@ -43,8 +43,8 @@ namespace LUP
 
             if (Input.GetKeyDown(KeyCode.F))
             {
-                versionsdata.assetbundlehash = "1231";
                 QuestManager.Instance.SaveActiveQuests();
+                CheckVersions();
             }
 
             if (Input.GetKeyDown(KeyCode.D))
@@ -132,15 +132,36 @@ namespace LUP
 
         public void PlaySFX()
         {
-            LUP.SoundManager.Instance.PlaySFX(Define.SoundSFXResourceType.Sample);
+            LUP.SoundManager.Instance.PlaySFX("SampleSFX");
         }
         public void PlayBGM()
         {
-            LUP.SoundManager.Instance.PlayBGM(Define.SoundBGMResourceType.Sample);
+            LUP.SoundManager.Instance.PlayBGM("SampleBGM");
         }
         public void StopBGM()
         {
             LUP.SoundManager.Instance.StopBGM();
+        }
+
+        private void CheckVersions()
+        {
+            versionsdata.Videohash = LUP.ResourceManager.Instance.GetAssetBundle(Define.AssetBundleKind.Video).GetHashCode().ToString();
+
+            versionsdata.Audiohash = LUP.ResourceManager.Instance.GetAssetBundle(Define.AssetBundleKind.Audio).GetHashCode().ToString();
+
+            versionsdata.Imagehash = LUP.ResourceManager.Instance.GetAssetBundle(Define.AssetBundleKind.Image).GetHashCode().ToString();
+
+            versionsdata.VFXhash = LUP.ResourceManager.Instance.GetAssetBundle(Define.AssetBundleKind.VFX).GetHashCode().ToString();
+
+            versionsdata.GUIhash = LUP.ResourceManager.Instance.GetAssetBundle(Define.AssetBundleKind.GUI).GetHashCode().ToString();
+
+            versionsdata.Modelhash = LUP.ResourceManager.Instance.GetAssetBundle(Define.AssetBundleKind.Model).GetHashCode().ToString();
+
+            versionsdata.Shaderhash = LUP.ResourceManager.Instance.GetAssetBundle(Define.AssetBundleKind.Shader).GetHashCode().ToString();
+
+            versionsdata.Datahash = LUP.ResourceManager.Instance.GetAssetBundle(Define.AssetBundleKind.Data).GetHashCode().ToString();
+
+            versionsdata.SaveData();
         }
     }
 }

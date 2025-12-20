@@ -62,7 +62,7 @@ namespace LUP
 
         protected override void LoadResources()
         {
-            clip = ResourceManager.Instance.LoadVideoClip(Define.VideoResourceType.Sample);
+            clip = ResourceManager.Instance.LoadVideoClip<VideoClip>("SampleVideo2");
             //resource = ResourceManager.Instance.Load...
         }
 

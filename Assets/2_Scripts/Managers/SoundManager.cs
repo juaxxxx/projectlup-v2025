@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Xml.Linq;
 using UnityEngine;
 
 namespace LUP
@@ -18,9 +19,9 @@ namespace LUP
         private Dictionary<string, List<AudioSource>> activeSFX = new(); //재생중인 효과음 목록
 
         Vector3 zeroVector = Vector3.zero;
-        public void PlayBGM(Define.SoundBGMResourceType bgmtype, bool loop = true)
+        public void PlayBGM(string bgmname, bool loop = true)
         {
-            AudioClip clip = ResourceManager.Instance.LoadAudioBGM(bgmtype);
+            AudioClip clip = ResourceManager.Instance.LoadAudioBGM<AudioClip>(bgmname);
             if (clip == null)
             {
                 Debug.LogWarning($"[SoundManager] BGM not found: {name}");
@@ -37,9 +38,9 @@ namespace LUP
             bgmSource.Stop();
         }
 
-        public void PlaySFX(Define.SoundSFXResourceType sfxtype, GameObject gameobject = null, bool spatial = true)
-        {
-            AudioClip clip = ResourceManager.Instance.LoadAudioSFX(sfxtype);
+        public void PlaySFX(string sfxname, GameObject gameobject = null, bool spatial = true)
+        { 
+            AudioClip clip = ResourceManager.Instance.LoadAudioSFX<AudioClip>(sfxname);
             if (clip == null)
             {
                 Debug.LogWarning($"[SoundManager] SFX not found: {name}");

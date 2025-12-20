@@ -1104,11 +1104,25 @@ MonoBehaviour:
   versionsdata:
     filename: 
     _name: Versions
-    _assetbundlehash: 
+    _Videohash: 
+    _Audiohash: 
+    _Imagehash: 
+    _VFXhash: 
+    _GUIhash: 
+    _Modelhash: 
+    _Shaderhash: 
+    _Datahash: 
   tempversionsdata:
     filename: 
     _name: Versions
-    _assetbundlehash: 
+    _Videohash: 
+    _Audiohash: 
+    _Imagehash: 
+    _VFXhash: 
+    _GUIhash: 
+    _Modelhash: 
+    _Shaderhash: 
+    _Datahash: 
   differentlist: 
 --- !u!4 &988427378
 Transform:
@@ -1178,8 +1192,23 @@ MonoBehaviour:
   versionsdata:
     filename: 
     _name: Versions
-    _assetbundlehash: 
+    _Videohash: 
+    _Audiohash: 
+    _Imagehash: 
+    _VFXhash: 
+    _GUIhash: 
+    _Modelhash: 
+    _Shaderhash: 
+    _Datahash: 
   AB: {fileID: 0}
+  currentQuestListData:
+    filename: 
+    _name: CurrentQuestListData
+    _questNames: []
+    _questamount: 
+  inven:
+    filename: 
+    _serializedSlots: []
 --- !u!4 &1005737955
 Transform:
   m_ObjectHideFlags: 0
@@ -1732,6 +1761,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   assetbundles: []
+  AB_Video: {fileID: 0}
+  AB_Audio: {fileID: 0}
+  AB_Image: {fileID: 0}
+  AB_VFX: {fileID: 0}
+  AB_GUI: {fileID: 0}
+  AB_Model: {fileID: 0}
+  AB_Shader: {fileID: 0}
+  AB_Data: {fileID: 0}
 --- !u!4 &1720753442
 Transform:
   m_ObjectHideFlags: 0
