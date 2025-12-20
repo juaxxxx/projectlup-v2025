@@ -16,6 +16,13 @@ namespace LUP.ES
         void Start()
         {
             mainCam = Camera.main;
+
+            if (target == null)
+            {
+                GameObject player = GameObject.FindGameObjectWithTag("Player");
+                if (player != null)
+                    target = player.transform;
+            }
         }
 
         void Update()

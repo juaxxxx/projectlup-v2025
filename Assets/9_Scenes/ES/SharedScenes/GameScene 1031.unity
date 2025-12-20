@@ -729,7 +729,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ede2cff3cb1cc8842a56c5ef821c04ca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  target: {fileID: 127190298}
+  target: {fileID: 0}
   wallLayer:
     serializedVersion: 2
     m_Bits: 256
@@ -13568,7 +13568,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   TimerText: {fileID: 444370167}
-  TimeLimitMinutes: 2
+  TimeLimitMinutes: 10
 --- !u!114 &1813430733
 MonoBehaviour:
   m_ObjectHideFlags: 0
