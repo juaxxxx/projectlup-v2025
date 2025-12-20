@@ -3,52 +3,78 @@ using UnityEngine.UI;
 
 using TMPro;
 
-public class DisplayableImageBox : MonoBehaviour, IDisplayable
+namespace LUP.RL
 {
-    private string imageName = null;
-    private Sprite image;
-    private TMP_Text numText;
-    public int extraInfo = 0;
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-
-    private void Awake()
+    public class DisplayableImageBox : MonoBehaviour, IDisplayable
     {
-        numText = gameObject.GetComponentInChildren<TMP_Text>();
+        public Image SpriteImageComp;
 
-        if (numText == null)
-            Debug.LogWarning("Cant find Item Image's Text");
+        private string imageName = null;
+        private Sprite sprite;
+        private TMP_Text numText;
+        public int extraInfo = 0;
+        // Start is called once before the first execution of Update after the MonoBehaviour is created
+
+        private void Awake()
+        {
+            numText = gameObject.GetComponentInChildren<TMP_Text>();
+
+            if (numText == null)
+                Debug.LogWarning("Cant find Item Image's Text");
+        }
+        void Start()
+        {
+
+        }
+
+        // Update is called once per frame
+        void Update()
+        {
+
+        }
+
+        public string GetDisplayableName()
+        {
+            return imageName;
+        }
+        public Sprite GetDisplayableImage()
+        {
+            return sprite;
+        }
+        public void SetDisplayableImage(Sprite Inputimage)
+        {
+            sprite = Inputimage;
+
+            if (SpriteImageComp == null)
+            {
+                Image img = gameObject.GetComponent<Image>();
+                img.sprite = sprite;
+                return;
+            }
+            SpriteImageComp.sprite = sprite;
+            //Image img = gameObject.transform.gameObject.GetComponentInChildren<Image>();
+
+            //if (img != null)
+            //    img.sprite = sprite;
+        }
+
+        public void SetDisplayableImageBackGroundColor(Color color)
+        {
+            Image img = gameObject.GetComponent<Image>();
+            if (img != null)
+                img.color = color;
+        }
+
+        public void SetText(string Text)
+        {
+            numText.text = Text;
+        }
+
+        public int GetExtraInfo() { return extraInfo; }
+        public void SetExtraInfo(int Extrainfo) { extraInfo = Extrainfo; }
+
+
     }
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
-    public string GetDisplayableName()
-    {
-        return imageName;
-    }
-    public Sprite GetDisplayableImage()
-    {
-        return image;
-    }
-    public void SetDisplayableImage(Sprite Inputimage)
-    {
-        image = Inputimage;
-
-        Image img = gameObject.GetComponent<Image>();
-
-        if (img != null)
-            img.sprite = image;
-    }
-
-    public int GetExtraInfo() { return extraInfo; }
-    public void SetExtraInfo(int Extrainfo) { extraInfo = Extrainfo; }
-
-
 }
+
+

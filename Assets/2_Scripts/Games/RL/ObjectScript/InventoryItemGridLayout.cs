@@ -12,7 +12,11 @@ namespace LUP.RL
         public GameObject ItemBoxPrefab;
         public int holizonConstrain;
 
+        private EquipData[] InventoryItmes;
+
         private PlatformAdapter platformAdapter;
+
+        private PannelController pannelController = null;
 
         // Start is called once before the first execution of Update after the MonoBehaviour is created
         void Start()
@@ -34,6 +38,8 @@ namespace LUP.RL
 
             FitToParentSize();
 
+            pannelController = FindFirstObjectByType<PannelController>();
+
             return true;
         }
 
@@ -53,7 +59,7 @@ namespace LUP.RL
             LoadInventoryItemData();
         }
 
-        void LoadInventoryItemData()
+        public void LoadInventoryItemData()
         {
             platformAdapter = new PlatformAdapter();
 
@@ -64,33 +70,20 @@ namespace LUP.RL
 
             ClearInventoryGrid();
 
-            ItemData[] InventoryItmes = platformAdapter.GetInventoryItems();
-
+            //ItemData[] InventoryItmes = platformAdapter.GetInventoryItems();
+            InventoryItmes = platformAdapter.GetInventoryEquips();
             for (int i = 0; i < InventoryItmes.Length; i++)
             {
-                if (InventoryItmes[i].itemType == Define.ItemType.Material)
-                    continue;
-
                 GameObject Itembox = Instantiate(ItemBoxPrefab, gameObject.transform);
                 TextImageBtn itemTextImageBtn = Itembox.GetComponent<TextImageBtn>();
                 itemTextImageBtn.SetUseDefaultInteractColor(false);
 
                 if (itemTextImageBtn.Init())
                 {
+                    int index = i;
+
                     itemTextImageBtn.btnBackGroundImage.sprite = InventoryItmes[i].GetDisplayableImage();
-                    Itembox.GetComponent<Image>().sprite = InventoryItmes[i].GetDisplayableImage();
-
-                    //if (InventoryItmes[i].itemType == Define.ItemType.Material)
-                    //{
-                    //    itemTextImageBtn.btnText.SetText(InventoryItmes[i].GetExtraInfo().ToString());
-                    //    itemTextImageBtn.btnText.alignment = TextAlignmentOptions.Right;
-                    //}
- 
-                    //else if (InventoryItmes[i].itemType == Define.ItemType.Material)
-                    //{
-
-                    //}
-                        
+                    itemTextImageBtn.button.onClick.AddListener(() => OnEquipItemBtnClicked(index));
                 }
 
             }
@@ -106,6 +99,20 @@ namespace LUP.RL
                 GameObject child = gridTransform.GetChild(i).gameObject;
                 GameObject.Destroy(child);
             }
+        }
+
+        void OnEquipItemBtnClicked(int index)
+        {
+            if (InventoryItmes.Length == 0)
+                return;
+
+            if (pannelController == null)
+            {
+                pannelController = FindFirstObjectByType<PannelController>();
+            }
+
+            pannelController.PopEquipPanel(InventoryItmes[index], true);
+
         }
 
         // Update is called once per frame

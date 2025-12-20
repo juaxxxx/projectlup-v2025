@@ -13,7 +13,8 @@ namespace LUP.RL
 {
     public class LobbyGameCenter : MonoBehaviour
     {
-        PlatformAdapter platformAdapter;
+        [HideInInspector]
+        public PlatformAdapter platformAdapter;
         //private RoguelikeStage stage;
 
         [SerializeField]

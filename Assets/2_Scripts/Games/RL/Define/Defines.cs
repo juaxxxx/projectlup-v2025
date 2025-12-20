@@ -96,11 +96,22 @@ namespace Roguelike.Define
 
     }
 
-    public enum RLEquipTierType
+    public enum RLEquipPos
     {
-        Weapon = 1,
-        Armor = 2,
-        Shoes = 3
+        None = 0,
+        Hand = 1,
+        Body = 2,
+        Finger = 3,
+        Shorder = 4,
+        Arm = 5,
+        Neck = 6
+    }
+
+    public enum RLItemTier
+    {
+        Common = 1,
+        Rare = 2,
+        Epic = 3
     }
 
     public enum RLItemID
@@ -110,7 +121,12 @@ namespace Roguelike.Define
         Coin = 10003,
 
         Gun_N = 20001,
-        Javelin_N = 20002,
+        Gun_R = 20002,
+        Gun_E = 20003,
+        Javelin_N = 20004,
+        Armor_N = 20005,
+        Armor_R = 20006,
+        Armor_E = 20007,
 
         Max
     }

@@ -20,12 +20,14 @@ namespace LUP.RL
         private Sprite equipImage;
 
         [SerializeField]
-        private int equipTier;
+        private RLItemTier equipTier;
 
         public string equipDescription;
         public EquipStat[] equipStats;
+        public RLEquipPos equipPos = RLEquipPos.None;
 
-        public RLEquipTierType equipType;
+        [HideInInspector]
+        public int inventorySlotKey = -1;
 
         public string GetDisplayableName() { return equipName; }
         public Sprite GetDisplayableImage() { return equipImage; }
@@ -33,8 +35,8 @@ namespace LUP.RL
         public void SetDisplayableImage(Sprite image) { equipImage = image; }
         public void SetItemName(string name) { equipName = name; }
 
-        public int GetExtraInfo() { return equipTier; }
-        public void SetExtraInfo(int tier) { equipTier = tier; }
+        public int GetExtraInfo() { return (int)equipTier; }
+        public void SetExtraInfo(int tier) { equipTier = (RLItemTier)tier; }
     }
 }
 

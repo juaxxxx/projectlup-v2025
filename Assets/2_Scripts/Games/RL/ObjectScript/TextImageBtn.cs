@@ -1,3 +1,4 @@
+using System.Linq;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -27,7 +28,11 @@ namespace LUP.RL
         public bool Init()
         {
             btnBackGroundImage = gameObject.GetComponent<Image>();
-            btnIcon = gameObject.GetComponentInChildren<Image>();
+
+            Image[] images = GetComponentsInChildren<Image>(true);
+            btnIcon = images.FirstOrDefault(img => img.gameObject != gameObject);
+            //btnIcon = gameObject.GetComponentInChildren<Image>();
+
             btnText = gameObject.GetComponentInChildren<TextMeshProUGUI>();
 
             button = gameObject.GetComponent<Button>();
