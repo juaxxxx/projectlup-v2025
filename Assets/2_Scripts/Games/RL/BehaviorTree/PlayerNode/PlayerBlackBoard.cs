@@ -4,7 +4,7 @@ namespace LUP.RL
 {
     public class PlayerBlackBoard : MonoBehaviour
     {
-        public Archer Health { get;  set; }
+        public Archer playercontroller { get;  set; }
         public PlayerMove Move { get;  set; }
         public ShooterComp Shooter { get;  set; }
         public Transform currentRoom;
@@ -14,19 +14,19 @@ namespace LUP.RL
         {
             Move = player.GetComponent<PlayerMove>();
             Shooter = player.GetComponent<ShooterComp>();
-            Health = player.GetComponent<Archer>();
+            playercontroller = player.GetComponent<Archer>();
         }
         public bool isAlive
         {
             get
             {
-                if (Health == null)
+                if (playercontroller == null)
                 {
     
                     return false; 
                 }
           
-                return Health.Adata.currentData.Hp > 0;
+                return playercontroller.RuntimeData.currentData.Hp > 0;
             }
         }
         public Enemy FindClosestEnemy()
@@ -49,7 +49,7 @@ namespace LUP.RL
 
                 if (e == null) continue;
               
-                float dist = Vector3.Distance(Health.transform.position, e.TargetPoint.position);
+                float dist = Vector3.Distance(playercontroller.transform.position, e.TargetPoint.position);
                 if (dist < minDist)
                 {
                     minDist = dist;
@@ -63,7 +63,7 @@ namespace LUP.RL
         {
             currentRoom = room;
         }
-        public bool IsMoving => Health.Adata.currentData.speed > 0;
+        public bool IsMoving => playercontroller.RuntimeData.currentData.speed > 0;
         public bool OnHit = false;
 
 

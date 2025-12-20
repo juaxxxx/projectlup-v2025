@@ -11,8 +11,8 @@ namespace LUP.RL
         private Button button;
         private BuffData buffData;
         private Archer archer;
-
-
+        private PlayerBuff playerBuff;
+        private BuffSelectionUI selectionUI;
         private void Awake()
         {
             ActivateAllComponents();
@@ -49,11 +49,11 @@ namespace LUP.RL
 
 
 
-        public void SetData(BuffData data, Archer target)
+        public void SetData(BuffData data, PlayerBuff buff, BuffSelectionUI ui)
         {
             buffData = data; //어떤버프인지 
-            archer = target; //누구한테 적용할지.
-
+            playerBuff = buff; //누구한테 적용할지.
+            selectionUI = ui;
             if (buffIcon != null)
             {
                 buffIcon.sprite = buffData.GetDisplayableImage();//이미지 갖고오기
@@ -66,10 +66,17 @@ namespace LUP.RL
 
         public void OnClick()
         {
-            if (archer != null && buffData != null)
+            if (playerBuff != null && buffData != null)
             {
-                archer.ApplyBuff(buffData);
+                Debug.Log("클릭");
+                playerBuff.ApplyBuff(buffData);
+                selectionUI.Close();
             }
+
+            //if (archer != null && buffData != null)
+            //{
+            //    archer.ApplyBuff(buffData);
+            //}
 
         }
 

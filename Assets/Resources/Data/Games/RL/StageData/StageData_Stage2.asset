@@ -12,14 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6b2a8fe0aa6a39a4c951130d7868e4cf, type: 3}
   m_Name: StageData_Stage2
   m_EditorClassIdentifier: 
-  StageName: Stage3
+  StageName: Stage2
   roomprefab: {fileID: 4316829406320920912, guid: fe61f40312a104a42af78b5253f462b3, type: 3}
-  playerSpawnPoint: {x: 0, y: 0}
+  playerSpawnPoint: {x: 1, y: 1}
   enemySpawn:
   - enemy: {fileID: 11400000, guid: 888621de1925e2141956ed167455a64a, type: 2}
-    gridPos: {x: 0, y: 0}
+    gridPos: {x: 1, y: 5}
   - enemy: {fileID: 11400000, guid: d095659b069ab0743b08a145097fc21c, type: 2}
-    gridPos: {x: 0, y: 0}
+    gridPos: {x: 1, y: 7}
   obstacles:
   - {x: 5, y: 7}
-  - {x: 5, y: 10}

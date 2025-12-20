@@ -2532,8 +2532,9 @@ GameObject:
   - component: {fileID: 4565055029744188784}
   - component: {fileID: -8916505213670709273}
   - component: {fileID: 3673444283788110230}
+  - component: {fileID: -5526740946226788320}
   m_Layer: 0
-  m_Name: Characater_F003TwoHandSword
+  m_Name: Character_F003TwoHandSword
   m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2613,17 +2614,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5c1bb4dfaf41e634caca09f0901eac8b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CData: {fileID: 11400000, guid: 90f72463a65e4e945a3e69ea6a1ee39e, type: 2}
+  characterTemplate: {fileID: 11400000, guid: 3a2ff84ab95e9554c83e08088f28864c, type: 2}
   levelTable: {fileID: 11400000, guid: 42d5f1bc2635927498039c7f1fc6a69d, type: 2}
-  allBuffs:
-  - {fileID: 11400000, guid: 54e6e3dae78328742aeb2291cf27c713, type: 2}
-  - {fileID: 11400000, guid: 0c3a784d4aa1c854f852eeda7d6407c6, type: 2}
-  - {fileID: 11400000, guid: f7008bd66f0663c4489aa8210f7cbbb2, type: 2}
-  buffSelectionUI: {fileID: 0}
-  optionParent: {fileID: 0}
-  optionButtonPrefab: {fileID: 0}
-  hpbar: {fileID: 0}
-  HpbarPrefab: {fileID: 0}
+  hpbar: {fileID: 1988204788927373329, guid: 9e482a2640f931a429d283a4c86f98be, type: 3}
+  HpbarPrefab: {fileID: 3769882633132983047, guid: 9e482a2640f931a429d283a4c86f98be, type: 3}
   hpbaroffsetY: 5
 --- !u!114 &4569725393367992981
 MonoBehaviour:
@@ -2755,7 +2749,26 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hitcolider: {fileID: 4885234373655859314, guid: 45e6fd756c3ad2a4d812cf3d248bcf67, type: 3}
-  attackRange: 0.5
+--- !u!114 &-5526740946226788320
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6828710996149563988}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a49da543482ed4a47acd27631b6e4162, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  allBuffs:
+  - {fileID: 11400000, guid: 54e6e3dae78328742aeb2291cf27c713, type: 2}
+  - {fileID: 11400000, guid: 0c3a784d4aa1c854f852eeda7d6407c6, type: 2}
+  - {fileID: 11400000, guid: f7008bd66f0663c4489aa8210f7cbbb2, type: 2}
+  buffSelectionUI: {fileID: 0}
+  optionParent: {fileID: 0}
+  optionButtonPrefab: {fileID: 0}
+  archer: {fileID: 0}
 --- !u!1 &6865476572672903943
 GameObject:
   m_ObjectHideFlags: 0

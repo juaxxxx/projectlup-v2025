@@ -1975,9 +1975,8 @@ MonoBehaviour:
     Exp: 0
   expValue: 5
   gridPos: {x: 0, y: 0}
-  HpbarPrefab: {fileID: 3769882633132983047, guid: 9e482a2640f931a429d283a4c86f98be, type: 3}
-  EweaponType: 4
-  hpbaroffsetY: 5
+  hpbarPrefab: {fileID: 0}
+  hpbarOffsetY: 5
   TargetPoint: {fileID: 767932211285487544}
 --- !u!54 &2599112864863162591
 Rigidbody:
@@ -3069,7 +3068,7 @@ Transform:
   m_GameObject: {fileID: 8466814078273725131}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: 0.9711135, z: -0, w: -0.23861817}
-  m_LocalPosition: {x: 0.38, y: 1.3999999, z: 0.704}
+  m_LocalPosition: {x: 0.64, y: 1.3999999, z: 1.19}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

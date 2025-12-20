@@ -38,8 +38,8 @@ namespace LUP.RL
         public void UpdateUi()
         {
             //현재 레벨 경험치
-            int level = archer.Adata.level;
-            int Exp = archer.Adata.xp;
+            int level = archer.RuntimeData.level;
+            int Exp = archer.RuntimeData.xp;
 
             //다음레벨 존재할 경우  필요 경험치 갖고오기 .
             int requirExp = levelTable.levelList[level - 1].RequiredExp;

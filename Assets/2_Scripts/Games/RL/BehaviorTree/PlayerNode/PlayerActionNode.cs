@@ -17,6 +17,7 @@ namespace LUP.RL
         {
             bb = blackboard;
             bt = behaviorTree;
+
         }
 
         public override NodeState Evaluate()
@@ -37,7 +38,7 @@ namespace LUP.RL
             if (bt.GetCurrentAnimState().IsName("Attack") == false)
             {
                 //bb.Shooter.TurnToTarget();
-                RotateHelper.LookAtTarget(bb.Health.transform, target.TargetPoint.transform, 8f);
+                RotateHelper.LookAtTarget(bb.playercontroller.transform, target.TargetPoint.transform, 8f);
                 bt.PlayAnimation(ActionState.Attack, this);
             }
             return NodeState.Success;
@@ -51,7 +52,7 @@ namespace LUP.RL
         public override void OnAnimationInTargetRate()
         {
      
-            bb.Shooter.TryAttack(target.TargetPoint.transform, bb.Health.Adata.currentData.Attack);
+            bb.Shooter.TryAttack(target.TargetPoint.transform, bb.playercontroller.RuntimeData.currentData.Attack);
            
             lastFireTime = Time.time;
         }

@@ -15,7 +15,7 @@ namespace LUP.RL
         public void StartRoulette(Archer owner)
         {
             archer = owner;
-            allBuffs = owner.allBuffs;
+            allBuffs = owner.PlayerBuff.allBuffs;
             StartCoroutine(SpinAll());
         }
 

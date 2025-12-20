@@ -3344,6 +3344,7 @@ GameObject:
   - component: {fileID: 6645526702506752614}
   - component: {fileID: 5459647009846201476}
   - component: {fileID: 4821899344086932619}
+  - component: {fileID: -5405653149114155620}
   m_Layer: 0
   m_Name: Character_M001Gun
   m_TagString: Player
@@ -3409,15 +3410,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5c1bb4dfaf41e634caca09f0901eac8b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CData: {fileID: 11400000, guid: 90f72463a65e4e945a3e69ea6a1ee39e, type: 2}
+  characterTemplate: {fileID: 11400000, guid: 90f72463a65e4e945a3e69ea6a1ee39e, type: 2}
   levelTable: {fileID: 11400000, guid: 42d5f1bc2635927498039c7f1fc6a69d, type: 2}
-  allBuffs:
-  - {fileID: 11400000, guid: 54e6e3dae78328742aeb2291cf27c713, type: 2}
-  - {fileID: 11400000, guid: 0c3a784d4aa1c854f852eeda7d6407c6, type: 2}
-  - {fileID: 11400000, guid: f7008bd66f0663c4489aa8210f7cbbb2, type: 2}
-  buffSelectionUI: {fileID: 0}
-  optionParent: {fileID: 0}
-  optionButtonPrefab: {fileID: 0}
+  hpbar: {fileID: 1988204788927373329, guid: 9e482a2640f931a429d283a4c86f98be, type: 3}
+  HpbarPrefab: {fileID: 3769882633132983047, guid: 9e482a2640f931a429d283a4c86f98be, type: 3}
+  hpbaroffsetY: 5
 --- !u!114 &3014340134208260101
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3482,6 +3479,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fireSystem: {fileID: 7612875603782973029}
+  weapon: {fileID: 4821899344086932619}
+  meleeWeapon: {fileID: 0}
 --- !u!114 &7612875603782973029
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3510,6 +3509,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentRoom: {fileID: 0}
+  attackRanage: 200
   OnHit: 0
 --- !u!54 &5459647009846201476
 Rigidbody:
@@ -3554,6 +3554,23 @@ MonoBehaviour:
   weaponHandPos: {fileID: 4303303937723777412}
   weaponPos: {x: 0, y: 0.023, z: 0.037}
   rotate: {x: -165.243, y: 0, z: 90}
+--- !u!114 &-5405653149114155620
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7307492492725346322}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a49da543482ed4a47acd27631b6e4162, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  allBuffs:
+  - {fileID: 11400000, guid: 54e6e3dae78328742aeb2291cf27c713, type: 2}
+  - {fileID: 11400000, guid: 0c3a784d4aa1c854f852eeda7d6407c6, type: 2}
+  - {fileID: 11400000, guid: f7008bd66f0663c4489aa8210f7cbbb2, type: 2}
+  archer: {fileID: 0}
 --- !u!1 &7448991517649501306
 GameObject:
   m_ObjectHideFlags: 0

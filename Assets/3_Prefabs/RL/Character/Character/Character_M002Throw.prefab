@@ -3421,6 +3421,7 @@ GameObject:
   - component: {fileID: 1265453785419522939}
   - component: {fileID: 7620406225046536264}
   - component: {fileID: 7385305111531072378}
+  - component: {fileID: -2103847137723096964}
   m_Layer: 0
   m_Name: Character_M002Throw
   m_TagString: Player
@@ -3508,15 +3509,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5c1bb4dfaf41e634caca09f0901eac8b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CData: {fileID: 11400000, guid: 90f72463a65e4e945a3e69ea6a1ee39e, type: 2}
+  characterTemplate: {fileID: 11400000, guid: 6108676454b49f34aa48d6e6a373e816, type: 2}
   levelTable: {fileID: 11400000, guid: 42d5f1bc2635927498039c7f1fc6a69d, type: 2}
-  allBuffs:
-  - {fileID: 11400000, guid: 54e6e3dae78328742aeb2291cf27c713, type: 2}
-  - {fileID: 11400000, guid: 0c3a784d4aa1c854f852eeda7d6407c6, type: 2}
-  - {fileID: 11400000, guid: f7008bd66f0663c4489aa8210f7cbbb2, type: 2}
-  buffSelectionUI: {fileID: 0}
-  optionParent: {fileID: 0}
-  optionButtonPrefab: {fileID: 0}
+  hpbar: {fileID: 1988204788927373329, guid: 9e482a2640f931a429d283a4c86f98be, type: 3}
+  HpbarPrefab: {fileID: 3769882633132983047, guid: 9e482a2640f931a429d283a4c86f98be, type: 3}
+  hpbaroffsetY: 5
 --- !u!114 &6423186453273034743
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3558,7 +3555,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 21c1e07004dc0504abb42c4aa24bb6e5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fireSystem: {fileID: 0}
+  fireSystem: {fileID: 7871019758126876951}
+  weapon: {fileID: 7385305111531072378}
+  meleeWeapon: {fileID: 0}
 --- !u!114 &7871019758126876951
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3587,6 +3586,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentRoom: {fileID: 0}
+  attackRanage: 200
   OnHit: 0
 --- !u!54 &7620406225046536264
 Rigidbody:
@@ -3631,6 +3631,23 @@ MonoBehaviour:
   weaponHandPos: {fileID: 1029926835808247130}
   weaponPos: {x: 0, y: -0.01, z: 0.036}
   rotate: {x: 0, y: 0, z: 0}
+--- !u!114 &-2103847137723096964
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7541701515102328502}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a49da543482ed4a47acd27631b6e4162, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  allBuffs:
+  - {fileID: 11400000, guid: 54e6e3dae78328742aeb2291cf27c713, type: 2}
+  - {fileID: 11400000, guid: 0c3a784d4aa1c854f852eeda7d6407c6, type: 2}
+  - {fileID: 11400000, guid: f7008bd66f0663c4489aa8210f7cbbb2, type: 2}
+  archer: {fileID: 0}
 --- !u!1 &7572996501368188206
 GameObject:
   m_ObjectHideFlags: 0

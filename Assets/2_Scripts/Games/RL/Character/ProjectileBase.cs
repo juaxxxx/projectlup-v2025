@@ -35,6 +35,7 @@ public class ProjectileBase : MonoBehaviour
         }
         else  if(player)
         {
+            player.TakeDamage(damage);
             Destroy(gameObject);
         }
 

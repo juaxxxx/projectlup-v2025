@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class ArcherData
+public class RunTimeData
 {
     public BaseStats intrinscData;
     public BaseStats currentData;
@@ -8,14 +8,12 @@ public class ArcherData
     public int level;
 
 
-    public ArcherData(RLCharacterData data, int customHp, int CustomAttack)
+    public RunTimeData(RLCharacterData data)
     {
         intrinscData = data.stats;
         currentData = data.stats;
-        currentData.Hp = customHp;
-        currentData.Attack = CustomAttack;
         xp = 0;
-         level = 1;
+        level = 1;
     }
 }
 

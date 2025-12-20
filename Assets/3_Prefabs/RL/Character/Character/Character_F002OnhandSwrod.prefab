@@ -2934,10 +2934,12 @@ GameObject:
   - component: {fileID: 3156615683441192991}
   - component: {fileID: 2299724600220663533}
   - component: {fileID: 4222652525464850397}
-  - component: {fileID: 2522017712511309156}
   - component: {fileID: 4221682349497372370}
   - component: {fileID: 2305048193415842416}
   - component: {fileID: 1136979278261397205}
+  - component: {fileID: 1492278805404979299}
+  - component: {fileID: 4177846242513852398}
+  - component: {fileID: 3234553446508412311}
   m_Layer: 0
   m_Name: Character_F002OnhandSwrod
   m_TagString: Player
@@ -3024,15 +3026,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5c1bb4dfaf41e634caca09f0901eac8b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CData: {fileID: 11400000, guid: 90f72463a65e4e945a3e69ea6a1ee39e, type: 2}
+  characterTemplate: {fileID: 11400000, guid: 4868606cb27807c4896c5c5508f9aafb, type: 2}
   levelTable: {fileID: 11400000, guid: 42d5f1bc2635927498039c7f1fc6a69d, type: 2}
-  allBuffs:
-  - {fileID: 11400000, guid: 54e6e3dae78328742aeb2291cf27c713, type: 2}
-  - {fileID: 11400000, guid: 0c3a784d4aa1c854f852eeda7d6407c6, type: 2}
-  - {fileID: 11400000, guid: f7008bd66f0663c4489aa8210f7cbbb2, type: 2}
-  buffSelectionUI: {fileID: 0}
-  optionParent: {fileID: 0}
-  optionButtonPrefab: {fileID: 0}
+  hpbar: {fileID: 1988204788927373329, guid: 9e482a2640f931a429d283a4c86f98be, type: 3}
+  HpbarPrefab: {fileID: 3769882633132983047, guid: 9e482a2640f931a429d283a4c86f98be, type: 3}
+  hpbaroffsetY: 5
 --- !u!114 &3156615683441192991
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3075,21 +3073,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fireSystem: {fileID: 0}
---- !u!114 &2522017712511309156
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7762829838312188981}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8ba776602c7677c41ae13a43c191de01, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  spawnPoint: {fileID: 5317526557993256219}
-  bulletData: {fileID: 11400000, guid: d53534de4136a0947b53cbb669fc0c67, type: 2}
-  fireDelay: 1
+  weapon: {fileID: 1136979278261397205}
+  meleeWeapon: {fileID: 1492278805404979299}
 --- !u!114 &4221682349497372370
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3103,6 +3088,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentRoom: {fileID: 0}
+  attackRanage: 2
   OnHit: 0
 --- !u!54 &2305048193415842416
 Rigidbody:
@@ -3147,6 +3133,51 @@ MonoBehaviour:
   weaponHandPos: {fileID: 8211709231975221779}
   weaponPos: {x: 0.028, y: -0.019, z: 0.019}
   rotate: {x: 0, y: 0, z: 65.213}
+--- !u!114 &1492278805404979299
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7762829838312188981}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ded84a7a93447164591c93089a74f9f2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hitcolider: {fileID: 7603002556572181580, guid: c76121a0fd643a0499169a64a0e4b423, type: 3}
+--- !u!114 &4177846242513852398
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7762829838312188981}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a49da543482ed4a47acd27631b6e4162, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  allBuffs:
+  - {fileID: 11400000, guid: 54e6e3dae78328742aeb2291cf27c713, type: 2}
+  - {fileID: 11400000, guid: 0c3a784d4aa1c854f852eeda7d6407c6, type: 2}
+  - {fileID: 11400000, guid: f7008bd66f0663c4489aa8210f7cbbb2, type: 2}
+  archer: {fileID: 0}
+--- !u!114 &3234553446508412311
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7762829838312188981}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8ba776602c7677c41ae13a43c191de01, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  spawnPoint: {fileID: 0}
+  bulletData: {fileID: 11400000, guid: d53534de4136a0947b53cbb669fc0c67, type: 2}
+  fireDelay: 1
 --- !u!1 &7769106980362956403
 GameObject:
   m_ObjectHideFlags: 0

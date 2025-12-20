@@ -17,10 +17,18 @@ MonoBehaviour:
   characterPrefab: {fileID: 7762829838312188981, guid: cdb5df7c1bd875a45a3007a738cfffe0, type: 3}
   weaponPrefab: {fileID: 2209012285795874987, guid: c76121a0fd643a0499169a64a0e4b423, type: 3}
   weaponProjecTile: {fileID: 0}
+  projecTileSpeed: 0
   stats:
     Hp: 110
     Attack: 8
     speed: 3
-    MaxHp: 0
+    MaxHp: 110
     Exp: 0
+  EquipItems:
+    Weapon: 0
+    Helmet: 0
+    Armor: 0
+    Gloves: 0
+    Shoes: 0
+    Accessory: 0
   characterType: 3

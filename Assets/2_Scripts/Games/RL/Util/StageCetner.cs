@@ -177,7 +177,7 @@ namespace LUP.RL
             {
                 //@TODO
                 Debug.Log($"false {currentSpawner.spawnedEnemies.Count}");
-                return true;
+                return false;
             }
         }
         public int GetStageNum()

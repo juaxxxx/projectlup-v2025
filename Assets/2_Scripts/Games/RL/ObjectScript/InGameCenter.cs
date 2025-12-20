@@ -36,6 +36,8 @@ namespace LUP.RL
         private FollowCamera followCamera;
 
         public bool gameClear = false;
+        [SerializeField] private BuffSelectionUI buffUI;
+        private PlayerBuff playerBuff;
 
         public Action<GameObject> OnPlayerCharacterSpawned;
 
@@ -207,7 +209,11 @@ namespace LUP.RL
             Quaternion rot = Quaternion.identity;
 
             GameObject character = Instantiate(characterData.CharacterPrefab, pos, rot);
-
+            playerBuff = character.GetComponent<PlayerBuff>();
+            if (playerBuff && buffUI)
+            {
+                playerBuff.OnRequestBuffUI += buffUI.Bind;
+            }
             WeaponHand weaponHand = character.GetComponent<WeaponHand>();
             FireSystem fireSystem = character.GetComponent<FireSystem>();
             MeleeSystem meleeSystem = character.GetComponent<MeleeSystem>();
@@ -257,7 +263,7 @@ namespace LUP.RL
             }
 
             controlledPlayer = character.gameObject.GetComponent<Archer>();
-
+          
             if (controlledPlayer == null)
                 UnityEngine.Debug.LogError("Fail to Find Player!!");
         }
@@ -279,7 +285,7 @@ namespace LUP.RL
             OwningBuffListScrollPanel buffScrollPanel = inGamePopupPanels.GetComponentInChildren<OwningBuffListScrollPanel>(true);
             buffScrollPanel.SetScrollPanelType(ScrollRect.MovementType.Elastic, LayoutDirection.Grid, TextAnchor.UpperLeft);
 
-            IDisplayable[] buffs = controlledPlayer.GetActiveBufflist().ToArray();
+            IDisplayable[] buffs = controlledPlayer.PlayerBuff.GetActiveBufflist().ToArray();
 
             gamePausePanel.SetActive(true);
             buffScrollPanel.OpenPanel(buffs, DisplayableDataType.ItemData);

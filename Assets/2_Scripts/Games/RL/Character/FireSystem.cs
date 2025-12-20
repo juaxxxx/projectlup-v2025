@@ -15,6 +15,7 @@ namespace LUP.RL
             {
                 return;
             }
+            Debug.Log("АјАн");
             var dir = (target.position - spawnPoint.position).normalized;
             var rot = Quaternion.LookRotation(dir);
             //Instantiate(bulletData.bulletPrefab, spawnPoint.position, rot);

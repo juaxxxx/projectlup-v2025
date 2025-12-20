@@ -788,6 +788,8 @@ GameObject:
   - component: {fileID: 4660733144224164347}
   - component: {fileID: 7953697844311286287}
   - component: {fileID: 3957208319597408791}
+  - component: {fileID: -2772922325824663299}
+  - component: {fileID: -8699862135374565694}
   m_Layer: 0
   m_Name: Character_F001Magic
   m_TagString: Player
@@ -874,15 +876,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5c1bb4dfaf41e634caca09f0901eac8b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CData: {fileID: 11400000, guid: 90f72463a65e4e945a3e69ea6a1ee39e, type: 2}
+  characterTemplate: {fileID: 11400000, guid: 18b9025c7b57fe34fad10c348e8ac6a3, type: 2}
   levelTable: {fileID: 11400000, guid: 42d5f1bc2635927498039c7f1fc6a69d, type: 2}
-  allBuffs:
-  - {fileID: 11400000, guid: 54e6e3dae78328742aeb2291cf27c713, type: 2}
-  - {fileID: 11400000, guid: 0c3a784d4aa1c854f852eeda7d6407c6, type: 2}
-  - {fileID: 11400000, guid: f7008bd66f0663c4489aa8210f7cbbb2, type: 2}
-  buffSelectionUI: {fileID: 0}
-  optionParent: {fileID: 0}
-  optionButtonPrefab: {fileID: 0}
+  hpbar: {fileID: 1988204788927373329, guid: 9e482a2640f931a429d283a4c86f98be, type: 3}
+  HpbarPrefab: {fileID: 3769882633132983047, guid: 9e482a2640f931a429d283a4c86f98be, type: 3}
+  hpbaroffsetY: 5
 --- !u!114 &8153237861961484452
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -924,7 +922,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 21c1e07004dc0504abb42c4aa24bb6e5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fireSystem: {fileID: 0}
+  fireSystem: {fileID: 1663221855330172011}
+  weapon: {fileID: 3957208319597408791}
+  meleeWeapon: {fileID: 0}
 --- !u!114 &1663221855330172011
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -953,6 +953,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentRoom: {fileID: 0}
+  attackRanage: 200
   OnHit: 0
 --- !u!54 &7953697844311286287
 Rigidbody:
@@ -994,9 +995,41 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   weaponType: 5
-  weaponHandPos: {fileID: 0}
+  weaponHandPos: {fileID: 4803918700160509372}
   weaponPos: {x: 0, y: 0, z: 0}
   rotate: {x: 0, y: 0, z: 0}
+--- !u!114 &-2772922325824663299
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2023117235042773731}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8ba776602c7677c41ae13a43c191de01, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  spawnPoint: {fileID: 8355988835557041488}
+  bulletData: {fileID: 11400000, guid: d53534de4136a0947b53cbb669fc0c67, type: 2}
+  fireDelay: 1
+--- !u!114 &-8699862135374565694
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2023117235042773731}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a49da543482ed4a47acd27631b6e4162, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  allBuffs:
+  - {fileID: 11400000, guid: 54e6e3dae78328742aeb2291cf27c713, type: 2}
+  - {fileID: 11400000, guid: 0c3a784d4aa1c854f852eeda7d6407c6, type: 2}
+  - {fileID: 11400000, guid: f7008bd66f0663c4489aa8210f7cbbb2, type: 2}
+  archer: {fileID: 0}
 --- !u!1 &2133656600814001790
 GameObject:
   m_ObjectHideFlags: 0

@@ -34,8 +34,6 @@ namespace LUP.RL
             adapter = new PlatformAdapter();
             adapter.LinkToPlatform();
 
-            //·ê·¿¿¡  ¹öÇÁ¸®½ºÆ®¿¬°á
-            //buffList.AddRange(adapter.gainableBuffDatas);
         }
         void OnButtonClick()
         {
@@ -86,7 +84,6 @@ namespace LUP.RL
                     isSpinning = false;
                     isResultReady = true;
                     spinButton.interactable = true;
-                    Debug.Log("È¸Àü ³¡");
                     SelectRandomBuff();
                 }
             }
@@ -101,12 +98,14 @@ namespace LUP.RL
             Debug.Log($"´çÃ·: {selectedBuff.buffName}");
             resultPanel.SetActive(true);
             RoulletImagel.SetActive(false);
-            Time.timeScale = 1;
             StartCoroutine(CloseResultAfterDelay(2f));
+            Time.timeScale = 1;
+       
         }
+      
         IEnumerator CloseResultAfterDelay(float delay)
         {
-            yield return new WaitForSeconds(delay);
+            yield return new WaitForSecondsRealtime(delay);
             RoulletPanel.SetActive(false);
             Destroy(gameObject);
         }

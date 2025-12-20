@@ -71,24 +71,24 @@ namespace LUP
                         // 같은 ID 아이템이 이미 있으면 병합 (공유 아이템 케이스)
                         if (itemDatabase.ContainsKey(itemData.ItemID))
                         {
-                            Debug.Log($"[ItemManager] 아이템 병합: {itemData.ItemName} (ID: {itemData.ItemID})");
+                            //Debug.Log($"[ItemManager] 아이템 병합: {itemData.ItemName} (ID: {itemData.ItemID})");
                             itemDatabase[itemData.ItemID].MergeWith(itemData);
                         }
                         else
                         {
                             itemDatabase[itemData.ItemID] = itemData;
-                            Debug.Log($"[ItemManager] 아이템 추가: {itemData.ItemName} (ID: {itemData.ItemID})");
+                            //Debug.Log($"[ItemManager] 아이템 추가: {itemData.ItemName} (ID: {itemData.ItemID})");
                         }
                         loadedCount++;
                     }
                     else
                     {
                         skippedCount++;
-                        Debug.LogWarning($"[ItemManager] IItemStaticData 인터페이스를 구현하지 않은 타입 발견: {staticData?.GetType().Name ?? "null"}");
+                        //Debug.LogWarning($"[ItemManager] IItemStaticData 인터페이스를 구현하지 않은 타입 발견: {staticData?.GetType().Name ?? "null"}");
                     }
                 }
 
-                Debug.Log($"[ItemManager] {loader.name} 처리 완료 - 로드: {loadedCount}, 건너뜀: {skippedCount}");
+                //Debug.Log($"[ItemManager] {loader.name} 처리 완료 - 로드: {loadedCount}, 건너뜀: {skippedCount}");
 
                 yield return null; // 프레임 분산
             }
