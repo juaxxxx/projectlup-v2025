@@ -64,13 +64,14 @@ namespace LUP.DSG
         private DataCenter dataCenter;
 
         public float iconSize = 1000f;
-
         public static BattleSystem Instance { get; private set; }
         private Dictionary<string, (Color Color, float Score)> deadScores = new();
         private List<(string Name, int CharId, Sprite Icon, float Score, GameObject Prefab)> deadCharacterData = new();
 
         public event Action<Character> onStartAttack;
         public event Action<Character> onStartSkill;
+
+        List<ObjectFader> fadedList = new List<ObjectFader>();
 
         void Awake()
         {
@@ -334,6 +335,8 @@ namespace LUP.DSG
             else
             {
                 List<LineupSlot> targetslot = targetSelector.SelectEnemyTargets(currentChar, 1);
+                CollectFadedTargets(currentChar.GetComponentInParent<LineupSlot>(), targetslot);
+                TurnOnFader();
                 currentChar.BattleComp.Attack(targetslot);
                 StartCoroutine(WaitForAttackEnd(currentChar));
                 onStartAttack?.Invoke(currentChar);
@@ -516,7 +519,7 @@ namespace LUP.DSG
         private IEnumerator WaitForAttackEnd(Character currentChar)
         {
             yield return new WaitWhile(() => currentChar.BattleComp.isAttacking);
-
+            ClearFadedList();
             if (currentTurnIndex < sequenceImage.Count && sequenceImage[currentTurnIndex] != null)
             {
                 sequenceImage[currentTurnIndex].SetActive(false);
@@ -649,6 +652,8 @@ namespace LUP.DSG
             Director.FocusOnTarget(cameraOrigin.position);
 
             List<LineupSlot> targetList = targetSelector.SelectEnemyTargets(currentChar, currentChar.BattleComp.skillInfo.targetCount);
+            CollectFadedTargets(currentSlot, targetList);
+            TurnOnFader();
             currentChar.BattleComp.Skill(targetList);
             StartCoroutine(WaitForAttackEnd(currentChar));
         }
@@ -726,6 +731,73 @@ namespace LUP.DSG
                 return false;
             }
             return true;
+        }
+
+        void CollectFadedTargets(LineupSlot attacker, List<LineupSlot> targets)
+        {
+            fadedList.Clear();
+
+            foreach (GameObject slot in friendlySlots)
+            {
+                if (!slot.GetComponentInChildren<Character>()) continue;
+
+                LineupSlot curSlot = slot.GetComponent<LineupSlot>();
+                if (curSlot == attacker) continue;
+
+                bool isContained = false;
+                foreach (LineupSlot target in targets)
+                {
+                    if (curSlot == target)
+                    {
+                        isContained = true;
+                        break;
+                    }
+                }
+                if (isContained) continue;
+
+                ObjectFader[] faders = curSlot.GetComponentsInChildren<ObjectFader>();
+                fadedList.AddRange(faders);
+            }
+
+            foreach (GameObject slot in enemySlots)
+            {
+                if (!slot.GetComponentInChildren<Character>()) continue;
+
+                LineupSlot curSlot = slot.GetComponent<LineupSlot>();
+                if (curSlot == attacker) continue;
+
+                bool isContained = false;
+                foreach (LineupSlot target in targets)
+                {
+                    if (curSlot == target)
+                    {
+                        isContained = true;
+                        break;
+                    }
+                }
+                if (isContained) continue;
+
+                ObjectFader[] faders = curSlot.GetComponentsInChildren<ObjectFader>();
+                fadedList.AddRange(faders);
+            }
+        }
+
+        void TurnOnFader()
+        {
+            foreach(ObjectFader fader in fadedList)
+            {
+                fader.doFade = true;
+            }
+        }
+
+        void ClearFadedList()
+        {
+            foreach (ObjectFader fader in fadedList)
+            {
+                fader.doFade = false;
+            }
+
+            fadedList.Clear();
         }
     }
 }

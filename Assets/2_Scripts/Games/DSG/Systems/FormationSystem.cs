@@ -223,12 +223,12 @@ namespace LUP.DSG
             DeckStrategyRuntimeData runtimeData = (DeckStrategyRuntimeData)stage.RuntimeData;
             if (runtimeData == null || runtimeData.Teams == null) return;
 
-            for (int i = 0; i < slots.Length; ++i)
-            {
-                LineupSlot slot = slots[i].GetComponent<LineupSlot>();
-                if (runtimeData.Teams[selectedTeamIndex] == null) runtimeData.Teams[selectedTeamIndex] = new Team();
-                runtimeData.Teams[selectedTeamIndex] = selectedTeam;
-            }
+            if (runtimeData.Teams[selectedTeamIndex] == null) runtimeData.Teams[selectedTeamIndex] = new Team();
+            runtimeData.Teams[selectedTeamIndex] = selectedTeam;
+            //for (int i = 0; i < slots.Length; ++i)
+            //{
+            //    LineupSlot slot = slots[i].GetComponent<LineupSlot>();
+            //}
         }
 
         public AttributeTypeImage GetTypeByAttributeImage(EAttributeType type)
