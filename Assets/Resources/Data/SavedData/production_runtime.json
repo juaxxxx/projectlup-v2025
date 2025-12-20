@@ -2,7 +2,7 @@
     "filename": "production_runtime.json",
     "playerId": 0,
     "hasSavedGame": true,
-    "buildingId": 6,
+    "buildingId": 7,
     "buildingInfoList": [
         {
             "buildingId": 1,
@@ -46,35 +46,40 @@
         },
         {
             "buildingId": 5,
-            "level": 1,
+            "level": 0,
             "gridPos": {
                 "x": 11,
                 "y": 3
             },
             "buildingType": 7,
-            "isConstructing": false
+            "isConstructing": true
+        },
+        {
+            "buildingId": 6,
+            "level": 0,
+            "gridPos": {
+                "x": 11,
+                "y": 1
+            },
+            "buildingType": 6,
+            "isConstructing": true
         }
     ],
     "productionInfoList": [
         {
             "buildingId": 1,
-            "elapsedTime": 4.380458831787109,
-            "currentStorage": 16
+            "elapsedTime": 5.442902088165283,
+            "currentStorage": 2
         },
         {
             "buildingId": 2,
-            "elapsedTime": 4.380458831787109,
-            "currentStorage": 16
+            "elapsedTime": 5.442902088165283,
+            "currentStorage": 2
         },
         {
             "buildingId": 4,
-            "elapsedTime": 4.380458831787109,
-            "currentStorage": 16
-        },
-        {
-            "buildingId": 5,
-            "elapsedTime": 4.380458831787109,
-            "currentStorage": 16
+            "elapsedTime": 5.442902088165283,
+            "currentStorage": 2
         }
     ],
     "constructionInfoList": [
@@ -92,10 +97,6 @@
         },
         {
             "buildingId": 4,
-            "elapsedTime": 0.0
-        },
-        {
-            "buildingId": 5,
             "elapsedTime": 0.0
         }
     ],
@@ -419,6 +420,13 @@
             "wallType": 1,
             "gridPos": {
                 "x": 9,
+                "y": 2
+            }
+        },
+        {
+            "wallType": 1,
+            "gridPos": {
+                "x": 11,
                 "y": 2
             }
         },
