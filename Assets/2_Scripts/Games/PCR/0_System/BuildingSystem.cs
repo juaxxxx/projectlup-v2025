@@ -34,7 +34,7 @@ namespace LUP.PCR
 
             ProductionStage stage = StageManager.Instance.GetCurrentStage() as ProductionStage;
 
-            pcrRuntimeData = stage.productionRuntimeData as ProductionRuntimeData;
+            pcrRuntimeData = stage.productionRuntimeData;
 
             curBuildingInfoList = pcrRuntimeData.BuildingInfoList;
             curWallInfoList = pcrRuntimeData.WallInfoList;
@@ -156,6 +156,11 @@ namespace LUP.PCR
 
                 pcrRuntimeData.AddToList(curBuildingInfoList, newBuildingInfo);
             }
+        }
+
+        public Dictionary<int, BuildingBase> GetCurrentBuildingDictionary()
+        {
+            return currBuildings;
         }
     }
 }
