@@ -1,4 +1,4 @@
-using UnityEngine;
+ï»¿using UnityEngine;
 using UnityEngine.InputSystem;
 using TouchPhase = UnityEngine.TouchPhase;
 
@@ -9,85 +9,74 @@ namespace LUP.PCR
 
     public class PCRCameraController : MonoBehaviour
     {
+        private Camera cam;
+
         [Range(1, 10)]
-        [Header("ÁÜ ÀÎ/ÁÜ ¾Æ¿ô")]
-        [SerializeField] private float minZoomDistance = 10f; // °¡Àå °¡±îÀÌ È®´ëÇÒ ¼ö ÀÖ´Â °Å¸® (ÃÖ¼Ò °Å¸®)
-        [SerializeField] private float maxZoomDistance; // ¸Ê Å©±â¿¡ ¸ÂÃç ÀÚµ¿À¸·Î °è»êµÉ ÃÖ´ë °Å¸®
-        [SerializeField] private float zoomSpeed = 5f;        // ÁÜ ¼Óµµ
+        [Header("ì¤Œ ì¸/ì¤Œ ì•„ì›ƒ")]
+        [SerializeField] private float minZoomDistance = 10f; // ê°€ì¥ ê°€ê¹Œì´ í™•ëŒ€í•  ìˆ˜ ìˆëŠ” ê±°ë¦¬ (ìµœì†Œ ê±°ë¦¬)
+        [SerializeField] private float maxZoomDistance; // ë§µ í¬ê¸°ì— ë§ì¶° ìë™ìœ¼ë¡œ ê³„ì‚°ë  ìµœëŒ€ ê±°ë¦¬
+        [SerializeField] private float zoomSpeed = 5f;        // ì¤Œ ì†ë„
         private float currentZoomDist;
 
-        [Header("µå·¡±×")]
+        [Header("ë“œë˜ê·¸")]
         public float dragSpeed = 1.0f;
         private Vector3 dragOrigin;
         private bool isDragging = false;
-        private BoxCollider mapArea;
-        private Camera cam;
-        private float mapZPos; // ¸ÊÀÇ Z À§Ä¡
+
+        private float mapWidth;
+        private float mapHeight;
+        private float mapZPos;
 
         private void Awake()
         {
             cam = GetComponent<Camera>();
-            mapArea = this.transform.parent.GetComponentInChildren<BoxCollider>();
         }
 
         private void Start()
         {
-            if (mapArea == null)
-            {
-                return;
-            }
+            mapWidth = GridSize.x * GridSize.tileSize;
+            mapHeight = GridSize.y * GridSize.tileSize;
+            mapZPos = GridSize.mapZPos;
 
-            SetupMapCollider();
-
-            mapZPos = mapArea.transform.position.z;
-            
             CalculateMaxZoomDistance();
 
-            // ¸Ê°ú Ä«¸Ş¶ó »çÀÌÀÇ °Å¸®
-            currentZoomDist = Mathf.Abs(transform.position.z - mapZPos); 
+            // ë§µê³¼ ì¹´ë©”ë¼ ì‚¬ì´ì˜ ê±°ë¦¬
+            currentZoomDist = Mathf.Abs(transform.position.z - mapZPos);
+
+            ZoomOutMax();
         }
 
+        private void ZoomOutMax()
+        {
+            currentZoomDist = maxZoomDistance;
+
+            float centerX = mapWidth * 0.5f;
+            float centerY = -mapHeight * 0.5f; // Yì¶•ì´ ì•„ë˜ë¡œ ìƒì„±ë˜ë¯€ë¡œ ìŒìˆ˜
+            float centerZ = mapZPos - currentZoomDist;
+
+            transform.position = new Vector3(centerX, centerY, centerZ);
+        }
         private void Update()
         {
-            if (mapArea == null) return;
-
             HandleInput();
         }
 
         private void LateUpdate()
         {
-            if (mapArea == null) return;
-
-            // ÀÌµ¿ ¹× ÁÜÀÌ ³¡³­ ÈÄ ÃÖÁ¾ÀûÀ¸·Î ¹üÀ§¸¦ ¹ş¾î³ªÁö ¾Ê°Ô °íÁ¤
+            // ì´ë™ ë° ì¤Œì´ ëë‚œ í›„ ìµœì¢…ì ìœ¼ë¡œ ë²”ìœ„ë¥¼ ë²—ì–´ë‚˜ì§€ ì•Šê²Œ ê³ ì •
             ClampCameraPosition();
         }
 
-        private void SetupMapCollider()
-        {
-            float totalWidth = GridSize.x * GridSize.tileSize;
-            float totalHeight = GridSize.y * GridSize.tileSize;
-
-            mapArea.size = new Vector3(totalWidth, totalHeight, 1f);
-            mapArea.center = new Vector3(totalWidth * 0.5f, -totalHeight * 0.5f, -2.5f);
-        }
-
-
-
-        // ¸ÊÀÇ °¡·Î/¼¼·Î Å©±â¿¡ µü ¸Â´Â Ä«¸Ş¶ó °Å¸®¸¦ °è»ê
+        // ë§µì˜ ê°€ë¡œ/ì„¸ë¡œ í¬ê¸°ì— ë”± ë§ëŠ” ì¹´ë©”ë¼ ê±°ë¦¬ë¥¼ ê³„ì‚°
         private void CalculateMaxZoomDistance()
         {
-            //[GridSize.x, GridSize.y];
-
-            float mapHeight = mapArea.bounds.size.y;
-            float mapWidth = mapArea.bounds.size.x;
-
-            // ¼¼·Î ±âÁØÀ¸·Î ²Ë Â÷´Â °Å¸®
+            // ì„¸ë¡œ ê¸°ì¤€ìœ¼ë¡œ ê½‰ ì°¨ëŠ” ê±°ë¦¬
             float distHeight = (mapHeight * 0.5f) / Mathf.Tan(cam.fieldOfView * 0.5f * Mathf.Deg2Rad);
 
-            // °¡·Î ±âÁØÀ¸·Î ²Ë Â÷´Â °Å¸®
+            // ê°€ë¡œ ê¸°ì¤€ìœ¼ë¡œ ê½‰ ì°¨ëŠ” ê±°ë¦¬
             float distWidth = (mapWidth * 0.5f) / (Mathf.Tan(cam.fieldOfView * 0.5f * Mathf.Deg2Rad) * cam.aspect);
 
-            // µÑ Áß ´õ °¡±î¿î °Å¸®¸¦ Max·Î Àâ¾Æ¾ß ¸Ê ¹ÛÀÌ ¾È º¸ÀÓ
+            // ë‘˜ ì¤‘ ë” ê°€ê¹Œìš´ ê±°ë¦¬ë¥¼ Maxë¡œ ì¡ì•„ì•¼ ë§µ ë°–ì´ ì•ˆ ë³´ì„
             maxZoomDistance = Mathf.Min(distHeight, distWidth);
         }
 
@@ -95,7 +84,7 @@ namespace LUP.PCR
         {
             float scrollDelta = 0f;
 
-            // ¸ğ¹ÙÀÏ ÇÉÄ¡ ÁÜ (µÎ ¼Õ°¡¶ô)
+            // ëª¨ë°”ì¼ í•€ì¹˜ ì¤Œ (ë‘ ì†ê°€ë½)
             if (Input.touchCount == 2)
             {
                 Touch touchZero = Input.GetTouch(0);
@@ -107,35 +96,35 @@ namespace LUP.PCR
                 float prevTouchDeltaMag = (touchZeroPrevPos - touchOnePrevPos).magnitude;
                 float touchDeltaMag = (touchZero.position - touchOne.position).magnitude;
 
-                // ¹ú¸®¸é(-), ¿À¹Ç¸®¸é(+) : ·ÎÁ÷¿¡ µû¶ó ºÎÈ£ Á¶Á¤
-                // ¿©±â¼­´Â ¹ú¸®¸é(°Å¸®°¡ Ä¿Áö¸é) ÁÜÀÎ(°Å¸® °¨¼Ò) µÇµµ·Ï ¼³Á¤
+                // ë²Œë¦¬ë©´(-), ì˜¤ë¯€ë¦¬ë©´(+) : ë¡œì§ì— ë”°ë¼ ë¶€í˜¸ ì¡°ì •
+                // ì—¬ê¸°ì„œëŠ” ë²Œë¦¬ë©´(ê±°ë¦¬ê°€ ì»¤ì§€ë©´) ì¤Œì¸(ê±°ë¦¬ ê°ì†Œ) ë˜ë„ë¡ ì„¤ì •
                 float deltaMagnitudeDiff = prevTouchDeltaMag - touchDeltaMag;
 
-                // ¸ğ¹ÙÀÏÀº °¨µµ¸¦ Á» ³·Ãã
+                // ëª¨ë°”ì¼ì€ ê°ë„ë¥¼ ì¢€ ë‚®ì¶¤
                 scrollDelta = deltaMagnitudeDiff * 0.01f * zoomSpeed;
             }
-            // PC ¸¶¿ì½º ÈÙ ÁÜ
+            // PC ë§ˆìš°ìŠ¤ íœ  ì¤Œ
             else
             {
-                // ÈÙÀ» ¿Ã¸®¸é(+), ÁÜÀÎ(°Å¸® °¨¼Ò) -> µû¶ó¼­ -¸¦ ºÙ¿©ÁÜ
+                // íœ ì„ ì˜¬ë¦¬ë©´(+) ì¤Œì¸(ê±°ë¦¬ ê°ì†Œ) -> ë”°ë¼ì„œ -ë¥¼ ë¶™ì—¬ì¤Œ
                 scrollDelta = -Input.GetAxis("Mouse ScrollWheel") * zoomSpeed * 5f;
             }
 
-            // ÁÜ Àû¿ë (°Å¸® °ª º¯°æ)
+            // ì¤Œ ì ìš© (ê±°ë¦¬ ê°’ ë³€ê²½)
             if (Mathf.Abs(scrollDelta) > 0.001f)
             {
                 currentZoomDist += scrollDelta;
-                // ÁÜ °Å¸® Á¦ÇÑ (ÃÖ¼Ò ~ ÀÚµ¿ °è»êµÈ ÃÖ´ë°ª)
+                // ì¤Œ ê±°ë¦¬ ì œí•œ (ìµœì†Œ ~ ìë™ ê³„ì‚°ëœ ìµœëŒ€ê°’)
                 currentZoomDist = Mathf.Clamp(currentZoomDist, minZoomDistance, maxZoomDistance);
 
-                // Ä«¸Ş¶ó Z À§Ä¡ ¾÷µ¥ÀÌÆ® (Ä«¸Ş¶ó°¡ -Z ÂÊ¿¡ ÀÖ´Ù°í °¡Á¤)
+                // ì¹´ë©”ë¼ Z ìœ„ì¹˜ ì—…ë°ì´íŠ¸ (ì¹´ë©”ë¼ê°€ -Z ìª½ì— ìˆë‹¤ê³  ê°€ì •)
                 Vector3 pos = transform.position;
                 pos.z = mapZPos - currentZoomDist;
                 transform.position = pos;
             }
 
-            // Drag (Pan) Ã³¸®
-            // ÁÜ µµÁß¿¡´Â µå·¡±× ¸·±â (ÅÍÄ¡ 2°³ÀÏ ¶§ Æ¢´Â Çö»ó ¹æÁö)
+            // Drag (Pan) ì²˜ë¦¬
+            // ì¤Œ ë„ì¤‘ì—ëŠ” ë“œë˜ê·¸ ë§‰ê¸° (í„°ì¹˜ 2ê°œì¼ ë•Œ íŠ€ëŠ” í˜„ìƒ ë°©ì§€)
             if (Input.touchCount >= 2)
             {
                 isDragging = false;
@@ -145,15 +134,15 @@ namespace LUP.PCR
             if (Input.GetMouseButtonDown(0))
             {
                 isDragging = true;
-                dragOrigin = GetWorldPositionOnPlane(Input.mousePosition);
+                dragOrigin = GetWorldPositionOnScreen(Input.mousePosition);
             }
 
             if (Input.GetMouseButton(0) && isDragging)
             {
-                Vector3 currentPos = GetWorldPositionOnPlane(Input.mousePosition);
+                Vector3 currentPos = GetWorldPositionOnScreen(Input.mousePosition);
                 Vector3 difference = dragOrigin - currentPos;
 
-                // Ä«¸Ş¶ó ÀÌµ¿
+                // ì¹´ë©”ë¼ ì´ë™
                 transform.position += new Vector3(difference.x, difference.y, 0);
             }
 
@@ -163,44 +152,67 @@ namespace LUP.PCR
             }
         }
 
-        // ¸¶¿ì½º Æ÷ÀÎÅÍ°¡ ¸Ê Æò¸é(Z depth)»óÀÇ ¾îµğ¸¦ Âï¾ú´ÂÁö °è»ê
-        private Vector3 GetWorldPositionOnPlane(Vector3 screenPos)
+        // ë§ˆìš°ìŠ¤ í¬ì¸í„°ê°€ ë§µ í‰ë©´(Z depth)ìƒì˜ ì–´ë””ë¥¼ ì°ì—ˆëŠ”ì§€ ê³„ì‚°
+        private Vector3 GetWorldPositionOnScreen(Vector3 screenPos)
         {
-            // ÇöÀç Ä«¸Ş¶óÀÇ ±íÀÌ(currentZoomDist)¸¦ ±âÁØÀ¸·Î º¯È¯ÇØ¾ß µå·¡±×°¡ Á¤È®ÇÔ
+            // í˜„ì¬ ì¹´ë©”ë¼ì˜ ê¹Šì´(currentZoomDist)ë¥¼ ê¸°ì¤€ìœ¼ë¡œ ë³€í™˜í•´ì•¼ ë“œë˜ê·¸ê°€ ì •í™•í•¨
             screenPos.z = currentZoomDist;
             return cam.ScreenToWorldPoint(screenPos);
         }
 
-        // Ä«¸Ş¶ó°¡ ¸Ê ¹ÛÀ¸·Î ³ª°¡Áö ¾Êµµ·Ï ÃÖÁ¾ À§Ä¡ º¸Á¤
+        // ì¹´ë©”ë¼ê°€ ë§µ ë°–ìœ¼ë¡œ ë‚˜ê°€ì§€ ì•Šë„ë¡ ìµœì¢… ìœ„ì¹˜ ë³´ì •
         private void ClampCameraPosition()
         {
-            Bounds mapBounds = mapArea.bounds;
-
-            // 1. ÇöÀç ÁÜ °Å¸®¿¡¼­ º¸ÀÌ´Â È­¸é ¹İ°æ °è»ê
+            // í˜„ì¬ ì¤Œ ê±°ë¦¬ì—ì„œ ë³´ì´ëŠ” í™”ë©´ ë°˜ê²½ ê³„ì‚°
             float halfFrustumHeight = currentZoomDist * Mathf.Tan(cam.fieldOfView * 0.5f * Mathf.Deg2Rad);
             float halfFrustumWidth = halfFrustumHeight * cam.aspect;
 
-            // 2. ÀÌµ¿ °¡´ÉÇÑ ÁÂÇ¥ÀÇ Min/Max °è»ê
-            float minX = mapBounds.min.x + halfFrustumWidth;
-            float maxX = mapBounds.max.x - halfFrustumWidth;
-            float minY = mapBounds.min.y + halfFrustumHeight;
-            float maxY = mapBounds.max.y - halfFrustumHeight;
+            // ë§µ ê²½ê³„ ì¢Œí‘œ ì •ì˜
+            // Left: 0, Right: Width
+            // Top: 0, Bottom: -Height
+            float mapLeft = 0f;
+            float mapRight = mapWidth;
+            float mapBottom = -mapHeight;
+            float mapTop = 0f;
+
+            // ì´ë™ ê°€ëŠ¥í•œ ì¢Œí‘œì˜ Min/Max ê³„ì‚°
+            float minX = mapLeft + halfFrustumWidth;
+            float maxX = mapRight - halfFrustumWidth;
+
+            // Top(0)ì—ì„œ ë°˜ê²½ë§Œí¼ ë‚´ë ¤ì˜¤ê³ (-), Bottom(-Height)ì—ì„œ ë°˜ê²½ë§Œí¼ ì˜¬ë¼ê°(+)
+            float minY = mapBottom + halfFrustumHeight;
+            float maxY = mapTop - halfFrustumHeight;
 
             Vector3 newPos = transform.position;
 
-            // XÃà Clamp (¸¸¾à ÁÜ¾Æ¿ôÀ» ³Ê¹« ÇØ¼­ È­¸éÀÌ ¸Êº¸´Ù Å©¸é Áß¾Ó °íÁ¤)
-            if (maxX < minX) newPos.x = mapBounds.center.x;
+            // Xì¶• Clamp (ë§Œì•½ ì¤Œì•„ì›ƒì„ ë„ˆë¬´ í•´ì„œ í™”ë©´ì´ ë§µë³´ë‹¤ í¬ë©´ ì¤‘ì•™ ê³ ì •)
+            if (maxX < minX) newPos.x = mapWidth * 0.5f;
             else newPos.x = Mathf.Clamp(newPos.x, minX, maxX);
 
-            // YÃà Clamp
-            if (maxY < minY) newPos.y = mapBounds.center.y;
+            // Yì¶• Clamp
+            if (maxY < minY) newPos.y = -mapHeight * 0.5f;
             else newPos.y = Mathf.Clamp(newPos.y, minY, maxY);
 
-            // ZÃà Clamp (ÁÜ) - ÇÑ¹ø ´õ È®½ÇÇÏ°Ô Á¦ÇÑ
-            // (ÀÌ¹Ì HandleInput¿¡¼­ ÇßÁö¸¸, ¿ÜºÎ ¿äÀÎ ¹æÁö)
-            // newPos.z´Â mapZPos - currentZoomDist ·Î ¼³Á¤µÊ
+            // Zì¶• Clamp (ì¤Œ) - í•œë²ˆ ë” í™•ì‹¤í•˜ê²Œ ì œí•œ
+            // (ì´ë¯¸ HandleInputì—ì„œ í–ˆì§€ë§Œ, ì™¸ë¶€ ìš”ì¸ ë°©ì§€)
+            // newPos.zëŠ” mapZPos - currentZoomDist ë¡œ ì„¤ì •ë¨
 
             transform.position = newPos;
         }
+
+#if UNITY_EDITOR
+        private void OnDrawGizmos()
+        {
+            float w = (mapWidth > 0) ? mapWidth : GridSize.x * GridSize.tileSize;
+            float h = (mapHeight > 0) ? mapHeight : GridSize.y * GridSize.tileSize;
+            float z = (mapZPos != 0) ? mapZPos : GridSize.mapZPos;
+
+            Vector3 center = new Vector3(w * 0.5f, -h * 0.5f, z);
+            Vector3 size = new Vector3(w, h, 1f);
+
+            Gizmos.color = Color.green;
+            Gizmos.DrawWireCube(center, size);
+        }
+#endif
     }
 }

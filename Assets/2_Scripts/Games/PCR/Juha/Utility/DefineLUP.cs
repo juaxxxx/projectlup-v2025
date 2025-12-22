@@ -8,6 +8,8 @@ namespace LUP.PCR
     {
         public static int x = 21;
         public static int y = 20;
+
+        public static float mapZPos = -2.5f;
         public static float tileSize = 5f;
     }
 
