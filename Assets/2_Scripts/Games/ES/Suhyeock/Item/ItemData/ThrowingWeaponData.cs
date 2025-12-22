@@ -9,7 +9,7 @@ namespace LUP.ES
         public float attackRadius;
         public float arcHeight;
         public float maxChargeTime;
-        public float minRange = 2f;
+        public float minRange = 0.5f;
         public ThrowingWeaponData(int id, string name, string iconName, float damage, float range, float timeBetAttack, float attackRadius, float arcHeight, float maxChargeTime) : base(id, name, iconName, damage, range, timeBetAttack)
         {
             weaponType = WeaponType.Throwing;

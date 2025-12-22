@@ -14,14 +14,13 @@ namespace LUP.ES
         private Transform firePointTransform;
         [HideInInspector]
         public FixedJoystick rightJoystick;
-        public float gravity = 20.0f;
+        //public float gravity = 20.0f;
         public float timeToTarget = 0.8f;
 
-        private bool isAiming = false;
-        private Vector3 currentTargetPos;
         private Rigidbody playerRigidbody;
         private bool isCharging = false;
-        private float currentChargeTime = 0f;
+        [HideInInspector]
+        public float currentChargeTime = 0f;
         private Vector3 lastAimDirection;
         private ThrowingWeaponData weaponData;
         private Animator animator;
@@ -49,10 +48,14 @@ namespace LUP.ES
             animator = playerBlackboard.animator;
             playerRigidbody = playerBlackboard.GetComponent<Rigidbody>();
             playerTransform = playerBlackboard.transform;
-            firePointTransform = playerTransform.Find("Fire Point");
+            firePointTransform = playerBlackboard.GetComponentInChildren<ThrowTrajectoryVisualizer>().transform;
             GameObject rightObj = GameObject.Find("Right Fixed Joystick");
             if (rightObj != null)
                 rightJoystick = rightObj.GetComponent<FixedJoystick>();
+            ThrowTrajectoryVisualizer visualizer = playerBlackboard.GetComponentInChildren<ThrowTrajectoryVisualizer>();
+            if (visualizer != null)
+                visualizer.SetWeapon(this);
+
         }
 
         private void Update()
@@ -75,7 +78,6 @@ namespace LUP.ES
                 {
                     lastAimDirection = inputDir;
                 }
-                Debug.Log(currentChargeTime);
             }
             else if (isCharging)
             {
@@ -133,11 +135,13 @@ namespace LUP.ES
             }
         }
 
-        private Vector3 CalculateTargetPosition(ThrowingWeaponData data)
+        public Vector3 CalculateTargetPosition(ThrowingWeaponData data)
         {
             if (currentChargeTime <= 0f)
             {
-                return transform.position + (lastAimDirection * data.minRange);
+                Vector3 defaultPos = transform.position + (lastAimDirection * data.minRange);
+                defaultPos.y = 0;
+                return defaultPos;
             }
             float chargeRatio = currentChargeTime / data.maxChargeTime;
 
@@ -145,8 +149,9 @@ namespace LUP.ES
 
             Vector3 aimOffset = lastAimDirection * currentDistance;
 
-            Vector3 baseTargetPos = transform.position + aimOffset;
+            Vector3 baseTargetPos = firePointTransform.position + aimOffset;
 
+            baseTargetPos.y = 0;
 
             return baseTargetPos;
         }
@@ -162,8 +167,8 @@ namespace LUP.ES
             float Vxz = sXZ / time;
 
             // 수직 속도 = (수직 거리 / 시간) + (0.5 * 중력 * 시간)
-            float Vy = (distance.y / time) + (0.5f * Mathf.Abs(gravity) * time);
-
+            float Vy = (distance.y / time) + (0.5f * Mathf.Abs(Physics.gravity.y) * time);
+ 
             Vector3 result = distanceXZ.normalized * Vxz;
             result.y = Vy;
 
@@ -175,7 +180,10 @@ namespace LUP.ES
             this.isCharging = isCharging;
             currentChargeTime = 0f;
         }
-
+        public bool GetIsCharging()
+        {
+            return isCharging;
+        }
         public void ThrowStart()
         {
             lastAimDirection = new Vector3(rightJoystick.Direction.x, 0, rightJoystick.Direction.y).normalized;
