@@ -1,19 +1,20 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Tilemaps;
 
 namespace LUP.PCR
 {
     public class WorkerDataCenter : MonoBehaviour
     {
-
+        [SerializeField] private PCRGameSystem gameSystem;
         [Header("단일 건물")]
         [SerializeField] private BuildingBase restaurant;
         [SerializeField] private BuildingBase station;
 
         [Header("시스템")]
-        [SerializeField] PCRDataCenter pcrDataCenter;
         [SerializeField] AGridMap aGrid;
+        [SerializeField] TileMap tileMap;
         [HideInInspector] public TileInfo[,] tileInfoes;
 
         [Header("작업자 데이터")]
@@ -30,7 +31,6 @@ namespace LUP.PCR
             if (isInitialized) return;
 
             // 컴포넌트 찾기 로직
-            if (!pcrDataCenter) pcrDataCenter = GetComponentInChildren<PCRDataCenter>();
             if (!restaurant) restaurant = GetComponentInChildren<BuildingRestaurant>();
             if (!station) station = GetComponentInChildren<BuildingWorkStation>();
 
@@ -72,10 +72,10 @@ namespace LUP.PCR
             }
         }
 
-
         private void Start()
         {
-            //aGrid.InitMap(pcrDataCenter.tileInfoes);
+            tileMap.InitTileMap();
+            aGrid.InitMap(tileMap.tiles);
         }
 
         private void Update()

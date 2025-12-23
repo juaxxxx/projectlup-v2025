@@ -11,6 +11,7 @@ namespace LUP.PCR
 
         public ANode[,] grid;
         public TileInfo[,] sourceInfoTiles;
+        public Tile[,] sourceTiles;
 
         Vector3 gridStartPoint;
         [HideInInspector] public List<ANode> pathToDraw;
@@ -24,13 +25,22 @@ namespace LUP.PCR
             CreateGridFromData();
         }
 
+        public void InitMap(Tile[,] tileData)
+        {
+            gridStartPoint = transform.position;
+            sourceTiles = tileData;
+            CreateGridFromData();
+        }
+
         void CreateGridFromData()
         {
-            if (sourceInfoTiles == null) { return; }
+            //if (sourceInfoTiles == null) { return; }
+            if (sourceTiles == null) { return; }
 
-            int width = sourceInfoTiles.GetLength(0);
-            int height = sourceInfoTiles.GetLength(1);
-
+            //int width = sourceInfoTiles.GetLength(0);
+            //int height = sourceInfoTiles.GetLength(1);
+            int width = sourceTiles.GetLength(0); 
+            int height = sourceTiles.GetLength(1); 
 
             grid = new ANode[width, height];
 
@@ -40,9 +50,10 @@ namespace LUP.PCR
                 {
                     Vector3 worldPosition = GridToWorldPosition(new Vector2Int(x, y));
                     
-                    bool walkable = sourceInfoTiles[x, y].tileType != TileType.WALL;
+                   // bool walkable = sourceInfoTiles[x, y].tileType != TileType.WALL;
+                    bool walkable = sourceTiles[x, y].tileInfo.tileType != TileType.WALL;
+                    
                     //bool walkable = !Physics.CheckSphere(worldPosition, tileSize * 0.4f, unwalkableMask);
-
                     grid[x, y] = new ANode(walkable, worldPosition, x, y);
                 }
             }
@@ -95,12 +106,9 @@ namespace LUP.PCR
 
             return new Vector3(centerPos.x, centerPos.y - (tileSize / 2f), centerPos.z);
         }
-
-
         private void OnDrawGizmos()
         {
             if (grid == null) return;
-
 
             foreach (var node in grid)
             {

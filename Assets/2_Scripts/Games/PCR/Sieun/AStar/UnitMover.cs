@@ -86,7 +86,6 @@ namespace LUP.PCR
         {
             if (gridMap == null || pathfinder == null) return false;
 
-            //ANode startNode = gridMap.GetNodeFromWorldPosition(transform.position);
             ANode startNode = GetStartNodeByPhysics();
             
             if (!startNode.isWalkable)
@@ -166,7 +165,6 @@ namespace LUP.PCR
         {
             if (!IsMoving) return;
             
-            //Vector3 targetNodePos = gridMap.GetNodeWorldPosition(path[currentIndex]);
             Vector3 targetPos = gridMap.GetNodeFootPosition(path[currentIndex]);
 
             Vector3 direction = (targetPos - transform.position);

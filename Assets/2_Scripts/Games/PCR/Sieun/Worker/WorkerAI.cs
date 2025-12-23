@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using Unity.VisualScripting;
+﻿using System.Collections.Generic;
 using UnityEngine;
-using static System.Collections.Specialized.BitVector32;
 
 namespace LUP.PCR
 {
@@ -10,9 +7,6 @@ namespace LUP.PCR
     //public class WorkerProfile
     //{
     //}
-
-
-
 
 
 
@@ -34,7 +28,7 @@ namespace LUP.PCR
 
         private void OnEnable()
         {
-            WorkerDataCenter dataCenter = this.transform.root.GetComponent<WorkerDataCenter>();
+            WorkerDataCenter dataCenter = this.transform.root.GetComponentInChildren<WorkerDataCenter>();
 
             if(dataCenter != null)
             {
