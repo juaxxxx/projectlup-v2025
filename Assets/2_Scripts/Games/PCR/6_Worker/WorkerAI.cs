@@ -1,15 +1,9 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
+using static System.Collections.Specialized.BitVector32;
 
 namespace LUP.PCR
 {
-    //[System.Serializable]
-    //public class WorkerProfile
-    //{
-    //}
-
-
-
     [RequireComponent(typeof(Worker))]
     [RequireComponent(typeof(UnitMover))]
     public class WorkerAI : MonoBehaviour
@@ -35,6 +29,8 @@ namespace LUP.PCR
                 dataCenter.RegisterWorker(this);
             }
         }
+
+
 
 
         //@TODO : restaurant든 station이든 건물 위치는 받아와서 처리하기
@@ -107,7 +103,7 @@ namespace LUP.PCR
             //this.name = $"Worker_{name}"; // 오브젝트 이름 변경
             LastWorkEndTime = Time.time;   // 게임 시작 시점 or 일 끝난 시점 기록
         }
-        
+
         public void InitBTReferences()
         {
             worker = GetComponent<Worker>();

@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using static System.Collections.Specialized.BitVector32;
 
 namespace LUP.PCR
 {
@@ -16,9 +17,16 @@ namespace LUP.PCR
         private BuildingBase restaurant;
         private List<BuildingBase> workStationList;
 
+        // Worker Logic
+        [SerializeField] private AGridMap aGrid;
+
+
         public void InitWorkerSystem(BuildingSystem buildingSystem, TileMap tileMap)
         {
             this.tileMap = tileMap;
+            aGrid.InitMap(tileMap.tiles);
+
+
             curBuildings = buildingSystem.GetCurrentBuildingDictionary();
 
             // Restaurant를 buildingId: 1로 배정 예정. 추후 바뀔 수 있음.
@@ -47,10 +55,47 @@ namespace LUP.PCR
 
             // 위 데이터 기반으로 초기화.
 
+        //    for (int i = 0; i < workers.Count; i++)
+        //    {
+        //        workers[i].InitWorkerData(i, $"Chulsoo_{i + 1}");
+        //        workers[i].InitBTReferences();
+        //    }
 
-
-            Debug.Log("WorkerSystem Init");
+        //    Debug.Log("WorkerSystem Init");
         }
+
+        //// 외부에서 워커를 등록하는 함수
+        //public void RegisterWorker(WorkerAI newWorker)
+        //{
+        //    if (!isInitialized)
+        //    {
+        //        InitializeReferences();
+        //    }
+
+        //    if (!workers.Contains(newWorker))
+        //    {
+        //        workers.Add(newWorker);
+
+        //        newWorker.InitBTReferences();
+        //        newWorker.SetGlobalBuildings(restaurant, station);
+
+        //        curWorkerInfoList.Add(newWorker);
+        //    }
+        //}
+
+        //public void InitWorkers()
+        //{
+        //    // 테스트용
+            
+        //}
+
+        //public void SetupTestProfiles()
+        //{
+        //    for (int i = 0; i < workers.Count; i++)
+        //    {
+        //        workers[i].InitWorkerData(i, $"Worker_{i + 1}");
+        //    }
+        //}
 
 
     }

@@ -29,7 +29,7 @@ namespace LUP.PCR
 
         private void Awake()
         {
-            cam = GetComponent<Camera>();
+            cam = Camera.main;
         }
 
         private void Start()

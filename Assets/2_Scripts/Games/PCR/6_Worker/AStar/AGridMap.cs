@@ -7,23 +7,14 @@ namespace LUP.PCR
     {
         [Header("Map Settings")]
         [SerializeField] float tileSize = 5;
-        [SerializeField] LayerMask unwalkableMask; // wall
 
         public ANode[,] grid;
-        public TileInfo[,] sourceInfoTiles;
         public Tile[,] sourceTiles;
 
         Vector3 gridStartPoint;
         [HideInInspector] public List<ANode> pathToDraw;
         [HideInInspector] public ANode debugStartNode;
         [HideInInspector] public ANode debugTargetNode;
-       
-        public void InitMap(TileInfo[,] tileData)
-        {
-            gridStartPoint = transform.position;
-            sourceInfoTiles = tileData;
-            CreateGridFromData();
-        }
 
         public void InitMap(Tile[,] tileData)
         {
@@ -34,11 +25,8 @@ namespace LUP.PCR
 
         void CreateGridFromData()
         {
-            //if (sourceInfoTiles == null) { return; }
             if (sourceTiles == null) { return; }
 
-            //int width = sourceInfoTiles.GetLength(0);
-            //int height = sourceInfoTiles.GetLength(1);
             int width = sourceTiles.GetLength(0); 
             int height = sourceTiles.GetLength(1); 
 
@@ -50,10 +38,7 @@ namespace LUP.PCR
                 {
                     Vector3 worldPosition = GridToWorldPosition(new Vector2Int(x, y));
                     
-                   // bool walkable = sourceInfoTiles[x, y].tileType != TileType.WALL;
                     bool walkable = sourceTiles[x, y].tileInfo.tileType != TileType.WALL;
-                    
-                    //bool walkable = !Physics.CheckSphere(worldPosition, tileSize * 0.4f, unwalkableMask);
                     grid[x, y] = new ANode(walkable, worldPosition, x, y);
                 }
             }
