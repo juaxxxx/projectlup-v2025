@@ -8,7 +8,6 @@ namespace LUP.PCR
         public float progressRatio;     // 진행률 (누적 진행 시간 / 총 건설 시간)
         public bool isCompledted;       // 완료 여부
         public bool isStarted;          // 생산 시작 여부
-        public bool isActiveInteract;
 
         private ProductableBuilding productableBuilding;
         private ProductionInfo currentProductionInfo;
@@ -79,7 +78,6 @@ namespace LUP.PCR
             progressRatio = 0f;
             isCompledted = false;
             isStarted = false;
-            isActiveInteract = false;
         }
 
         public void Start()

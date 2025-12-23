@@ -54,7 +54,7 @@ namespace LUP.PCR
 
             // InventoryManager를 통해 PCR 인벤토리 로드 및 등록
             PCRInven = InventoryManager.Instance.LoadOrCreateInventory("PCR", "PCRInventory.json");
-
+        
             gameSystem.InitPCRGameSystem();
 
             yield return null;

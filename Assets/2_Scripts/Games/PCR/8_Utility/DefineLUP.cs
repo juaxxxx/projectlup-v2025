@@ -49,14 +49,16 @@ namespace LUP.PCR
 
     public enum ResourceType
     {
+        NONE,
         STONE,
         COAL,
         IRON,
-        VEGFRUIT,
+        WHEAT,
+        MUSHROOM,
         MEAT,
-        WATER,
         FOOD,
         POWER,
+        DIAMOND
     }
 
     public enum PlacementResultType
@@ -72,19 +74,12 @@ namespace LUP.PCR
         COMPLETED
     }
 
-    public enum CropType
-    {
-        NONE,
-        WHEAT,
-        POTATO
-    }
-
     public enum FoodType
     {
         None,
         Bread,
+        GrilledMushroom,
         MeatSoup,
-        GrilledMushroom
     }
 
     public enum TaskType

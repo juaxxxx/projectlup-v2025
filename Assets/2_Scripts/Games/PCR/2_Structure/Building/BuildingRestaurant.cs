@@ -4,20 +4,14 @@ namespace LUP.PCR
 {
     public class BuildingRestaurant : BuildingBase
     {
-        protected IBuildState constructState;
         protected IBuildState completeState;
         protected IBuildState cookingState;
 
-        public FoodType currFood = FoodType.None;
-        private bool isCooking;
-        // 필요 자원 만들어야 한다.
-
-        
+        protected RestaurantInfo restaurantInfo;
 
         private void Awake()
         {
             buildingEvents = new BuildingEvents();
-            constructState = new UnderConstructionState();
             completeState = new CompletedState();
             cookingState = new CookingState();
         }
@@ -46,30 +40,15 @@ namespace LUP.PCR
             this.runtimeData = runtimeData;
 
 
-            // Constructing Building
-            constructionInfo = runtimeData.GetConstructionInfo(buildingInfo.buildingId);
-            if (constructionInfo == null)
-            {
-                ConstructionInfo newConstructionInfo = new ConstructionInfo(buildingInfo.buildingId, 0f);
-                runtimeData.AddToList(runtimeData.ConstructionInfoList, newConstructionInfo);
-                constructionInfo = newConstructionInfo;
-            }
-
-            if (ConstructScreen)
-            {
-                ConstructScreen.SetActive(false);
-            }
-
             hasWork = true;
             buildingName = "Restaurant";
 
             ProductionStage stage = LUP.StageManager.Instance.GetCurrentStage() as ProductionStage;
-            currentConstructionData = stage.GetCurrentConstructionData((int)BuildingType.RESTAURANT, buildingInfo.level);
+            restaurantInfo = stage.productionRuntimeData.RestaurantInfo;
 
-
-            if (buildingInfo.isConstructing)
+            if (restaurantInfo.isCooking)
             {
-                ChangeState(constructState);
+                ChangeState(cookingState);
             }
             else
             {
@@ -77,31 +56,87 @@ namespace LUP.PCR
             }
         }
 
-        public override void CompleteContruction()
-        {
-            // 레벨업
-            buildingInfo.level++;
-            ProductionStage stage = LUP.StageManager.Instance.GetCurrentStage() as ProductionStage;
-            currentConstructionData = stage.GetCurrentConstructionData((int)BuildingType.WHEATFARM, buildingInfo.level);
+        public override void CompleteContruction() { }
+        public override void Upgrade() { }
 
-            ChangeState(completeState);
+        public void StartCooking()
+        {
+            CompletedState comState = currBuildState as CompletedState;
+            if (comState != null)
+            {
+                // 만들 음식이랑 개수 조정 필요
+                ChangeState(cookingState);
+            }
+
+            CookingState cookState = currBuildState as CookingState;
+            if (cookState != null)
+            {
+                cookState.Start();
+            }
+            else
+            {
+                Debug.Log("State is NOT CookingState");
+            }
+        }
+
+        public void StopCooking()
+        {
+            CookingState state = currBuildState as CookingState;
+            if (state != null)
+            {
+                state.Stop();
+                ChangeState(completeState);
+            }
+            else
+            {
+                Debug.Log("State is NOT CookingState");
+            }
         }
 
         public void CompleteCooking()
         {
+            Debug.Log("CompleteCooking");
 
-        }
+            DeliverToInventory();
+            restaurantInfo.totalCount--;
 
-        public override void Upgrade()
-        {
-            ChangeState(constructState);
+            if (restaurantInfo.totalCount <= 0)
+            {
+
+                StopCooking();
+            }
+            else
+            {
+                StartCooking();
+            }
         }
 
         public override void DeliverToInventory()
         {
-
+            switch (restaurantInfo.currentFood)
+            {
+                case FoodType.Bread:
+                    resourceCenter.UseResource(ResourceType.WHEAT, 10);
+                    resourceCenter.AddResource(ResourceType.FOOD, 50);
+                    break;
+                case FoodType.GrilledMushroom:
+                    resourceCenter.UseResource(ResourceType.MUSHROOM, 10);
+                    resourceCenter.AddResource(ResourceType.FOOD, 30);
+                    break;
+                case FoodType.MeatSoup:
+                    resourceCenter.UseResource(ResourceType.MEAT, 10);
+                    resourceCenter.AddResource(ResourceType.FOOD, 70);
+                    break;
+                default:
+                    resourceCenter.AddResource(ResourceType.FOOD, 0);
+                    break;
+            }
         }
 
+        public RestaurantInfo GetRestaurantInfo()
+        {
+            return restaurantInfo;
+        }
     }
 
 }
