@@ -8,7 +8,7 @@ namespace LUP.PCR
     {
         [Header("References")]
         [SerializeField] private TaskAssignmentView view;
-        [SerializeField] private WorkerDataCenter dataCenter;
+        [SerializeField] private WorkerSystem workerSystem;
 
         [Header("Data Source")]
         // @TODO : BuildingSystem 에서 가져와야 함
@@ -21,7 +21,7 @@ namespace LUP.PCR
         private void Awake()
         {
             view = GetComponentInChildren<TaskAssignmentView>();
-            dataCenter = this.transform.root.GetComponent<WorkerDataCenter>();
+            workerSystem = this.transform.root.GetComponent<WorkerSystem>();
 
             if (buildingGroup != null)
             {
@@ -75,7 +75,7 @@ namespace LUP.PCR
 
             view.UpdateStatusText($"선택됨: {building.name}\n투입할 작업자를 선택하세요.");
 
-            List<WorkerAI> idleWorkers = dataCenter.GetIdleWorkers();
+            List<WorkerAI> idleWorkers = workerSystem.GetIdleWorkers();
 
             if (idleWorkers.Count == 0)
             {

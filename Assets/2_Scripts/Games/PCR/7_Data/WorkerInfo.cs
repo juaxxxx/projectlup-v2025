@@ -1,4 +1,4 @@
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace LUP.PCR
 {
@@ -8,6 +8,10 @@ namespace LUP.PCR
         public float hunger;
         bool hasTask;
         BuildingInfo currentTaskBuildingInfo;
+
+        public int workerId;
+        public string workerName;
+//      LastWorkEndTime = Time.time;   // 게임 시작 시점 or 일 끝난 시점 기록
 
     }
 }

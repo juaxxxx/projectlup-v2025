@@ -17,35 +17,8 @@ namespace LUP.PCR
         private Worker worker;
         private UnitMover mover;
         private BTNode root;
-
-        private BuildingBase currentTaskBuilding = null;
-
-        private void OnEnable()
-        {
-            WorkerDataCenter dataCenter = this.transform.root.GetComponentInChildren<WorkerDataCenter>();
-
-            if(dataCenter != null)
-            {
-                dataCenter.RegisterWorker(this);
-            }
-        }
-
-
-
-
-        //@TODO : restaurant든 station이든 건물 위치는 받아와서 처리하기
-        public void SetGlobalBuildings(BuildingBase restaurant, BuildingBase station)
-        {
-            // 건물 생성되는 시점부터 자동으로 초기화될 위치 : 식당, 작업 스테이션
-            LocalBlackboard.SetValue<BuildingBase>(BBKeys.Restaurant, restaurant);
-            LocalBlackboard.SetValue<BuildingBase>(BBKeys.WorkerStation, station);
-
-            currentTaskBuilding = station;
-            LocalBlackboard.SetValue<BuildingBase>(BBKeys.AssignedWorkplace, currentTaskBuilding);
-        }
-
-        //@TODO: BuildingSystem에 있는 실제 currBuildings 및 건물타입ID로 건물 조회해서 entrancePos 접근하기.
-        // 지금은 임시로 건물 프리팹 자체에서 직접 entrancePos 를 가져온다.
+        private StructureBase currentTaskPlace = null;
+        private WorkerInfo myInfo;
 
         public WorkerBlackboard LocalBlackboard { get; private set; }
         public float LastWorkEndTime { get; private set; } = 0f;
@@ -80,7 +53,6 @@ namespace LUP.PCR
                 LocalBlackboard.SetValue(BBKeys.IsHunger, isHunger);
             }
         }
-
         public bool HasTask
         {
             get => hasTask;
@@ -97,12 +69,24 @@ namespace LUP.PCR
             }
         }
 
-        public void InitWorkerData(int id, string name)
+        public void Initialize(WorkerInfo info, BuildingBase restaurant, BuildingBase station)
         {
-            //profile = new WorkerProfile { id = id, workerName = name };
-            //this.name = $"Worker_{name}"; // 오브젝트 이름 변경
-            LastWorkEndTime = Time.time;   // 게임 시작 시점 or 일 끝난 시점 기록
+            this.myInfo = info;
+
+            // 이름 설정 (디버깅용)
+            gameObject.name = info.workerName;
+
+            // 컴포넌트 및 블랙보드 초기화
+            InitBTReferences();
+
+            // 글로벌 건물 정보 세팅 (기존 SetGlobalBuildings 역할)
+            LocalBlackboard.SetValue(BBKeys.Restaurant, restaurant);
+            LocalBlackboard.SetValue(BBKeys.WorkerStation, station); // 혹은 workStationList
+            
+            Debug.Log($"Worker Initialized: {info.workerName} (ID: {info.workerId})");
+
         }
+
 
         public void InitBTReferences()
         {
@@ -173,10 +157,10 @@ namespace LUP.PCR
             }
         }
 
-        public void AssignTask(BuildingBase building)
+        public void AssignTask(StructureBase workingPlace)
         {
-            currentTaskBuilding = building;
-            LocalBlackboard.SetValue(BBKeys.AssignedWorkplace, currentTaskBuilding);
+            currentTaskPlace = workingPlace;
+            LocalBlackboard.SetValue(BBKeys.AssignedWorkplace, currentTaskPlace);
             
             hasTask = true;
             LocalBlackboard.SetValue(BBKeys.HasTask, hasTask);
