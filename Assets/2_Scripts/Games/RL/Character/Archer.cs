@@ -54,6 +54,8 @@ namespace LUP.RL
             playerBuff = GetComponent<PlayerBuff>();
             playerBuff.init(this);
             playerBuff.ShowBuffSelection();
+
+            ApplyEquipStats();
         }
         private void InitializeCharacter()
         {
@@ -137,6 +139,50 @@ namespace LUP.RL
             }
             playerBuff.ShowBuffSelection();
             Debug.Log($"레벨{RuntimeData.level}, 체력 :  {RuntimeData.currentData.Hp} ,  공격력  {RuntimeData.currentData.Attack}");
+        }
+
+        void ApplyEquipStats()
+        {
+            int weaponID = characterTemplate.EquipItems.Weapon;
+            int armorID = characterTemplate.EquipItems.Armor;
+
+            InGameCenter ingameCenter = FindFirstObjectByType<InGameCenter>();
+            if (ingameCenter == null)
+                return;
+
+            EquipData weaponItem = ingameCenter.platformAdapter.GetEquipDataByID(weaponID);
+            EquipData armorItem = ingameCenter.platformAdapter.GetEquipDataByID(armorID);
+
+            if(weaponItem != null)
+            {
+                for(int i = 0; i < weaponItem.equipStats.Length; i++)
+                {
+                    AddState(weaponItem.equipStats[i].statName, weaponItem.equipStats[i].value);
+                }
+            }
+
+            if(armorItem != null)
+            {
+                for (int i = 0; i < armorItem.equipStats.Length; i++)
+                {
+                    AddState(armorItem.equipStats[i].statName, armorItem.equipStats[i].value);
+                }
+            }
+        }
+
+        void AddState(string statName, int statValue)
+        {
+            switch(statName)
+            {
+                case "HP":
+                    runtimeData.currentData.Hp += statValue;
+                        break;
+
+                case "ATK":
+                    runtimeData.currentData.Attack += statValue;
+                    break;
+            }
+
         }
         
     }
