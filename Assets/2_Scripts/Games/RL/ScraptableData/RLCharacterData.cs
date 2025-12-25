@@ -15,16 +15,16 @@ public struct BaseStats
 }
 
 [System.Serializable]
-public struct EquipmentData
+public struct CharacterEquipsID
 {
-    public EquipData Weapon;
-    public EquipData Armor;
-    public EquipData Ring1;
-    public EquipData Ring2;
-    public EquipData Pet1;
-    public EquipData Pet2;
-    public EquipData Bracelet;
-    public EquipData Necklace;
+    public int Weapon;
+    public int Armor;
+    public int Ring1;
+    public int Ring2;
+    public int Pet1;
+    public int Pet2;
+    public int Bracelet;
+    public int Necklace;
 }
 
 [CreateAssetMenu(fileName = "CharacterData", menuName = "Scriptable Objects/CharacterData")]
@@ -37,7 +37,7 @@ public class RLCharacterData : ScriptableObject, IDisplayable
     [SerializeField] private GameObject weaponProjecTile = null;
     [SerializeField] public int projecTileSpeed = 0;
     [SerializeField] public BaseStats stats;
-    [SerializeField] public EquipmentData EquipItems;
+    [SerializeField] public CharacterEquipsID EquipItems;
 
 
     public GameObject CharacterPrefab => characterPrefab;

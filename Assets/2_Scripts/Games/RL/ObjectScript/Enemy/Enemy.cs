@@ -91,7 +91,9 @@ namespace LUP.RL
         private void Die()
         {
              blackBoard.Alive = false;
-          
+
+            hpbar.DisableHPBar(healthCenter);
+
             ObjectOnEnemyDied?.Invoke(this);
             OnEnemyDied?.Invoke(expValue);
             Destroy(gameObject, 0.1f);

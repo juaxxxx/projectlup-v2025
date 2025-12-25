@@ -71,6 +71,11 @@ namespace LUP.RL
                 Destroy(gameObject);
             }
         }
+
+        public void DisableHPBar(HealthCenter health)
+        {
+            health.OnHpChanged -= this.UpdateBar;
+        }
     }
 
 }

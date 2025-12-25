@@ -129,7 +129,7 @@ namespace LUP.RL
             characterPriveiw.SetCharacterPreview(previewCharacterData);
         }
 
-        public void UpdateCharacterEquipIcon(EquipmentData characterequipsInfo)
+        public void UpdateCharacterEquipIcon(CharacterEquipsID characterequipsInfo)
         {
             inventoryCharacterEquipPanel.UpdateCharacterEquipSlot(characterequipsInfo);
         }

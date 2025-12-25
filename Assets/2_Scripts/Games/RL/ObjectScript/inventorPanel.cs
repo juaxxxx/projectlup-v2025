@@ -117,88 +117,92 @@ namespace LUP.RL
 
         }
 
-        bool CheckCanEquipToSlot(EquipmentData equips, EquipData newEquip)
+        bool CheckCanEquipToSlot(CharacterEquipsID equips, EquipData newEquip)
         {
             switch (newEquip.equipPos)
             {
                 case RLEquipPos.Hand:
-                    return equips.Weapon == null;
+                    return equips.Weapon == 0;
 
                 case RLEquipPos.Body:
-                    return equips.Armor == null;
+                    return equips.Armor == 0;
 
                 case RLEquipPos.Finger:
-                    return equips.Ring1 == null || equips.Ring2 == null;
+                    return equips.Ring1 == 0 || equips.Ring2 == 0;
 
                 case RLEquipPos.Arm:
-                    return equips.Bracelet == null;
+                    return equips.Bracelet == 0;
 
                 case RLEquipPos.Neck:
-                    return equips.Necklace == null;
+                    return equips.Necklace == 0;
 
                 default:
                     return false;
             }
         }
 
-        void EquipItem(ref EquipmentData equips, EquipData newEquip)
+        void EquipItem(ref CharacterEquipsID equips, EquipData newEquip)
         {
+            int itemID = ItemManager.Instance.GetItem(newEquip.GetDisplayableName()).ItemID;
+
             switch (newEquip.equipPos)
             {
                 case RLEquipPos.Hand:
-                    equips.Weapon = newEquip;
+                    equips.Weapon = itemID;
                     break;
 
                 case RLEquipPos.Body:
-                    equips.Armor = newEquip;
+                    equips.Armor = itemID;
                     break;
 
                 case RLEquipPos.Finger:
-                    if (equips.Ring1 == null)
-                        equips.Ring1 = newEquip;
+                    if (equips.Ring1 == 0)
+                        equips.Ring1 = itemID;
                     else
-                        equips.Ring2 = newEquip;
+                        equips.Ring2 = itemID;
                     break;
 
                 case RLEquipPos.Arm:
-                    equips.Bracelet = newEquip;
+                    equips.Bracelet = itemID;
                     break;
 
                 case RLEquipPos.Neck:
-                    equips.Necklace = newEquip;
+                    equips.Necklace = itemID;
                     break;
             }
         }
 
-        void RelaseItem(ref EquipmentData equips, EquipData targetEquip)
+        void RelaseItem(ref CharacterEquipsID equips, EquipData targetEquip)
         {
+            int itemID = ItemManager.Instance.GetItem(targetEquip.GetDisplayableName()).ItemID;
+
             switch (targetEquip.equipPos)
             {
                 case RLEquipPos.Hand:
-                    if (equips.Weapon == targetEquip)
-                        equips.Weapon = null;
+                    if (equips.Weapon == itemID)
+                        equips.Weapon = 0;
                     break;
 
                 case RLEquipPos.Body:
-                    if (equips.Armor == targetEquip)
-                        equips.Armor = null;
+                    if (equips.Armor == itemID)
+                        equips.Armor = 0;
                     break;
 
                 case RLEquipPos.Finger:
-                    if (equips.Ring1 == targetEquip)
-                        equips.Ring1 = null;
-                    else if (equips.Ring2 == targetEquip)
-                        equips.Ring2 = null;
+                    if (equips.Ring1 == itemID)
+                        equips.Ring1 = 0;
+                    else if (equips.Ring2 == itemID)
+                        equips.Ring2 = 0;
                     break;
 
                 case RLEquipPos.Arm:
-                    if (equips.Bracelet == targetEquip)
-                        equips.Bracelet = null;
+                    if (equips.Bracelet == itemID)
+                        equips.Bracelet = 0;
                     break;
 
                 case RLEquipPos.Neck:
-                    if (equips.Necklace == targetEquip)
-                        equips.Necklace = null;
+                    if (equips.Necklace == itemID)
+                        equips.Necklace = 0;
                     break;
             }
         }

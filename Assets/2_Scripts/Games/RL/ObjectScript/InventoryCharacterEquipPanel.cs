@@ -27,6 +27,8 @@ namespace LUP.RL
         [SerializeField]
         private TextImageBtn[] slots;
 
+        private LobbyGameCenter lobbyGameCenter;
+
 
         void Start()
         {
@@ -50,10 +52,13 @@ namespace LUP.RL
 
         void SetPastGameData()
         {
-            LobbyGameCenter lobbyGameCenter = FindFirstObjectByType<LobbyGameCenter>();
-            string characterName = lobbyGameCenter.GetselectedCharacter().Name;
+            if (lobbyGameCenter == null)
+                lobbyGameCenter = FindFirstObjectByType<LobbyGameCenter>();
 
-            SetInventoryCharacterPrieViewAnimImage(characterName);
+            RLCharacterData LastSelectedCharacter = lobbyGameCenter.GetselectedCharacter();
+
+            SetInventoryCharacterPrieViewAnimImage(LastSelectedCharacter.Name);
+            UpdateCharacterEquipSlot(LastSelectedCharacter.EquipItems);
 
         }
 
@@ -62,18 +67,20 @@ namespace LUP.RL
             inventoryCharacterPreviewAnimImage.ChangeSpriteSheet(characterName);
         }
 
-        public void UpdateCharacterEquipSlot(EquipmentData characterequipsInfo)
+        public void UpdateCharacterEquipSlot(CharacterEquipsID characterequipsInfo)
         {
             EraseAllEquipSlot();
 
-            if (characterequipsInfo.Weapon != null) { SetCharacterEquipSlot(characterequipsInfo.Weapon, EquipSlotType.Weapon); }
-            if (characterequipsInfo.Armor != null) { SetCharacterEquipSlot(characterequipsInfo.Armor, EquipSlotType.Armor); }
-            if (characterequipsInfo.Ring1 != null) { SetCharacterEquipSlot(characterequipsInfo.Ring1, EquipSlotType.Ring1); }
-            if (characterequipsInfo.Ring2 != null) { SetCharacterEquipSlot(characterequipsInfo.Ring2, EquipSlotType.Ring2); }
-            if (characterequipsInfo.Pet1 != null) { SetCharacterEquipSlot(characterequipsInfo.Pet1, EquipSlotType.Pet1); }
-            if (characterequipsInfo.Pet2 != null) { SetCharacterEquipSlot(characterequipsInfo.Pet2, EquipSlotType.Pet2); }
-            if (characterequipsInfo.Bracelet != null) { SetCharacterEquipSlot(characterequipsInfo.Bracelet, EquipSlotType.Bracelet); }
-            if (characterequipsInfo.Necklace != null) { SetCharacterEquipSlot(characterequipsInfo.Necklace, EquipSlotType.Necklace); }
+            PlatformAdapter adapter = lobbyGameCenter.platformAdapter;
+
+            if (characterequipsInfo.Weapon != 0) { SetCharacterEquipSlot(adapter.GetEquipDataByID(characterequipsInfo.Weapon), EquipSlotType.Weapon); }
+            if (characterequipsInfo.Armor != 0) { SetCharacterEquipSlot(adapter.GetEquipDataByID(characterequipsInfo.Armor), EquipSlotType.Armor); }
+            if (characterequipsInfo.Ring1 != 0) { SetCharacterEquipSlot(adapter.GetEquipDataByID(characterequipsInfo.Ring1), EquipSlotType.Ring1); }
+            if (characterequipsInfo.Ring2 != 0) { SetCharacterEquipSlot(adapter.GetEquipDataByID(characterequipsInfo.Ring2), EquipSlotType.Ring2); }
+            if (characterequipsInfo.Pet1 != 0) { SetCharacterEquipSlot(adapter.GetEquipDataByID(characterequipsInfo.Pet1), EquipSlotType.Pet1); }
+            if (characterequipsInfo.Pet2 != 0) { SetCharacterEquipSlot(adapter.GetEquipDataByID(characterequipsInfo.Pet2), EquipSlotType.Pet2); }
+            if (characterequipsInfo.Bracelet != 0) { SetCharacterEquipSlot(adapter.GetEquipDataByID(characterequipsInfo.Bracelet), EquipSlotType.Bracelet); }
+            if (characterequipsInfo.Necklace != 0) { SetCharacterEquipSlot(adapter.GetEquipDataByID(characterequipsInfo.Necklace), EquipSlotType.Necklace); }
         }
 
         void SetCharacterEquipSlot(EquipData equipData, EquipSlotType slotType)
