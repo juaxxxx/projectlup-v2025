@@ -25,6 +25,24 @@ public struct CharacterEquipsID
     public int Pet2;
     public int Bracelet;
     public int Necklace;
+
+
+    public void ExtractEquipsID(int[] idArray)
+    {
+        if (idArray == null || idArray.Length < 8)
+        {
+            return;
+        }
+
+        idArray[0] = Weapon;
+        idArray[1] = Armor;
+        idArray[2] = Ring1;
+        idArray[3] = Ring2;
+        idArray[4] = Pet1;
+        idArray[5] = Pet2;
+        idArray[6] = Bracelet;
+        idArray[7] = Necklace;
+    }
 }
 
 [CreateAssetMenu(fileName = "CharacterData", menuName = "Scriptable Objects/CharacterData")]
@@ -35,6 +53,7 @@ public class RLCharacterData : ScriptableObject, IDisplayable
     [SerializeField] private GameObject characterPrefab;
     [SerializeField] private GameObject weaponPrefab;
     [SerializeField] private GameObject weaponProjecTile = null;
+    [SerializeField] public RWeaponType weaponType;
     [SerializeField] public int projecTileSpeed = 0;
     [SerializeField] public BaseStats stats;
     [SerializeField] public CharacterEquipsID EquipItems;
@@ -47,7 +66,7 @@ public class RLCharacterData : ScriptableObject, IDisplayable
 
     private int canSeletable = 1;
 
-    public CharacterAtkType characterType = CharacterAtkType.None;
+    public CharacterAtkRangeType characterAtkRangeType = CharacterAtkRangeType.None;
     public string GetDisplayableName() { return characterName; }
     public Sprite GetDisplayableImage() { return characterPreviewImage; }
 

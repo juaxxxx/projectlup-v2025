@@ -46,8 +46,9 @@ namespace LUP.RL
             gameObject.SetActive(false);
         }
 
-        public void PopupItemPanel(EquipData equipData, bool bIsClickedAtInventory)
+        public void PopupItemPanel(EquipData equipData, bool bIsClickedAtInventory, RLCharacterData currCharacter)
         {
+            RWeaponType characterWeaponType = currCharacter.weaponType;
             DisplayedEquipData = equipData;
             bIsClickedInInventory = bIsClickedAtInventory;
 
@@ -101,6 +102,20 @@ namespace LUP.RL
             Button_Text.SetText(bIsClickedAtInventory ? "Equip" : "Release");
 
             gameObject.SetActive(true);
+
+            if (equipData.weaponType == RWeaponType.None)
+            {
+                Button.interactable = true;
+                return;
+            }
+
+
+            if (characterWeaponType != equipData.weaponType)
+                Button.interactable = false;
+
+            else
+                Button.interactable = true;
+
         }
 
         void ClearVerticalScrollView()
@@ -146,7 +161,7 @@ namespace LUP.RL
 
         void OnClicked()
         {
-            if(bIsClickedInInventory == true)
+            if (bIsClickedInInventory == true)
             {
                 OnEquipSelected?.Invoke(DisplayedEquipData);
             }

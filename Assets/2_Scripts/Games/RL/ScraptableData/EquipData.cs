@@ -24,6 +24,7 @@ namespace LUP.RL
 
         public string equipDescription;
         public EquipStat[] equipStats;
+        public RWeaponType weaponType = RWeaponType.None;
         public RLEquipPos equipPos = RLEquipPos.None;
 
         [HideInInspector]

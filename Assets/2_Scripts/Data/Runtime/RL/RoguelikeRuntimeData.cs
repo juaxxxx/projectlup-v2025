@@ -16,11 +16,11 @@ public class RoguelikeRuntimeData : BaseRuntimeData
     [SerializeField] private ChapterData _selectedChapter;
     [SerializeField] private RLCharacterData _selectedCharacter;
 
-    [SerializeField] private CharacterEquipsID _F001Equips;
-    [SerializeField] private CharacterEquipsID _F002Equips;
-    [SerializeField] private CharacterEquipsID _F003Equips;
-    [SerializeField] private CharacterEquipsID _M001Equips;
-    [SerializeField] private CharacterEquipsID _M002Equips;
+    //[SerializeField] private CharacterEquipsID _F001Equips;
+    //[SerializeField] private CharacterEquipsID _F002Equips;
+    //[SerializeField] private CharacterEquipsID _F003Equips;
+    //[SerializeField] private CharacterEquipsID _M001Equips;
+    //[SerializeField] private CharacterEquipsID _M002Equips;
 
     public int id
     {
@@ -75,33 +75,33 @@ public class RoguelikeRuntimeData : BaseRuntimeData
         set => SetValue(ref _selectedCharacter, value);
     }
 
-    public CharacterEquipsID F001Equips
-    {
-        get => _F001Equips;
-        set => SetValue(ref _F001Equips, value);
-    }
+    //public CharacterEquipsID F001Equips
+    //{
+    //    get => _F001Equips;
+    //    set => SetValue(ref _F001Equips, value);
+    //}
 
-    public CharacterEquipsID F002Equips
-    {
-        get => _F002Equips;
-        set => SetValue(ref _F002Equips, value);
-    }
+    //public CharacterEquipsID F002Equips
+    //{
+    //    get => _F002Equips;
+    //    set => SetValue(ref _F002Equips, value);
+    //}
 
-    public CharacterEquipsID F003Equips
-    {
-        get => _F003Equips;
-        set => SetValue(ref _F003Equips, value);
-    }
+    //public CharacterEquipsID F003Equips
+    //{
+    //    get => _F003Equips;
+    //    set => SetValue(ref _F003Equips, value);
+    //}
 
-    public CharacterEquipsID M001Equips
-    {
-        get => _M001Equips;
-        set => SetValue(ref _M001Equips, value);
-    }
+    //public CharacterEquipsID M001Equips
+    //{
+    //    get => _M001Equips;
+    //    set => SetValue(ref _M001Equips, value);
+    //}
 
-    public CharacterEquipsID M002Equips
-    {
-        get => _M002Equips;
-        set => SetValue(ref _M002Equips, value);
-    }
+    //public CharacterEquipsID M002Equips
+    //{
+    //    get => _M002Equips;
+    //    set => SetValue(ref _M002Equips, value);
+    //}
 }

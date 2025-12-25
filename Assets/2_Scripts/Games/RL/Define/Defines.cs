@@ -1,7 +1,7 @@
 
 namespace Roguelike.Define
 {
-    public enum CharacterAtkType
+    public enum CharacterAtkRangeType
     {
         None,
         Long,
@@ -11,12 +11,12 @@ namespace Roguelike.Define
 
     public enum RWeaponType
     {
-        None,
-        Gun,
-        OneHandSword,
-        TwoHandSword,
-        Throw,
-        Magic
+        None = 0,
+        Gun = 1,
+        OneHandSword = 2,
+        TwoHandSword = 3,
+        Throw = 4,
+        Magic = 5
     }
 
     public enum DisplayableDataType

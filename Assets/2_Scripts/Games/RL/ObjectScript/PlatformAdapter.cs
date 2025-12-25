@@ -300,25 +300,25 @@ namespace LUP.RL
             return stats.ToArray();
         }
 
-        public void LoadCharacterEquips()
-        {
-            characterEquipInfos = new List<CharacterEquipsID>();
+        //public void LoadCharacterEquips()
+        //{
+        //    characterEquipInfos = new List<CharacterEquipsID>();
 
-            characterEquipInfos.Add(runtimesaveData.F001Equips);
-            characterEquipInfos.Add(runtimesaveData.F002Equips);
-            characterEquipInfos.Add(runtimesaveData.F003Equips);
-            characterEquipInfos.Add(runtimesaveData.M001Equips);
-            characterEquipInfos.Add(runtimesaveData.M002Equips);
-        }
+        //    characterEquipInfos.Add(runtimesaveData.F001Equips);
+        //    characterEquipInfos.Add(runtimesaveData.F002Equips);
+        //    characterEquipInfos.Add(runtimesaveData.F003Equips);
+        //    characterEquipInfos.Add(runtimesaveData.M001Equips);
+        //    characterEquipInfos.Add(runtimesaveData.M002Equips);
+        //}
 
-        public void UpLoadCharacterEquips()
-        {
-            runtimesaveData.F001Equips = characterEquipInfos[(int)CharacterType.F001];
-            runtimesaveData.F002Equips = characterEquipInfos[(int)CharacterType.F002];
-            runtimesaveData.F003Equips = characterEquipInfos[(int)CharacterType.F003];
-            runtimesaveData.M001Equips = characterEquipInfos[(int)CharacterType.M001];
-            runtimesaveData.M002Equips = characterEquipInfos[(int)CharacterType.M002];
-        }
+        //public void UpLoadCharacterEquips()
+        //{
+        //    runtimesaveData.F001Equips = characterEquipInfos[(int)CharacterType.F001];
+        //    runtimesaveData.F002Equips = characterEquipInfos[(int)CharacterType.F002];
+        //    runtimesaveData.F003Equips = characterEquipInfos[(int)CharacterType.F003];
+        //    runtimesaveData.M001Equips = characterEquipInfos[(int)CharacterType.M001];
+        //    runtimesaveData.M002Equips = characterEquipInfos[(int)CharacterType.M002];
+        //}
 
         void MakeEquipTable()
         {
@@ -356,6 +356,7 @@ namespace LUP.RL
             Sprite equipIcon = item.Icon;
             int equipTier = item.GetInt("Tier");
             RLEquipPos equipPos = (RLEquipPos)item.GetInt("EquipPos");
+            RWeaponType weaponType = (RWeaponType)item.GetInt("WeaponType");
             string equipDescription = item.Description;
             string equipEffects = item.GetString("Effects");
 
@@ -365,6 +366,7 @@ namespace LUP.RL
             dynamicInventoryEquipData.SetDisplayableImage(equipIcon);
             dynamicInventoryEquipData.SetExtraInfo(equipTier);
             dynamicInventoryEquipData.equipPos = equipPos;
+            dynamicInventoryEquipData.weaponType = weaponType;
             dynamicInventoryEquipData.equipStats = ExtrackEquipEffect(equipEffects);
             dynamicInventoryEquipData.equipDescription = equipDescription;
 

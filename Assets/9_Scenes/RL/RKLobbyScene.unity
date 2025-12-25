@@ -3339,6 +3339,8 @@ MonoBehaviour:
   - {fileID: 1283845820}
   - {fileID: 199784094}
   - {fileID: 2087424279}
+  InfoBox_HP: {fileID: 437319466}
+  InfoBox_ATK: {fileID: 436964699}
 --- !u!1 &277861265
 GameObject:
   m_ObjectHideFlags: 0
@@ -13125,7 +13127,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3e261d1eb3f7d234f94cee921b6adedf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveDistance: 3
+  moveDistance: 20
   moveSpeed: 1
 --- !u!114 &1220346841
 MonoBehaviour:

@@ -1,6 +1,10 @@
+using LUP.DSG.Utils.Enums;
+using LUP.ES;
 using LUP.RL;
 using Roguelike.Define;
 using Roguelike.Util;
+using System;
+using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -27,8 +31,15 @@ namespace LUP.RL
         [SerializeField]
         private TextImageBtn[] slots;
 
+        [SerializeField]
+        private TextMeshProUGUI InfoBox_HP;
+
+        [SerializeField]
+        private TextMeshProUGUI InfoBox_ATK;
+
         private LobbyGameCenter lobbyGameCenter;
 
+        private int[] currentCharacterEquipIDArray;
 
         void Start()
         {
@@ -37,7 +48,10 @@ namespace LUP.RL
 
         public bool Init()
         {
+            currentCharacterEquipIDArray = new int[8];
+
             showPanel();
+
             return true;
         }
 
@@ -81,6 +95,9 @@ namespace LUP.RL
             if (characterequipsInfo.Pet2 != 0) { SetCharacterEquipSlot(adapter.GetEquipDataByID(characterequipsInfo.Pet2), EquipSlotType.Pet2); }
             if (characterequipsInfo.Bracelet != 0) { SetCharacterEquipSlot(adapter.GetEquipDataByID(characterequipsInfo.Bracelet), EquipSlotType.Bracelet); }
             if (characterequipsInfo.Necklace != 0) { SetCharacterEquipSlot(adapter.GetEquipDataByID(characterequipsInfo.Necklace), EquipSlotType.Necklace); }
+
+            CalckPlayerStats(lobbyGameCenter.GetselectedCharacter(), characterequipsInfo);
+
         }
 
         void SetCharacterEquipSlot(EquipData equipData, EquipSlotType slotType)
@@ -123,25 +140,75 @@ namespace LUP.RL
                 if (slot == null)
                     continue;
 
-                if(slot.Init())
+                if (slot.Init())
                 {
                     slot.btnBackGroundImage.color = new Color(159f / 255f, 151f / 255f, 151f / 255f, 1f);
                     slot.btnIcon.sprite = null;
                     slot.btnIcon.color = new Color(1.0f, 1.0f, 1.0f, 0.0f);
                     slot.button.onClick.RemoveAllListeners();
                 }
-                
+
             }
         }
 
         void OnValidEquipSlotClicked(EquipData equipData)
         {
-            if(pannelController == null)
+            if (pannelController == null)
             {
                 pannelController = FindFirstObjectByType<PannelController>();
             }
 
             pannelController.PopEquipPanel(equipData, false);
+        }
+
+        void CalckPlayerStats(RLCharacterData characterData, CharacterEquipsID characterequipsInfo)
+        {
+            int totalHP = 0;
+            int totalATK = 0;
+
+            InfoBox_HP.SetText(totalHP.ToString());
+            InfoBox_ATK.SetText(totalATK.ToString());
+
+            BaseStats stats = characterData.stats;
+            totalHP += stats.Hp;
+            totalATK += stats.Attack;
+
+            characterequipsInfo.ExtractEquipsID(currentCharacterEquipIDArray);
+
+            for(int i = 0; i < currentCharacterEquipIDArray.Length; i++)
+            {
+                if (currentCharacterEquipIDArray[i] == 0)
+                    continue;
+
+                EquipData EquipItem = lobbyGameCenter.platformAdapter.GetEquipDataByID(currentCharacterEquipIDArray[i]);
+
+                if (EquipItem != null)
+                {
+                    for (int statindex = 0; statindex < EquipItem.equipStats.Length; statindex++)
+                    {
+                        AddState(EquipItem.equipStats[statindex].statName, EquipItem.equipStats[statindex].value, ref totalHP, ref totalATK);
+                    }
+                }
+            }
+
+            InfoBox_HP.SetText(totalHP.ToString());
+            InfoBox_ATK.SetText(totalATK.ToString());
+
+        }
+
+        void AddState(string statName, int statValue, ref int hp, ref int ATK)
+        {
+            switch (statName)
+            {
+                case "HP":
+                    hp += statValue;
+                    break;
+
+                case "ATK":
+                    ATK += statValue;
+                    break;
+            }
+
         }
 
         // Update is called once per frame

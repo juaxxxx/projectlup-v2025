@@ -17,6 +17,7 @@ MonoBehaviour:
   characterPrefab: {fileID: 7307492492725346322, guid: 285c6251db02b1a40b957aa507715104, type: 3}
   weaponPrefab: {fileID: 919132149155446097, guid: b4bac87a59e3520479d5cde2aeeca4a6, type: 3}
   weaponProjecTile: {fileID: 2209012285795874987, guid: 52258ce34d94f084a9b4cc835a41a2c2, type: 3}
+  weaponType: 1
   projecTileSpeed: 10
   stats:
     Hp: 100
@@ -25,7 +26,7 @@ MonoBehaviour:
     MaxHp: 100
     Exp: 0
   EquipItems:
-    Weapon: 20004
+    Weapon: 20001
     Armor: 20005
     Ring1: 0
     Ring2: 0
@@ -33,4 +34,4 @@ MonoBehaviour:
     Pet2: 0
     Bracelet: 0
     Necklace: 0
-  characterType: 1
+  characterAtkRangeType: 1

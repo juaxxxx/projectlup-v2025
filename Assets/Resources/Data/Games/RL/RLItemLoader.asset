@@ -30,6 +30,8 @@ MonoBehaviour:
       value: 0
     - key: Effects
       value: 0
+    - key: WeaponType
+      value: 0
   - ItemID: 10002
     ItemName: Meat
     ItemType: 4
@@ -43,6 +45,8 @@ MonoBehaviour:
     - key: EquipPos
       value: 0
     - key: Effects
+      value: 0
+    - key: WeaponType
       value: 0
   - ItemID: 10003
     ItemName: Coin
@@ -58,6 +62,8 @@ MonoBehaviour:
       value: 0
     - key: Effects
       value: 0
+    - key: WeaponType
+      value: 0
   - ItemID: 20001
     ItemName: Gun_N
     ItemType: 1
@@ -72,6 +78,8 @@ MonoBehaviour:
       value: 1
     - key: Effects
       value: ATK:10
+    - key: WeaponType
+      value: 1
   - ItemID: 20002
     ItemName: Gun_R
     ItemType: 1
@@ -86,6 +94,8 @@ MonoBehaviour:
       value: 1
     - key: Effects
       value: ATK:13
+    - key: WeaponType
+      value: 1
   - ItemID: 20003
     ItemName: Gun_E
     ItemType: 1
@@ -100,6 +110,8 @@ MonoBehaviour:
       value: 1
     - key: Effects
       value: ATK:20
+    - key: WeaponType
+      value: 1
   - ItemID: 20004
     ItemName: Javelin_N
     ItemType: 1
@@ -114,6 +126,8 @@ MonoBehaviour:
       value: 1
     - key: Effects
       value: ATK:5/HP:5
+    - key: WeaponType
+      value: 3
   - ItemID: 20005
     ItemName: Armor_N
     ItemType: 2

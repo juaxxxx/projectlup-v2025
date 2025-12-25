@@ -13,7 +13,7 @@ namespace LUP.RL
         private CharacterSelectionButtonPanel characterSelectionButton;
         private List<RLCharacterData> displayedCharacterData = new List<RLCharacterData>();
 
-        private CharacterAtkType characterTypeFilter = CharacterAtkType.None;
+        private CharacterAtkRangeType characterTypeFilter = CharacterAtkRangeType.None;
 
         private RLCharacterData previewCharacterData = null;
 
@@ -77,7 +77,7 @@ namespace LUP.RL
             ErasePanel();
         }
 
-        public void SetCharacterFilter(CharacterAtkType characterType)
+        public void SetCharacterFilter(CharacterAtkRangeType characterType)
         {
             characterTypeFilter = characterType;
 
@@ -93,7 +93,7 @@ namespace LUP.RL
             {
                 RLCharacterData characterData = (RLCharacterData)displayedData[i];
 
-                if (characterTypeFilter == CharacterAtkType.None || characterData.characterType == characterTypeFilter)
+                if (characterTypeFilter == CharacterAtkRangeType.None || characterData.characterAtkRangeType == characterTypeFilter)
                     displayedCharacterData.Add(characterData);
             }
 

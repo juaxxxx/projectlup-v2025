@@ -324,7 +324,7 @@ namespace LUP.RL
 
         public void PopEquipPanel(EquipData equipData, bool bIsInventory)
         {
-            equipInfoPopupPanel.PopupItemPanel(equipData, bIsInventory);
+            equipInfoPopupPanel.PopupItemPanel(equipData, bIsInventory, lobbyGameCenter.GetselectedCharacter());
         }
 
         void OnItemEquiped(EquipData equipData)
@@ -335,7 +335,7 @@ namespace LUP.RL
                 return;
 
             lobbyGameCenter.platformAdapter.RemoveItemFromInventory(equipData.GetDisplayableName(), 1);
-            lobbyGameCenter.platformAdapter.UpLoadCharacterEquips();
+            //lobbyGameCenter.platformAdapter.UpLoadCharacterEquips();
 
             lobbyInventoryPanel.UpdateEquipInventoryGridPanel();
         }
@@ -346,7 +346,7 @@ namespace LUP.RL
             lobbyInventoryPanel.OnItemReleased(equipData);
 
             lobbyGameCenter.platformAdapter.AddItemToInventory(equipData.GetDisplayableName(), 1);
-            lobbyGameCenter.platformAdapter.UpLoadCharacterEquips();
+            //lobbyGameCenter.platformAdapter.UpLoadCharacterEquips();
 
             lobbyInventoryPanel.UpdateEquipInventoryGridPanel();
         }
