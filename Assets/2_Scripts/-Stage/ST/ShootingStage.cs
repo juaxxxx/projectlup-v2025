@@ -50,6 +50,9 @@ namespace LUP
 
             spawner.Spawn(srd);
 
+            var ui = FindFirstObjectByType<LUP.ST.UIGameController>();
+            ui?.RebuildAfterSpawn();
+
             // PCR 인벤토리 접근 가능 여부 확인
             if (InventoryManager.Instance.HasInventory("PCR"))
                 Debug.Log("[STStage] PCR 인벤토리 접근 가능");

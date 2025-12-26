@@ -304,5 +304,14 @@ namespace LUP.ST
             Debug.Log("수동 조작 캐릭터 없음 → 전체 풀 오토 + 카메라 오버뷰");
         }
 
+        public void RebuildAfterSpawn()
+        {
+            InitializeCharacters();
+            SetupButtons();
+            InitSkillAutoModeUI();
+            DeselectAllCharacters();
+        }
+
+
     }
 }

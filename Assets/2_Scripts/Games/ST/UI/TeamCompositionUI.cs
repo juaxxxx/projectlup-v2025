@@ -23,6 +23,8 @@ namespace LUP.ST
         private ShootingStage stage;
         private ShootingRuntimeData SRD;
 
+        public LobbyTeamPreviewUI lobbyPreviewUI;
+
         void Start()
         {
             stage = GameObject.FindFirstObjectByType<ShootingStage>();
@@ -32,16 +34,28 @@ namespace LUP.ST
                 return;
             }
 
-            SRD = stage.RuntimeData as ShootingRuntimeData;
+            SRD = stage != null ? stage.RuntimeData as ShootingRuntimeData : null;
+            // 로비에서는 SRD가 없을 수 있으니 여기서 return 하지 않는다.
             if (SRD == null)
+                Debug.LogWarning("[TeamCompositionUI] SRD is null (lobby timing). UI will use cache/default and SRD will be saved if available on Confirm.");
+
+            // 1) 초기 팀 결정 우선순위: Cache -> SRD.Team -> Default(0~4)
+            STCharacterData[] initTeam = LobbyTeamCache.GetCopy();
+
+            if (initTeam == null && SRD != null)
             {
-                Debug.LogError("ShootingRuntimeData not found or wrong type.");
-                return;
+                // SRD에서 팀을 "복사"해서 가져오는 걸 권장 (없으면 아래처럼 직접 접근)
+                // initTeam = SRD.GetTeamCopy();
+                initTeam = SRD.Team; // SRD.Team이 public이라고 가정. 아니라면 getter 만들어야 함.
             }
 
-            // 초기 oldTeam/teamCandidate 동기화(예시: 0~4 한명씩)
-            for (int i = 0; i < 5; i++)
-                teamCandidate[i] = oldTeam[i] = characterDatas[i];
+            if (initTeam == null)
+                initTeam = BuildDefaultTeam();
+
+            // 2) teamCandidate / oldTeam 동기화
+            Copy5(initTeam, teamCandidate);
+            Copy5(initTeam, oldTeam);
+
 
             // 슬롯 버튼 이벤트 연결
             for (int i = 0; i < slotButtons.Length; i++)
@@ -100,13 +114,19 @@ namespace LUP.ST
 
         void OnConfirm()
         {
-            for (int i = 0; i < 5; i++)
-            {
-                lobbyTeamImages[i].sprite = teamCandidate[i]?.thumbnail;
-                oldTeam[i] = teamCandidate[i]; // 저장
-            }
+            // 1) 로비 UX용 캐시 저장 (로비 재진입 복원용)
+            LobbyTeamCache.Save(teamCandidate);
 
-            SRD.SetTeam(teamCandidate);
+            // 2) 로비 표시용 UI 갱신 (RuntimeData와 무관)
+            if (lobbyPreviewUI != null)
+                lobbyPreviewUI.SetTeam(teamCandidate);
+
+            // 3) 게임용 런타임데이터 저장 (가능할 때만)
+            if (SRD != null)
+                SRD.SetTeam(teamCandidate);
+
+            // 4) 확정 상태로 oldTeam 갱신
+            Copy5(teamCandidate, oldTeam);
 
             selectedSlot = -1;
             RefreshUI();
@@ -114,9 +134,7 @@ namespace LUP.ST
 
         void OnCancel()
         {
-            for (int i = 0; i < 5; i++)
-                teamCandidate[i] = oldTeam[i];
-
+            Copy5(oldTeam, teamCandidate);
             selectedSlot = -1;
             RefreshUI();
         }
@@ -182,5 +200,20 @@ namespace LUP.ST
                 characterButtons[btnIdx].image.color = disabled ? Color.gray : Color.white;
             }
         }
+
+        private static void Copy5(STCharacterData[] src, STCharacterData[] dst)
+        {
+            for (int i = 0; i < 5; i++)
+                dst[i] = (src != null && src.Length > i) ? src[i] : null;
+        }
+
+        private STCharacterData[] BuildDefaultTeam()
+        {
+            var t = new STCharacterData[5];
+            for (int i = 0; i < 5; i++)
+                t[i] = (characterDatas != null && characterDatas.Length > i) ? characterDatas[i] : null;
+            return t;
+        }
+
     }
 }
