@@ -74,8 +74,11 @@ namespace LUP.RL
             chapterDatas = testPlatform.chapterDatas;
             characterDatas = testPlatform.characterDatas;
 
-            LastSeletedChapter = runtimesaveData.lastSelectedCharacter;
-            LastSeletedCharacter = runtimesaveData.lastPlayedChapter;
+            if(runtimesaveData != null)
+            {
+                LastSeletedChapter = runtimesaveData.lastSelectedCharacter;
+                LastSeletedCharacter = runtimesaveData.lastPlayedChapter;
+            }
 
             gainableBuffDatas = testPlatform.buffDatas;
 
