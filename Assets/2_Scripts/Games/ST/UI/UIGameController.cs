@@ -14,6 +14,8 @@ namespace LUP.ST
 
         [Header("하단 캐릭터 선택 패널")]
         [SerializeField] private List<Button> characterSelectButtons = new List<Button>();
+        [SerializeField] private List<Image> characterButtonImages = new List<Image>();
+        [SerializeField] private List<CharacterHpSlotUI> hpSlots = new List<CharacterHpSlotUI>();
         [SerializeField] private Color normalColor = Color.white;
         [SerializeField] private Color selectedColor = Color.yellow;
         [SerializeField] private Color disabledColor = Color.gray;
@@ -127,35 +129,6 @@ namespace LUP.ST
             }
 
             Debug.Log($"스킬 자동 사용 모드: {(isSkillAuto ? "ON" : "OFF")}");
-        }
-
-        private void SelectInitialManualRanged()
-        {
-            if (rangedCharacters.Count == 0)
-            {
-                currentSelectedIndex = -1;
-                UpdateCharacterPanelColors();
-                Debug.LogWarning("원거리 캐릭터가 없어 수동 조작 캐릭터를 설정하지 못했습니다.");
-                return;
-            }
-
-            // x 좌표 기준으로 가장 왼쪽 원거리 캐릭터 찾기
-            RangeBlackBoard leftMostRanged = rangedCharacters
-                .OrderBy(r => r.transform.position.x)
-                .First();
-
-            GameObject targetGO = leftMostRanged.gameObject;
-            int index = allCharacters.IndexOf(targetGO);
-
-            if (index >= 0)
-            {
-                SelectCharacter(index);
-                Debug.Log($"{leftMostRanged.characterName} (원거리) 를 초기 수동 캐릭터로 설정");
-            }
-            else
-            {
-                Debug.LogWarning("왼쪽 원거리 캐릭터를 allCharacters에서 찾지 못했습니다.");
-            }
         }
 
         public void OnCharacterSelected(int index)
@@ -312,6 +285,45 @@ namespace LUP.ST
             DeselectAllCharacters();
         }
 
+        public void ApplyTeamThumbnails(STCharacterData[] team5)
+        {
+            if (team5 == null || team5.Length < 5) return;
+
+            for (int i = 0; i < characterSelectButtons.Count; i++)
+            {
+                if (i >= 5) break;
+
+                Image img = (characterButtonImages != null && i < characterButtonImages.Count && characterButtonImages[i] != null)
+                    ? characterButtonImages[i]
+                    : characterSelectButtons[i].GetComponent<Image>();
+
+                if (img == null) continue;
+
+                img.sprite = team5[i] != null ? team5[i].thumbnail : null;
+                img.type = Image.Type.Simple;
+                img.preserveAspect = false;
+            }
+        }
+
+        public void BindHpToSpawnedCharacters(List<GameObject> spawnedCharactersInSlotOrder)
+        {
+            for (int i = 0; i < 5 && i < hpSlots.Count; i++)
+            {
+                if (hpSlots[i] == null) continue;
+
+                if (spawnedCharactersInSlotOrder != null &&
+                    i < spawnedCharactersInSlotOrder.Count &&
+                    spawnedCharactersInSlotOrder[i] != null)
+                {
+                    var stat = spawnedCharactersInSlotOrder[i].GetComponent<StatComponent>();
+                    hpSlots[i].Bind(stat);
+                }
+                else
+                {
+                    hpSlots[i].Bind(null);
+                }
+            }
+        }
 
     }
 }

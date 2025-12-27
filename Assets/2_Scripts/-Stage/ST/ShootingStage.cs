@@ -48,10 +48,15 @@ namespace LUP
                 yield break;
             }
 
-            spawner.Spawn(srd);
+            var spawnedCharacters = spawner.Spawn(srd);
 
             var ui = FindFirstObjectByType<LUP.ST.UIGameController>();
-            ui?.RebuildAfterSpawn();
+            if (ui != null)
+            {
+                ui.RebuildAfterSpawn();
+                ui.ApplyTeamThumbnails(srd.Team);
+                ui.BindHpToSpawnedCharacters(spawnedCharacters);
+            }
 
             // PCR 인벤토리 접근 가능 여부 확인
             if (InventoryManager.Instance.HasInventory("PCR"))
