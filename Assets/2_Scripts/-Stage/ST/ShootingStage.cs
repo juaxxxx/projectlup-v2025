@@ -32,6 +32,32 @@ namespace LUP
             yield return base.OnStageEnter();
             //구현부
 
+            // RuntimeData 준비 확인
+            var srd = RuntimeData as ShootingRuntimeData;
+            if (srd == null)
+            {
+                Debug.LogError("[ShootingStage] ShootingRuntimeData not found or wrong type.");
+                yield break;
+            }
+
+            // Spawner 찾아서 스폰 호출
+            var spawner = FindFirstObjectByType<LUP.ST.STTeamSpawner>();
+            if (spawner == null)
+            {
+                Debug.LogError("[ShootingStage] STTeamSpawner not found in scene.");
+                yield break;
+            }
+
+            var spawnedCharacters = spawner.Spawn(srd);
+
+            var ui = FindFirstObjectByType<LUP.ST.UIGameController>();
+            if (ui != null)
+            {
+                ui.RebuildAfterSpawn();
+                ui.ApplyTeamThumbnails(srd.Team);
+                ui.BindHpToSpawnedCharacters(spawnedCharacters);
+            }
+
             // PCR 인벤토리 접근 가능 여부 확인
             if (InventoryManager.Instance.HasInventory("PCR"))
                 Debug.Log("[STStage] PCR 인벤토리 접근 가능");
