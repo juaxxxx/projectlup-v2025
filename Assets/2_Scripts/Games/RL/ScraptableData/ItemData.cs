@@ -5,7 +5,7 @@ using UnityEngine;
 namespace LUP.RL
 {
  
-    [CreateAssetMenu(fileName = "ItemData", menuName = "Scriptable Objects/ItemData")]
+    [CreateAssetMenu(fileName = "ItemData", menuName = "RLGame/ItemData")]
     public class ItemData : ScriptableObject, IDisplayable
     {
 

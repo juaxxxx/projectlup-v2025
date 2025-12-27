@@ -1,6 +1,6 @@
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "LevelDataTable", menuName = "Scriptable Objects/LevelDataTable")]
+[CreateAssetMenu(fileName = "LevelDataTable", menuName = "RLGame/LevelDataTable")]
 public class LevelDataTable : ScriptableObject
 {
     public LevelData[] levelList;

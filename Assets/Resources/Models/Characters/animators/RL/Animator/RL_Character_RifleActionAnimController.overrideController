@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!221 &22100000
+AnimatorOverrideController:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: RL_Character_RifleActionAnimController
+  m_Controller: {fileID: 9100000, guid: 6266e1900b35f874a97ccb46689b1e88, type: 2}
+  m_Clips:
+  - m_OriginalClip: {fileID: 4348485665485846014, guid: 2880a5c98f020b140b0fa0eaec60c639, type: 3}
+    m_OverrideClip: {fileID: -4572650651892053679, guid: ffa89477206522f4eb958468716d87d0, type: 3}
+  - m_OriginalClip: {fileID: 7055355079433224739, guid: f75e27afa8373234f85607c745d65beb, type: 3}
+    m_OverrideClip: {fileID: -4572650651892053679, guid: 9c41fd3a5a2783548b6a1aec90c93e4f, type: 3}
+  - m_OriginalClip: {fileID: -3100369314251171874, guid: 65aceb821688847449cbad8f6eb6241d, type: 3}
+    m_OverrideClip: {fileID: -4572650651892053679, guid: 35023771caf6ea149b5788569979f6ab, type: 3}
+  - m_OriginalClip: {fileID: 3094330708855449807, guid: b3d13322675e10d47aa75892a620c7bc, type: 3}
+    m_OverrideClip: {fileID: -4572650651892053679, guid: 1226b4dc70faa0844ac2bff961cb91f1, type: 3}
+  - m_OriginalClip: {fileID: 3898671758408027237, guid: b09d851b76d92f144abcea300e30fa58, type: 3}
+    m_OverrideClip: {fileID: -4572650651892053679, guid: 433fbe3fd8aded84a979d976b61800d3, type: 3}

@@ -45,7 +45,7 @@ public struct CharacterEquipsID
     }
 }
 
-[CreateAssetMenu(fileName = "CharacterData", menuName = "Scriptable Objects/CharacterData")]
+[CreateAssetMenu(fileName = "CharacterData", menuName = "RLGame/CharacterData")]
 public class RLCharacterData : ScriptableObject, IDisplayable
 {
     [SerializeField] private string characterName;

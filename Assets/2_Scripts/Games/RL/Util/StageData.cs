@@ -2,7 +2,7 @@ using UnityEngine;
 using System.Collections.Generic;
 namespace LUP.RL
 {
-    [CreateAssetMenu(fileName = "StageData", menuName = "Game/StageData")]
+    [CreateAssetMenu(fileName = "StageData", menuName = "RLGame/StageData")]
     public class StageData : ScriptableObject
     {
         [SerializeField]

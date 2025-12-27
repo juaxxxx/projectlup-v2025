@@ -1,6 +1,6 @@
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "sellingContentData", menuName = "Scriptable Objects/sellingContentData")]
+[CreateAssetMenu(fileName = "sellingContentData", menuName = "RLGame/sellingContentData")]
 public class sellingContentData : ScriptableObject
 {
     public Sprite sellingItemImage;

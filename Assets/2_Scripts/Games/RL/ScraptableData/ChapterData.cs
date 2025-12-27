@@ -1,7 +1,7 @@
 using System.Runtime.CompilerServices;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "ChapterData", menuName = "Scriptable Objects/ChapterData")]
+[CreateAssetMenu(fileName = "ChapterData", menuName = "RLGame/ChapterData")]
 public class ChapterData : ScriptableObject, IDisplayable
 {
     [SerializeField]

@@ -10,7 +10,7 @@ namespace LUP.RL
         public int value;
     }
 
-    [CreateAssetMenu(fileName = "EquipData", menuName = "Scriptable Objects/EquipData")]
+    [CreateAssetMenu(fileName = "EquipData", menuName = "RLGame/EquipData")]
     public class EquipData : ScriptableObject, IDisplayable
     {
         [SerializeField]

@@ -1,7 +1,7 @@
 using UnityEngine;
 using Roguelike.Define;
 
-[CreateAssetMenu(fileName = "BuffData", menuName = "Scriptable Objects/BuffData")]
+[CreateAssetMenu(fileName = "BuffData", menuName = "RLGame/BuffData")]
 public class BuffData : ScriptableObject, IDisplayable
 {
     public string buffName;
