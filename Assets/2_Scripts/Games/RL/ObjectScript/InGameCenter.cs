@@ -211,7 +211,7 @@ namespace LUP.RL
                                                                                                                                                                
             GameObject character = Instantiate(characterData.CharacterPrefab, pos, rot);
             playerBuff = character.GetComponent<PlayerBuff>();
-            //FindFirstObjectByType<ExpCenter>().BindPlayer(character);
+            FindFirstObjectByType<ExpCenter>().BindPlayer(character);
             if (playerBuff && buffUI)
             {
                 playerBuff.OnRequestBuffUI += buffUI.Bind;

@@ -94,6 +94,7 @@ namespace LUP.RL
 
         private void HandleStageClear()
         {
+            Debug.Log($"스테이지클리어");
             onStageClear.Invoke();
             GameClear = true;
         }
@@ -154,16 +155,9 @@ namespace LUP.RL
         {
             if (currentStage == 0)
             {
-                Debug.Log("첫 번째 스테이지 자동 클리어");
                 return true;
             }
-            //Debug.Log($"호출");
-            //if (currentSpawner == null)
-            //{
-            //    Debug.Log($"spawner null 호출");
-            //    return true;
-            //}
-            // Destroy이 된 Enemy들이 null로 남아있을 수 있기때문에.
+       
             currentSpawner.spawnedEnemies.RemoveAll(e => e == null || e.Equals(null));
             if (currentSpawner.spawnedEnemies.Count == 0)
             {
