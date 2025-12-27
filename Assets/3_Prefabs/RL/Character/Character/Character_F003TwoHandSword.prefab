@@ -2530,7 +2530,6 @@ GameObject:
   - component: {fileID: 3474553915367472426}
   - component: {fileID: 940147698664845262}
   - component: {fileID: 4565055029744188784}
-  - component: {fileID: -8916505213670709273}
   - component: {fileID: 3673444283788110230}
   - component: {fileID: -5526740946226788320}
   m_Layer: 0
@@ -2632,6 +2631,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   joystick: {fileID: 0}
+  leftHandIKTransform: {fileID: 0}
 --- !u!114 &5655426160634699275
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2661,7 +2661,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fireSystem: {fileID: 3474553915367472426}
-  weapon: {fileID: -8916505213670709273}
+  weapon: {fileID: 0}
   meleeWeapon: {fileID: 3673444283788110230}
 --- !u!114 &3474553915367472426
 MonoBehaviour:
@@ -2720,22 +2720,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 116
   m_CollisionDetection: 0
---- !u!114 &-8916505213670709273
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6828710996149563988}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e324571cbc24f634c8dcb7a2415324c6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  weaponType: 3
-  weaponHandPos: {fileID: 2988717444787214632}
-  weaponPos: {x: -0.109, y: 0.05, z: 0.058}
-  rotate: {x: 0, y: 0, z: 71.983}
 --- !u!114 &3673444283788110230
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2765,9 +2749,6 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 54e6e3dae78328742aeb2291cf27c713, type: 2}
   - {fileID: 11400000, guid: 0c3a784d4aa1c854f852eeda7d6407c6, type: 2}
   - {fileID: 11400000, guid: f7008bd66f0663c4489aa8210f7cbbb2, type: 2}
-  buffSelectionUI: {fileID: 0}
-  optionParent: {fileID: 0}
-  optionButtonPrefab: {fileID: 0}
   archer: {fileID: 0}
 --- !u!1 &6865476572672903943
 GameObject:

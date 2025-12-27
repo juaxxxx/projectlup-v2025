@@ -216,47 +216,43 @@ namespace LUP.RL
                 playerBuff.OnRequestBuffUI += buffUI.Bind;
             }
 
-            WeaponData equipedWeaponData = BeArmed(character);
+            (WeaponData, GameObject) ArmedResult = BeArmed(character);
+            WeaponData equipedWeaponData = ArmedResult.Item1;
+            GameObject weaponInstance = ArmedResult.Item2;
 
 
             //WeaponHand weaponHand = character.GetComponent<WeaponHand>();
             FireSystem fireSystem = character.GetComponent<FireSystem>();
             MeleeSystem meleeSystem = character.GetComponent<MeleeSystem>();
+            ShooterComp shooterComp = character.GetComponent<ShooterComp>();
 
-            //if (weaponHand)
-            //{
-            //    Transform weaponHandPos = weaponHand.weaponHandPos;
-            //    GameObject weaponPrefab = characterData.WeaponPrefab;
+            if(shooterComp)
+            {
+                shooterComp.weapon = equipedWeaponData;
+            }
 
-            //    if (weaponHandPos && weaponPrefab)
-            //    {
-            //        GameObject weapon = Instantiate(weaponPrefab, weaponHandPos);
+            if(equipedWeaponData != null)
+            {
+                if (equipedWeaponData.weaponType == RWeaponType.Throw)
+                {
+                    SetCustumProjectile(character, equipedWeaponData);
+                    //character.GetComponent<FireSystem>().bulletData.bulletPrefab = characterData.GetWeaponProjecTile();
+                }
+                else if (equipedWeaponData.weaponType == RWeaponType.TwoHandSword)
+                {
+                    Collider hitcol = weaponInstance.GetComponent<Collider>();
+                    if (hitcol && meleeSystem)
+                    {
+                        meleeSystem.hitcolider = hitcol;
+                    }
+                }
 
-            //        weapon.transform.localPosition = weaponHand.weaponPos;
-            //        weapon.transform.localRotation = Quaternion.Euler(weaponHand.rotate);
-
-            //        if(weaponHand.weaponType == RWeaponType.Throw)
-            //        {
-            //            SetCustumProjectile(character);
-            //            character.GetComponent<FireSystem>().bulletData.bulletPrefab = characterData.GetWeaponProjecTile();
-            //        }
-            //        else if(weaponHand.weaponType == RWeaponType.TwoHandSword)
-            //        {
-            //            Collider hitcol = weapon.GetComponent<Collider>();
-            //            if(hitcol && meleeSystem)
-            //            {
-            //                meleeSystem.hitcolider = hitcol;
-            //            }
-            //        }
-
-            //    }
-
-            //    else if(weaponHand.weaponType == RWeaponType.Magic)
-            //    {
-            //        SetCustumProjectile(character);
-            //        character.GetComponent<FireSystem>().bulletData.bulletPrefab = characterData.GetWeaponProjecTile();
-            //    }
-            //}
+                else if (equipedWeaponData.weaponType == RWeaponType.Magic)
+                {
+                    SetCustumProjectile(character, equipedWeaponData);
+                    //character.GetComponent<FireSystem>().bulletData.bulletPrefab = characterData.GetWeaponProjecTile();
+                }
+            }
 
             OnPlayerCharacterSpawned?.Invoke(character);
 
@@ -390,7 +386,7 @@ namespace LUP.RL
             return gainedItem;
         }
 
-        WeaponData BeArmed(GameObject playingCharacter)
+        (WeaponData, GameObject) BeArmed(GameObject playingCharacter)
         {
             Animator animator = playingCharacter.GetComponent<Animator>();
             if (animator)
@@ -400,7 +396,7 @@ namespace LUP.RL
                 if (weaponItemId == 0 || _weaponDict.ContainsKey(weaponItemId) == false)
                 {
                     SetCharacterCombatDefault();
-                    return null;
+                    return (null, null);
                 }
 
                 else
@@ -415,32 +411,21 @@ namespace LUP.RL
                     weaponInstance.transform.localPosition = Vector3.zero;
                     weaponInstance.transform.localRotation = Quaternion.identity;
 
-                    weaponInstance.transform.localPosition = weaponData.weaponRightHandGrapPos;
-                    weaponInstance.transform.localRotation = Quaternion.Euler(weaponData.weaponRotate);
+                    weaponInstance.transform.localPosition = weaponData.IdleweaponRightHandGrapPos;
+                    weaponInstance.transform.localRotation = Quaternion.Euler(weaponData.IdleweaponRotate);
 
                     Transform leftHandGrip = weaponInstance.transform.Find("LeftHandGrapPos");
                     if (leftHandGrip)
                         playingCharacter.GetComponent<PlayerBehaviorTree>().leftHandIKTransform = leftHandGrip;
 
-
-
-                    ////Transform rightHandGrip = weaponInstance.transform.Find("RightHandGrapPos");
-                    //Transform firePos = weaponInstance.transform.Find("FirePos");
-
-                        //animator.SetIKPositionWeight(AvatarIKGoal.LeftHand, 1);
-                        //animator.SetIKRotationWeight(AvatarIKGoal.LeftHand, 1);
-                        //animator.SetIKPosition(AvatarIKGoal.LeftHand, leftHandGrip.position);
-                        ////animator.SetIKRotation(AvatarIKGoal.LeftHand, rightHandObj.rotation);
-
-
                     if (weaponData.overrideController)
                         animator.runtimeAnimatorController = weaponData.overrideController;
 
-                    return _weaponDict[weaponItemId];
+                    return (_weaponDict[weaponItemId], weaponInstance);
                 }
             }
 
-            return null;
+            return (null, null);
         }
 
         void SetCharacterCombatDefault()
@@ -448,14 +433,14 @@ namespace LUP.RL
 
         }
 
-        //void SetCustumProjectile(GameObject character)
-        //{
-        //    BulletData custumBulletData = ScriptableObject.CreateInstance<BulletData>();
-        //    custumBulletData.bulletPrefab = characterData.GetWeaponProjecTile();
-        //    custumBulletData.Speed = characterData.projecTileSpeed;
+        void SetCustumProjectile(GameObject character, WeaponData equipedWeaponData)
+        {
+            BulletData custumBulletData = ScriptableObject.CreateInstance<BulletData>();
+            custumBulletData.bulletPrefab = equipedWeaponData.weaponProjecTile;
+            custumBulletData.Speed = equipedWeaponData.projecTileSpeed;
 
-        //    character.GetComponent<FireSystem>().bulletData = custumBulletData;
-        //}
+            character.GetComponent<FireSystem>().bulletData = custumBulletData;
+        }
     }
 }
 

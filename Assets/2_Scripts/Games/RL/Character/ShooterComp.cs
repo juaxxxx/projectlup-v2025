@@ -7,7 +7,7 @@ namespace LUP.RL
     public class ShooterComp : MonoBehaviour
     {
         public FireSystem fireSystem;
-        public WeaponHand weapon;
+        public WeaponData weapon;
         public MeleeSystem meleeWeapon;
 
 

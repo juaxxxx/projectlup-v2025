@@ -157,11 +157,11 @@ namespace LUP.RL
             if (leftHandIKTransform == null) return;
 
             animator.SetIKPositionWeight(AvatarIKGoal.LeftHand, 1f);
-            //animator.SetIKRotationWeight(AvatarIKGoal.LeftHand, 1f);
+            animator.SetIKRotationWeight(AvatarIKGoal.LeftHand, 0.8f);
 
             animator.SetIKPosition(AvatarIKGoal.LeftHand, leftHandIKTransform.position);
 
-            //animator.SetIKRotation(AvatarIKGoal.LeftHand, leftHandIKTransform.rotation);
+            animator.SetIKRotation(AvatarIKGoal.LeftHand, leftHandIKTransform.rotation);
         }
     }
 }

@@ -787,8 +787,6 @@ GameObject:
   - component: {fileID: 1663221855330172011}
   - component: {fileID: 4660733144224164347}
   - component: {fileID: 7953697844311286287}
-  - component: {fileID: 3957208319597408791}
-  - component: {fileID: -2772922325824663299}
   - component: {fileID: -8699862135374565694}
   m_Layer: 0
   m_Name: Character_F001Magic
@@ -894,6 +892,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   joystick: {fileID: 0}
+  leftHandIKTransform: {fileID: 0}
 --- !u!114 &4541267209194509683
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -923,7 +922,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fireSystem: {fileID: 1663221855330172011}
-  weapon: {fileID: 3957208319597408791}
+  weapon: {fileID: 0}
   meleeWeapon: {fileID: 0}
 --- !u!114 &1663221855330172011
 MonoBehaviour:
@@ -982,37 +981,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 116
   m_CollisionDetection: 0
---- !u!114 &3957208319597408791
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2023117235042773731}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e324571cbc24f634c8dcb7a2415324c6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  weaponType: 5
-  weaponHandPos: {fileID: 4803918700160509372}
-  weaponPos: {x: 0, y: 0, z: 0}
-  rotate: {x: 0, y: 0, z: 0}
---- !u!114 &-2772922325824663299
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2023117235042773731}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8ba776602c7677c41ae13a43c191de01, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  spawnPoint: {fileID: 8355988835557041488}
-  bulletData: {fileID: 11400000, guid: d53534de4136a0947b53cbb669fc0c67, type: 2}
-  fireDelay: 1
 --- !u!114 &-8699862135374565694
 MonoBehaviour:
   m_ObjectHideFlags: 0
