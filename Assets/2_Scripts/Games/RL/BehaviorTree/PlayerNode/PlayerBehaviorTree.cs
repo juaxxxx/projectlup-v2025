@@ -15,6 +15,9 @@ namespace LUP.RL
         protected AnimatorStateInfo stateInfo;
         protected PlayerLeafNode currentRunningLeafNode;
 
+        [HideInInspector]
+        public Transform leftHandIKTransform;
+
       
         private void Awake()
         {
@@ -146,6 +149,19 @@ namespace LUP.RL
         {
             stateInfo = animator.GetCurrentAnimatorStateInfo(0);
             return stateInfo;
+        }
+
+        void OnAnimatorIK(int layerIndex)
+        {
+            if (animator == null) return;
+            if (leftHandIKTransform == null) return;
+
+            animator.SetIKPositionWeight(AvatarIKGoal.LeftHand, 1f);
+            //animator.SetIKRotationWeight(AvatarIKGoal.LeftHand, 1f);
+
+            animator.SetIKPosition(AvatarIKGoal.LeftHand, leftHandIKTransform.position);
+
+            //animator.SetIKRotation(AvatarIKGoal.LeftHand, leftHandIKTransform.rotation);
         }
     }
 }

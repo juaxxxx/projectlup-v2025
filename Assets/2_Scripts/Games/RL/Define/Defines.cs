@@ -19,6 +19,13 @@ namespace Roguelike.Define
         Magic = 5
     }
 
+    public enum WeaponHandType
+    {
+        None = 0,
+        OneHand = 1,
+        TowHand = 2
+    }
+
     public enum DisplayableDataType
     {
         None,

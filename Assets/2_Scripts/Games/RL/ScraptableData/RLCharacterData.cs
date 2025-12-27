@@ -51,16 +51,16 @@ public class RLCharacterData : ScriptableObject, IDisplayable
     [SerializeField] private string characterName;
     [SerializeField] private Sprite characterPreviewImage;
     [SerializeField] private GameObject characterPrefab;
-    [SerializeField] private GameObject weaponPrefab;
-    [SerializeField] private GameObject weaponProjecTile = null;
+    //[SerializeField] private GameObject weaponPrefab;
+    //[SerializeField] private GameObject weaponProjecTile = null;
     [SerializeField] public RWeaponType weaponType;
-    [SerializeField] public int projecTileSpeed = 0;
+    //[SerializeField] public int projecTileSpeed = 0;
     [SerializeField] public BaseStats stats;
     [SerializeField] public CharacterEquipsID EquipItems;
 
 
     public GameObject CharacterPrefab => characterPrefab;
-    public GameObject WeaponPrefab => weaponPrefab;
+    //public GameObject WeaponPrefab => weaponPrefab;
     public Sprite CharacterPreview => characterPreviewImage;
     public string Name => characterName;
 
@@ -76,6 +76,6 @@ public class RLCharacterData : ScriptableObject, IDisplayable
 
     public void SetExtraInfo(int extraInfo) { canSeletable = extraInfo; }
 
-    public GameObject GetWeaponProjecTile() {  return weaponProjecTile; }
+    //public GameObject GetWeaponProjecTile() {  return weaponProjecTile; }
 
 }
