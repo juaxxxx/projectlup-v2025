@@ -16,7 +16,6 @@ namespace LUP.PCR
             this.mainPresenter = mainPresenter;
 
             view.OnClickBack += HandleBackClick;
-
         }
 
         private void HandleBackClick()

@@ -150,24 +150,24 @@ namespace LUP.PCR
 
         private void TestDebuging()
         {
-            if (taskBuildingList != null)
-            {
-                Debug.Log($"작업가능 건물 : (총 {taskBuildingList.Count}개)");
+//            if (taskBuildingList != null)
+//            {
+//                Debug.Log($"작업가능 건물 : (총 {taskBuildingList.Count}개)");
 
-                for (int i = 0; i < taskBuildingList.Count; i++)
-                {
-                    BuildingBase station = taskBuildingList[i];
-                    if (station != null)
-                    {
-                        Debug.Log($"{i}번 이름: {station.name}, 위치: {station.transform.position}");
-                    }
-                    else
-                    {
-                        Debug.Log($"[{i}번] NULL (비어있음)");
-                    }
-                }
-;
-            }
+//                for (int i = 0; i < taskBuildingList.Count; i++)
+//                {
+//                    BuildingBase station = taskBuildingList[i];
+//                    if (station != null)
+//                    {
+//                        Debug.Log($"{i}번 이름: {station.name}, 위치: {station.transform.position}");
+//                    }
+//                    else
+//                    {
+//                        Debug.Log($"[{i}번] NULL (비어있음)");
+//                    }
+//                }
+//;
+//            }
         }
 
         private void Update()
@@ -190,10 +190,9 @@ namespace LUP.PCR
 
             }
 
-            //AssignPendingTasks();
+            AssignPendingTasks();
         }
 
-        // 대기중인 일감을 노는 일꾼에게 배정
         private void AssignPendingTasks()
         {
             if (taskQueue.Count == 0) return;
@@ -230,6 +229,7 @@ namespace LUP.PCR
                 taskQueue.Enqueue(structure);
             }
         }
+
         public List<WorkerAI> GetIdleWorkers()
         {
             List<WorkerAI> idleList = new List<WorkerAI>();
