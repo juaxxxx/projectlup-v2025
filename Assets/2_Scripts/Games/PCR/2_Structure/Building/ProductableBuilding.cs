@@ -1,4 +1,5 @@
 using NUnit.Framework.Constraints;
+using System.Drawing;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -15,7 +16,7 @@ namespace LUP.PCR
         protected IBuildState productableState;
 
         public int maxStorage;
-
+        
         public abstract void SetupProductionData();
 
         public abstract void StartProduction();
@@ -33,7 +34,6 @@ namespace LUP.PCR
         {
             productionInfo = info;
         }
-
     }
 
 }

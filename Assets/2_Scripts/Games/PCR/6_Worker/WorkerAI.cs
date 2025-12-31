@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using LUP.RL;
+using System.Collections.Generic;
 using UnityEngine;
 using static System.Collections.Specialized.BitVector32;
 
@@ -124,7 +125,7 @@ namespace LUP.PCR
              new IsHealthLowChecker(LocalBlackboard),
              new PauseCurrentTask(LocalBlackboard),
              new GoToEatingPlace(LocalBlackboard),
-             new EatFood(LocalBlackboard),
+             new EatFood(LocalBlackboard)
          });
 
         // Sequence: 새 일 시작
@@ -142,7 +143,7 @@ namespace LUP.PCR
             hungerSequence,
             workingSequence,
             //new GoToWorkerStation(LocalBlackboard),
-            new RoamAroundBuilding(LocalBlackboard),
+            new RoamAroundBuilding(LocalBlackboard)
         });
         }
 

@@ -5,8 +5,7 @@ namespace LUP.PCR
 {
     public interface IFarmTaskUIView
     {
-        event Action<FarmUIBtnType> OnChangeTab;
-
+        event Action<FarmUIBtnType> OnChangeBtn;
         event Action OnClickBack;
         event Action OnClickWorkRequest;
         event Action OnClickUpgrade;
