@@ -10,7 +10,7 @@ namespace LUP.PCR
 
         void Show();
         void Hide();
+        void UpdateResourceText(PCRResourceCenter resourceCenter);
     }
-
 }
 

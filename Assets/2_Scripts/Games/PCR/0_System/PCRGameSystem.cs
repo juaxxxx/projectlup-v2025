@@ -63,7 +63,7 @@ namespace LUP.PCR
             taskController.InitTaskController(uiCenter, digWallPreview, buildPreview, tileMap, buildingSystem);
 
             // uiCenter Init
-            uiCenter.InitUI(taskController);
+            uiCenter.InitUI(taskController, resourceCenter);
         }
     }
 

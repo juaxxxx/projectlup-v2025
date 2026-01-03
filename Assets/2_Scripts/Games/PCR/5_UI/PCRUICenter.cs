@@ -33,21 +33,33 @@ namespace LUP.PCR
 
         private void Update()
         {
-            if (uiType == ActiveUIType.ProductableBuilding)
+            switch(uiType)
             {
-                if (currBuilding != null)
-                {
-                    ProductableBuilding building = currBuilding as ProductableBuilding;
-
-                    if (building)
+                case ActiveUIType.Main:
+                    mainPresenter.UpdateResourceText();
+                    break;
+                case ActiveUIType.ProductableBuilding:
+                    if (currBuilding != null)
                     {
-                        farmTaskPresenter.UpdateUI(building);
+                        ProductableBuilding building = currBuilding as ProductableBuilding;
+
+                        if (building)
+                        {
+                            farmTaskPresenter.UpdateUI(building);
+                        }
                     }
-                }
+                    break;
+                case ActiveUIType.SelectConstrcut:
+
+                    break;
+                case ActiveUIType.ConstructionDecision:
+
+                    break;
+
             }
         }
 
-        public void InitUI(TaskController controller)
+        public void InitUI(TaskController controller, PCRResourceCenter resourceCenter)
         {
             taskController = controller;
 
@@ -62,11 +74,12 @@ namespace LUP.PCR
             farmTaskPresenter = new FarmTaskUIPresenter();
             constructionDecisionPresenter = new ConstructionDecisionPresenter();
 
-            mainPresenter.InitPresenter(mainView, new MainUIModel(), selectConstructPresenter);
+            mainPresenter.InitPresenter(mainView, new MainUIModel(), selectConstructPresenter, resourceCenter);
             selectConstructPresenter.InitPresenter(selectConstructView, new SelectConstructUIModel(), mainPresenter, constructionDecisionPresenter);
             farmTaskPresenter.InitPresenter(farmTaskView, new FarmTaskUIModel(), mainPresenter);
             constructionDecisionPresenter.InitPresenter(constructionDecisionView, new ConstructionDecisionModel(), mainPresenter);
 
+            uiType = ActiveUIType.Main;
             mainPresenter.Show();
             selectConstructPresenter.Hide();
             farmTaskPresenter.Hide();
@@ -76,6 +89,7 @@ namespace LUP.PCR
             mainPresenter.BindActionDig(taskController.DigWallTask);
             mainPresenter.BindActionConstruct(taskController.SetIdleActiveTrue);
 
+            farmTaskPresenter.BindActionBack(ReturnToMainScreen);
 
             selectConstructPresenter.BindActionBuildingType(taskController.SetCurrSelectedBuildingType);
             selectConstructPresenter.BindActionBack(taskController.IdleTask);
@@ -84,6 +98,7 @@ namespace LUP.PCR
             constructionDecisionPresenter.BindActionReject(taskController.IdleTask);
             constructionDecisionPresenter.BindActionAccept(taskController.IdleTask);
             constructionDecisionPresenter.BindActionAccept(taskController.CreateBuilding);
+
 
             Debug.Log("UICenter Init");
         }
@@ -118,6 +133,13 @@ namespace LUP.PCR
             mainPresenter.Hide();
 
             uiType = ActiveUIType.ProductableBuilding;
+        }
+
+        public void OpenRestaurantTask(BuildingRestaurant building)
+        {
+            currBuilding = building;
+
+            // 추가 구현.            
         }
     }
 

@@ -25,11 +25,6 @@ namespace LUP.PCR
 
         private void Update()
         {
-            if (!hasWork)
-            {
-                return;
-            }
-
             // 추후에 가속 아이템 적용 가능하게 만들어야 한다.
             float deltaTime = Time.deltaTime;
             currBuildState?.Tick(deltaTime);
@@ -39,11 +34,13 @@ namespace LUP.PCR
         {
             this.runtimeData = runtimeData;
 
-
-            hasWork = true;
             buildingName = "Restaurant";
             placeName = buildingName;
 
+            if (ConstructScreen)
+            {
+                ConstructScreen.SetActive(false);
+            }
 
             ProductionStage stage = LUP.StageManager.Instance.GetCurrentStage() as ProductionStage;
             restaurantInfo = stage.productionRuntimeData.RestaurantInfo;
@@ -60,6 +57,12 @@ namespace LUP.PCR
 
         public override void CompleteContruction() { }
         public override void Upgrade() { }
+
+        public void SetCookingFood(FoodType food, int amount)
+        {
+            restaurantInfo.currentFood = food;
+            restaurantInfo.totalCount = amount;
+        }
 
         public void StartCooking()
         {

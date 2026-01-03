@@ -14,6 +14,12 @@ namespace LUP.PCR
             inventory = stage.PCRInven;
         }
 
+        public int GetResourceAmount(ResourceType type)
+        {
+            int index = 9900 + (int)type;
+            return inventory.GetItemCount(index);
+        }
+
         public void AddResource(ResourceType type, int amount)
         {
             string itemName = type.ToString();

@@ -10,7 +10,7 @@ namespace LUP.PCR
         private SelectConstructUIPresenter selectConstructPresenter;
         private FarmTaskUIPresenter farmTaskPresenter;
 
-        public void InitPresenter(IMainUIView view, MainUIModel model, SelectConstructUIPresenter presenter)
+        public void InitPresenter(IMainUIView view, MainUIModel model, SelectConstructUIPresenter presenter, PCRResourceCenter resourceCenter)
         {
             this.view = view;
             this.model = model;
@@ -19,6 +19,7 @@ namespace LUP.PCR
             // 초기화 작업
             view.OnClickDig += HandleDigClick;
             view.OnClickConstruct += HandleConstructClick;
+            model.InitModel(resourceCenter);
 
             BuildingBase.OnGlobalUIRequest += HandleOpenBuildingUI;
         }
@@ -68,6 +69,11 @@ namespace LUP.PCR
             farmTaskPresenter.Show();
             farmTaskPresenter.UpdateUI(building);
             farmTaskPresenter.SelectTab(initTab);
+        }
+
+        public void UpdateResourceText()
+        {
+            view.UpdateResourceText(model.GetResourceCenter());
         }
     }
 }

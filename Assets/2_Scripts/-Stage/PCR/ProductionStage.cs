@@ -160,42 +160,7 @@ namespace LUP.PCR
                 IItemable item = ItemManager.Instance.GetItem(num);
                 PCRInven.AddItem(item, 10);
             }
-            //{
-            //    IItemable item = ItemManager.Instance.GetItem("Coal");
-            //    PCRInven.AddItem(item, 10);
-            //}
-            //{
-            //    IItemable item = ItemManager.Instance.GetItem("Iron");
-            //    PCRInven.AddItem(item, 10);
-            //}
-            //{
-            //    IItemable item = ItemManager.Instance.GetItem("Wheat");
-            //    PCRInven.AddItem(item, 10);
-            //}
-            //{
-            //    IItemable item = ItemManager.Instance.GetItem("Mushroom");
-            //    PCRInven.AddItem(item, 10);
-            //}
-            //{
-            //    IItemable item = ItemManager.Instance.GetItem("Meat");
-            //    PCRInven.AddItem(item, 10);
-            //}
-            //{
-            //    IItemable item = ItemManager.Instance.GetItem("Food");
-            //    PCRInven.AddItem(item, 10);
-            //}
-            //{
-            //    IItemable item = ItemManager.Instance.GetItem("Power");
-            //    PCRInven.AddItem(item, 10);
-            //}
-            //{
-            //    IItemable item = ItemManager.Instance.GetItem("Diamond");
-            //    PCRInven.AddItem(item, 10);
-            //}
-            //{
-            //    IItemable item = ItemManager.Instance.GetItem("Worker");
-            //    PCRInven.AddItem(item, 5);
-            //}
+
             // 건물 초기 데이터
             {
                 Debug.LogWarning("[PCRStage] BuildingInfoList First Load");
