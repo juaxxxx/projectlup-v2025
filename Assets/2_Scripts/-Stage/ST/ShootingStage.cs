@@ -50,6 +50,9 @@ namespace LUP
 
             var spawnedCharacters = spawner.Spawn(srd);
 
+            var skillSys = FindFirstObjectByType<LUP.ST.TeamSharedSkillSystem>();
+            skillSys?.SetTeamCharacters(spawnedCharacters);
+
             var ui = FindFirstObjectByType<LUP.ST.UIGameController>();
             if (ui != null)
             {
