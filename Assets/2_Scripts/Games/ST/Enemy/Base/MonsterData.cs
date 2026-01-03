@@ -104,6 +104,13 @@ namespace LUP.ST
             lastRetargetTime = 0f;
             isDying = false;
 
+            // 체력바 리셋
+            var healthBar = GetComponent<MonsterHealthBar>();
+            if (healthBar != null)
+            {
+                healthBar.ResetHealthBar();
+            }
+
             var bt = GetComponent<MonsterBTBase>();
             if (bt != null) bt.enabled = true;
 
