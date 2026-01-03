@@ -74,10 +74,34 @@ namespace LUP.RL
             chapterDatas = testPlatform.chapterDatas;
             characterDatas = testPlatform.characterDatas;
 
-            if(runtimesaveData != null)
+            if (runtimesaveData != null)
             {
                 LastSeletedChapter = runtimesaveData.lastSelectedCharacter;
                 LastSeletedCharacter = runtimesaveData.lastPlayedChapter;
+
+                for(int i = 0; i < characterDatas.Length; i++)
+                {
+                    switch ((CharacterType)i)
+                    {
+                        case CharacterType.F001:
+                            characterDatas[i].EquipItems = runtimesaveData.F001Data; ;
+                            break;
+                        case CharacterType.F002:
+                            characterDatas[i].EquipItems = runtimesaveData.F002Data;
+                            break;
+                        case CharacterType.F003:
+                            characterDatas[i].EquipItems = runtimesaveData.F003Data;
+                            break;
+                        case CharacterType.M001:
+                            characterDatas[i].EquipItems = runtimesaveData.M001Data;
+                            break;
+                        case CharacterType.M002:
+                            characterDatas[i].EquipItems = runtimesaveData.M002Data;
+                            break;
+
+                    }
+                }
+
             }
 
             gainableBuffDatas = testPlatform.buffDatas;
@@ -124,6 +148,35 @@ namespace LUP.RL
             platform.LoadStage(LUP.Define.StageKind.RL, 1);
             //testPlatform.LoadRogueLikeGameScene(RoguelikeScene.GameScene);
 
+        }
+
+        public void UploadCharacterData(RLCharacterData targetCharacterData)
+        {
+            for(int i = 0; i < characterDatas.Length; i++)
+            {
+                if (characterDatas[i] != targetCharacterData)
+                    continue;
+
+                switch((CharacterType)i)
+                {
+                    case CharacterType.F001:
+                        runtimesaveData.F001Data = characterDatas[i].EquipItems;
+                        break;
+                    case CharacterType.F002:
+                        runtimesaveData.F002Data = characterDatas[i].EquipItems;
+                        break;
+                    case CharacterType.F003:
+                        runtimesaveData.F003Data = characterDatas[i].EquipItems;
+                        break;
+                    case CharacterType.M001:
+                        runtimesaveData.M001Data = characterDatas[i].EquipItems;
+                        break;
+                    case CharacterType.M002:
+                        runtimesaveData.M002Data = characterDatas[i].EquipItems;
+                        break;
+
+                }
+            }
         }
 
         public void ApplyGameResult(Dictionary<ItemData, int> gainItem, ChapterData resultCapter, RLCharacterData resultCharacter, bool stageCleared = true)

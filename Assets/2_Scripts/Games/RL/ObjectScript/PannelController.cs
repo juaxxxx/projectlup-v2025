@@ -276,7 +276,12 @@ namespace LUP.RL
             if (currentPanel <= 0)
                 return;
 
-            SwitchPannelTo(currentPanel - 1);
+            PanelType targetPanel = currentPanel - 1;
+
+            if (targetPanel == PanelType.AVILITY)
+                targetPanel--;
+
+            SwitchPannelTo(targetPanel);
         }
 
         void OnSwipeLeft()
@@ -284,7 +289,12 @@ namespace LUP.RL
             if (currentPanel >= PanelType.MAX - 1)
                 return;
 
-            SwitchPannelTo(currentPanel + 1);
+            PanelType targetPanel = currentPanel + 1;
+
+            if (targetPanel == PanelType.AVILITY)
+                targetPanel++;
+
+            SwitchPannelTo(targetPanel);
         }
 
         public void OnSubPannelErase()
@@ -339,6 +349,8 @@ namespace LUP.RL
             //lobbyGameCenter.platformAdapter.UpLoadCharacterEquips();
 
             lobbyInventoryPanel.UpdateEquipInventoryGridPanel();
+
+            lobbyGameCenter.platformAdapter.UploadCharacterData(lobbyGameCenter.GetselectedCharacter());
         }
 
         void OnItemReleased(EquipData equipData)
@@ -350,6 +362,8 @@ namespace LUP.RL
             //lobbyGameCenter.platformAdapter.UpLoadCharacterEquips();
 
             lobbyInventoryPanel.UpdateEquipInventoryGridPanel();
+
+            lobbyGameCenter.platformAdapter.UploadCharacterData(lobbyGameCenter.GetselectedCharacter());
         }
 
         public void UpdateCharactesEquip(CharacterEquipsID equipmentData)

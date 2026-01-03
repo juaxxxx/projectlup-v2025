@@ -43,6 +43,13 @@ public class ProjectileBase : MonoBehaviour
 
     private void Update()
     {
+
+        if (LifeTime < 0)
+        {
+            Destroy(gameObject);
+        }
+
+
         LifeTime -= Time.deltaTime;
 
         if (target == null)
@@ -54,11 +61,6 @@ public class ProjectileBase : MonoBehaviour
         UnityEngine.Vector3 dir = (target.position - transform.position).normalized;
         transform.position += dir * bulletData.Speed * Time.deltaTime;
         transform.localRotation *= UnityEngine.Quaternion.Euler(ProjectileRotateSpeed * Time.deltaTime, 0f, 0f);
-
-        if(LifeTime < 0)
-        {
-            Destroy(gameObject);
-        }
 
     }
 }

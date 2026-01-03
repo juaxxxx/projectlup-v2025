@@ -7,7 +7,7 @@ namespace LUP.RL
     public class WorldPanel : LobbyContentAblePannel
     {
         public ChapterSelectionScrollPanel chapterSelectionScrollPanel;
-        public Button patrolBtn;
+        //public Button patrolBtn;
         FloatingChapterImage chapterImageBtn;
         // Start is called once before the first execution of Update after the MonoBehaviour is created
         new void Start()
@@ -21,7 +21,7 @@ namespace LUP.RL
 
 
             //Temp
-            patrolBtn.onClick.AddListener(TestFuntion);
+            //patrolBtn.onClick.AddListener(TestFuntion);
         }
 
         void OnChapterImageBtnClicked()
@@ -32,12 +32,12 @@ namespace LUP.RL
             chapterSelectionScrollPanel.OpenPanel(lobbyGameCenter.chapterDatas, DisplayableDataType.ChapterData, lobbyGameCenter.GetChapterDisplayedOffset());
         }
 
-        void TestFuntion()
-        {
-            PannelController pannelController = FindFirstObjectByType<PannelController>();
-            pannelController.SetAllMainScrollActive(false);
-            pannelController.PopWarningPanel();
-        }
+        //void TestFuntion()
+        //{
+        //    PannelController pannelController = FindFirstObjectByType<PannelController>();
+        //    pannelController.SetAllMainScrollActive(false);
+        //    pannelController.PopWarningPanel();
+        //}
 
         // Update is called once per frame
         void Update()

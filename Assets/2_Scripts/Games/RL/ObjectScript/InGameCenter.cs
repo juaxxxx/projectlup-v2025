@@ -445,6 +445,9 @@ namespace LUP.RL
             custumBulletData.Speed = equipedWeaponData.projecTileSpeed;
 
             character.GetComponent<FireSystem>().bulletData = custumBulletData;
+
+            //¹Ì¸® Warmup
+            Instantiate(equipedWeaponData.weaponProjecTile, new Vector3(100.0f, 100.0f, 100.0f), Quaternion.identity);
         }
     }
 }
