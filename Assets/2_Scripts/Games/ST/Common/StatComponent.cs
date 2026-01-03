@@ -75,7 +75,7 @@ namespace LUP.ST
 
             float actualDamage = Mathf.Max(damage - defense, 0);
             currentHealth -= actualDamage;
-            currentHealth = Mathf.Max(currentHealth, 0);
+            currentHealth = Mathf.Clamp(currentHealth, 0, maxHealth);
 
             // Visual 컴포넌트에 알림
             visualComponent?.PlayHitAnimation();

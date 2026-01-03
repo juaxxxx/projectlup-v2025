@@ -55,15 +55,15 @@ MonoBehaviour:
   dropPrefab: {fileID: 0}
   target: {fileID: 0}
   retargetInterval: 3
-  bulletPrefab: {fileID: 5421074853364373459, guid: 837e5b0df917e464f968286ac01239c4, type: 3}
+  bulletPrefab: {fileID: 1435422833513951325, guid: a80eb0b7c6f7ad0418c9e619a295a798, type: 3}
   firePoint: {fileID: 8040812603336150861}
   stunDuration: 2
   skillDuration: 2
+  deathAnimationDuration: 2
   isStunned: 0
   stunEndTime: 0
   isUsingSkill: 0
   skillEndTime: 0
-  isHiding: 0
   hidePosition: {x: 0, y: 0, z: 0}
   isAttackingFlag: 0
   hasAppliedHit: 0
@@ -119,7 +119,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d7e4011d4a786b549bc023fc6c2bbec0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  modelPrefab: {fileID: 919132149155446097, guid: 0ca2d0ffb67ca4c429f3b727214fdefd, type: 3}
+  modelPrefab: {fileID: 1435422833513951325, guid: a80eb0b7c6f7ad0418c9e619a295a798, type: 3}
   animatorController: {fileID: 9100000, guid: bd899b5cb9a7ce740be0921d99f025f8, type: 2}
   modelOffset: {x: 0, y: 0, z: 0}
   modelScale: 1
