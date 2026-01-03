@@ -19,12 +19,6 @@ namespace LUP.RL
         [SerializeField] private LevelDataTable levelTable;
         void Start()
         {
-            //if (archer != null)
-            //{
-            //    archer.OnExpChanged += UpdateUi;
-            //    archer.OnArcherDataReady += UpdateUi;
-            //    UpdateUi();
-            //}
             FindFirstObjectByType<InGameCenter>().OnPlayerCharacterSpawned += OnPlayerCharacterSpanwed;
         }
 
@@ -47,8 +41,16 @@ namespace LUP.RL
             float ratio = (float)Exp / requirExp;
             if (fillCoroutine != null)
                 StopCoroutine(fillCoroutine);
+
+            float currentFill = fillImage.fillAmount;
+            if (ratio < currentFill)
+            {
+                fillImage.fillAmount = 0f;
+            }
+
             fillCoroutine = StartCoroutine(SmoothFill(ratio));
             levelText.text = $"Lv. {level}";
+          
         }
         private IEnumerator SmoothFill(float target)
         {

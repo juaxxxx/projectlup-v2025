@@ -9,6 +9,7 @@ public struct BaseStats
 {
     public int Hp;
     public int Attack;
+    public int AttackSpeed;
     public int speed;
     public int MaxHp;
     public int Exp;

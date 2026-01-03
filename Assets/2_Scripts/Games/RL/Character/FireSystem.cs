@@ -6,9 +6,15 @@ namespace LUP.RL
     {
         public Transform spawnPoint;
         public BulletData bulletData;
+        private Archer player;
         public float fireDelay = 1f;
         private float LastfiremTime;
 
+        private void Awake()
+        {
+            Archer player = GetComponent<Archer>();
+            fireDelay = player.RuntimeData.currentData.AttackSpeed;
+        }
         public void TryFire(Transform target, int attackValue)
         {
             if(target == null)

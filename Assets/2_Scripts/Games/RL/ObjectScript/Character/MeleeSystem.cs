@@ -50,7 +50,6 @@ namespace LUP.RL
             if (enemy != null)
             {
                 enemy.TakeDamage(Damage);
-                Debug.Log($"Enemy 피격 : {enemy.name}, 데미지 : {Damage}");
                 return;
             }
 
@@ -59,7 +58,6 @@ namespace LUP.RL
             if (archer != null)
             {
                 archer.TakeDamage(Damage);
-                Debug.Log($"Player 피격 : {archer.name}, 데미지 : {Damage}");
                 return;
             }
 

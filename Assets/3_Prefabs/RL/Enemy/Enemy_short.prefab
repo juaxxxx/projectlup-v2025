@@ -1566,6 +1566,59 @@ Transform:
   - {fileID: 5453271914770724304}
   m_Father: {fileID: 1313988821472552112}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &3685902638097720658
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2591059519052082375}
+  - component: {fileID: 1996960667755239756}
+  m_Layer: 0
+  m_Name: GameObject
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2591059519052082375
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3685902638097720658}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0.000000037748947, y: -1.110223e-16, z: 6.982262e-17, w: 1}
+  m_LocalPosition: {x: 1.09, y: 0.79, z: 0.65}
+  m_LocalScale: {x: 0.96330273, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1182011767329298578}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!135 &1996960667755239756
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3685902638097720658}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Radius: 0.5
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &3775620085951208824
 GameObject:
   m_ObjectHideFlags: 0
@@ -1998,10 +2051,9 @@ GameObject:
   m_Component:
   - component: {fileID: 1182011767329298578}
   - component: {fileID: 3541017596381906417}
-  - component: {fileID: 5737626666022035505}
   - component: {fileID: 5921031063527959515}
   m_Layer: 0
-  m_Name: BattleAxe_GEO
+  m_Name: Weapon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2016,10 +2068,11 @@ Transform:
   m_GameObject: {fileID: 5137523185117141474}
   serializedVersion: 2
   m_LocalRotation: {x: -0.000000037748947, y: 1.110223e-16, z: -6.982262e-17, w: 1}
-  m_LocalPosition: {x: -0.69, y: 0.203, z: -0.567}
+  m_LocalPosition: {x: -0.106, y: 0.203, z: -0.567}
   m_LocalScale: {x: 1.0380952, y: 0.9999999, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 2591059519052082375}
   m_Father: {fileID: 1680393261219834051}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!137 &3541017596381906417
@@ -2150,27 +2203,6 @@ SkinnedMeshRenderer:
     m_Center: {x: 1.0588423, y: 0.4010395, z: 0.20165712}
     m_Extent: {x: 0.33335304, y: 0.07804152, z: 0.665615}
   m_DirtyAABB: 0
---- !u!135 &5737626666022035505
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5137523185117141474}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 1
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Radius: 0.6
-  m_Center: {x: 1.0196122, y: 1.2, z: 1.1}
 --- !u!114 &5921031063527959515
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2183,7 +2215,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ded84a7a93447164591c93089a74f9f2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hitcolider: {fileID: 5737626666022035505}
+  hitcolider: {fileID: 1996960667755239756}
 --- !u!1 &5572101513370013724
 GameObject:
   m_ObjectHideFlags: 0
@@ -4082,6 +4114,7 @@ MonoBehaviour:
   EnemyStats:
     Hp: 0
     Attack: 5
+    AttackSpeed: 0
     speed: 0
     MaxHp: 0
     Exp: 0

@@ -26,7 +26,6 @@ namespace LUP.RL
 
         public event System.Action OnExpChanged;
         public event System.Action OnArcherDataReady;
-        List<BuffData> randomBuffs = new List<BuffData>();
         List<BuffData> GetBuffList = new List<BuffData>();
 
         [Header("UI ")]
@@ -35,6 +34,8 @@ namespace LUP.RL
         public GameObject HpbarPrefab;
         private HealthCenter healthCenter;
         [SerializeField] private float hpbaroffsetY = 5;
+        public int PendingExp;
+
         // 외부 접근용 프로퍼티
         public RunTimeData RuntimeData => runtimeData;
         public HealthCenter HealthCenter => healthCenter;
@@ -54,8 +55,6 @@ namespace LUP.RL
             playerBuff = GetComponent<PlayerBuff>();
             playerBuff.init(this);
             playerBuff.ShowBuffSelection();
-
-            ApplyEquipStats();
         }
         private void InitializeCharacter()
         {
@@ -91,13 +90,17 @@ namespace LUP.RL
                 case BuffType.AddSpeed:
                     RuntimeData.currentData.speed += 1;
                     break;
+                //case BuffType.AddAtkHigh:
+                //    RuntimeData.currentData.AttackSpeed += 3;
+                //    break;
+                
             }
             GetBuffList.Add(buff);
         }
         private void OnEnable()
         {
          
-            Enemy.OnEnemyDied += GainExp;
+            //Enemy.OnEnemyDied += GainExp;
             if(healthCenter != null)
             {
                 healthCenter.OnDead += Die;
@@ -116,20 +119,22 @@ namespace LUP.RL
         }
         private void OnDisable()
         {
-            Enemy.OnEnemyDied -= GainExp;
+            //Enemy.OnEnemyDied -= GainExp;
         }
-        private void GainExp(int exp)
-        {
-            var data = levelTable.GetLevelData(RuntimeData.level);
-            RuntimeData.xp += exp;
-            if (RuntimeData.xp >= data.RequiredExp)
-                LevelUp();
-            OnExpChanged?.Invoke();
-        }
-        private void LevelUp()
+        //private void GainExp(int exp)
+        //{
+        //    var data = levelTable.GetLevelData(RuntimeData.level);
+        //    RuntimeData.xp += exp;
+        //    Debug.Log($"이번 스테이지 누적 EXP : {PendingExp}");
+        //    if (RuntimeData.xp >= data.RequiredExp)
+        //        LevelUp();
+        //    OnExpChanged?.Invoke();
+        //}
+
+        public void LevelUp()
         {
             RuntimeData.level++;
-            RuntimeData.xp = 0;
+            //RuntimeData.xp = 0;
             var levelData = levelTable.GetLevelData(RuntimeData.level);
             if (levelData != null)
             {
@@ -140,50 +145,10 @@ namespace LUP.RL
             playerBuff.ShowBuffSelection();
             Debug.Log($"레벨{RuntimeData.level}, 체력 :  {RuntimeData.currentData.Hp} ,  공격력  {RuntimeData.currentData.Attack}");
         }
-
-        void ApplyEquipStats()
+        public void RaiseExpChanged()
         {
-            int weaponID = characterTemplate.EquipItems.Weapon;
-            int armorID = characterTemplate.EquipItems.Armor;
-
-            InGameCenter ingameCenter = FindFirstObjectByType<InGameCenter>();
-            if (ingameCenter == null)
-                return;
-
-            EquipData weaponItem = ingameCenter.platformAdapter.GetEquipDataByID(weaponID);
-            EquipData armorItem = ingameCenter.platformAdapter.GetEquipDataByID(armorID);
-
-            if(weaponItem != null)
-            {
-                for(int i = 0; i < weaponItem.equipStats.Length; i++)
-                {
-                    AddState(weaponItem.equipStats[i].statName, weaponItem.equipStats[i].value);
-                }
-            }
-
-            if(armorItem != null)
-            {
-                for (int i = 0; i < armorItem.equipStats.Length; i++)
-                {
-                    AddState(armorItem.equipStats[i].statName, armorItem.equipStats[i].value);
-                }
-            }
+            OnExpChanged?.Invoke();
         }
 
-        void AddState(string statName, int statValue)
-        {
-            switch(statName)
-            {
-                case "HP":
-                    runtimeData.currentData.Hp += statValue;
-                        break;
-
-                case "ATK":
-                    runtimeData.currentData.Attack += statValue;
-                    break;
-            }
-
-        }
-        
     }
 }

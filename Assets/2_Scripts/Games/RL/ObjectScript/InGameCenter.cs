@@ -208,9 +208,10 @@ namespace LUP.RL
         {
             Vector3 pos = new Vector3(0, 0.7f, 0);
             Quaternion rot = Quaternion.identity;
-
+                                                                                                                                                               
             GameObject character = Instantiate(characterData.CharacterPrefab, pos, rot);
             playerBuff = character.GetComponent<PlayerBuff>();
+            FindFirstObjectByType<ExpCenter>().BindPlayer(character);
             if (playerBuff && buffUI)
             {
                 playerBuff.OnRequestBuffUI += buffUI.Bind;

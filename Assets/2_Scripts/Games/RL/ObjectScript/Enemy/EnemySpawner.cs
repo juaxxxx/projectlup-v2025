@@ -46,7 +46,6 @@ namespace LUP.RL
 
                 enemy.hpbarPrefab= hpbarPrefab;
                 SpawnedEnemies.Add(enemy);
-                Debug.Log("spawn success");
             }
    
         }

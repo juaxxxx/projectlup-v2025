@@ -22,7 +22,6 @@ namespace LUP.RL
 
         public void Damage(int amount)
         {
-            Debug.Log("healcenter :  µ¥¹ÌÁö");
             CurrentHp -= amount;
             OnHpChanged?.Invoke(CurrentHp, MaxHp);
             if (CurrentHp <= 0)

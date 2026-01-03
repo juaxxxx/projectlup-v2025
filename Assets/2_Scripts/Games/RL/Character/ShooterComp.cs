@@ -31,7 +31,7 @@ namespace LUP.RL
                     meleeWeapon.MeleeAttack(damage);
                     break;
                 case RWeaponType.OneHandSword:
-                    meleeWeapon.MeleeAttack(damage);
+                    fireSystem.TryFire(target, damage);
                     break;
                 case RWeaponType.Gun:
                     fireSystem.TryFire(target, damage);
