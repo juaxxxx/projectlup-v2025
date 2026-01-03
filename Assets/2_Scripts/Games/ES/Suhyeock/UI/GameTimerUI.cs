@@ -13,6 +13,8 @@ namespace LUP.ES
 
         private float RenamingTimer = 0.0f;
         private bool TimeIsRunning = true;
+
+        public float RemainingTime => RenamingTimer; // 기수 추가한 코드
         // Start is called once before the first execution of Update after the MonoBehaviour is created
         void Start()
         {

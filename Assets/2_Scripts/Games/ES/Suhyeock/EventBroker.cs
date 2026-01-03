@@ -16,9 +16,13 @@ namespace LUP.ES
 
         // 기수 추가한 코드
         public Action ExtractionSuccess;
+        private bool isGameFinished = false;
 
         public void ReportGameFinish(bool isSuccess)
         {
+            if (isGameFinished) return;  // 기수 추가한 코드
+
+            isGameFinished = true;       // 기수 추가한 코드
             OnGameFinished?.Invoke(isSuccess);
         }
 
