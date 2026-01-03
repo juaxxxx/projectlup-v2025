@@ -6,7 +6,7 @@ namespace LUP.ES
     {
         private Animator animator;
         private PlayerBlackboard blackboard;
-        public float leftHandWeight = 1.0f;
+        //public float leftHandWeight = 1.0f;
         public float maxWeight = 1.0f;
 
         private float currentLeftHandWeight = 0f;

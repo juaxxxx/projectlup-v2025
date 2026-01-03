@@ -17,7 +17,7 @@ namespace LUP.ES
             useTime = itemData.useTime;
             effectType = itemData.effectType;
             effectValue = itemData.effectValue;
-            stackSize = itemData.stackSize;
+            stackSize = itemData.MaxStackSize;
             count = Random.Range(1, stackSize + 1);
         }
     }

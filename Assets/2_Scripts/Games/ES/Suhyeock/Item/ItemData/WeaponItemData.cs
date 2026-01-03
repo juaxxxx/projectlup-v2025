@@ -19,12 +19,12 @@ namespace LUP.ES
         public float timeBetAttack; // 공격 간격
 
 
-        public WeaponItemData(int id, string name, string iconName, float damage, float range, float timeBetAttack) : base(id, name, iconName, 1)
+        public WeaponItemData(int id, string name, string description, string iconName, float dropChacne, float damage, float range, float timeBetAttack) : base(id, name, description, iconName, 1, dropChacne)
         {
-            this.id = id;
-            this.name = name;
+            ID = id;
+            Name = name;
             itemType = ItemType.Weapon;
-            this.iconName = iconName;
+            IconName = iconName;
 
             this.damage = damage;
             this.range = range;     

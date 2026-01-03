@@ -17,7 +17,7 @@ namespace LUP.ES
         public float effectValue;     // 효과의 크기
 
 
-        public ConsumableItemData(int id, string name, string iconName, float effectDuration, float useTime, EffectType effectType, float effectValue, int stackSize) : base(id, name, iconName, stackSize)
+        public ConsumableItemData(int id, string name, string description, string iconName, float dropChance, float effectDuration, float useTime, EffectType effectType, float effectValue, int stackSize) : base(id, name, description,iconName, stackSize, dropChance)
         {
             itemType = ItemType.Consumable;
             this.effectDuration = effectDuration;

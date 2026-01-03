@@ -29,9 +29,9 @@ namespace LUP.ES
                 gameObject.SetActive(false);
                 return;
             }
-            nameText.text = item.baseItem.name;
+            nameText.text = item.baseItem.Name;
             countText.text = "x " + item.count.ToString();
-            iconImage.sprite = itemIconLoader.LoadIconSprite(item.baseItem.iconName);
+            iconImage.sprite = itemIconLoader.LoadIconSprite(item.baseItem.IconName);
             this.item = item;
             gameObject.SetActive(true);
         }

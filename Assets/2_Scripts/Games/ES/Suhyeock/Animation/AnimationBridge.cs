@@ -27,6 +27,31 @@ namespace LUP.ES
                 blackboard.weapon.state = WeaponState.READY;
             }
         }
+
+        public void OnChargingStart()
+        {
+            if (blackboard != null)
+            {
+                ThrowingWeapon throwingWeapon = blackboard.weapon as ThrowingWeapon;
+                if (throwingWeapon)
+                {
+                    throwingWeapon.SetIsCharging(true);
+                    blackboard.animator.SetFloat("ThrowSpeed", 0f);
+                }
+            }
+        }
+
+        public void OnThrowStart()
+        {
+            if (blackboard != null)
+            {
+                ThrowingWeapon throwingWeapon = blackboard.weapon as ThrowingWeapon;
+                if (throwingWeapon)
+                {
+                    throwingWeapon.ThrowStart();
+                }
+            }
+        }
     }
 
 }

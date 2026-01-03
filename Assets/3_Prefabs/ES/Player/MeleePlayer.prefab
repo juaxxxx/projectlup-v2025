@@ -353,7 +353,7 @@ MonoBehaviour:
   InteractionRadius: 2
   leftJoystick: {fileID: 0}
   rightJoystick: {fileID: 0}
-  CurrentWeaponID: 3
+  CurrentWeaponID: 1
   eventBroker: {fileID: 0}
   weapon: {fileID: 0}
   InteractionDetector: {fileID: 4295948021435592100}
@@ -433,9 +433,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 331fac1522026c94da924c2e92f840ef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  detector: {fileID: 0}
-  playerBlackboard: {fileID: 0}
-  interactButton: {fileID: 0}
 --- !u!1001 &627218663523251989
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -525,7 +522,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d9954bdc26c21747aad8a67b0dd844e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  leftHandWeight: 1
   maxWeight: 1
 --- !u!114 &6070729771206610297
 MonoBehaviour:

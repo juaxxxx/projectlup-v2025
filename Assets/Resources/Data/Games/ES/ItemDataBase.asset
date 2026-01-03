@@ -12,129 +12,167 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6e60f562924dcfa448fbe697acf1ad14, type: 3}
   m_Name: ItemDataBase
   m_EditorClassIdentifier: 
+  itemLoader: {fileID: 11400000, guid: 6c9e583fc62c5f84ea2335e3ca0917f5, type: 2}
   items:
-  - rid: 6702098846560026898
-  - rid: 6702098846560026899
-  - rid: 6702098846560026900
-  - rid: 6702098846560026901
-  - rid: 6702098846560026902
-  - rid: 6702098846560026903
-  - rid: 6702098846560026904
-  - rid: 6702098846560026905
-  - rid: 6702098846560026906
+  - rid: 1904950735172796825
+  - rid: 1904950735172796826
+  - rid: 1904950735172796827
+  - rid: 1904950735172796828
+  - rid: 1904950735172796829
+  - rid: 1904950735172796830
+  - rid: 1904950735172796831
+  - rid: 1904950735172796832
+  - rid: 1904950735172796833
   references:
     version: 2
     RefIds:
-    - rid: 6702098846560026898
-      type: {class: RangedWeaponItemData, ns: LUP.ES, asm: Assembly-CSharp}
-      data:
-        id: 0
-        iconName: Pistol
-        name: Pistol
-        stackSize: 1
-        itemType: 1
-        weaponType: 1
-        damage: 5
-        range: 5
-        timeBetAttack: 0.3
-        bulletSpeed: 10
-        magCapacity: 8
-        reloadTime: 1.2
-    - rid: 6702098846560026899
-      type: {class: RangedWeaponItemData, ns: LUP.ES, asm: Assembly-CSharp}
-      data:
-        id: 1
-        iconName: AR
-        name: AR
-        stackSize: 1
-        itemType: 1
-        weaponType: 1
-        damage: 20
-        range: 10
-        timeBetAttack: 0.15
-        bulletSpeed: 20
-        magCapacity: 30
-        reloadTime: 2
-    - rid: 6702098846560026900
-      type: {class: RangedWeaponItemData, ns: LUP.ES, asm: Assembly-CSharp}
-      data:
-        id: 2
-        iconName: Rfile
-        name: Rifle
-        stackSize: 1
-        itemType: 1
-        weaponType: 1
-        damage: 45
-        range: 20
-        timeBetAttack: 0.7
-        bulletSpeed: 25
-        magCapacity: 10
-        reloadTime: 4
-    - rid: 6702098846560026901
-      type: {class: ArmorItemData, ns: LUP.ES, asm: Assembly-CSharp}
-      data:
-        id: 3
-        iconName: Helmet
-        name: Helmet
-        stackSize: 1
-        itemType: 2
-        defense: 5
-        armorSlot: 0
-    - rid: 6702098846560026902
-      type: {class: ArmorItemData, ns: LUP.ES, asm: Assembly-CSharp}
-      data:
-        id: 4
-        iconName: BodyArmor
-        name: BodyArmor
-        stackSize: 1
-        itemType: 2
-        defense: 5
-        armorSlot: 1
-    - rid: 6702098846560026903
-      type: {class: ConsumableItemData, ns: LUP.ES, asm: Assembly-CSharp}
-      data:
-        id: 5
-        iconName: Bandage
-        name: Bandage
-        stackSize: 3
-        itemType: 3
-        effectDuration: 5
-        useTime: 5
-        effectType: 0
-        effectValue: 30
-    - rid: 6702098846560026904
-      type: {class: MaterialItemData, ns: LUP.ES, asm: Assembly-CSharp}
-      data:
-        id: 6
-        iconName: Key
-        name: Key
-        stackSize: 5
-        itemType: 4
-        tier: 0
-    - rid: 6702098846560026905
+    - rid: 1904950735172796825
       type: {class: MeleeWeaponItemData, ns: LUP.ES, asm: Assembly-CSharp}
       data:
-        id: 7
-        iconName: Sword
-        name: Sword
-        stackSize: 1
+        ID: 1
+        Name: Knife
+        IconName: 
+        Description: "\uADFC\uC811 \uAE30\uBCF8\uBB34\uAE30"
+        MaxStackSize: 1
+        dropChance: 0
+        itemType: 1
+        weaponType: 0
+        damage: 0
+        range: 0
+        timeBetAttack: 0
+        attackAngle: 0
+    - rid: 1904950735172796826
+      type: {class: MeleeWeaponItemData, ns: LUP.ES, asm: Assembly-CSharp}
+      data:
+        ID: 2
+        Name: Sword
+        IconName: 
+        Description: 
+        MaxStackSize: 1
+        dropChance: 0
+        itemType: 1
+        weaponType: 0
+        damage: 0
+        range: 0
+        timeBetAttack: 0
+        attackAngle: 0
+    - rid: 1904950735172796827
+      type: {class: MeleeWeaponItemData, ns: LUP.ES, asm: Assembly-CSharp}
+      data:
+        ID: 3
+        Name: Axe
+        IconName: 
+        Description: 
+        MaxStackSize: 1
+        dropChance: 50
         itemType: 1
         weaponType: 0
         damage: 30
         range: 2
         timeBetAttack: 0.8
-        attackAngle: 160
-    - rid: 6702098846560026906
+        attackAngle: 90
+    - rid: 1904950735172796828
+      type: {class: RangedWeaponItemData, ns: LUP.ES, asm: Assembly-CSharp}
+      data:
+        ID: 4
+        Name: Pistol
+        IconName: 
+        Description: 
+        MaxStackSize: 1
+        dropChance: 0
+        itemType: 1
+        weaponType: 1
+        damage: 10
+        range: 5
+        timeBetAttack: 0.3
+        bulletSpeed: 10
+        magCapacity: 8
+        reloadTime: 1.2
+    - rid: 1904950735172796829
+      type: {class: RangedWeaponItemData, ns: LUP.ES, asm: Assembly-CSharp}
+      data:
+        ID: 5
+        Name: AR
+        IconName: 
+        Description: 
+        MaxStackSize: 1
+        dropChance: 100
+        itemType: 1
+        weaponType: 1
+        damage: 15
+        range: 10
+        timeBetAttack: 0.15
+        bulletSpeed: 20
+        magCapacity: 30
+        reloadTime: 2
+    - rid: 1904950735172796830
+      type: {class: RangedWeaponItemData, ns: LUP.ES, asm: Assembly-CSharp}
+      data:
+        ID: 6
+        Name: Rifle
+        IconName: 
+        Description: 
+        MaxStackSize: 1
+        dropChance: 50
+        itemType: 1
+        weaponType: 1
+        damage: 40
+        range: 20
+        timeBetAttack: 0.8
+        bulletSpeed: 25
+        magCapacity: 10
+        reloadTime: 4
+    - rid: 1904950735172796831
       type: {class: ThrowingWeaponData, ns: LUP.ES, asm: Assembly-CSharp}
       data:
-        id: 8
-        iconName: Sword
-        name: Rock
-        stackSize: 1
+        ID: 7
+        Name: Rock
+        IconName: 
+        Description: "\uD22C\uCC99 \uAE30\uBCF8 \uBB34\uAE30"
+        MaxStackSize: 1
+        dropChance: 0
         itemType: 1
         weaponType: 2
         damage: 30
-        range: 6
+        range: 8
         timeBetAttack: 0.9
         attackRadius: 1
         arcHeight: 4
+        maxChargeTime: 2
+        minRange: 0.5
+    - rid: 1904950735172796832
+      type: {class: ThrowingWeaponData, ns: LUP.ES, asm: Assembly-CSharp}
+      data:
+        ID: 8
+        Name: 
+        IconName: 
+        Description: 
+        MaxStackSize: 1
+        dropChance: 0
+        itemType: 1
+        weaponType: 2
+        damage: 0
+        range: 0
+        timeBetAttack: 0
+        attackRadius: 0
+        arcHeight: 0
+        maxChargeTime: 0
+        minRange: 0.5
+    - rid: 1904950735172796833
+      type: {class: ThrowingWeaponData, ns: LUP.ES, asm: Assembly-CSharp}
+      data:
+        ID: 9
+        Name: 
+        IconName: 
+        Description: 
+        MaxStackSize: 1
+        dropChance: 0
+        itemType: 1
+        weaponType: 2
+        damage: 0
+        range: 0
+        timeBetAttack: 0
+        attackRadius: 0
+        arcHeight: 0
+        maxChargeTime: 0
+        minRange: 0.5

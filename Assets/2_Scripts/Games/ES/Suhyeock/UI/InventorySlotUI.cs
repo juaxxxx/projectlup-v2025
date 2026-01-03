@@ -29,7 +29,7 @@ namespace LUP.ES
             else
             {
                 iconImgae.gameObject.SetActive(true);
-                iconImgae.sprite = itemIconLoader.LoadIconSprite(dataSlot.item.baseItem.iconName);
+                iconImgae.sprite = itemIconLoader.LoadIconSprite(dataSlot.item.baseItem.IconName);
 
                 stackText.text = dataSlot.item.count.ToString();
             }

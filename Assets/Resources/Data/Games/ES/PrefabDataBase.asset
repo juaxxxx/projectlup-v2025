@@ -12,30 +12,50 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3ea9167df1950d248a98a2cf292ca57c, type: 3}
   m_Name: PrefabDataBase
   m_EditorClassIdentifier: 
-  itemDataBase: {fileID: 11400000, guid: ffa906b5ab3afad469ad0d4351c62bd0, type: 2}
+  itemLoader: {fileID: 11400000, guid: 6c9e583fc62c5f84ea2335e3ca0917f5, type: 2}
   prefabList:
-  - id: 0
+  - id: 1
+    name: Knife
+    prefab: {fileID: 0}
+    positionOffset: {x: 0, y: 0, z: 0}
+    rotationOffset: {x: 0, y: 0, z: 0}
+  - id: 2
+    name: Sword
+    prefab: {fileID: 0}
+    positionOffset: {x: 0, y: 0, z: 0}
+    rotationOffset: {x: 0, y: 0, z: 0}
+  - id: 3
+    name: Axe
+    prefab: {fileID: 6699912051311791607, guid: 7cb9f22aaa26d684cb6315a9f884f88b, type: 3}
+    positionOffset: {x: -0.391, y: 0.045, z: 0.073}
+    rotationOffset: {x: 5.988, y: -4.136, z: 105.826}
+  - id: 4
     name: Pistol
     prefab: {fileID: 1836695343964729576, guid: 66867298641304d40abd969c925616d1, type: 3}
     positionOffset: {x: 0.021, y: 0.064, z: 0.049}
     rotationOffset: {x: -81.993, y: -109.532, z: 198.186}
-  - id: 1
+  - id: 5
     name: AR
-    prefab: {fileID: 1192050510234001585, guid: 2a2f16cdd4c89404487f91502dceb931, type: 3}
+    prefab: {fileID: 1192050510234001585, guid: b59058dbb0f175c4c82423a5067fae86, type: 3}
     positionOffset: {x: 0.0017, y: 0.0708, z: 0.0352}
     rotationOffset: {x: -77.766, y: -103.67, z: 196.486}
-  - id: 2
+  - id: 6
     name: Rifle
     prefab: {fileID: 3934984825118650818, guid: 497470e4098af474ebd6518c04e84f3d, type: 3}
     positionOffset: {x: 0, y: 0.073, z: 0.042}
     rotationOffset: {x: -81.197, y: -105.986, z: 191.215}
   - id: 7
-    name: Sword
-    prefab: {fileID: 6699912051311791607, guid: 7cb9f22aaa26d684cb6315a9f884f88b, type: 3}
-    positionOffset: {x: -0.391, y: 0.045, z: 0.073}
-    rotationOffset: {x: 5.988, y: -4.136, z: 105.826}
-  - id: 8
     name: Rock
     prefab: {fileID: 1192050510234001585, guid: bda90bea2af0854439288c5156370e97, type: 3}
     positionOffset: {x: 0.031, y: 0.168, z: 0.157}
+    rotationOffset: {x: 0, y: 0, z: 0}
+  - id: 8
+    name: 
+    prefab: {fileID: 0}
+    positionOffset: {x: 0, y: 0, z: 0}
+    rotationOffset: {x: 0, y: 0, z: 0}
+  - id: 9
+    name: 
+    prefab: {fileID: 0}
+    positionOffset: {x: 0, y: 0, z: 0}
     rotationOffset: {x: 0, y: 0, z: 0}

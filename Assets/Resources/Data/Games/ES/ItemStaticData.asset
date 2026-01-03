@@ -17,68 +17,194 @@ MonoBehaviour:
   START_ROW: 2
   DataList:
   - ItemID: 1
-    ItemName: "\uCCB4\uB825\uD3EC\uC158"
-    ItemType: 
-    IconPath: 999
-    MaxStackSize: 5
+    ItemName: Knife
+    ItemType: Weapon
+    IconPath: 
+    MaxStackSize: 1
     IsUsable: 0
-    Description: "\uCCB4\uB825\uC744 \uD68C\uBCF5\uD569\uB2C8\uB2E4"
+    Description: "\uADFC\uC811 \uAE30\uBCF8\uBB34\uAE30"
+    DropChance: 0
+    WeaponType: Melee
+    Damage: 0
+    Range: 0
+    TimeBetAttack: 0
+    AttackAngle: 0
+    BulletSpeed: 0
+    MagCapacity: 0
+    ReloadTime: 0
+    AttackRadius: 0
+    ArcHeight: 0
+    MaxChargeTime: 0
+    MinRange: 0
+    serializedCustomFields: []
   - ItemID: 2
-    ItemName: "\uB9C8\uB098\uD3EC\uC158"
-    ItemType: 2
-    IconPath: 999
-    MaxStackSize: 5
+    ItemName: Sword
+    ItemType: Weapon
+    IconPath: 
+    MaxStackSize: 1
     IsUsable: 0
-    Description: "\uB9C8\uB098\uB97C \uD68C\uBCF5\uD569\uB2C8\uB2E4"
+    Description: 
+    DropChance: 0
+    WeaponType: Melee
+    Damage: 0
+    Range: 0
+    TimeBetAttack: 0
+    AttackAngle: 0
+    BulletSpeed: 0
+    MagCapacity: 0
+    ReloadTime: 0
+    AttackRadius: 0
+    ArcHeight: 0
+    MaxChargeTime: 0
+    MinRange: 0
+    serializedCustomFields: []
   - ItemID: 3
-    ItemName: 
-    ItemType: 
+    ItemName: Axe
+    ItemType: Weapon
     IconPath: 
     MaxStackSize: 1
     IsUsable: 0
     Description: 
+    DropChance: 50
+    WeaponType: Melee
+    Damage: 30
+    Range: 2
+    TimeBetAttack: 0.8
+    AttackAngle: 90
+    BulletSpeed: 0
+    MagCapacity: 0
+    ReloadTime: 0
+    AttackRadius: 0
+    ArcHeight: 0
+    MaxChargeTime: 0
+    MinRange: 0
+    serializedCustomFields: []
   - ItemID: 4
-    ItemName: 
-    ItemType: 
+    ItemName: Pistol
+    ItemType: Weapon
     IconPath: 
     MaxStackSize: 1
     IsUsable: 0
     Description: 
+    DropChance: 0
+    WeaponType: Ranged
+    Damage: 10
+    Range: 5
+    TimeBetAttack: 0.3
+    AttackAngle: 0
+    BulletSpeed: 10
+    MagCapacity: 8
+    ReloadTime: 1.2
+    AttackRadius: 0
+    ArcHeight: 0
+    MaxChargeTime: 0
+    MinRange: 0
+    serializedCustomFields: []
   - ItemID: 5
-    ItemName: 
-    ItemType: 
+    ItemName: AR
+    ItemType: Weapon
     IconPath: 
     MaxStackSize: 1
     IsUsable: 0
     Description: 
+    DropChance: 100
+    WeaponType: Ranged
+    Damage: 15
+    Range: 10
+    TimeBetAttack: 0.15
+    AttackAngle: 0
+    BulletSpeed: 20
+    MagCapacity: 30
+    ReloadTime: 2
+    AttackRadius: 0
+    ArcHeight: 0
+    MaxChargeTime: 0
+    MinRange: 0
+    serializedCustomFields: []
   - ItemID: 6
-    ItemName: 
-    ItemType: 
+    ItemName: Rifle
+    ItemType: Weapon
     IconPath: 
     MaxStackSize: 1
     IsUsable: 0
     Description: 
+    DropChance: 50
+    WeaponType: Ranged
+    Damage: 40
+    Range: 20
+    TimeBetAttack: 0.8
+    AttackAngle: 0
+    BulletSpeed: 25
+    MagCapacity: 10
+    ReloadTime: 4
+    AttackRadius: 0
+    ArcHeight: 0
+    MaxChargeTime: 0
+    MinRange: 0
+    serializedCustomFields: []
   - ItemID: 7
-    ItemName: 
-    ItemType: 
+    ItemName: Rock
+    ItemType: Weapon
     IconPath: 
     MaxStackSize: 1
     IsUsable: 0
-    Description: 
+    Description: "\uD22C\uCC99 \uAE30\uBCF8 \uBB34\uAE30"
+    DropChance: 0
+    WeaponType: Throwing
+    Damage: 30
+    Range: 8
+    TimeBetAttack: 0.9
+    AttackAngle: 0
+    BulletSpeed: 0
+    MagCapacity: 0
+    ReloadTime: 0
+    AttackRadius: 1
+    ArcHeight: 4
+    MaxChargeTime: 2
+    MinRange: 1
+    serializedCustomFields: []
   - ItemID: 8
     ItemName: 
-    ItemType: 
+    ItemType: Weapon
     IconPath: 
     MaxStackSize: 1
     IsUsable: 0
     Description: 
+    DropChance: 0
+    WeaponType: Throwing
+    Damage: 0
+    Range: 0
+    TimeBetAttack: 0
+    AttackAngle: 0
+    BulletSpeed: 0
+    MagCapacity: 0
+    ReloadTime: 0
+    AttackRadius: 0
+    ArcHeight: 0
+    MaxChargeTime: 0
+    MinRange: 0
+    serializedCustomFields: []
   - ItemID: 9
     ItemName: 
-    ItemType: 
+    ItemType: Weapon
     IconPath: 
     MaxStackSize: 1
     IsUsable: 0
     Description: 
+    DropChance: 0
+    WeaponType: Throwing
+    Damage: 0
+    Range: 0
+    TimeBetAttack: 0
+    AttackAngle: 0
+    BulletSpeed: 0
+    MagCapacity: 0
+    ReloadTime: 0
+    AttackRadius: 0
+    ArcHeight: 0
+    MaxChargeTime: 0
+    MinRange: 0
+    serializedCustomFields: []
   - ItemID: 10
     ItemName: 
     ItemType: 
@@ -86,6 +212,20 @@ MonoBehaviour:
     MaxStackSize: 1
     IsUsable: 0
     Description: 
+    DropChance: 0
+    WeaponType: 
+    Damage: 0
+    Range: 0
+    TimeBetAttack: 0
+    AttackAngle: 0
+    BulletSpeed: 0
+    MagCapacity: 0
+    ReloadTime: 0
+    AttackRadius: 0
+    ArcHeight: 0
+    MaxChargeTime: 0
+    MinRange: 0
+    serializedCustomFields: []
   - ItemID: 11
     ItemName: 
     ItemType: 
@@ -93,3 +233,17 @@ MonoBehaviour:
     MaxStackSize: 1
     IsUsable: 0
     Description: 
+    DropChance: 0
+    WeaponType: 
+    Damage: 0
+    Range: 0
+    TimeBetAttack: 0
+    AttackAngle: 0
+    BulletSpeed: 0
+    MagCapacity: 0
+    ReloadTime: 0
+    AttackRadius: 0
+    ArcHeight: 0
+    MaxChargeTime: 0
+    MinRange: 0
+    serializedCustomFields: []

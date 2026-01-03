@@ -9,7 +9,7 @@ namespace LUP.ES
     public class MeleeWeaponItemData : WeaponItemData
     {
         public float attackAngle;
-        public MeleeWeaponItemData(int id, string name, string iconName, float damage, float range, float timeBetAttack, float attackAngle) : base(id, name, iconName, damage, range, timeBetAttack)
+        public MeleeWeaponItemData(int id, string name, string description, string iconName, float dropChance, float damage, float range, float timeBetAttack, float attackAngle) : base(id, name, description, iconName, dropChance, damage, range, timeBetAttack)
         {
             weaponType = WeaponType.Melee;
             this.attackAngle = attackAngle;

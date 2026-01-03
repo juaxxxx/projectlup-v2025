@@ -18,6 +18,7 @@ namespace LUP.ES
             animator = blackboard.animator;
             EqipWeapon();
         }
+
         void EqipWeapon()
         {
             Transform handTransform;
@@ -29,7 +30,8 @@ namespace LUP.ES
             {
                 handTransform = animator.GetBoneTransform(HumanBodyBones.LeftHand);
             }
-                ItemPrefabEntry weaponEntry = prefabDataBase.GetEntry(blackboard.CurrentWeaponID);
+
+            ItemPrefabEntry weaponEntry = prefabDataBase.GetEntry(blackboard.CurrentWeaponID);
             GameObject newWeapon = Instantiate(weaponEntry.prefab);
             newWeapon.transform.SetParent(handTransform);
 

@@ -29,9 +29,9 @@ namespace LUP.ES
                     InventorySlot slot = slots[i];
                     if (slot.item == null)
                         continue;
-                    if (slot.item.baseItem.id == item.baseItem.id)
+                    if (slot.item.baseItem.ID == item.baseItem.ID)
                     {
-                        int canAdd = slot.item.baseItem.stackSize - slot.item.count;
+                        int canAdd = slot.item.baseItem.MaxStackSize - slot.item.count;
 
                         int actualAdd = Math.Min(canAdd, item.count);
 

@@ -27,8 +27,7 @@ namespace LUP.ES
                             blackboard.animator.SetTrigger("Attack");
                         blackboard.weapon.state = WeaponState.ATTACKING;
                         break;
-                    case WeaponType.Melee:
-                    case WeaponType.Throwing:
+                    case WeaponType.Melee: case WeaponType.Throwing:
                         if (blackboard.weapon.CanAttack() && blackboard.weapon.state == WeaponState.READY)
                         {
                             if (blackboard.animator != null)
@@ -45,6 +44,12 @@ namespace LUP.ES
                 
                 return NodeState.Running;
             }
+
+            if (blackboard.weapon.weaponItem.data.weaponType != WeaponType.Ranged && blackboard.weapon.state == WeaponState.ATTACKING)
+            {
+                return NodeState.Running;
+            }
+
             blackboard.weapon.state = WeaponState.READY;
             return NodeState.Success;
         }

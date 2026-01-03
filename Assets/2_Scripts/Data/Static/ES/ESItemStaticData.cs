@@ -31,8 +31,48 @@ namespace LUP
         public string Description = "";
 
         // ===== 확장 필드 (자동 수집됨) =====
+        [Column("DropChance")]
+        public float DropChance = 0f;
+
+        [Column("WeaponType")]
+        public string WeaponType = "";
+
+        [Column("Damage")]
+        public float Damage = 0;
+
+        [Column("Range")]
+        public float Range = 0;
+
+        [Column("TimeBetAttack")]
+        public float TimeBetAttack = 0;
+
+        [Column("AttackAngle")]
+        public float AttackAngle = 0;
+
+        [Column("BulletSpeed")]
+        public float BulletSpeed = 0;
+
+        [Column("MagCapacity")]
+        public float MagCapacity = 0;
+
+        [Column("ReloadTime")]
+        public float ReloadTime = 0;
+
+        [Column("AttackRadius")]
+        public float AttackRadius = 0;
+
+        [Column("ArcHeight")]
+        public float ArcHeight = 0;
+
+        [Column("MaxChargeTime")]
+        public float MaxChargeTime = 0;
+
+        [Column("MinRange")]
+        public float MinRange = 0;
+
         [System.NonSerialized]
         private Dictionary<string, string> customFields = new Dictionary<string, string>();
+
 
         // 직렬화를 위한 List
         [SerializeField]

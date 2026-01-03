@@ -10,7 +10,7 @@ namespace LUP.ES
         public CraftingMaterial(MaterialItemData itemData) : base(itemData)
         {
             tier = itemData.tier;
-            stackSize = itemData.stackSize;
+            stackSize = itemData.MaxStackSize;
             count = Random.Range(1, stackSize + 1);
         }
     }

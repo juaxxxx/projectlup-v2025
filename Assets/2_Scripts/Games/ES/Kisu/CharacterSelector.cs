@@ -16,15 +16,15 @@ namespace LUP.ES
             {
                 case 0:
                     extractionShooterStage.RuntimeData.PlayerID = 0;
-                    extractionShooterStage.RuntimeData.WeaponID = 0;
+                    extractionShooterStage.RuntimeData.WeaponID = 4;
                     break;
                 case 1:
                     extractionShooterStage.RuntimeData.PlayerID = 1;
-                    extractionShooterStage.RuntimeData.WeaponID = 7;
+                    extractionShooterStage.RuntimeData.WeaponID = 3;
                     break;
                 case 2:
                     extractionShooterStage.RuntimeData.PlayerID = 2;
-                    extractionShooterStage.RuntimeData.WeaponID = 8;
+                    extractionShooterStage.RuntimeData.WeaponID = 7;
                     break;
                 default:
                     break;
@@ -47,20 +47,19 @@ namespace LUP.ES
             {
                 case 0:
                     extractionShooterStage.RuntimeData.PlayerID = 0;
-                    extractionShooterStage.RuntimeData.WeaponID = 0;
+                    extractionShooterStage.RuntimeData.WeaponID = 4;
                     break;
                 case 1:
                     extractionShooterStage.RuntimeData.PlayerID = 1;
-                    extractionShooterStage.RuntimeData.WeaponID = 7;
+                    extractionShooterStage.RuntimeData.WeaponID = 3;
                     break;
                 case 2:
                     extractionShooterStage.RuntimeData.PlayerID = 2;
-                    extractionShooterStage.RuntimeData.WeaponID = 8;
+                    extractionShooterStage.RuntimeData.WeaponID = 7;
                     break;
                 default:
                     break;
             }
-            Debug.Log("ÇöÀç ÀÎµ¦½º: " + currentIndex + "============");
             PlayerPrefs.SetInt("SelectedCharacterIndex", currentIndex);
         }
 
@@ -73,15 +72,15 @@ namespace LUP.ES
             {
                 case 0:
                     extractionShooterStage.RuntimeData.PlayerID = 0;
-                    extractionShooterStage.RuntimeData.WeaponID = 0;
+                    extractionShooterStage.RuntimeData.WeaponID = 4;
                     break;
                 case 1:
                     extractionShooterStage.RuntimeData.PlayerID = 1;
-                    extractionShooterStage.RuntimeData.WeaponID = 7;
+                    extractionShooterStage.RuntimeData.WeaponID = 3;
                     break;
                 case 2:
                     extractionShooterStage.RuntimeData.PlayerID = 2;
-                    extractionShooterStage.RuntimeData.WeaponID = 8;
+                    extractionShooterStage.RuntimeData.WeaponID = 7;
                     break;
                 default:
                     break;

@@ -15,18 +15,22 @@ namespace LUP.ES
     [Serializable]
     public class BaseItemData
     {
-        public int id;
-        public string iconName;
-        public string name;
-        public int stackSize;
+        public int ID;
+        public string Name;
+        public string IconName;
+        public string Description;
+        public int MaxStackSize;
+        public float dropChance;
 
         public ItemType itemType;
-        public BaseItemData(int id, string name, string iconName, int stackSize)
+        public BaseItemData(int id, string name, string description,string iconName, int stackSize, float dropChance)
         {
-            this.id = id;
-            this.name = name;
-            this.iconName = iconName;
-            this.stackSize = stackSize;
+            ID = id;
+            Name = name;
+            IconName = iconName;
+            Description = description;
+            MaxStackSize = stackSize;
+            this.dropChance = dropChance;
         }
     }
 }

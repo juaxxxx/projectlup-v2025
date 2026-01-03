@@ -16,7 +16,7 @@ namespace LUP.ES
         public int defense;
         public ArmorSlot armorSlot;
 
-        public ArmorItemData(int id, string name, string iconName, int defense, ArmorSlot armorSlot) : base(id, name, iconName, 1) 
+        public ArmorItemData(int id, string name, string description, string iconName, float dropChance, int defense, ArmorSlot armorSlot) : base(id, name, description, iconName, 1, dropChance) 
         {
             itemType = ItemType.Armor;
             this.defense = defense;
