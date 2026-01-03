@@ -1,0 +1,98 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: da5138fe228d98a43a25b6c2564e69ad, type: 3}
+  m_Name: PCRItemLoader
+  m_EditorClassIdentifier: 
+  sourceType: 0
+  associatedWorksheet: 
+  START_ROW: 1
+  DataList:
+  - ItemID: 1
+    ItemName: Stone
+    ItemType: 1
+    IconPath: 
+    MaxStackSize: 9999
+    IsUsable: 1
+    Description: "\uB3CC"
+    serializedCustomFields: []
+  - ItemID: 2
+    ItemName: Coal
+    ItemType: 2
+    IconPath: 
+    MaxStackSize: 9999
+    IsUsable: 1
+    Description: "\uC11D\uD0C4"
+    serializedCustomFields: []
+  - ItemID: 3
+    ItemName: Iron
+    ItemType: 3
+    IconPath: 
+    MaxStackSize: 9999
+    IsUsable: 1
+    Description: "\uCCA0"
+    serializedCustomFields: []
+  - ItemID: 4
+    ItemName: Wheat
+    ItemType: 4
+    IconPath: 
+    MaxStackSize: 9999
+    IsUsable: 1
+    Description: "\uBC00"
+    serializedCustomFields: []
+  - ItemID: 5
+    ItemName: Mushroom
+    ItemType: 5
+    IconPath: 
+    MaxStackSize: 9999
+    IsUsable: 1
+    Description: "\uBC84\uC12F"
+    serializedCustomFields: []
+  - ItemID: 6
+    ItemName: Meat
+    ItemType: 6
+    IconPath: 
+    MaxStackSize: 9999
+    IsUsable: 1
+    Description: "\uACE0\uAE30"
+    serializedCustomFields: []
+  - ItemID: 7
+    ItemName: Food
+    ItemType: 7
+    IconPath: 
+    MaxStackSize: 9999
+    IsUsable: 1
+    Description: "\uC74C\uC2DD"
+    serializedCustomFields: []
+  - ItemID: 8
+    ItemName: Power
+    ItemType: 8
+    IconPath: 
+    MaxStackSize: 9999
+    IsUsable: 1
+    Description: "\uC804\uB825"
+    serializedCustomFields: []
+  - ItemID: 9
+    ItemName: Diamond
+    ItemType: 9
+    IconPath: 
+    MaxStackSize: 9999
+    IsUsable: 1
+    Description: "\uB2E4\uC774\uC544\uBAAC\uB4DC"
+    serializedCustomFields: []
+  - ItemID: 10
+    ItemName: Worker
+    ItemType: 10
+    IconPath: 
+    MaxStackSize: 9999
+    IsUsable: 1
+    Description: "\uC791\uC5C5\uC790"
+    serializedCustomFields: []

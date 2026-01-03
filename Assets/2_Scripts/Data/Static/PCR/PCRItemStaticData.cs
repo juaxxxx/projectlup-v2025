@@ -5,9 +5,8 @@ using UnityEngine;
 namespace LUP
 {
     [Serializable]
-    public class RLItemStaticData : IItemStaticData, UnityEngine.ISerializationCallbackReceiver
+    public class PCRItemStaticData : IItemStaticData, UnityEngine.ISerializationCallbackReceiver
     {
-        // ===== ï¿½Ê¼ï¿½ ï¿½Êµï¿½ (ï¿½ï¿½ï¿½ ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½Ö¾ï¿½ï¿½ ï¿½ï¿½) =====
         [Column("ItemID", Required = true)]
         public int ItemID;
 
@@ -32,7 +31,7 @@ namespace LUP
         [System.NonSerialized]
         private Dictionary<string, string> customFields = new Dictionary<string, string>();
 
-        // ì§ë ¬í™”ë¥¼ ìœ„í•œ List
+        // Á÷·ÄÈ­¸¦ À§ÇÑ List
         [SerializeField]
         private List<CustomField> serializedCustomFields = new List<CustomField>();
 
@@ -83,10 +82,10 @@ namespace LUP
             return Define.ItemType.None;
         }
 
-        // ===== Unity ì§ë ¬í™” ì½œë°± =====
+        // ===== Unity Á÷·ÄÈ­ Äİ¹é =====
         public void OnBeforeSerialize()
         {
-            // Dictionaryë¥¼ Listë¡œ ë³€í™˜ (ì§ë ¬í™” ì „)
+            // Dictionary¸¦ List·Î º¯È¯ (Á÷·ÄÈ­ Àü)
             serializedCustomFields.Clear();
             if (customFields != null)
             {
@@ -99,7 +98,7 @@ namespace LUP
 
         public void OnAfterDeserialize()
         {
-            // Listë¥¼ Dictionaryë¡œ ë³µì› (ì—­ì§ë ¬í™” í›„)
+            // List¸¦ Dictionary·Î º¹¿ø (¿ªÁ÷·ÄÈ­ ÈÄ)
             customFields = new Dictionary<string, string>();
             if (serializedCustomFields != null)
             {

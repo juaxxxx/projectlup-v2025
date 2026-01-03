@@ -172,11 +172,5 @@ namespace LUP
 
             Debug.Log($"[InventoryManager] 모든 인벤토리 클리어 완료 ({inventories.Count}개)");
         }
-
-        private void OnApplicationQuit()
-        {
-            SaveAllInventories();
-            Debug.Log("[InventoryManager] 애플리케이션 종료 - 인벤토리 저장 완료");
-        }
     }
 }

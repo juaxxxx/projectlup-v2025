@@ -18,6 +18,8 @@ namespace LUP
         [SerializeField]
         private CurrentQuestListData currentQuestListData;
 
+        [SerializeField] private CreditPanel creditPanel;
+
         public Inventory inven;
 
         protected override void Awake()
@@ -141,6 +143,18 @@ namespace LUP
         public void StopBGM()
         {
             LUP.SoundManager.Instance.StopBGM();
+        }
+
+        public void OnCreditsButtonClicked()
+        {
+            if (creditPanel != null)
+            {
+                creditPanel.Show();
+            }
+            else
+            {
+                Debug.LogError("MainStage: CreditPanel is not assigned!");
+            }
         }
 
         private void CheckVersions()
