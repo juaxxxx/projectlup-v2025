@@ -42,6 +42,7 @@ GameObject:
   - component: {fileID: 3175309981360531049}
   - component: {fileID: 1711254235378429762}
   - component: {fileID: 4583158622379131784}
+  - component: {fileID: 2574570648984930961}
   m_Layer: 0
   m_Name: Javelin
   m_TagString: Untagged
@@ -118,3 +119,26 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!136 &2574570648984930961
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2580232065815757976}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.021809138
+  m_Height: 1.03
+  m_Direction: 1
+  m_Center: {x: 0, y: 0.64, z: 0.00047871843}

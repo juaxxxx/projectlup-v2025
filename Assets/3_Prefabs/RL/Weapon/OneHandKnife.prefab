@@ -42,6 +42,7 @@ GameObject:
   - component: {fileID: 1599646179149035260}
   - component: {fileID: 4742933597032504259}
   - component: {fileID: 4247772044937266527}
+  - component: {fileID: 9195868825737587948}
   m_Layer: 0
   m_Name: OneHandKnife
   m_TagString: Untagged
@@ -118,3 +119,26 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!136 &9195868825737587948
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1529775588930105164}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.02
+  m_Height: 0.3
+  m_Direction: 1
+  m_Center: {x: -0.00000023655593, y: 0.21, z: -0.000000011175871}
