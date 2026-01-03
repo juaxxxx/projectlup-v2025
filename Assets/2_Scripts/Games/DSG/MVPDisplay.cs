@@ -65,7 +65,15 @@ namespace LUP.DSG
         {
             if (current != null) return current;
 
-            if (CharacterIconCache.TryGet(charId, modelId, out var cached))
+            Sprite cached;
+
+            if (modelId != 0 && CharacterIconCache.TryGet(charId, modelId, out cached) && cached != null)
+                return cached;
+
+            if (charId != 0 && CharacterIconCache.TryGetByCharacterId(charId, out cached) && cached != null)
+                return cached;
+
+            if (modelId != 0 && CharacterIconCache.TryGetByModelId(modelId, out cached) && cached != null)
                 return cached;
 
             return null;
@@ -101,9 +109,9 @@ namespace LUP.DSG
                     characterImage.material = null;
 
                     RectTransform rt = characterImage.rectTransform;
-                    rt.localScale = Vector3.one * 4f;  
-                    
+                    rt.localScale = Vector3.one;
 
+                    rt.sizeDelta = new Vector2(150, 150);
                 }
                 else
                 {

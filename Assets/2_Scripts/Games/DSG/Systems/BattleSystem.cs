@@ -189,10 +189,8 @@ namespace LUP.DSG
 
                     Sprite sprite = null;
 
-                    if (!CharacterIconCache.TryGetByCharacterId(characterId, out sprite))
-                    {
-                        CharacterIconCache.TryGetByModelId(characterId, out sprite);
-                    }
+                    CharacterIconCache.TryGet(characterId, modelId, out sprite);
+                    if (sprite == null) CharacterIconCache.TryGetByCharacterId(characterId, out sprite);
 
                     if (sprite != null)
                     {
@@ -388,11 +386,12 @@ namespace LUP.DSG
             mvp.char1Score = mvp.char2Score = mvp.char3Score = mvp.char4Score = mvp.char5Score = 0f;
             mvp.char1Name = mvp.char2Name = mvp.char3Name = mvp.char4Name = mvp.char5Name = "";
             mvp.char1CharacterId = mvp.char2CharacterId = mvp.char3CharacterId = mvp.char4CharacterId = mvp.char5CharacterId = 0;
+            mvp.char1ModelId = mvp.char2ModelId = mvp.char3ModelId = mvp.char4ModelId = mvp.char5ModelId = 0;
             mvp.char1Prefab = mvp.char2Prefab = mvp.char3Prefab = mvp.char4Prefab = mvp.char5Prefab = null;
 
             mvp.char1Icon = mvp.char2Icon = mvp.char3Icon = mvp.char4Icon = mvp.char5Icon = null;
 
-            var friendlyChars = new List<(string Name, int CharId, Sprite Icon, float Score, GameObject Prefab)>();
+            var friendlyChars = new List<(string Name, int CharId, int ModelId, Sprite Icon, float Score, GameObject Prefab)>();
 
             if (friendlySlots != null)
             {
@@ -409,20 +408,40 @@ namespace LUP.DSG
                     string name = ch.characterData.characterName;
 
                     int charId = ch.IconCacheKey;
+                    int modelId = (ch.characterModelData != null) ? ch.characterModelData.ID : 0;
 
                     float score = ch.ScoreComp.CalculateMVPScore();
                     GameObject prefab = (ch.characterModelData != null) ? ch.characterModelData.prefab : null;
 
-                    CharacterIconCache.TryGetByCharacterId(charId, out Sprite icon);
+                    Sprite icon = null;
 
-                    friendlyChars.Add((name, charId, icon, score, prefab));
+                    if (icon == null && modelId != 0)
+                    {
+                        CharacterIconCache.TryGet(charId, modelId, out icon);
+                    }
+                    if (icon == null)
+                    {
+                        CharacterIconCache.TryGetByCharacterId(charId, out icon);
+                    }
+
+                    friendlyChars.Add((name, charId, modelId, icon, score, prefab));
                 }
             }
 
             foreach (var d in deadCharacterData)
             {
-                if (!friendlyChars.Exists(x => x.CharId == d.CharId))
-                    friendlyChars.Add((d.Name, d.CharId, d.Icon, d.Score, d.Prefab));
+                if (friendlyChars.Exists(x => x.CharId == d.CharId))
+                    continue;
+
+                int modelId = 0;
+                Sprite icon = d.Icon;
+
+                if (icon == null)
+                {
+                    CharacterIconCache.TryGetByCharacterId(d.CharId, out icon);
+                }
+
+                friendlyChars.Add((d.Name, d.CharId, modelId, icon, d.Score, d.Prefab));
             }
 
             var ranked = friendlyChars.OrderByDescending(x => x.Score).ToList();
@@ -432,10 +451,19 @@ namespace LUP.DSG
             {
                 var entry = ranked[i];
 
-                ApplyMVP(mvp, i + 1, entry.Name, entry.CharId, entry.Score, entry.Icon, entry.Prefab);
+                ApplyMVP(
+                    mvp,
+                    i + 1,
+                    entry.Name,
+                    entry.CharId,
+                    entry.ModelId,
+                    entry.Score,
+                    entry.Icon,
+                    entry.Prefab);
+
                 Debug.Log($"[EndBattle-SAVE] mvpInstanceID={mvp.GetInstanceID()} result={mvp.battleResult}");
-                Debug.Log($"[EndBattle-SAVE] #1 name={mvp.char1Name} score={mvp.char1Score} icon={(mvp.char1Icon ? mvp.char1Icon.name : "NULL")}");
-                Debug.Log($"[EndBattle-SAVE] #2 name={mvp.char2Name} score={mvp.char2Score} icon={(mvp.char2Icon ? mvp.char2Icon.name : "NULL")}");
+                Debug.Log($"[EndBattle-SAVE] #1 name={mvp.char1Name} score={mvp.char1Score} icon={(mvp.char1Icon ? mvp.char1Icon.name : "NULL")} modelId={mvp.char1ModelId}");
+                Debug.Log($"[EndBattle-SAVE] #2 name={mvp.char2Name} score={mvp.char2Score} icon={(mvp.char2Icon ? mvp.char2Icon.name : "NULL")} modelId={mvp.char2ModelId}");
             }
 
             Time.timeScale = 1f;
@@ -454,6 +482,7 @@ namespace LUP.DSG
                 int index,
                 string name,
                 int charId,
+                int modelId,
                 float score,
                 Sprite icon,
                 GameObject prefab = null)
@@ -463,6 +492,7 @@ namespace LUP.DSG
                 case 1:
                     data.char1Name = name;
                     data.char1CharacterId = charId;
+                    data.char1ModelId = modelId;
                     data.char1Score = score;
                     data.char1Prefab = prefab;
                     data.char1Icon = icon;
@@ -471,6 +501,7 @@ namespace LUP.DSG
                 case 2:
                     data.char2Name = name;
                     data.char2CharacterId = charId;
+                    data.char2ModelId = modelId;
                     data.char2Score = score;
                     data.char2Prefab = prefab;
                     data.char2Icon = icon;
@@ -479,6 +510,7 @@ namespace LUP.DSG
                 case 3:
                     data.char3Name = name;
                     data.char3CharacterId = charId;
+                    data.char3ModelId = modelId;
                     data.char3Score = score;
                     data.char3Prefab = prefab;
                     data.char3Icon = icon;
@@ -487,6 +519,7 @@ namespace LUP.DSG
                 case 4:
                     data.char4Name = name;
                     data.char4CharacterId = charId;
+                    data.char4ModelId = modelId;
                     data.char4Score = score;
                     data.char4Prefab = prefab;
                     data.char4Icon = icon;
@@ -495,6 +528,7 @@ namespace LUP.DSG
                 case 5:
                     data.char5Name = name;
                     data.char5CharacterId = charId;
+                    data.char5ModelId = modelId;
                     data.char5Score = score;
                     data.char5Prefab = prefab;
                     data.char5Icon = icon;
