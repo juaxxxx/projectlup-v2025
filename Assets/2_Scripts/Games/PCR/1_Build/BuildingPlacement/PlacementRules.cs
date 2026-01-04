@@ -76,6 +76,7 @@ namespace LUP.PCR
                 case BuildingType.STONEMINE:
                 case BuildingType.IRONMINE:
                 case BuildingType.COALMINE:
+                case BuildingType.LADDER:
                     placementSize = new Vector2Int(1, 1);
                     break;
                 case BuildingType.WORKSTATION:

@@ -1686,6 +1686,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9859ea4faa4afa94082a251accf2438c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  placeName: 
+  entrancePos: {x: 8, y: 6}
   buildingStaticData:
     buildingType: 0
     power: 0
@@ -1701,9 +1703,10 @@ MonoBehaviour:
     resourceType2: 0
     amount2: 0
   buildingName: 
-  entrancePos: {x: 8, y: 6}
   resourceCenter: {fileID: 7261110364362034691}
   ConstructScreen: {fileID: 775949896629871894}
+  constructionOverlay: {fileID: 0}
+  actionMenu: {fileID: 0}
 --- !u!1 &338299848
 GameObject:
   m_ObjectHideFlags: 0
@@ -4605,6 +4608,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   digBtn: {fileID: 1401483758}
   constructBtn: {fileID: 2115603489}
+  foodText: {fileID: 0}
+  powerText: {fileID: 0}
+  stoneText: {fileID: 0}
+  ironText: {fileID: 0}
 --- !u!222 &1048326330
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -7534,6 +7541,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 83f3f6976a1d69e46bd80bc0188e0d62, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  placeName: 
+  entrancePos: {x: 9, y: 3}
   buildingStaticData:
     buildingType: 0
     power: 0
@@ -7549,9 +7558,10 @@ MonoBehaviour:
     resourceType2: 0
     amount2: 0
   buildingName: 
-  entrancePos: {x: 9, y: 3}
   resourceCenter: {fileID: 7261110364362034691}
   ConstructScreen: {fileID: 775949896629871894}
+  constructionOverlay: {fileID: 0}
+  actionMenu: {fileID: 0}
   maxStorage: 0
   currStorage: 0
 --- !u!1 &1734369098
@@ -10762,6 +10772,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6c0f38dafb2a8a247bf514d990275ff7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  placeName: 
+  entrancePos: {x: 11, y: 1}
   buildingStaticData:
     buildingType: 0
     power: 0
@@ -10777,9 +10789,10 @@ MonoBehaviour:
     resourceType2: 0
     amount2: 0
   buildingName: WheatFarm
-  entrancePos: {x: 11, y: 1}
   resourceCenter: {fileID: 7261110364362034691}
   ConstructScreen: {fileID: 0}
+  constructionOverlay: {fileID: 0}
+  actionMenu: {fileID: 0}
   currentProductionData:
     buildingType: 0
     level: 0
@@ -77914,16 +77927,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e440d28d067510d429110e31aaa529a4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  food: 0
-  wheat: 0
-  mushroom: 0
-  meat: 0
-  water: 0
-  stone: 0
-  iron: 0
-  coal: 0
-  power: 0
-  diamond: 0
 --- !u!1 &7265324349930044204
 GameObject:
   m_ObjectHideFlags: 0
@@ -81668,14 +81671,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3f60a5ba8749bf74f8339b75f95531d4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  productionBtn: {fileID: 1766810063965032814}
-  fertilizerBtn: {fileID: 0}
-  workBtn: {fileID: 0}
-  upgradeBtn: {fileID: 4461513515625259084}
+  productionTab: {fileID: 0}
+  upgradeTab: {fileID: 0}
   backBtn: {fileID: 6094509334512969045}
-  buildingNameText: {fileID: 3562267495449451329}
-  productionTimeText: {fileID: 0}
-  powerText: {fileID: 0}
+  productionPanel: {fileID: 0}
+  upgradePanel: {fileID: 0}
+  btnProductionToggle: {fileID: 0}
+  btnUpgrade: {fileID: 0}
+  productionToggleText: {fileID: 0}
+  buildingNameText: {fileID: 0}
+  levelChangeText: {fileID: 0}
+  effectNameText: {fileID: 0}
+  effectValueText: {fileID: 0}
+  costSlot1: {fileID: 0}
+  costIcon1: {fileID: 0}
+  costText1: {fileID: 0}
+  costSlot2: {fileID: 0}
+  costIcon2: {fileID: 0}
+  costText2: {fileID: 0}
 --- !u!222 &7711040079122783484
 CanvasRenderer:
   m_ObjectHideFlags: 0

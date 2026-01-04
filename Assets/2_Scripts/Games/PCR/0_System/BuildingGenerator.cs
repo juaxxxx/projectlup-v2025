@@ -22,6 +22,8 @@ namespace LUP.PCR
         private GameObject stoneMinePrefab;
         [SerializeField]
         private GameObject workStationPrefab;
+        [SerializeField]
+        private GameObject ladderPrefab;
 
 
         [SerializeField]
@@ -74,6 +76,10 @@ namespace LUP.PCR
                     break;
                 case BuildingType.WORKSTATION:
                     buildingObject = Instantiate(workStationPrefab, pos, Quaternion.identity, buildingSpawnTransform);
+                    
+                    break;
+                case BuildingType.LADDER:
+                    buildingObject = Instantiate(ladderPrefab, pos, Quaternion.identity, buildingSpawnTransform);
 
                     break;
             }

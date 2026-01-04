@@ -38,6 +38,7 @@ namespace LUP.PCR
         COALMINE,
         MOLEFARM,
         DAIRYFARM,
+        LADDER
     }
 
     public enum WallType

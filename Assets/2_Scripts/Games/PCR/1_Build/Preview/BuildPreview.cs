@@ -16,7 +16,8 @@ namespace LUP.PCR
         GameObject workStationPreview;
         [SerializeField]
         GameObject restaurantPreview;
-
+        [SerializeField]
+        GameObject ladderPreview;
 
         [SerializeField]
         Material canBuildMaterial;
@@ -128,6 +129,9 @@ namespace LUP.PCR
                     break;
                 case BuildingType.RESTAURANT:
                     currPreview = restaurantPreview;
+                    break;
+                case BuildingType.LADDER:
+                    currPreview = ladderPreview;
                     break;
                 default:
 
