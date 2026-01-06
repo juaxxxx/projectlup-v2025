@@ -8,31 +8,31 @@ namespace LUP.ES
     {
         public List<ItemIconEntry> iconEntries = new List<ItemIconEntry>();
 
-        private Dictionary<string, Sprite> itemIcons = null;
+        private Dictionary<int, Sprite> itemIcons = null;
 
         public void Initialize()
         {
             if (itemIcons != null) return;
 
-            itemIcons = new Dictionary<string, Sprite>();
+            itemIcons = new Dictionary<int, Sprite>();
 
             foreach (ItemIconEntry entry in iconEntries)
             {
-                if (!itemIcons.ContainsKey(entry.iconName))
+                if (!itemIcons.ContainsKey(entry.itemID))
                 {
-                    itemIcons.Add(entry.iconName, entry.iconSprite);
+                    itemIcons.Add(entry.itemID, entry.iconSprite);
                 }
             }
         }
 
-        public Sprite LoadIconSprite(string iconName)
+        public Sprite LoadIconSprite(int ID)
         {
             if (itemIcons == null)
             {
                 Initialize();
             }
 
-            if (itemIcons != null && itemIcons.TryGetValue(iconName, out Sprite icon))
+            if (itemIcons != null && itemIcons.TryGetValue(ID, out Sprite icon))
             {
                 return icon;
             }

@@ -10,7 +10,7 @@ namespace LUP.ES
         public int inventorySize = 30;
         public List<InventorySlot> slots;
 
-        virtual public void Awake()
+        void Start()
         {
             slots = new List<InventorySlot>(inventorySize);
             for (int i = 0; i < inventorySize; i++)

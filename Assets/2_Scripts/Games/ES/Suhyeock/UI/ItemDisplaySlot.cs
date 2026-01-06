@@ -31,7 +31,7 @@ namespace LUP.ES
             }
             nameText.text = item.baseItem.Name;
             countText.text = "x " + item.count.ToString();
-            iconImage.sprite = itemIconLoader.LoadIconSprite(item.baseItem.IconName);
+            iconImage.sprite = itemIconLoader.LoadIconSprite(item.baseItem.ID);
             this.item = item;
             gameObject.SetActive(true);
         }

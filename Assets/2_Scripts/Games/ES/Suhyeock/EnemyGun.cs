@@ -5,7 +5,7 @@ namespace LUP.ES
     public class EnemyGun : MonoBehaviour
     {
         public ItemDataBase itemDataBase; //임시
-        public int selectedWeaponId = 1; //임시
+        public int selectedWeaponId = 4; //임시
         public WeaponItem weapon;
         public GameObject bulletPrefab;
         private BulletObjectPool bulletPool;

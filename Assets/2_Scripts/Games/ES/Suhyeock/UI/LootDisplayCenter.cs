@@ -9,6 +9,7 @@ namespace LUP.ES
     {
         [HideInInspector]
         public EventBroker eventBroker;
+        [HideInInspector]
         public Inventory inventory;
         public GameObject itemSlotPrefab;
         public GameObject lootPanel;
@@ -22,6 +23,7 @@ namespace LUP.ES
             eventBroker.OnCloseLootDisplay += CloseLootPanel;
             eventBroker.OnOpenLootDisplay += ShowLootItems;
 
+            inventory = FindAnyObjectByType<Inventory>();
             lootPanel.SetActive(false);
             contentParent = ItemDisplayContent.transform;
         }
