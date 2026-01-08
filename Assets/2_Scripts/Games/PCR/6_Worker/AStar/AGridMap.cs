@@ -16,6 +16,11 @@ namespace LUP.PCR
         [HideInInspector] public ANode debugStartNode;
         [HideInInspector] public ANode debugTargetNode;
 
+        public bool IsIdxValid(int x, int y)
+        {
+            return x >= 0 && x < grid.GetLength(0) && y >= 0 && y < grid.GetLength(1);
+        }
+
         public void InitMap(Tile[,] tileData)
         {
             gridStartPoint = transform.position;
@@ -27,8 +32,8 @@ namespace LUP.PCR
         {
             if (sourceTiles == null) { return; }
 
-            int width = sourceTiles.GetLength(0); 
-            int height = sourceTiles.GetLength(1); 
+            int width = sourceTiles.GetLength(0);
+            int height = sourceTiles.GetLength(1);
 
             grid = new ANode[width, height];
 
@@ -37,9 +42,14 @@ namespace LUP.PCR
                 for (int y = 0; y < height; y++)
                 {
                     Vector3 worldPosition = GridToWorldPosition(new Vector2Int(x, y));
-                    
-                    bool walkable = sourceTiles[x, y].tileInfo.tileType != TileType.WALL;
-                    grid[x, y] = new ANode(walkable, worldPosition, x, y);
+
+                    TileType currentType = sourceTiles[x, y].tileInfo.tileType;
+
+                    bool walkable = currentType != TileType.WALL;
+                    bool ladder = currentType == TileType.LADDER;
+                    bool elevator = currentType == TileType.ELEVATOR;
+
+                    grid[x, y] = new ANode(walkable, ladder, elevator, worldPosition, x, y);
                 }
             }
 
@@ -70,9 +80,9 @@ namespace LUP.PCR
 
         public ANode GetNodeFromGridPos(Vector2Int pos)
         {
-            if(grid == null) { return null; }
-            
-            if(pos.x >= 0 && pos.y >= 0 && pos.x < grid.GetLength(0) && pos.y < grid.GetLength(1))
+            if (grid == null) { return null; }
+
+            if (pos.x >= 0 && pos.y >= 0 && pos.x < grid.GetLength(0) && pos.y < grid.GetLength(1))
             {
 
                 return grid[pos.x, pos.y];

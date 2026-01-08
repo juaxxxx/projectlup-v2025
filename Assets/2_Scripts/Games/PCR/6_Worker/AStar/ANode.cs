@@ -5,6 +5,8 @@ namespace LUP.PCR
     public class ANode
     {
         public bool isWalkable;
+        public bool isLadder;
+        public bool isElevator;
         public Vector3 worldPos;
         public int indexX;
         public int indexY;
@@ -14,9 +16,11 @@ namespace LUP.PCR
         public ANode parentNode;
 
 
-        public ANode(bool nWalkable, Vector3 nWorldPos, int nIndexX, int nIndexY)
+        public ANode(bool nWalkable, bool nLadder, bool nElevator, Vector3 nWorldPos, int nIndexX, int nIndexY)
         {
             isWalkable = nWalkable;
+            isLadder = nLadder;
+            isElevator = nElevator;
             worldPos = nWorldPos;
             indexX = nIndexX;
             indexY = nIndexY;

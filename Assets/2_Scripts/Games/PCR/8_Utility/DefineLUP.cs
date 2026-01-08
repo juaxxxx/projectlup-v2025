@@ -20,6 +20,8 @@ namespace LUP.PCR
         PATH,
         WALL,
         BUILDING,
+        LADDER,
+        ELEVATOR,
     }
 
     public enum BuildingType
