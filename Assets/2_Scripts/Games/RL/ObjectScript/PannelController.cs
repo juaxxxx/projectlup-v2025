@@ -36,6 +36,9 @@ namespace LUP.RL
         [HideInInspector]
         public WorldEventBtnScrollPannel RightEventPanel;
 
+        [SerializeField]
+        private InventoryItemAlliner inventoryItemAllinerPanel;
+
         //PopupPanel
         public WarningPopUpPanel warningPopUpPanel;
         public EquipInfoPopupPanel equipInfoPopupPanel;
@@ -278,8 +281,16 @@ namespace LUP.RL
 
             PanelType targetPanel = currentPanel - 1;
 
-            if (targetPanel == PanelType.AVILITY)
+            //이동 금지 패널
+            while (targetPanel == PanelType.AVILITY ||
+                    targetPanel == PanelType.EVENT ||
+                    targetPanel == PanelType.SHOP)
+            {
                 targetPanel--;
+            }
+
+            //if (targetPanel == PanelType.AVILITY)
+            //    targetPanel--;
 
             SwitchPannelTo(targetPanel);
         }
@@ -291,8 +302,16 @@ namespace LUP.RL
 
             PanelType targetPanel = currentPanel + 1;
 
-            if (targetPanel == PanelType.AVILITY)
+            //이동 금지 패널
+            while (targetPanel == PanelType.AVILITY ||
+                    targetPanel == PanelType.EVENT ||
+                    targetPanel == PanelType.SHOP)
+            {
                 targetPanel++;
+            }
+
+            //if (targetPanel == PanelType.AVILITY)
+            //    targetPanel++;
 
             SwitchPannelTo(targetPanel);
         }
@@ -348,7 +367,7 @@ namespace LUP.RL
             lobbyGameCenter.platformAdapter.RemoveItemFromInventory(equipData.GetDisplayableName(), 1);
             //lobbyGameCenter.platformAdapter.UpLoadCharacterEquips();
 
-            lobbyInventoryPanel.UpdateEquipInventoryGridPanel();
+            lobbyInventoryPanel.UpdateEquipInventoryGridPanel(inventoryItemAllinerPanel.Align);
 
             lobbyGameCenter.platformAdapter.UploadCharacterData(lobbyGameCenter.GetselectedCharacter());
         }
@@ -361,7 +380,7 @@ namespace LUP.RL
             lobbyGameCenter.platformAdapter.AddItemToInventory(equipData.GetDisplayableName(), 1);
             //lobbyGameCenter.platformAdapter.UpLoadCharacterEquips();
 
-            lobbyInventoryPanel.UpdateEquipInventoryGridPanel();
+            lobbyInventoryPanel.UpdateEquipInventoryGridPanel(inventoryItemAllinerPanel.Align);
 
             lobbyGameCenter.platformAdapter.UploadCharacterData(lobbyGameCenter.GetselectedCharacter());
         }
@@ -381,6 +400,13 @@ namespace LUP.RL
         void OnSwipeDown()
         {
 
+        }
+
+        public void CallUpdateEquipInventoryGridPanel(bool bIsAlinged)
+        {
+            InventorPanel lobbyInventoryPanel = (InventorPanel)lobbyPannels[(int)PanelType.INVENTORY];
+
+            lobbyInventoryPanel.UpdateEquipInventoryGridPanel(bIsAlinged);
         }
 
     }

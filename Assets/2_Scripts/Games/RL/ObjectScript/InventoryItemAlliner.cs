@@ -1,3 +1,4 @@
+using LUP.RL;
 using Roguelike.Define;
 using Roguelike.Util;
 using UnityEngine;
@@ -9,9 +10,11 @@ public class InventoryItemAlliner : MonoBehaviour, IPanelContentAble
     private Button bagPreferedBtn;
     private Button blackSmithBtn;
 
+    private PannelController pannelController;
+
     private Vector2 parentViewportSize;
 
-    bool Align = false;
+    public bool Align = false;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -28,8 +31,9 @@ public class InventoryItemAlliner : MonoBehaviour, IPanelContentAble
     public bool Init()
     {
         ButtonRule[] buttonRules = GetComponentsInChildren<ButtonRule>();
+        pannelController = FindFirstObjectByType<PannelController>();
 
-        for(int i = 0; i < buttonRules.Length; i++)
+        for (int i = 0; i < buttonRules.Length; i++)
         {
             if(buttonRules[i].buttonRole == ButtonRole.InventoryAlignBtn)
             {
@@ -76,7 +80,7 @@ public class InventoryItemAlliner : MonoBehaviour, IPanelContentAble
     void OnAlignBtnClicked()
     {
         Align = !Align;
-
+        pannelController.CallUpdateEquipInventoryGridPanel(Align);
     }
 
     void OnPreferBtnClicked()

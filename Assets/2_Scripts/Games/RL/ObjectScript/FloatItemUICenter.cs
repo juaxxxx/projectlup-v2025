@@ -24,7 +24,7 @@ namespace LUP.RL
         private Dictionary<int, int> customgainItem = new Dictionary<int, int>();
 
         private Dictionary<int, FloatingItemPopupImage> activatedPopupImageDict;
-        List<int?> popupImageOrder = new List<int?>();
+        List<int> popupImageOrder = new List<int>();
 
         private Vector2[] spanwedPositionArray = new Vector2[]
         {
@@ -39,7 +39,7 @@ namespace LUP.RL
             activatedPopupImageDict = new Dictionary<int, FloatingItemPopupImage>();
 
             for (int i = 0; i < 10; i++)
-                popupImageOrder.Add(null);
+                popupImageOrder.Add(-1);
         }
 
         void Start()
@@ -54,15 +54,12 @@ namespace LUP.RL
             {
                 itemSpawner.OnItemGained += OnGainSpawnableItem;
             }
-
-            //roguelikeStage = GameObject.FindFirstObjectByType<RoguelikeStage>();
         }
 
         void OnGainSpawnableItem(int itemID, int gainedAmount)
         {
             Sprite displayedIcon;
             IItemable GainedItem = ItemManager.Instance.GetItem(itemID);
-            //int ownedItemAmount = roguelikeStage.inventory.GetItemCount(itemID);
 
             int customId = itemID - 10000 > 10000 ? 0 : itemID - 10000;
 
@@ -88,7 +85,7 @@ namespace LUP.RL
             if (activatedPopupImageDict.ContainsKey(customId) && popupImageOrder.Contains(customId))
             {
                 activatedPopupImageDict[customId].itemGainedAmount += gainedAmount;
-                activatedPopupImageDict[customId].OnGainedAmountChanged();
+                activatedPopupImageDict[customId].OnGainedAmountChanged(gainedAmount);
             }
 
             //货肺款 Popup 老 版快
@@ -149,14 +146,14 @@ namespace LUP.RL
 
             int removedIndex = popupImageOrder.FindIndex(id => id == customID);
 
-            popupImageOrder[removedIndex] = null;
+            popupImageOrder[removedIndex] = -1;
         }
 
         int FindEmptySlot()
         {
             for (int i = 0; i < popupImageOrder.Count; i++)
             {
-                if (!popupImageOrder[i].HasValue)
+                if (popupImageOrder[i] == -1)
                     return i;
             }
             return -1;

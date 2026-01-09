@@ -1,4 +1,5 @@
 using LUP.ST;
+using Roguelike.Define;
 using Roguelike.Util;
 using TMPro;
 using UnityEngine;
@@ -57,10 +58,10 @@ namespace LUP.RL
             gridLayoutGroup.constraintCount = holizonConstrain;
             gridLayoutGroup.cellSize = new Vector2(prefabWidth, prefabWidth);
 
-            LoadInventoryItemData();
+            LoadInventoryItemData(false);
         }
 
-        public void LoadInventoryItemData()
+        public void LoadInventoryItemData(bool bisAlined)
         {
             if(platformAdapter == null)
             {
@@ -75,10 +76,26 @@ namespace LUP.RL
 
                 ClearInventoryGrid();
 
+            RWeaponType playerWeaponType = RWeaponType.None;
+
+            if(pannelController != null)
+                playerWeaponType = pannelController.lobbyGameCenter.GetselectedCharacter().weaponType;
+
             //ItemData[] InventoryItmes = platformAdapter.GetInventoryItems();
             InventoryItmes = platformAdapter.GetInventoryEquips();
             for (int i = 0; i < InventoryItmes.Length; i++)
             {
+                if(bisAlined && playerWeaponType != RWeaponType.None)
+                {
+                    RWeaponType WeaponType = InventoryItmes[i].weaponType;
+
+                    if (playerWeaponType != RWeaponType.None &&
+                        playerWeaponType != WeaponType)
+                        continue;
+                }
+                
+
+
                 GameObject Itembox = Instantiate(ItemBoxPrefab, gameObject.transform);
                 TextImageBtn itemTextImageBtn = Itembox.GetComponent<TextImageBtn>();
                 itemTextImageBtn.SetUseDefaultInteractColor(false);

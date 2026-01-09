@@ -15,8 +15,13 @@ namespace LUP.RL
 
         [HideInInspector]
         public int custumItemID;
+
+        //카운트 용 획득 아이템 개수
         [HideInInspector]
         public int itemGainedAmount;
+
+        //실제 추가 될 아이템 개수
+        public int totalGainningAmount = 0;
 
         private FloatinItemUIPoll spanwedPool;
 
@@ -80,6 +85,9 @@ namespace LUP.RL
         {
             custumItemID = customID;
             itemGainedAmount = gainedAmount;
+            totalGainningAmount += gainedAmount;
+
+            displayedOwningAmount = owningAmount;
 
             spanwedPool = spanwer;
 
@@ -193,8 +201,9 @@ namespace LUP.RL
                 .OnComplete(OnMovingRightComplete);
         }
 
-        public void OnGainedAmountChanged()
+        public void OnGainedAmountChanged(int addedAmount)
         {
+            totalGainningAmount += addedAmount;
             gainedAmountText.text = itemGainedAmount.ToString();
 
             if (uiState == FloatingImageState.MovingLeft)
@@ -223,6 +232,14 @@ namespace LUP.RL
         {
             moveTween.Kill(this);
             spanwedPool.ReturnUI(this);
+
+            ResetProperty();
+        }
+
+
+        private void ResetProperty()
+        {
+            totalGainningAmount = 0;
         }
 
     }
