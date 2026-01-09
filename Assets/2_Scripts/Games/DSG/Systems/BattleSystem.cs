@@ -40,9 +40,6 @@ namespace LUP.DSG
         [SerializeField]
         private TextMeshProUGUI roundText;
         [SerializeField]
-        private TextMeshProUGUI turnText;
-
-        [SerializeField]
         private TextMeshProUGUI playerCP;
         [SerializeField]
         private TextMeshProUGUI enemyCP;
@@ -325,9 +322,6 @@ namespace LUP.DSG
                 currentTurnIndex++;
                 return;
             }
-            if (turnText != null)
-                turnText.text = $"{currentChar.characterData.characterName} Turn";
-
             if (currentChar.BattleComp.isSkillOn)
             {
                 StartCoroutine(FocusSkillCaster(currentChar));
@@ -571,22 +565,6 @@ namespace LUP.DSG
         {
             if (roundText != null)
                 roundText.text = $"Round {currentRound}";
-
-            if (turnText != null)
-            {
-                if (currentTurnIndex < battleSequence.Count)
-                {
-                    var currentChar = battleSequence[currentTurnIndex];
-                    if (currentChar != null && currentChar.characterData != null)
-                        turnText.text = $"{currentChar.characterData.characterName} Turn";
-                    else
-                        turnText.text = $"---";
-                }
-                else
-                {
-                    turnText.text = $"";
-                }
-            }
         }
 
         private IEnumerator WaitForAttackEnd(Character currentChar)

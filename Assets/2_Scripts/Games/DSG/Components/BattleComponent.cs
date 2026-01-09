@@ -229,10 +229,9 @@ namespace LUP.DSG
                 bool isWeak;
                 float damage = DamageCalculator.Calculator(ctx, out isWeak);
 
-                targetChar.BattleComp.TakeDamage(damage, isWeak);
+                
                 ActionEffect hiteffect = owner.ActioneffectPool.GetAttackEffectByGetHITEffect(owner.AnimationComp.attackEffect);
-                float damage = DamageCalculator.Calculator(ctx);
-                targetChar.BattleComp.TakeDamage(damage, hiteffect);
+                targetChar.BattleComp.TakeDamage(damage, hiteffect, isWeak);
                 owner.ScoreComp.UpdateDamageDealt(damage);
             }
 
@@ -268,7 +267,7 @@ namespace LUP.DSG
 
                     bool isWeak;
                     float damage = DamageCalculator.Calculator(ctx, out isWeak) + skillInfo.damage;
-                    targetSlots[i].character.BattleComp.TakeDamage(damage, ActionEffect.GetHit_Skill_Test);
+                    targetSlots[i].character.BattleComp.TakeDamage(damage, ActionEffect.GetHit_Skill_Test, isWeak);
                     owner.ScoreComp.UpdateDamageDealt(damage);
                 }
 
@@ -292,11 +291,15 @@ namespace LUP.DSG
             InitGuage();
         }
 
+        public virtual void TakeDamage(float amount)
+        {
+            TakeDamage(amount, ActionEffect.None,false);
+        }
         public virtual void TakeDamage(float amount, ActionEffect getHitEffect)
         {
-            TakeDamage(amount, false);
+            TakeDamage(amount, getHitEffect, false);
         }
-        public virtual void TakeDamage(float amount, bool isWeak)
+        public virtual void TakeDamage(float amount, ActionEffect getHitEffect, bool isWeak)
         {
             if (!isAlive)
                 return;
