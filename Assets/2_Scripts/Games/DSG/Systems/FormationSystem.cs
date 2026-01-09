@@ -20,9 +20,6 @@ namespace LUP.DSG
     }
     public class FormationSystem : MonoBehaviour
     {
-        [SerializeField]
-        DataCenter dataCenter;
-
         public GameObject[] slots = new GameObject[5];
 
         public Team selectedTeam { get; private set; }
@@ -44,6 +41,9 @@ namespace LUP.DSG
 
         public CharacterPlacedHandler placedHandler;
         public CharacterReleasedHandler releaseHandler;
+
+        public event System.Action OnPowerUpdated;
+
         private void OnEnable()
         {
             StageInitializeInvoker.OnDSGStagePostInitialize += OnStagePostInitialize;
@@ -80,6 +80,7 @@ namespace LUP.DSG
                 selectedCount = 0;
                 selectedTeam = runtimeData.Teams[selectedTeamIndex];
                 ApplyPlaceTeam();
+                OnPowerUpdated?.Invoke();
             }
         }
 

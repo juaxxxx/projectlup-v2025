@@ -14,9 +14,6 @@ namespace LUP.DSG
     public class CharactersList : MonoBehaviour
     {
         [SerializeField]
-        private DataCenter dataCenter;
-
-        [SerializeField]
         private GameObject iconPrefab;
         [SerializeField]
         private Transform contentParent;

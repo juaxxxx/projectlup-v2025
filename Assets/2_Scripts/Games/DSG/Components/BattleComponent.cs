@@ -86,12 +86,6 @@ namespace LUP.DSG
                 {
                     isKnockback = false;
                     transform.position = originPosition;
-
-                    if (!isAlive)
-                    {
-                        owner.ClearCharacterInfo();
-
-                    }
                 }
             }
         }
@@ -413,9 +407,18 @@ namespace LUP.DSG
 
                 GameObject prefab = (owner.characterModelData != null) ? owner.characterModelData.prefab : null;
 
-                BattleSystem.Instance?.BackupDeadCharacter(owner.characterData.characterName, charid, score, prefab);
+                DeckStrategyStage stage = LUP.StageManager.Instance.GetCurrentStage() as DeckStrategyStage;
+                if (stage != null)
+                {
+                    BattleSystem battleSystem = stage.GetBattleSystem();
+                    if(battleSystem != null)
+                    {
+                        battleSystem.BackupDeadCharacter(owner.characterData.characterName, charid, score, prefab);
+                    }
+                }
             }
 
+            owner.ClearCharacterInfo();
             OnDie?.Invoke(owner.battleIndex);
         }
 

@@ -39,6 +39,7 @@ namespace LUP.Define
         ProductionRuntime,
         Versions,
         QuestList,
+        DSGEnemyRuntime,
     }
 
     public static class RuntimeDataTypes
@@ -53,7 +54,8 @@ namespace LUP.Define
                 RuntimeDataType.ExtractionShooterRuntime => "extractionshooter_runtime.json",
                 RuntimeDataType.ProductionRuntime => "production_runtime.json",
                 RuntimeDataType.Versions => "Versions.json",
-                RuntimeDataType.QuestList => "CurrentQuestListData.json"
+                RuntimeDataType.QuestList => "CurrentQuestListData.json",
+                RuntimeDataType.DSGEnemyRuntime => "dsg_enemy_runtime.json"
             };
         }
 

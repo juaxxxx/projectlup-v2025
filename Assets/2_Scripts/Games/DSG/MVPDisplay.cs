@@ -7,7 +7,7 @@ namespace LUP.DSG
 {
     public class MVPDisplay : MonoBehaviour
     {
-        private DataCenter dataCenter;
+        //private DataCenter dataCenter;
         private float average = 0;
 
         private void Awake()
@@ -22,11 +22,13 @@ namespace LUP.DSG
 
         private void PostInitialize(DeckStrategyStage stage)
         {
-            dataCenter = FindFirstObjectByType<DataCenter>();
-            if (dataCenter == null || dataCenter.mvpData == null)
-                return;
+            //dataCenter = FindFirstObjectByType<DataCenter>();
+            //if (dataCenter == null || dataCenter.mvpData == null) return;
 
-            var mvp = dataCenter.mvpData;
+            DeckStrategyStage deckStage = LUP.StageManager.Instance.GetCurrentStage() as DeckStrategyStage;
+            if (deckStage == null || deckStage.mvpData == null) return;
+
+            var mvp = deckStage.mvpData;
 
             TMP_Text resultText = transform.Find("Text_Result")?.GetComponent<TMP_Text>();
             if (resultText != null)

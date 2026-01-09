@@ -1,5 +1,7 @@
+using DG.Tweening;
 using LUP.DSG.Utils.Enums;
 using System;
+using System.Numerics;
 using TMPro;
 using UnityEngine;
 
@@ -88,11 +90,12 @@ namespace LUP.DSG
             currentState = EAnimStateType.Hitted;
             SetAnimationState(currentState);
 
-            owner.ActioneffectPool.PlayVFX(hitEffect, owner.transform.position, owner.transform.rotation); //@TODO Ä³¸¯ÅÍ¸¶´Ù ¾Ö´Ï¸ÞÀÌ¼ÇÀ» °®°íÀÖÀ»Áö »ý°¢ÇØºÁ¾ßµÊ
+            owner.ActioneffectPool.PlayVFX(hitEffect, owner.transform.position, owner.transform.rotation); //@TODO Ä³ï¿½ï¿½ï¿½Í¸ï¿½ï¿½ï¿½ ï¿½Ö´Ï¸ï¿½ï¿½Ì¼ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Øºï¿½ï¿½ßµï¿½
         }
 
         public void PlayDiedAnimation(int index)
         {
+            owner.transform.DORotate(new UnityEngine.Vector3(0, -90, 0), 0.5f, RotateMode.WorldAxisAdd);
             currentState = EAnimStateType.Died;
             SetAnimationState(currentState);
         }

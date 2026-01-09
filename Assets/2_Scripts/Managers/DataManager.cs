@@ -37,8 +37,17 @@ namespace LUP
                     data = JsonDataHelper.LoadData<RoguelikeRuntimeData>(filename);
                     break;
                 case LUP.Define.StageKind.DSG:
-                    filename = Define.RuntimeDataTypes.ToFilename(Define.RuntimeDataType.DeckStrategyRuntime);
-                    data = JsonDataHelper.LoadData<DeckStrategyRuntimeData>(filename);
+                    switch (stagetype)
+                    {
+                        case 1:
+                            filename = Define.RuntimeDataTypes.ToFilename(Define.RuntimeDataType.DeckStrategyRuntime);
+                            data = JsonDataHelper.LoadData<DeckStrategyRuntimeData>(filename);
+                            break;
+                        case 2:
+                            filename = Define.RuntimeDataTypes.ToFilename(Define.RuntimeDataType.DSGEnemyRuntime);
+                            data = JsonDataHelper.LoadData<DSGEnemyStageRuntimeData>(filename);
+                            break;
+                    }
                     break;
                 case LUP.Define.StageKind.Main:
                     switch (stagetype)

@@ -25,7 +25,7 @@ namespace LUP.DSG
         public bool isEnemy = false;
         public int battleIndex = -1;
 
-        public float combatPower { get; private set; }
+        // public float combatPower { get; private set; }
         [SerializeField]
         private GameObject characterUIPrefab;
 
@@ -99,29 +99,25 @@ namespace LUP.DSG
             statusEffectComp.TurnAll();
         }
 
-        public void UpdateCombatPower()
-        {
-            if (characterData == null)
-            {
-                combatPower = 0;
-            }
-            else
-            {
-                combatPower = characterData.maxHp + characterData.attack + characterData.defense + characterData.speed;
-            }
-        }
+        //public void UpdateCombatPower()
+        //{
+        //    if (characterData == null)
+        //    {
+        //        combatPower = 0;
+        //    }
+        //    else
+        //    {
+        //        combatPower = characterData.maxHp + characterData.attack + characterData.defense + characterData.speed;
+        //    }
+        //}
 
         public void SetCharacterData(OwnedCharacterInfo info)
         {
-            DataCenter dataCenter = FindAnyObjectByType<DataCenter>();
-            if (dataCenter == null) return;
-
             DeckStrategyStage stage = LUP.StageManager.Instance.GetCurrentStage() as DeckStrategyStage;
             if (stage == null) return;
 
             CharacterData data = stage.FindCharacterData(info.characterID, info.characterLevel);
             CharacterModelData modelData = stage.FindCharacterModel(info.characterModelID);
-            //CharacterModelData modelData = dataCenter.FindCharacterModel(info.characterModelID);
 
             IconCacheKey = info.characterID;
 
@@ -139,20 +135,20 @@ namespace LUP.DSG
             characterUI.InitInfoUI(data.type, info.characterLevel);
             characterUI.ActiveInfoUI();
 
-            UpdateCombatPower();
+            //UpdateCombatPower();
         }
 
         public void ClearCharacterInfo()
         {
-            characterData = null;
-            characterModelData = null;
-            gameObject.SetActive(false);
+            //characterData = null;
+            //characterModelData = null;
+            //gameObject.SetActive(false);
             if (characterUI != null)
             {
                 characterUI.gameObject.SetActive(false);
             }
 
-            UpdateCombatPower();
+            //UpdateCombatPower();
         }
 
         public void ActiveBattleUI()

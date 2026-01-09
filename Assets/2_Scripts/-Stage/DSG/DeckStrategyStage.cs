@@ -22,13 +22,14 @@ namespace LUP.DSG
     public class DeckStrategyStage : BaseStage
     {
         public BaseRuntimeData RuntimeData;
+        public BaseRuntimeData enemyStageRuntimeData;
 
         public List<DeckStaticData> DeckDataList;
         public List<DeckCharacterStaticData> CharacterDataList;
         public CharacterModelDataTable characterModelDataTable;
+        public TeamMVPData mvpData;
 
-
-        protected override void Awake() 
+        protected override void Awake()
         {
             base.Awake();
             StageKind = Define.StageKind.DSG;
@@ -58,6 +59,18 @@ namespace LUP.DSG
                 if (testCharacterTable != null)
                 {
                     runtimeData.OwnedCharacterList = testCharacterTable.ownedCharacterList;
+                }
+            }
+
+            DSGEnemyStageRuntimeData enemyRuntimeData = (DSGEnemyStageRuntimeData)enemyStageRuntimeData;
+            if (enemyRuntimeData.SelectedEnemyStage == null)
+            {
+                EnemyStageData enemyStageData
+                    = Resources.Load<EnemyStageData>("Data/Games/DSG/ScriptableObjects/EnemyStageData1");
+                if (enemyStageData != null)
+                {
+                    enemyRuntimeData.SelectedEnemyStage = enemyStageData;
+                    SaveDatas();
                 }
             }
 
@@ -101,6 +114,7 @@ namespace LUP.DSG
         {
             List<BaseStaticDataLoader> loaders = base.GetStaticData(this, 1);
             List<BaseRuntimeData> runtimeDatas = base.GetRuntimeData(this, 1);
+            List<BaseRuntimeData> enemyRuntimeDatas = base.GetRuntimeData(this, 2);
 
             // 일단 타입별로 가져오는 예시
             if (loaders != null && loaders.Count > 0)
@@ -126,6 +140,17 @@ namespace LUP.DSG
                     if (runtimeData is DeckStrategyRuntimeData deckRuntimeData)
                     {
                         RuntimeData = deckRuntimeData;
+                    }                    
+                }
+            }
+
+            if (enemyRuntimeDatas != null && enemyRuntimeDatas.Count > 0)
+            {
+                foreach (var runtimeData in enemyRuntimeDatas)
+                {
+                    if (runtimeData is DSGEnemyStageRuntimeData enemyRuntimeData)
+                    {
+                        enemyStageRuntimeData = enemyRuntimeData;
                     }
                 }
             }
@@ -149,11 +174,10 @@ namespace LUP.DSG
                 runtimeDataList.Add(RuntimeData);
             }
 
-            // 나중에 다른 RuntimeData 추가 시 여기에 추가
-            // if (CharacterRuntimeData != null)
-            // {
-            //     runtimeDataList.Add(CharacterRuntimeData);
-            // }
+            if (enemyStageRuntimeData != null)
+            {
+                runtimeDataList.Add(enemyStageRuntimeData);
+            }
 
             base.SaveRuntimeDataList(runtimeDataList);
         }
@@ -227,6 +251,24 @@ namespace LUP.DSG
             return null;
         }
 
+        public EnemyStageData GetEnemyStage()
+        {
+            DSGEnemyStageRuntimeData enemyRuntimeData = (DSGEnemyStageRuntimeData)enemyStageRuntimeData;
+            if (enemyRuntimeData == null) return null;
+
+            return enemyRuntimeData.SelectedEnemyStage;
+        }
+
+        public void SetEnemyStage(EnemyStageData enemyStageData)
+        {
+            DSGEnemyStageRuntimeData enemyRuntimeData = (DSGEnemyStageRuntimeData)enemyStageRuntimeData;
+            if (enemyRuntimeData == null) return;
+            enemyRuntimeData.SelectedEnemyStage = enemyStageData;
+            SaveDatas();
+        }
+
+
+
         public void ChangeScene(int sceneIndex)
         {
             //0: edit
@@ -246,6 +288,10 @@ namespace LUP.DSG
             }
         }
 
+        public BattleSystem GetBattleSystem() 
+        {
+            return GetComponent<BattleSystem>();
+        }
     }
 }
 
