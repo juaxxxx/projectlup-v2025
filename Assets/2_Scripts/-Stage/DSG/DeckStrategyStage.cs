@@ -281,40 +281,36 @@ namespace LUP.DSG
             //2: result
 
             LoadStage(StageKind, sceneIndex);
-            BGMListNum num = (BGMListNum)sceneIndex;
-            string bgm;
 
-            AudioClip BGMClip;
-            switch (num)
-            {
-                case BGMListNum.EditSceneBGM:
-                    {
-                        bgm = "Duel of the Fates";
-                        BGMClip = editSceneBGM;
-                        break;
-                    }
-                case BGMListNum.BattleSceneBGM:
-                    {
-                        bgm = "Watch out";
-                        BGMClip = battleSceneBGM;
-                        break;
-                    }
-                case BGMListNum.ResultSceneBGM:
-                    {
-                        bgm = "";
-                        BGMClip = resultSceneBGM;
-                        break;
-                    }
-                default:
-                    return;
-            }
+            //BGMListNum num = (BGMListNum)sceneIndex; //@TODO SoundManager.BGM
+            //string bgm;
 
-            SoundManager.Instance.PlayBGM(bgm, true);
+            //AudioClip BGMClip;
+            //switch (num)
+            //{
+            //    case BGMListNum.EditSceneBGM:
+            //        {
+            //            bgm = "Duel of the Fates";
+            //            BGMClip = editSceneBGM;
+            //            break;
+            //        }
+            //    case BGMListNum.BattleSceneBGM:
+            //        {
+            //            bgm = "Watch out";
+            //            BGMClip = battleSceneBGM;
+            //            break;
+            //        }
+            //    case BGMListNum.ResultSceneBGM:
+            //        {
+            //            bgm = "";
+            //            BGMClip = resultSceneBGM;
+            //            break;
+            //        }
+            //    default:
+            //        return;
+            //}
 
-            SoundManager.Instance.bgmSource.clip = BGMClip; //@TODO SOundManager 이용해야함
-            SoundManager.Instance.bgmSource.loop = true;
-            SoundManager.Instance.bgmSource.volume = 50.0f;
-            SoundManager.Instance.bgmSource.Play();
+            //SoundManager.Instance.PlayBGM(bgm, true);
         }
 
         public void BattleEnd()
