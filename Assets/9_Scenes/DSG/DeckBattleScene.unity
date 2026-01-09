@@ -3430,8 +3430,8 @@ GameObject:
   m_Component:
   - component: {fileID: 613301456}
   - component: {fileID: 613301455}
-  - component: {fileID: 613301457}
   - component: {fileID: 613301458}
+  - component: {fileID: 613301457}
   - component: {fileID: 613301459}
   m_Layer: 0
   m_Name: Stage
@@ -3457,7 +3457,6 @@ MonoBehaviour:
   CharacterDataList: []
   characterModelDataTable: {fileID: 11400000, guid: 8e5a2cc3fdef4b04698bae1932d8687b, type: 2}
   mvpData: {fileID: 11400000, guid: b5420738ed619244288d3ed612d3f9fe, type: 2}
-  enemyStageData: {fileID: 11400000, guid: 831a4eb5f1a7f8d44803f88bf128cbf7, type: 2}
 --- !u!4 &613301456
 Transform:
   m_ObjectHideFlags: 0
@@ -3473,6 +3472,7 @@ Transform:
   m_Children:
   - {fileID: 1096160795}
   - {fileID: 1074448247}
+  - {fileID: 888336117}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &613301457
@@ -3513,23 +3513,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1822c77db24b9664e8cf7eaba4107538, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyTeam:
-    characters:
-    - characterID: 6
-      characterModelID: 6
-      characterLevel: 5
-    - characterID: 7
-      characterModelID: 7
-      characterLevel: 7
-    - characterID: 8
-      characterModelID: 8
-      characterLevel: 10
-    - characterID: 9
-      characterModelID: 9
-      characterLevel: 8
-    - characterID: 10
-      characterModelID: 10
-      characterLevel: 12
   friendlySlots:
   - {fileID: 636051258}
   - {fileID: 1072193027}
@@ -3552,6 +3535,7 @@ MonoBehaviour:
   turnText: {fileID: 0}
   playerCP: {fileID: 50297711}
   enemyCP: {fileID: 1365322796}
+  waveText: {fileID: 1259751525}
   iconSize: 1000
 --- !u!114 &613301459
 MonoBehaviour:
@@ -4570,23 +4554,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1822c77db24b9664e8cf7eaba4107538, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyTeam:
-    characters:
-    - characterID: 6
-      characterModelID: 6
-      characterLevel: 5
-    - characterID: 7
-      characterModelID: 7
-      characterLevel: 7
-    - characterID: 8
-      characterModelID: 8
-      characterLevel: 10
-    - characterID: 9
-      characterModelID: 9
-      characterLevel: 8
-    - characterID: 10
-      characterModelID: 10
-      characterLevel: 12
   friendlySlots:
   - {fileID: 636051258}
   - {fileID: 1072193027}
@@ -4609,6 +4576,7 @@ MonoBehaviour:
   turnText: {fileID: 0}
   playerCP: {fileID: 50297711}
   enemyCP: {fileID: 1365322796}
+  waveText: {fileID: 1259751525}
   iconSize: 1000
 --- !u!4 &888336117
 Transform:

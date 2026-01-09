@@ -41,6 +41,9 @@ namespace LUP.DSG
 
         public CharacterPlacedHandler placedHandler;
         public CharacterReleasedHandler releaseHandler;
+
+        public event System.Action OnPowerUpdated;
+
         private void OnEnable()
         {
             StageInitializeInvoker.OnDSGStagePostInitialize += OnStagePostInitialize;
@@ -77,6 +80,7 @@ namespace LUP.DSG
                 selectedCount = 0;
                 selectedTeam = runtimeData.Teams[selectedTeamIndex];
                 ApplyPlaceTeam();
+                OnPowerUpdated?.Invoke();
             }
         }
 
