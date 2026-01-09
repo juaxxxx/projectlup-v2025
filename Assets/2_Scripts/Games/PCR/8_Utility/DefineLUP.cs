@@ -96,5 +96,6 @@ namespace LUP.PCR
         SelectConstrcut,
         ConstructionDecision,
         ProductableBuilding,
+        Inventory,
     }
 }

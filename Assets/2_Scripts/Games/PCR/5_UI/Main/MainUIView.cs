@@ -11,6 +11,8 @@ namespace LUP.PCR
         private Button digBtn;
         [SerializeField]
         private Button constructBtn;
+        [SerializeField]
+        private Button inventoryBtn;
 
         [Header("자원 표시")]
         [SerializeField]
@@ -25,11 +27,13 @@ namespace LUP.PCR
         // Event
         public event Action OnClickDig;
         public event Action OnClickConstruct;
+        public event Action OnClickInventory;
 
         private void Awake()
         {
             digBtn?.onClick.AddListener(() => OnClickDig?.Invoke());
             constructBtn?.onClick.AddListener(() => OnClickConstruct?.Invoke());
+            inventoryBtn?.onClick.AddListener(() => OnClickInventory?.Invoke());
         }
 
         public void Show()

@@ -9,12 +9,14 @@ namespace LUP.PCR
         private MainUIModel model;
         private SelectConstructUIPresenter selectConstructPresenter;
         private FarmTaskUIPresenter farmTaskPresenter;
+        //private InventoryUIPresenter inventoryPresenter;
 
         public void InitPresenter(IMainUIView view, MainUIModel model, SelectConstructUIPresenter presenter, PCRResourceCenter resourceCenter)
         {
             this.view = view;
             this.model = model;
             this.selectConstructPresenter = presenter;
+            //this.inventoryPresenter = inventoryPresenter;
 
             // 초기화 작업
             view.OnClickDig += HandleDigClick;
@@ -53,6 +55,11 @@ namespace LUP.PCR
         public void BindActionConstruct(Action action)
         {
             view.OnClickConstruct += action;
+        }
+
+        public void BindActionInventory(Action action)
+        {
+            view.OnClickInventory += action;
         }
 
         public void Release()

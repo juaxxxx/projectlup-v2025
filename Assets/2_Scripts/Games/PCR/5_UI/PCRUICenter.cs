@@ -14,6 +14,9 @@ namespace LUP.PCR
         private FarmTaskUIView farmTaskView;
         [SerializeField]
         private ConstructionDecisionView constructionDecisionView;
+        [SerializeField]
+        private InventoryUIView inventoryView;
+
 
         private TaskController taskController;
 
@@ -21,6 +24,7 @@ namespace LUP.PCR
         private SelectConstructUIPresenter selectConstructPresenter;
         private FarmTaskUIPresenter farmTaskPresenter;
         private ConstructionDecisionPresenter constructionDecisionPresenter;
+        private InventoryUIPresenter inventoryPresenter;
 
         private ActiveUIType uiType;
         private BuildingBase currBuilding;
@@ -55,6 +59,9 @@ namespace LUP.PCR
                 case ActiveUIType.ConstructionDecision:
 
                     break;
+                case ActiveUIType.Inventory:
+                    inventoryPresenter.UpdateInventory();
+                    break;
 
             }
         }
@@ -73,23 +80,28 @@ namespace LUP.PCR
             selectConstructPresenter = new SelectConstructUIPresenter();
             farmTaskPresenter = new FarmTaskUIPresenter();
             constructionDecisionPresenter = new ConstructionDecisionPresenter();
+            inventoryPresenter = new InventoryUIPresenter();
 
             mainPresenter.InitPresenter(mainView, new MainUIModel(), selectConstructPresenter, resourceCenter);
             selectConstructPresenter.InitPresenter(selectConstructView, new SelectConstructUIModel(), mainPresenter, constructionDecisionPresenter);
             farmTaskPresenter.InitPresenter(farmTaskView, new FarmTaskUIModel(), mainPresenter);
             constructionDecisionPresenter.InitPresenter(constructionDecisionView, new ConstructionDecisionModel(), mainPresenter);
+            inventoryPresenter.InitPresenter(inventoryView, new InventoryUIModel(), mainPresenter, resourceCenter);
 
             uiType = ActiveUIType.Main;
             mainPresenter.Show();
             selectConstructPresenter.Hide();
             farmTaskPresenter.Hide();
             constructionDecisionPresenter.Hide();
+            inventoryPresenter.Hide();
 
             // Bind
             mainPresenter.BindActionDig(taskController.DigWallTask);
             mainPresenter.BindActionConstruct(taskController.SetIdleActiveTrue);
+            mainPresenter.BindActionInventory(OpenInventoryTask);
 
             farmTaskPresenter.BindActionBack(ReturnToMainScreen);
+            inventoryPresenter.BindActionBack(ReturnToMainScreen);
 
             selectConstructPresenter.BindActionBuildingType(taskController.SetCurrSelectedBuildingType);
             selectConstructPresenter.BindActionBack(taskController.IdleTask);
@@ -140,6 +152,15 @@ namespace LUP.PCR
             currBuilding = building;
 
             // 추가 구현.            
+        }
+
+        public void OpenInventoryTask()
+        {
+            inventoryPresenter.UpdateInventory();
+            inventoryPresenter.Show();
+            mainPresenter.Hide();
+
+            uiType = ActiveUIType.Inventory;
         }
     }
 

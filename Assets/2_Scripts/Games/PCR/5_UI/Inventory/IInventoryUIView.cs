@@ -3,14 +3,13 @@ using UnityEngine;
 
 namespace LUP.PCR
 {
-    public interface IMainUIView
+    public interface IInventoryUIView
     {
-        event Action OnClickDig;
-        event Action OnClickConstruct;
-        event Action OnClickInventory;
+        event Action OnClickBack;
 
         void Show();
         void Hide();
+
         void UpdateResourceText(PCRResourceCenter resourceCenter);
     }
 }
