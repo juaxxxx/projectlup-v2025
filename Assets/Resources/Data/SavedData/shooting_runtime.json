@@ -1,20 +1,52 @@
 {
-    "filename": "shooting_runtime.json",
-    "_team": [
-        {
-            "instanceID": 48626
-        },
-        {
-            "instanceID": 48626
-        },
-        {
-            "instanceID": 49012
-        },
-        {
-            "instanceID": 49012
-        },
-        {
-            "instanceID": 49262
-        }
-    ]
+  "filename": "shooting_runtime.json",
+  "ownedCharacterList": [
+    {
+      "characterId": 1,
+      "level": 1,
+      "currentExp": 0
+    },
+    {
+      "characterId": 2,
+      "level": 5,
+      "currentExp": 0
+    },
+    {
+      "characterId": 3,
+      "level": 10,
+      "currentExp": 0
+    },
+    {
+      "characterId": 4,
+      "level": 3,
+      "currentExp": 0
+    },
+    {
+      "characterId": 5,
+      "level": 7,
+      "currentExp": 0
+    }
+  ],
+  "currentTeam": [
+    {
+      "characterId": 3,
+      "slotIndex": 0
+    },
+    {
+      "characterId": 1,
+      "slotIndex": 1
+    },
+    {
+      "characterId": 5,
+      "slotIndex": 2
+    },
+    {
+      "characterId": 4,
+      "slotIndex": 3
+    },
+    {
+      "characterId": 2,
+      "slotIndex": 4
+    }
+  ]
 }

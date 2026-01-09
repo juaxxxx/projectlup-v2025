@@ -52,6 +52,23 @@ namespace LUP.ST
                 var go = Instantiate(data.prefab, sp.position, sp.rotation);
                 go.name = $"{data.name}_Slot{i}";
 
+                //세이브 데이터불러오기
+                int characterLevel = 1; // 데이터가 없을 경우 기본 레벨 1
+                var savedData = STSaveHandler.CurrentData.characterList.Find(c => c.characterId == data.characterId);
+
+                if (savedData != null)
+                {
+                    characterLevel = savedData.level;
+                }
+
+                // 2. 생성된 캐릭터의 StatComponent를 가져와 레벨을 적용합니다.
+                var stats = go.GetComponent<StatComponent>();
+                if (stats != null)
+                {
+                    stats.ApplyLevelStats(characterLevel); // 이 함수는 StatComponent에 만드셔야 합니다!
+                }
+
+
                 spawnedCharacters.Add(go); 
             }
 

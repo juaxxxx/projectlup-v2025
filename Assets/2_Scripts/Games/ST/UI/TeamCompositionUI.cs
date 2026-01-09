@@ -25,6 +25,11 @@ namespace LUP.ST
 
         public LobbyTeamPreviewUI lobbyPreviewUI;
 
+        private void Awake()
+        {
+            STSaveHandler.Load();
+        }
+
         void Start()
         {
             stage = GameObject.FindFirstObjectByType<ShootingStage>();

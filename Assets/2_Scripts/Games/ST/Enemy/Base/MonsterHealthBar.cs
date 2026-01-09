@@ -50,7 +50,7 @@ namespace LUP.ST
 
         private void OnHealthChanged(float current, float max)
         {
-            Debug.Log(" OnHealthChanged 이벤트 발생!");
+            //Debug.Log(" OnHealthChanged 이벤트 발생!");
             
             float damage = lastKnownHealth - current;
             lastKnownHealth = current; // 다음 데미지 계산을 위해 업데이트

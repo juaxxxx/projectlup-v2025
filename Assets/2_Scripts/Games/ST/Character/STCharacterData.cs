@@ -6,6 +6,8 @@ namespace LUP.ST
     public class STCharacterData : ScriptableObject
     {
         public int characterId;
+        public int level;
+        public int currentExp;
         public Sprite thumbnail;
         public GameObject prefab;
     }

@@ -29,7 +29,7 @@ namespace LUP.ST
         {
             if (data.target == null)
             {
-                Debug.Log($"{data.name}: Å¸°Ù ¾øÀ½");
+//                Debug.Log($"{data.name}: Å¸°Ù ¾øÀ½");
                 return false;
             }
 

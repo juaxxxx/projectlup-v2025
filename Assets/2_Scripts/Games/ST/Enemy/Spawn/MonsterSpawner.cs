@@ -157,6 +157,8 @@ namespace LUP.ST
             MonsterData monster = pool.Get(spawnPosition, spawnRotation);
             monster.SetSpawner(this);
 
+            SetMonsterStats(monster);
+
             aliveMonsterCount++;
 
             if (showDebugLogs)
@@ -260,11 +262,13 @@ namespace LUP.ST
                 if (monster.name.StartsWith(kvp.Key.name))
                 {
                     kvp.Value.Return(monster);
+                    OnMonsterDeath();
                     return;
                 }
             }
-
-            Debug.LogWarning($"몬스터 {monster.name}의 Pool을 찾을 수 없습니다!");
+            
+            OnMonsterDeath();
+            monster.gameObject.SetActive(false);
         }
 
         public void ClearAllMonsters()
@@ -302,6 +306,55 @@ namespace LUP.ST
             if (Input.GetKeyDown(KeyCode.C))
             {
                 ClearAllMonsters();
+            }
+        }
+        private float GetDifficultyMultiplier()
+        {
+            int totalLevel = 0;
+
+            // 1. 세이브 데이터에서 팀원들의 레벨을 모두 더함
+            if (STSaveHandler.CurrentData != null && STSaveHandler.CurrentData.characterList != null)
+            {
+                foreach (var charData in STSaveHandler.CurrentData.characterList)
+                {
+                    totalLevel += charData.level;
+                }
+            }
+
+            // 2. 만약 데이터가 없어서 0이라면 기본값 5(모두 1렙)로 설정
+            if (totalLevel < 5) totalLevel = 5;
+
+            // 3. 공식: 레벨 합 10이 기준(1.0)이므로 0.1을 곱함
+            // 합이 5(시작 시) -> 0.5배
+            // 합이 10(평균 2렙) -> 1.0배
+            // 합이 50(평균 10렙) -> 5.0배
+            return totalLevel * 0.1f;
+        }
+
+        // 몬스터를 실제로 생성(또는 풀에서 꺼낼 때) 호출하는 부분
+        private void SetMonsterStats(MonsterData monster)
+        {
+            float multiplier = GetDifficultyMultiplier();
+
+            var stats = monster.GetComponent<StatComponent>();
+            if (stats != null)
+            {
+                // 속성에 직접 대입하는 대신, 함수를 호출해서 한 번에 해결!
+                stats.ScaleStats(multiplier);
+
+                if (showDebugLogs)
+                    Debug.Log($"[Spawner] {monster.name} 난이도 적용: {multiplier}배");
+            }
+        }
+        [System.Obsolete]
+        public void OnMonsterDeath()
+        {
+            aliveMonsterCount--;
+
+            // 체크: 모든 웨이브가 끝났고, 남은 몬스터가 0마리라면?
+            if (currentWaveIndex >= waves.Count && aliveMonsterCount <= 0)
+            {
+                Object.FindAnyObjectByType<SceneChanger>().LoadResultScene();
             }
         }
         void OnGUI()

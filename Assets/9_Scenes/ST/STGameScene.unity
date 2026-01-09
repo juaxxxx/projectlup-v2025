@@ -5134,10 +5134,9 @@ MonoBehaviour:
   spawnPoints: []
   spawnAreas:
   - {fileID: 767011372}
-  - {fileID: 1777509194}
   waves:
   - waveName: Wave1
-    monsterCount: 15
+    monsterCount: 10
     spawnInterval: 1
     delayBeforeNextWave: 1
     monsters:
@@ -5148,33 +5147,7 @@ MonoBehaviour:
       count: 1
       spawnDelay: 1
     useRandomSpawn: 1
-    randomSpawnCount: 15
-  - waveName: Wave2
-    monsterCount: 25
-    spawnInterval: 1
-    delayBeforeNextWave: 1
-    monsters:
-    - prefab: {fileID: 7855042958750180503, guid: 493464c16c0d00b4aa6a32b0205f9cc7, type: 3}
-      count: 1
-      spawnDelay: 1
-    - prefab: {fileID: 7855042958750180503, guid: 7d04c6faa26c56942b71cdbebb684d51, type: 3}
-      count: 1
-      spawnDelay: 1
-    - prefab: {fileID: 7855042958750180503, guid: 6cc30340fba80134086e64b2f45fcf79, type: 3}
-      count: 1
-      spawnDelay: 1
-    useRandomSpawn: 1
-    randomSpawnCount: 25
-  - waveName: Wave3
-    monsterCount: 35
-    spawnInterval: 1
-    delayBeforeNextWave: 1
-    monsters:
-    - prefab: {fileID: 7855042958750180503, guid: 7d04c6faa26c56942b71cdbebb684d51, type: 3}
-      count: 1
-      spawnDelay: 1
-    useRandomSpawn: 1
-    randomSpawnCount: 35
+    randomSpawnCount: 10
   autoStartWaves: 1
   showDebugLogs: 1
 --- !u!4 &2040641705
