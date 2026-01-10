@@ -89,14 +89,13 @@ namespace LUP.ES
             switch (playerBlackboard.extractionShooterStage.RuntimeData.PlayerID)
             {
                 case 0:
-                    RangedWeaponItemData rangedWeaponItemData = itemToEquip.baseItem as RangedWeaponItemData;
-                    if (rangedWeaponItemData == null)
-                        return;
-                    
-                    break;
-                case 1:
                     MeleeWeaponItemData meleeWeaponItemData = itemToEquip.baseItem as MeleeWeaponItemData;
                     if (meleeWeaponItemData == null)
+                        return;
+                    break;
+                case 1:
+                    RangedWeaponItemData rangedWeaponItemData = itemToEquip.baseItem as RangedWeaponItemData;
+                    if (rangedWeaponItemData == null)
                         return;
                     break;
                 case 2:
