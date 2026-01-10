@@ -207,9 +207,9 @@ namespace LUP.RL
             }
         }
 
-        public void UpdateEquipInventoryGridPanel()
+        public void UpdateEquipInventoryGridPanel(bool bIsAlined)
         {
-            InventoryItemGridLayout.LoadInventoryItemData();
+            InventoryItemGridLayout.LoadInventoryItemData(bIsAlined);
         }
     }
 }

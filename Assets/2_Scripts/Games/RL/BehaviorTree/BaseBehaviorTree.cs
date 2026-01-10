@@ -112,9 +112,9 @@ namespace LUP.RL
 
                 case ActionState.Die:
                     calledAnimName = "Die";
-                    Animator.Play(calledAnimName, 0, 0.0f);
+                    //Animator.Play(calledAnimName, 0, 0.0f);
                     currentRunningLeaf = caller;
-                    return;
+                    break;
 
                 default:
                     break;
@@ -122,7 +122,7 @@ namespace LUP.RL
 
             stateInfo = GetCurrentAnimState();
 
-            if (stateInfo.IsName("Idle") || stateInfo.IsName("MoveTo"))
+            if ((stateInfo.IsName("Idle") || stateInfo.IsName("MoveTo")) || actionState == ActionState.Die)
             {
                 currentRunningLeaf = caller;
                 Animator.Play(calledAnimName);

@@ -14,7 +14,7 @@ namespace LUP.RL
         public GameObject commoditiesPrefab;
         public GameObject equipmentPrefab;
 
-        public Action<int> OnItemGained;
+        public Action<int, int> OnItemGained;
 
         //1번은 공용 재화, 2번은 장비구슬
         private Dictionary<RLDropItemType, Queue<GameObject>> poolDictionaray;
@@ -77,14 +77,26 @@ namespace LUP.RL
             RLItemID randomSpawnItem = (RLItemID)values.GetValue(UnityEngine.Random.Range(0, values.Length - 1));
             RLDropItemType spanwedItemType = (RLDropItemType)((int)randomSpawnItem / 10000);
 
-            GameObject obj = poolDictionaray[spanwedItemType].Dequeue();
+            int amount = 0;
+
+            if(spanwedItemType == RLDropItemType.equipment)
+            {
+                amount = 1;
+            }
+
+            else if(spanwedItemType == RLDropItemType.Commodities)
+            {
+                amount = UnityEngine.Random.Range(1, 30);
+            }
+
+                GameObject obj = poolDictionaray[spanwedItemType].Dequeue();
             obj.SetActive(true);
 
             obj.transform.position = spawnPos.position;
 
             SpawnItemCrystal crystalball = obj.GetComponent<SpawnItemCrystal>();
 
-            crystalball.SetSpawnItemInfo(spanwedItemType, (int)randomSpawnItem, playerPos, this);
+            crystalball.SetSpawnItemInfo(spanwedItemType, (int)randomSpawnItem, amount, playerPos, this);
 
             activeCrystals.Add(crystalball);
 
@@ -94,7 +106,7 @@ namespace LUP.RL
         {
             SpawnItemCrystal comp = obj.GetComponent<SpawnItemCrystal>();
 
-            OnItemGained?.Invoke(comp.itemID);
+            OnItemGained?.Invoke(comp.itemID, comp.amount);
 
             comp.bIsStageCleared = false;
             comp.target = null;

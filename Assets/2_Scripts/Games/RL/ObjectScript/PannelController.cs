@@ -36,6 +36,9 @@ namespace LUP.RL
         [HideInInspector]
         public WorldEventBtnScrollPannel RightEventPanel;
 
+        [SerializeField]
+        private InventoryItemAlliner inventoryItemAllinerPanel;
+
         //PopupPanel
         public WarningPopUpPanel warningPopUpPanel;
         public EquipInfoPopupPanel equipInfoPopupPanel;
@@ -276,7 +279,20 @@ namespace LUP.RL
             if (currentPanel <= 0)
                 return;
 
-            SwitchPannelTo(currentPanel - 1);
+            PanelType targetPanel = currentPanel - 1;
+
+            //이동 금지 패널
+            while (targetPanel == PanelType.AVILITY ||
+                    targetPanel == PanelType.EVENT ||
+                    targetPanel == PanelType.SHOP)
+            {
+                targetPanel--;
+            }
+
+            //if (targetPanel == PanelType.AVILITY)
+            //    targetPanel--;
+
+            SwitchPannelTo(targetPanel);
         }
 
         void OnSwipeLeft()
@@ -284,7 +300,20 @@ namespace LUP.RL
             if (currentPanel >= PanelType.MAX - 1)
                 return;
 
-            SwitchPannelTo(currentPanel + 1);
+            PanelType targetPanel = currentPanel + 1;
+
+            //이동 금지 패널
+            while (targetPanel == PanelType.AVILITY ||
+                    targetPanel == PanelType.EVENT ||
+                    targetPanel == PanelType.SHOP)
+            {
+                targetPanel++;
+            }
+
+            //if (targetPanel == PanelType.AVILITY)
+            //    targetPanel++;
+
+            SwitchPannelTo(targetPanel);
         }
 
         public void OnSubPannelErase()
@@ -338,7 +367,9 @@ namespace LUP.RL
             lobbyGameCenter.platformAdapter.RemoveItemFromInventory(equipData.GetDisplayableName(), 1);
             //lobbyGameCenter.platformAdapter.UpLoadCharacterEquips();
 
-            lobbyInventoryPanel.UpdateEquipInventoryGridPanel();
+            lobbyInventoryPanel.UpdateEquipInventoryGridPanel(inventoryItemAllinerPanel.Align);
+
+            lobbyGameCenter.platformAdapter.UploadCharacterData(lobbyGameCenter.GetselectedCharacter());
         }
 
         void OnItemReleased(EquipData equipData)
@@ -349,7 +380,9 @@ namespace LUP.RL
             lobbyGameCenter.platformAdapter.AddItemToInventory(equipData.GetDisplayableName(), 1);
             //lobbyGameCenter.platformAdapter.UpLoadCharacterEquips();
 
-            lobbyInventoryPanel.UpdateEquipInventoryGridPanel();
+            lobbyInventoryPanel.UpdateEquipInventoryGridPanel(inventoryItemAllinerPanel.Align);
+
+            lobbyGameCenter.platformAdapter.UploadCharacterData(lobbyGameCenter.GetselectedCharacter());
         }
 
         public void UpdateCharactesEquip(CharacterEquipsID equipmentData)
@@ -367,6 +400,13 @@ namespace LUP.RL
         void OnSwipeDown()
         {
 
+        }
+
+        public void CallUpdateEquipInventoryGridPanel(bool bIsAlinged)
+        {
+            InventorPanel lobbyInventoryPanel = (InventorPanel)lobbyPannels[(int)PanelType.INVENTORY];
+
+            lobbyInventoryPanel.UpdateEquipInventoryGridPanel(bIsAlinged);
         }
 
     }

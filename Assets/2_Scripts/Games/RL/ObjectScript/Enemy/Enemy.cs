@@ -96,7 +96,7 @@ namespace LUP.RL
 
             ObjectOnEnemyDied?.Invoke(this);
             OnEnemyDied?.Invoke(expValue);
-            Destroy(gameObject, 0.1f);
+            //Destroy(gameObject, 0.1f);
 
             //behaviorTree.ResetWorkingNodeIndex();
         }

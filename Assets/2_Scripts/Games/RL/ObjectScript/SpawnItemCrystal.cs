@@ -11,6 +11,9 @@ namespace LUP.RL
         [HideInInspector]
         public int itemID = 0;
 
+        [HideInInspector]
+        public int amount = 0;
+
         public RLDropItemType itemType;
 
         [HideInInspector]
@@ -37,13 +40,15 @@ namespace LUP.RL
             }
         }
 
-        public void SetSpawnItemInfo(RLDropItemType type, int ItemID, Transform playerPos, ItemSpawner spawner)
+        public void SetSpawnItemInfo(RLDropItemType type, int ItemID, int gainedAmount, Transform playerPos, ItemSpawner spawner)
         {
             itemType = type;
             itemID = ItemID;
             target = playerPos;
 
             spawnPool = spawner;
+
+            amount = gainedAmount;
         }
 
         private void OnTriggerEnter(Collider other)

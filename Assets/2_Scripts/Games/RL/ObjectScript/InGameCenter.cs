@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
+using DG.Tweening;
 
 namespace LUP.RL
 {
@@ -299,16 +300,16 @@ namespace LUP.RL
             //AddItem(spawnableItemDatas[0]);
         }
 
-        public void AddItem(ItemData pickedItem)
+        public void AddItem(ItemData pickedItem, int gainedAmount)
         {
             if (!gainItem.ContainsKey(pickedItem))
             {
-                gainItem[pickedItem] = 1;
+                gainItem[pickedItem] = gainedAmount;
             }
 
             else
             {
-                gainItem[pickedItem]++;
+                gainItem[pickedItem] += gainedAmount;
             }
         }
 
@@ -328,7 +329,7 @@ namespace LUP.RL
             gameClear = true;
 
         }
-        void OnGainSpawnableItem(int itemID)
+        void OnGainSpawnableItem(int itemID, int gainedAmount)
         {
             IItemable item = ItemManager.Instance.GetItem(itemID);
             ItemData gaindedItem = ScriptableObject.CreateInstance<ItemData>();
@@ -336,7 +337,7 @@ namespace LUP.RL
             gaindedItem.SetItemName(item.ItemName);
             gaindedItem.SetDisplayableImage(item.Icon);
 
-            AddItem(gaindedItem);
+            AddItem(gaindedItem, gainedAmount);
 
             //string itemName = item.ItemName;
             //for(int i = 0; i < spawnableItemDatas.Length; i++)
@@ -444,6 +445,9 @@ namespace LUP.RL
             custumBulletData.Speed = equipedWeaponData.projecTileSpeed;
 
             character.GetComponent<FireSystem>().bulletData = custumBulletData;
+
+            //¹Ì¸® Warmup
+            Instantiate(equipedWeaponData.weaponProjecTile, new Vector3(100.0f, 100.0f, 100.0f), Quaternion.identity);
         }
     }
 }
