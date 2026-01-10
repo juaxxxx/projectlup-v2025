@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -7,6 +8,7 @@ namespace LUP
 {
     public class MainStage : BaseStage
     {
+
         public AudioSource SFX;
         public AudioSource BGM;
         public float soundVolume= 0;
@@ -15,6 +17,8 @@ namespace LUP
         private VersionsData versionsdata;
         [SerializeField]
         private AssetBundle AB;
+        [SerializeField]
+        private AssetBundleManifest AB_Manifest;
         [SerializeField]
         private CurrentQuestListData currentQuestListData;
 
@@ -26,6 +30,7 @@ namespace LUP
         {
             base.Awake();
             StageKind = Define.StageKind.Main;
+
         }
 
         // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -52,6 +57,7 @@ namespace LUP
             if (Input.GetKeyDown(KeyCode.D))
             {
                 QuestManager.Instance.Trigger(123, 1);
+                SoundManager.Instance.PlayBGM("RPG Combat 1 - Duel of the Fates (Loopable)", true);
             }
         }
 
@@ -81,6 +87,10 @@ namespace LUP
             //resource = ResourceManager.Instance.Load...
             //AB = AssetBundle.LoadFromFile(Path.Combine(Application.dataPath, Path.Combine("Resources/AssetBundles", "staticdatas")));
             //versionsdata.assetbundlehash = AB.GetHashCode().ToString();
+            //AB = AssetBundle.LoadFromFile(Path.Combine(Application.dataPath, Path.Combine("Resources/AssetBundles", "AssetBundles")));
+            AB = ResourceManager.Instance.GetAssetBundle(Define.AssetBundleKind.Manifest);
+            //AB = AssetBundle.LoadFromFile(Path.Combine(Application.persistentDataPath, Path.Combine("LUP/assetbundles", "AssetBundles")));
+            AB_Manifest = AB.LoadAsset<AssetBundleManifest>("AssetBundleManifest");
         }
 
         protected override void GetDatas()
@@ -157,23 +167,27 @@ namespace LUP
             }
         }
 
-        private void CheckVersions()
+        public void CheckVersions()
         {
-            versionsdata.Videohash = LUP.ResourceManager.Instance.GetAssetBundle(Define.AssetBundleKind.Video).GetHashCode().ToString();
+            AB = ResourceManager.Instance.GetAssetBundle(Define.AssetBundleKind.Manifest);
+            //AB = AssetBundle.LoadFromFile(Path.Combine(Application.persistentDataPath, Path.Combine("LUP/assetbundles", "AssetBundles")));
+            AB_Manifest = AB.LoadAsset<AssetBundleManifest>("AssetBundleManifest");
 
-            versionsdata.Audiohash = LUP.ResourceManager.Instance.GetAssetBundle(Define.AssetBundleKind.Audio).GetHashCode().ToString();
+            versionsdata.Videohash = AB_Manifest.GetAssetBundleHash("videos").ToString();
 
-            versionsdata.Imagehash = LUP.ResourceManager.Instance.GetAssetBundle(Define.AssetBundleKind.Image).GetHashCode().ToString();
+            versionsdata.Audiohash = AB_Manifest.GetAssetBundleHash("audios").ToString();
 
-            versionsdata.VFXhash = LUP.ResourceManager.Instance.GetAssetBundle(Define.AssetBundleKind.VFX).GetHashCode().ToString();
+            versionsdata.Imagehash = AB_Manifest.GetAssetBundleHash("image").ToString();
 
-            versionsdata.GUIhash = LUP.ResourceManager.Instance.GetAssetBundle(Define.AssetBundleKind.GUI).GetHashCode().ToString();
+            versionsdata.VFXhash = AB_Manifest.GetAssetBundleHash("vfx").ToString();
 
-            versionsdata.Modelhash = LUP.ResourceManager.Instance.GetAssetBundle(Define.AssetBundleKind.Model).GetHashCode().ToString();
+            versionsdata.GUIhash = AB_Manifest.GetAssetBundleHash("gui").ToString();
 
-            versionsdata.Shaderhash = LUP.ResourceManager.Instance.GetAssetBundle(Define.AssetBundleKind.Shader).GetHashCode().ToString();
+            versionsdata.Modelhash = AB_Manifest.GetAssetBundleHash("models").ToString();
 
-            versionsdata.Datahash = LUP.ResourceManager.Instance.GetAssetBundle(Define.AssetBundleKind.Data).GetHashCode().ToString();
+            versionsdata.Shaderhash = AB_Manifest.GetAssetBundleHash("shaders").ToString();
+
+            versionsdata.Datahash = AB_Manifest.GetAssetBundleHash("data").ToString();
 
             versionsdata.SaveData();
         }

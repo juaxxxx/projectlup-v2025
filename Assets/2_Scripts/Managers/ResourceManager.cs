@@ -14,6 +14,8 @@ namespace LUP
         //private Dictionary<Define.StageKind,AssetBundle> assetbundles;
 
         [SerializeField, ReadOnly]
+        private AssetBundle AB_Manifest;
+        [SerializeField, ReadOnly]
         private AssetBundle AB_Video;
         [SerializeField, ReadOnly]
         private AssetBundle AB_Audio;
@@ -51,6 +53,10 @@ namespace LUP
 
         public T LoadVideoClip<T>(string name) where T : Object
         {
+            if (AB_Video == null)
+            {
+                LoadAssetBundles();
+            }
             T videoClip = AB_Video.LoadAsset<T>(name);
 
             return videoClip;
@@ -58,6 +64,11 @@ namespace LUP
 
         public T LoadAudioBGM<T>(string name) where T : Object
         {
+            if (AB_Audio == null)
+            {
+                LoadAssetBundles();
+            }
+
             T audioClip = AB_Audio.LoadAsset<T>(name);
 
             return audioClip;
@@ -65,9 +76,24 @@ namespace LUP
 
         public T LoadAudioSFX<T>(string name) where T : Object
         {
+            if (AB_Audio == null)
+            {
+                LoadAssetBundles();
+            }
             T audio = AB_Audio.LoadAsset<T>(name);
 
             return audio;
+        }
+
+        public T LoadVFX<T>(string name) where T : Object
+        {
+            if (AB_VFX == null)
+            {
+                LoadAssetBundles();
+            }
+            T vfx = AB_VFX.LoadAsset<T>(name);
+
+            return vfx;
         }
 
         public List<BaseStaticDataLoader> LoadStaticData(Define.StageKind type, int stagetype)
@@ -108,12 +134,17 @@ namespace LUP
 
         public void LoadAssetBundles()
         {
+            assetbundles.Clear();
+            {
+                AB_Manifest = AssetBundle.LoadFromFile(Path.Combine(Application.persistentDataPath, Path.Combine("LUP/assetbundles", "AssetBundles")));
+                assetbundles.Add(AB_Manifest);
+            }
             {
                 AB_Video = AssetBundle.LoadFromFile(Path.Combine(Application.persistentDataPath, Path.Combine("LUP/assetbundles", "videos")));
                 assetbundles.Add(AB_Video);
             }
             {
-                AB_Audio = AssetBundle.LoadFromFile(Path.Combine(Application.persistentDataPath, Path.Combine("LUP/assetbundles", "audio")));
+                AB_Audio = AssetBundle.LoadFromFile(Path.Combine(Application.persistentDataPath, Path.Combine("LUP/assetbundles", "audios")));
                 assetbundles.Add(AB_Audio);
             }
             {
@@ -142,6 +173,47 @@ namespace LUP
             }
         }
 
+        public void UnLoadAssetBundles()
+        {
+            assetbundles.Clear();
+            {
+                AB_Video.Unload(true);
+                AB_Video = null;
+            }
+            {
+                AB_Audio.Unload(true);
+                AB_Audio = null;
+            }
+            {
+                AB_Image.Unload(true);
+                AB_Image = null;
+            }
+            {
+                AB_VFX.Unload(true);
+                AB_VFX = null;
+            }
+            {
+                AB_GUI.Unload(true);
+                AB_GUI = null;
+            }
+            {
+                AB_Model.Unload(true);
+                AB_Model = null;
+            }
+            {
+                AB_Shader.Unload(true);
+                AB_Shader = null;
+            }
+            {
+                AB_Data.Unload(true);
+                AB_Data = null;
+            }
+            {
+                AB_Manifest.Unload(true);
+                AB_Manifest = null;
+            }
+        }
+
         public int GetAssetBundleSize()
         {
             return assetbundles.Count;
@@ -167,6 +239,8 @@ namespace LUP
                     return AB_Shader;
                 case Define.AssetBundleKind.Data:
                     return AB_Data;
+                case Define.AssetBundleKind.Manifest:
+                    return AB_Manifest;
             }
             return null;
         }

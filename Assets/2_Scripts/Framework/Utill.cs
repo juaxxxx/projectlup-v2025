@@ -12,6 +12,7 @@ namespace LUP.Define
         Model = 5,
         Shader = 6,
         Data = 7,
+        Manifest = 8,
         __MAX,
     }
     /// <summary>
