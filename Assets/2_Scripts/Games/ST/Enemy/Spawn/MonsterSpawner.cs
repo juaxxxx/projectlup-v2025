@@ -1,6 +1,7 @@
 using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+
 namespace LUP.ST
 {
 
@@ -310,6 +311,7 @@ namespace LUP.ST
         }
         private float GetDifficultyMultiplier()
         {
+            /*
             int totalLevel = 0;
 
             // 1. 세이브 데이터에서 팀원들의 레벨을 모두 더함
@@ -328,7 +330,8 @@ namespace LUP.ST
             // 합이 5(시작 시) -> 0.5배
             // 합이 10(평균 2렙) -> 1.0배
             // 합이 50(평균 10렙) -> 5.0배
-            return totalLevel * 0.1f;
+            return totalLevel * 0.1f;*/
+            return 1.0f; // 일단 고정값으로
         }
 
         // 몬스터를 실제로 생성(또는 풀에서 꺼낼 때) 호출하는 부분

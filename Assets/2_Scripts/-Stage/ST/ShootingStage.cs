@@ -36,7 +36,7 @@ namespace LUP
             var srd = RuntimeData as ShootingRuntimeData;
             if (srd == null)
             {
-                Debug.LogError("[ShootingStage] ShootingRuntimeData not found or wrong type.");
+                Debug.Log("[ShootingStage] ShootingRuntimeData not found or wrong type.");
                 yield break;
             }
 
@@ -44,7 +44,7 @@ namespace LUP
             var spawner = FindFirstObjectByType<LUP.ST.STTeamSpawner>();
             if (spawner == null)
             {
-                Debug.LogError("[ShootingStage] STTeamSpawner not found in scene.");
+                Debug.Log("[ShootingStage] STTeamSpawner not found in scene.");
                 yield break;
             }
 

@@ -41,9 +41,11 @@ namespace LUP.ST
             for (int i = 0; i < 5; i++)
             {
                 var data = team[i];
+
+                // 빈 슬롯이면 null 추가하고 넘어가기
                 if (data == null || data.prefab == null)
                 {
-                    Debug.LogWarning($"[STTeamSpawner] Slot {i} data/prefab null.");
+                    Debug.Log($"[STTeamSpawner] Slot {i} is empty.");
                     spawnedCharacters.Add(null);
                     continue;
                 }
@@ -52,24 +54,17 @@ namespace LUP.ST
                 var go = Instantiate(data.prefab, sp.position, sp.rotation);
                 go.name = $"{data.name}_Slot{i}";
 
-                //세이브 데이터불러오기
-                int characterLevel = 1; // 데이터가 없을 경우 기본 레벨 1
-                var savedData = STSaveHandler.CurrentData.characterList.Find(c => c.characterId == data.characterId);
+                // 레벨 적용
+                int characterLevel = srd.GetCharacterLevel(data.characterId);
+                Debug.Log($"[STTeamSpawner] Slot {i}: {data.characterName}, Lv.{characterLevel}");
 
-                if (savedData != null)
-                {
-                    characterLevel = savedData.level;
-                }
-
-                // 2. 생성된 캐릭터의 StatComponent를 가져와 레벨을 적용합니다.
                 var stats = go.GetComponent<StatComponent>();
                 if (stats != null)
                 {
-                    stats.ApplyLevelStats(characterLevel); // 이 함수는 StatComponent에 만드셔야 합니다!
+                    stats.ApplyLevelStats(characterLevel);
                 }
 
-
-                spawnedCharacters.Add(go); 
+                spawnedCharacters.Add(go);
             }
 
             Debug.Log("[STTeamSpawner] Spawn complete.");

@@ -289,19 +289,30 @@ namespace LUP.ST
         {
             if (team5 == null || team5.Length < 5) return;
 
-            for (int i = 0; i < characterSelectButtons.Count; i++)
+            for (int i = 0; i < characterSelectButtons.Count && i < 5; i++)
             {
-                if (i >= 5) break;
+                var btn = characterSelectButtons[i];
+                if (btn == null) continue;
 
                 Image img = (characterButtonImages != null && i < characterButtonImages.Count && characterButtonImages[i] != null)
                     ? characterButtonImages[i]
-                    : characterSelectButtons[i].GetComponent<Image>();
+                    : btn.GetComponent<Image>();
 
                 if (img == null) continue;
 
-                img.sprite = team5[i] != null ? team5[i].thumbnail : null;
-                img.type = Image.Type.Simple;
-                img.preserveAspect = false;
+                // 빈 슬롯 처리
+                if (team5[i] == null)
+                {
+                    img.sprite = null;
+                    img.color = new Color(0.3f, 0.3f, 0.3f);  // 회색
+                    btn.interactable = false;  // 클릭 불가
+                }
+                else
+                {
+                    img.sprite = team5[i].thumbnail;
+                    img.color = Color.white;
+                    btn.interactable = true;
+                }
             }
         }
 

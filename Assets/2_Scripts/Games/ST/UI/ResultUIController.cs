@@ -2,7 +2,7 @@ using UnityEngine;
 using System.Collections.Generic;
 using TMPro;
 using System.Collections;
-
+/*
 namespace LUP.ST
 {
     public class ResultUIController : MonoBehaviour
@@ -84,3 +84,4 @@ namespace LUP.ST
         }
     }
 }
+*/
