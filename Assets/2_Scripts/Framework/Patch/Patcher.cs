@@ -1,3 +1,4 @@
+using LUP.Define;
 using OpenCvSharp.Dnn;
 using System;
 using System.Collections;
@@ -23,6 +24,7 @@ namespace LUP
                 Debug.LogWarning("[Patcher] 이미 Patcher 인스턴스가 존재합니다. 중복 오브젝트를 파괴합니다.");
                 Destroy(gameObject);
             }
+            
         }
 
         [Header("CDN Settings")]
@@ -34,6 +36,7 @@ namespace LUP
         private VersionsData tempversionsdata;  // CDN 에서 받아온 버전 데이터
         [SerializeField]
         private List<Define.AssetBundleKind> differentlist = new List<Define.AssetBundleKind>();
+        private AssetBundleManifest AB_Manifest;
 
         [Header("Download Progress")]
         private float currentDownloadProgress = 0f;  // 현재 파일 다운로드 진행률 (0~1)
@@ -89,6 +92,9 @@ namespace LUP
                     break;
                 case Define.AssetBundleKind.Data:
                     filename = "data";
+                    break;
+                case Define.AssetBundleKind.Manifest:
+                    filename = "AssetBundles";
                     break;
                 default:
                     Debug.LogWarning($"[Patcher] 정의되지 않은 AssetBundleKind: {assetbundlekind}");
@@ -160,6 +166,7 @@ namespace LUP
                 currentFileIndex++;
             }
 
+            yield return DownloadResource(Define.AssetBundleKind.Manifest);
             Debug.Log("[Patcher] 모든 리소스 다운로드 완료");
         }
 
@@ -332,27 +339,53 @@ namespace LUP
 
         private IEnumerator CheckVersions()
         {
-            AssetBundleManifest AB_Manifest = LUP.ResourceManager.Instance.GetAssetBundle(Define.AssetBundleKind.Manifest).LoadAsset<AssetBundleManifest>("AssetBundleManifest");
+            
+            if (!HasLocalManifest())
+            {
+                versionsdata.Videohash = "";
+                versionsdata.Audiohash = "";
+                versionsdata.Imagehash = "";
+                versionsdata.VFXhash = "";
+                versionsdata.GUIhash = "";
+                versionsdata.Modelhash = "";
+                versionsdata.Shaderhash = "";
+                versionsdata.Datahash = "";
+            }
+            else
+            {
+                AB_Manifest = LUP.ResourceManager.Instance.GetAssetBundle(Define.AssetBundleKind.Manifest).LoadAsset<AssetBundleManifest>("AssetBundleManifest");
+                versionsdata.Videohash = AB_Manifest.GetAssetBundleHash("videos").ToString();
 
-            versionsdata.Videohash = AB_Manifest.GetAssetBundleHash("videos").ToString();
+                versionsdata.Audiohash = AB_Manifest.GetAssetBundleHash("audios").ToString();
 
-            versionsdata.Audiohash = AB_Manifest.GetAssetBundleHash("audios").ToString();
+                versionsdata.Imagehash = AB_Manifest.GetAssetBundleHash("image").ToString();
 
-            versionsdata.Imagehash = AB_Manifest.GetAssetBundleHash("image").ToString();
+                versionsdata.VFXhash = AB_Manifest.GetAssetBundleHash("vfx").ToString();
 
-            versionsdata.VFXhash = AB_Manifest.GetAssetBundleHash("vfx").ToString();
+                versionsdata.GUIhash = AB_Manifest.GetAssetBundleHash("gui").ToString();
 
-            versionsdata.GUIhash = AB_Manifest.GetAssetBundleHash("gui").ToString();
+                versionsdata.Modelhash = AB_Manifest.GetAssetBundleHash("models").ToString();
 
-            versionsdata.Modelhash = AB_Manifest.GetAssetBundleHash("models").ToString();
+                versionsdata.Shaderhash = AB_Manifest.GetAssetBundleHash("shaders").ToString();
 
-            versionsdata.Shaderhash= AB_Manifest.GetAssetBundleHash("shaders").ToString();
-
-            versionsdata.Datahash = AB_Manifest.GetAssetBundleHash("data").ToString();
+                versionsdata.Datahash = AB_Manifest.GetAssetBundleHash("data").ToString();
+            }
+            
 
             versionsdata.SaveData();
 
             yield break;
+        }
+
+        private bool HasLocalManifest()
+        {
+            string path = Path.Combine(
+                Application.persistentDataPath,
+                "LUP/assetbundles",
+                "manifest"
+            );
+
+            return File.Exists(path);
         }
     }
 }

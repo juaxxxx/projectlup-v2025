@@ -88,9 +88,9 @@ namespace LUP
             //AB = AssetBundle.LoadFromFile(Path.Combine(Application.dataPath, Path.Combine("Resources/AssetBundles", "staticdatas")));
             //versionsdata.assetbundlehash = AB.GetHashCode().ToString();
             //AB = AssetBundle.LoadFromFile(Path.Combine(Application.dataPath, Path.Combine("Resources/AssetBundles", "AssetBundles")));
-            AB = ResourceManager.Instance.GetAssetBundle(Define.AssetBundleKind.Manifest);
-            //AB = AssetBundle.LoadFromFile(Path.Combine(Application.persistentDataPath, Path.Combine("LUP/assetbundles", "AssetBundles")));
-            AB_Manifest = AB.LoadAsset<AssetBundleManifest>("AssetBundleManifest");
+            //AB = ResourceManager.Instance.GetAssetBundle(Define.AssetBundleKind.Manifest);
+            ////AB = AssetBundle.LoadFromFile(Path.Combine(Application.persistentDataPath, Path.Combine("LUP/assetbundles", "AssetBundles")));
+            //AB_Manifest = AB.LoadAsset<AssetBundleManifest>("AssetBundleManifest");
         }
 
         protected override void GetDatas()

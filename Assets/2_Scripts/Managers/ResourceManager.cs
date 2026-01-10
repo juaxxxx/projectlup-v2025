@@ -177,40 +177,68 @@ namespace LUP
         {
             assetbundles.Clear();
             {
-                AB_Video.Unload(true);
-                AB_Video = null;
+                if (AB_Video != null)
+                {
+                    AB_Video.Unload(true);
+                    AB_Video = null;
+                }
+                
             }
             {
-                AB_Audio.Unload(true);
-                AB_Audio = null;
+                if (AB_Audio != null)
+                {
+                    AB_Audio.Unload(true);
+                    AB_Audio = null;
+                }
             }
             {
-                AB_Image.Unload(true);
-                AB_Image = null;
+                if (AB_Image != null)
+                {
+                    AB_Image.Unload(true);
+                    AB_Image = null;
+                }
             }
             {
-                AB_VFX.Unload(true);
-                AB_VFX = null;
+                if (AB_VFX != null)
+                {
+                    AB_VFX.Unload(true);
+                    AB_VFX = null;
+                }
             }
             {
-                AB_GUI.Unload(true);
-                AB_GUI = null;
+                if (AB_GUI != null)
+                {
+                    AB_GUI.Unload(true);
+                    AB_GUI = null;
+                }
             }
             {
-                AB_Model.Unload(true);
-                AB_Model = null;
+                if (AB_Model != null)
+                {
+                    AB_Model.Unload(true);
+                    AB_Model = null;
+                }
             }
             {
-                AB_Shader.Unload(true);
-                AB_Shader = null;
+                if (AB_Shader != null)
+                {
+                    AB_Shader.Unload(true);
+                    AB_Shader = null;
+                }
             }
             {
-                AB_Data.Unload(true);
-                AB_Data = null;
+                if (AB_Data != null)
+                {
+                    AB_Data.Unload(true);
+                    AB_Data = null;
+                }
             }
             {
-                AB_Manifest.Unload(true);
-                AB_Manifest = null;
+                if (AB_Manifest != null)
+                {
+                    AB_Manifest.Unload(true);
+                    AB_Manifest = null;
+                }
             }
         }
 
