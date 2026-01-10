@@ -1517,7 +1517,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1005737954}
-        m_TargetAssemblyTypeName: Manager.MainStage, Assembly-CSharp
+        m_TargetAssemblyTypeName: LUP.MainStage, Assembly-CSharp
         m_MethodName: StopBGM
         m_Mode: 1
         m_Arguments:
@@ -2055,6 +2055,7 @@ MonoBehaviour:
     _Shaderhash: 
     _Datahash: 
   AB: {fileID: 0}
+  AB_Manifest: {fileID: 0}
   currentQuestListData:
     filename: 
     _name: CurrentQuestListData
@@ -3054,6 +3055,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   assetbundles: []
+  AB_Manifest: {fileID: 0}
   AB_Video: {fileID: 0}
   AB_Audio: {fileID: 0}
   AB_Image: {fileID: 0}
@@ -3134,10 +3136,6 @@ MonoBehaviour:
   contentParent: {fileID: 1469824172}
   scrollSpeed: 0.15
   autoScroll: 1
-  titlePrefab: {fileID: 0}
-  sectionHeaderPrefab: {fileID: 0}
-  creditEntryPrefab: {fileID: 0}
-  spacerPrefab: {fileID: 0}
 --- !u!114 &1815970833
 MonoBehaviour:
   m_ObjectHideFlags: 0
