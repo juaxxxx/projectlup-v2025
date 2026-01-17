@@ -21,6 +21,7 @@ namespace LUP.DSG
 
         public ActionEffect hitEffect { private get; set; }
         public ActionEffect attackEffect;
+        public UnityEngine.Vector3 effectOffset { get; private set; }
 
         private BattleCameraDirector battleCameraDirector;
 
@@ -90,7 +91,7 @@ namespace LUP.DSG
             currentState = EAnimStateType.Hitted;
             SetAnimationState(currentState);
 
-            owner.ActioneffectPool.PlayVFX(hitEffect, owner.transform.position, owner.transform.rotation); //@TODO ĳ���͸��� �ִϸ��̼��� ���������� �����غ��ߵ�
+            owner.ActioneffectPool.PlayVFX(hitEffect, owner.transform.position + effectOffset, owner.transform.rotation,false); 
         }
 
         public void PlayDiedAnimation(int index)
@@ -115,7 +116,7 @@ namespace LUP.DSG
         {
             OnShootRangeAttack?.Invoke();
 
-            owner.ActioneffectPool.PlayVFX(attackEffect, owner.transform.position, owner.transform.rotation);
+            owner.ActioneffectPool.PlayVFX(attackEffect, owner.transform.position + effectOffset, owner.transform.rotation,false);
         }
 
         public void OnAttackEndEvent()
@@ -144,7 +145,7 @@ namespace LUP.DSG
 
         public void OnPunchEffect()
         {
-            owner.ActioneffectPool.PlayVFX(attackEffect, owner.transform.position, owner.transform.rotation);
+            owner.ActioneffectPool.PlayVFX(attackEffect, owner.transform.position + effectOffset, owner.transform.rotation,false);
         }
     }
 }

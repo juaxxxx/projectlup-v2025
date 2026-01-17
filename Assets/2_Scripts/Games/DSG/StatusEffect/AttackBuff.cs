@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace LUP.DSG
 {
-    public class AttackBuff : IStatusEffect
+    public class AttackBuff : StatusEffect
     {
         public EOperationType operationType;
         private ActionEffect buffdebuffEffect;
@@ -22,14 +22,16 @@ namespace LUP.DSG
             
             if(operationType == EOperationType.Minus)
             {
-                buffdebuffEffect = ActionEffect.Get_AttackDebuff;
+                buffdebuffEffect = ActionEffect.Aura_AttackBuff;
             }
             else if(operationType == EOperationType.Plus)
             {
-                buffdebuffEffect = ActionEffect.Get_AttackBuff;
+                buffdebuffEffect = ActionEffect.Aura_AttackDebuff;
             }
+
+            C.ActioneffectPool.PlayVFXAttached(buffdebuffEffect,C.transform,new Vector3(0,0,0),Quaternion.identity,true);
         }
-        public override void Turn(Character C) { C.ActioneffectPool.PlayVFX(buffdebuffEffect, C.transform.position, C.transform.rotation, 1.5f); }
+        public override void Turn(Character C) {  }
         public override void Remove(Character C)
         {
             C.characterData.attack = playerAttack;

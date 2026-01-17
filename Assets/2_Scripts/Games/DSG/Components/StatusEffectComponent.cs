@@ -11,11 +11,11 @@ namespace LUP.DSG
     {
         Character owner;
 
-        public Action<IStatusEffect> OnEffectAdded;
-        public Action<IStatusEffect> OnEffectEndTurn;
-        public Action<IStatusEffect> OnEffectRemoved;
+        public Action<StatusEffect> OnEffectAdded;
+        public Action<StatusEffect> OnEffectEndTurn;
+        public Action<StatusEffect> OnEffectRemoved;
 
-        private readonly Dictionary<EStatusEffectType, IStatusEffect> _effects = new();
+        private readonly Dictionary<EStatusEffectType, StatusEffect> _effects = new();
         private readonly List<EStatusEffectType> _effectsRemoveList = new();
 
         private readonly StatusEffectFactory StatusEffectfactory = new StatusEffectFactory();
@@ -24,17 +24,17 @@ namespace LUP.DSG
         {
             owner = GetComponent<Character>();
         }
-        public IStatusEffect CreateStatusEffect(EStatusEffectType Type, EOperationType OpType,
+        public StatusEffect CreateStatusEffect(EStatusEffectType Type, EOperationType OpType,
             float Stack, int Turn)
         {
             return StatusEffectfactory.CreateStatusEffect(Type, OpType, Stack, Turn);
         }
-        public void AddEffect(IStatusEffect effect)
+        public void AddEffect(StatusEffect effect)
         {
             if (!owner.BattleComp.isAlive)
                 return;
 
-            if (_effects.TryGetValue(effect.effectType, out IStatusEffect getEffect))
+            if (_effects.TryGetValue(effect.effectType, out StatusEffect getEffect))
             {
                 getEffect.amount += effect.amount;  // 내부 값 수정
                 _effects[effect.effectType].amount = getEffect.amount;  // 다시 저장 이거 괜찮나
@@ -52,7 +52,7 @@ namespace LUP.DSG
         }
         public void TurnAll()
         {
-            foreach (IStatusEffect effect in _effects.Values)
+            foreach (StatusEffect effect in _effects.Values)
             {
                 effect.Turn(owner);
                 effect.remainingTurns--;
@@ -73,7 +73,7 @@ namespace LUP.DSG
             }
             _effectsRemoveList.Clear();
         }
-        public void RemoveEffect(IStatusEffect effect)
+        public void RemoveEffect(StatusEffect effect)
         {
             _effects.Remove(effect.effectType);
             effect.Remove(owner);

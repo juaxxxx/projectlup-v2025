@@ -4,14 +4,15 @@ using static LUP.DSG.Character;
 
 namespace LUP.DSG
 {
-    public abstract class IStatusEffect
+    public abstract class StatusEffect
     {
         public EStatusEffectType effectType { get; private set; }
         public EOperationType opType { get; private set; }
         public int remainingTurns;
         public float amount;
+        protected EffectParticlePair effect;
 
-        public IStatusEffect(EStatusEffectType EffectType, EOperationType OpType,
+        public StatusEffect(EStatusEffectType EffectType, EOperationType OpType,
             float Amount, int Turn)
         {
             effectType = EffectType;

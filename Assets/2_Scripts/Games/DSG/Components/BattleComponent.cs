@@ -37,6 +37,7 @@ namespace LUP.DSG
         private GameObject bulletPrefab;
 
         private GameObject bullet;
+        private EffectParticlePair bulletEffect;
         private float bulletSpeed = 0.2f;
         [SerializeField]
         private float moveSpeed = 6.0f;
@@ -155,6 +156,7 @@ namespace LUP.DSG
 
                     StartCoroutine(WaitForRangeAttackEnd());
                     impactApplied = false;
+                    owner.ActioneffectPool.StopLoopVFX(bulletEffect.particlePrefab, bulletEffect.name);
                     Destroy(bullet);
                     bullet = null;
                     return;
@@ -273,7 +275,7 @@ namespace LUP.DSG
 
                 if (skillInfo.bIsStatusEffect)
                 {
-                    IStatusEffect Status = owner.StatusEffectComp.CreateStatusEffect(skillInfo.effectType, skillInfo.operationType, skillInfo.stack, skillInfo.turn);
+                    StatusEffect Status = owner.StatusEffectComp.CreateStatusEffect(skillInfo.effectType, skillInfo.operationType, skillInfo.stack, skillInfo.turn);
                     targetSlots[i].character.StatusEffectComp.AddEffect(Status);
                 }
             }
@@ -384,19 +386,10 @@ namespace LUP.DSG
                     break;
             }
 
-            GameObject Particle = owner.ActioneffectPool.GetParticlePrefab(effect);
-
-            if (Particle != null)
+            if(effect != ActionEffect.None)
             {
                 Transform vfxRoot = bullet.transform;
-
-                Particle.transform.SetParent(vfxRoot, false);
-                Particle.transform.localPosition = Vector3.zero;
-                Particle.transform.localRotation = Quaternion.identity;
-
-                Particle.SetActive(true);
-                ParticleSystem pc = Particle.GetComponent<ParticleSystem>();
-                pc.Play();
+                bulletEffect = owner.ActioneffectPool.PlayVFXAttached(effect, vfxRoot, new Vector3(0, 0, 0), Quaternion.identity, true);
             }
 
             projectileTargetPosition = targetSlots[0].AttackedPosition.position;
