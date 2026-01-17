@@ -11,7 +11,6 @@ namespace LUP.ST
 
         [Header("디버그 설정")]
         public bool showInputDebug = true;
-
         private bool prevManualMode = false;
 
         void Awake()
@@ -46,10 +45,8 @@ namespace LUP.ST
                 HandleRangedInput();
             }
         }
-
         private void HandleRangedInput()
         {
-            // 재장전 중이면 클릭 무시
             if (weaponActions != null && weaponActions.IsReloading)
             {
                 return;
@@ -58,6 +55,11 @@ namespace LUP.ST
             // 마우스 클릭 처리
             if (Input.GetMouseButtonDown(0))
             {
+                if (EventSystem.current.IsPointerOverGameObject())
+                {
+                    rangedCharacter.playerInputExists = false;
+                    return;
+                }
                 rangedCharacter.playerInputExists = true;
             }
             if (Input.GetMouseButtonUp(0))
@@ -72,6 +74,11 @@ namespace LUP.ST
 
                 if (touch.phase == TouchPhase.Began)
                 {
+                    if (EventSystem.current.IsPointerOverGameObject(touch.fingerId))
+                    {
+                        rangedCharacter.playerInputExists = false;
+                        return;
+                    }
                     rangedCharacter.playerInputExists = true;
                 }
                 else if (touch.phase == TouchPhase.Ended || touch.phase == TouchPhase.Canceled)

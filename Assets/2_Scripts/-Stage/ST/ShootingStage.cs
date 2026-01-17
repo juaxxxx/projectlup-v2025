@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using LUP.ST;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -26,25 +27,25 @@ namespace LUP
         {
 
         }
-
         public override IEnumerator OnStageEnter()
         {
             yield return base.OnStageEnter();
-            //구현부
 
-            // RuntimeData 준비 확인
-            var srd = RuntimeData as ShootingRuntimeData;
+            var srd = STDataManage.Instance?.RuntimeData;
+
             if (srd == null)
             {
-                Debug.LogError("[ShootingStage] ShootingRuntimeData not found or wrong type.");
                 yield break;
             }
 
-            // Spawner 찾아서 스폰 호출
+            if (srd.Team == null || srd.Team.Length < 5)
+            {
+                yield break;
+            }
+
             var spawner = FindFirstObjectByType<LUP.ST.STTeamSpawner>();
             if (spawner == null)
             {
-                Debug.LogError("[ShootingStage] STTeamSpawner not found in scene.");
                 yield break;
             }
 
@@ -56,20 +57,14 @@ namespace LUP
             var ui = FindFirstObjectByType<LUP.ST.UIGameController>();
             if (ui != null)
             {
-                ui.RebuildAfterSpawn();
-                ui.ApplyTeamThumbnails(srd.Team);
-                ui.BindHpToSpawnedCharacters(spawnedCharacters);
+                // 순서 변경!
+                ui.BindHpToSpawnedCharacters(spawnedCharacters);  // 1. 먼저 리스트 저장
+                ui.ApplyTeamThumbnails(srd.Team);                  // 2. 썸네일 적용
+                ui.RebuildAfterSpawn();                            // 3. 마지막에 리빌드
             }
-
-            // PCR 인벤토리 접근 가능 여부 확인
-            if (InventoryManager.Instance.HasInventory("PCR"))
-                Debug.Log("[STStage] PCR 인벤토리 접근 가능");
-            else
-                Debug.LogWarning("[STStage] PCR 인벤토리가 아직 로드되지 않았습니다!");
 
             yield return null;
         }
-
         // PCR 팀의 공유 인벤토리 가져오기
         public Inventory GetSharedInventory()
         {

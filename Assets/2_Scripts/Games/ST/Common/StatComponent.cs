@@ -67,7 +67,22 @@ namespace LUP.ST
             // Visual 컴포넌트 참조만 가져오기
             visualComponent = GetComponent<VisualComponent>();
         }
+        public void ApplyLevelStats(int level)
+        {
+            // 예: 공격력과 체력을 레벨에 비례해서 증가시킴
+            // 공격력 = 기본 공격력 * level
+            // 최대 체력 = 기본 체력 * level
 
+            this.maxHealth *= level;
+            this.currentHealth = this.maxHealth;
+            this.attackDamage *= level;
+            this.defense *= level;
+            this.moveSpeed *= level;
+
+            OnHealthChanged?.Invoke(currentHealth, maxHealth);
+
+            Debug.Log($"{gameObject.name} 레벨 {level} 적용 완료!");
+        }
         // IDamageable 구현
         public void TakeDamage(float damage)
         {
@@ -284,7 +299,13 @@ namespace LUP.ST
             yield return new WaitForSeconds(buffDuration);
             onRemove?.Invoke();
         }
-
+        public void ScaleStats(float multiplier)
+        {
+            this.maxHealth *= multiplier;
+            this.currentHealth = this.maxHealth;
+            this.attackDamage *= multiplier;
+            this.moveSpeed *= multiplier;
+        }
         public void ResetStats()
         {
             currentHealth = maxHealth;

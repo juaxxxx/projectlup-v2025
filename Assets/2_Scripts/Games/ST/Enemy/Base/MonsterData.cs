@@ -1,3 +1,4 @@
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -146,6 +147,15 @@ namespace LUP.ST
             if (isDying) return;  // 이미 죽는 중이면 무시
 
             StartCoroutine(DieCoroutine());
+            if (spawner != null)
+            {
+                spawner.ReturnToPool(this);
+            }
+            else
+            {
+                // 만약 스패너 참조가 없다면 그냥 비활성화
+                gameObject.SetActive(false);
+            }
         }
 
         private IEnumerator DieCoroutine()

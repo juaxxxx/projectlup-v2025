@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 namespace LUP.ST
 {
@@ -16,16 +17,32 @@ namespace LUP.ST
         [SerializeField] private float zoomedFov = 30f;
         [SerializeField] private float zoomLerpSpeed = 10f;
 
-        [Header("조준경 방향 설정")]
-        [SerializeField] private float zoomLookDistance = 30f;  // 마우스 방향으로 얼마나 앞을 볼지
+        [Header("줌 드래그 설정")]
+        [SerializeField] private float dragSensitivity = 0.2f;
+
+        [Header("조준 설정")]
+        [SerializeField] private float aimSensitivity = 1f; // 조준 감도
+        [SerializeField] private float smoothSpeed = 15f;   // 카메라 회전 부드러움 정도
+        [SerializeField] private Vector2 verticalRotationLimit = new Vector2(-20f, 30f); // 상하 각도 제한
+        [SerializeField] private Vector2 horizontalRotationLimit = new Vector2(-45f, 45f); // 좌우 각도 제한
+
+        private float yaw;   // 좌우 회전 누적값
+        private float pitch; // 상하 회전 누적값
+
+        private Quaternion targetRotation;
 
         private bool zoomEnabled = false;
-        private bool isZoomLocked = false;  
-        private Vector3 zoomLockedPoint;
+        private bool isZoomMode = false;  // 외부에서 StartZoom/EndZoom으로 제어
 
-        // 현재 카메라가 향해야 할 목표 포인트 (overview or 슬롯 포인트)
         private Transform currentPoint;
         private Camera cam;
+
+        private void Start()
+        {
+            Vector3 currentRotation = transform.eulerAngles;
+            yaw = currentRotation.y;
+            pitch = currentRotation.x;
+        }
 
         private void Awake()
         {
@@ -37,91 +54,111 @@ namespace LUP.ST
 
             currentPoint = overviewPoint;
         }
-
         private void LateUpdate()
         {
             if (currentPoint == null) return;
             float dt = Time.deltaTime;
+            transform.position = Vector3.Lerp(transform.position, currentPoint.position, dt * moveLerpSpeed);
 
-            // 1) 위치는 항상 currentPoint 기준으로 보간 이동 (기존 그대로)
-            Vector3 targetPos = currentPoint.position;
-            transform.position = Vector3.Lerp(
-                transform.position,
-                targetPos,
-                moveLerpSpeed * dt
-            );
-
-            // 2) 입력 처리: 줌 락/해제
-            if (cam != null)
+            // --- [회전 및 줌 처리] ---
+            if (isZoomMode)
             {
-                // zoomEnabled == true (원거리 선택 상태) 에서만 조준 허용
-                if (zoomEnabled)
-                {
-                    // ★ 우클릭 "누르는 순간" → 그때의 방향/위치로 락
-                    if (Input.GetMouseButtonDown(1))
-                    {
-                        Ray ray = cam.ScreenPointToRay(Input.mousePosition);
-                        Vector3 origin = ray.origin;
-                        Vector3 dir = ray.direction;
+                // 줌 모드일 때는 드래그로 계산된 자유 조준 회전 사용
+                HandleZoomAiming();
 
-                        // 마우스 방향으로 일정 거리 앞을 "고정 조준점"으로 저장
-                        zoomLockedPoint = origin + dir * zoomLookDistance;
-                        isZoomLocked = true;
-                    }
-
-                    // 우클릭 "뗀 순간" → 락 해제
-                    if (Input.GetMouseButtonUp(1))
-                    {
-                        isZoomLocked = false;
-                    }
-                }
-                else
-                {
-                    // 줌 불가 상태면 락도 강제로 해제
-                    isZoomLocked = false;
-                }
-            }
-
-            // 3) 회전 처리
-            if (cam != null && isZoomLocked)
-            {
-                // 조준 락 상태: 처음 우클릭 시 고정한 zoomLockedPoint 를 계속 바라봄
-                Vector3 lookDir = zoomLockedPoint - transform.position;
-                if (lookDir.sqrMagnitude > 0.0001f)
-                {
-                    Quaternion zoomRot = Quaternion.LookRotation(lookDir.normalized, Vector3.up);
-                    transform.rotation = Quaternion.Slerp(
-                        transform.rotation,
-                        zoomRot,
-                        rotLerpSpeed * dt
-                    );
-                }
+                // FOV 줌 인 효과
+                if (cam != null)
+                    cam.fieldOfView = Mathf.Lerp(cam.fieldOfView, zoomedFov, dt * zoomLerpSpeed);
             }
             else
             {
-                // 조준 락이 아니면: 항상 currentPoint 의 회전 방향으로
-                Quaternion targetRot = currentPoint.rotation;
-                transform.rotation = Quaternion.Slerp(
-                    transform.rotation,
-                    targetRot,
-                    rotLerpSpeed * dt
-                );
+                // 일반 모드일 때는 캐릭터가 바라보는 방향(Rotation)을 부드럽게 따라감
+                transform.rotation = Quaternion.Slerp(transform.rotation, currentPoint.rotation, dt * rotLerpSpeed);
+
+                // FOV 줌 아웃 효과
+                if (cam != null)
+                    cam.fieldOfView = Mathf.Lerp(cam.fieldOfView, defaultFov, dt * zoomLerpSpeed);
+
+                // 일반 모드로 돌아왔을 때 누적된 조준값 초기화 (다시 줌 켰을 때 튀지 않게)
+                Vector3 currentRot = transform.eulerAngles;
+                yaw = currentRot.y;
+                pitch = currentRot.x;
             }
-
-            // 4) FOV 줌 처리
-            if (cam != null)
+        }
+        private void HandleZoomAiming()
+        {
+            // 화면을 누르고 있을 때만 회전 계산
+            if (Input.GetMouseButton(0))
             {
-                float targetFov = (isZoomLocked ? zoomedFov : defaultFov);
+                // 1. 마우스/터치 이동량(Delta) 가져오기
+                // Input.GetAxis는 마우스의 움직임 변화량을 직접 가져오므로 더 직관적입니다.
+                float mouseX = Input.GetAxis("Mouse X") * aimSensitivity * (cam.fieldOfView / defaultFov);
+                float mouseY = Input.GetAxis("Mouse Y") * aimSensitivity * (cam.fieldOfView / defaultFov);
 
-                cam.fieldOfView = Mathf.Lerp(
-                    cam.fieldOfView,
-                    targetFov,
-                    zoomLerpSpeed * dt
-                );
+                // 2. 누적값 계산
+                yaw += mouseX * 10f;  // 감도 조절을 위해 10 배수 사용
+                pitch -= mouseY * 10f;
+
+                // 3. 회전 제한 (Clamp) - 이 부분이 화면이 확 돌아가는 걸 막아줍니다.
+                // 기준점(currentPoint)의 초기 회전값 기준으로 제한하고 싶다면 아래처럼 계산합니다.
+                pitch = Mathf.Clamp(pitch, verticalRotationLimit.x, verticalRotationLimit.y);
+                yaw = Mathf.Clamp(yaw, horizontalRotationLimit.x, horizontalRotationLimit.y);
+
+                // 4. 목표 회전 생성
+                Quaternion targetRot = Quaternion.Euler(pitch, yaw, 0f);
+
+                // 5. 부드럽게 회전 적용 (Slerp)
+                transform.rotation = Quaternion.Slerp(transform.rotation, targetRot, Time.deltaTime * smoothSpeed);
             }
         }
 
+        private void HandleZoomDrag()
+        {
+            // 모바일 터치
+            if (Input.touchCount > 0)
+            {
+                Touch touch = Input.GetTouch(0);
 
+                // UI 위면 무시
+                if (EventSystem.current.IsPointerOverGameObject(touch.fingerId))
+                    return;
+
+                if (touch.phase == TouchPhase.Began)
+                {
+                    // 클릭한 지점으로 카메라 회전
+                    RotateCameraToScreenPoint(touch.position);
+                }
+            }
+            // 에디터 마우스 테스트
+            else if (Input.GetMouseButtonDown(0))
+            {
+                if (EventSystem.current.IsPointerOverGameObject())
+                    return;
+
+                RotateCameraToScreenPoint(Input.mousePosition);
+            }
+        }
+        private void RotateCameraToScreenPoint(Vector2 screenPos)
+        {
+            if (cam == null) return;
+
+            // 1. 화면 중앙과 클릭 지점의 비율 계산 (-0.5 ~ 0.5 범위)
+            float viewportX = (screenPos.x / Screen.width) - 0.5f;
+            float viewportY = (screenPos.y / Screen.height) - 0.5f;
+
+            // 2. 현재 카메라의 FOV를 고려하여 회전해야 할 실제 각도 계산
+            // 줌 상태일 때(zoomedFov) 더 예민하게 반응하도록 실제 시야각(cam.fieldOfView) 사용
+            float horizontalFov = 2f * Mathf.Atan(Mathf.Tan(cam.fieldOfView * Mathf.Deg2Rad * 0.5f) * cam.aspect) * Mathf.Rad2Deg;
+            float verticalFov = cam.fieldOfView;
+
+            float angleY = viewportX * horizontalFov;
+            float angleX = -viewportY * verticalFov;
+
+            // 3. 부드럽게 이동하고 싶다면 목표 회전값을 설정하고 Slerp로 돌리는 것이 좋지만,
+            // 즉각적인 반응을 원하신다면 아래처럼 직접 회전값을 더해줍니다.
+            transform.Rotate(Vector3.up, angleY, Space.World);
+            transform.Rotate(Vector3.right, angleX, Space.Self);
+        }
 
         public void FocusOnPoint(Transform focusPoint)
         {
@@ -145,11 +182,24 @@ namespace LUP.ST
 
             if (!zoomEnabled)
             {
-                // 줌 끄면 락 해제 + FOV 복구
-                isZoomLocked = false;
+                isZoomMode = false;
                 if (cam != null)
                     cam.fieldOfView = defaultFov;
             }
         }
+
+        // CrosshairManager에서 호출
+        public void StartZoom()
+        {
+            if (!zoomEnabled) return;
+            isZoomMode = true;
+        }
+
+        public void EndZoom()
+        {
+            isZoomMode = false;
+        }
+
+        public bool IsZoomMode => isZoomMode;
     }
 }

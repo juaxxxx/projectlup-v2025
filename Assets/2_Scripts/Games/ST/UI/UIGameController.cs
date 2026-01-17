@@ -24,8 +24,13 @@ namespace LUP.ST
         [SerializeField] private CameraController cameraController;
         [SerializeField] private List<Transform> cameraSlotPoints = new List<Transform>();
 
+        [Header("크로스헤어")]
+        [SerializeField] private CrosshairController crosshairManager;
+
         private bool isSkillAuto = true;
         private int currentSelectedIndex = -1;
+        private STCharacterData[] currentTeam;
+        private List<GameObject> spawnedCharactersList;
 
         private readonly List<GameObject> allCharacters = new List<GameObject>();
         private readonly List<RangeBlackBoard> rangedCharacters = new List<RangeBlackBoard>();
@@ -77,14 +82,12 @@ namespace LUP.ST
 
         private void SetupButtons()
         {
-            // AUTO / SKILL 토글 버튼
             if (modeToggleButton != null)
             {
                 modeToggleButton.onClick.RemoveAllListeners();
                 modeToggleButton.onClick.AddListener(OnModeToggleClicked);
             }
 
-            // 캐릭터 선택 버튼 설정
             for (int i = 0; i < characterSelectButtons.Count; i++)
             {
                 Button btn = characterSelectButtons[i];
@@ -92,24 +95,21 @@ namespace LUP.ST
 
                 btn.onClick.RemoveAllListeners();
 
-                if (i < allCharacters.Count)
+                // 슬롯에 캐릭터가 있고, 실제로 스폰됐으면 활성화
+                if (i < allCharacters.Count && allCharacters[i] != null)
                 {
-                    // 해당 슬롯에 캐릭터가 있으면 원거리/근거리 관계없이 선택 가능
                     btn.interactable = true;
-
                     int index = i;
                     btn.onClick.AddListener(() => OnCharacterSelected(index));
                 }
                 else
                 {
-                    // 캐릭터 없는 버튼은 비활성
                     btn.interactable = false;
                 }
             }
 
             UpdateCharacterPanelColors();
         }
-
         private void InitSkillAutoModeUI()
         {
             isSkillAuto = true;
@@ -149,7 +149,9 @@ namespace LUP.ST
 
         private void SelectCharacter(int index)
         {
-            // 1) 모든 원거리 캐릭터를 자동 모드로 되돌림
+            // null 체크 추가
+            if (allCharacters[index] == null) return;
+
             foreach (var r in rangedCharacters)
             {
                 r.manualMode = false;
@@ -161,19 +163,16 @@ namespace LUP.ST
             RangeBlackBoard ranged = selected.GetComponent<RangeBlackBoard>();
             MeleeBlackBoard melee = selected.GetComponent<MeleeBlackBoard>();
 
-            // 2) 선택된 캐릭터가 원거리라면 → 수동 모드 ON
             if (ranged != null)
             {
                 ranged.manualMode = true;
                 Debug.Log($"{ranged.characterName} 선택 (원거리 수동 모드)");
             }
 
-            // 3) 카메라 포인트 결정
             Transform camPoint = null;
 
             if (ranged != null)
             {
-                // 원거리: 슬롯 카메라 사용 (SlotCam)
                 if (cameraSlotPoints != null && index < cameraSlotPoints.Count)
                 {
                     camPoint = cameraSlotPoints[index];
@@ -181,27 +180,37 @@ namespace LUP.ST
             }
             else if (melee != null)
             {
-                // 근거리: 캐릭터에 달린 MeleeCamPoint 사용
                 if (melee.CameraFocusPoint != null)
                     camPoint = melee.CameraFocusPoint;
                 else
-                    camPoint = melee.transform; // 예외: 포인트 안 넣었을 때
+                    camPoint = melee.transform;
             }
 
-            // 4) 카메라 이동
             if (camPoint != null)
             {
                 cameraController?.FocusOnPoint(camPoint);
             }
 
-            // 5) 줌 가능 여부 갱신 (원거리만 줌 허용)
-            bool canZoom = ranged != null;   // 원거리면 true, 근거리면 false
+            bool canZoom = ranged != null;
             cameraController?.SetZoomEnabled(canZoom);
 
             currentSelectedIndex = index;
             UpdateCharacterPanelColors();
-        }
 
+            if (ranged != null)
+            {
+                // 현재 팀에서 캐릭터 데이터 가져와서 전달
+                var characterData = currentTeam != null && index < currentTeam.Length
+                    ? currentTeam[index]
+                    : null;
+                crosshairManager?.Show(characterData);
+            }
+            else
+            {
+                crosshairManager?.HideAll();
+            }
+
+        }
         private void UpdateCharacterPanelColors()
         {
             for (int i = 0; i < characterSelectButtons.Count; i++)
@@ -274,39 +283,79 @@ namespace LUP.ST
             cameraController?.SetOverviewMode();
             cameraController?.SetZoomEnabled(false);
 
+            crosshairManager?.HideAll();
+
             Debug.Log("수동 조작 캐릭터 없음 → 전체 풀 오토 + 카메라 오버뷰");
         }
 
         public void RebuildAfterSpawn()
         {
-            InitializeCharacters();
+            allCharacters.Clear();
+            rangedCharacters.Clear();
+            meleeCharacters.Clear();
+
+            // spawnedCharactersList 기반으로 설정 (슬롯 순서 유지)
+            if (spawnedCharactersList != null)
+            {
+                foreach (var go in spawnedCharactersList)
+                {
+                    allCharacters.Add(go);  // null도 포함해서 인덱스 유지
+
+                    if (go != null)
+                    {
+                        if (go.TryGetComponent(out RangeBlackBoard rbb))
+                            rangedCharacters.Add(rbb);
+                        if (go.TryGetComponent(out MeleeBlackBoard mbb))
+                            meleeCharacters.Add(mbb);
+                    }
+                }
+            }
+
             SetupButtons();
             InitSkillAutoModeUI();
             DeselectAllCharacters();
         }
-
         public void ApplyTeamThumbnails(STCharacterData[] team5)
         {
             if (team5 == null || team5.Length < 5) return;
 
-            for (int i = 0; i < characterSelectButtons.Count; i++)
+            currentTeam = team5;  // 저장
+
+            for (int i = 0; i < characterSelectButtons.Count && i < 5; i++)
             {
-                if (i >= 5) break;
+                var btn = characterSelectButtons[i];
+                if (btn == null) continue;
 
                 Image img = (characterButtonImages != null && i < characterButtonImages.Count && characterButtonImages[i] != null)
                     ? characterButtonImages[i]
-                    : characterSelectButtons[i].GetComponent<Image>();
+                    : btn.GetComponent<Image>();
 
-                if (img == null) continue;
+                if (team5[i] == null)
+                {
+                    btn.gameObject.SetActive(false);
+                }
+                else
+                {
+                    btn.gameObject.SetActive(true);
+                    if (img != null)
+                    {
+                        img.sprite = team5[i].thumbnail;
+                        img.color = Color.white;
+                    }
+                    btn.interactable = true;
+                }
 
-                img.sprite = team5[i] != null ? team5[i].thumbnail : null;
-                img.type = Image.Type.Simple;
-                img.preserveAspect = false;
+                if (i < hpSlots.Count && hpSlots[i] != null)
+                {
+                    hpSlots[i].gameObject.SetActive(team5[i] != null);
+                }
             }
         }
 
         public void BindHpToSpawnedCharacters(List<GameObject> spawnedCharactersInSlotOrder)
         {
+            spawnedCharactersList = spawnedCharactersInSlotOrder;  // 저장
+
             for (int i = 0; i < 5 && i < hpSlots.Count; i++)
             {
                 if (hpSlots[i] == null) continue;

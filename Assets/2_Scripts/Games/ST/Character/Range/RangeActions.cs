@@ -136,17 +136,13 @@ namespace LUP.ST
 
             return NodeState.RUNNING;
         }
-
         public NodeState FireManual(RangeBlackBoard character)
         {
-            // 재장전 중이면 발사 불가
             if (isReloading)
                 return NodeState.FAILURE;
 
-            // 탄약이 없으면 발사 불가
             if (!character.HasAmmo())
             {
-                Debug.Log($"{character.characterName}: 탄약 없음! 재장전 대기 중...");
                 return NodeState.FAILURE;
             }
 
@@ -154,8 +150,22 @@ namespace LUP.ST
             if (Time.time - lastFireTime < fireRate)
                 return NodeState.RUNNING;
 
-            // 1) 마우스 레이 → targetPoint 구하기 (현재 쓰는 aimMask 사용)
-            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            // 줌 상태면 화면 중앙으로, 아니면 마우스 위치로
+            Vector2 aimScreenPos;
+
+            var crosshairManager = FindFirstObjectByType<CrosshairController>();
+            if (crosshairManager != null && crosshairManager.IsZooming)
+            {
+                // 줌 상태: 화면 중앙
+                aimScreenPos = new Vector2(Screen.width / 2f, Screen.height / 2f);
+            }
+            else
+            {
+                // 일반 상태: 마우스/터치 위치
+                aimScreenPos = Input.mousePosition;
+            }
+
+            Ray ray = Camera.main.ScreenPointToRay(aimScreenPos);
             Vector3 targetPoint;
 
             if (Physics.Raycast(ray, out RaycastHit hit, 100f, aimMask, QueryTriggerInteraction.Ignore))
@@ -163,12 +173,11 @@ namespace LUP.ST
             else
                 targetPoint = ray.GetPoint(100f);
 
-            // 2) 시야각 제한 체크 (Y는 무시하고 수평 기준)
             Vector3 dirWorld = targetPoint - firePoint.position;
             Vector3 dirFlat = new Vector3(dirWorld.x, 0f, dirWorld.z);
 
             if (dirFlat.sqrMagnitude < 0.0001f)
-                return NodeState.FAILURE; // 너무 가까우면 무시
+                return NodeState.FAILURE;
 
             dirFlat.Normalize();
 
@@ -177,22 +186,18 @@ namespace LUP.ST
 
             if (angle > maxManualAimAngle)
             {
-                // 시야각 밖 → 입력 무시
-                // Debug.Log($"{character.characterName}: 시야각 밖 입력 (angle={angle:F1})");
                 return NodeState.FAILURE;
             }
 
-            // 3) 실제 발사 처리
             character.currentAmmo--;
             lastFireTime = Time.time;
 
-            Vector3 direction = dirWorld;  // 위에서 만든 dirWorld 그대로 사용
+            Vector3 direction = dirWorld;
             ShootBullet(direction);
 
             SetColor(Color.blue);
             return NodeState.SUCCESS;
         }
-
 
         public NodeState FireAuto(RangeBlackBoard character)
         {

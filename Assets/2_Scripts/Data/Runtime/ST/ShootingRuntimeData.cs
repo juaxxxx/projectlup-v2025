@@ -1,32 +1,65 @@
 ﻿using LUP.ST;
 using System;
 using System.Drawing.Text;
+using System.Collections.Generic;
 using UnityEngine;
 
 [Serializable]
 public class ShootingRuntimeData : BaseRuntimeData
 {
-    [SerializeField] private STCharacterData[] _team = new STCharacterData[5];
-    public STCharacterData[] Team => _team;
+    [SerializeField]
+    private int playerId;
 
-    public void SetTeam(STCharacterData[] team5)
+    [SerializeField] 
+    private List<LUP.ST.OwnedCharacterInfo> ownedCharacterList = new List<LUP.ST.OwnedCharacterInfo>();
+    
+    [SerializeField] 
+    private List<int> teamSlots = new List<int> { 0, 0, 0, 0, 0 };
+
+    [NonSerialized]
+    private STCharacterData[] _teamCache;
+
+    public int PlayerId
     {
-        if (team5 == null || team5.Length != 5)
-            return;
+        get => playerId;
+        set => SetValue(ref playerId, value);
+    }
 
-        if (_team == null || _team.Length != 5)
-            _team = new STCharacterData[5];
+    public List<LUP.ST.OwnedCharacterInfo> OwnedCharacterList
+    {
+        get => ownedCharacterList;
+        set => SetValue(ref ownedCharacterList, value);
+    }
 
-        // 항상 "전체 복사"
-        for (int i = 0; i < 5; i++)
-        {
-            _team[i] = team5[i];
-        }
+    public List<int> TeamSlots
+    {
+        get => teamSlots;
+        set => teamSlots = value;
+    }
+
+    public STCharacterData[] Team
+    {
+        get => _teamCache;
+        set => _teamCache = value;
     }
 
     public override void ResetData()
     {
-        for (int i = 0; i < _team.Length; i++)
-            _team[i] = null;
+        playerId = 0;
+        ownedCharacterList.Clear();
+        teamSlots = new List<int> { 0, 0, 0, 0, 0 };  
     }
+
+
+    public OwnedCharacterInfo GetCharacterInfo(int characterId)
+    {
+        return ownedCharacterList.Find(c => c.characterId == characterId);
+    }
+
+    public int GetCharacterLevel(int characterId)
+    {
+        var info = GetCharacterInfo(characterId);
+        return info != null ? info.level : 1;
+    }
+
 }

@@ -1,20 +1,38 @@
 {
     "filename": "shooting_runtime.json",
-    "_team": [
+    "playerId": 0,
+    "ownedCharacterList": [
         {
-            "instanceID": 48626
+            "characterId": 1,
+            "level": 4,
+            "currentExp": 150
         },
         {
-            "instanceID": 48626
+            "characterId": 2,
+            "level": 6,
+            "currentExp": 250
         },
         {
-            "instanceID": 49012
+            "characterId": 3,
+            "level": 10,
+            "currentExp": 750
         },
         {
-            "instanceID": 49012
+            "characterId": 4,
+            "level": 5,
+            "currentExp": 50
         },
         {
-            "instanceID": 49262
+            "characterId": 5,
+            "level": 8,
+            "currentExp": 50
         }
+    ],
+    "teamSlots": [
+        5,
+        2,
+        4,
+        1,
+        3
     ]
 }
