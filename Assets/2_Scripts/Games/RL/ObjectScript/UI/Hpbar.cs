@@ -76,6 +76,14 @@ namespace LUP.RL
         {
             health.OnHpChanged -= this.UpdateBar;
         }
+        public void HpBarDisable()
+        {
+            gameObject.SetActive(false);
+        }
+        public void HpBarEnable()
+        {
+            gameObject.SetActive(true);
+        }
     }
 
 }

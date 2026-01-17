@@ -16,9 +16,6 @@ namespace LUP.RL
                 Debug.Log("플레이어");
                 // UI 패널 활성화
                 roulettePanel.SetActive(true);
-
-                // 필요하면 플레이어 입력 막기 등 추가 가능
-                // Time.timeScale = 0; // 게임 멈추고 싶으면
             }
         }
     }

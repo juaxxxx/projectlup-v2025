@@ -1883,7 +1883,6 @@ GameObject:
   - component: {fileID: 6472347516987410636}
   - component: {fileID: 8338935456471204463}
   - component: {fileID: 6912146579901588353}
-  - component: {fileID: -8412693335796426089}
   m_Layer: 0
   m_Name: Enemy_long
   m_TagString: Enemy
@@ -1970,6 +1969,7 @@ MonoBehaviour:
   EnemyStats:
     Hp: 0
     Attack: 0
+    AttackSpeed: 0
     speed: 0
     MaxHp: 0
     Exp: 0
@@ -2001,7 +2001,7 @@ Rigidbody:
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
   m_UseGravity: 1
-  m_IsKinematic: 0
+  m_IsKinematic: 1
   m_Interpolate: 0
   m_Constraints: 116
   m_CollisionDetection: 0
@@ -2088,7 +2088,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fireSystem: {fileID: 6912146579901588353}
-  weapon: {fileID: -8412693335796426089}
+  weapon: {fileID: 0}
   meleeWeapon: {fileID: 0}
 --- !u!114 &6912146579901588353
 MonoBehaviour:
@@ -2105,22 +2105,6 @@ MonoBehaviour:
   spawnPoint: {fileID: 4708917838686909935}
   bulletData: {fileID: 11400000, guid: 6a20426a0e825644c9fac67cab476672, type: 2}
   fireDelay: 1
---- !u!114 &-8412693335796426089
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5363232532340469621}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e324571cbc24f634c8dcb7a2415324c6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  weaponType: 4
-  weaponHandPos: {fileID: 0}
-  weaponPos: {x: 0, y: 0, z: 0}
-  rotate: {x: 0, y: 0, z: 0}
 --- !u!1 &5506699345996269455
 GameObject:
   m_ObjectHideFlags: 0

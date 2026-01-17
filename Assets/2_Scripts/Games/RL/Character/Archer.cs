@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using UnityEngine;
 namespace LUP.RL
 {
-    public class Archer : MonoBehaviour
+    public class Archer : MonoBehaviour, IHideInterface
     {
         [Header("캐릭터 템플릿 데이터 (SO)")]
         [SerializeField] private RLCharacterData characterTemplate;
@@ -44,7 +44,6 @@ namespace LUP.RL
         public PlayerBuff PlayerBuff => playerBuff;
         void Awake()
         {
-           
             InitializeCharacter();
             healthCenter = new HealthCenter(RuntimeData.currentData.MaxHp);
 
@@ -55,6 +54,14 @@ namespace LUP.RL
             playerBuff = GetComponent<PlayerBuff>();
             playerBuff.init(this);
             playerBuff.ShowBuffSelection();
+        }
+        public void HideUI()
+        {
+            hpbar.HpBarDisable();
+        }
+        public void ShowUI()
+        {
+            hpbar.HpBarEnable();
         }
         private void InitializeCharacter()
         {

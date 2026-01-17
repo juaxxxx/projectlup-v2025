@@ -161,7 +161,7 @@ namespace LUP.RL
                 return;
             }
 
-            float delta = Time.deltaTime;
+            float delta = Time.deltaTime * 0.1f;
             int decrease = Mathf.CeilToInt(delta);
 
             itemGainedAmount -= decrease;

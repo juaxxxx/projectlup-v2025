@@ -210,23 +210,23 @@ namespace LUP.RL
             Vector3 pos = new Vector3(0, 0.7f, 0);
             Quaternion rot = Quaternion.identity;
                                                                                                                                                                
-            GameObject character = Instantiate(characterData.CharacterPrefab, pos, rot);
-            playerBuff = character.GetComponent<PlayerBuff>();
-            FindFirstObjectByType<ExpCenter>().BindPlayer(character);
+            player  = Instantiate(characterData.CharacterPrefab, pos, rot);
+            playerBuff = player.GetComponent<PlayerBuff>();
+            FindFirstObjectByType<ExpCenter>().BindPlayer(player);
             if (playerBuff && buffUI)
             {
                 playerBuff.OnRequestBuffUI += buffUI.Bind;
             }
 
-            (WeaponData, GameObject) ArmedResult = BeArmed(character);
+            (WeaponData, GameObject) ArmedResult = BeArmed(player);
             WeaponData equipedWeaponData = ArmedResult.Item1;
             GameObject weaponInstance = ArmedResult.Item2;
 
 
             //WeaponHand weaponHand = character.GetComponent<WeaponHand>();
-            FireSystem fireSystem = character.GetComponent<FireSystem>();
-            MeleeSystem meleeSystem = character.GetComponent<MeleeSystem>();
-            ShooterComp shooterComp = character.GetComponent<ShooterComp>();
+            FireSystem fireSystem = player.GetComponent<FireSystem>();
+            MeleeSystem meleeSystem = player.GetComponent<MeleeSystem>();
+            ShooterComp shooterComp = player.GetComponent<ShooterComp>();
 
             if(shooterComp)
             {
@@ -237,7 +237,7 @@ namespace LUP.RL
             {
                 if (equipedWeaponData.weaponType == RWeaponType.Throw)
                 {
-                    SetCustumProjectile(character, equipedWeaponData);
+                    SetCustumProjectile(player, equipedWeaponData);
                     //character.GetComponent<FireSystem>().bulletData.bulletPrefab = characterData.GetWeaponProjecTile();
                 }
                 else if (equipedWeaponData.weaponType == RWeaponType.TwoHandSword)
@@ -251,14 +251,14 @@ namespace LUP.RL
 
                 else if (equipedWeaponData.weaponType == RWeaponType.Magic)
                 {
-                    SetCustumProjectile(character, equipedWeaponData);
+                    SetCustumProjectile(player, equipedWeaponData);
                     //character.GetComponent<FireSystem>().bulletData.bulletPrefab = characterData.GetWeaponProjecTile();
                 }
             }
 
-            OnPlayerCharacterSpawned?.Invoke(character);
+            OnPlayerCharacterSpawned?.Invoke(player);
 
-            itemSpawner.SetPlayerPos(character.transform);
+            itemSpawner.SetPlayerPos(player.transform);
 
             FollowCamera followCamera = FindFirstObjectByType<FollowCamera>();
             if(followCamera)
@@ -266,7 +266,7 @@ namespace LUP.RL
                 followCamera.FindTarget();
             }
 
-            controlledPlayer = character.gameObject.GetComponent<Archer>();
+            controlledPlayer = player.gameObject.GetComponent<Archer>();
           
             if (controlledPlayer == null)
                 UnityEngine.Debug.LogError("Fail to Find Player!!");
@@ -324,7 +324,8 @@ namespace LUP.RL
             gameResultPanel.SetActive(true);
 
             ShowGameResult();
-
+            IHideInterface hideinterface = player.GetComponent<IHideInterface>();
+            hideinterface.HideUI();
 
             gameClear = true;
 

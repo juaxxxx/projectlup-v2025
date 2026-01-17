@@ -24,8 +24,7 @@ namespace LUP.RL
         private bool isResultReady = false;
         private float currentSpeed = 0;
         private BuffData selectedBuff;
-
-
+        private IHideInterface hideInterface;
         void Start()
         {
             if (spinButton == null) return;
@@ -63,7 +62,8 @@ namespace LUP.RL
             {
                 RoulletPanel.gameObject.SetActive(true);
                 Time.timeScale = 0;
-
+                hideInterface = other.GetComponent<IHideInterface>();
+                hideInterface.HideUI();
             }
         }
         void SelectRandomBuff()
@@ -100,6 +100,7 @@ namespace LUP.RL
             RoulletImagel.SetActive(false);
             StartCoroutine(CloseResultAfterDelay(2f));
             Time.timeScale = 1;
+
        
         }
       
@@ -108,6 +109,7 @@ namespace LUP.RL
             yield return new WaitForSecondsRealtime(delay);
             RoulletPanel.SetActive(false);
             Destroy(gameObject);
+            hideInterface.ShowUI();
         }
     }
 }

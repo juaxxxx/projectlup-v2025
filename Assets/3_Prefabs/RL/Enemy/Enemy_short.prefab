@@ -4021,7 +4021,6 @@ GameObject:
   - component: {fileID: 2626498203049357490}
   - component: {fileID: 881578514394593449}
   - component: {fileID: 8245328761410837577}
-  - component: {fileID: 1900462777050990848}
   m_Layer: 0
   m_Name: Enemy_short
   m_TagString: Enemy
@@ -4146,7 +4145,7 @@ Rigidbody:
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
   m_UseGravity: 1
-  m_IsKinematic: 0
+  m_IsKinematic: 1
   m_Interpolate: 0
   m_Constraints: 116
   m_CollisionDetection: 0
@@ -4246,24 +4245,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fireSystem: {fileID: 0}
-  weapon: {fileID: 1900462777050990848}
+  weapon: {fileID: 0}
   meleeWeapon: {fileID: 5921031063527959515}
---- !u!114 &1900462777050990848
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8845519063124067650}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e324571cbc24f634c8dcb7a2415324c6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  weaponType: 3
-  weaponHandPos: {fileID: 1680393261219834051}
-  weaponPos: {x: 0, y: 0, z: 0}
-  rotate: {x: 0, y: 0, z: 0}
 --- !u!1 &8862526753528994941
 GameObject:
   m_ObjectHideFlags: 0
