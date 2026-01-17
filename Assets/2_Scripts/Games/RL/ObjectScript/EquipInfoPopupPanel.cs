@@ -40,6 +40,10 @@ namespace LUP.RL
 
         public Button Button;
         public TextMeshProUGUI Button_Text;
+
+        [SerializeField]
+        private TierColorData[] tierColors;
+
         void Start()
         {
             ExitBtn.onClick.AddListener(OnExitBtnClicked);
@@ -63,32 +67,38 @@ namespace LUP.RL
             Sprite equipIconSprite = equipData.GetDisplayableImage();
 
             string Text_Tier = "None";
-            Color Color_Tier = RLTierColor.Common;
+            Color Color_EquipIconTier = RLTierColor.Common;
+            TierColorData Color_Panel = tierColors[0];
             switch (equipTier)
             {
                 case RLItemTier.Common:
                     Text_Tier = "Common";
-                    Color_Tier = RLTierColor.Common;
+                    Color_EquipIconTier = RLTierColor.Common;
+                    Color_Panel = tierColors[0];
                     break;
 
                 case RLItemTier.Rare:
                     Text_Tier = "Rare";
-                    Color_Tier = RLTierColor.Rare;
+                    Color_EquipIconTier = RLTierColor.Rare;
+                    Color_Panel = tierColors[1];
                     break;
 
                 case RLItemTier.Epic:
                     Text_Tier = "Epic";
-                    Color_Tier = RLTierColor.Epic;
+                    Color_EquipIconTier = RLTierColor.Epic;
+                    Color_Panel = tierColors[2];
                     break;
             }
 
-            Top_EquipTierImageBox.SetText(equipName);
-            Top_EquipNameImageBox.SetDisplayableImageBackGroundColor(Color_Tier);
+            //Top_EquipTierImageBox.SetText(equipName);
+            Top_EquipNameImageBox.SetDisplayableImageBackGroundColor(Color_Panel.BaseColor);
+            Top_EquipNameImageBox.GetComponent<Outline>().effectColor = Color_Panel.BorderColor;
 
             Top_EquipTierImageBox.SetText(Text_Tier);
-            Top_EquipTierImageBox.SetDisplayableImageBackGroundColor(Color_Tier);
+            Top_EquipTierImageBox.SetDisplayableImageBackGroundColor(Color_Panel.BaseColor);
+            Top_EquipTierImageBox.GetComponent<Outline>().effectColor = Color_Panel.BorderColor;
 
-            EquipInfo_EquipIconImageBox.SetDisplayableImageBackGroundColor(Color_Tier);
+            EquipInfo_EquipIconImageBox.SetDisplayableImageBackGroundColor(Color_EquipIconTier);
             EquipInfo_EquipIconImageBox.SetDisplayableImage(equipIconSprite);
 
             EquipInfo_TierNumText.SetText(((int)equipTier).ToString());
