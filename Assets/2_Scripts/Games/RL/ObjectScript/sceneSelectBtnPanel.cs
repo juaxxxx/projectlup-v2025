@@ -7,6 +7,9 @@ namespace LUP.RL
         TextImageBtn[] textImageBtns;
         PannelController pannelController;
 
+        Vector4 iconNormalAnchor = new Vector4(0.2f, 0.8f, 0.2f, 0.8f);
+        Vector4 iconHighlightAnchor = new Vector4(0.2f, 0.8f, 0.4f, 1.0f);
+
         PanelType currPanle = PanelType.MAX;
 
         public float expandeWidth = 0.3f;
@@ -88,9 +91,23 @@ namespace LUP.RL
                 rect.offsetMax = Vector2.zero;
 
                 textImageBtns[i].SetActive(false);
+                textImageBtns[i].btnText.gameObject.SetActive(false);
+
+                RectTransform iconTransform = textImageBtns[i].btnIcon.rectTransform;
+                ResizeIconAnchor(iconTransform, iconNormalAnchor);
             }
 
             textImageBtns[index].SetActive(true);
+            textImageBtns[index].btnText.gameObject.SetActive(true);
+            ResizeIconAnchor(textImageBtns[index].btnIcon.rectTransform, iconHighlightAnchor);
+        }
+
+        void ResizeIconAnchor(RectTransform target, Vector4 anchorMinMax)
+        {
+            target.anchorMin = new Vector2(anchorMinMax.x, anchorMinMax.z);
+            target.anchorMax = new Vector2(anchorMinMax.y, anchorMinMax.w);
+
+            target.anchoredPosition = Vector2.zero;
         }
     }
 }

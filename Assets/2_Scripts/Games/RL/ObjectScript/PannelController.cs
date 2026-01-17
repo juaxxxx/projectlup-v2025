@@ -292,7 +292,7 @@ namespace LUP.RL
             //if (targetPanel == PanelType.AVILITY)
             //    targetPanel--;
 
-            if (targetPanel < 0)
+            if (targetPanel < 0 || targetPanel == PanelType.MAX)
                 return;
 
             SwitchPannelTo(targetPanel);
@@ -315,6 +315,9 @@ namespace LUP.RL
 
             //if (targetPanel == PanelType.AVILITY)
             //    targetPanel++;
+
+            if (targetPanel < 0 || targetPanel == PanelType.MAX)
+                return;
 
             SwitchPannelTo(targetPanel);
         }
