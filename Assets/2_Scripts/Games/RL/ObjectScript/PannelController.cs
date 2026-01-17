@@ -292,6 +292,9 @@ namespace LUP.RL
             //if (targetPanel == PanelType.AVILITY)
             //    targetPanel--;
 
+            if (targetPanel < 0)
+                return;
+
             SwitchPannelTo(targetPanel);
         }
 

@@ -1,3 +1,4 @@
+using Roguelike.Define;
 using System.Linq;
 using TMPro;
 using UnityEngine;
@@ -9,10 +10,14 @@ namespace LUP.RL
     public class InventoryEquipBtn : MonoBehaviour, IPanelContentAble
     {
 
-        
+        [SerializeField]
+        private Sprite WeaponTypeIconImage;
 
         [SerializeField]
-        private Button button;
+        private Sprite ArmorTypeIconImage;
+
+        [SerializeField]
+        public Button button;
 
         [SerializeField]
         private Image buttonBorder;
@@ -39,19 +44,31 @@ namespace LUP.RL
             return false;
         }
 
-        public void SetEquipButton(Color backGroundColor, Color buttonBorderColor,Sprite itemIcon, bool bIsEpickEquip, Color borderColor, Sprite typeIconImage)
+        public void SetEquipButton(Sprite itemIcon, RLEquipPos equipPos, RLItemTier equipTier, TierColorData tierColor)
         {
-            ButtonBackGroundImage.color = backGroundColor;
-            buttonBorder.color = buttonBorderColor;
+            ButtonBackGroundImage.color = tierColor.BaseColor;
+            buttonBorder.color = tierColor.BorderColor;
 
             ItemIcon.sprite = itemIcon;
 
-            if (bIsEpickEquip == false)
+            TypeBorder.color = tierColor.BorderColor;
+
+
+            //좌상단 부위별 아이콘 설정
+            switch(equipPos)
+            {
+                case RLEquipPos.Hand:
+                    TypeIconImage.sprite = WeaponTypeIconImage;
+                    break;
+
+                case RLEquipPos.Body:
+                    TypeIconImage.sprite = ArmorTypeIconImage;
+                    break;
+            }
+
+            //장비 티어 이미지
+            if (equipTier != RLItemTier.Epic)
                 TierImage.gameObject.SetActive(false);
-
-            TypeBorder.color = borderColor;
-            TypeIconImage.sprite = typeIconImage;
-
 
         }
     }

@@ -1,6 +1,7 @@
 using LUP.ST;
 using Roguelike.Define;
 using Roguelike.Util;
+using System.Linq;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -64,7 +65,7 @@ namespace LUP.RL
 
             Vector2 spacing = gridLayoutGroup.spacing;
 
-            float prefabWidth = (ItemBoxSize.x / holizonConstrain) - 2 * spacing.x;
+            float prefabWidth = (ItemBoxSize.x / holizonConstrain) - 1.4f * spacing.x;
 
             gridLayoutGroup.constraintCount = holizonConstrain;
             gridLayoutGroup.cellSize = new Vector2(prefabWidth, prefabWidth);
@@ -93,9 +94,11 @@ namespace LUP.RL
                 playerWeaponType = pannelController.lobbyGameCenter.GetselectedCharacter().weaponType;
 
             //ItemData[] InventoryItmes = platformAdapter.GetInventoryItems();
-            InventoryItmes = platformAdapter.GetInventoryEquips();
+            InventoryItmes = platformAdapter.GetInventoryEquips().OrderByDescending(item => (RLItemTier)item.GetExtraInfo()).ThenBy(item => item.equipPos).ToArray();
             for (int i = 0; i < InventoryItmes.Length; i++)
             {
+                int index = i;
+
                 if(bisAlined && playerWeaponType != RWeaponType.None)
                 {
                     RWeaponType WeaponType = InventoryItmes[i].weaponType;
@@ -108,8 +111,7 @@ namespace LUP.RL
                 EquipData equipItem = InventoryItmes[i];
 
                 RLItemTier equipTier = (RLItemTier)equipItem.GetExtraInfo();
-
-
+                RLEquipPos equipPos = equipItem.equipPos;
 
                 GameObject Itembox = Instantiate(EquipBoxPrefab, gameObject.transform);
                 InventoryEquipBtn itemTextImageBtn = Itembox.GetComponent<InventoryEquipBtn>();
@@ -124,8 +126,9 @@ namespace LUP.RL
                 //    itemTextImageBtn.btnBackGroundImage.sprite = equipItem.GetDisplayableImage();
                 //    itemTextImageBtn.button.onClick.AddListener(() => OnEquipItemBtnClicked(index));
                 //}
-                itemTextImageBtn.SetEquipButton(Color.cyan, Color.yellow, equipItem.GetDisplayableImage(), true, Color.yellow, equipItem.GetDisplayableImage());
 
+                itemTextImageBtn.SetEquipButton(equipItem.GetDisplayableImage(), equipPos, equipTier, tierColors[(int)equipTier - 1]);
+                itemTextImageBtn.button.onClick.AddListener(() => OnEquipItemBtnClicked(index));
             }
 
             StartCoroutine(RoguelikeUtil.DelayOneFrame(ReArrnageGidPanle));
