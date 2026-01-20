@@ -149,7 +149,10 @@ namespace LUP.PCR
 
         public void UpdateBT()
         {
-            if (root == null) return;
+            if (root == null)
+            {
+                return;
+            }
             root?.Evaluate();
 
             if(!isHunger)

@@ -35,9 +35,7 @@ namespace LUP.PCR
                 node.parentNode = null;
             }
         }
-
-        // ================= Pathfinding =================
-
+        
         public List<ANode> FindPath(ANode startNode, ANode targetNode)
         {
             ResetNodes();
@@ -101,9 +99,6 @@ namespace LUP.PCR
             path.Reverse();
             return path;
         }
-
-        // ================= Neighbors =================
-
         List<ANode> GetNeighbors(ANode node)
         {
             List<ANode> neighbors = new();
@@ -127,20 +122,23 @@ namespace LUP.PCR
                 int dy = dirs[i, 1];
 
                 if (dy == 0 && CanMoveSide(state))
+                { 
                     neighbors.Add(neighbor);
+                }
 
                 else if (dy == 1 && CanMoveUp(node, neighbor, state))
+                {
                     neighbors.Add(neighbor);
+                }
 
                 else if (dy == -1 && CanMoveDown(node, neighbor, state))
+                {
                     neighbors.Add(neighbor);
+                }
             }
 
             return neighbors;
         }
-
-        // ================= Ladder State =================
-
         bool HasLadderAt(int x, int y)
         {
             if (!gridMap.IsIdxValid(x, y)) return false;
@@ -155,13 +153,21 @@ namespace LUP.PCR
             bool up = HasLadderAt(node.indexX, node.indexY + 1);
             bool down = HasLadderAt(node.indexX, node.indexY - 1);
 
-            if (!up && !down) return LadderState.Single;
-            if (!up && down) return LadderState.Top;
-            if (up && !down) return LadderState.Bottom;
-            return LadderState.Middle;
+            if (!up && !down)
+            {
+                return LadderState.Single;
+            }
+            
+            if (!up && down)
+            {
+                return LadderState.Top;
+            }
+            if (up && !down)
+            {
+                return LadderState.Bottom;
+            }
+                return LadderState.Middle;
         }
-
-        // ================= Move Rules =================
 
         bool CanMoveSide(LadderState state)
         {
@@ -171,7 +177,9 @@ namespace LUP.PCR
         bool CanMoveUp(ANode current, ANode neighbor, LadderState state)
         {
             if (neighbor.isLadder)
+            {
                 return true;
+            }
 
             // 사다리 꼭대기에서 위 바닥으로 나가기
             return state == LadderState.Top || state == LadderState.Single;
@@ -180,7 +188,9 @@ namespace LUP.PCR
         bool CanMoveDown(ANode current, ANode neighbor, LadderState state)
         {
             if (neighbor.isLadder)
+            {
                 return true;
+            }
 
             // 사다리 아래 끝에서 바닥으로
             return state == LadderState.Bottom || state == LadderState.Single;

@@ -28,7 +28,7 @@ namespace LUP.PCR
         // 실제 작업 할당
         private List<BuildingBase> taskBuildingList = new List<BuildingBase>();
         private List<WorkerAI> activeWorkers;
-        private Queue<StructureBase> taskQueue = new Queue<StructureBase>();
+        private Queue<StructureBase> taskQueue = new Queue<StructureBase>(GridSize.x * GridSize.y);
 
         public void InitWorkerSystem(BuildingSystem buildingSystem, TileMap tileMap)
         {

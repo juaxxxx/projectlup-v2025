@@ -35,7 +35,9 @@ namespace LUP.PCR
             get
             {
                 if (ownerAI == null)
+                {
                     BB.TryGetValue(BBKeys.OwnerAI, out ownerAI);
+                }
                 return ownerAI;
             }
         }
@@ -44,7 +46,9 @@ namespace LUP.PCR
             get
             {
                 if (workerComp == null)
+                {
                     BB.TryGetValue(BBKeys.Self, out workerComp);
+                }
                 return workerComp;
             }
         }
@@ -53,7 +57,9 @@ namespace LUP.PCR
             get
             {
                 if (mover == null)
+                {
                     BB.TryGetValue(BBKeys.UnitMover, out mover);
+                }
                 return mover;
             }
         }

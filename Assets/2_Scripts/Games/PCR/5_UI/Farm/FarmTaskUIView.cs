@@ -84,7 +84,6 @@ namespace LUP.PCR
                     productionTab.image.color = new Color(1f, 1f, 1f, 1f);
                     upgradePanel.SetActive(false);
                     productionPanel.SetActive(true);
-
                     break;
                 case FarmUIBtnType.Upgrade:
                     upgradeTab.image.color = new Color(1f, 1f, 1f, 1f);
