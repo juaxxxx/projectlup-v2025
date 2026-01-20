@@ -2,7 +2,7 @@
     "filename": "production_runtime.json",
     "playerId": 0,
     "hasSavedGame": true,
-    "buildingId": 11,
+    "buildingId": 12,
     "buildingInfoList": [
         {
             "buildingId": 1,
@@ -16,7 +16,7 @@
         },
         {
             "buildingId": 2,
-            "level": 1,
+            "level": 3,
             "gridPos": {
                 "x": 8,
                 "y": 3
@@ -73,13 +73,23 @@
             },
             "buildingType": 14,
             "isConstructing": true
+        },
+        {
+            "buildingId": 11,
+            "level": 1,
+            "gridPos": {
+                "x": 11,
+                "y": 1
+            },
+            "buildingType": 6,
+            "isConstructing": true
         }
     ],
     "productionInfoList": [
         {
             "buildingId": 2,
             "elapsedTime": 0.0,
-            "currentStorage": 71
+            "currentStorage": 75
         },
         {
             "buildingId": 3,
@@ -122,6 +132,10 @@
         },
         {
             "buildingId": 10,
+            "elapsedTime": 0.0
+        },
+        {
+            "buildingId": 11,
             "elapsedTime": 0.0
         }
     ],
@@ -409,13 +423,6 @@
             "wallType": 1,
             "gridPos": {
                 "x": 3,
-                "y": 2
-            }
-        },
-        {
-            "wallType": 1,
-            "gridPos": {
-                "x": 4,
                 "y": 2
             }
         },
