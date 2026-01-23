@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using static UnityEditor.Progress;
+using TMPro;
 
 namespace LUP.ES
 {
@@ -14,7 +15,7 @@ namespace LUP.ES
         public GameObject resultPanel;
         public GameObject ItemDisplayContent;
         public GameObject itemSlotPrefab;
-        public Text resultHeader;
+        public TextMeshProUGUI resultHeader;    
         //public Button lobbyButton;
 
         private Transform contentParent;
@@ -60,11 +61,12 @@ namespace LUP.ES
             Debug.Log("GameFinish");
             Time.timeScale = 0f;
             StringBuilder resultHeadrString = new StringBuilder();
-            resultHeadrString.Append("탈출 ");
+            resultHeadrString.Append("Extraction ");
             resultPanel.SetActive(true);
             if (isSuccess)
             {
-                resultHeadrString.Append("성공");
+                resultHeadrString.Append("Complete");
+                resultHeader.color = Color.white;
                 Inventory inventory = FindAnyObjectByType<Inventory>();
                 if (inventory != null)
                 {
@@ -84,7 +86,10 @@ namespace LUP.ES
                 
             }
             else
-                resultHeadrString.Append("실패");
+            {
+                resultHeadrString.Append("Failed");
+                resultHeader.color = Color.red;
+            }
             resultHeader.text = resultHeadrString.ToString();
         }
     }
