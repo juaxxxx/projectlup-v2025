@@ -1,9 +1,11 @@
 using LUP.DSG.Utils.Enums;
 using System.Collections;
 using System.Drawing;
+using System.Linq;
 using Unity.VisualScripting;
 //using UnityEditor;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace LUP.DSG
 {
@@ -32,8 +34,7 @@ namespace LUP.DSG
 
         [SerializeField] private Sprite paperIcon, rockIcon, scissorsIcon;
 
-        public int selectedTeamIndex = 0;
-        public int selectedCount = 0;
+        private int selectedCount = 0;
 
         public delegate void CharacterPlacedHandler(int slotIndex, CharacterData characterBase);
         public delegate void CharacterReleasedHandler(int slotIndex);
@@ -42,6 +43,8 @@ namespace LUP.DSG
         public CharacterReleasedHandler releaseHandler;
 
         public event System.Action OnPowerUpdated;
+
+        public event System.Action<int> OnInitTeam;
 
         private void OnEnable()
         {
@@ -55,29 +58,33 @@ namespace LUP.DSG
 
         private void OnStagePostInitialize(DeckStrategyStage stage)
         {
-            // 이 시점에는 LineupSlot.Initialize 가 이미 실행되어
-            // 각 slot.character 가 null 이 아님
-            PlaceTeam(selectedTeamIndex);  // 기본 0번 팀 같은 것
+            if (stage == null) return;
+            DeckStrategyRuntimeData runtimeData = (DeckStrategyRuntimeData)stage.RuntimeData;
+            if (runtimeData == null) return;
+            PlaceTeam(runtimeData.SelectedTeamIndex);
+            OnInitTeam?.Invoke(runtimeData.SelectedTeamIndex);
+            ToggleGroup toggleGroup = FindAnyObjectByType<ToggleGroup>();
+            if(toggleGroup)
+            {
+                TeamSelectButton selectedToggle = toggleGroup.GetComponentsInChildren<TeamSelectButton>().ElementAtOrDefault(runtimeData.SelectedTeamIndex);
+                selectedToggle.ButtonStateChange(true);
+            }
         }
-        public void PlaceTeam(int teamIndex)
+        public void PlaceTeam(int index)
         {
-            selectedTeamIndex = teamIndex;
             DeckStrategyStage stage = LUP.StageManager.Instance.GetCurrentStage() as DeckStrategyStage;
             if (stage != null)
             {
-                DeckStrategyRuntimeData runtimeData = (DeckStrategyRuntimeData)stage.RuntimeData;
-                if(runtimeData == null || runtimeData.Teams.Count == 0)
-                {
-                    runtimeData.Teams[selectedTeamIndex] = new Team();
-                }
-
                 if(characterListContent != null)
                 {
-                    ResetCharacterList(runtimeData.Teams[selectedTeamIndex]);
+                    ResetCharacterList(stage.GetSelectedTeam());
                 }
 
+                DeckStrategyRuntimeData runtimeData = (DeckStrategyRuntimeData)stage.RuntimeData;
+                if (runtimeData == null) return;
+                runtimeData.SelectedTeamIndex = index;
                 selectedCount = 0;
-                selectedTeam = runtimeData.Teams[selectedTeamIndex];
+                selectedTeam = stage.GetSelectedTeam();
                 ApplyPlaceTeam();
                 OnPowerUpdated?.Invoke();
             }
@@ -226,12 +233,8 @@ namespace LUP.DSG
             DeckStrategyRuntimeData runtimeData = (DeckStrategyRuntimeData)stage.RuntimeData;
             if (runtimeData == null || runtimeData.Teams == null) return;
 
-            if (runtimeData.Teams[selectedTeamIndex] == null) runtimeData.Teams[selectedTeamIndex] = new Team();
-            runtimeData.Teams[selectedTeamIndex] = selectedTeam;
-            //for (int i = 0; i < slots.Length; ++i)
-            //{
-            //    LineupSlot slot = slots[i].GetComponent<LineupSlot>();
-            //}
+            if (runtimeData.Teams[runtimeData.SelectedTeamIndex] == null) runtimeData.Teams[runtimeData.SelectedTeamIndex] = new Team();
+            runtimeData.Teams[runtimeData.SelectedTeamIndex] = selectedTeam;
         }
 
         public AttributeTypeImage GetTypeByAttributeImage(EAttributeType type)

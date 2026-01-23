@@ -2513,6 +2513,18 @@ PrefabInstance:
       propertyPath: m_Group
       value: 
       objectReference: {fileID: 1469113315}
+    - target: {fileID: 4642239992847573869, guid: 196bb0c19a163c24ba62f227575f6496, type: 3}
+      propertyPath: m_Colors.m_SelectedColor.b
+      value: 0.4056604
+      objectReference: {fileID: 0}
+    - target: {fileID: 4642239992847573869, guid: 196bb0c19a163c24ba62f227575f6496, type: 3}
+      propertyPath: m_Colors.m_SelectedColor.g
+      value: 0.4056604
+      objectReference: {fileID: 0}
+    - target: {fileID: 4642239992847573869, guid: 196bb0c19a163c24ba62f227575f6496, type: 3}
+      propertyPath: m_Colors.m_SelectedColor.r
+      value: 0.4056604
+      objectReference: {fileID: 0}
     - target: {fileID: 5286909961456713061, guid: 196bb0c19a163c24ba62f227575f6496, type: 3}
       propertyPath: teamIndex
       value: 3
@@ -5722,8 +5734,6 @@ MonoBehaviour:
   paperIcon: {fileID: 21300000, guid: 936bb801475d24346822689b0cd0d2d4, type: 3}
   rockIcon: {fileID: 21300000, guid: 57dd67d8ff1815d4fb2532e580d4fef4, type: 3}
   scissorsIcon: {fileID: 21300000, guid: a9450ecafb0a7bd45bc2c78575b32f98, type: 3}
-  selectedTeamIndex: 0
-  selectedCount: 0
 --- !u!1 &1710040306
 GameObject:
   m_ObjectHideFlags: 0

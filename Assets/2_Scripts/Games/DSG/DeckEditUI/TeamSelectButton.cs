@@ -1,7 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 
 namespace LUP.DSG
 {
@@ -26,11 +23,10 @@ namespace LUP.DSG
         private void PostInitialize(DeckStrategyStage stage)
         {
             formationSystem = FindAnyObjectByType<FormationSystem>();
-
-            if (teamIndex == 0)
-            {
-                toggle.isOn = true;
-            }
+            //if (teamIndex == 0)
+            //{
+            //    toggle.isOn = true;
+            //}
             toggle.onValueChanged.AddListener(OnToggleChanged);
         }
 
@@ -43,6 +39,12 @@ namespace LUP.DSG
                 formationSystem.PlaceTeam(teamIndex);
                 SoundManager.Instance.PlaySFX("Inventory Stash 2");
             }
+        }
+
+        public void ButtonStateChange(bool isOn)
+        {
+            toggle.image.color = isOn ? UnityEngine.Color.gray : UnityEngine.Color.white;
+            toggle.SetIsOnWithoutNotify(isOn);
         }
     }
 }

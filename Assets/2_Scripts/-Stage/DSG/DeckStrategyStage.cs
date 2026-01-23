@@ -2,6 +2,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.SceneManagement;
 using UnityEngine;
 
 namespace LUP.DSG
@@ -315,6 +316,41 @@ namespace LUP.DSG
         public BattleSystem GetBattleSystem() 
         {
             return GetComponent<BattleSystem>();
+        }
+
+        public Team GetSelectedTeam()
+        {
+            DeckStrategyRuntimeData runtimeData = (DeckStrategyRuntimeData)RuntimeData;
+            if (runtimeData == null) return null;
+            if (runtimeData.Teams[runtimeData.SelectedTeamIndex] == null)
+            {
+                return runtimeData.Teams[runtimeData.SelectedTeamIndex] = new Team();
+            }
+
+            return runtimeData.Teams[runtimeData.SelectedTeamIndex];
+        }
+
+        public void SetSelectedTeam(int index)
+        {
+            DeckStrategyRuntimeData runtimeData = (DeckStrategyRuntimeData)RuntimeData;
+            if (runtimeData == null) return;
+            runtimeData.SelectedTeamIndex = index;
+            SaveDatas();
+        }
+
+        public Team ChangeSelectedTeam(int index)
+        {
+            DeckStrategyRuntimeData runtimeData = (DeckStrategyRuntimeData)RuntimeData;
+            if (runtimeData == null) return null;
+
+            runtimeData.SelectedTeamIndex = index;
+
+            if (runtimeData.Teams[index] == null)
+            {
+                return runtimeData.Teams[index] = new Team();
+            }
+
+            return runtimeData.Teams[runtimeData.SelectedTeamIndex];
         }
     }
 }
