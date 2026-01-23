@@ -51,8 +51,7 @@ namespace LUP.DSG
             SetIconRectSize(iconWidth, iconHeight);
         }
 
-        public void SetIconData(OwnedCharacterInfo info, EAttributeType type,
-                        Color portraitColor, int characterLevel, bool isChecked)
+        public void SetIconData(OwnedCharacterInfo info, EAttributeType type, int characterLevel, bool isChecked)
         {
             characterInfo = info;
 
@@ -69,7 +68,7 @@ namespace LUP.DSG
             {
                 // 아직 안 만들어졌으면 일단 색만 입힘
                 portrait.sprite = null;
-                portrait.color = portraitColor;
+                //portrait.color = portraitColor;
             }
             DeckStrategyStage stage = LUP.StageManager.Instance.GetCurrentStage() as DeckStrategyStage;
             FormationSystem system = stage.GetComponent<FormationSystem>();

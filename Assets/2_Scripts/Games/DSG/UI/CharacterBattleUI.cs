@@ -32,8 +32,7 @@ namespace LUP.DSG
         private Dictionary<EStatusEffectType, Sprite> statusSprites;
         private Dictionary<EStatusEffectType, Image> activeIcons;
 
-        [SerializeField]
-        private Vector3 offset = new Vector3(0, 1.5f, 0);
+        private Image gaugeImage;
 
         public void Init(Character character)
         {
@@ -46,6 +45,9 @@ namespace LUP.DSG
 
             gaugeSlider.maxValue = character.BattleComp.maxSkillGauge;
             gaugeSlider.value = 0;
+            gaugeImage = gaugeSlider.fillRect.GetComponent<Image>();
+            // 각 UI마다 개별 머티리얼을 새로 생성하여 UI 이펙트를 개별 적용
+            gaugeImage.material = new Material(gaugeImage.material);
 
             character.BattleComp.OnDamaged += HealthUpdate;
             character.BattleComp.OnChangeGauge += GaugeUpdate;
@@ -60,6 +62,7 @@ namespace LUP.DSG
 
             centerAreaImage.sprite = typeIcon.TypeIcon;
             centerAreaImage.color = typeIcon.TypeColor;
+
         }
 
         private void OnDisable()
@@ -80,10 +83,6 @@ namespace LUP.DSG
                     statusSprites.Add(pair.Name, pair.Sprite);
             }
         }
-        private void Start()
-        {
-
-        }
 
         private void HealthUpdate(float CurrHp)
         {
@@ -92,6 +91,14 @@ namespace LUP.DSG
         private void GaugeUpdate(float CurrGauge)
         {
             gaugeSlider.value = CurrGauge;
+            if(gaugeSlider.value >= 100)
+            {
+                gaugeImage.material.SetFloat("_CycleTime", 1.0f);
+            }
+            else
+            {
+                gaugeImage.material.SetFloat("_CycleTime", 0f);
+            }
         }
         private void OnEffectAdded(IStatusEffect effect)
         {
