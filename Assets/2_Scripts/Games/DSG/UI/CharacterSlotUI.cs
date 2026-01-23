@@ -19,8 +19,8 @@ namespace LUP.DSG
             }
 
             // 이미지 적용
-            if (image != null)
-                image.material = modelData.material;
+            //if (image != null)
+            //    image.material = modelData.material;
 
             // 이름 적용
             if (nameText != null)

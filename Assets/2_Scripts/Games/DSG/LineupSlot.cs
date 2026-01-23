@@ -30,7 +30,6 @@ namespace LUP.DSG
 
         private void Initialize(DeckStrategyStage stage)
         {
-            //Debug.Log("Initialize");
             deckStage = stage;
             slotTransform = transform;
         }

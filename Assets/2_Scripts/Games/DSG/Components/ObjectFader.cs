@@ -12,6 +12,8 @@ namespace LUP.DSG
         List<Material> materials = new List<Material>();
         public bool doFade = false;
 
+        public float targetOpacity = 0.2f;
+
         void Start()
         {
             SkinnedMeshRenderer[] skinnedMeshList = GetComponentsInChildren<SkinnedMeshRenderer>();
@@ -19,7 +21,10 @@ namespace LUP.DSG
             {
                 foreach (SkinnedMeshRenderer mesh in skinnedMeshList)
                 {
-                    materials.Add(mesh.material);
+                    foreach (Material material in mesh.materials)
+                    {
+                        materials.Add(material);
+                    }
                 }
             }
             MeshRenderer[] meshList = GetComponentsInChildren<MeshRenderer>();
@@ -58,7 +63,7 @@ namespace LUP.DSG
 
         void FadeOut()
         {
-            curretOpacity = Mathf.Lerp(curretOpacity, 0.2f, fadeSpeed);
+            curretOpacity = Mathf.Lerp(curretOpacity, targetOpacity, fadeSpeed);
             foreach (Material material in materials)
             {
                 material.SetFloat("_Opacity", curretOpacity);

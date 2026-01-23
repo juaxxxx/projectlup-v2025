@@ -291,15 +291,15 @@ namespace LUP.DSG
             InitGuage();
         }
 
-        public virtual void TakeDamage(float amount)
-        {
-            TakeDamage(amount, ActionEffect.None,false);
-        }
-        public virtual void TakeDamage(float amount, ActionEffect getHitEffect)
-        {
-            TakeDamage(amount, getHitEffect, false);
-        }
-        public virtual void TakeDamage(float amount, ActionEffect getHitEffect, bool isWeak)
+        //public virtual void TakeDamage(float amount)
+        //{
+        //    TakeDamage(amount, ActionEffect.None,false);
+        //}
+        //public virtual void TakeDamage(float amount, ActionEffect getHitEffect)
+        //{
+        //    TakeDamage(amount, getHitEffect, false);
+        //}
+        public virtual void TakeDamage(float amount, ActionEffect getHitEffect = ActionEffect.None, bool isWeak = false)
         {
             if (!isAlive)
                 return;

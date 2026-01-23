@@ -351,9 +351,7 @@ namespace LUP.DSG
                 return;
 
             string name = c.characterData.characterName;
-            Color color = c.characterModelData != null
-                ? c.characterModelData.material.GetColor("_BaseColor")
-                : Color.white;
+            Color color = Color.white;
             float score = c.ScoreComp.CalculateMVPScore();
 
             if (!deadScores.ContainsKey(name))

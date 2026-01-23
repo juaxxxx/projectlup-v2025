@@ -153,7 +153,7 @@ namespace LUP.DSG
 
             var modelData = stage.FindCharacterModel(characterInfo.characterModelID);
             icon.Init();
-            icon.SetIconData(characterInfo, type, modelData.material.color, characterInfo.characterLevel, false);
+            icon.SetIconData(characterInfo, type, characterInfo.characterLevel, false);
         }
 
         public void UpdateCheckedList(int index, bool isChecked)
