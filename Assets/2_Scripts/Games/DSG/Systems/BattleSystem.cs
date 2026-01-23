@@ -1,18 +1,13 @@
 using DG.Tweening;
-using DG.Tweening.Core.Easing;
-using LUP.Define;
-using LUP.DSG.Utils.Enums;
+using OpenCvSharp.Flann;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using TMPro;
-using Unity.VisualScripting;
+using Unity.VisualScripting.Antlr3.Runtime.Misc;
 using UnityEngine;
-using UnityEngine.EventSystems;
-using UnityEngine.SceneManagement;
-using UnityEngine.TextCore.Text;
 using UnityEngine.UI;
 
 namespace LUP.DSG
@@ -69,17 +64,17 @@ namespace LUP.DSG
         private int currentRound = 1;
         private float currentGameSpeed = 1f;
         private bool isBattleStart = false;
-        private int currentWave = 1;
+        private int currentWave = 0;
 
         public float iconSize = 1000f;
-        //public static BattleSystem Instance { get; private set; }
         private Dictionary<string, (Color Color, float Score)> deadScores = new();
         private List<(string Name, int CharId, Sprite Icon, float Score, GameObject Prefab, bool IsEnemy)> deadCharacterData = new();
 
         public event Action<Character> onStartAttack;
         public event Action<Character> onStartSkill;
 
-        List<ObjectFader> fadedList = new List<ObjectFader>();
+        private List<ObjectFader> fadedList = new List<ObjectFader>();
+        private EnemyStageData stageData;
 
         void Awake()
         {
@@ -93,22 +88,12 @@ namespace LUP.DSG
 
         private void Initialize(DeckStrategyStage stage)
         {
-            EnemyStageData stageData = stage.GetEnemyStage();
-            if (stageData == null) return;
-            
-            for (int i = 0; i < enemySlots.Length; i++)
-            {
-                LineupSlot enemySlot = enemySlots[i].GetComponent<LineupSlot>();
-                enemySlot.OnCPUpdated += UpdateEnemyCP;
-                if (stageData.enemyTeamData[0].characters[i] == null) continue;
-
-                enemySlot.SetSelectedCharacter(stageData.enemyTeamData[0].characters[i], true);
-            }
+            stageData = stage.GetEnemyStage();
+            SetEnemyWave(currentWave);
 
             for (int i = 0; i < friendlySlots.Length; i++)
             {
                 LineupSlot friendlySlot = friendlySlots[i].GetComponent<LineupSlot>();
-                //friendlySlot.OnCPUpdated += UpdatePlayerCP;
             }
             FormationSystem formationSystem = GetComponent<FormationSystem>();
             if(formationSystem)
@@ -116,12 +101,7 @@ namespace LUP.DSG
                 formationSystem.OnPowerUpdated += UpdatePlayerCP;
             }
             UpdatePlayerCP();
-
-            StringBuilder wave = new StringBuilder();
-            wave.Append(currentWave);
-            wave.Append(" / ");
-            wave.Append(stageData.enemyTeamData.Count);
-            waveText.SetText(wave);
+            UpdateEnemyCP();
 
             targetSelector = new ChainedTargetSelector(new PickWeakTarget(this),
                 new PickHighestHpTarget(this),
@@ -153,15 +133,11 @@ namespace LUP.DSG
                     battleSequence.Add(friendlySlot.character);
             }
 
-            DeckStrategyStage stage = LUP.StageManager.Instance.GetCurrentStage() as DeckStrategyStage;
-            EnemyStageData stageData = stage.GetEnemyStage();
-            if (stageData == null) return;
-
             for (int i = 0; i < enemySlots.Length; i++)
             {
                 LineupSlot enemySlot = enemySlots[i].GetComponent<LineupSlot>();
 
-                if (stageData.enemyTeamData[0].characters[i] == null) continue;
+                if (stageData.enemyTeamData[currentWave].characters[i] == null) continue;
                 battleSequence.Add(enemySlot.character);
             }
 
@@ -296,25 +272,8 @@ namespace LUP.DSG
             yield return Director.PlayBattleIntroSequence().WaitForCompletion();
             yield return null;
 
-            for (int i = 0; i < friendlySlots.Length; i++)
-            {
-                var slot = friendlySlots[i].GetComponent<LineupSlot>();
-                if (slot.character != null && slot.isPlaced)
-                {
-                    slot.ActivateBattleUI();
-                    slot.character.BattleComp.PlusGuage(50);
-                }
-            }
-
-            for (int i = 0; i < enemySlots.Length; i++)
-            {
-                var slot = enemySlots[i].GetComponent<LineupSlot>(); //andi
-                if (slot.character != null)
-                {
-                    slot.ActivateBattleUI();
-                    slot.character.BattleComp.PlusGuage(50);
-                }
-            }
+            ChangeBattleUI(friendlySlots);
+            ChangeBattleUI(enemySlots);
 
             battleCanvas.SetActive(true);
             characterUICanvas.SetActive(true);
@@ -390,20 +349,6 @@ namespace LUP.DSG
 
         public void EndBattle(string resultText)
         {
-            //var dataCenter = FindFirstObjectByType<DataCenter>();
-            //if (dataCenter == null)
-            //{
-            //    Debug.LogError("[EndBattle] DataCenter를 찾을 수 없습니다!");
-            //    return;
-            //}
-            //if (dataCenter.mvpData == null)
-            //{
-            //    Debug.LogError("[EndBattle] DataCenter.mvpData가 비어 있습니다! (TeamMVPData ScriptableObject 연결 필요)");
-            //    return;
-            //}
-
-            //var mvp = dataCenter.mvpData;
-
             DeckStrategyStage stage = LUP.StageManager.Instance.GetCurrentStage() as DeckStrategyStage;
             if (stage == null) return;
             var mvp = stage.mvpData;
@@ -540,15 +485,8 @@ namespace LUP.DSG
             if (deadCharacterData.Exists(x => x.CharId == charId)) return;
             deadCharacterData.Add((name, charId, icon, score, prefab, ch.isEnemy));
         }
-        private void ApplyMVP(
-                TeamMVPData data,
-                int index,
-                string name,
-                int charId,
-                int modelId,
-                float score,
-                Sprite icon,
-                GameObject prefab = null)
+        private void ApplyMVP(TeamMVPData data, int index, string name, int charId, 
+            int modelId, float score, Sprite icon, GameObject prefab = null)
         {
             switch (index)
             {
@@ -693,14 +631,19 @@ namespace LUP.DSG
         void UpdateEnemyCP()
         {
             float cp = 0;
-            for (int i = 0; i < enemySlots.Length; i++)
+
+            DeckStrategyStage stage = LUP.StageManager.Instance.GetCurrentStage() as DeckStrategyStage;
+            EnemyStageData stageData = stage.GetEnemyStage();
+            if (stageData == null) return;
+
+            foreach(Team enemyTeam in stageData.enemyTeamData)
             {
-                LineupSlot slot = enemySlots[i].GetComponent<LineupSlot>();
-                if (slot.character == null || slot.character.characterData == null) continue;
-                cp += slot.character.characterData.maxHp +
-                    slot.character.characterData.attack +
-                    slot.character.characterData.defense +
-                    slot.character.characterData.speed;
+                for (int i = 0; i < enemyTeam.characters.Length; ++i)
+                {
+                    if (enemyTeam.characters[i] == null) continue;
+                    CharacterData data = stage.FindCharacterData(enemyTeam.characters[i].characterID, enemyTeam.characters[i].characterLevel);
+                    cp += data.maxHp + data.attack + data.defense + data.speed;
+                }
             }
             enemyCP.text = cp.ToString();
         }
@@ -710,32 +653,45 @@ namespace LUP.DSG
             bool allFriendDead = true;
             bool allEnemyDead = true;
 
-            foreach (var slotObj in friendlySlots)
-            {
-                var slot = slotObj.GetComponent<LineupSlot>();
-                if (/*slot.character != null && slot.character.BattleComp != null && */slot.character.BattleComp.isAlive)
-                {
-                    allFriendDead = false;
-                    break;
-                }
-            }
-
             foreach (var slotObj in enemySlots)
             {
                 var slot = slotObj.GetComponent<LineupSlot>();
-                if (/*slot.character != null && slot.character.BattleComp != null && */slot.character.BattleComp.isAlive)
+                if (slot.character.BattleComp.isAlive)
                 {
                     allEnemyDead = false;
                     break;
                 }
             }
 
+            foreach (var slotObj in friendlySlots)
+            {
+                var slot = slotObj.GetComponent<LineupSlot>();
+                if (slot.character.BattleComp.isAlive)
+                {
+                    allFriendDead = false;
+                    break;
+                }
+            }
+
             if (allEnemyDead)
             {
-                EndBattle("Victory");
-                DeckStrategyStage stage = GetComponent<DeckStrategyStage>();
-                stage.BattleEnd();
-                Time.timeScale = 1f;
+                if(stageData.enemyTeamData.Count > currentWave)
+                {
+                    ++currentWave;
+                    SetEnemyWave(currentWave);
+                    ChangeBattleUI(enemySlots);
+                    SortBattleSequence();
+                    //currentTurnIndex++;
+                    //UpdateUI();
+                    currentTurnIndex = battleSequence.Count;
+                }
+                else
+                {
+                    EndBattle("Victory");
+                    DeckStrategyStage stage = GetComponent<DeckStrategyStage>();
+                    stage.BattleEnd();
+                    Time.timeScale = 1f;
+                }
             }
             else if (allFriendDead)
             {
@@ -938,6 +894,37 @@ namespace LUP.DSG
                 return;
 
             img.color = isAutoRound ? autoOnColor : autoOffColor;
+        }
+
+        private void SetEnemyWave(int index)
+        {
+            for (int i = 0; i < enemySlots.Length; i++)
+            {
+                LineupSlot enemySlot = enemySlots[i].GetComponent<LineupSlot>();
+                enemySlot.DeselectCharacter();
+                if (stageData.enemyTeamData[index].characters[i] == null) continue;
+
+                enemySlot.SetSelectedCharacter(stageData.enemyTeamData[index].characters[i], true);
+            }
+
+            StringBuilder wave = new StringBuilder();
+            wave.Append(currentWave+1);
+            wave.Append(" / ");
+            wave.Append(stageData.enemyTeamData.Count);
+            waveText.SetText(wave);
+        }
+
+        private void ChangeBattleUI(GameObject[] slots)
+        {
+            for (int i = 0; i < slots.Length; i++)
+            {
+                var slot = slots[i].GetComponent<LineupSlot>();
+                if (slot.character != null && slot.isPlaced)
+                {
+                    slot.ActivateBattleUI();
+                    slot.character.BattleComp.PlusGuage(50);
+                }
+            }
         }
     }
 }

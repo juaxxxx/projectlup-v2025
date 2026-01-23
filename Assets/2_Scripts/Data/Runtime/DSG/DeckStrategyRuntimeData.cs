@@ -14,6 +14,9 @@ public class DeckStrategyRuntimeData : BaseRuntimeData
     [SerializeField]
     private List<LUP.DSG.Team> teams = new List<LUP.DSG.Team>();
 
+    [SerializeField]
+    private int selectedTeamIndex;
+
     public int PlayerId
     {
         get => playerId;
@@ -32,11 +35,18 @@ public class DeckStrategyRuntimeData : BaseRuntimeData
         set => SetValue(ref teams, value);
     }
 
+    public int SelectedTeamIndex
+    {
+        get => selectedTeamIndex;
+        set => SetValue(ref selectedTeamIndex, value);
+    }
+
     public override void ResetData() 
     {
         playerId = 0;
         ownedCharacterList.Clear();
         teams.Clear();
+        selectedTeamIndex = 0;
     }
 
     public LUP.DSG.OwnedCharacterInfo GetCharacterInfo(int characterId)
