@@ -53,6 +53,13 @@ namespace LUP.DSG
 
         private bool isRoundRunning = false;
 
+        private bool isBattleStarting = false;
+
+        [Header("Auto Button UI")]
+        [SerializeField] private Button autoButton;
+        private Color autoOffColor = Color.white;
+        private Color autoOnColor = Color.red;
+
         private List<Character> battleSequence = new List<Character>();
         private List<GameObject> sequenceImage = new List<GameObject>();
 
@@ -268,10 +275,21 @@ namespace LUP.DSG
 
         public IEnumerator BattleStart()
         {
-            isBattleStart = true;
+
+            UpdateAutoButtonUI();
+
+            if (isBattleStart || isBattleStarting)
+                yield break;
+
+            isBattleStarting = true;
+            isBattleEnded = false;
+            waitingNextRound = false;
+            isRoundRunning = false;
+
             formationCanvas.SetActive(false);
             characterUICanvas.SetActive(false);
 
+            
             //카메라 배틀 인트로
             Camera camera = Camera.main;
             BattleCameraDirector Director = camera.GetComponent<BattleCameraDirector>();
@@ -307,9 +325,17 @@ namespace LUP.DSG
             currentRound = 1;
             UpdateUI();
 
-            isBattleEnded = false;
-            waitingNextRound = false;
-            isRoundRunning = false;
+
+
+            isBattleStart = true;
+            isBattleStarting = false;
+
+            waitingNextRound = true;
+
+            if (isAutoRound)
+            {
+                NextRound();
+            }
         }
 
         public void NextTurn()
@@ -319,6 +345,8 @@ namespace LUP.DSG
 
             if (currentTurnIndex >= battleSequence.Count)
             {
+                waitingNextRound = true;
+
                 InitSequence();
                 return;
             }
@@ -885,10 +913,31 @@ namespace LUP.DSG
         {
             isAutoRound = !isAutoRound;
 
-            if (isAutoRound && isBattleStart && !isBattleEnded && waitingNextRound)
+            UpdateAutoButtonUI();
+
+            if (isAutoRound)
             {
-                NextRound();
+                if (!isBattleStart && !isBattleStarting && !isBattleEnded)
+                {
+                    StartCoroutine(BattleStart());
+                    return;
+                }
+                if (isBattleStart && !isBattleEnded && waitingNextRound && !isRoundRunning)
+                {
+                    NextRound();
+                }
             }
+        }
+        private void UpdateAutoButtonUI()
+        {
+            if (autoButton == null)
+                return;
+
+            Image img = autoButton.GetComponent<Image>();
+            if (img == null)
+                return;
+
+            img.color = isAutoRound ? autoOnColor : autoOffColor;
         }
     }
 }
