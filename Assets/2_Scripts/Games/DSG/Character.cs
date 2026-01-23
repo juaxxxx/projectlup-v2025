@@ -79,6 +79,8 @@ namespace LUP.DSG
             animationComp.OnShootRangeAttack += battleComp.TrySpawnProjectileForRangedAttack;
             animationComp.OnAttackStart += battleComp.AttackStart;
 
+            BattleComp.OnDie += statusEffectComp.HandleOwnerDie;
+
             Canvas uiCanvas = GameObject.Find("Canvas_CharacterUI").GetComponent<Canvas>();
             if(uiCanvas != null)
             {

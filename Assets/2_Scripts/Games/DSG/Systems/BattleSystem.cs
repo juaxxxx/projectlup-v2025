@@ -234,7 +234,7 @@ namespace LUP.DSG
 
                 Character character = battleSequence[i];
                 character.StatusEffectComp.TurnAll();
-                character.StatusEffectComp.ClearRemoveList();
+                character.StatusEffectComp.ClearRemoveList(); //@TODO Event Action으로 빼자
 
                 if (!character.BattleComp.isAlive)
                 {

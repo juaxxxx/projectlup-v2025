@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b3c3b3bdb854ab74998464ad943ca538, type: 3}
+  m_Name: SearShot
+  m_EditorClassIdentifier: 
+  Skillname: SearShot
+  targetCount: 2
+  AttackPosition: {x: 0, y: 0, z: 9.42}
+  bIsDamaged: 1
+  damage: 5
+  bIsStatusEffect: 1
+  effectType: 0
+  operationType: 0
+  stack: 4
+  turn: 4
+  attackEffect: 17
+  gethitEffect: 18

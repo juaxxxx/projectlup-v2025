@@ -41,6 +41,7 @@ namespace LUP.DSG
             if (isOn)
             {
                 formationSystem.PlaceTeam(teamIndex);
+                SoundManager.Instance.PlaySFX("Inventory Stash 2");
             }
         }
     }

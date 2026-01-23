@@ -29,7 +29,7 @@ namespace LUP.DSG
         public CharacterModelDataTable characterModelDataTable;
         public TeamMVPData mvpData;
 
-        protected override void Awake()
+        protected override void Awake() 
         {
             base.Awake();
             StageKind = Define.StageKind.DSG;
@@ -267,8 +267,6 @@ namespace LUP.DSG
             SaveDatas();
         }
 
-
-
         public void ChangeScene(int sceneIndex)
         {
             //0: edit
@@ -276,6 +274,32 @@ namespace LUP.DSG
             //2: result
 
             LoadStage(StageKind, sceneIndex);
+
+            //BGMListNum num = (BGMListNum)sceneIndex; //@TODO SoundManager.BGM
+            //string bgm;
+
+            //switch (num)
+            //{
+            //    case BGMListNum.EditSceneBGM:
+            //        {
+            //            bgm = "RPG Combat 1 - Duel of the Fates (Loopable)";
+            //            break;
+            //        }
+            //    case BGMListNum.BattleSceneBGM:
+            //        {
+            //            bgm = "RPG Combat 1 - Watch out! (Loopable)";
+            //            break;
+            //        }
+            //    case BGMListNum.ResultSceneBGM:
+            //        {
+            //            bgm = "";
+            //            break;
+            //        }
+            //    default:
+            //        return;
+            //}
+
+            //SoundManager.Instance.PlayBGM(bgm, true);
         }
 
         public void BattleEnd()
@@ -284,7 +308,7 @@ namespace LUP.DSG
 
             if (battleSystem != null)
             {
-                LoadStage(StageKind, 2);
+                ChangeScene(2);
             }
         }
 

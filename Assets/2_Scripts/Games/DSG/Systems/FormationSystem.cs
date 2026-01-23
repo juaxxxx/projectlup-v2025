@@ -82,7 +82,7 @@ namespace LUP.DSG
                 OnPowerUpdated?.Invoke();
             }
         }
-
+        
         public void ApplyPlaceTeam()
         {
             for (int i = 0; i < slots.Length; ++i)
@@ -173,6 +173,7 @@ namespace LUP.DSG
                     selectedTeam.characters[i] = info;
                     ++selectedCount;
                     button.ButtonClicked();
+                    SoundManager.Instance.PlaySFX("Inventory Stash 2");
                     return;
                 }
             }
@@ -193,6 +194,7 @@ namespace LUP.DSG
 
                     --selectedCount;
                     button.ButtonClicked();
+                    SoundManager.Instance.PlaySFX("Inventory Stash 2");
                     return;
                 }
             }

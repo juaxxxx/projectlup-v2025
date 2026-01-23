@@ -100,7 +100,7 @@ namespace LUP.DSG
                 gaugeImage.material.SetFloat("_CycleTime", 0f);
             }
         }
-        private void OnEffectAdded(IStatusEffect effect)
+        private void OnEffectAdded(StatusEffect effect)
         {
             if (activeIcons.TryGetValue(effect.effectType, out Image image))
             {
@@ -144,7 +144,7 @@ namespace LUP.DSG
             icon.enabled = true;
             activeIcons.TryAdd(effect.effectType, icon);
         }
-        private void OnEffectRemoved(IStatusEffect effect)
+        private void OnEffectRemoved(StatusEffect effect)
         {
             if (!activeIcons.TryGetValue(effect.effectType, out Image icon))
                 return;
@@ -152,7 +152,7 @@ namespace LUP.DSG
             Destroy(icon.gameObject);
             activeIcons.Remove(effect.effectType);
         }
-        private void OnEffectEndTurn(IStatusEffect effect)
+        private void OnEffectEndTurn(StatusEffect effect)
         {
             if (activeIcons.TryGetValue(effect.effectType, out Image image))
             {

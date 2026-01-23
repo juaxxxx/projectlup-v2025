@@ -18,5 +18,8 @@ namespace LUP.DSG
         public EOperationType operationType;
         public int stack;
         public int turn;
+
+        public ActionEffect attackEffect;
+        public ActionEffect gethitEffect;
     }
 }

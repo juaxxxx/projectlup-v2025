@@ -11,11 +11,11 @@ namespace LUP.DSG
         [SerializeField] private Transform canvas;
         [SerializeField] private BattleSystem battle;
 
-        private Vector2 OurhiddenPos = new Vector2(-1530, 405);
-        private Vector2 OurshowPos = new Vector2(-720, 405);
+        private Vector2 OurhiddenPos = new Vector2(-1530, 305);
+        private Vector2 OurshowPos = new Vector2(-720, 305);
 
-        private Vector2 EnmyhiddenPos = new Vector2(1594, 405);
-        private Vector2 EnmyshowPos = new Vector2(707, 405);
+        private Vector2 EnmyhiddenPos = new Vector2(1594, 305);
+        private Vector2 EnmyshowPos = new Vector2(707, 305);
 
         private float slideDuration = 0.7f;
 

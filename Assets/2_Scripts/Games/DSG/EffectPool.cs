@@ -10,23 +10,33 @@ public enum ActionEffect
     None,
 
     Attack_Melee_OneHanded,
-    Attack_Melee_TwoHanded,
-    Attack_Magic,
-    Attack_Gun_Rifle,
-    Attack_Throw,
-    Attack_Skill_Test,
-
     GetHit_Melee_OneHanded,
-    GetHit_Melee_TwoHandedd,
+    Attack_Melee_TwoHanded,
+    GetHit_Melee_TwoHanded,
+    Attack_Magic,
     GetHit_Magic,
+    Attack_Gun_Rifle,
     GetHit_Gun_Rifle,
+    Attack_Throw,
     GetHit_Throw,
-    GetHit_Skill_Test,
+    Attack_SKill_QuickSlash,
+    GetHit_SKill_QuickSlash,
+    Attack_SKill_Earthbreaker,
+    GetHit_SKill_Earthbreaker,
+    Attack_SKill_AttackBuff,
+    GetHit_SKill_AttackBuff,
+    Attack_SKill_SearShot,
+    GetHit_SKill_SearShot,
+    Attack_SKill_ToxicThrow,
+    GetHit_SKill_ToxicThrow,
 
-    Get_Burn,
-    Get_Poison,
-    Get_AttackBuff,
-    Get_AttackDebuff,
+    GetHit_Burn,
+    GetHit_Poison,
+
+    Aura_Burn,
+    Aura_Poison,
+    Aura_AttackBuff,
+    Aura_AttackDebuff,
 
     ThrowBullet,
     MagicBullet,
@@ -38,16 +48,17 @@ public struct EffectParticlePair
 {
     public ActionEffect name;
     public GameObject particlePrefab;
+    public string SFXName;
 }
 
 public class EffectPool : MonoBehaviour
 {
     [SerializeField] private EffectParticlePair[] effectpairs;
     private Dictionary<ActionEffect, Queue<GameObject>> vfxPool = new Dictionary<ActionEffect, Queue<GameObject>>();
-    public Vector3 offset = new Vector3(0, 0.05f, 0);
+    private Dictionary<ActionEffect, string> effectSFX = new Dictionary<ActionEffect, string>();
     private void Awake()
     {
-        foreach(var pair in effectpairs)
+        foreach (var pair in effectpairs)
         {
             var q = new Queue<GameObject>();
             vfxPool[pair.name] = q;
@@ -58,14 +69,13 @@ public class EffectPool : MonoBehaviour
 
     private IEnumerator TryLoading()
     {
-        foreach(var pair in effectpairs)
+        foreach (var pair in effectpairs)
         {
             GameObject eff;
             eff = Instantiate(pair.particlePrefab);
 
-            if(eff != null)
+            if (eff != null)
             {
-
                 eff.SetActive(true);
                 ParticleSystem ps = eff.GetComponent<ParticleSystem>();
 
@@ -75,32 +85,95 @@ public class EffectPool : MonoBehaviour
 
                 eff.SetActive(false);
                 vfxPool[pair.name].Enqueue(eff);
+                effectSFX.Add(pair.name, pair.SFXName);
             }
         }
     }
 
-    public void PlayVFX(ActionEffect effectname, Vector3 position, Quaternion rotation, float lifeTime = 1.0f)
+    public EffectParticlePair PlayVFXAttached(ActionEffect effectname,Transform follow,Vector3 Offset, Quaternion rotation, bool loop,float lifeTime = 1.0f)
     {
-        GameObject eff;
-        if (vfxPool[effectname].Count > 0)
-        {
-            eff = vfxPool[effectname].Dequeue();
-        }
-        else
-        {
-            eff = Instantiate(System.Array.Find(effectpairs, s => s.name == effectname).particlePrefab);
-        }
+        var eff = GetOrCreate(effectname);
+        if (eff == null) return default;
 
-        if (eff == null)
-            return;
-
-        eff.transform.SetPositionAndRotation(position + offset, rotation);
+        eff.transform.SetParent(follow, false);
+        eff.transform.localPosition = Vector3.zero + Offset;
+        eff.transform.localRotation = rotation;
         eff.SetActive(true);
 
-        StartCoroutine(ReturnVFX(eff, effectname, lifeTime));
+        var ps = eff.GetComponent<ParticleSystem>();
+        if (ps != null)
+        {
+            var main = ps.main;
+            main.loop = loop;
+            main.simulationSpace = ParticleSystemSimulationSpace.Local;
+
+            ps.Stop(true, ParticleSystemStopBehavior.StopEmittingAndClear);
+            ps.Clear(true);
+            ps.Play(true);
+        }
+        if (!loop)
+        {
+            StartCoroutine(ReturnVFX(eff, effectname, lifeTime));
+        }
+
+        EffectParticlePair pair;
+        pair.name = effectname;
+        pair.particlePrefab = eff;
+        pair.SFXName = effectSFX[effectname];
+
+        return pair; // loop면 나중에 StopVFX로 끄기
+    }
+    public EffectParticlePair PlayVFX(ActionEffect effectname, Vector3 position, Quaternion rotation, bool loop, float lifeTime = 1.0f)
+    {
+        GameObject eff = GetOrCreate(effectname);
+        if (eff == null)
+            return default;
+
+        eff.transform.SetPositionAndRotation(position, rotation);
+        eff.SetActive(true);
+
+        ParticleSystem ps = eff.GetComponent<ParticleSystem>();
+
+        if (ps != null)
+        {
+            var main = ps.main;
+            main.loop = loop;
+            main.stopAction = ParticleSystemStopAction.None;
+
+            ps.Stop(true, ParticleSystemStopBehavior.StopEmittingAndClear);
+            ps.Clear(true);
+            ps.Play(true);
+        }
+
+        if (!loop)
+        {
+            StartCoroutine(ReturnVFX(eff, effectname, lifeTime));
+        }
+
+        EffectParticlePair pair;
+        pair.name = effectname;
+        pair.particlePrefab = eff;
+        pair.SFXName = effectSFX[effectname];
+
+        return pair;
+    }
+    public void StopLoopVFX(GameObject eff, ActionEffect effectname)
+    {
+        if (eff == null) return;
+
+        var ps = eff.GetComponent<ParticleSystem>();
+        if (ps != null)
+        {
+            ps.Stop(true, ParticleSystemStopBehavior.StopEmittingAndClear);
+            ps.Clear(true);
+        }
+
+        eff.SetActive(false);
+        eff.transform.SetParent(transform, false);
+        vfxPool[effectname].Enqueue(eff);
     }
 
-    private IEnumerator ReturnVFX(GameObject go, ActionEffect id, float  lifeTime = 1.0f)
+    private IEnumerator ReturnVFX(GameObject go, ActionEffect id, float lifeTime = 1.0f)
     {
         yield return new WaitForSeconds(lifeTime);
         go.SetActive(false);
@@ -109,12 +182,12 @@ public class EffectPool : MonoBehaviour
 
     public ActionEffect GetAttackEffectByGetHITEffect(ActionEffect attackeffect)
     {
-        switch(attackeffect)
+        switch (attackeffect)
         {
             case ActionEffect.Attack_Melee_OneHanded:
                 return ActionEffect.GetHit_Melee_OneHanded;
             case ActionEffect.Attack_Melee_TwoHanded:
-                return ActionEffect.GetHit_Melee_TwoHandedd;
+                return ActionEffect.GetHit_Melee_TwoHanded;
             case ActionEffect.Attack_Gun_Rifle:
                 return ActionEffect.GetHit_Gun_Rifle;
             case ActionEffect.Attack_Magic:
@@ -124,16 +197,38 @@ public class EffectPool : MonoBehaviour
 
             default:
                 return ActionEffect.None;
-        }    
+        }
+    }
+
+    public string GetActionBySound(ActionEffect hiteffect)
+    {
+        return effectSFX[hiteffect];
     }
 
     public GameObject GetParticlePrefab(ActionEffect effect)
     {
-        if(vfxPool.TryGetValue(effect, out var prefab))
+        if (vfxPool.TryGetValue(effect, out var prefab))
         {
             GameObject eff = Instantiate(System.Array.Find(effectpairs, s => s.name == effect).particlePrefab);
             return eff;
         }
         return null;
+    }
+
+    private GameObject GetOrCreate(ActionEffect effectname)
+    {
+        if (effectname == ActionEffect.None)
+            return null;
+
+        GameObject eff;
+        if (vfxPool[effectname].Count > 0)
+        {
+            eff = vfxPool[effectname].Dequeue();
+        }
+        else
+        {
+            eff = Instantiate(System.Array.Find(effectpairs, s => s.name == effectname).particlePrefab);
+        }
+        return eff;
     }
 }

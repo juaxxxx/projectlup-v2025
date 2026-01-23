@@ -138,6 +138,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   animator: {fileID: 2074658168919657732}
+  attackEffect: 0
+  effectOffset: {x: 0, y: 1.5, z: 0}
 --- !u!114 &-8958435779843068653
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -156,7 +158,7 @@ MonoBehaviour:
   isUsingSkill: 0
   bulletPrefab: {fileID: 1159801650698535097, guid: e6e6cd0df923f974286ea66ff9cba1e8, type: 3}
   moveSpeed: 6
-  skillInfo: {fileID: 11400000, guid: e3100d60c56df594cb89fa4545765a59, type: 2}
+  skillInfo: {fileID: 11400000, guid: 999133da79d0fe74ea4dc85c98683db0, type: 2}
   damageLogPrefab: {fileID: 7683064257652862875, guid: a1f113c2e8dff434092bc754de6b349e, type: 3}
 --- !u!114 &3394327120649840274
 MonoBehaviour:
@@ -209,9 +211,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   fadeSpeed: 0.1
   doFade: 0
-  isActive: 0
-  proximityRadius: 2
-  ignoreTargets: []
+  targetOpacity: 0.2
 --- !u!4 &7843450646549953725 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2412161367050800168, guid: cc1712ea388d853459b64b2f4348dc18, type: 3}

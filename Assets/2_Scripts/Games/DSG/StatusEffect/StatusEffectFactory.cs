@@ -6,7 +6,7 @@ namespace LUP.DSG
 {
     public class StatusEffectFactory
     {
-        public IStatusEffect CreateStatusEffect(EStatusEffectType Type, EOperationType OpType = EOperationType.Plus,
+        public StatusEffect CreateStatusEffect(EStatusEffectType Type, EOperationType OpType = EOperationType.Plus,
             float Stack = 1f, int Turn = 1)
         {
             switch(Type)
