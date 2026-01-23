@@ -3443,9 +3443,6 @@ MonoBehaviour:
   CharacterDataList: []
   characterModelDataTable: {fileID: 11400000, guid: 8e5a2cc3fdef4b04698bae1932d8687b, type: 2}
   mvpData: {fileID: 11400000, guid: b5420738ed619244288d3ed612d3f9fe, type: 2}
-  editSceneBGM: {fileID: 8300000, guid: e39242b4727a684438a48c121505ddc8, type: 3}
-  battleSceneBGM: {fileID: 8300000, guid: 6d46e8b65c5c64648aa72c9ac0bb8e30, type: 3}
-  resultSceneBGM: {fileID: 0}
 --- !u!4 &613301456
 Transform:
   m_ObjectHideFlags: 0
@@ -3542,47 +3539,91 @@ MonoBehaviour:
   effectpairs:
   - name: 1
     particlePrefab: {fileID: 1872147318604286, guid: 5bea49531fc500c408823a2e2863106f, type: 3}
-  - name: 7
-    particlePrefab: {fileID: 1200950891393156, guid: 52a726355873f9443b626e837ef94008, type: 3}
+    SFXName: 
   - name: 2
-    particlePrefab: {fileID: 1294101409476956, guid: 231e3be01ac50c047bb16d07fd8d2ba5, type: 3}
-  - name: 8
-    particlePrefab: {fileID: 1893033738566276, guid: 3e04efdf8ee665d48962b33b06e8e3d3, type: 3}
+    particlePrefab: {fileID: 1200950891393156, guid: 52a726355873f9443b626e837ef94008, type: 3}
+    SFXName: Sword Hit 11
   - name: 3
-    particlePrefab: {fileID: 5607819269926399345, guid: 45e0f06c750176947862c10346226439, type: 3}
-  - name: 9
-    particlePrefab: {fileID: 683182934616091483, guid: 491bd2f8e55e1db45a195465b18740bd, type: 3}
+    particlePrefab: {fileID: 1294101409476956, guid: 231e3be01ac50c047bb16d07fd8d2ba5, type: 3}
+    SFXName: 
   - name: 4
-    particlePrefab: {fileID: 4809171458859421548, guid: 4e91ed1a8efe7044785b9bd97a47d87f, type: 3}
-  - name: 10
-    particlePrefab: {fileID: 3438277244574041817, guid: 6fec832863289f04a854167bc2650d9b, type: 3}
+    particlePrefab: {fileID: 1893033738566276, guid: 3e04efdf8ee665d48962b33b06e8e3d3, type: 3}
+    SFXName: Sword Hit 11
   - name: 5
-    particlePrefab: {fileID: 7131401307255788800, guid: 4d9a3b35b3bc07649b697df7fb497b6d, type: 3}
-  - name: 11
-    particlePrefab: {fileID: 2965222256817593503, guid: a164e676dbbd6e54587237e619372c98, type: 3}
+    particlePrefab: {fileID: 5607819269926399345, guid: 45e0f06c750176947862c10346226439, type: 3}
+    SFXName: 44_Sleep_01
   - name: 6
-    particlePrefab: {fileID: 3744133877081091469, guid: a2a060732547fe64581bb0cb3c2bdf1d, type: 3}
+    particlePrefab: {fileID: 683182934616091483, guid: 491bd2f8e55e1db45a195465b18740bd, type: 3}
+    SFXName: 13_Ice_explosion_01
+  - name: 7
+    particlePrefab: {fileID: 4809171458859421548, guid: 4e91ed1a8efe7044785b9bd97a47d87f, type: 3}
+    SFXName: Sniper Rifle 1
+  - name: 8
+    particlePrefab: {fileID: 3438277244574041817, guid: 6fec832863289f04a854167bc2650d9b, type: 3}
+    SFXName: 
+  - name: 9
+    particlePrefab: {fileID: 7131401307255788800, guid: 4d9a3b35b3bc07649b697df7fb497b6d, type: 3}
+    SFXName: 
+  - name: 10
+    particlePrefab: {fileID: 2965222256817593503, guid: a164e676dbbd6e54587237e619372c98, type: 3}
+    SFXName: 18_Thunder_02
+  - name: 11
+    particlePrefab: {fileID: 1919708242137258, guid: e60d36cff17a1ce4db49ef54f9e72f61, type: 3}
+    SFXName: 
   - name: 12
-    particlePrefab: {fileID: 358637981425055526, guid: 8eb503696b886e04faff8fc0f480d473, type: 3}
+    particlePrefab: {fileID: 7699698589382392644, guid: ce614ff6f5639fb4ab201b6b5b437127, type: 3}
+    SFXName: Sword Hit 11
   - name: 13
-    particlePrefab: {fileID: 5435998012328932994, guid: d8703a33a4eb0b84a875202fde23e8f7, type: 3}
+    particlePrefab: {fileID: 1044528419629608, guid: 3be98662c9e7ef5468cb9c4e11010dc7, type: 3}
+    SFXName: 
   - name: 14
-    particlePrefab: {fileID: 4535006216103734310, guid: 98c4704d0fd7211449bcf5c451095a60, type: 3}
+    particlePrefab: {fileID: 1210069404974878, guid: fbab27c98b168764eb295cfff1e9f61f, type: 3}
+    SFXName: Sword Hit 11
   - name: 19
-    particlePrefab: {fileID: 1607573853919354, guid: edd7286f469ea8f4b9055776dde1d063, type: 3}
+    particlePrefab: {fileID: 3928998189374746443, guid: 00bba72dbda252a4eac12e218848cb44, type: 3}
+    SFXName: 
   - name: 20
-    particlePrefab: {fileID: 1852490342792334, guid: 386174cad99783149b3e5a2f29fb3a5b, type: 3}
-  - name: 21
-    particlePrefab: {fileID: 1214712470294446, guid: 04c09de5355a3294799ae5ff8aefd976, type: 3}
+    particlePrefab: {fileID: 3744133877081091469, guid: a2a060732547fe64581bb0cb3c2bdf1d, type: 3}
+    SFXName: 
   - name: 15
-    particlePrefab: {fileID: 5766691976136461342, guid: b8ef77c94444a454c9d26bfd62e11586, type: 3}
+    particlePrefab: {fileID: 8915312667134092580, guid: 8a43d9f68490c374a93a9e8085555c02, type: 3}
+    SFXName: 
   - name: 16
-    particlePrefab: {fileID: 7053385775836331393, guid: 354b6251e950209409c75ab984acf000, type: 3}
+    particlePrefab: {fileID: 6823302871133167919, guid: 3138a83bedbd6ad4481ba0b061da2eb6, type: 3}
+    SFXName: 44_Sleep_01
   - name: 17
-    particlePrefab: {fileID: 7155335147208632822, guid: 97c43495f80a3244fad1301dfafbe252, type: 3}
+    particlePrefab: {fileID: 4617036660772024948, guid: 52c7d057cba585641bb68312c10d7791, type: 3}
+    SFXName: 
   - name: 18
+    particlePrefab: {fileID: 8378648546881499446, guid: 867c572a5be680d42a042d2349f10143, type: 3}
+    SFXName: Sniper Rifle 1
+  - name: 23
+    particlePrefab: {fileID: 5766691976136461342, guid: b8ef77c94444a454c9d26bfd62e11586, type: 3}
+    SFXName: 
+  - name: 24
+    particlePrefab: {fileID: 7053385775836331393, guid: 89df243837dd8c343a3f9dabab5c65e4, type: 3}
+    SFXName: 
+  - name: 25
+    particlePrefab: {fileID: 7155335147208632822, guid: 97c43495f80a3244fad1301dfafbe252, type: 3}
+    SFXName: 
+  - name: 26
     particlePrefab: {fileID: 6126188424833946103, guid: a58aa9a78f2b45b45bb0f3e2e1e3ad3c, type: 3}
-  offset: {x: 0, y: 1.5, z: 0}
+    SFXName: 
+  - name: 27
+    particlePrefab: {fileID: 1581979827009992, guid: 647941694c90d4d4eb132695664de652, type: 3}
+    SFXName: 
+  - name: 28
+    particlePrefab: {fileID: 1335998931954190, guid: 2e5ebef4a166420479d3394af4b5d5cd, type: 3}
+    SFXName: 
+  - name: 29
+    particlePrefab: {fileID: 1645209392318072, guid: d2d89a48f26d8e24fba34789fd97784e, type: 3}
+    SFXName: 
+  - name: 21
+    particlePrefab: {fileID: 5435998012328932994, guid: d8703a33a4eb0b84a875202fde23e8f7, type: 3}
+    SFXName: 
+  - name: 22
+    particlePrefab: {fileID: 4535006216103734310, guid: 98c4704d0fd7211449bcf5c451095a60, type: 3}
+    SFXName: 
 --- !u!1 &636051258
 GameObject:
   m_ObjectHideFlags: 0
@@ -10001,6 +10042,135 @@ MonoBehaviour:
   panel: {fileID: 2490712918577406793, guid: d27d559d06c58e747944df1fadd2a817, type: 3}
   canvas: {fileID: 455280778}
   battle: {fileID: 613301458}
+--- !u!1 &1961281595
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1961281597}
+  - component: {fileID: 1961281596}
+  m_Layer: 0
+  m_Name: BGM
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!82 &1961281596
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1961281595}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 0}
+  m_Resource: {fileID: 8300000, guid: 6d46e8b65c5c64648aa72c9ac0bb8e30, type: 3}
+  m_PlayOnAwake: 1
+  m_Volume: 0.3
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+--- !u!4 &1961281597
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1961281595}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 242.88786, y: 537.8013, z: 14.953613}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1971460223
 GameObject:
   m_ObjectHideFlags: 0
@@ -10617,3 +10787,4 @@ SceneRoots:
   - {fileID: 455280778}
   - {fileID: 1907269725}
   - {fileID: 1719144278}
+  - {fileID: 1961281597}

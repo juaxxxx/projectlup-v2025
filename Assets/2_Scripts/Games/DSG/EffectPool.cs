@@ -217,6 +217,9 @@ public class EffectPool : MonoBehaviour
 
     private GameObject GetOrCreate(ActionEffect effectname)
     {
+        if (effectname == ActionEffect.None)
+            return null;
+
         GameObject eff;
         if (vfxPool[effectname].Count > 0)
         {

@@ -34,6 +34,8 @@ namespace LUP.DSG
             if (!owner.BattleComp.isAlive)
                 return;
 
+            effect.Apply(owner);
+
             if (_effects.TryGetValue(effect.effectType, out StatusEffect getEffect))
             {
                 getEffect.amount += effect.amount;  // 내부 값 수정
@@ -48,21 +50,21 @@ namespace LUP.DSG
                 effect.AttachEffect(owner);
             }
 
-            effect.Apply(owner);
             OnEffectAdded?.Invoke(_effects[effect.effectType]);
         }
         public void TurnAll()
         {
             foreach (StatusEffect effect in _effects.Values)
             {
+                effect.Turn(owner);
                 effect.remainingTurns--;
                 OnEffectEndTurn?.Invoke(effect);
 
                 if (effect.remainingTurns <= 0)
                 {
                     _effectsRemoveList.Add(effect.effectType);
+                    return;
                 }
-                effect.Turn(owner);
             }
         }
         public void ClearRemoveList()
@@ -83,9 +85,9 @@ namespace LUP.DSG
 
         public void HandleOwnerDie(int battleindex)
         {
-            foreach(var effect in _effects.Values)
+            foreach (var effect in _effects.Values)
             {
-                effect.Remove(owner);
+                _effectsRemoveList.Add(effect.effectType);
                 OnEffectRemoved?.Invoke(effect);
             }
 

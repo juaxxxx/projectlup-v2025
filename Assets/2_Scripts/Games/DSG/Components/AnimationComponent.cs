@@ -154,7 +154,10 @@ namespace LUP.DSG
             {
                 owner.ActioneffectPool.PlayVFX(attackEffect, owner.transform.position + effectOffset, owner.transform.rotation, false);
                 string sfx = owner.ActioneffectPool.GetActionBySound(attackEffect);
-                if(sfx != "") SoundManager.Instance.PlaySFX(sfx);
+                if(sfx != "")
+                {
+                    SoundManager.Instance.PlaySFX(sfx);
+                }
             }
         }
 
@@ -164,7 +167,10 @@ namespace LUP.DSG
             {
                 owner.ActioneffectPool.PlayVFX(hitEffect, owner.transform.position + effectOffset, owner.transform.rotation, false);
                 string sfx = owner.ActioneffectPool.GetActionBySound(hitEffect);
-                if (sfx != "") SoundManager.Instance.PlaySFX(sfx);
+                if (sfx != "")
+                {
+                    SoundManager.Instance.PlaySFX(sfx);
+                }
             }
         }
     }
