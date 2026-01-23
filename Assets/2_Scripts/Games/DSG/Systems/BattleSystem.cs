@@ -44,6 +44,15 @@ namespace LUP.DSG
         [SerializeField]
         private TextMeshProUGUI waveText;
 
+        [SerializeField] private bool isAutoRound = false;
+
+        private Coroutine autoRoutine;
+        private bool isBattleEnded = false;
+
+        private bool waitingNextRound = false;
+
+        private bool isRoundRunning = false;
+
         private List<Character> battleSequence = new List<Character>();
         private List<GameObject> sequenceImage = new List<GameObject>();
 
@@ -297,6 +306,10 @@ namespace LUP.DSG
             currentTurnIndex = 0;
             currentRound = 1;
             UpdateUI();
+
+            isBattleEnded = false;
+            waitingNextRound = false;
+            isRoundRunning = false;
         }
 
         public void NextTurn()
@@ -473,6 +486,10 @@ namespace LUP.DSG
             }
 
             Time.timeScale = 1f;
+
+            isBattleEnded = true;
+            waitingNextRound = false;
+            isRoundRunning = false;
         }
         public void BackupDeadCharacter(Character ch)
         {
@@ -580,31 +597,55 @@ namespace LUP.DSG
         {
             if (!isBattleStart || battleSequence.Count == 0)
                 return;
+            if (isBattleEnded) return;
+            if (isRoundRunning) return;
 
             StartCoroutine(CoNextRound());
         }
 
         private IEnumerator CoNextRound()
         {
-            Debug.Log($" Round {currentRound} !");
+            isRoundRunning = true;
+            waitingNextRound = false;
 
             currentTurnIndex = 0;
 
             while (currentTurnIndex < battleSequence.Count)
             {
-                int num = currentTurnIndex;
-                NextTurn();
-
-                if (num != currentTurnIndex) continue;
+                if (currentTurnIndex >= battleSequence.Count) break;
 
                 var currentChar = battleSequence[currentTurnIndex];
-                if (currentChar == null || !currentChar.BattleComp.isAlive) continue;
+                if (currentChar == null || !currentChar.BattleComp.isAlive)
+                {
+                    currentTurnIndex++;
+                    continue;
+                }
+
+                // 턴 실행
+                NextTurn();
 
                 yield return new WaitWhile(() => currentChar.BattleComp.isAttacking);
+
+                if (isBattleEnded)
+                {
+                    isRoundRunning = false;
+                    yield break;
+                }
+
                 yield return new WaitForSeconds(1);
             }
 
             InitSequence();
+
+            isRoundRunning = false;
+
+            waitingNextRound = true;
+
+            if (isAutoRound && isBattleStart && !isBattleEnded)
+            {
+                yield return new WaitForSeconds(1);
+                NextRound();
+            }
         }
 
         void UpdatePlayerCP()
@@ -840,6 +881,16 @@ namespace LUP.DSG
             }
 
             fadedList.Clear();
+        }
+
+        public void OnClickAutoButton()
+        {
+            isAutoRound = !isAutoRound;
+
+            if (isAutoRound && isBattleStart && !isBattleEnded && waitingNextRound)
+            {
+                NextRound();
+            }
         }
     }
 }
