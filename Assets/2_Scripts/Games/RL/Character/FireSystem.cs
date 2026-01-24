@@ -27,7 +27,7 @@ namespace LUP.RL
             //Instantiate(bulletData.bulletPrefab, spawnPoint.position, rot);
             GameObject obj = Instantiate(bulletData.bulletPrefab, spawnPoint.position, rot);
             ProjectileBase tilebase = obj.GetComponent<ProjectileBase>();
-            tilebase.Init(bulletData, gameObject, attackValue, target);
+            tilebase.Init(bulletData, gameObject, attackValue, target, bulletData.effectprefab);
         }
 
     }

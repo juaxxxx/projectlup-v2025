@@ -6,18 +6,21 @@ public class ProjectileBase : MonoBehaviour
 {
     private BulletData bulletData;
     private GameObject owner;
+    private GameObject effectprefab;
     private int damage;
     private Transform target;
 
+    public GameObject effects => effectprefab;
     public float ProjectileRotateSpeed = 100.0f;
     public float LifeTime = 10.0f;
 
-    public void Init(BulletData data, GameObject Owner, int Damage, Transform Target)
+    public void Init(BulletData data, GameObject Owner, int Damage, Transform Target, GameObject effect)
     {
         bulletData = data;
         owner = Owner;
         damage = Damage;
         target = Target;
+        effectprefab = effect;
     }
 
     private void OnTriggerEnter(Collider other)
@@ -30,7 +33,7 @@ public class ProjectileBase : MonoBehaviour
         }
         else if (enemy)
         {
-            enemy.TakeDamage(damage);
+            enemy.TakeDamage(damage, effectprefab);
             Destroy(gameObject);
         }
         else  if(player)

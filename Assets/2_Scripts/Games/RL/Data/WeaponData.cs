@@ -19,6 +19,10 @@ namespace LUP.RL
         public RWeaponType weaponType;
         public WeaponHandType handType = WeaponHandType.None;
 
+        public GameObject effectPrfab;
+
+
+
         public Vector3 IdleweaponRightHandGrapPos;
         public Vector3 IdleweaponRotate;
 

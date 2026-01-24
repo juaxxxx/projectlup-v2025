@@ -444,7 +444,7 @@ namespace LUP.RL
             BulletData custumBulletData = ScriptableObject.CreateInstance<BulletData>();
             custumBulletData.bulletPrefab = equipedWeaponData.weaponProjecTile;
             custumBulletData.Speed = equipedWeaponData.projecTileSpeed;
-
+            custumBulletData.effectprefab = equipedWeaponData.effectPrfab;
             character.GetComponent<FireSystem>().bulletData = custumBulletData;
 
             //¹Ì¸® Warmup

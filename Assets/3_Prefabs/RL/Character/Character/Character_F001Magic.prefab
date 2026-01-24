@@ -879,6 +879,7 @@ MonoBehaviour:
   hpbar: {fileID: 1988204788927373329, guid: 9e482a2640f931a429d283a4c86f98be, type: 3}
   HpbarPrefab: {fileID: 3769882633132983047, guid: 9e482a2640f931a429d283a4c86f98be, type: 3}
   hpbaroffsetY: 5
+  PendingExp: 0
 --- !u!114 &8153237861961484452
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -937,7 +938,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spawnPoint: {fileID: 8355988835557041488}
-  bulletData: {fileID: 11400000, guid: d53534de4136a0947b53cbb669fc0c67, type: 2}
+  bulletData: {fileID: 11400000, guid: e757207fd625ad74bb8a930fd9d26cad, type: 2}
   fireDelay: 1
 --- !u!114 &4660733144224164347
 MonoBehaviour:

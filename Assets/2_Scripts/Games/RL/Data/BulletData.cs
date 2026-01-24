@@ -6,6 +6,7 @@ namespace LUP.RL
     public class BulletData :ScriptableObject 
     {
         public GameObject bulletPrefab;
+        public GameObject effectprefab;
         public int Speed;
 
     }

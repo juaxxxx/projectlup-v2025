@@ -7,6 +7,8 @@ namespace LUP.RL
     {
         private int Damage;
         private GameObject Owner;
+
+        public GameObject Effectprefab;
         public Collider hitcolider;
 
 
@@ -33,7 +35,8 @@ namespace LUP.RL
         public void MeleeAttack(int damage)
         {
             Damage = damage;
-            
+
+
         }
         public void ForceDisableHitbox()
         {
@@ -49,7 +52,7 @@ namespace LUP.RL
             Enemy enemy = other.GetComponentInParent<Enemy>();
             if (enemy != null)
             {
-                enemy.TakeDamage(Damage);
+                enemy.TakeDamage(Damage, Effectprefab);
                 return;
             }
 

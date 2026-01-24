@@ -67,11 +67,15 @@ namespace LUP.RL
             gridPos = new Vector2Int(x, z);
         }
 
-        public void TakeDamage(int damage)
+        public void TakeDamage(int damage, GameObject effect)
         {
             healthCenter.Damage(damage);
-            var fx = Instantiate(hitEffectPrefab, TargetPoint.position, Quaternion.identity);
-            fx.transform.localScale *= 2f;   // 1.5¹è È®´ë
+            if (effect)
+            {
+                var fx = Instantiate(effect, TargetPoint.position, Quaternion.identity);
+
+                fx.transform.localScale *= 1.5f;
+            }
             //Instantiate(hitEffectPrefab, TargetPoint.position, Quaternion.identity);
             
             if (blackBoard)
@@ -79,6 +83,7 @@ namespace LUP.RL
                 if(blackBoard.InAtkState == false)
                     blackBoard.OnHitted = true;
             }
+
         }
         private void OnEnable()
         {
