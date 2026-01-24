@@ -2,6 +2,7 @@ using JetBrains.Annotations;
 using LUP.RL;
 using Roguelike.Define;
 using System;
+using UnityEditor.ShaderGraph;
 using UnityEngine;
 namespace LUP.RL
 {
@@ -35,7 +36,7 @@ namespace LUP.RL
         public HealthCenter healthCenter;
         private EnemyBlackBoard blackBoard;
         private EnemyBehaviorTree behaviorTree;
-
+        public GameObject hitEffectPrefab;
         public Transform TargetPoint;
         private void Awake()
         {
@@ -48,10 +49,6 @@ namespace LUP.RL
         void Start()
         {
           
-         
-            
-      
-       
             GameObject barObj = Instantiate(hpbarPrefab, transform.position + Vector3.up * hpbarOffsetY, Quaternion.identity);
             if(barObj == null)
             {
@@ -73,8 +70,11 @@ namespace LUP.RL
         public void TakeDamage(int damage)
         {
             healthCenter.Damage(damage);
-
-            if(blackBoard)
+            var fx = Instantiate(hitEffectPrefab, TargetPoint.position, Quaternion.identity);
+            fx.transform.localScale *= 2f;   // 1.5¹è È®´ë
+            //Instantiate(hitEffectPrefab, TargetPoint.position, Quaternion.identity);
+            
+            if (blackBoard)
             {
                 if(blackBoard.InAtkState == false)
                     blackBoard.OnHitted = true;
