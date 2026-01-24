@@ -20,11 +20,15 @@ namespace LUP.PCR
 
         private void Update()
         {
+            //@TODO : 행동트리에서 이동할 때만 호출하게 하기
             UpdateAnimationState();
         }
         private void UpdateAnimationState()
         {
-            if (mover == null || anim == null) return;
+            if (mover == null || anim == null)
+            {
+                return;
+            }
 
             anim.SetBool(IsMovingHash, mover.IsMoving);
         }
@@ -35,8 +39,6 @@ namespace LUP.PCR
             anim.SetTrigger("Work");
         }
          */
-
-
     }
 
 

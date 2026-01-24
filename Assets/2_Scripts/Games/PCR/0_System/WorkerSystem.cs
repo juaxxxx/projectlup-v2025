@@ -46,10 +46,13 @@ namespace LUP.PCR
             aGrid.InitMap(tileMap.tiles);
 
             curBuildings = buildingSystem.GetCurrentBuildingDictionary();
+
             ProductionStage stage = StageManager.Instance.GetCurrentStage() as ProductionStage;
             pcrRuntimeData = stage.productionRuntimeData;
+
             curReservedBuildingIdList = pcrRuntimeData.ReservedBuildingIdList;
             curAssignedBuildingIdList = pcrRuntimeData.AssignedBuildingIdList;
+
             curWorkerInfoList = pcrRuntimeData.WorkerInfoList;
 
             // 위 데이터 기반으로 초기화.
