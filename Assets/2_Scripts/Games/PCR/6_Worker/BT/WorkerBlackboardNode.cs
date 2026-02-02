@@ -10,14 +10,12 @@ namespace LUP.PCR
         private WorkerAI ownerAI;
         private Worker workerComp;
         private UnitMover mover;
-
         private NodeState? lastReturnState = null;
 
         protected WorkerBlackboardNode(WorkerBlackboard blackboard) : base()
         {
             BB = blackboard;
         }
-
         protected NodeState ReturnAndLog(NodeState newState, string message)
         {
             if (lastReturnState != newState)
@@ -28,8 +26,6 @@ namespace LUP.PCR
 
             return newState;
         }
-
-
         protected WorkerAI OwnerAI
         {
             get

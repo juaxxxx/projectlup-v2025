@@ -38,7 +38,6 @@ namespace LUP.PCR
             if (keyRegistry.TryGetValue(keyName, out var key)) { return GetValue<T>(key); }
             return default(T);
         }
-
         public T GetValue<T>(WorkerBlackboardKey key)
         {
             if (data.TryGetValue(key, out object val))
@@ -66,12 +65,10 @@ namespace LUP.PCR
             return false;
         }
 
-
         public void Remove(string keyName)
         {
             if (keyRegistry.TryGetValue(keyName, out var key))
                 data.Remove(key);
         }
-
     }
 }

@@ -9,11 +9,9 @@ namespace LUP.PCR
         public Vector3 worldPos;
         public int indexX;
         public int indexY;
-
         public int gCost;
         public int hCost;
         public ANode parentNode;
-
 
         public ANode(bool nWalkable, bool nLadder, Vector3 nWorldPos, int nIndexX, int nIndexY)
         {
@@ -30,4 +28,3 @@ namespace LUP.PCR
         }
     }
 }
-

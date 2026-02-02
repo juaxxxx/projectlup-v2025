@@ -69,7 +69,6 @@ namespace LUP.PCR
 
             }
         }
-
         public void Initialize(WorkerInfo info, BuildingBase restaurant, BuildingBase station)
         {
             this.myInfo = info;
@@ -87,8 +86,6 @@ namespace LUP.PCR
             Debug.Log($"Worker Initialized: {info.name} (ID: {info.id})");
 
         }
-
-
         public void InitBTReferences()
         {
             worker = GetComponent<Worker>();
@@ -100,7 +97,6 @@ namespace LUP.PCR
             SettingBT();
             GetComponentInChildren<WorkerOverlayUI>().Setup(this);
         }
-
         private void InitBlackboard()
         {
             //정적 데이터(참조) 등록
@@ -114,37 +110,30 @@ namespace LUP.PCR
             LocalBlackboard.SetValue(BBKeys.HasTask, hasTask);
         }
 
-        void SettingBT()
+        private void SettingBT()
         {
-            // 모든 Leaf Node 생성자에 LocalBlackboard를 전달 (주입)
-            // CompositeNode(Sequence/Selector)는 블랙보드가 필요 없으므로 리스트만 전달
-
-            // Sequence: 배고픔 처리
             BTNode hungerSequence = new SequenceNode(new List<BTNode>
-         {
-             new IsHealthLowChecker(LocalBlackboard),
-             new PauseCurrentTask(LocalBlackboard),
-             new GoToEatingPlace(LocalBlackboard),
-             new EatFood(LocalBlackboard)
-         });
+            {
+                new IsHealthLowChecker(LocalBlackboard),
+                new PauseCurrentTask(LocalBlackboard),
+                new GoToEatingPlace(LocalBlackboard),
+                new EatFood(LocalBlackboard)
+            });
 
-        // Sequence: 새 일 시작
-        BTNode workingSequence = new SequenceNode(new List<BTNode>
-        {
-            new IsNewTaskChecker(LocalBlackboard),
-            new GoToNewTaskLocation(LocalBlackboard),
-            new StartNewTask(LocalBlackboard),
-            new PerformTask(LocalBlackboard)
-        });
+            BTNode workingSequence = new SequenceNode(new List<BTNode>
+            {
+                new IsNewTaskChecker(LocalBlackboard),
+                new GoToNewTaskLocation(LocalBlackboard),
+                new StartNewTask(LocalBlackboard),
+                new PerformTask(LocalBlackboard)
+            });
 
-        // Root Selector: 배고픔 → 작업/휴식
-        root = new SelectorNode(new List<BTNode>
-        {
-            hungerSequence,
-            workingSequence,
-            //new GoToWorkerStation(LocalBlackboard),
-            new RoamAroundBuilding(LocalBlackboard)
-        });
+            root = new SelectorNode(new List<BTNode>
+            {
+                hungerSequence,
+                workingSequence,
+                new RoamAroundBuilding(LocalBlackboard)
+            });
         }
 
         public void UpdateBT()
@@ -153,6 +142,7 @@ namespace LUP.PCR
             {
                 return;
             }
+
             root?.Evaluate();
 
             if(!isHunger)
@@ -173,5 +163,4 @@ namespace LUP.PCR
             LocalBlackboard.SetValue(BBKeys.HasTask, hasTask);
         }
     }
-
 }

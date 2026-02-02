@@ -16,7 +16,6 @@ namespace LUP.PCR
             {
                 targetPlace = GetData<BuildingBase>(GetBuildingKey());
 
-                // OnStart에서는 강제로 경로를 한번 계산
                 if (targetPlace != null)
                 {
                     UpdatePath();

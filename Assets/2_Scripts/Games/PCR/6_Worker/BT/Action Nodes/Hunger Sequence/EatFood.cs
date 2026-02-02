@@ -5,8 +5,8 @@ namespace LUP.PCR
     public class EatFood : WorkerBlackboardNode
     {
         public EatFood(WorkerBlackboard bb) : base(bb) { }
-        float timer = 0f;
-        float duration = 1f;
+        private float timer = 0f;
+        private float duration = 1f;
         protected override NodeState OnUpdate()
         {
             float currentHunger = GetData<float>(BBKeys.Hunger);

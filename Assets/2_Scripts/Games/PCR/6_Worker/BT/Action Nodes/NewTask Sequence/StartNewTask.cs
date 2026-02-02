@@ -9,7 +9,6 @@ namespace LUP.PCR
         protected override NodeState OnUpdate()
         {
             ProductableBuilding building = GetData<ProductableBuilding>(BBKeys.AssignedWorkplace);
-            //OwnerAI.HasTask = GetData<bool>(BBKeys.HasTask);
             
             if (building == null)
             {
@@ -22,7 +21,3 @@ namespace LUP.PCR
         }
     }
 }
-//OwnerAI.HasTask = true;
-//return NodeState.RUNNING;
-//BB.Remove(BBKeys.AssignedWorkplace);
-//OwnerAI.HasTask = false;
