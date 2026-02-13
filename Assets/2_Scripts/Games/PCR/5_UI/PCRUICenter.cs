@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using R3;
 
 namespace LUP.PCR
 {
@@ -16,7 +17,6 @@ namespace LUP.PCR
         private ConstructionDecisionView constructionDecisionView;
         [SerializeField]
         private InventoryUIView inventoryView;
-
 
         private TaskController taskController;
 
