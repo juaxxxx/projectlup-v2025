@@ -1,17 +1,57 @@
-using Unity.VisualScripting;
+using R3;
+using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace LUP.PCR
 {
 
-    public class PCRResourceCenter : MonoBehaviour
+    public sealed class PCRResourceCenter
     {
         private Inventory inventory;
 
-        public void InitInventory()
+        private readonly Dictionary<ResourceType, ReactiveProperty<int>> resourceMap = new();
+
+        //public ReadOnlyReactiveProperty<int> Stone => Observe(ResourceType.Stone);
+        //public ReadOnlyReactiveProperty<int> Coal => Observe(ResourceType.Coal);
+        //public ReadOnlyReactiveProperty<int> Iron => Observe(ResourceType.Iron);
+        //public ReadOnlyReactiveProperty<int> Wheat => Observe(ResourceType.Wheat);
+        //public ReadOnlyReactiveProperty<int> Mushroom => Observe(ResourceType.Mushroom);
+        //public ReadOnlyReactiveProperty<int> Meat => Observe(ResourceType.Meat);
+        //public ReadOnlyReactiveProperty<int> Food => Observe(ResourceType.Food);
+        //public ReadOnlyReactiveProperty<int> Power => Observe(ResourceType.Power);
+        //public ReadOnlyReactiveProperty<int> Diamond => Observe(ResourceType.Diamond);
+
+        public ReadOnlyReactiveProperty<int> Observe(ResourceType type)
+        {
+            Ensure(type);
+            return resourceMap[type].ToReadOnlyReactiveProperty();
+        }
+
+        // 검증 코드
+        private void Ensure(ResourceType type)
+        {
+            if (resourceMap.ContainsKey(type)) return;
+            resourceMap[type] = new ReactiveProperty<int>(0);
+        }
+
+
+        public void InitResource()
         {
             ProductionStage stage = StageManager.Instance.GetCurrentStage() as ProductionStage;
             inventory = stage.PCRInven;
+
+            SyncAllFromInventory();
+        }
+
+        public void SyncAllFromInventory()
+        {
+            foreach (ResourceType type in Enum.GetValues(typeof(ResourceType)))
+            {
+                if (type == ResourceType.None) continue;
+                Ensure(type);
+                resourceMap[type].Value = GetResourceAmount(type);
+            }
         }
 
         public int GetResourceAmount(ResourceType type)
@@ -27,50 +67,26 @@ namespace LUP.PCR
             if (item != null)
             {
                 inventory.AddItem(item, amount);
+                Ensure(type);
+                resourceMap[type].Value = GetResourceAmount(type);
                 return;
             }
         }
 
-        public void UseResource(ResourceType type, int amount)
+        public bool TryUseResource(ResourceType type, int amount)
         {
-            string itemName = type.ToString();
-            IItemable item = ItemManager.Instance.GetItem(itemName);
-            if (item != null)
-            {
-                inventory.UseItem(item.ItemID, amount);
-                return;
-            }
+            if (amount <= 0) return true;
 
-            //switch (type)
-            //{
-            //    case ResourceType.Stone:
+            var item = ItemManager.Instance.GetItem(type.ToString());
+            
+            if (item == null) return false;
 
-            //        break;
-            //    case ResourceType.Iron:
+            if (GetResourceAmount(type) < amount) return false;
 
-            //        break;
-            //    case ResourceType.Coal:
-
-            //        break;
-            //    case ResourceType.Wheat:
-
-            //        break;
-            //    case ResourceType.Mushroom:
-
-            //        break;
-            //    case ResourceType.Meat:
-
-            //        break;
-            //    case ResourceType.Food:
-
-            //        break;
-            //    case ResourceType.Power:
-
-            //        break;
-            //    case ResourceType.Diamond:
-
-            //        break;
-            //}
+            inventory.UseItem(item.ItemID, amount);
+            Ensure(type);
+            resourceMap[type].Value = GetResourceAmount(type);
+            return true;
         }
     }
 }

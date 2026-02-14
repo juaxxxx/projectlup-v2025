@@ -87,9 +87,8 @@ namespace LUP.PCR
             ProductableBuilding productableBuilding = building as ProductableBuilding;
             if (productableBuilding)
             {
-                taskController.uiCenter.OpenProductableTask(productableBuilding);
+                //taskController.uiCenter.OpenProductableTask(productableBuilding);
             }
-
         }
     }
 

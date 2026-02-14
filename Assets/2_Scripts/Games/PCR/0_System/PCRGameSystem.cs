@@ -36,7 +36,8 @@ namespace LUP.PCR
             buildPreview = GetComponentInChildren<BuildPreview>();
             taskController = GetComponentInChildren<TaskController>();
             uiCenter = GetComponentInChildren<PCRUICenter>();
-            resourceCenter = GetComponentInChildren<PCRResourceCenter>();
+
+            resourceCenter = new PCRResourceCenter();
         }
 
         public void InitPCRGameSystem()
@@ -45,7 +46,7 @@ namespace LUP.PCR
             tileMap.InitTileMap();
 
             // ResourceCenterInit
-            resourceCenter.InitInventory();
+            resourceCenter.InitResource();
 
             // BuildingSystem Init
             buildingSystem.InitBuildingSystem(buildingGenerator, buildPreview, digWallPreview, tileMap, resourceCenter);

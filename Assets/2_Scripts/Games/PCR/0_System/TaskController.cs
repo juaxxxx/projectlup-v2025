@@ -109,7 +109,7 @@ namespace LUP.PCR
         public void ReturnToIdleState()
         {
             IdleTask();
-            uiCenter.ReturnToMainScreen();
+            //uiCenter.ReturnToMainScreen();
         }
 
         public void UpdateLastClickTile(Tile tile)
