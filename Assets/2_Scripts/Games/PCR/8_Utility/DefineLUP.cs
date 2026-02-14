@@ -89,13 +89,12 @@ namespace LUP.PCR
         BuildingMushroomFarm,
     }
 
-    public enum ActiveUIType
+    public enum UIScreen
     {
-        None,
         Main,
-        SelectConstrcut,
-        ConstructionDecision,
-        ProductableBuilding,
         Inventory,
+        SelectConstrcut,
+        ProductableBuilding,
+        ConstructionDecision,
     }
 }
