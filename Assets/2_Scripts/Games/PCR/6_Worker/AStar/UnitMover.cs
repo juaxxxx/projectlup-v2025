@@ -164,61 +164,49 @@ namespace LUP.PCR
 
         public void MoveAlongPath()
         {
-            if (path == null || currentIndex >= path.Count)
+            if (!IsMoving)
+            {
                 return;
+            }
 
             ANode target = path[currentIndex];
             Vector3 targetPos = gridMap.GetNodeFootPosition(target);
-
             ANode prev = currentIndex > 0 ? path[currentIndex - 1] : null;
 
-            bool isVerticalMove =
-                prev != null &&
-                prev.indexY != target.indexY;
-
-            if (isVerticalMove)
+            bool isVerticalMove = (prev != null) && (prev.indexY != target.indexY); 
+            if (isVerticalMove) // 이전 노드와의 높이 차이가 없을때만
             {
-                // X 정렬
+                // X축 높이가 다르면 맞춘다
                 if (Mathf.Abs(transform.position.x - targetPos.x) > 0.05f)
                 {
-                    Vector3 alignX = new Vector3(
-                        targetPos.x,
-                        transform.position.y,
-                        transform.position.z
-                    );
-
-                    transform.position = Vector3.MoveTowards(
-                        transform.position,
-                        alignX,
-                        moveSpeed * Time.deltaTime
-                    );
+                    Vector3 alignX = new Vector3(targetPos.x, transform.position.y, transform.position.z);
+                    transform.position = Vector3.MoveTowards(transform.position, alignX, moveSpeed * Time.deltaTime);
                     return;
                 }
 
-                // Y 이동
-                transform.position = Vector3.MoveTowards(
-                    transform.position,
-                    targetPos,
-                    moveSpeed * Time.deltaTime
-                );
+                // Y 이동 
+                transform.position = Vector3.MoveTowards(transform.position, targetPos, moveSpeed * Time.deltaTime);
             }
             else
             {
-                Vector3 walkTarget = new Vector3(
-                    targetPos.x,
-                    transform.position.y,
-                    targetPos.z
-                );
+                Vector3 walkTarget = new Vector3(targetPos.x,transform.position.y,targetPos.z);
+                transform.position = Vector3.MoveTowards(transform.position, walkTarget,moveSpeed * Time.deltaTime);
+            }
 
-                transform.position = Vector3.MoveTowards(
-                    transform.position,
-                    walkTarget,
-                    moveSpeed * Time.deltaTime
-                );
+            // 이동방향 맞추기
+            Vector3 direction = (targetPos - transform.position);
+            direction.y = 0;
+            if (direction != Vector3.zero)
+            {
+                Quaternion targetRotation = Quaternion.LookRotation(direction);
+
+                transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, rotateSpeed * Time.deltaTime);
             }
 
             if (Vector3.Distance(transform.position, targetPos) < 0.15f)
+            {
                 currentIndex++;
+            }
         }
 
         // BT - 목적지 도착 확인용
