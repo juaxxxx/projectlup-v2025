@@ -103,31 +103,35 @@ namespace LUP.PCR
 
         public void TransitionScreen(UIScreen scr)
         {
-            mainView.Hide();
-            inventoryView.Hide();
-            selectConstructView.Hide();
-            constructionDecisionView.Hide();
             // 초기화하는건데 애니메이션 만들 때는 없어야 할지도
 
             switch (scr)
             {
                 case UIScreen.Main:
                     mainView.Show();
+                    inventoryView.Hide();
+                    selectConstructView.Hide();
+                    farmTaskView.Hide();
+                    constructionDecisionView.Hide();
                     break;
                 case UIScreen.Inventory:
                     inventoryView.Show();
+                    mainView.Hide();
                     break;
                 case UIScreen.SelectConstrcut:
                     selectConstructView.Show();
+                    mainView.Hide();
                     break;
                 case UIScreen.FarmTask:
                     farmTaskView.Show();
+                    mainView.Hide();
                     break;
                 case UIScreen.ConstructionDecision:
                     constructionDecisionView.Show();
+                    selectConstructView.Hide();
                     break;
                 case UIScreen.DigWall:
-
+                    mainView.Hide();
                     break;
             }
         }

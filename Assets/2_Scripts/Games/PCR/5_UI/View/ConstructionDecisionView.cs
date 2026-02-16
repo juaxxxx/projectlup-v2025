@@ -1,3 +1,4 @@
+using DG.Tweening;
 using R3;
 using System;
 using UnityEngine;
@@ -11,6 +12,17 @@ namespace LUP.PCR
         [SerializeField] private Button rejectBtn;
 
         private readonly CompositeDisposable cd = new();
+
+        [SerializeField] private RectTransform constructionDecisionPanel;
+
+        private Vector2 onScreenConstructionDecisionPanelPos;
+        private Vector2 offScreenConstructionDecisionPanelPos;
+
+        private void Start()
+        {
+            onScreenConstructionDecisionPanelPos = Vector2.zero;
+            offScreenConstructionDecisionPanelPos = new Vector2(0f, -100f);
+        }
 
         public void Bind(ConstructionDecisionViewModel vm)
         {
@@ -31,11 +43,17 @@ namespace LUP.PCR
         public void Show()
         {
             gameObject.SetActive(true);
+            constructionDecisionPanel.DOAnchorPos(onScreenConstructionDecisionPanelPos, 0.2f).SetEase(Ease.OutCubic);
         }
 
         public void Hide()
         {
-            gameObject.SetActive(false);
+            constructionDecisionPanel.DOAnchorPos(offScreenConstructionDecisionPanelPos, 0.2f)
+                .SetEase(Ease.InCubic)
+                .OnComplete(() =>
+                {
+                    gameObject.SetActive(false);
+                });
         }
     }
 

@@ -1549,6 +1549,10 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 35
       objectReference: {fileID: 0}
+    - target: {fileID: 7209303755602021253, guid: cc5a6000dd1ad2e499094317c8aa1f04, type: 3}
+      propertyPath: inventoryBtn
+      value: 
+      objectReference: {fileID: 2367922721270734752}
     - target: {fileID: 7839642507773732000, guid: cc5a6000dd1ad2e499094317c8aa1f04, type: 3}
       propertyPath: m_AnchorMax.y
       value: 1
@@ -1624,6 +1628,17 @@ PrefabInstance:
       addedObject: {fileID: 5560767300145230322}
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: cc5a6000dd1ad2e499094317c8aa1f04, type: 3}
+--- !u!114 &2367922721270734752 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4211864657642377835, guid: cc5a6000dd1ad2e499094317c8aa1f04, type: 3}
+  m_PrefabInstance: {fileID: 1922757474622950859}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &6094265898794005720 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5637432749922220307, guid: cc5a6000dd1ad2e499094317c8aa1f04, type: 3}
