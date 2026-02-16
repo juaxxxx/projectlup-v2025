@@ -5,22 +5,11 @@ using UnityEngine;
 
 namespace LUP.PCR
 {
-
     public sealed class PCRResourceCenter
     {
         private Inventory inventory;
 
         private readonly Dictionary<ResourceType, ReactiveProperty<int>> resourceMap = new();
-
-        //public ReadOnlyReactiveProperty<int> Stone => Observe(ResourceType.Stone);
-        //public ReadOnlyReactiveProperty<int> Coal => Observe(ResourceType.Coal);
-        //public ReadOnlyReactiveProperty<int> Iron => Observe(ResourceType.Iron);
-        //public ReadOnlyReactiveProperty<int> Wheat => Observe(ResourceType.Wheat);
-        //public ReadOnlyReactiveProperty<int> Mushroom => Observe(ResourceType.Mushroom);
-        //public ReadOnlyReactiveProperty<int> Meat => Observe(ResourceType.Meat);
-        //public ReadOnlyReactiveProperty<int> Food => Observe(ResourceType.Food);
-        //public ReadOnlyReactiveProperty<int> Power => Observe(ResourceType.Power);
-        //public ReadOnlyReactiveProperty<int> Diamond => Observe(ResourceType.Diamond);
 
         public ReadOnlyReactiveProperty<int> Observe(ResourceType type)
         {

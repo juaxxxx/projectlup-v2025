@@ -61,14 +61,14 @@ namespace LUP.PCR
 
             // 작업자 있는지 데이터 필요.
             hasWork = false;
-            buildingName = "PowerStation";
-            placeName = buildingName;
+            buildingName.Value = "PowerStation";
+            placeName = buildingName.Value;
 
 
             ProductionStage stage = LUP.StageManager.Instance.GetCurrentStage() as ProductionStage;
             currentConstructionData = stage.GetCurrentConstructionData((int)BuildingType.POWERSTATION, buildingInfo.level);
             currentProductionData = stage.GetCurrentProductionData((int)BuildingType.POWERSTATION, buildingInfo.level);
-            maxStorage = currentProductionData.StorageCapacity;
+            maxStorage.Value = currentProductionData.StorageCapacity;
 
             if (buildingInfo.isConstructing)
             {
@@ -90,7 +90,7 @@ namespace LUP.PCR
             ProductionStage stage = LUP.StageManager.Instance.GetCurrentStage() as ProductionStage;
             currentConstructionData = stage.GetCurrentConstructionData((int)BuildingType.POWERSTATION, buildingInfo.level);
             currentProductionData = stage.GetCurrentProductionData((int)BuildingType.POWERSTATION, buildingInfo.level);
-            maxStorage = currentProductionData.StorageCapacity;
+            maxStorage.Value = currentProductionData.StorageCapacity;
 
             ChangeState(productableState);
         }
@@ -132,9 +132,9 @@ namespace LUP.PCR
         public override void CompleteProduction()
         {
             Debug.Log("CompleteProduction");
-            productionInfo.currentStorage = productionInfo.currentStorage + 1 > maxStorage ? maxStorage : productionInfo.currentStorage + 1;
+            productionInfo.currentStorage = productionInfo.currentStorage + 1 > maxStorage.Value ? maxStorage.Value : productionInfo.currentStorage + 1;
 
-            if (productionInfo.currentStorage == maxStorage)
+            if (productionInfo.currentStorage == maxStorage.Value)
             {
                 DeliverToInventory();
                 StartProduction();

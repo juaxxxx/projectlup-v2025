@@ -15,7 +15,7 @@ namespace LUP.PCR
         {
             if (nameText != null)
             {
-                nameText.text = building.buildingName; // //@TODO : building.buildingName으로 가져오기
+                nameText.text = building.buildingName.Value; // //@TODO : building.buildingName으로 가져오기
             }
 
             btn.onClick.RemoveAllListeners();

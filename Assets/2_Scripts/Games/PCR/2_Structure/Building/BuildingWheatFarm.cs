@@ -69,17 +69,21 @@ namespace LUP.PCR
                 ConstructScreen.SetActive(false);
             }
 
+            level.Value = buildingInfo.level;
+            isConstructing.Value = buildingInfo.isConstructing;
+
             // 작업자 있는지 데이터 필요.
             hasWork = false;
-            buildingName = "WheatFarm";
-            placeName = buildingName;
+            buildingName.Value = "WheatFarm";
+            placeName = buildingName.Value;
 
 
             ProductionStage stage = LUP.StageManager.Instance.GetCurrentStage() as ProductionStage;
             currentConstructionData = stage.GetCurrentConstructionData((int)BuildingType.WHEATFARM, buildingInfo.level);
             currentProductionData = stage.GetCurrentProductionData((int)BuildingType.WHEATFARM, buildingInfo.level);
-            maxStorage = currentProductionData.StorageCapacity;
-
+            maxStorage.Value = currentProductionData.StorageCapacity;
+            productionPerHour.Value = currentProductionData.productionPerHour;
+            
             if (buildingInfo.isConstructing)
             {
                 ChangeState(constructState);
@@ -96,10 +100,14 @@ namespace LUP.PCR
         {
             // 레벨업
             buildingInfo.level++;
+            level.Value = buildingInfo.level;
+
             ProductionStage stage = LUP.StageManager.Instance.GetCurrentStage() as ProductionStage;
             currentConstructionData = stage.GetCurrentConstructionData((int)BuildingType.WHEATFARM, buildingInfo.level);
             currentProductionData = stage.GetCurrentProductionData((int)BuildingType.WHEATFARM, buildingInfo.level);
-            maxStorage = currentProductionData.StorageCapacity;
+            maxStorage.Value = currentProductionData.StorageCapacity;
+            productionPerHour.Value = currentProductionData.productionPerHour;
+
 
             ChangeState(productableState);
         }
@@ -141,9 +149,10 @@ namespace LUP.PCR
         public override void CompleteProduction()
         {
             Debug.Log("CompleteProduction");
-            productionInfo.currentStorage = productionInfo.currentStorage + 1 > maxStorage ? maxStorage : productionInfo.currentStorage + 1;
+            productionInfo.currentStorage = productionInfo.currentStorage + 1 > maxStorage.Value ? maxStorage.Value : productionInfo.currentStorage + 1;
+            currentStorage.Value = productionInfo.currentStorage;
 
-            if (productionInfo.currentStorage == maxStorage)
+            if (productionInfo.currentStorage == maxStorage.Value)
             {
                 DeliverToInventory();
                 StartProduction();
@@ -159,6 +168,7 @@ namespace LUP.PCR
         {
             resourceCenter.AddResource(ResourceType.Wheat, productionInfo.currentStorage);
             productionInfo.currentStorage = 0;
+            currentStorage.Value = productionInfo.currentStorage;
         }
        
     
