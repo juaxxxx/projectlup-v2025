@@ -16,7 +16,7 @@
         },
         {
             "buildingId": 2,
-            "level": 1,
+            "level": 3,
             "gridPos": {
                 "x": 8,
                 "y": 3
@@ -76,12 +76,12 @@
         },
         {
             "buildingId": 11,
-            "level": 0,
+            "level": 10,
             "gridPos": {
-                "x": 12,
-                "y": 3
+                "x": 11,
+                "y": 1
             },
-            "buildingType": 2,
+            "buildingType": 6,
             "isConstructing": true
         }
     ],
@@ -89,17 +89,12 @@
         {
             "buildingId": 2,
             "elapsedTime": 0.0,
-            "currentStorage": 71
+            "currentStorage": 83
         },
         {
             "buildingId": 3,
             "elapsedTime": 0.0,
             "currentStorage": 23
-        },
-        {
-            "buildingId": 11,
-            "elapsedTime": 0.0,
-            "currentStorage": 0
         }
     ],
     "constructionInfoList": [
@@ -141,7 +136,7 @@
         },
         {
             "buildingId": 11,
-            "elapsedTime": 0.0
+            "elapsedTime": 27.830183029174806
         }
     ],
     "restaurantInfo": {
@@ -364,13 +359,6 @@
         {
             "wallType": 1,
             "gridPos": {
-                "x": 15,
-                "y": 1
-            }
-        },
-        {
-            "wallType": 1,
-            "gridPos": {
                 "x": 16,
                 "y": 1
             }
@@ -428,13 +416,6 @@
             "wallType": 1,
             "gridPos": {
                 "x": 3,
-                "y": 2
-            }
-        },
-        {
-            "wallType": 1,
-            "gridPos": {
-                "x": 4,
                 "y": 2
             }
         },
@@ -497,13 +478,6 @@
         {
             "wallType": 1,
             "gridPos": {
-                "x": 14,
-                "y": 2
-            }
-        },
-        {
-            "wallType": 1,
-            "gridPos": {
                 "x": 15,
                 "y": 2
             }
@@ -561,20 +535,6 @@
             "wallType": 1,
             "gridPos": {
                 "x": 3,
-                "y": 3
-            }
-        },
-        {
-            "wallType": 1,
-            "gridPos": {
-                "x": 4,
-                "y": 3
-            }
-        },
-        {
-            "wallType": 1,
-            "gridPos": {
-                "x": 5,
                 "y": 3
             }
         },
@@ -666,20 +626,6 @@
             "wallType": 1,
             "gridPos": {
                 "x": 3,
-                "y": 4
-            }
-        },
-        {
-            "wallType": 1,
-            "gridPos": {
-                "x": 4,
-                "y": 4
-            }
-        },
-        {
-            "wallType": 1,
-            "gridPos": {
-                "x": 5,
                 "y": 4
             }
         },
@@ -833,27 +779,6 @@
         {
             "wallType": 1,
             "gridPos": {
-                "x": 14,
-                "y": 5
-            }
-        },
-        {
-            "wallType": 1,
-            "gridPos": {
-                "x": 15,
-                "y": 5
-            }
-        },
-        {
-            "wallType": 1,
-            "gridPos": {
-                "x": 16,
-                "y": 5
-            }
-        },
-        {
-            "wallType": 1,
-            "gridPos": {
                 "x": 17,
                 "y": 5
             }
@@ -925,20 +850,6 @@
             "wallType": 1,
             "gridPos": {
                 "x": 6,
-                "y": 6
-            }
-        },
-        {
-            "wallType": 1,
-            "gridPos": {
-                "x": 15,
-                "y": 6
-            }
-        },
-        {
-            "wallType": 1,
-            "gridPos": {
-                "x": 16,
                 "y": 6
             }
         },
@@ -2584,6 +2495,13 @@
             "wallType": 1,
             "gridPos": {
                 "x": 9,
+                "y": 18
+            }
+        },
+        {
+            "wallType": 1,
+            "gridPos": {
+                "x": 10,
                 "y": 18
             }
         },

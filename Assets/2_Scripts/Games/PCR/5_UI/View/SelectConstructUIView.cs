@@ -1,6 +1,7 @@
 using R3;
 using UnityEngine;
 using UnityEngine.UI;
+using DG.Tweening;
 
 namespace LUP.PCR
 {
@@ -17,6 +18,17 @@ namespace LUP.PCR
         [SerializeField] private Button backBtn;
 
         private readonly CompositeDisposable cd = new();
+
+        [SerializeField] private RectTransform constructionPanel;
+
+        private Vector2 onScreenConstructionPanelPos;
+        private Vector2 offScreenConstructionPanelPos;
+
+        private void Start()
+        {
+            onScreenConstructionPanelPos = Vector2.zero;
+            offScreenConstructionPanelPos = new Vector2(0f, -200f);
+        }
 
         public void Bind(SelectConstructViewModel vm)
         {
@@ -56,12 +68,18 @@ namespace LUP.PCR
         public void Show()
         {
             gameObject.SetActive(true);
-        }
-        public void Hide()
-        {
-            gameObject.SetActive(false);
+            constructionPanel.DOAnchorPos(onScreenConstructionPanelPos, 0.2f).SetEase(Ease.OutCubic);
         }
 
+        public void Hide()
+        {
+            constructionPanel.DOAnchorPos(offScreenConstructionPanelPos, 0.2f)
+                .SetEase(Ease.InCubic)
+                .OnComplete(() =>
+                {
+                    gameObject.SetActive(false);
+                });
+        }
     }
 
 }

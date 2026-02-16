@@ -2,6 +2,7 @@ using UnityEngine;
 using System;
 using UnityEngine.UI;
 using R3;
+using DG.Tweening;
 
 namespace LUP.PCR
 {
@@ -18,13 +19,31 @@ namespace LUP.PCR
         [SerializeField] private Text stoneText;
         [SerializeField] private Text ironText;
 
+        [Header("ÆÐ³Î")]
+        [SerializeField] private RectTransform upperPanel;
+        [SerializeField] private RectTransform taskPanel;
+
         private readonly CompositeDisposable cd = new();
         private MainUIViewModel mainVM;
 
-        // Event
-        //public event Action OnClickDig;
-        //public event Action OnClickConstruct;
-        //public event Action OnClickInventory;
+        private Vector2 onScreenUpperPanelPos;
+        private Vector2 offScreenUpperPanelPos;
+
+        private Vector2 onScreenTaskPanelPos;
+        private Vector2 offScreenTaskPanelPos;
+
+        private void Start()
+        {
+            onScreenUpperPanelPos = Vector2.zero;
+            offScreenUpperPanelPos = new Vector2(0, 80f);
+
+            onScreenTaskPanelPos = new Vector2(-15f, 15f);
+            offScreenTaskPanelPos = new Vector2(115f, 0);
+
+
+            taskPanel.anchoredPosition = onScreenTaskPanelPos;
+            upperPanel.anchoredPosition = onScreenUpperPanelPos;
+        }
 
         public void Bind(MainUIViewModel vm)
         {
@@ -51,10 +70,20 @@ namespace LUP.PCR
         public void Show()
         {
             gameObject.SetActive(true);
+            taskPanel.DOAnchorPos(onScreenTaskPanelPos, 0.2f).SetEase(Ease.OutCubic);
+            upperPanel.DOAnchorPos(onScreenUpperPanelPos, 0.2f)
+                .SetEase(Ease.OutCubic);
         }
+
         public void Hide()
         {
-            gameObject.SetActive(false);
+            taskPanel.DOAnchorPos(offScreenTaskPanelPos, 0.2f).SetEase(Ease.InCubic);
+            upperPanel.DOAnchorPos(offScreenUpperPanelPos, 0.2f)
+                .SetEase(Ease.InCubic)
+                .OnComplete(() =>
+                {
+                    gameObject.SetActive(false);
+                });
         }
     }
 }

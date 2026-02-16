@@ -91,7 +91,6 @@ namespace LUP.PCR
             {
                 onClickProductableBuilding.OnNext(productableBuilding);
             }
-
         }
 
         public void DigWallTask()
