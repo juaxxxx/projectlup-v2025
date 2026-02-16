@@ -34,8 +34,8 @@ namespace LUP.PCR
         {
             this.runtimeData = runtimeData;
 
-            buildingName = "Restaurant";
-            placeName = buildingName;
+            buildingName.Value = "Restaurant";
+            placeName = buildingName.Value;
 
             if (ConstructScreen)
             {

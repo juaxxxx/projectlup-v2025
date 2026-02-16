@@ -1422,50 +1422,6 @@ MonoBehaviour:
     m_VerticalOverflow: 0
     m_LineSpacing: 1
   m_Text: Power Station
---- !u!1 &139560143283874355
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 4908889036585928949}
-  - component: {fileID: 8978655698387568411}
-  m_Layer: 0
-  m_Name: ResourceCenter
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &4908889036585928949
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 139560143283874355}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 2188466535812032771}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &8978655698387568411
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 139560143283874355}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e440d28d067510d429110e31aaa529a4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &145935238806115522
 GameObject:
   m_ObjectHideFlags: 0
@@ -91002,7 +90958,6 @@ MonoBehaviour:
   tileMap: {fileID: 4883401782088898899}
   lastClickTile: {fileID: 0}
   buildingSystem: {fileID: 0}
-  uiCenter: {fileID: 0}
 --- !u!1 &8177202438961240209
 GameObject:
   m_ObjectHideFlags: 0
@@ -98620,7 +98575,6 @@ Transform:
   - {fileID: 4812029337680882007}
   - {fileID: 5174755467163622837}
   - {fileID: 1255274129612762159}
-  - {fileID: 4908889036585928949}
   - {fileID: 7645700516227676955}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -98682,7 +98636,6 @@ MonoBehaviour:
   uiCenter: {fileID: 0}
   digWallPreview: {fileID: 0}
   buildPreview: {fileID: 0}
-  resourceCenter: {fileID: 0}
 --- !u!1 &8686404995864536108
 GameObject:
   m_ObjectHideFlags: 0

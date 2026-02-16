@@ -1,3 +1,4 @@
+using R3;
 using System;
 using UnityEngine;
 using UnityEngine.UI;
@@ -9,7 +10,7 @@ namespace LUP.PCR
         Product,
         Upgrade,
     }
-    public class FarmTaskUIView : MonoBehaviour, IFarmTaskUIView
+    public class FarmTaskUIView : MonoBehaviour
     {
         [Header("탭")]
         [SerializeField] private Button productionTab;
@@ -44,22 +45,60 @@ namespace LUP.PCR
         [SerializeField] private Image costIcon2;
         [SerializeField] private Text costText2;
 
-        // Event
-        public event Action OnClickWorkRequest;
-        public event Action OnClickUpgrade;
-        public event Action OnClickBack;
-        public event Action<FarmUIBtnType> OnChangeTab;
+        private readonly CompositeDisposable cd = new();
 
-        private void Awake()
+        private void OnDestroy()
         {
-            btnProductionToggle.onClick.AddListener(() => OnClickWorkRequest?.Invoke());
-            btnUpgrade.onClick.AddListener(() => OnClickUpgrade?.Invoke());
-            backBtn?.onClick.AddListener(() => OnClickBack?.Invoke());
+            cd.Dispose();
+        }
 
-            productionTab?.onClick.AddListener(() => OnChangeTab?.Invoke(FarmUIBtnType.Product));
-            upgradeTab?.onClick.AddListener(() => OnChangeTab?.Invoke(FarmUIBtnType.Upgrade));
+        public void Bind(FarmTaskUIViewModel vm)
+        {
+            btnProductionToggle.onClick.AddListener(() => vm.OnClickWorkRequest?.OnNext(Unit.Default));
+            btnUpgrade.onClick.AddListener(() => vm.OnClickUpgrade?.OnNext(Unit.Default));
+            backBtn?.onClick.AddListener(() => vm.OnClickBack?.OnNext(Unit.Default));
 
-            OnChangeTab += ChangeOptionBtn;
+            productionTab?.onClick.AddListener(() => vm.OnTabChanged?.OnNext(FarmUIBtnType.Product));
+            upgradeTab?.onClick.AddListener(() => vm.OnTabChanged?.OnNext(FarmUIBtnType.Upgrade));
+
+            vm.OnTabChanged?.Subscribe(ChangeOptionBtn).AddTo(cd);
+
+            vm.Level.DistinctUntilChanged().Subscribe(value =>
+            {
+                levelChangeText.text = $"Lv.{value} >> Lv.{value + 1}";
+            }).AddTo(cd);
+            vm.BuildingName.DistinctUntilChanged().Subscribe(value =>
+            {
+                buildingNameText.text = value;
+            }).AddTo(cd);
+            vm.IsWorkRequested.DistinctUntilChanged().Subscribe(value =>
+            {
+                if (value)
+                {
+                    productionToggleText.text = "요청 취소";
+                    btnProductionToggle.image.color = Color.gray;
+                }
+                else
+                {
+                    productionToggleText.text = "작업 요청";
+                    btnProductionToggle.image.color = Color.white;
+                }
+            }).AddTo(cd);
+            vm.IsConstructing.DistinctUntilChanged().Subscribe(value =>
+            {
+                if (value)
+                {
+                    upgradeTab.interactable = false;
+                    if (upgradePanel.activeSelf)
+                    {
+                        ChangeOptionBtn(FarmUIBtnType.Product);
+                    }
+                }
+                else
+                {
+                    upgradeTab.interactable = true;
+                }
+            }).AddTo(cd);
         }
 
         public void Show()

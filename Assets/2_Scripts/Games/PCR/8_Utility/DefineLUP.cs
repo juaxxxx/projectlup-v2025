@@ -86,6 +86,9 @@ namespace LUP.PCR
 
     public enum TaskType
     {
+        Idle,
+        Dig,
+        Construct,
         BuildingWheatFarm,
         BuildingMushroomFarm,
     }
@@ -95,7 +98,9 @@ namespace LUP.PCR
         Main,
         Inventory,
         SelectConstrcut,
-        ProductableBuilding,
+        FarmTask,
         ConstructionDecision,
+        DigWall,
     }
+
 }

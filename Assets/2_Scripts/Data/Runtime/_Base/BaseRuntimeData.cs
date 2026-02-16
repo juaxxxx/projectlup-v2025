@@ -67,7 +67,7 @@ public abstract class BaseRuntimeData
     {
         yield return new WaitForSeconds(saveDelay);
         SaveDataImmediate();
-        Debug.Log($"[{GetType().Name}] 저장 완료 (지연: {saveDelay}초)");
+        //Debug.Log($"[{GetType().Name}] 저장 완료 (지연: {saveDelay}초)");
     }
 
     private void SaveDataImmediate()

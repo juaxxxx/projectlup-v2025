@@ -18,13 +18,13 @@ namespace LUP.PCR
         [SerializeField] private Text stoneText;
         [SerializeField] private Text ironText;
 
-        // Event
-        public event Action OnClickDig;
-        public event Action OnClickConstruct;
-        public event Action OnClickInventory;
-
         private readonly CompositeDisposable cd = new();
         private MainUIViewModel mainVM;
+
+        // Event
+        //public event Action OnClickDig;
+        //public event Action OnClickConstruct;
+        //public event Action OnClickInventory;
 
         public void Bind(MainUIViewModel vm)
         {
@@ -55,19 +55,6 @@ namespace LUP.PCR
         public void Hide()
         {
             gameObject.SetActive(false);
-        }
-
-        public void UpdateResourceText(PCRResourceCenter resourceCenter)
-        {
-            int food = resourceCenter.GetResourceAmount(ResourceType.Food);
-            int power = resourceCenter.GetResourceAmount(ResourceType.Power);
-            int stone = resourceCenter.GetResourceAmount(ResourceType.Stone);
-            int iron = resourceCenter.GetResourceAmount(ResourceType.Iron);
-
-            foodText.text = food.ToString();
-            powerText.text = power.ToString();
-            stoneText.text = stone.ToString();
-            ironText.text = iron.ToString();
         }
     }
 }

@@ -1,5 +1,6 @@
 using UnityEngine;
 using System;
+using R3;
 
 namespace LUP.PCR
 {
@@ -19,7 +20,14 @@ namespace LUP.PCR
         public Tile lastClickTile;
 
         public BuildingSystem buildingSystem;
-        public PCRUICenter uiCenter;
+
+        private Subject<TaskType> onTaskChanged = new();
+        public Observable<TaskType> OnTaskChanged => onTaskChanged;
+
+        private Subject<ProductableBuilding> onClickProductableBuilding = new();
+        public Observable<ProductableBuilding> OnClickProductableBuilding => onClickProductableBuilding;
+
+        private readonly CompositeDisposable cd = new();
 
         private void Awake()
         {
@@ -43,16 +51,20 @@ namespace LUP.PCR
             }
         }
 
-        public void InitTaskController(PCRUICenter uiCenter, DigWallPreview digWallPreview, BuildPreview buildPreview, 
+        private void OnDestroy()
+        {
+            cd.Dispose();
+        }
+
+        public void InitTaskController(DigWallPreview digWallPreview, BuildPreview buildPreview, 
             TileMap tileMap, BuildingSystem buildingSystem)
         {
-            this.uiCenter = uiCenter;
             this.digWallPreview = digWallPreview;
             this.buildPreview = buildPreview;
             this.tileMap = tileMap;
             this.buildingSystem = buildingSystem;
 
-            Trasition(idleState);
+            IdleTask();
 
             Debug.Log("TaskController Init");
         }
@@ -67,32 +79,43 @@ namespace LUP.PCR
             currentState.Open();  // 상태 전환 후, 현재 작업 초기화
         }
 
+        private void NotifyTaskChanged(TaskType type)
+        {
+            onTaskChanged.OnNext(type);
+        }
+
+        public void NotifyBuildingClicked(BuildingBase building)
+        {
+            ProductableBuilding productableBuilding = building as ProductableBuilding;
+            if (productableBuilding)
+            {
+                onClickProductableBuilding.OnNext(productableBuilding);
+            }
+
+        }
 
         public void DigWallTask()
         {
+            NotifyTaskChanged(TaskType.Dig);
             Trasition(digWallState);
         }
 
         public void BuildingTask()
         {
+            NotifyTaskChanged(TaskType.Construct);
             Trasition(buildingState);
         }
 
         public void IdleTask()
         {
+            NotifyTaskChanged(TaskType.Idle);
             Trasition(idleState);
         }
 
-        public void SetIdleActiveTrue()
+        public void SetIdleActive(bool isActive)
         {
             IdleState idle = idleState as IdleState;
-            idle.SetIsActiveUI(true);
-        }
-
-        public void SetIdleActiveFalse()
-        {
-            IdleState idle = idleState as IdleState;
-            idle.SetIsActiveUI(false);
+            idle.SetIsActiveUI(isActive);
         }
 
         public void SetCurrSelectedBuildingType(BuildingType buildingType)

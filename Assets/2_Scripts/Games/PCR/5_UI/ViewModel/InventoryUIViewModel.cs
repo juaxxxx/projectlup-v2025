@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace LUP.PCR
 {
-    public sealed class InventoryUIViewModel : IDisposable
+    public sealed class InventoryUIViewModel
     {
         public ReadOnlyReactiveProperty<int> Stone { get; }
         public ReadOnlyReactiveProperty<int> Coal { get; }
@@ -17,8 +17,6 @@ namespace LUP.PCR
         public ReadOnlyReactiveProperty<int> Diamond { get; }
 
         public Subject<Unit> ClickBack { get; } = new();
-
-        private readonly CompositeDisposable cd = new();
 
         public InventoryUIViewModel(PCRResourceCenter rc)
         {
@@ -33,6 +31,5 @@ namespace LUP.PCR
             Diamond = rc.Observe(ResourceType.Diamond);
         }
 
-        public void Dispose() => cd.Dispose();
     }
 }
