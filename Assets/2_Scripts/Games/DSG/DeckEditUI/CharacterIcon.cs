@@ -71,11 +71,11 @@ namespace LUP.DSG
                 //portrait.color = portraitColor;
             }
             DeckStrategyStage stage = LUP.StageManager.Instance.GetCurrentStage() as DeckStrategyStage;
-            FormationSystem system = stage.GetComponent<FormationSystem>();
-            AttributeTypeImage typeIcon = system.GetTypeByAttributeImage(type);
+            AttributeIconContainer iconContainer = stage.GetComponent<AttributeIconContainer>();
+            AttributeTypeImage typeIcon = iconContainer.GetTypeByAttributeImage(type);
 
-            attributeIcon.sprite = typeIcon.TypeIcon;
-            attributeIcon.color = typeIcon.TypeColor;
+            attributeIcon.sprite = typeIcon.typeIcon;
+            attributeIcon.color = typeIcon.typeColor;
 
         }
 

@@ -57,11 +57,11 @@ namespace LUP.DSG
             character.StatusEffectComp.OnEffectEndTurn = OnEffectEndTurn;
 
             DeckStrategyStage stage = LUP.StageManager.Instance.GetCurrentStage() as DeckStrategyStage;
-            FormationSystem system = stage.GetComponent<FormationSystem>();
-            AttributeTypeImage typeIcon = system.GetTypeByAttributeImage(character.characterData.type);
+            AttributeIconContainer iconContainer = stage.GetComponent<AttributeIconContainer>();
+            AttributeTypeImage typeIcon = iconContainer.GetTypeByAttributeImage(character.characterData.type);
 
-            centerAreaImage.sprite = typeIcon.TypeIcon;
-            centerAreaImage.color = typeIcon.TypeColor;
+            centerAreaImage.sprite = typeIcon.typeIcon;
+            centerAreaImage.color = typeIcon.typeColor;
 
         }
 

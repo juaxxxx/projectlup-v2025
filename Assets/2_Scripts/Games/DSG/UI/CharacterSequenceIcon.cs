@@ -1,10 +1,6 @@
 using LUP.DSG.Utils.Enums;
-using System.Drawing;
 using TMPro;
 using UnityEngine;
-using UnityEngine.TextCore.Text;
-using UnityEngine.UI;
-using UnityEngine.UIElements;
 
 namespace LUP.DSG
 {
@@ -24,11 +20,11 @@ namespace LUP.DSG
             level.text = "Lv." + characterLevel;
 
             DeckStrategyStage stage = LUP.StageManager.Instance.GetCurrentStage() as DeckStrategyStage;
-            FormationSystem system = stage.GetComponent<FormationSystem>();
-            AttributeTypeImage typeIcon = system.GetTypeByAttributeImage(type);
+            AttributeIconContainer iconContainer = stage.GetComponent<AttributeIconContainer>();
+            AttributeTypeImage attribute = iconContainer.GetTypeByAttributeImage(type);
 
-            attributeIcon.sprite = typeIcon.TypeIcon;
-            attributeIcon.color = typeIcon.TypeColor;
+            attributeIcon.sprite = attribute.typeIcon;
+            attributeIcon.color = attribute.typeColor;
 
 
             UnityEngine.Color color = isEnemy ? UnityEngine.Color.red : UnityEngine.Color.blue;

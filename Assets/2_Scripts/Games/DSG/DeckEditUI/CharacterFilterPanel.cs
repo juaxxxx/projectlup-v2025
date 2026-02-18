@@ -37,6 +37,14 @@ namespace LUP.DSG
 
             CreateButtons<EAttributeType>();
             CreateButtons<ERangeType>();
+
+            DeckStrategyStage stage = LUP.StageManager.Instance.GetCurrentStage() as DeckStrategyStage;
+            if (stage == null) return;
+            FormationSystem formationSystem = stage.GetComponent<FormationSystem>();
+            if (formationSystem != null)
+            {
+                formationSystem.OnResetTeam += ResetAllFilter;
+            }
         }
 
         private void CreateButtons<T>() where T : Enum

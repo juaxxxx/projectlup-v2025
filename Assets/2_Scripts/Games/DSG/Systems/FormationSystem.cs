@@ -9,16 +9,6 @@ using UnityEngine.UI;
 
 namespace LUP.DSG
 {
-    public readonly struct AttributeTypeImage
-    {
-        public readonly Sprite TypeIcon;
-        public readonly UnityEngine.Color TypeColor;
-        public AttributeTypeImage(Sprite icon, UnityEngine.Color color)
-        {
-            TypeIcon = icon;
-            TypeColor = color;
-        }
-    }
     public class FormationSystem : MonoBehaviour
     {
         public GameObject[] slots = new GameObject[5];
@@ -27,12 +17,6 @@ namespace LUP.DSG
 
         [SerializeField]
         private Transform characterListContent;
-        [SerializeField]
-        private CharacterFilterPanel filterPanel;
-        [SerializeField]
-        private RectTransform AttributeChart;
-
-        [SerializeField] private Sprite paperIcon, rockIcon, scissorsIcon;
 
         private int selectedCount = 0;
 
@@ -45,6 +29,7 @@ namespace LUP.DSG
         public event System.Action OnPowerUpdated;
 
         public event System.Action<int> OnInitTeam;
+        public event System.Action OnResetTeam;
 
         private void OnEnable()
         {
@@ -220,10 +205,8 @@ namespace LUP.DSG
                 }
                 list.PopulateScrollView();
             }
-            if(filterPanel != null)
-            {
-                filterPanel.ResetAllFilter();
-            }
+
+            OnResetTeam?.Invoke();
         }
 
         public void SaveTeam()
@@ -235,30 +218,6 @@ namespace LUP.DSG
 
             if (runtimeData.Teams[runtimeData.SelectedTeamIndex] == null) runtimeData.Teams[runtimeData.SelectedTeamIndex] = new Team();
             runtimeData.Teams[runtimeData.SelectedTeamIndex] = selectedTeam;
-        }
-
-        public AttributeTypeImage GetTypeByAttributeImage(EAttributeType type)
-        {
-            switch (type)
-            {
-                case EAttributeType.ROCK:
-                    return new AttributeTypeImage(rockIcon, UnityEngine.Color.yellow);
-                case EAttributeType.PAPER:
-                    return new AttributeTypeImage(paperIcon, UnityEngine.Color.red);
-                case EAttributeType.SCISSORS:
-                    return new AttributeTypeImage(scissorsIcon, UnityEngine.Color.blue);
-                default:
-                    return new AttributeTypeImage(null, UnityEngine.Color.white);
-            }
-        }
-
-        public void OnClickAttributetable()
-        {
-            AttributeChart.gameObject.SetActive(true);
-        }
-        public void OnClickAttributeChartExit()
-        {
-            AttributeChart.gameObject.SetActive(false);
         }
     }
 

@@ -5669,6 +5669,7 @@ GameObject:
   - component: {fileID: 1689079310}
   - component: {fileID: 1689079309}
   - component: {fileID: 1689079311}
+  - component: {fileID: 1689079312}
   m_Layer: 0
   m_Name: Stage
   m_TagString: Untagged
@@ -5729,11 +5730,28 @@ MonoBehaviour:
   - {fileID: 1462758778}
   - {fileID: 895510914}
   characterListContent: {fileID: 1197695711}
-  filterPanel: {fileID: 2115691459}
-  AttributeChart: {fileID: 0}
-  paperIcon: {fileID: 21300000, guid: 936bb801475d24346822689b0cd0d2d4, type: 3}
-  rockIcon: {fileID: 21300000, guid: 57dd67d8ff1815d4fb2532e580d4fef4, type: 3}
-  scissorsIcon: {fileID: 21300000, guid: a9450ecafb0a7bd45bc2c78575b32f98, type: 3}
+--- !u!114 &1689079312
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1689079308}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f17dd46f913796e4799ad51b90d19eec, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  typeList:
+  - attributeType: 1
+    typeIcon: {fileID: 21300000, guid: 57dd67d8ff1815d4fb2532e580d4fef4, type: 3}
+    typeColor: {r: 1, g: 1, b: 0, a: 1}
+  - attributeType: 2
+    typeIcon: {fileID: 21300000, guid: 936bb801475d24346822689b0cd0d2d4, type: 3}
+    typeColor: {r: 1, g: 0, b: 0, a: 1}
+  - attributeType: 3
+    typeIcon: {fileID: 21300000, guid: a9450ecafb0a7bd45bc2c78575b32f98, type: 3}
+    typeColor: {r: 0, g: 0, b: 1, a: 1}
 --- !u!1 &1710040306
 GameObject:
   m_ObjectHideFlags: 0
@@ -7320,6 +7338,7 @@ MonoBehaviour:
   filterButtonPrefab: {fileID: 8654377384795523768, guid: 0f197e1c0d269b64eb36a3ab56e7dc44, type: 3}
   attributesFilterArea: {fileID: 1025036094}
   RangesFilterArea: {fileID: 1503181067}
+  formationSystem: {fileID: 1689079311}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
