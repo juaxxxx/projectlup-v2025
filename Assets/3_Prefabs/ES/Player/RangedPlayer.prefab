@@ -158,6 +158,7 @@ GameObject:
   - component: {fileID: 1540791219480265054}
   - component: {fileID: 1347744412525973945}
   - component: {fileID: -1624056142196684325}
+  - component: {fileID: 2407185407133913228}
   m_Layer: 4
   m_Name: RangedPlayer
   m_TagString: Player
@@ -476,6 +477,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 331fac1522026c94da924c2e92f840ef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &2407185407133913228
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7395278910700784524}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c329d8fb2305c2848b8bd5065d5e6f75, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  targetRenderer: {fileID: 5956339377988018200}
+  flashColor: {r: 1, g: 0, b: 0, a: 1}
+  flashDuration: 0.5
+  colorPropertyName: _OutlineColor
 --- !u!1001 &1068821022495340285
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -540,6 +557,11 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 5261070723845562771}
   m_SourcePrefab: {fileID: 100100000, guid: caa66aea9265de84481c16aabaedd84d, type: 3}
+--- !u!137 &5956339377988018200 stripped
+SkinnedMeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 6664232428022290149, guid: caa66aea9265de84481c16aabaedd84d, type: 3}
+  m_PrefabInstance: {fileID: 1068821022495340285}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &6000002984810937378 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 6742308528892775135, guid: caa66aea9265de84481c16aabaedd84d, type: 3}

@@ -11,6 +11,7 @@ namespace LUP.ES
         [HideInInspector]
         public bool isDead = false;
 
+        private DamageFlash damageFlash;
 
         public void Awake()
         {
@@ -18,6 +19,7 @@ namespace LUP.ES
         }
         public void Start()
         {
+            damageFlash = GetComponent<DamageFlash>();
             //HP = MaxHP;
         }
 
@@ -33,6 +35,11 @@ namespace LUP.ES
             {
                 isDead = true;
                 HP = 0.0f;
+            }
+
+            if(damageFlash)
+            {
+                damageFlash.TakeDamage();
             }
         }
 

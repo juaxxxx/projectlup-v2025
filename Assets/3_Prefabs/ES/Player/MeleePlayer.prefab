@@ -158,6 +158,7 @@ GameObject:
   - component: {fileID: 2507687081653510307}
   - component: {fileID: 2175274781033769707}
   - component: {fileID: 2056397343635535258}
+  - component: {fileID: 913825488963957567}
   m_Layer: 4
   m_Name: MeleePlayer
   m_TagString: Player
@@ -476,6 +477,22 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bushState: {fileID: 2507687081653510307}
   visualController: {fileID: 2175274781033769707}
+--- !u!114 &913825488963957567
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8745652737564829069}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c329d8fb2305c2848b8bd5065d5e6f75, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  targetRenderer: {fileID: 7588670311107204309}
+  flashColor: {r: 1, g: 0, b: 0, a: 1}
+  flashDuration: 0.5
+  colorPropertyName: _OutlineColor
 --- !u!1001 &5768861415964471814
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -583,3 +600,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxWeight: 1
+--- !u!137 &7588670311107204309 stripped
+SkinnedMeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 4134097292898461395, guid: bbd0999c03608ee44b428072cfc23d0d, type: 3}
+  m_PrefabInstance: {fileID: 5768861415964471814}
+  m_PrefabAsset: {fileID: 0}

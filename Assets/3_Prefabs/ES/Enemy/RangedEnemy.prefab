@@ -167,6 +167,7 @@ GameObject:
   - component: {fileID: 1592714663866799431}
   - component: {fileID: -2265169198104987356}
   - component: {fileID: -6487661707123267607}
+  - component: {fileID: 8925065344850901302}
   m_Layer: 3
   m_Name: RangedEnemy
   m_TagString: Enemy
@@ -405,6 +406,22 @@ MonoBehaviour:
   OverheadUIPrefab: {fileID: 2506230549702261924, guid: 89d767ec7670e674f99d8c93b995155a, type: 3}
   YOffset: 140
   UIInstance: {fileID: 0}
+--- !u!114 &8925065344850901302
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7011581053849183949}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c329d8fb2305c2848b8bd5065d5e6f75, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  targetRenderer: {fileID: 4965463902007211769}
+  flashColor: {r: 1, g: 0, b: 0, a: 1}
+  flashDuration: 0.5
+  colorPropertyName: _OutlineColor
 --- !u!1001 &1813692530292033665
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -469,6 +486,11 @@ PrefabInstance:
       addedObject: {fileID: 3355850657833618023}
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 36e115b180697bd48b1c20d78c1bfcbc, type: 3}
+--- !u!137 &4965463902007211769 stripped
+SkinnedMeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 6756341324967591544, guid: 36e115b180697bd48b1c20d78c1bfcbc, type: 3}
+  m_PrefabInstance: {fileID: 1813692530292033665}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &4976917641112683295 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6645650068679658398, guid: 36e115b180697bd48b1c20d78c1bfcbc, type: 3}
