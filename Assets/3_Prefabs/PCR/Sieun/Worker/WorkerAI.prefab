@@ -2872,7 +2872,7 @@ Animator:
   m_Controller: {fileID: 9100000, guid: 7060018c5642d654eab1b8ff083bca20, type: 2}
   m_CullingMode: 1
   m_UpdateMode: 0
-  m_ApplyRootMotion: 1
+  m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
   m_StabilizeFeet: 0
   m_AnimatePhysics: 0
@@ -2916,9 +2916,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b26053ced8aba2a40b7d5e501ef9abeb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gridMap: {fileID: 0}
-  moveSpeed: 5
   rotateSpeed: 10
+  moveSpeed: 5
 --- !u!114 &8746515189198860347
 MonoBehaviour:
   m_ObjectHideFlags: 0

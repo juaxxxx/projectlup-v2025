@@ -13,7 +13,6 @@ namespace LUP.PCR
         public static float tileSize = 5f;
     }
 
-
     public enum TileType
     {
         NONE,

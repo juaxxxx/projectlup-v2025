@@ -7,6 +7,8 @@ namespace LUP.PCR
         public TileInfo tileInfo;
 
         [SerializeField]
+        private GameObject tileVisualObject;
+        [SerializeField]
         private GameObject canActMark;
         [SerializeField]
         private GameObject canNotActMark;
@@ -23,7 +25,13 @@ namespace LUP.PCR
         {
             this.tileInfo = tileInfo;
         }
-
+        public void SetTileVisualActive(bool isActive)
+        {
+            if (tileVisualObject != null)
+            {
+                tileVisualObject.SetActive(isActive);
+            }
+        }
         public void ShowCanDigWallMark()
         {
             if (canActMark)

@@ -5,17 +5,16 @@ namespace LUP.PCR
 {
     public class UnitMover : MonoBehaviour
     {
-        public Vector3 CurrentDestination => currentDestination;
-        public bool IsMoving => path != null && currentIndex < path.Count;
-
-        private AGridMap gridMap;
-        [SerializeField] float moveSpeed = 5f;
         [SerializeField] float rotateSpeed = 10f;
-
+        [SerializeField] float moveSpeed = 5f;
+        private AGridMap gridMap;
         private APathfinding pathfinder;
         private List<ANode> path;
         private int currentIndex;
         private Vector3 currentDestination;
+        public Vector3 CurrentDestination => currentDestination;
+        public bool IsMoving => path != null && currentIndex < path.Count;
+        public bool IsClimbing { get; private set; }
 
         void Start()
         {
@@ -69,7 +68,6 @@ namespace LUP.PCR
         //        ProcessPath(calculatedPath);
         //    }
         //}
-
         ANode GetStartNodeByPhysics()
         {
             RaycastHit hit;
@@ -84,7 +82,10 @@ namespace LUP.PCR
 
         public bool SetDestination(Vector2Int gridPos)
         {
-            if (gridMap == null || pathfinder == null) return false;
+            if (gridMap == null || pathfinder == null)
+            {
+                return false;
+            }
 
             ANode startNode = GetStartNodeByPhysics();
 
@@ -123,7 +124,10 @@ namespace LUP.PCR
 
         private ANode FindNearestWalkableNode(ANode centerNode)
         {
-            if (centerNode.isWalkable) return centerNode;
+            if (centerNode.isWalkable)
+            {
+                return centerNode;
+            }
 
             ANode nearest = null;
             float minDist = float.MaxValue;
@@ -132,7 +136,10 @@ namespace LUP.PCR
             {
                 for (int y = -1; y <= 1; y++)
                 {
-                    if (x == 0 && y == 0) continue;
+                    if (x == 0 && y == 0)
+                    {
+                        continue;
+                    }
 
                     Vector2Int neighborPos = new Vector2Int(centerNode.indexX + x, centerNode.indexY + y);
                     ANode neighbor = gridMap.GetNodeFromGridPos(neighborPos);
@@ -161,11 +168,11 @@ namespace LUP.PCR
             currentDestination = gridMap.GetNodeFootPosition(path[path.Count - 1]);
         }
 
-
         public void MoveAlongPath()
         {
             if (!IsMoving)
             {
+                IsClimbing = false;
                 return;
             }
 
@@ -174,33 +181,46 @@ namespace LUP.PCR
             ANode prev = currentIndex > 0 ? path[currentIndex - 1] : null;
 
             bool isVerticalMove = (prev != null) && (prev.indexY != target.indexY); 
-            if (isVerticalMove) // 이전 노드와의 높이 차이가 없을때만
+            
+            if (isVerticalMove) // 이전 노드와의 높이 차이가 없을때만 상하이동 가능
             {
-                // X축 높이가 다르면 맞춘다
+                // X축 위치가 사다리 중앙에 맞을 때까지만 평지에서 이동
                 if (Mathf.Abs(transform.position.x - targetPos.x) > 0.05f)
                 {
+                    IsClimbing = false;
+
                     Vector3 alignX = new Vector3(targetPos.x, transform.position.y, transform.position.z);
                     transform.position = Vector3.MoveTowards(transform.position, alignX, moveSpeed * Time.deltaTime);
-                    return;
                 }
-
-                // Y 이동 
-                transform.position = Vector3.MoveTowards(transform.position, targetPos, moveSpeed * Time.deltaTime);
+                else
+                {
+                    IsClimbing = target.isLadder;
+                    transform.position = Vector3.MoveTowards(transform.position, targetPos, moveSpeed * Time.deltaTime);
+                }
             }
-            else
+            else // 같은 층을 걷는 중 (사다리를 그냥 지나치는 경우도 포함)
             {
+                IsClimbing = false;
                 Vector3 walkTarget = new Vector3(targetPos.x,transform.position.y,targetPos.z);
                 transform.position = Vector3.MoveTowards(transform.position, walkTarget,moveSpeed * Time.deltaTime);
             }
 
-            // 이동방향 맞추기
-            Vector3 direction = (targetPos - transform.position);
-            direction.y = 0;
-            if (direction != Vector3.zero)
+            if (IsClimbing)
             {
-                Quaternion targetRotation = Quaternion.LookRotation(direction);
-
-                transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, rotateSpeed * Time.deltaTime);
+                // 사다리 탈 때는 카메라 반대편(안쪽)을 바라보게 강제 회전 (Z축 방향)
+                Quaternion climbRotation = Quaternion.Euler(0, 0, 0);
+                transform.rotation = Quaternion.Slerp(transform.rotation, climbRotation, rotateSpeed * Time.deltaTime);
+            }
+            else
+            {
+                // 가로로 걸을 때는 이동 방향 바라보기
+                Vector3 direction = (targetPos - transform.position);
+                direction.y = 0;
+                if (direction != Vector3.zero)
+                {
+                    Quaternion targetRotation = Quaternion.LookRotation(direction);
+                    transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, rotateSpeed * Time.deltaTime);
+                }
             }
 
             if (Vector3.Distance(transform.position, targetPos) < 0.15f)
@@ -224,6 +244,5 @@ namespace LUP.PCR
             currentIndex = 0;
             gridMap.pathToDraw = null;
         }
-
     }
 }

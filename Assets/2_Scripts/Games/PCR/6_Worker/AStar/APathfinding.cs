@@ -11,7 +11,6 @@ namespace LUP.PCR
         Top,
         Single
     }
-
     public class APathfinding
     {
         AGridMap gridMap;
@@ -35,7 +34,7 @@ namespace LUP.PCR
                 node.parentNode = null;
             }
         }
-        
+
         public List<ANode> FindPath(ANode startNode, ANode targetNode)
         {
             ResetNodes();
@@ -62,7 +61,9 @@ namespace LUP.PCR
                 closedSet.Add(current);
 
                 if (current == targetNode)
+                {
                     return RetracePath(startNode, targetNode);
+                }
 
                 foreach (ANode neighbor in GetNeighbors(current))
                 {
@@ -77,14 +78,15 @@ namespace LUP.PCR
                         neighbor.parentNode = current;
 
                         if (!openList.Contains(neighbor))
+                        {
                             openList.Add(neighbor);
+                        }
                     }
                 }
             }
 
             return null;
         }
-
         List<ANode> RetracePath(ANode start, ANode end)
         {
             List<ANode> path = new();
@@ -113,24 +115,25 @@ namespace LUP.PCR
                 int ny = node.indexY + dirs[i, 1];
 
                 if (!gridMap.IsIdxValid(nx, ny))
+                {
                     continue;
+                }
 
                 ANode neighbor = gridMap.grid[nx, ny];
                 if (!neighbor.isWalkable)
+                {
                     continue;
+                }
 
                 int dy = dirs[i, 1];
-
                 if (dy == 0 && CanMoveSide(state))
                 { 
                     neighbors.Add(neighbor);
                 }
-
                 else if (dy == 1 && CanMoveUp(node, neighbor, state))
                 {
                     neighbors.Add(neighbor);
                 }
-
                 else if (dy == -1 && CanMoveDown(node, neighbor, state))
                 {
                     neighbors.Add(neighbor);
@@ -148,7 +151,9 @@ namespace LUP.PCR
         LadderState GetLadderState(ANode node)
         {
             if (!node.isLadder)
+            {
                 return LadderState.None;
+            }
 
             bool up = HasLadderAt(node.indexX, node.indexY + 1);
             bool down = HasLadderAt(node.indexX, node.indexY - 1);

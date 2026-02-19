@@ -11,7 +11,7 @@ namespace LUP.PCR
         private UnitMover mover;
 
         private static readonly int IsMovingHash = Animator.StringToHash("IsMoving");
-
+        private static readonly int IsClimbingHash = Animator.StringToHash("IsClimbing");
         private void Awake()
         {
             anim = GetComponent<Animator>();
@@ -30,7 +30,8 @@ namespace LUP.PCR
                 return;
             }
 
-            anim.SetBool(IsMovingHash, mover.IsMoving);
+            anim.SetBool(IsClimbingHash, mover.IsClimbing);
+            anim.SetBool(IsMovingHash, mover.IsMoving && !mover.IsClimbing);
         }
 
         /*

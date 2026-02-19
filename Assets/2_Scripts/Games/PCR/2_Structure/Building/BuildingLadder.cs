@@ -17,7 +17,6 @@ namespace LUP.PCR
         {
         }
 
-        // Update is called once per frame
         void Update()
         {
             if (!hasWork)
@@ -28,8 +27,6 @@ namespace LUP.PCR
             float deltaTime = Time.deltaTime;
             currBuildState?.Tick(deltaTime);
         }
-
-
         public override void Init(ProductionRuntimeData runtimeData)
         {
             this.runtimeData = runtimeData;
@@ -52,7 +49,6 @@ namespace LUP.PCR
             hasWork = true;
             buildingName = "Ladder";
             placeName = buildingName;
-
 
             ProductionStage stage = LUP.StageManager.Instance.GetCurrentStage() as ProductionStage;
             currentConstructionData = stage.GetCurrentConstructionData((int)BuildingType.LADDER, buildingInfo.level);

@@ -163,7 +163,6 @@ namespace LUP.PCR
             }
         }
 
-
         [ContextMenu("Print Walkable Nodes")]
         public void PrintWalkableNodes()
         {
