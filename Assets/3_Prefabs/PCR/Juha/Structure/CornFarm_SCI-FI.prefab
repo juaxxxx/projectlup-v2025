@@ -573,9 +573,9 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 8735828465581603485}
   - {fileID: 2360281039032128641}
   - {fileID: 4978610674669481275}
-  - {fileID: 8735828465581603485}
   - {fileID: 2423274040592734305}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -628,17 +628,14 @@ MonoBehaviour:
     amount1: 0
     resourceType2: 0
     amount2: 0
-  buildingName: 
-  resourceCenter: {fileID: 0}
   ConstructScreen: {fileID: 4749863101599743211}
-  constructionOverlay: {fileID: 0}
+  constructionOverlay: {fileID: 969182459280662582}
   actionMenu: {fileID: 0}
   currentProductionData:
     buildingType: 0
     level: 0
     productionPerHour: 0
     StorageCapacity: 0
-  maxStorage: 0
 --- !u!1 &6687119704603347786
 GameObject:
   m_ObjectHideFlags: 0
@@ -1150,7 +1147,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5047099152068254471, guid: 22c35cb330d517b48bfecf1f56bd7882, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: -1.76
       objectReference: {fileID: 0}
     - target: {fileID: 5047099152068254471, guid: 22c35cb330d517b48bfecf1f56bd7882, type: 3}
       propertyPath: m_LocalRotation.w
@@ -1201,6 +1198,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 22c35cb330d517b48bfecf1f56bd7882, type: 3}
+--- !u!114 &969182459280662582 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3621520871887077804, guid: 22c35cb330d517b48bfecf1f56bd7882, type: 3}
+  m_PrefabInstance: {fileID: 4553420991724298650}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 95ddbaf6645b55b4b9653d4d0e65e3c3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!224 &8735828465581603485 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 5047099152068254471, guid: 22c35cb330d517b48bfecf1f56bd7882, type: 3}

@@ -783,7 +783,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &889455176583548611
 Transform:
   m_ObjectHideFlags: 0
@@ -7173,8 +7173,6 @@ MonoBehaviour:
     amount1: 0
     resourceType2: 0
     amount2: 0
-  buildingName: 
-  resourceCenter: {fileID: 0}
   ConstructScreen: {fileID: 0}
   constructionOverlay: {fileID: 0}
   actionMenu: {fileID: 0}
@@ -7183,4 +7181,3 @@ MonoBehaviour:
     level: 0
     productionPerHour: 0
     StorageCapacity: 0
-  maxStorage: 0

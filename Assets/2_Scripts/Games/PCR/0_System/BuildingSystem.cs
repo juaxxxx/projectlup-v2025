@@ -71,64 +71,6 @@ namespace LUP.PCR
 
             Debug.Log("BuildingSystem Init");
         }
-        private void HideBuildingTiles(BuildingType type, Tile pivotTile)
-        {
-            if (pivotTile == null)
-            {
-                return;
-            }
-                
-            Vector2Int size = new Vector2Int(1, 1);
-
-            switch (type)
-            {
-                case BuildingType.WHEATFARM:
-                    size = new Vector2Int(4, 1);
-                    break;
-                case BuildingType.MUSHROOMFARM:
-                    size = new Vector2Int(4, 1);
-                    break;
-                case BuildingType.MOLEFARM:
-                    size = new Vector2Int(4, 1);
-                    break;
-                case BuildingType.RESTAURANT:
-                    size = new Vector2Int(4, 1);
-                    break;
-                case BuildingType.POWERSTATION:
-                    size = new Vector2Int(3, 1);
-                    break;
-                case BuildingType.STONEMINE:
-                    size = new Vector2Int(2, 1);
-                    break;
-                case BuildingType.IRONMINE:
-                    size = new Vector2Int(2, 1);
-                    break;
-                case BuildingType.COALMINE:
-                    size = new Vector2Int(2, 1);
-                    break;
-                case BuildingType.LADDER:
-                    size = new Vector2Int(1, 1);
-                    break;
-                case BuildingType.WORKSTATION:
-                    size = new Vector2Int(4, 2);
-                    break;
-            }
-
-            for (int x = 0; x < size.x; x++)
-            {
-                for (int y = 0; y < size.y; y++)
-                {
-                    Vector2Int targetPos = new Vector2Int(pivotTile.tileInfo.pos.x + x, pivotTile.tileInfo.pos.y + y);
-
-                    Tile t = tileMap.GetTile(targetPos);
-                    if (t != null)
-                    {
-                        t.SetTileVisualActive(false);
-                    }
-                }
-            }
-        }
-
         public void RemoveWall(WallBase wall)
         {
             pcrRuntimeData.RemoveFromList(curWallInfoList, wall.GetWallInfo());
@@ -150,6 +92,7 @@ namespace LUP.PCR
                     tile.HideCanDigWallMark();
                     digWallPreview.AddCanNotDigTile(tile);
                     tile.SetTileInfo(new TileInfo(TileType.PATH, BuildingType.NONE, WallType.NONE, tile.tileInfo.pos, tile.tileInfo.id));
+                    tile.UpdateVisualState();
                 }
             }
         }
@@ -168,11 +111,6 @@ namespace LUP.PCR
                 }
 
                 Tile pivotTile = tileMap.GetTile(buildingInfo.gridPos);
-
-                if (pivotTile != null)
-                {
-                    HideBuildingTiles((BuildingType)buildingInfo.buildingType, pivotTile);
-                }
 
                 tileMap.UpdateTilebyBuilding((BuildingType)buildingInfo.buildingType, pivotTile);
                 building.SetEntrance(pivotTile.tileInfo.pos);
@@ -207,11 +145,6 @@ namespace LUP.PCR
                 if (!currBuildings.ContainsKey(id))
                 {
                     currBuildings.Add(id, building);
-                }
-
-                if (pivotTile != null)
-                {
-                    HideBuildingTiles(type, pivotTile);
                 }
 
                 tileMap.UpdateTilebyBuilding(type, pivotTile);

@@ -586,9 +586,9 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 1142736477176970160}
   - {fileID: 1398638052519956384}
   - {fileID: 2672391654430477919}
-  - {fileID: 1142736477176970160}
   - {fileID: 6173143252225464187}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -641,8 +641,6 @@ MonoBehaviour:
     amount1: 0
     resourceType2: 0
     amount2: 0
-  buildingName: 
-  resourceCenter: {fileID: 0}
   ConstructScreen: {fileID: 8095184138097634475}
   constructionOverlay: {fileID: 8904477648014123291}
   actionMenu: {fileID: 4210435821984473622}
@@ -651,7 +649,6 @@ MonoBehaviour:
     level: 0
     productionPerHour: 0
     StorageCapacity: 0
-  maxStorage: 0
 --- !u!1 &8753481508502756949
 GameObject:
   m_ObjectHideFlags: 0

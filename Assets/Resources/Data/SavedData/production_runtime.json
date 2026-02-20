@@ -2,7 +2,7 @@
     "filename": "production_runtime.json",
     "playerId": 0,
     "hasSavedGame": true,
-    "buildingId": 12,
+    "buildingId": 13,
     "buildingInfoList": [
         {
             "buildingId": 1,
@@ -76,25 +76,40 @@
         },
         {
             "buildingId": 11,
-            "level": 13,
+            "level": 15,
             "gridPos": {
                 "x": 11,
                 "y": 1
             },
             "buildingType": 6,
             "isConstructing": true
+        },
+        {
+            "buildingId": 12,
+            "level": 1,
+            "gridPos": {
+                "x": 7,
+                "y": 8
+            },
+            "buildingType": 9,
+            "isConstructing": false
         }
     ],
     "productionInfoList": [
         {
             "buildingId": 2,
             "elapsedTime": 0.0,
-            "currentStorage": 83
+            "currentStorage": 96
         },
         {
             "buildingId": 3,
             "elapsedTime": 0.0,
             "currentStorage": 31
+        },
+        {
+            "buildingId": 12,
+            "elapsedTime": 2.4681780338287355,
+            "currentStorage": 46
         }
     ],
     "constructionInfoList": [
@@ -136,6 +151,10 @@
         },
         {
             "buildingId": 11,
+            "elapsedTime": 0.0
+        },
+        {
+            "buildingId": 12,
             "elapsedTime": 0.0
         }
     ],
@@ -254,62 +273,6 @@
         {
             "wallType": 1,
             "gridPos": {
-                "x": 0,
-                "y": 1
-            }
-        },
-        {
-            "wallType": 1,
-            "gridPos": {
-                "x": 1,
-                "y": 1
-            }
-        },
-        {
-            "wallType": 1,
-            "gridPos": {
-                "x": 2,
-                "y": 1
-            }
-        },
-        {
-            "wallType": 1,
-            "gridPos": {
-                "x": 3,
-                "y": 1
-            }
-        },
-        {
-            "wallType": 1,
-            "gridPos": {
-                "x": 4,
-                "y": 1
-            }
-        },
-        {
-            "wallType": 1,
-            "gridPos": {
-                "x": 5,
-                "y": 1
-            }
-        },
-        {
-            "wallType": 1,
-            "gridPos": {
-                "x": 6,
-                "y": 1
-            }
-        },
-        {
-            "wallType": 1,
-            "gridPos": {
-                "x": 7,
-                "y": 1
-            }
-        },
-        {
-            "wallType": 1,
-            "gridPos": {
                 "x": 17,
                 "y": 1
             }
@@ -338,69 +301,6 @@
         {
             "wallType": 1,
             "gridPos": {
-                "x": 0,
-                "y": 2
-            }
-        },
-        {
-            "wallType": 1,
-            "gridPos": {
-                "x": 1,
-                "y": 2
-            }
-        },
-        {
-            "wallType": 1,
-            "gridPos": {
-                "x": 2,
-                "y": 2
-            }
-        },
-        {
-            "wallType": 1,
-            "gridPos": {
-                "x": 3,
-                "y": 2
-            }
-        },
-        {
-            "wallType": 1,
-            "gridPos": {
-                "x": 5,
-                "y": 2
-            }
-        },
-        {
-            "wallType": 1,
-            "gridPos": {
-                "x": 6,
-                "y": 2
-            }
-        },
-        {
-            "wallType": 1,
-            "gridPos": {
-                "x": 7,
-                "y": 2
-            }
-        },
-        {
-            "wallType": 1,
-            "gridPos": {
-                "x": 8,
-                "y": 2
-            }
-        },
-        {
-            "wallType": 1,
-            "gridPos": {
-                "x": 9,
-                "y": 2
-            }
-        },
-        {
-            "wallType": 1,
-            "gridPos": {
                 "x": 19,
                 "y": 2
             }
@@ -410,62 +310,6 @@
             "gridPos": {
                 "x": 20,
                 "y": 2
-            }
-        },
-        {
-            "wallType": 1,
-            "gridPos": {
-                "x": 0,
-                "y": 3
-            }
-        },
-        {
-            "wallType": 1,
-            "gridPos": {
-                "x": 1,
-                "y": 3
-            }
-        },
-        {
-            "wallType": 1,
-            "gridPos": {
-                "x": 2,
-                "y": 3
-            }
-        },
-        {
-            "wallType": 1,
-            "gridPos": {
-                "x": 3,
-                "y": 3
-            }
-        },
-        {
-            "wallType": 1,
-            "gridPos": {
-                "x": 4,
-                "y": 3
-            }
-        },
-        {
-            "wallType": 1,
-            "gridPos": {
-                "x": 5,
-                "y": 3
-            }
-        },
-        {
-            "wallType": 1,
-            "gridPos": {
-                "x": 6,
-                "y": 3
-            }
-        },
-        {
-            "wallType": 1,
-            "gridPos": {
-                "x": 7,
-                "y": 3
             }
         },
         {
@@ -492,76 +336,6 @@
         {
             "wallType": 1,
             "gridPos": {
-                "x": 0,
-                "y": 4
-            }
-        },
-        {
-            "wallType": 1,
-            "gridPos": {
-                "x": 1,
-                "y": 4
-            }
-        },
-        {
-            "wallType": 1,
-            "gridPos": {
-                "x": 2,
-                "y": 4
-            }
-        },
-        {
-            "wallType": 1,
-            "gridPos": {
-                "x": 3,
-                "y": 4
-            }
-        },
-        {
-            "wallType": 1,
-            "gridPos": {
-                "x": 4,
-                "y": 4
-            }
-        },
-        {
-            "wallType": 1,
-            "gridPos": {
-                "x": 5,
-                "y": 4
-            }
-        },
-        {
-            "wallType": 1,
-            "gridPos": {
-                "x": 6,
-                "y": 4
-            }
-        },
-        {
-            "wallType": 1,
-            "gridPos": {
-                "x": 7,
-                "y": 4
-            }
-        },
-        {
-            "wallType": 1,
-            "gridPos": {
-                "x": 8,
-                "y": 4
-            }
-        },
-        {
-            "wallType": 1,
-            "gridPos": {
-                "x": 9,
-                "y": 4
-            }
-        },
-        {
-            "wallType": 1,
-            "gridPos": {
                 "x": 12,
                 "y": 4
             }
@@ -583,76 +357,6 @@
         {
             "wallType": 1,
             "gridPos": {
-                "x": 0,
-                "y": 5
-            }
-        },
-        {
-            "wallType": 1,
-            "gridPos": {
-                "x": 1,
-                "y": 5
-            }
-        },
-        {
-            "wallType": 1,
-            "gridPos": {
-                "x": 2,
-                "y": 5
-            }
-        },
-        {
-            "wallType": 1,
-            "gridPos": {
-                "x": 3,
-                "y": 5
-            }
-        },
-        {
-            "wallType": 1,
-            "gridPos": {
-                "x": 4,
-                "y": 5
-            }
-        },
-        {
-            "wallType": 1,
-            "gridPos": {
-                "x": 5,
-                "y": 5
-            }
-        },
-        {
-            "wallType": 1,
-            "gridPos": {
-                "x": 6,
-                "y": 5
-            }
-        },
-        {
-            "wallType": 1,
-            "gridPos": {
-                "x": 7,
-                "y": 5
-            }
-        },
-        {
-            "wallType": 1,
-            "gridPos": {
-                "x": 8,
-                "y": 5
-            }
-        },
-        {
-            "wallType": 1,
-            "gridPos": {
-                "x": 9,
-                "y": 5
-            }
-        },
-        {
-            "wallType": 1,
-            "gridPos": {
                 "x": 12,
                 "y": 5
             }
@@ -662,13 +366,6 @@
             "gridPos": {
                 "x": 20,
                 "y": 5
-            }
-        },
-        {
-            "wallType": 1,
-            "gridPos": {
-                "x": 6,
-                "y": 6
             }
         },
         {
@@ -710,20 +407,6 @@
             "wallType": 1,
             "gridPos": {
                 "x": 11,
-                "y": 7
-            }
-        },
-        {
-            "wallType": 1,
-            "gridPos": {
-                "x": 12,
-                "y": 7
-            }
-        },
-        {
-            "wallType": 1,
-            "gridPos": {
-                "x": 13,
                 "y": 7
             }
         },
@@ -1171,36 +854,8 @@
         {
             "wallType": 1,
             "gridPos": {
-                "x": 9,
-                "y": 8
-            }
-        },
-        {
-            "wallType": 1,
-            "gridPos": {
                 "x": 11,
                 "y": 8
-            }
-        },
-        {
-            "wallType": 1,
-            "gridPos": {
-                "x": 14,
-                "y": 7
-            }
-        },
-        {
-            "wallType": 1,
-            "gridPos": {
-                "x": 15,
-                "y": 7
-            }
-        },
-        {
-            "wallType": 1,
-            "gridPos": {
-                "x": 6,
-                "y": 7
             }
         },
         {
@@ -1248,29 +903,57 @@
         {
             "wallType": 1,
             "gridPos": {
-                "x": 13,
+                "x": 7,
+                "y": 7
+            }
+        },
+        {
+            "wallType": 1,
+            "gridPos": {
+                "x": 9,
+                "y": 8
+            }
+        },
+        {
+            "wallType": 1,
+            "gridPos": {
+                "x": 0,
+                "y": 1
+            }
+        },
+        {
+            "wallType": 1,
+            "gridPos": {
+                "x": 0,
+                "y": 2
+            }
+        },
+        {
+            "wallType": 1,
+            "gridPos": {
+                "x": 0,
+                "y": 3
+            }
+        },
+        {
+            "wallType": 1,
+            "gridPos": {
+                "x": 0,
                 "y": 4
             }
         },
         {
             "wallType": 1,
             "gridPos": {
-                "x": 14,
-                "y": 4
+                "x": 0,
+                "y": 5
             }
         },
         {
             "wallType": 1,
             "gridPos": {
-                "x": 15,
-                "y": 4
-            }
-        },
-        {
-            "wallType": 1,
-            "gridPos": {
-                "x": 16,
-                "y": 4
+                "x": 0,
+                "y": 6
             }
         }
     ],

@@ -24,7 +24,7 @@ namespace LUP.PCR
             int startGridY = pivotTile.tileInfo.pos.y;
 
             if (startGridX + placementSize.x - 1 >= GridSize.x ||
-                startGridY + placementSize.y - 1 >= GridSize.y)
+                startGridY + placementSize.y + 1 < 0)
             {
                 return false;
             }
@@ -34,7 +34,7 @@ namespace LUP.PCR
                 for (int j = 0; j < placementSize.y; j++)
                 {
                     int nextGridX = startGridX + i;
-                    int nextGridY = startGridY + j;
+                    int nextGridY = startGridY - j;
 
                     // 기획에 따라 통과 가능한 건물과 아닌 건물로 나뉠수도
                     if (tileMap.tiles[nextGridX, nextGridY].tileInfo.tileType != TileType.NONE &&
