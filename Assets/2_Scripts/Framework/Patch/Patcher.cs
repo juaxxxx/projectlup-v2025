@@ -379,11 +379,7 @@ namespace LUP
 
         private bool HasLocalManifest()
         {
-            string path = Path.Combine(
-                Application.persistentDataPath,
-                "LUP/assetbundles",
-                "manifest"
-            );
+            string path = Path.Combine(Application.persistentDataPath, "LUP/assetbundles", "AssetBundles");
 
             return File.Exists(path);
         }
