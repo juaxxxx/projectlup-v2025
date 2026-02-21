@@ -654,8 +654,15 @@ namespace LUP.DSG
 
             foreach (var slotObj in enemySlots)
             {
+                if (slotObj == null) continue;
+
                 var slot = slotObj.GetComponent<LineupSlot>();
-                if (slot.character.BattleComp.isAlive)
+                if (slot == null) continue;
+
+                var ch = slot.character;
+                var bc = ch != null ? ch.BattleComp : null;
+
+                if (bc != null && bc.isAlive)
                 {
                     allEnemyDead = false;
                     break;
@@ -674,21 +681,19 @@ namespace LUP.DSG
 
             if (allEnemyDead)
             {
-                if(stageData.enemyTeamData.Count > currentWave)
+                if (currentWave + 1 < stageData.enemyTeamData.Count)
                 {
                     ++currentWave;
                     SetEnemyWave(currentWave);
                     ChangeBattleUI(enemySlots);
                     SortBattleSequence();
-                    //currentTurnIndex++;
-                    //UpdateUI();
                     currentTurnIndex = battleSequence.Count;
                 }
                 else
                 {
                     EndBattle("Victory");
-                    DeckStrategyStage stage = GetComponent<DeckStrategyStage>();
-                    stage.BattleEnd();
+                    var stage = GetComponent<DeckStrategyStage>();
+                    if (stage != null) stage.BattleEnd();
                     Time.timeScale = 1f;
                 }
             }

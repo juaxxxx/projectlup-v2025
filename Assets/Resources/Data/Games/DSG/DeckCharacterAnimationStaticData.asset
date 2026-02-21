@@ -17,92 +17,482 @@ MonoBehaviour:
   START_ROW: 1
   DataList:
   - TableId: 1
-    ModelId: 0
+    ModelId: 1
     AnimationId: 0
     AnimationName: BlockingLoop
     AnimationPath: Assets/Resources/Characters/Animations/Combat/BlockingLoop.fbx
-  - TableId: 0
-    ModelId: 0
+  - TableId: 2
+    ModelId: 1
     AnimationId: 0
     AnimationName: BowShot
     AnimationPath: Assets/Resources/Characters/Animations/Combat/BowShot.fbx
-  - TableId: 0
-    ModelId: 0
+  - TableId: 3
+    ModelId: 1
     AnimationId: 0
     AnimationName: Buff
     AnimationPath: Assets/Resources/Characters/Animations/Combat/Buff.fbx
-  - TableId: 0
-    ModelId: 0
+  - TableId: 4
+    ModelId: 1
     AnimationId: 0
     AnimationName: CastingLoop
     AnimationPath: Assets/Resources/Characters/Animations/Combat/CastingLoop.fbx
-  - TableId: 0
-    ModelId: 0
-    AnimationId: 0
-    AnimationName: GetHit
-    AnimationPath: Assets/Resources/Characters/Animations/Combat/GetHit.fbx
-  - TableId: 0
-    ModelId: 0
-    AnimationId: 0
-    AnimationName: Death
-    AnimationPath: Assets/Resources/Characters/Animations/Combat/Death.fbx
-  - TableId: 0
-    ModelId: 0
+  - TableId: 5
+    ModelId: 1
     AnimationId: 0
     AnimationName: IdleCombat
     AnimationPath: Assets/Resources/Characters/Animations/Combat/IdleCombat.fbx
-  - TableId: 0
-    ModelId: 0
+  - TableId: 6
+    ModelId: 1
     AnimationId: 0
     AnimationName: MeeleeAttack_OneHanded
     AnimationPath: Assets/Resources/Characters/Animations/Combat/MeeleeAttack_OneHanded.fbx
-  - TableId: 0
-    ModelId: 0
+  - TableId: 7
+    ModelId: 1
     AnimationId: 0
     AnimationName: MeeleeAttack_TwoHanded
     AnimationPath: Assets/Resources/Characters/Animations/Combat/MeeleeAttack_TwoHanded.fbx
-  - TableId: 0
-    ModelId: 0
+  - TableId: 8
+    ModelId: 1
     AnimationId: 0
     AnimationName: PunchLeft
     AnimationPath: Assets/Resources/Characters/Animations/Combat/PunchLeft.fbx
-  - TableId: 0
-    ModelId: 0
+  - TableId: 9
+    ModelId: 1
     AnimationId: 0
     AnimationName: PunchRight
     AnimationPath: Assets/Resources/Characters/Animations/Combat/PunchRight.fbx
-  - TableId: 0
-    ModelId: 0
+  - TableId: 10
+    ModelId: 1
     AnimationId: 0
     AnimationName: SpellCast
     AnimationPath: Assets/Resources/Characters/Animations/Combat/SpellCast.fbx
-  - TableId: 0
-    ModelId: 0
-    AnimationId: 0
-    AnimationName: SpinAttack_TwoHanded
-    AnimationPath: Assets/Resources/Characters/Animations/Combat/SpinAttack_TwoHanded.fbx
-  - TableId: 0
-    ModelId: 0
-    AnimationId: 0
-    AnimationName: SpinAttack_TwoWeapons
-    AnimationPath: Assets/Resources/Characters/Animations/Combat/SpinAttack_TwoWeapons.fbx
-  - TableId: 0
-    ModelId: 0
-    AnimationId: 0
-    AnimationName: SpinLoop_TwoHanded
-    AnimationPath: Assets/Resources/Characters/Animations/Combat/SpinLoop_TwoHanded.fbx
-  - TableId: 0
-    ModelId: 0
-    AnimationId: 0
-    AnimationName: SpinToWin_OneHanded
-    AnimationPath: Assets/Resources/Characters/Animations/Combat/SpinToWin_OneHanded.fbx
-  - TableId: 0
-    ModelId: 0
-    AnimationId: 0
-    AnimationName: SpinToWin_TwoHanded
-    AnimationPath: Assets/Resources/Characters/Animations/Combat/SpinToWin_TwoHanded.fbx
-  - TableId: 0
-    ModelId: 0
+  - TableId: 11
+    ModelId: 1
     AnimationId: 0
     AnimationName: StunnedLoop
     AnimationPath: Assets/Resources/Characters/Animations/Combat/StunnedLoop.fbx
+  - TableId: 12
+    ModelId: 1
+    AnimationId: 0
+    AnimationName: Male_Run_Backward
+    AnimationPath: Assets/Resources/Characters/Animations/Male/Movement/Run/HumanM@Run01_Backward.fbx
+  - TableId: 13
+    ModelId: 1
+    AnimationId: 0
+    AnimationName: Male_Run_Forward
+    AnimationPath: Assets/Resources/Characters/Animations/Male/Movement/Run/HumanM@Run01_Forward.fbx
+  - TableId: 14
+    ModelId: 1
+    AnimationId: 0
+    AnimationName: Female_CombatIdle
+    AnimationPath: Assets/Resources/Characters/Animations/Female/Combat/HumanF@CombatIdle01.fbx
+  - TableId: 15
+    ModelId: 1
+    AnimationId: 0
+    AnimationName: Female_CombatDamage
+    AnimationPath: Assets/Resources/Characters/Animations/Female/Combat/HumanF@CombatDamage01.fbx
+  - TableId: 16
+    ModelId: 1
+    AnimationId: 0
+    AnimationName: Female_Death
+    AnimationPath: Assets/Resources/Characters/Animations/Female/Combat/HumanF@Death01.fbx
+  - TableId: 17
+    ModelId: 2
+    AnimationId: 0
+    AnimationName: BlockingLoop
+    AnimationPath: Assets/Resources/Characters/Animations/Combat/BlockingLoop.fbx
+  - TableId: 18
+    ModelId: 2
+    AnimationId: 0
+    AnimationName: BowShot
+    AnimationPath: Assets/Resources/Characters/Animations/Combat/BowShot.fbx
+  - TableId: 19
+    ModelId: 2
+    AnimationId: 0
+    AnimationName: Buff
+    AnimationPath: Assets/Resources/Characters/Animations/Combat/Buff.fbx
+  - TableId: 20
+    ModelId: 2
+    AnimationId: 0
+    AnimationName: CastingLoop
+    AnimationPath: Assets/Resources/Characters/Animations/Combat/CastingLoop.fbx
+  - TableId: 21
+    ModelId: 2
+    AnimationId: 0
+    AnimationName: IdleCombat
+    AnimationPath: Assets/Resources/Characters/Animations/Combat/IdleCombat.fbx
+  - TableId: 22
+    ModelId: 2
+    AnimationId: 0
+    AnimationName: MeeleeAttack_OneHanded
+    AnimationPath: Assets/Resources/Characters/Animations/Combat/MeeleeAttack_OneHanded.fbx
+  - TableId: 23
+    ModelId: 2
+    AnimationId: 0
+    AnimationName: MeeleeAttack_TwoHanded
+    AnimationPath: Assets/Resources/Characters/Animations/Combat/MeeleeAttack_TwoHanded.fbx
+  - TableId: 24
+    ModelId: 2
+    AnimationId: 0
+    AnimationName: PunchLeft
+    AnimationPath: Assets/Resources/Characters/Animations/Combat/PunchLeft.fbx
+  - TableId: 25
+    ModelId: 2
+    AnimationId: 0
+    AnimationName: PunchRight
+    AnimationPath: Assets/Resources/Characters/Animations/Combat/PunchRight.fbx
+  - TableId: 26
+    ModelId: 2
+    AnimationId: 0
+    AnimationName: SpellCast
+    AnimationPath: Assets/Resources/Characters/Animations/Combat/SpellCast.fbx
+  - TableId: 27
+    ModelId: 2
+    AnimationId: 0
+    AnimationName: StunnedLoop
+    AnimationPath: Assets/Resources/Characters/Animations/Combat/StunnedLoop.fbx
+  - TableId: 28
+    ModelId: 2
+    AnimationId: 0
+    AnimationName: Male_Run_Backward
+    AnimationPath: Assets/Resources/Characters/Animations/Male/Movement/Run/HumanM@Run01_Backward.fbx
+  - TableId: 29
+    ModelId: 2
+    AnimationId: 0
+    AnimationName: Male_Run_Forward
+    AnimationPath: Assets/Resources/Characters/Animations/Male/Movement/Run/HumanM@Run01_Forward.fbx
+  - TableId: 30
+    ModelId: 2
+    AnimationId: 0
+    AnimationName: Female_CombatIdle
+    AnimationPath: Assets/Resources/Characters/Animations/Female/Combat/HumanF@CombatIdle01.fbx
+  - TableId: 31
+    ModelId: 2
+    AnimationId: 0
+    AnimationName: Female_CombatDamage
+    AnimationPath: Assets/Resources/Characters/Animations/Female/Combat/HumanF@CombatDamage01.fbx
+  - TableId: 32
+    ModelId: 2
+    AnimationId: 0
+    AnimationName: Female_Death
+    AnimationPath: Assets/Resources/Characters/Animations/Female/Combat/HumanF@Death01.fbx
+  - TableId: 33
+    ModelId: 3
+    AnimationId: 0
+    AnimationName: BlockingLoop
+    AnimationPath: Assets/Resources/Characters/Animations/Combat/BlockingLoop.fbx
+  - TableId: 34
+    ModelId: 3
+    AnimationId: 0
+    AnimationName: BowShot
+    AnimationPath: Assets/Resources/Characters/Animations/Combat/BowShot.fbx
+  - TableId: 35
+    ModelId: 3
+    AnimationId: 0
+    AnimationName: Buff
+    AnimationPath: Assets/Resources/Characters/Animations/Combat/Buff.fbx
+  - TableId: 36
+    ModelId: 3
+    AnimationId: 0
+    AnimationName: CastingLoop
+    AnimationPath: Assets/Resources/Characters/Animations/Combat/CastingLoop.fbx
+  - TableId: 37
+    ModelId: 3
+    AnimationId: 0
+    AnimationName: IdleCombat
+    AnimationPath: Assets/Resources/Characters/Animations/Combat/IdleCombat.fbx
+  - TableId: 38
+    ModelId: 3
+    AnimationId: 0
+    AnimationName: MeeleeAttack_OneHanded
+    AnimationPath: Assets/Resources/Characters/Animations/Combat/MeeleeAttack_OneHanded.fbx
+  - TableId: 39
+    ModelId: 3
+    AnimationId: 0
+    AnimationName: MeeleeAttack_TwoHanded
+    AnimationPath: Assets/Resources/Characters/Animations/Combat/MeeleeAttack_TwoHanded.fbx
+  - TableId: 40
+    ModelId: 3
+    AnimationId: 0
+    AnimationName: PunchLeft
+    AnimationPath: Assets/Resources/Characters/Animations/Combat/PunchLeft.fbx
+  - TableId: 41
+    ModelId: 3
+    AnimationId: 0
+    AnimationName: PunchRight
+    AnimationPath: Assets/Resources/Characters/Animations/Combat/PunchRight.fbx
+  - TableId: 42
+    ModelId: 3
+    AnimationId: 0
+    AnimationName: SpellCast
+    AnimationPath: Assets/Resources/Characters/Animations/Combat/SpellCast.fbx
+  - TableId: 43
+    ModelId: 3
+    AnimationId: 0
+    AnimationName: StunnedLoop
+    AnimationPath: Assets/Resources/Characters/Animations/Combat/StunnedLoop.fbx
+  - TableId: 44
+    ModelId: 3
+    AnimationId: 0
+    AnimationName: Male_Run_Backward
+    AnimationPath: Assets/Resources/Characters/Animations/Male/Movement/Run/HumanM@Run01_Backward.fbx
+  - TableId: 45
+    ModelId: 3
+    AnimationId: 0
+    AnimationName: Male_Run_Forward
+    AnimationPath: Assets/Resources/Characters/Animations/Male/Movement/Run/HumanM@Run01_Forward.fbx
+  - TableId: 46
+    ModelId: 3
+    AnimationId: 0
+    AnimationName: Female_CombatIdle
+    AnimationPath: Assets/Resources/Characters/Animations/Female/Combat/HumanF@CombatIdle01.fbx
+  - TableId: 47
+    ModelId: 3
+    AnimationId: 0
+    AnimationName: Female_CombatDamage
+    AnimationPath: Assets/Resources/Characters/Animations/Female/Combat/HumanF@CombatDamage01.fbx
+  - TableId: 48
+    ModelId: 3
+    AnimationId: 0
+    AnimationName: Female_Death
+    AnimationPath: Assets/Resources/Characters/Animations/Female/Combat/HumanF@Death01.fbx
+  - TableId: 49
+    ModelId: 4
+    AnimationId: 0
+    AnimationName: BlockingLoop
+    AnimationPath: Assets/Resources/Characters/Animations/Combat/BlockingLoop.fbx
+  - TableId: 50
+    ModelId: 4
+    AnimationId: 0
+    AnimationName: BowShot
+    AnimationPath: Assets/Resources/Characters/Animations/Combat/BowShot.fbx
+  - TableId: 51
+    ModelId: 4
+    AnimationId: 0
+    AnimationName: Buff
+    AnimationPath: Assets/Resources/Characters/Animations/Combat/Buff.fbx
+  - TableId: 52
+    ModelId: 4
+    AnimationId: 0
+    AnimationName: CastingLoop
+    AnimationPath: Assets/Resources/Characters/Animations/Combat/CastingLoop.fbx
+  - TableId: 53
+    ModelId: 4
+    AnimationId: 0
+    AnimationName: IdleCombat
+    AnimationPath: Assets/Resources/Characters/Animations/Combat/IdleCombat.fbx
+  - TableId: 54
+    ModelId: 4
+    AnimationId: 0
+    AnimationName: MeeleeAttack_OneHanded
+    AnimationPath: Assets/Resources/Characters/Animations/Combat/MeeleeAttack_OneHanded.fbx
+  - TableId: 55
+    ModelId: 4
+    AnimationId: 0
+    AnimationName: MeeleeAttack_TwoHanded
+    AnimationPath: Assets/Resources/Characters/Animations/Combat/MeeleeAttack_TwoHanded.fbx
+  - TableId: 56
+    ModelId: 4
+    AnimationId: 0
+    AnimationName: PunchLeft
+    AnimationPath: Assets/Resources/Characters/Animations/Combat/PunchLeft.fbx
+  - TableId: 57
+    ModelId: 4
+    AnimationId: 0
+    AnimationName: PunchRight
+    AnimationPath: Assets/Resources/Characters/Animations/Combat/PunchRight.fbx
+  - TableId: 58
+    ModelId: 4
+    AnimationId: 0
+    AnimationName: SpellCast
+    AnimationPath: Assets/Resources/Characters/Animations/Combat/SpellCast.fbx
+  - TableId: 59
+    ModelId: 4
+    AnimationId: 0
+    AnimationName: StunnedLoop
+    AnimationPath: Assets/Resources/Characters/Animations/Combat/StunnedLoop.fbx
+  - TableId: 60
+    ModelId: 4
+    AnimationId: 0
+    AnimationName: Male_Run_Backward
+    AnimationPath: Assets/Resources/Characters/Animations/Male/Movement/Run/HumanM@Run01_Backward.fbx
+  - TableId: 61
+    ModelId: 4
+    AnimationId: 0
+    AnimationName: Male_Run_Forward
+    AnimationPath: Assets/Resources/Characters/Animations/Male/Movement/Run/HumanM@Run01_Forward.fbx
+  - TableId: 62
+    ModelId: 4
+    AnimationId: 0
+    AnimationName: Male_CombatIdle
+    AnimationPath: Assets/Resources/Characters/Animations/Male/Combat/HumanM@CombatIdle01.fbx
+  - TableId: 63
+    ModelId: 4
+    AnimationId: 0
+    AnimationName: Male_CombatDamage
+    AnimationPath: Assets/Resources/Characters/Animations/Male/Combat/HumanM@CombatDamage01.fbx
+  - TableId: 64
+    ModelId: 4
+    AnimationId: 0
+    AnimationName: Male_Death
+    AnimationPath: Assets/Resources/Characters/Animations/Male/Combat/HumanM@Death01.fbx
+  - TableId: 65
+    ModelId: 5
+    AnimationId: 0
+    AnimationName: BlockingLoop
+    AnimationPath: Assets/Resources/Characters/Animations/Combat/BlockingLoop.fbx
+  - TableId: 66
+    ModelId: 5
+    AnimationId: 0
+    AnimationName: BowShot
+    AnimationPath: Assets/Resources/Characters/Animations/Combat/BowShot.fbx
+  - TableId: 67
+    ModelId: 5
+    AnimationId: 0
+    AnimationName: Buff
+    AnimationPath: Assets/Resources/Characters/Animations/Combat/Buff.fbx
+  - TableId: 68
+    ModelId: 5
+    AnimationId: 0
+    AnimationName: CastingLoop
+    AnimationPath: Assets/Resources/Characters/Animations/Combat/CastingLoop.fbx
+  - TableId: 69
+    ModelId: 5
+    AnimationId: 0
+    AnimationName: IdleCombat
+    AnimationPath: Assets/Resources/Characters/Animations/Combat/IdleCombat.fbx
+  - TableId: 70
+    ModelId: 5
+    AnimationId: 0
+    AnimationName: MeeleeAttack_OneHanded
+    AnimationPath: Assets/Resources/Characters/Animations/Combat/MeeleeAttack_OneHanded.fbx
+  - TableId: 71
+    ModelId: 5
+    AnimationId: 0
+    AnimationName: MeeleeAttack_TwoHanded
+    AnimationPath: Assets/Resources/Characters/Animations/Combat/MeeleeAttack_TwoHanded.fbx
+  - TableId: 72
+    ModelId: 5
+    AnimationId: 0
+    AnimationName: PunchLeft
+    AnimationPath: Assets/Resources/Characters/Animations/Combat/PunchLeft.fbx
+  - TableId: 73
+    ModelId: 5
+    AnimationId: 0
+    AnimationName: PunchRight
+    AnimationPath: Assets/Resources/Characters/Animations/Combat/PunchRight.fbx
+  - TableId: 74
+    ModelId: 5
+    AnimationId: 0
+    AnimationName: SpellCast
+    AnimationPath: Assets/Resources/Characters/Animations/Combat/SpellCast.fbx
+  - TableId: 75
+    ModelId: 5
+    AnimationId: 0
+    AnimationName: StunnedLoop
+    AnimationPath: Assets/Resources/Characters/Animations/Combat/StunnedLoop.fbx
+  - TableId: 76
+    ModelId: 5
+    AnimationId: 0
+    AnimationName: Male_Run_Backward
+    AnimationPath: Assets/Resources/Characters/Animations/Male/Movement/Run/HumanM@Run01_Backward.fbx
+  - TableId: 77
+    ModelId: 5
+    AnimationId: 0
+    AnimationName: Male_Run_Forward
+    AnimationPath: Assets/Resources/Characters/Animations/Male/Movement/Run/HumanM@Run01_Forward.fbx
+  - TableId: 78
+    ModelId: 5
+    AnimationId: 0
+    AnimationName: Male_CombatIdle
+    AnimationPath: Assets/Resources/Characters/Animations/Male/Combat/HumanM@CombatIdle01.fbx
+  - TableId: 79
+    ModelId: 5
+    AnimationId: 0
+    AnimationName: Male_CombatDamage
+    AnimationPath: Assets/Resources/Characters/Animations/Male/Combat/HumanM@CombatDamage01.fbx
+  - TableId: 80
+    ModelId: 5
+    AnimationId: 0
+    AnimationName: Male_Death
+    AnimationPath: Assets/Resources/Characters/Animations/Male/Combat/HumanM@Death01.fbx
+  - TableId: 81
+    ModelId: 6
+    AnimationId: 0
+    AnimationName: BlockingLoop
+    AnimationPath: Assets/Resources/Characters/Animations/Combat/BlockingLoop.fbx
+  - TableId: 82
+    ModelId: 6
+    AnimationId: 0
+    AnimationName: BowShot
+    AnimationPath: Assets/Resources/Characters/Animations/Combat/BowShot.fbx
+  - TableId: 83
+    ModelId: 6
+    AnimationId: 0
+    AnimationName: Buff
+    AnimationPath: Assets/Resources/Characters/Animations/Combat/Buff.fbx
+  - TableId: 84
+    ModelId: 6
+    AnimationId: 0
+    AnimationName: CastingLoop
+    AnimationPath: Assets/Resources/Characters/Animations/Combat/CastingLoop.fbx
+  - TableId: 85
+    ModelId: 6
+    AnimationId: 0
+    AnimationName: IdleCombat
+    AnimationPath: Assets/Resources/Characters/Animations/Combat/IdleCombat.fbx
+  - TableId: 86
+    ModelId: 6
+    AnimationId: 0
+    AnimationName: MeeleeAttack_OneHanded
+    AnimationPath: Assets/Resources/Characters/Animations/Combat/MeeleeAttack_OneHanded.fbx
+  - TableId: 87
+    ModelId: 6
+    AnimationId: 0
+    AnimationName: MeeleeAttack_TwoHanded
+    AnimationPath: Assets/Resources/Characters/Animations/Combat/MeeleeAttack_TwoHanded.fbx
+  - TableId: 88
+    ModelId: 6
+    AnimationId: 0
+    AnimationName: PunchLeft
+    AnimationPath: Assets/Resources/Characters/Animations/Combat/PunchLeft.fbx
+  - TableId: 89
+    ModelId: 6
+    AnimationId: 0
+    AnimationName: PunchRight
+    AnimationPath: Assets/Resources/Characters/Animations/Combat/PunchRight.fbx
+  - TableId: 90
+    ModelId: 6
+    AnimationId: 0
+    AnimationName: SpellCast
+    AnimationPath: Assets/Resources/Characters/Animations/Combat/SpellCast.fbx
+  - TableId: 91
+    ModelId: 6
+    AnimationId: 0
+    AnimationName: StunnedLoop
+    AnimationPath: Assets/Resources/Characters/Animations/Combat/StunnedLoop.fbx
+  - TableId: 92
+    ModelId: 6
+    AnimationId: 0
+    AnimationName: Male_Run_Backward
+    AnimationPath: Assets/Resources/Characters/Animations/Male/Movement/Run/HumanM@Run01_Backward.fbx
+  - TableId: 93
+    ModelId: 6
+    AnimationId: 0
+    AnimationName: Male_Run_Forward
+    AnimationPath: Assets/Resources/Characters/Animations/Male/Movement/Run/HumanM@Run01_Forward.fbx
+  - TableId: 94
+    ModelId: 6
+    AnimationId: 0
+    AnimationName: Male_CombatIdle
+    AnimationPath: Assets/Resources/Characters/Animations/Male/Combat/HumanM@CombatIdle01.fbx
+  - TableId: 95
+    ModelId: 6
+    AnimationId: 0
+    AnimationName: Male_CombatDamage
+    AnimationPath: Assets/Resources/Characters/Animations/Male/Combat/HumanM@CombatDamage01.fbx
+  - TableId: 96
+    ModelId: 6
+    AnimationId: 0
+    AnimationName: Male_Death
+    AnimationPath: Assets/Resources/Characters/Animations/Male/Combat/HumanM@Death01.fbx
