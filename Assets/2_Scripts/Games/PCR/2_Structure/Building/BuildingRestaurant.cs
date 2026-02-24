@@ -45,6 +45,12 @@ namespace LUP.PCR
             ProductionStage stage = LUP.StageManager.Instance.GetCurrentStage() as ProductionStage;
             restaurantInfo = stage.productionRuntimeData.RestaurantInfo;
 
+            if (restaurantInfo == null)
+            {
+                restaurantInfo = new RestaurantInfo();
+                stage.productionRuntimeData.RestaurantInfo = restaurantInfo;
+            }
+
             if (restaurantInfo.isCooking)
             {
                 ChangeState(cookingState);

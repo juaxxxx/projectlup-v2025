@@ -1,73 +1,204 @@
 ﻿using System.Collections.Generic;
+using System.Diagnostics;
 using UnityEngine;
 
 namespace LUP.PCR
 {
+    [RequireComponent(typeof(CharacterController))]
     public class UnitMover : MonoBehaviour
     {
         [SerializeField] float rotateSpeed = 10f;
         [SerializeField] float moveSpeed = 5f;
+        private CharacterController characterController;
         private AGridMap gridMap;
         private APathfinding pathfinder;
         private List<ANode> path;
         private int currentIndex;
         private Vector3 currentDestination;
+        private Vector3 currentInternalTarget;
+        private Queue<Vector3> internalPathQueue = new Queue<Vector3>();
+        private bool isMovingInternally = false;
+
         public Vector3 CurrentDestination => currentDestination;
         public bool IsMoving => path != null && currentIndex < path.Count;
         public bool IsClimbing { get; private set; }
 
         void Start()
         {
+            characterController = GetComponent<CharacterController>();
             gridMap = transform.root.GetComponentInChildren<AGridMap>();
             pathfinder = new APathfinding(gridMap);
         }
 
-        //void Update()
-        //{
-        //    //@TODO : FindPath(RaycastHit hit) UI랑 연동되게 수정하기
-        //    if (Input.GetMouseButtonDown(0))
-        //    {
-        //        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        void Update()
+        {
+            if (Input.GetKeyDown(KeyCode.Space))
+            {
+                TestPathfindingPerformance();
+            }
+        }
+        public void SetInternalPath(StructureBase building)
+        {
+            internalPathQueue.Clear();
 
-        //        // 바닥과 충돌 검사
-        //        if (Physics.Raycast(ray, out RaycastHit hit))
-        //        {
-        //            FindPath(hit);
-        //        }
-        //    }
-        //    MoveAlongPath();
-        //}
+            if (building.localWaypoints != null && building.localWaypoints.Count > 0)
+            {
+                foreach (Vector3 localPoint in building.localWaypoints)
+                {
+                    // 로컬 좌표 -> 월드 좌표 변환 (건물이 회전해도 문제없음)
+                    Vector3 worldPoint = building.transform.TransformPoint(localPoint);
+                    internalPathQueue.Enqueue(worldPoint);
+                }
+            }
 
-        //void FindPath(RaycastHit hit)
-        //{
-        //    ANode startNode = gridMap.GetNodeFromWorldPosition(transform.position);
-        //    ANode targetNode = gridMap.GetNodeFromWorldPosition(hit.point);
-        //    path = pathfinder.FindPath(startNode, targetNode);
+            // 마지막 목적지(작업 위치) 추가
+            if (building.workSpotAnchor != null)
+            {
+                internalPathQueue.Enqueue(building.WorkSpotWorldPos);
+            }
 
-        //    gridMap.pathToDraw = path; // 경로 시각화용
-        //    currentIndex = 0;
-        //}
+            // 첫 번째 목표 설정
+            if (internalPathQueue.Count > 0)
+            {
+                currentInternalTarget = internalPathQueue.Dequeue();
+                isMovingInternally = true;
+            }
+        }
 
-        //public void SetDestination(Vector3 worldPos)
-        //{
-        //    if (gridMap == null || pathfinder == null) return;
+        public bool HasInternalPath()
+        {
+            // 이동 중이거나 큐에 남은 게 있으면 true
+            return isMovingInternally || internalPathQueue.Count > 0;
+        }
 
-        //    ANode startNode = gridMap.GetNodeFromWorldPosition(transform.position);
-        //    ANode targetNode = gridMap.GetNodeFromWorldPosition(worldPos);
+        public bool MoveInternal()
+        {
+            if (!isMovingInternally)
+            {
+                return true; // 도착 완료
+            }
 
-        //    List<ANode> calculatedPath = pathfinder.FindPath(startNode, targetNode);
+            Vector3 targetDir = new Vector3(currentInternalTarget.x - transform.position.x, 0, currentInternalTarget.z - transform.position.z);
+            // Y축 무시하고 방향 계산 (계단이나 경사는 CC가 알아서 처리함)
+            if (targetDir.magnitude > 0.01f)
+            {
+                targetDir.Normalize();
+            }
+            else
+            {
+                targetDir = Vector3.zero;
+            }
 
-        //    //@TODO : 만약 경로를 못 찾았으면 목적지만이라도 설정할지, 멈출지 결정
-        //    if (calculatedPath == null || calculatedPath.Count == 0)
-        //    {
-        //        currentDestination = worldPos;
-        //        path = null;
-        //    }
-        //    else
-        //    {
-        //        ProcessPath(calculatedPath);
-        //    }
-        //}
+            // 이동 실행 (중력 적용)
+            if (characterController != null)
+            {
+                characterController.SimpleMove(targetDir * moveSpeed);
+            }
+
+            // 회전
+            if (targetDir != Vector3.zero)
+            {
+                Quaternion targetRotation = Quaternion.LookRotation(targetDir);
+                transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, rotateSpeed * Time.deltaTime);
+            }
+
+            // 도착 판정 및 다음 경로 선택
+            Vector3 myPosXZ = new Vector3(transform.position.x, 0, transform.position.z);
+            Vector3 targetPosXZ = new Vector3(currentInternalTarget.x, 0, currentInternalTarget.z);
+
+            // 각 waypoint 도착 여부 확인
+            if (Vector3.Distance(myPosXZ, targetPosXZ) < 0.3f)
+            {
+                if (internalPathQueue.Count > 0)
+                {
+                    // 다음 waypoint로 목적지 갱신
+                    currentInternalTarget = internalPathQueue.Dequeue();
+                }
+                else
+                {
+                    // 더 이상 갈 곳이 없으면 최종 도착
+                    isMovingInternally = false;
+                    return true;
+                }
+            }
+
+            return false; // 아직 이동 중
+        }
+
+        void FindPath(RaycastHit hit)
+        {
+            ANode startNode = gridMap.GetNodeFromWorldPosition(transform.position);
+            ANode targetNode = gridMap.GetNodeFromWorldPosition(hit.point);
+            path = pathfinder.FindPath(startNode, targetNode);
+
+            gridMap.pathToDraw = path; // 경로 시각화용
+            currentIndex = 0;
+        }
+
+        public void SetDestination(Vector3 worldPos)
+        {
+            if (gridMap == null || pathfinder == null) return;
+
+            ANode startNode = gridMap.GetNodeFromWorldPosition(transform.position);
+            ANode targetNode = gridMap.GetNodeFromWorldPosition(worldPos);
+
+            List<ANode> calculatedPath = pathfinder.FindPath(startNode, targetNode);
+
+            //@TODO : 만약 경로를 못 찾았으면 목적지만이라도 설정할지, 멈출지 결정
+            if (calculatedPath == null || calculatedPath.Count == 0)
+            {
+                currentDestination = worldPos;
+                path = null;
+            }
+            else
+            {
+                ProcessPath(calculatedPath);
+            }
+        }
+        
+        
+        [ContextMenu("성능 테스트: 길찾기 1000번 실행")]
+        public void TestPathfindingPerformance()
+        {
+            if (gridMap == null || pathfinder == null)
+            {
+                return;
+            }
+            System.Collections.Generic.List<ANode> walkableNodes = new System.Collections.Generic.List<ANode>();
+
+            foreach (ANode node in gridMap.grid)
+            {
+                if (node.isWalkable)
+                {
+                    walkableNodes.Add(node);
+                }
+            }
+
+            if (walkableNodes.Count < 2)
+            {
+                UnityEngine.Debug.LogWarning("맵에 걸을 수 있는 바닥이 충분하지 않습니다.");
+                return;
+            }
+
+            ANode startNode = walkableNodes[0];
+            ANode targetNode = walkableNodes[walkableNodes.Count - 1];
+
+            UnityEngine.Profiling.Profiler.BeginSample("AStar_Heap_Performance");
+
+            System.Diagnostics.Stopwatch sw = new System.Diagnostics.Stopwatch();
+            sw.Start();
+
+            for (int i = 0; i < 1000; i++)
+            {
+                pathfinder.FindPath(startNode, targetNode);
+            }
+
+            sw.Stop();
+
+            UnityEngine.Profiling.Profiler.EndSample();
+
+            UnityEngine.Debug.Log($"[길찾기 1000회 연산 완료] 걸린 시간: {sw.ElapsedMilliseconds} ms");
+        }
         ANode GetStartNodeByPhysics()
         {
             RaycastHit hit;
@@ -179,30 +310,49 @@ namespace LUP.PCR
             ANode target = path[currentIndex];
             Vector3 targetPos = gridMap.GetNodeFootPosition(target);
             ANode prev = currentIndex > 0 ? path[currentIndex - 1] : null;
+            bool isVerticalMove = (prev != null) && (prev.indexY != target.indexY);
 
-            bool isVerticalMove = (prev != null) && (prev.indexY != target.indexY); 
-            
             if (isVerticalMove) // 이전 노드와의 높이 차이가 없을때만 상하이동 가능
             {
                 // X축 위치가 사다리 중앙에 맞을 때까지만 평지에서 이동
                 if (Mathf.Abs(transform.position.x - targetPos.x) > 0.05f)
                 {
-                    IsClimbing = false;
+                    bool wasOnLadder = (prev != null && prev.isLadder);
+                    IsClimbing = wasOnLadder;
 
                     Vector3 alignX = new Vector3(targetPos.x, transform.position.y, transform.position.z);
                     transform.position = Vector3.MoveTowards(transform.position, alignX, moveSpeed * Time.deltaTime);
                 }
                 else
                 {
-                    IsClimbing = target.isLadder;
+                    IsClimbing = true;
+                        //target.isLadder;
                     transform.position = Vector3.MoveTowards(transform.position, targetPos, moveSpeed * Time.deltaTime);
                 }
             }
             else // 같은 층을 걷는 중 (사다리를 그냥 지나치는 경우도 포함)
             {
                 IsClimbing = false;
-                Vector3 walkTarget = new Vector3(targetPos.x,transform.position.y,targetPos.z);
-                transform.position = Vector3.MoveTowards(transform.position, walkTarget,moveSpeed * Time.deltaTime);
+                Vector3 targetDir = new Vector3(targetPos.x - transform.position.x, 0, targetPos.z - transform.position.z);
+
+                if (targetDir.magnitude > 0.01f)
+                {
+                    targetDir.Normalize();
+                }
+                else
+                {
+                    targetDir = Vector3.zero;
+                }
+
+                characterController.SimpleMove(targetDir * moveSpeed);
+
+                if (Mathf.Abs(transform.position.z - targetPos.z) > 0.05f)
+                {
+                    float fixZ = Mathf.MoveTowards(transform.position.z, targetPos.z, moveSpeed * Time.deltaTime);
+                    transform.position = new Vector3(transform.position.x, transform.position.y, fixZ);
+                }
+                //Vector3 walkTarget = new Vector3(targetPos.x, transform.position.y, targetPos.z);
+                //transform.position = Vector3.MoveTowards(transform.position, walkTarget, moveSpeed * Time.deltaTime);
             }
 
             if (IsClimbing)
@@ -214,18 +364,35 @@ namespace LUP.PCR
             else
             {
                 // 가로로 걸을 때는 이동 방향 바라보기
+
                 Vector3 direction = (targetPos - transform.position);
                 direction.y = 0;
+
                 if (direction != Vector3.zero)
                 {
                     Quaternion targetRotation = Quaternion.LookRotation(direction);
+
                     transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, rotateSpeed * Time.deltaTime);
+
                 }
             }
 
-            if (Vector3.Distance(transform.position, targetPos) < 0.15f)
+            if (isVerticalMove || IsClimbing)
             {
-                currentIndex++;
+                if (Vector3.Distance(transform.position, targetPos) < 0.15f)
+                {
+                    currentIndex++;
+                }
+            }
+            else
+            {
+                Vector3 myPosXZ = new Vector3(transform.position.x, 0, transform.position.z);
+                Vector3 targetPosXZ = new Vector3(targetPos.x, 0, targetPos.z);
+
+                if (Vector3.Distance(myPosXZ, targetPosXZ) < 0.15f)
+                {
+                    currentIndex++;
+                }
             }
         }
 
@@ -234,7 +401,13 @@ namespace LUP.PCR
         {
             if (path == null || currentIndex >= path.Count)
             {
-                return Vector3.Distance(transform.position, currentDestination) < 0.2f;
+                Vector3 myPosXZ = new Vector3(transform.position.x, 0, transform.position.z);
+                Vector3 destXZ = new Vector3(currentDestination.x, 0, currentDestination.z);
+
+                if (Vector3.Distance(myPosXZ, destXZ) < 0.3f)
+                {
+                    return true;
+                }
             }
             return false;
         }

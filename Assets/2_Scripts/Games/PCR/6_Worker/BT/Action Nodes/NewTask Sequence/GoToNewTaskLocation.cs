@@ -6,7 +6,6 @@ namespace LUP.PCR
     {
         public GoToNewTaskLocation(WorkerBlackboard bb) : base(bb) { }
 
-        // 부모에게 "어디로 갈지" 알려주는 키
         protected override string GetBuildingKey() => BBKeys.AssignedWorkplace;
 
         protected override NodeState OnUpdate()

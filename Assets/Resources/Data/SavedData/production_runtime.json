@@ -2,7 +2,7 @@
     "filename": "production_runtime.json",
     "playerId": 0,
     "hasSavedGame": true,
-    "buildingId": 13,
+    "buildingId": 15,
     "buildingInfoList": [
         {
             "buildingId": 1,
@@ -76,7 +76,7 @@
         },
         {
             "buildingId": 11,
-            "level": 15,
+            "level": 17,
             "gridPos": {
                 "x": 11,
                 "y": 1
@@ -93,13 +93,33 @@
             },
             "buildingType": 9,
             "isConstructing": false
+        },
+        {
+            "buildingId": 13,
+            "level": 1,
+            "gridPos": {
+                "x": 4,
+                "y": 3
+            },
+            "buildingType": 7,
+            "isConstructing": false
+        },
+        {
+            "buildingId": 14,
+            "level": 0,
+            "gridPos": {
+                "x": 8,
+                "y": 2
+            },
+            "buildingType": 2,
+            "isConstructing": true
         }
     ],
     "productionInfoList": [
         {
             "buildingId": 2,
             "elapsedTime": 0.0,
-            "currentStorage": 96
+            "currentStorage": 168
         },
         {
             "buildingId": 3,
@@ -108,8 +128,18 @@
         },
         {
             "buildingId": 12,
-            "elapsedTime": 2.4681780338287355,
-            "currentStorage": 46
+            "elapsedTime": 5.570837497711182,
+            "currentStorage": 12
+        },
+        {
+            "buildingId": 13,
+            "elapsedTime": 0.0,
+            "currentStorage": 8
+        },
+        {
+            "buildingId": 14,
+            "elapsedTime": 0.0,
+            "currentStorage": 0
         }
     ],
     "constructionInfoList": [
@@ -151,11 +181,19 @@
         },
         {
             "buildingId": 11,
-            "elapsedTime": 0.0
+            "elapsedTime": 2922.570068359375
         },
         {
             "buildingId": 12,
             "elapsedTime": 0.0
+        },
+        {
+            "buildingId": 13,
+            "elapsedTime": 0.0
+        },
+        {
+            "buildingId": 14,
+            "elapsedTime": 6.008713245391846
         }
     ],
     "restaurantInfo": {

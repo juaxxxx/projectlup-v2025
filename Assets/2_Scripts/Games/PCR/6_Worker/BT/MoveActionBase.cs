@@ -32,21 +32,50 @@ namespace LUP.PCR
 
             if (targetPlace.entrancePos != lastEntrancePos)
             {
-                Debug.Log($"[재경로] {targetPlace.placeName} 위치 변경! ({lastEntrancePos} -> {targetPlace.entrancePos})");
                 UpdatePath();
             }
 
-            if (Mover.IsArrived())
+            if (targetPlace.workSpotAnchor != null)
             {
-                return NodeState.SUCCESS;
-            }
-            else
-            {
-                Debug.Log($"{targetPlace.placeName}으로 이동 중---! ");
+                // 내 위치와 최종 작업 위치(WorkSpot) 사이의 거리 계산 (높이 무시)
+                Vector3 myPos = new Vector3(Mover.transform.position.x, 0, Mover.transform.position.z);
+                Vector3 goalPos = new Vector3(targetPlace.WorkSpotWorldPos.x, 0, targetPlace.WorkSpotWorldPos.z);
 
+                if (Vector3.Distance(myPos, goalPos) < 0.5f)
+                {
+                    return NodeState.RUNNING;
+                }
+            }
+
+            if (Mover.HasInternalPath())
+            {
+                bool isFinished = Mover.MoveInternal();
+
+                if (isFinished)
+                {
+                    return NodeState.SUCCESS;
+                }
+                else
+                {
+                    return NodeState.RUNNING;
+                }
+
+            }
+
+            if (!Mover.IsArrived())
+            {
                 Mover.MoveAlongPath();
                 return NodeState.RUNNING;
             }
+
+            if (targetPlace.workSpotAnchor != null)
+            {
+                Mover.SetInternalPath(targetPlace);
+                Mover.MoveInternal();
+                return NodeState.RUNNING;
+            }
+            return NodeState.SUCCESS; // 내부에 갈 곳 없으면 입구까지만 이동
+
         }
 
         // 경로 계산 및 캐싱 함수

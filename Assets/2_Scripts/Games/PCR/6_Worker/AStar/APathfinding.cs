@@ -5,26 +5,30 @@ namespace LUP.PCR
 {
     public enum LadderState
     {
-        None,
-        Bottom,
-        Middle,
-        Top,
-        Single
+        None, Bottom, Middle, Top, Single
     }
     public class APathfinding
     {
+        private static readonly int[,] dirs = { { 1, 0 }, { -1, 0 }, { 0, 1 }, { 0, -1 } };
         AGridMap gridMap;
 
+        Heap<ANode> openList;
+        HashSet<ANode> closedSet;
+        List<ANode> cachedPath;
+        List<ANode> cachedNeighbors;
         public APathfinding(AGridMap map)
         {
             gridMap = map;
-        }
 
+            openList = new Heap<ANode>(gridMap.grid.Length);
+            closedSet = new HashSet<ANode>();
+            cachedPath = new List<ANode>();
+            cachedNeighbors = new List<ANode>(4);
+        }
         int GetDistance(ANode a, ANode b)
         {
             return 10 * (Mathf.Abs(a.indexX - b.indexX) + Mathf.Abs(a.indexY - b.indexY));
         }
-
         void ResetNodes()
         {
             foreach (ANode node in gridMap.grid)
@@ -40,24 +44,14 @@ namespace LUP.PCR
             ResetNodes();
             startNode.gCost = 0;
 
-            List<ANode> openList = new();
-            HashSet<ANode> closedSet = new();
+            openList.Clear();
+            closedSet.Clear();
+
             openList.Add(startNode);
 
             while (openList.Count > 0)
             {
-                ANode current = openList[0];
-
-                for (int i = 1; i < openList.Count; i++)
-                {
-                    if (openList[i].FCost < current.FCost ||
-                        (openList[i].FCost == current.FCost && openList[i].hCost < current.hCost))
-                    {
-                        current = openList[i];
-                    }
-                }
-
-                openList.Remove(current);
+                ANode current = openList.RemoveFirst();
                 closedSet.Add(current);
 
                 if (current == targetNode)
@@ -65,7 +59,9 @@ namespace LUP.PCR
                     return RetracePath(startNode, targetNode);
                 }
 
-                foreach (ANode neighbor in GetNeighbors(current))
+                GetNeighbors(current, cachedNeighbors);
+
+                foreach (ANode neighbor in cachedNeighbors)
                 {
                     if (closedSet.Contains(neighbor))
                         continue;
@@ -81,31 +77,35 @@ namespace LUP.PCR
                         {
                             openList.Add(neighbor);
                         }
+                        else
+                        {
+                            openList.UpdateItem(neighbor);
+                        }
                     }
                 }
             }
 
             return null;
         }
+
         List<ANode> RetracePath(ANode start, ANode end)
         {
-            List<ANode> path = new();
+            cachedPath.Clear();
             ANode current = end;
 
             while (current != start)
             {
-                path.Add(current);
+                cachedPath.Add(current);
                 current = current.parentNode;
             }
 
-            path.Reverse();
-            return path;
+            cachedPath.Reverse();
+            return cachedPath;
         }
-        List<ANode> GetNeighbors(ANode node)
-        {
-            List<ANode> neighbors = new();
 
-            int[,] dirs = { { 1, 0 }, { -1, 0 }, { 0, 1 }, { 0, -1 } };
+        void GetNeighbors(ANode node, List<ANode> neighbors)
+        {
+            neighbors.Clear();
 
             LadderState state = GetLadderState(node);
 
@@ -114,20 +114,14 @@ namespace LUP.PCR
                 int nx = node.indexX + dirs[i, 0];
                 int ny = node.indexY + dirs[i, 1];
 
-                if (!gridMap.IsIdxValid(nx, ny))
-                {
-                    continue;
-                }
+                if (!gridMap.IsIdxValid(nx, ny)) continue;
 
                 ANode neighbor = gridMap.grid[nx, ny];
-                if (!neighbor.isWalkable)
-                {
-                    continue;
-                }
+                if (!neighbor.isWalkable) continue;
 
                 int dy = dirs[i, 1];
                 if (dy == 0 && CanMoveSide(state))
-                { 
+                {
                     neighbors.Add(neighbor);
                 }
                 else if (dy == 1 && CanMoveUp(node, neighbor, state))
@@ -139,9 +133,8 @@ namespace LUP.PCR
                     neighbors.Add(neighbor);
                 }
             }
-
-            return neighbors;
         }
+
         bool HasLadderAt(int x, int y)
         {
             if (!gridMap.IsIdxValid(x, y)) return false;
@@ -150,28 +143,15 @@ namespace LUP.PCR
 
         LadderState GetLadderState(ANode node)
         {
-            if (!node.isLadder)
-            {
-                return LadderState.None;
-            }
+            if (!node.isLadder) return LadderState.None;
 
             bool up = HasLadderAt(node.indexX, node.indexY + 1);
             bool down = HasLadderAt(node.indexX, node.indexY - 1);
 
-            if (!up && !down)
-            {
-                return LadderState.Single;
-            }
-            
-            if (!up && down)
-            {
-                return LadderState.Top;
-            }
-            if (up && !down)
-            {
-                return LadderState.Bottom;
-            }
-                return LadderState.Middle;
+            if (!up && !down) return LadderState.Single;
+            if (!up && down) return LadderState.Top;
+            if (up && !down) return LadderState.Bottom;
+            return LadderState.Middle;
         }
 
         bool CanMoveSide(LadderState state)
@@ -181,23 +161,13 @@ namespace LUP.PCR
 
         bool CanMoveUp(ANode current, ANode neighbor, LadderState state)
         {
-            if (neighbor.isLadder)
-            {
-                return true;
-            }
-
-            // 사다리 꼭대기에서 위 바닥으로 나가기
+            if (neighbor.isLadder) return true;
             return state == LadderState.Top || state == LadderState.Single;
         }
 
         bool CanMoveDown(ANode current, ANode neighbor, LadderState state)
         {
-            if (neighbor.isLadder)
-            {
-                return true;
-            }
-
-            // 사다리 아래 끝에서 바닥으로
+            if (neighbor.isLadder) return true;
             return state == LadderState.Bottom || state == LadderState.Single;
         }
     }

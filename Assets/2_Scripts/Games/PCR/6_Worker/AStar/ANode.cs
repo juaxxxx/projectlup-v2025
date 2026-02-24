@@ -2,7 +2,7 @@
 
 namespace LUP.PCR
 {
-    public class ANode
+    public class ANode : IHeapItem<ANode>
     {
         public bool isWalkable;
         public bool isLadder;
@@ -12,6 +12,22 @@ namespace LUP.PCR
         public int gCost;
         public int hCost;
         public ANode parentNode;
+
+        private int heapIndex;
+        public int HeapIndex
+        {
+            get { return heapIndex; }
+            set { heapIndex = value; }
+        }
+        public int CompareTo(ANode nodeToCompare)
+        {
+            int compare = FCost.CompareTo(nodeToCompare.FCost);
+            if (compare == 0)
+            {
+                compare = hCost.CompareTo(nodeToCompare.hCost);
+            }
+            return -compare;
+        }
 
         public ANode(bool nWalkable, bool nLadder, Vector3 nWorldPos, int nIndexX, int nIndexY)
         {
@@ -26,5 +42,6 @@ namespace LUP.PCR
         {
             get { return gCost + hCost; }
         }
+        
     }
 }

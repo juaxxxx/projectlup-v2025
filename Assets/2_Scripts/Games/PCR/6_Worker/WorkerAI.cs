@@ -90,6 +90,12 @@ namespace LUP.PCR
         {
             worker = GetComponent<Worker>();
             mover = GetComponent<UnitMover>();
+
+            if (worker != null)
+            {
+                worker.InitAnimator();
+            }
+
             LocalBlackboard = new WorkerBlackboard();
 
             InitBlackboard();

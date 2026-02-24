@@ -7745,7 +7745,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 632da5c1db13dee4786c485c74552cf8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  workerPrefab: {fileID: 5154673511393187367, guid: fc9ba606cc56eab4585e5b26caee07bf, type: 3}
+  workerLogicPrefab: {fileID: 5154673511393187367, guid: fc9ba606cc56eab4585e5b26caee07bf, type: 3}
+  workerModelPrefabs:
+  - {fileID: 6107260803389495816, guid: 595fe578d5abb5044a32147cfee65c03, type: 3}
+  - {fileID: 9095662814383746779, guid: a04e2b9338ca5bd49a2de6b18dc50a77, type: 3}
+  - {fileID: 3931139449741482304, guid: f8a92be19b61fed42899ba63bc1bf12e, type: 3}
+  - {fileID: 7229224051861892665, guid: 51e60016941d75c4281a1e3e43c73d8e, type: 3}
+  - {fileID: 7734895144133141023, guid: ba2313d3f3aefee45acb4e6976ca7a23, type: 3}
+  - {fileID: 1175974366091629814, guid: 7c0b0634fadf63b49ab501d14e542ab4, type: 3}
+  - {fileID: 3785656455627845353, guid: ac5da999cac71d8419e8285257fefdfd, type: 3}
+  - {fileID: 1331992821957477266, guid: 9c31e8af7017d5e47966b32f2f1f71bc, type: 3}
   workerContainer: {fileID: 5873582537995637148}
 --- !u!1 &1150403854857231004
 GameObject:

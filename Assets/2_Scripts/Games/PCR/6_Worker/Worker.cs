@@ -14,7 +14,6 @@ namespace LUP.PCR
         private static readonly int IsClimbingHash = Animator.StringToHash("IsClimbing");
         private void Awake()
         {
-            anim = GetComponent<Animator>();
             mover = GetComponent<UnitMover>();
         }
 
@@ -23,6 +22,12 @@ namespace LUP.PCR
             //@TODO : 행동트리에서 이동할 때만 호출하게 하기
             UpdateAnimationState();
         }
+
+        public void InitAnimator()
+        {
+            anim = GetComponentInChildren<Animator>();
+        }
+
         private void UpdateAnimationState()
         {
             if (mover == null || anim == null)
