@@ -24,7 +24,7 @@ namespace LUP.DSG
         [SerializeField]
         private GameObject battleCanvas;
         [SerializeField]
-        private GameObject formationCanvas;
+        private GameObject readyCanvas;
         [SerializeField]
         private GameObject characterUICanvas;
         [SerializeField]
@@ -70,7 +70,7 @@ namespace LUP.DSG
         private Dictionary<string, (Color Color, float Score)> deadScores = new();
         private List<(string Name, int CharId, Sprite Icon, float Score, GameObject Prefab, bool IsEnemy)> deadCharacterData = new();
 
-        public event Action<Character> onStartAttack;
+        //public event Action<Character> onStartAttack;
         public event Action<Character> onStartSkill;
 
         private List<ObjectFader> fadedList = new List<ObjectFader>();
@@ -262,9 +262,8 @@ namespace LUP.DSG
             waitingNextRound = false;
             isRoundRunning = false;
 
-            formationCanvas.SetActive(false);
+            readyCanvas.SetActive(false);
             characterUICanvas.SetActive(false);
-
             
             //카메라 배틀 인트로
             Camera camera = Camera.main;
@@ -327,7 +326,7 @@ namespace LUP.DSG
                 TurnOnFader();
                 currentChar.BattleComp.Attack(targetslot);
                 StartCoroutine(WaitForAttackEnd(currentChar));
-                onStartAttack?.Invoke(currentChar);
+                //onStartAttack?.Invoke(currentChar);
             }
 
             return;

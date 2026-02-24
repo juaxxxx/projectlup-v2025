@@ -25,7 +25,6 @@ namespace LUP.DSG
         public bool isEnemy = false;
         public int battleIndex = -1;
 
-        // public float combatPower { get; private set; }
         [SerializeField]
         private GameObject characterUIPrefab;
 
@@ -35,7 +34,6 @@ namespace LUP.DSG
 
         public int IconCacheKey { get; private set; }
         public Sprite BattleIcon { get; private set; }
-        public EWeaponType weaponType;
 
         private void Awake()
         {

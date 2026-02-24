@@ -55,17 +55,6 @@ namespace LUP.DSG
         {
             if (target == null) return;
 
-            //Vector3 screenPos = Camera.main.WorldToScreenPoint(target.position + offset);
-            //if(screenPos.z < 0.0f)
-            //{
-            //    screenPos *= -1.0f;
-            //}
-
-            //Vector2 localPos = Vector2.zero;
-            //RectTransformUtility.ScreenPointToLocalPointInRectangle(canvasRect, screenPos, mainCamera, out localPos);
-            //rectTransform.localPosition = localPos;
-
-            // 1. 기본 뷰포트 좌표 구하기 (0 ~ 1 범위)
             Vector3 viewportPos = Camera.main.WorldToViewportPoint(target.position + offset);
 
             if (viewportPos.z < 0)
@@ -76,14 +65,14 @@ namespace LUP.DSG
 
             canvasGroup.alpha = 1;
 
-            // 2. 화면 중앙(0.5)으로부터의 거리 계산
+            // 화면 중앙(0.5)으로부터의 거리 계산
             float distanceFromCenter = viewportPos.x - 0.5f;
 
-            // 3. 보정치 적용: 중앙에서 멀어질수록 반대 방향으로 좌표를 이동시킴
+            // 보정치 적용: 중앙에서 멀어질수록 반대 방향으로 좌표를 이동시킴
             // x 좌표가 1에 가까워지면(오른쪽 끝), 값을 마이너스해서 왼쪽으로 당김
             float correctedX = viewportPos.x - (distanceFromCenter * distortionFactor);
 
-            // 4. 최종 좌표를 캔버스 크기에 맞게 변환
+            // 최종 좌표를 캔버스 크기에 맞게 변환
             Vector2 canvasSize = transform.parent.GetComponent<RectTransform>().sizeDelta;
             Vector2 finalPos = new Vector2((correctedX * canvasSize.x) - (canvasSize.x * 0.5f), (viewportPos.y * canvasSize.y) - (canvasSize.y * 0.5f));
 

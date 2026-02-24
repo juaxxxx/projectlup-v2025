@@ -21,14 +21,13 @@ namespace LUP.DSG
             levelText.text = sb.ToString();
 
             DeckStrategyStage stage = LUP.StageManager.Instance.GetCurrentStage() as DeckStrategyStage;
-            FormationSystem system = stage.GetComponent<FormationSystem>();
-            AttributeTypeImage typeIcon = system.GetTypeByAttributeImage(attribute);
+            AttributeIconContainer iconContainer = stage.GetComponent<AttributeIconContainer>();
+            AttributeTypeImage icon = iconContainer.GetTypeByAttributeImage(attribute);
 
-            if (typeIcon.TypeIcon == null)
-                return;
+            if (icon.typeIcon == null) return;
 
-            attributeIcon.sprite = typeIcon.TypeIcon;
-            attributeIcon.color = typeIcon.TypeColor;
+            attributeIcon.sprite = icon.typeIcon;
+            attributeIcon.color = icon.typeColor;
         }
     }
 }

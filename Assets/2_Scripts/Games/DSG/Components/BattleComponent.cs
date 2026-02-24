@@ -1,20 +1,10 @@
 using DG.Tweening;
 using LUP.DSG.Utils;
 using LUP.DSG.Utils.Enums;
-using NUnit.Framework;
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Globalization;
-using System.Linq;
-using System.Runtime.CompilerServices;
-using TMPro;
-using Unity.Mathematics;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.UIElements;
-using static UnityEngine.GraphicsBuffer;
-using static UnityEngine.UI.GridLayoutGroup;
 
 namespace LUP.DSG
 {
@@ -67,7 +57,8 @@ namespace LUP.DSG
         private GameObject damageLogPrefab;
 
         private BattleCameraDirector battleCameraDirector;
-
+        [SerializeField]
+        private EWeaponType weaponType;
         private void Awake()
         {
             owner = GetComponent<Character>();
@@ -344,7 +335,7 @@ namespace LUP.DSG
         }
         private void HandleAttackStart()
         {
-            switch (owner.weaponType)
+            switch (weaponType)
             {
                 case EWeaponType.Melee_OneHanded:
                 case EWeaponType.Melee_TwoHanded:
@@ -366,7 +357,7 @@ namespace LUP.DSG
         }
         public void TrySpawnProjectileForRangedAttack()
         {
-            if (owner.weaponType != EWeaponType.Magic && owner.weaponType != EWeaponType.Gun_Rifle && owner.weaponType != EWeaponType.Throw)
+            if (weaponType != EWeaponType.Magic && weaponType != EWeaponType.Gun_Rifle && weaponType != EWeaponType.Throw)
                 return;
 
             Vector3 spawnPos = originPosition;
@@ -374,7 +365,7 @@ namespace LUP.DSG
 
             bullet = Instantiate(bulletPrefab, spawnPos, Quaternion.identity);
             ActionEffect effect = ActionEffect.None;
-            switch (owner.weaponType)
+            switch (weaponType)
             {
                 case EWeaponType.Magic:
                     effect = ActionEffect.MagicBullet;
@@ -471,7 +462,7 @@ namespace LUP.DSG
 
         public void AttackStart()
         {
-            OnAttackStarted?.Invoke(owner.weaponType);
+            OnAttackStarted?.Invoke(weaponType);
         }
 
         public IEnumerator FocusSkillCaster()
