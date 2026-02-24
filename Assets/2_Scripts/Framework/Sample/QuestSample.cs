@@ -9,6 +9,7 @@ namespace LUP
         public void Trigger(int value)
         {
             QuestManager.Instance.Trigger(QuestTargetId, value);
+
         }
     }
 }
