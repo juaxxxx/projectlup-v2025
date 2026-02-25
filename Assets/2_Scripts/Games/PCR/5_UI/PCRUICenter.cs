@@ -80,6 +80,7 @@ namespace LUP.PCR
 
             farmTaskUIVM.OnClickBack.Subscribe(_ =>
             {
+                Debug.Log("뒤로가기 신호 수신함!");
                 screen.Value = UIScreen.Main;
             }).AddTo(cd);
             farmTaskUIVM.OnClickUpgrade.Subscribe(_ =>
@@ -163,7 +164,8 @@ namespace LUP.PCR
             currentBuilding = building;
 
             farmTaskUIVM.Observe(building);
-            TransitionScreen(UIScreen.FarmTask);
+            //TransitionScreen(UIScreen.FarmTask);
+            screen.Value = UIScreen.FarmTask;
         }
 
         //public void OpenRestaurantTask(BuildingRestaurant building)
