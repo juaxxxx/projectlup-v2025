@@ -18,6 +18,8 @@ namespace LUP.PCR
 
                 if (targetPlace != null)
                 {
+                    Mover.Stop();
+
                     UpdatePath();
                 }
             }
@@ -43,7 +45,7 @@ namespace LUP.PCR
 
                 if (Vector3.Distance(myPos, goalPos) < 0.5f)
                 {
-                    return NodeState.RUNNING;
+                    return NodeState.SUCCESS;
                 }
             }
 

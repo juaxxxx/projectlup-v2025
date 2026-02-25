@@ -13,6 +13,7 @@ namespace LUP.PCR
         [SerializeField] private float hunger = 0;
         private bool isHunger = false;
         private bool hasTask = false; 
+        public bool IsWorking { get; set; }
 
         [Header("Component")]
         private Worker worker;
@@ -35,6 +36,7 @@ namespace LUP.PCR
                 CheckHungerState();
             }
         }
+
         private void CheckHungerState()
         {
             bool shouldBeHungry = hunger >= HungerRules.HungryThreshold;
@@ -141,6 +143,18 @@ namespace LUP.PCR
                 new RoamAroundBuilding(LocalBlackboard)
             });
         }
+        public void StopWorkAndResetState()
+        {
+            HasTask = false;
+            IsWorking = false;
+
+            LocalBlackboard.Remove(BBKeys.AssignedWorkplace);
+
+            if (worker != null)
+            {
+                worker.SetActionState(WorkerActionState.Idle);
+            }
+        }
 
         public void UpdateBT()
         {
@@ -161,6 +175,7 @@ namespace LUP.PCR
         public void AssignTask(StructureBase workingPlace)
         {
             hasTask = true;
+            IsWorking = false;
             
             currentTaskPlace = workingPlace;
             LocalBlackboard.SetValue(BBKeys.AssignedWorkplace, currentTaskPlace);

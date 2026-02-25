@@ -20,8 +20,9 @@ namespace LUP.PCR
         private bool isMovingInternally = false;
 
         public Vector3 CurrentDestination => currentDestination;
-        public bool IsMoving => path != null && currentIndex < path.Count;
-        public bool IsClimbing { get; private set; }
+        public bool IsMoving => (path != null && currentIndex < path.Count) || isMovingInternally;
+        private bool isClimbing = false;
+        public bool IsClimbing => IsMoving && isClimbing;
 
         void Start()
         {
@@ -29,7 +30,6 @@ namespace LUP.PCR
             gridMap = transform.root.GetComponentInChildren<AGridMap>();
             pathfinder = new APathfinding(gridMap);
         }
-
         void Update()
         {
             if (Input.GetKeyDown(KeyCode.Space))
@@ -37,6 +37,7 @@ namespace LUP.PCR
                 TestPathfindingPerformance();
             }
         }
+
         public void SetInternalPath(StructureBase building)
         {
             internalPathQueue.Clear();
@@ -64,13 +65,11 @@ namespace LUP.PCR
                 isMovingInternally = true;
             }
         }
-
         public bool HasInternalPath()
         {
             // 이동 중이거나 큐에 남은 게 있으면 true
             return isMovingInternally || internalPathQueue.Count > 0;
         }
-
         public bool MoveInternal()
         {
             if (!isMovingInternally)
@@ -79,7 +78,7 @@ namespace LUP.PCR
             }
 
             Vector3 targetDir = new Vector3(currentInternalTarget.x - transform.position.x, 0, currentInternalTarget.z - transform.position.z);
-            // Y축 무시하고 방향 계산 (계단이나 경사는 CC가 알아서 처리함)
+            
             if (targetDir.magnitude > 0.01f)
             {
                 targetDir.Normalize();
@@ -252,7 +251,6 @@ namespace LUP.PCR
             }
 
         }
-
         private ANode FindNearestWalkableNode(ANode centerNode)
         {
             if (centerNode.isWalkable)
@@ -288,7 +286,6 @@ namespace LUP.PCR
             }
             return nearest;
         }
-
         private void ProcessPath(List<ANode> newPath)
         {
             path = newPath;
@@ -298,12 +295,11 @@ namespace LUP.PCR
 
             currentDestination = gridMap.GetNodeFootPosition(path[path.Count - 1]);
         }
-
         public void MoveAlongPath()
         {
             if (!IsMoving)
             {
-                IsClimbing = false;
+                isClimbing = false;
                 return;
             }
 
@@ -318,21 +314,21 @@ namespace LUP.PCR
                 if (Mathf.Abs(transform.position.x - targetPos.x) > 0.05f)
                 {
                     bool wasOnLadder = (prev != null && prev.isLadder);
-                    IsClimbing = wasOnLadder;
+                    isClimbing = wasOnLadder;
 
                     Vector3 alignX = new Vector3(targetPos.x, transform.position.y, transform.position.z);
                     transform.position = Vector3.MoveTowards(transform.position, alignX, moveSpeed * Time.deltaTime);
                 }
                 else
                 {
-                    IsClimbing = true;
+                    isClimbing = true;
                         //target.isLadder;
                     transform.position = Vector3.MoveTowards(transform.position, targetPos, moveSpeed * Time.deltaTime);
                 }
             }
             else // 같은 층을 걷는 중 (사다리를 그냥 지나치는 경우도 포함)
             {
-                IsClimbing = false;
+                isClimbing = false;
                 Vector3 targetDir = new Vector3(targetPos.x - transform.position.x, 0, targetPos.z - transform.position.z);
 
                 if (targetDir.magnitude > 0.01f)
@@ -416,6 +412,12 @@ namespace LUP.PCR
             path = null;
             currentIndex = 0;
             gridMap.pathToDraw = null;
+
+            internalPathQueue.Clear();
+            isMovingInternally = false;
+            currentInternalTarget = Vector3.zero;
+
+            isClimbing = false;
         }
     }
 }

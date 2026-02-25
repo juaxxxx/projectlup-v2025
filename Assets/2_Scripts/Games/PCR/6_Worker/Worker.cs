@@ -12,15 +12,11 @@ namespace LUP.PCR
 
         private static readonly int IsMovingHash = Animator.StringToHash("IsMoving");
         private static readonly int IsClimbingHash = Animator.StringToHash("IsClimbing");
+
+        private static readonly int ActionStateHash = Animator.StringToHash("ActionState");
         private void Awake()
         {
             mover = GetComponent<UnitMover>();
-        }
-
-        private void Update()
-        {
-            //@TODO : 행동트리에서 이동할 때만 호출하게 하기
-            UpdateAnimationState();
         }
 
         public void InitAnimator()
@@ -28,23 +24,35 @@ namespace LUP.PCR
             anim = GetComponentInChildren<Animator>();
         }
 
-        private void UpdateAnimationState()
+        private void Update()
         {
+            //@TODO : 행동트리에서 이동할 때만 호출하게 하기
+            //UpdateAnimationState(true);
             if (mover == null || anim == null)
             {
                 return;
             }
 
-            anim.SetBool(IsClimbingHash, mover.IsClimbing);
-            anim.SetBool(IsMovingHash, mover.IsMoving && !mover.IsClimbing);
-        }
+            int currentAction = anim.GetInteger(ActionStateHash);
 
-        /*
-         public void TriggerWork()
-        {
-            anim.SetTrigger("Work");
+            if (currentAction == 0)
+            {
+                anim.SetBool(IsMovingHash, mover.IsMoving);
+            }
+            else
+            {
+                anim.SetBool(IsMovingHash, false);
+            }
+
+            anim.SetBool(IsClimbingHash, mover.IsClimbing);
         }
-         */
+        public void SetActionState(WorkerActionState state)
+        {
+            if (anim != null)
+            {
+                anim.SetInteger(ActionStateHash, (int)state);
+            }
+        }
     }
 
 

@@ -13,11 +13,9 @@ namespace LUP.PCR
             if (building != null) 
             {
                 building.ExitWorker();
-                BB.Remove(BBKeys.AssignedWorkplace);
+                OwnerAI.StopWorkAndResetState();
                 Debug.Log($"1-2. 배고픔으로 인해 {building.buildingName} 작업을 취소했습니다.");
             }
-
-            OwnerAI.HasTask = false;
 
             return NodeState.SUCCESS;
         }
