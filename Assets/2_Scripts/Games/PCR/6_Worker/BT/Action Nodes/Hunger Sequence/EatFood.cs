@@ -42,6 +42,19 @@ namespace LUP.PCR
                     WorkerComp.SetActionState(WorkerActionState.Idle);
                 }
 
+                BuildingBase restaurant = GetData<BuildingBase>(BBKeys.Restaurant);
+
+                if (restaurant != null)
+                {
+                    restaurant.ExitWorker();
+
+                    if (restaurant.entranceAnchor != null && WorkerComp != null)
+                    {
+                        Mover.Stop(); // 이동 멈추고
+                        WorkerComp.transform.position = restaurant.entranceAnchor.position; // 순간이동!
+                    }
+                }
+
                 return ReturnAndLog(NodeState.SUCCESS, "1-4. 식사 완료!");
             }
         }

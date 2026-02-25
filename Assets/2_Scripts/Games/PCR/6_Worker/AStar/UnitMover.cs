@@ -226,6 +226,11 @@ namespace LUP.PCR
 
             ANode targetNode = gridMap.GetNodeFromGridPos(gridPos);
 
+            if (targetNode == null || !targetNode.isWalkable)
+            {
+                return false;
+            }
+
             gridMap.debugStartNode = startNode;
             gridMap.debugTargetNode = targetNode;
 

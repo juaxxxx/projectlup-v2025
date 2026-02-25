@@ -98,9 +98,12 @@ namespace LUP.PCR
                     cc.enabled = false;
                 }
 
-                AssignedWorker.transform.position = entranceAnchor.position;
-                AssignedWorker.transform.rotation = entranceAnchor.rotation;
-
+                if (AssignedWorker != null && entranceAnchor != null)
+                {
+                    AssignedWorker.transform.position = entranceAnchor.position;
+                    AssignedWorker.transform.rotation = entranceAnchor.rotation;
+                }
+              
                 if (cc != null)
                 {
                     cc.enabled = true;
