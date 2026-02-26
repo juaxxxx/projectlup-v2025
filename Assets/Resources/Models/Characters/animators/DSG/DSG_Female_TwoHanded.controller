@@ -124,7 +124,7 @@ AnimatorStateTransition:
   m_Conditions:
   - m_ConditionMode: 6
     m_ConditionEvent: CharacterState
-    m_EventTreshold: 7
+    m_EventTreshold: 5
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 1736416155920296455}
   m_Solo: 0
@@ -149,7 +149,7 @@ AnimatorStateTransition:
   m_Conditions:
   - m_ConditionMode: 6
     m_ConditionEvent: CharacterState
-    m_EventTreshold: 11
+    m_EventTreshold: 6
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 6404717678747860196}
   m_Solo: 0
@@ -436,7 +436,7 @@ AnimatorStateTransition:
   m_Conditions:
   - m_ConditionMode: 6
     m_ConditionEvent: CharacterState
-    m_EventTreshold: 12
+    m_EventTreshold: 7
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 3768551202451569257}
   m_Solo: 0

@@ -77,6 +77,10 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _MetallicMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _NormalMap_Texture:
         m_Texture: {fileID: 2800000, guid: 4690865de8aa83f46a27a7f3b0cb77dd, type: 3}
         m_Scale: {x: 1, y: 1}
@@ -128,7 +132,9 @@ Material:
     - _GlossMapScale: 1
     - _Glossiness: 0.4472136
     - _GlossyReflections: 1
+    - _METALLIC_ALPHA: 0
     - _Metallic: 0
+    - _MetallicStrength: 0
     - _Mode: 3
     - _NormalMap_Strength: 1
     - _OcclusionStrength: 1
@@ -148,7 +154,7 @@ Material:
     - _WorkflowMode: 0
     - _ZWrite: 0
     m_Colors:
-    - _AlbedoColor: {r: 1, g: 1, b: 1, a: 1}
+    - _AlbedoColor: {r: 0.8, g: 0.8, b: 0.8, a: 1}
     - _BaseColor: {r: 0.8, g: 0.8, b: 0.8, a: 1}
     - _Color: {r: 0.8, g: 0.8, b: 0.8, a: 1}
     - _Emission: {r: 0, g: 0, b: 0, a: 0}

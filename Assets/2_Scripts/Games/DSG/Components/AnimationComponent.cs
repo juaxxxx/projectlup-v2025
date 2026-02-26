@@ -11,7 +11,8 @@ namespace LUP.DSG
     {
         private Character owner;
 
-        public Animator animator;
+        [SerializeField]
+        private Animator animator;
 
         public event Action OnHitAttack;
         public event Action OnShootRangeAttack;
@@ -25,6 +26,14 @@ namespace LUP.DSG
 
         private BattleCameraDirector battleCameraDirector;
 
+        [SerializeField]
+        private float attackSpeed = 1.0f;
+        [SerializeField]
+        private float hitSpeed = 1.0f;
+        [SerializeField]
+        private float backwardSpeed = 1.0f;
+
+
         void Start()
         {
             owner = GetComponent<Character>();
@@ -35,6 +44,9 @@ namespace LUP.DSG
                 Camera camera = Camera.main;
                 battleCameraDirector = camera.GetComponent<BattleCameraDirector>();
             }
+            animator.SetFloat("AttackSpeed", attackSpeed);
+            animator.SetFloat("HitSpeed", hitSpeed);
+            animator.SetFloat("BackwardSpeed", backwardSpeed);
         }
 
         public void StartDashAnimation()
@@ -48,29 +60,24 @@ namespace LUP.DSG
             switch (weaponType)
             {
                 case EWeaponType.Melee_OneHanded:
-                    currentState = EAnimStateType.Attack_Melee_OneHanded;
                     attackEffect = ActionEffect.Attack_Melee_OneHanded;
                     break;
                 case EWeaponType.Melee_TwoHanded:
-                    currentState = EAnimStateType.Attack_Melee_TwoHanded;
                     attackEffect = ActionEffect.Attack_Melee_TwoHanded;
                     break;
                 case EWeaponType.Gun_Rifle:
-                    currentState = EAnimStateType.Attack_Range_Rifle;
                     attackEffect = ActionEffect.Attack_Gun_Rifle;
                     break;
                 case EWeaponType.Magic:
-                    currentState = EAnimStateType.Attack_Range_Magic;
                     attackEffect = ActionEffect.Attack_Magic;
                     break;
                 case EWeaponType.Throw:
-                    currentState = EAnimStateType.Attack_Range_Throw;
                     attackEffect = ActionEffect.Attack_Throw;
                     break;
                 default:
                     break;
             }
-
+            currentState = EAnimStateType.Attack;
             SetAnimationState(currentState);
         }
 
@@ -79,11 +86,17 @@ namespace LUP.DSG
             SetAnimationState(currentState);
         }
 
-        public void EndMeleeAnimation()
+        public void OnEndMeleeAnimationEvent()
         {
             currentState = EAnimStateType.StartDash_Bwd;
             SetAnimationState(currentState);
             battleCameraDirector.BackToOriginPos();
+        }
+
+        public void OnEndRangeAnimationEvent()
+        {
+            currentState = EAnimStateType.Idle;
+            SetAnimationState(currentState);
         }
 
         public void PlayHittedAnimation(float damage)
@@ -117,12 +130,6 @@ namespace LUP.DSG
             OnShootRangeAttack?.Invoke();
 
             PlayAttackSoundEffect();
-        }
-
-        public void OnAttackEndEvent()
-        {
-            currentState = EAnimStateType.Idle;
-            EndMeleeAnimation();
         }
 
         public void OnEndFwdDashEvent()

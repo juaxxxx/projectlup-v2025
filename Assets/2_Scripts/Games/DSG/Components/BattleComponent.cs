@@ -123,9 +123,6 @@ namespace LUP.DSG
                     impactApplied = false;
                     isUsingSkill = false;
                     isAttacking = false;
-
-                    //ObjectFader fader = GetComponent<ObjectFader>();
-                    //fader.FaderOff();
                 }
             }
             else if (bullet != null)
