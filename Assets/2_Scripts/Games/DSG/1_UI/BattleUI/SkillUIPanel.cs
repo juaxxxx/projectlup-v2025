@@ -11,11 +11,11 @@ namespace LUP.DSG
         [SerializeField] private Transform canvas;
         [SerializeField] private BattleSystem battle;
 
-        private Vector2 OurhiddenPos = new Vector2(-1530, 305);
-        private Vector2 OurshowPos = new Vector2(-720, 305);
+        private Vector2 OurhiddenPos = new Vector2(-1530, 152);
+        private Vector2 OurshowPos = new Vector2(-790, 152);
 
-        private Vector2 EnmyhiddenPos = new Vector2(1594, 305);
-        private Vector2 EnmyshowPos = new Vector2(707, 305);
+        private Vector2 EnmyhiddenPos = new Vector2(1594, 152);
+        private Vector2 EnmyshowPos = new Vector2(760, 152);
 
         private float slideDuration = 0.7f;
 
@@ -48,11 +48,7 @@ namespace LUP.DSG
             {
                 rt.anchoredPosition = EnmyhiddenPos;
 
-                Transform banner = Object.transform.Find("SkillBanner");
-                Image bannerImage = banner.GetComponent<Image>();
-
-
-                bannerImage.color = Color.red;
+                skillNameText.color = Color.red;
 
                 seq.Append(rt.DOAnchorPos(EnmyshowPos, slideDuration).SetEase(Ease.OutCubic));
                 seq.AppendInterval(1.5f);

@@ -32,6 +32,12 @@ namespace LUP.DSG
 
         private CharacterHeadupUI characterUI;
 
+        [SerializeField]
+        private Transform uiTransform;
+
+        [SerializeField]
+        private Vector3 uiOffset = new Vector3(0, 0, 0);
+
         public int IconCacheKey { get; private set; }
         public Sprite BattleIcon { get; private set; }
 
@@ -84,7 +90,7 @@ namespace LUP.DSG
             {
                 GameObject ui = Instantiate(characterUIPrefab, uiCanvas.transform);
                 characterUI = ui.GetComponent<CharacterHeadupUI>();
-                characterUI.SetTarget(uiCanvas, transform);
+                characterUI.SetTarget(uiCanvas, transform, uiOffset);
                 characterUI.gameObject.SetActive(true);
             }
         }

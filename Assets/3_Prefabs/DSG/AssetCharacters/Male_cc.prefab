@@ -153,6 +153,8 @@ MonoBehaviour:
   battleIndex: -1
   characterUIPrefab: {fileID: 2879139995223357689, guid: d947c9b7fcf7dab45b738fe9fc92abfa, type: 3}
   ActioneffectPool: {fileID: 0}
+  uiTransform: {fileID: 7075812911995658597}
+  uiOffset: {x: 0, y: 1.8, z: 0}
 --- !u!114 &161552268504446662
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -168,6 +170,9 @@ MonoBehaviour:
   animator: {fileID: 1337642885788375380}
   attackEffect: 0
   effectOffset: {x: 0, y: 1.5, z: 0}
+  attackSpeed: 1
+  hitSpeed: 1
+  backwardSpeed: 1
 --- !u!114 &5144011153272595711
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -241,3 +246,8 @@ MonoBehaviour:
   fadeSpeed: 0.1
   doFade: 0
   targetOpacity: 0.2
+--- !u!4 &7075812911995658597 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 2434337355144988064, guid: 2bfe2af613e597c478ddb9ca8ecc9e52, type: 3}
+  m_PrefabInstance: {fileID: 4898463630086776005}
+  m_PrefabAsset: {fileID: 0}

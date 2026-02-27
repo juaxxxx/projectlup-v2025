@@ -7,8 +7,7 @@ namespace LUP.DSG
     public class CharacterHeadupUI : MonoBehaviour
     {
         private Transform target;
-        [SerializeField]
-        private Vector3 offset = new Vector3(0, 1.8f, 0);
+        private Vector3 offset = new Vector3(0, 0, 0);
 
         private Camera mainCamera;
         private RectTransform rectTransform;
@@ -79,10 +78,11 @@ namespace LUP.DSG
             rectTransform.anchoredPosition = finalPos;
         }
 
-        public void SetTarget(Canvas canvas, Transform newTarget)
+        public void SetTarget(Canvas canvas, Transform newTarget, Vector3 uiOffset)
         {
             canvasRect = canvas.GetComponent<RectTransform>();
             target = newTarget;
+            offset = uiOffset;
             gameObject.SetActive(true);
         }
 

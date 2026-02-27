@@ -70,7 +70,7 @@ namespace LUP.DSG
             seq.Append(transform.DOMove(originPos, 1f));
             seq.Join(transform.DORotateQuaternion(originRot, 1f));
 
-            Camera.main.fieldOfView = 60f;
+            Camera.main.fieldOfView = 70f;
 
             return seq;
         }

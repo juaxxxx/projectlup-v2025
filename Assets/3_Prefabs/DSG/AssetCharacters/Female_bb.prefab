@@ -193,6 +193,11 @@ Animator:
   m_CorrespondingSourceObject: {fileID: 5866666021909216657, guid: 0ca2d0ffb67ca4c429f3b727214fdefd, type: 3}
   m_PrefabInstance: {fileID: 7054751381661881855}
   m_PrefabAsset: {fileID: 0}
+--- !u!4 &4624919655658983519 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 2434337355144988064, guid: 0ca2d0ffb67ca4c429f3b727214fdefd, type: 3}
+  m_PrefabInstance: {fileID: 7054751381661881855}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &4656217316002683351 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2412161367050800168, guid: 0ca2d0ffb67ca4c429f3b727214fdefd, type: 3}
@@ -219,6 +224,8 @@ MonoBehaviour:
   battleIndex: -1
   characterUIPrefab: {fileID: 2879139995223357689, guid: d947c9b7fcf7dab45b738fe9fc92abfa, type: 3}
   ActioneffectPool: {fileID: 0}
+  uiTransform: {fileID: 4624919655658983519}
+  uiOffset: {x: 0, y: 1.8, z: 0}
 --- !u!114 &5268561423885576748
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -234,6 +241,9 @@ MonoBehaviour:
   animator: {fileID: 3498477400531380334}
   attackEffect: 0
   effectOffset: {x: 0, y: 1.5, z: 0}
+  attackSpeed: 1
+  hitSpeed: 1
+  backwardSpeed: 1
 --- !u!114 &-6290802124281985358
 MonoBehaviour:
   m_ObjectHideFlags: 0

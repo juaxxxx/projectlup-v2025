@@ -9,6 +9,7 @@ using TMPro;
 using Unity.VisualScripting.Antlr3.Runtime.Misc;
 using UnityEngine;
 using UnityEngine.UI;
+using static System.Net.Mime.MediaTypeNames.Image;
 
 namespace LUP.DSG
 {
@@ -752,26 +753,33 @@ namespace LUP.DSG
                 return;
             }
 
-            TextMeshProUGUI speedText = battleCanvas.transform.Find("RightTop/SpeedButton/SpeedText").GetComponent<TextMeshProUGUI>();
+            //TextMeshProUGUI speedText = battleCanvas.transform.Find("RightTop/SpeedButton/SpeedText").GetComponent<TextMeshProUGUI>();
+            string text = null;
+            float time = 1f;
 
             if (currentGameSpeed == 1f)
             {
-                speedText.SetText("2X");
-                Time.timeScale = 2f;
-                currentGameSpeed = Time.timeScale;
+                text = "2X";
+                time = 2f;
             }
             else if (currentGameSpeed == 2f)
             {
-                speedText.SetText("4X");
-                Time.timeScale = 4f;
-                currentGameSpeed = Time.timeScale;
+                text = "4X";
+                time = 4f;
             }
             else
             {
-                speedText.SetText("1X");
-                Time.timeScale = 1f;
-                currentGameSpeed = Time.timeScale;
+                text = "1X";
+                time = 1f;
             }
+
+            //if(speedText != null)
+            //{
+            //    speedText.SetText(text);
+            //}
+
+            Time.timeScale = time;
+            currentGameSpeed = Time.timeScale;
         }
 
         public bool FriendlySlotsIsEmpty()

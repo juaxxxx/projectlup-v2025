@@ -105,35 +105,20 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 4587e35c40845f040a927b0eed51e361, type: 3}
       insertIndex: -1
       addedObject: {fileID: 7739041669292126766}
-    - targetCorrespondingSourceObject: {fileID: -4337260858366883205, guid: 4587e35c40845f040a927b0eed51e361, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 8378049824101795032}
   m_SourcePrefab: {fileID: 100100000, guid: 4587e35c40845f040a927b0eed51e361, type: 3}
 --- !u!95 &2404345076129678630 stripped
 Animator:
   m_CorrespondingSourceObject: {fileID: 5866666021909216657, guid: 4587e35c40845f040a927b0eed51e361, type: 3}
   m_PrefabInstance: {fileID: 8086044572266526903}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &3745185682130072268 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: -4337260858366883205, guid: 4587e35c40845f040a927b0eed51e361, type: 3}
-  m_PrefabInstance: {fileID: 8086044572266526903}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &8378049824101795032
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3745185682130072268}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 17dd90251739bc44f9038f85ba5be91e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!4 &4085680131573849821 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -3998027840384702870, guid: 4587e35c40845f040a927b0eed51e361, type: 3}
+  m_PrefabInstance: {fileID: 8086044572266526903}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &5575566631088844632 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4420004845683578863, guid: 4587e35c40845f040a927b0eed51e361, type: 3}
   m_PrefabInstance: {fileID: 8086044572266526903}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &9004401426002527718 stripped
@@ -157,6 +142,8 @@ MonoBehaviour:
   battleIndex: -1
   characterUIPrefab: {fileID: 2879139995223357689, guid: d947c9b7fcf7dab45b738fe9fc92abfa, type: 3}
   ActioneffectPool: {fileID: 0}
+  uiTransform: {fileID: 5575566631088844632}
+  uiOffset: {x: 0, y: 1.8, z: 0}
 --- !u!114 &8564016228898142841
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -217,6 +204,9 @@ MonoBehaviour:
   animator: {fileID: 2404345076129678630}
   attackEffect: 0
   effectOffset: {x: 0, y: 1.5, z: 0}
+  attackSpeed: 1
+  hitSpeed: 1
+  backwardSpeed: 1
 --- !u!114 &6717276643288626845
 MonoBehaviour:
   m_ObjectHideFlags: 0
