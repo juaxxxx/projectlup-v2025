@@ -1,9 +1,4 @@
-using LUP.DSG.Utils.Enums;
-using System.Collections;
-using System.Drawing;
-using System.Linq;
-using Unity.VisualScripting;
-//using UnityEditor;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -31,6 +26,8 @@ namespace LUP.DSG
         public event System.Action<int> OnInitTeam;
         public event System.Action OnResetTeam;
 
+        private LineupSlot[] lineupSlots;
+
         private void OnEnable()
         {
             StageInitializeInvoker.OnDSGStagePostInitialize += OnStagePostInitialize;
@@ -44,68 +41,76 @@ namespace LUP.DSG
         private void OnStagePostInitialize(DeckStrategyStage stage)
         {
             if (stage == null) return;
+
             DeckStrategyRuntimeData runtimeData = (DeckStrategyRuntimeData)stage.RuntimeData;
             if (runtimeData == null) return;
+
+            CacheLineupSlots();
+
             PlaceTeam(runtimeData.SelectedTeamIndex);
             OnInitTeam?.Invoke(runtimeData.SelectedTeamIndex);
+
             ToggleGroup toggleGroup = FindAnyObjectByType<ToggleGroup>();
-            if(toggleGroup)
+            if (toggleGroup)
             {
-                TeamSelectButton selectedToggle = toggleGroup.GetComponentsInChildren<TeamSelectButton>().ElementAtOrDefault(runtimeData.SelectedTeamIndex);
-                selectedToggle.ButtonStateChange(true);
+                TeamSelectButton[] teamButtons = toggleGroup.GetComponentsInChildren<TeamSelectButton>(true);
+                int idx = runtimeData.SelectedTeamIndex;
+
+                if (idx >= 0 && idx < teamButtons.Length)
+                    teamButtons[idx].ButtonStateChange(true);
             }
         }
         public void PlaceTeam(int index)
         {
             DeckStrategyStage stage = LUP.StageManager.Instance.GetCurrentStage() as DeckStrategyStage;
-            if (stage != null)
-            {
-                if(characterListContent != null)
-                {
-                    ResetCharacterList(stage.GetSelectedTeam());
-                }
+            if (stage == null) return;
 
-                DeckStrategyRuntimeData runtimeData = (DeckStrategyRuntimeData)stage.RuntimeData;
-                if (runtimeData == null) return;
-                runtimeData.SelectedTeamIndex = index;
-                selectedCount = 0;
-                selectedTeam = stage.GetSelectedTeam();
-                ApplyPlaceTeam();
-                OnPowerUpdated?.Invoke();
-            }
+            DeckStrategyRuntimeData runtimeData = stage.RuntimeData as DeckStrategyRuntimeData;
+            if (runtimeData == null) return;
+
+            runtimeData.SelectedTeamIndex = index;
+            selectedTeam = stage.GetSelectedTeam();
+            if (selectedTeam == null) return;
+
+            selectedCount = 0;
+
+            if (characterListContent != null)
+                ResetCharacterList(selectedTeam);
+
+            ApplyPlaceTeam();
+            OnPowerUpdated?.Invoke();
         }
-        
+
         public void ApplyPlaceTeam()
         {
-            for (int i = 0; i < slots.Length; ++i)
+            if (lineupSlots == null || selectedTeam == null || selectedTeam.characters == null)
+                return;
+
+            for (int i = 0; i < lineupSlots.Length; ++i)
             {
-                LineupSlot slot = slots[i].GetComponent<LineupSlot>();
-                if (slot.isPlaced)
-                {
-                    slot.DeselectCharacter();
-                }
+                LineupSlot slot = lineupSlots[i];
+                if (slot == null) continue;
 
-                if (selectedTeam.characters[i] == null || selectedTeam.characters[i].characterID == 0) continue;
+                if (slot.isPlaced) slot.DeselectCharacter();
 
-                if(characterListContent != null)
+                OwnedCharacterInfo info = (i < selectedTeam.characters.Length) ? selectedTeam.characters[i] : null;
+                if (info == null || info.characterID == 0) continue;
+
+                if (characterListContent != null)
                 {
                     CharacterIcon[] icons = characterListContent.GetComponentsInChildren<CharacterIcon>();
-                    foreach (var icon in icons)
+                    CharacterIcon icon = FindIdByList(selectedTeam.characters[i].characterID);
+                    if (icon)
                     {
-                        if (icon.characterInfo.characterID == selectedTeam.characters[i].characterID)
+                        if (icon.selectedButton.isSelected)
                         {
-                            if (icon.selectedButton.isSelected)
-                            {
-                                ReleaseCharacter(icon.characterInfo.characterID, icon.selectedButton);
-                                icon.selectedSlot = -1;
-                            }
-                            else
-                            {
-                                PlaceCharacterInPlaceTeam(icon.characterInfo, icon.selectedButton, i);
-                                icon.selectedSlot = i;
-                            }
-
-                            break;
+                            ReleaseCharacter(icon.characterInfo.characterID, icon.selectedButton);
+                            icon.selectedSlot = -1;
+                        }
+                        else
+                        {
+                            PlaceCharacterInPlaceTeam(icon.characterInfo, icon.selectedButton, i);
+                            icon.selectedSlot = i;
                         }
                     }
                 }
@@ -120,23 +125,12 @@ namespace LUP.DSG
         public void PlaceCharacterInPlaceTeam(OwnedCharacterInfo info, SelectedButton button, int slotIndex)
         {
             if (selectedCount >= 5 || slotIndex == -1) return;
+            if (lineupSlots == null) return;
 
-            if (slotIndex < 0 || slotIndex >= slots.Length)
-            {
-                return;
-            }
+            if (slotIndex < 0 || slotIndex >= lineupSlots.Length) return;
 
-            var slotObj = slots[slotIndex];
-            if (slotObj == null)
-            {
-                return;
-            }
-
-            LineupSlot slot = slotObj.GetComponent<LineupSlot>();
-            if (slot == null)
-            {
-                return;
-            }
+            LineupSlot slot = lineupSlots[slotIndex];
+            if (slot == null) return;
 
             if (!slot.isPlaced)
             {
@@ -150,13 +144,11 @@ namespace LUP.DSG
         public void PlaceCharacter(OwnedCharacterInfo info, SelectedButton button)
         {
             if (selectedCount >= 5) return;
+            if (lineupSlots == null) return;
 
-            for (int i = 0; i < slots.Length; ++i)
+            for (int i = 0; i < lineupSlots.Length; ++i)
             {
-                var slotObj = slots[i];
-                if (slotObj == null) continue;
-
-                LineupSlot slot = slotObj.GetComponent<LineupSlot>();
+                LineupSlot slot = lineupSlots[i];
                 if (slot == null) continue;
 
                 if (!slot.isPlaced)
@@ -174,11 +166,13 @@ namespace LUP.DSG
         public void ReleaseCharacter(int characterID, SelectedButton button)
         {
             if (selectedCount <= 0) return;
+            if (lineupSlots == null) return;
 
-            for (int i = 0; i < slots.Length; ++i)
+            for (int i = 0; i < lineupSlots.Length; ++i)
             {
-                LineupSlot slot = slots[i].GetComponent<LineupSlot>();
-                if (slot.character == null || slot.character.characterData == null) continue;
+                LineupSlot slot = lineupSlots[i];
+                if (slot == null || slot.character == null || slot.character.characterData == null) continue;
+
                 if (slot.character.characterData.ID == characterID)
                 {
                     slot.DeselectCharacter();
@@ -194,15 +188,20 @@ namespace LUP.DSG
 
         private void ResetCharacterList(Team team)
         {
-            CharactersList list = characterListContent.GetComponentInParent<CharactersList>();
+            CharactersList list = characterListContent != null ? characterListContent.GetComponentInParent<CharactersList>() : null;
             if (list != null)
             {
                 list.ResetSelectedStatus();
-                foreach (OwnedCharacterInfo info in team.characters)
+
+                if (team != null && team.characters != null)
                 {
-                    if (info == null) continue;
-                    list.UpdateCheckedList(info.characterID, true);
+                    foreach (OwnedCharacterInfo info in team.characters)
+                    {
+                        if (info == null) continue;
+                        list.UpdateCheckedList(info.characterID, true);
+                    }
                 }
+
                 list.PopulateScrollView();
             }
 
@@ -219,6 +218,35 @@ namespace LUP.DSG
             if (runtimeData.Teams[runtimeData.SelectedTeamIndex] == null) runtimeData.Teams[runtimeData.SelectedTeamIndex] = new Team();
             runtimeData.Teams[runtimeData.SelectedTeamIndex] = selectedTeam;
         }
-    }
 
+        private void CacheLineupSlots()
+        {
+            if (slots == null)
+            {
+                lineupSlots = System.Array.Empty<LineupSlot>();
+                return;
+            }
+
+            lineupSlots = new LineupSlot[slots.Length];
+            for (int i = 0; i < slots.Length; i++)
+            {
+                GameObject go = slots[i];
+                lineupSlots[i] = go != null ? go.GetComponent<LineupSlot>() : null;
+            }
+        }
+
+        private CharacterIcon FindIdByList(int characterId)
+        {
+            CharacterIcon[] icons = characterListContent.GetComponentsInChildren<CharacterIcon>();
+            foreach (CharacterIcon icon in icons)
+            {
+                if (icon.characterInfo.characterID == characterId)
+                {
+                    return icon;
+                }
+            }
+
+            return null;
+        }
+    }
 }

@@ -33,7 +33,7 @@ namespace LUP.DSG
 
         public override void AttachEffect(Character C)
         {
-            C.ActioneffectPool.PlayVFXAttached(buffdebuffEffect, C.transform, new Vector3(0, 0, 0), Quaternion.identity, true);
+            C.actionEffectPool.PlayVFXAttached(buffdebuffEffect, C.transform, new Vector3(0, 0, 0), Quaternion.identity, true);
         }
     }
 }

@@ -1,6 +1,5 @@
 using LUP.DSG.Utils.Enums;
 using UnityEngine;
-using UnityEngine.UI;
 
 namespace LUP.DSG
 {
@@ -20,51 +19,56 @@ namespace LUP.DSG
         private CanvasGroup canvasGroup;
 
         private CharacterInfoUI characterInfoUI;
-        private CharacterBattleUI chracterBattleUI;
+        private CharacterBattleUI characterBattleUI;
 
         void Awake()
         {
             mainCamera = Camera.main;
             rectTransform = GetComponent<RectTransform>();
             canvasGroup = GetComponent<CanvasGroup>();
+            canvasRect = transform.parent as RectTransform;
 
-            canvasGroup.interactable = false;
-            canvasGroup.blocksRaycasts = false;
+            if (canvasGroup != null)
+            {
+                canvasGroup.interactable = false;
+                canvasGroup.blocksRaycasts = false;
+            }
 
-            //canvasRect = GetComponentInParent<Canvas>().GetComponent<RectTransform>();
+            characterInfoUI = GetComponentInChildren<CharacterInfoUI>(true);
+            if (characterInfoUI != null) characterInfoUI.gameObject.SetActive(false);
 
-            characterInfoUI = GetComponentInChildren<CharacterInfoUI>();
-            characterInfoUI.gameObject.SetActive(false);
-
-            chracterBattleUI = GetComponentInChildren<CharacterBattleUI>();
-            chracterBattleUI.gameObject.SetActive(false);
+            characterBattleUI = GetComponentInChildren<CharacterBattleUI>(true);
+            if (characterBattleUI != null) characterBattleUI.gameObject.SetActive(false);
         }
 
         public void InitInfoUI(EAttributeType type, int level)
         {
+            if (characterInfoUI == null) return;
             characterInfoUI.SetCharacterInfo(type, level);
         }
 
         public void InitBattleUI(Character character)
         {
-            chracterBattleUI.Init(character);
+            if (characterBattleUI == null) return;
+            characterBattleUI.Init(character);
         }
 
         private void LateUpdate()
         {
             if (target == null) return;
+            if (mainCamera == null || rectTransform == null) return;
 
-            Vector3 viewportPos = Camera.main.WorldToViewportPoint(target.position + offset);
+            Vector3 viewportPos = mainCamera.WorldToViewportPoint(target.position + offset);
 
             if (viewportPos.z < 0)
             {
-                canvasGroup.alpha = 0;
+                SetVisible(false);
                 return;
             }
 
-            canvasGroup.alpha = 1;
+            SetVisible(true);
 
-            // 화면 중앙(0.5)으로부터의 거리 계산
+            // 화면 중앙(0.5) 기준으로 보정
             float distanceFromCenter = viewportPos.x - 0.5f;
 
             // 보정치 적용: 중앙에서 멀어질수록 반대 방향으로 좌표를 이동시킴
@@ -73,14 +77,16 @@ namespace LUP.DSG
 
             // 최종 좌표를 캔버스 크기에 맞게 변환
             Vector2 canvasSize = transform.parent.GetComponent<RectTransform>().sizeDelta;
-            Vector2 finalPos = new Vector2((correctedX * canvasSize.x) - (canvasSize.x * 0.5f), (viewportPos.y * canvasSize.y) - (canvasSize.y * 0.5f));
+            Vector2 finalPos = new Vector2(
+                (correctedX * canvasSize.x) - (canvasSize.x * 0.5f), (viewportPos.y * canvasSize.y) - (canvasSize.y * 0.5f));
 
             rectTransform.anchoredPosition = finalPos;
         }
 
         public void SetTarget(Canvas canvas, Transform newTarget, Vector3 uiOffset)
         {
-            canvasRect = canvas.GetComponent<RectTransform>();
+            if (canvas != null)
+                canvasRect = canvas.GetComponent<RectTransform>();
             target = newTarget;
             offset = uiOffset;
             gameObject.SetActive(true);
@@ -90,18 +96,26 @@ namespace LUP.DSG
         {
             gameObject.SetActive(false);
             target = null;
+            offset = new Vector3(0, 0, 0);
         }
 
         public void ActiveInfoUI()
         {
-            characterInfoUI.gameObject.SetActive(true);
-            chracterBattleUI.gameObject.SetActive(false);
+            if (characterInfoUI != null) characterInfoUI.gameObject.SetActive(true);
+            if (characterBattleUI != null) characterBattleUI.gameObject.SetActive(false);
         }
 
         public void ActiveBattleUI()
         {
-            characterInfoUI.gameObject.SetActive(false);
-            chracterBattleUI.gameObject.SetActive(true);
+            if (characterInfoUI != null) characterInfoUI.gameObject.SetActive(false);
+            if (characterBattleUI != null) characterBattleUI.gameObject.SetActive(true);
+        }
+        private void SetVisible(bool visible)
+        {
+            if (canvasGroup != null)
+                canvasGroup.alpha = visible ? 1f : 0f;
+            else
+                gameObject.SetActive(visible);
         }
     }
 }

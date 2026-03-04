@@ -17,11 +17,11 @@ namespace LUP.DSG
         public override void Remove(Character C)
         {
             Debug.Log("È­»ó ³¡");
-            C.ActioneffectPool.StopLoopVFX(effect.particlePrefab, effect.name);
+            C.actionEffectPool.StopLoopVFX(effect.particlePrefab, effect.name);
         }
         public override void AttachEffect(Character C)
         {
-            effect = C.ActioneffectPool.PlayVFXAttached(ActionEffect.Aura_Burn, C.transform, new Vector3(0, 0, 0), Quaternion.identity, true);
+            effect = C.actionEffectPool.PlayVFXAttached(ActionEffect.Aura_Burn, C.transform, new Vector3(0, 0, 0), Quaternion.identity, true);
         }
     }
 }

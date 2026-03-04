@@ -1,15 +1,8 @@
 using LUP.DSG.Utils.Enums;
-using System;
 using System.Collections.Generic;
-using System.Data.SqlTypes;
-using System.Runtime.CompilerServices;
-using System.Text;
 using TMPro;
 using UnityEngine;
-using UnityEngine.TextCore.Text;
 using UnityEngine.UI;
-using static LUP.DSG.Character;
-using static UnityEngine.GraphicsBuffer;
 
 namespace LUP.DSG
 {
@@ -29,58 +22,72 @@ namespace LUP.DSG
 
         [SerializeField] private List<StatusSpritePair> spritePairs;
 
-        private Dictionary<EStatusEffectType, Sprite> statusSprites;
-        private Dictionary<EStatusEffectType, Image> activeIcons;
+        private readonly Dictionary<EStatusEffectType, Sprite> statusSprites = new();
+        private readonly Dictionary<EStatusEffectType, Image> activeIcons = new();
 
         private Image gaugeImage;
 
+        private BattleComponent battleComp;
+
+        private void Awake()
+        {
+            statusSprites.Clear();
+            if (spritePairs == null) return;
+
+            for (int i = 0; i < spritePairs.Count; i++)
+            {
+                var pair = spritePairs[i];
+                if (!statusSprites.ContainsKey(pair.Name))
+                    statusSprites.Add(pair.Name, pair.Sprite);
+            }
+        }
+        private void OnDisable()
+        {
+            Unsubscribe();
+            ClearStatusIcons();
+        }
+
         public void Init(Character character)
         {
-            if (character == null || character.characterData == null) return;
+            if (character == null || character.characterData == null || character.BattleComp == null || character.StatusEffectComp == null)
+                return;
+
+            battleComp = character.BattleComp;
+
             Debug.Log("Init : " + character.characterData.ID);
 
-            activeIcons = new Dictionary<EStatusEffectType, Image>();
-            healthSlider.maxValue = character.characterData.maxHp;
-            healthSlider.value = character.characterData.maxHp;
+            if (healthSlider != null)
+            {
+                healthSlider.maxValue = character.characterData.maxHp;
+                healthSlider.value = character.characterData.maxHp;
+            }
 
-            gaugeSlider.maxValue = character.BattleComp.maxSkillGauge;
-            gaugeSlider.value = 0;
-            gaugeImage = gaugeSlider.fillRect.GetComponent<Image>();
-            // 각 UI마다 개별 머티리얼을 새로 생성하여 UI 이펙트를 개별 적용
-            gaugeImage.material = new Material(gaugeImage.material);
+            if (gaugeSlider != null)
+            {
+                gaugeSlider.maxValue = battleComp.maxSkillGauge;
+                gaugeSlider.value = 0;
 
-            character.BattleComp.OnDamaged += HealthUpdate;
-            character.BattleComp.OnChangeGauge += GaugeUpdate;
+                gaugeImage = gaugeSlider.fillRect != null ? gaugeSlider.fillRect.GetComponent<Image>() : null;
+                if (gaugeImage != null && gaugeImage.material != null)
+                {
+                    // 각 UI마다 개별 머티리얼을 새로 생성하여 UI 이펙트를 개별 적용
+                    gaugeImage.material = new Material(gaugeImage.material);
+                }
+            }
 
+            battleComp.OnDamaged += HealthUpdate;
+            battleComp.OnChangeGauge += GaugeUpdate;
             character.StatusEffectComp.OnEffectAdded = OnEffectAdded;
             character.StatusEffectComp.OnEffectRemoved = OnEffectRemoved;
             character.StatusEffectComp.OnEffectEndTurn = OnEffectEndTurn;
 
             DeckStrategyStage stage = LUP.StageManager.Instance.GetCurrentStage() as DeckStrategyStage;
-            AttributeIconContainer iconContainer = stage.GetComponent<AttributeIconContainer>();
-            AttributeTypeImage typeIcon = iconContainer.GetTypeByAttributeImage(character.characterData.type);
-
-            centerAreaImage.sprite = typeIcon.typeIcon;
-            centerAreaImage.color = typeIcon.typeColor;
-
-        }
-
-        private void OnDisable()
-        {
-            //if (owner == null || owner.characterData == null) return;
-
-            //owner.BattleComp.OnDamaged -= HealthUpdate;
-
-            //owner.StatusEffectComp.OnEffectAdded -= OnEffectAdded;
-            //owner.StatusEffectComp.OnEffectRemoved -= OnEffectRemoved;
-        }
-        private void Awake()
-        {
-            statusSprites = new Dictionary<EStatusEffectType, Sprite>();
-            foreach (var pair in spritePairs)
+            AttributeIconContainer iconContainer = stage != null ? stage.GetComponent<AttributeIconContainer>() : null;
+            if (iconContainer != null && centerAreaImage != null)
             {
-                if (!statusSprites.ContainsKey(pair.Name))
-                    statusSprites.Add(pair.Name, pair.Sprite);
+                AttributeTypeImage typeIcon = iconContainer.GetTypeByAttributeImage(character.characterData.type);
+                centerAreaImage.sprite = typeIcon.typeIcon;
+                centerAreaImage.color = typeIcon.typeColor;
             }
         }
 
@@ -91,7 +98,7 @@ namespace LUP.DSG
         private void GaugeUpdate(float CurrGauge)
         {
             gaugeSlider.value = CurrGauge;
-            if(gaugeSlider.value >= 100)
+            if (gaugeSlider.value >= 100)
             {
                 gaugeImage.material.SetFloat("_CycleTime", 1.0f);
             }
@@ -102,16 +109,19 @@ namespace LUP.DSG
         }
         private void OnEffectAdded(StatusEffect effect)
         {
-            if (activeIcons.TryGetValue(effect.effectType, out Image image))
+            if (panel == null) return;
+
+            if (activeIcons.TryGetValue(effect.effectType, out Image image) && image != null)
             {
-                image.GetComponentInChildren<TextMeshProUGUI>().text = $"Stack : {effect.amount}";
+                TextMeshProUGUI stackText = image.GetComponentInChildren<TextMeshProUGUI>();
+                if (stackText != null) stackText.text = $"Stack : {effect.amount}";
+
                 return;
             }
 
             GameObject go = new GameObject("StatusIcon", typeof(Image));
             Image icon = go.GetComponent<Image>();
 
-            icon.gameObject.SetActive(true);
             icon.transform.SetParent(panel, false);
             icon.rectTransform.transform.localScale = new Vector3(0.3f, 0.3f, 0.3f);
             icon.color = Color.white;
@@ -133,20 +143,14 @@ namespace LUP.DSG
             label.raycastTarget = false;
             label.color = Color.red;
 
-            activeIcons.TryAdd(effect.effectType, icon);
-
             if (statusSprites.TryGetValue(effect.effectType, out Sprite sprite))
-            {
                 icon.sprite = sprite;
-            }
-            else { icon.sprite = null; }
 
-            icon.enabled = true;
-            activeIcons.TryAdd(effect.effectType, icon);
+            activeIcons[effect.effectType] = icon;
         }
         private void OnEffectRemoved(StatusEffect effect)
         {
-            if (!activeIcons.TryGetValue(effect.effectType, out Image icon))
+            if (!activeIcons.TryGetValue(effect.effectType, out Image icon) || icon == null)
                 return;
 
             Destroy(icon.gameObject);
@@ -156,9 +160,28 @@ namespace LUP.DSG
         {
             if (activeIcons.TryGetValue(effect.effectType, out Image image))
             {
-                image.GetComponentInChildren<TextMeshProUGUI>().text = $"Stack : {effect.amount}";
-                return;
+                TextMeshProUGUI label = image.GetComponentInChildren<TextMeshProUGUI>();
+                if (label != null) label.text = $"Stack : {effect.amount}";
             }
+        }
+
+        private void ClearStatusIcons()
+        {
+            foreach (var pair in activeIcons)
+            {
+                if (pair.Value != null)
+                    Destroy(pair.Value.gameObject);
+            }
+            activeIcons.Clear();
+        }
+
+        private void Unsubscribe()
+        {
+            if (battleComp == null) return;
+
+            battleComp.OnDamaged -= HealthUpdate;
+            battleComp.OnChangeGauge -= GaugeUpdate;
+            battleComp = null;
         }
     }
 }

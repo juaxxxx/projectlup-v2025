@@ -11,21 +11,34 @@ public class StageButtonRadio : MonoBehaviour
     [SerializeField]
     public Color normalColor;
 
+    private readonly List<Image> buttonImages = new List<Image>();
+
     void Start()
     {
-        foreach (Button btn in buttons)
+        buttonImages.Clear();
+        if (buttons == null) return;
+
+        for (int i = 0; i < buttons.Count; i++)
         {
-            btn.onClick.AddListener(() => OnButtonClick(btn));
+            Button button = buttons[i];
+            if (button == null) continue;
+
+            buttonImages.Add(button.GetComponent<Image>());
+            button.onClick.AddListener(() => OnButtonClick(button));
         }
     }
 
     void OnButtonClick(Button clickedButton)
     {
-        foreach (Button btn in buttons)
+        for (int i = 0; i < buttonImages.Count; i++)
         {
-            btn.GetComponent<Image>().color = normalColor;
+            if (buttonImages[i] != null)
+                buttonImages[i].color = normalColor;
         }
 
-        clickedButton.GetComponent<Image>().color = selectedColor;
+        if (clickedButton == null) return;
+
+        var img = clickedButton.GetComponent<Image>();
+        if (img != null) img.color = selectedColor;
     }
 }

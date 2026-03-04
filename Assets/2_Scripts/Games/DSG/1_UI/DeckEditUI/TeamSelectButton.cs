@@ -1,49 +1,65 @@
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace LUP.DSG
 {
     public class TeamSelectButton : MonoBehaviour
     {
         [SerializeField]
-        private UnityEngine.UI.Toggle toggle;
+        private Toggle toggle;
 
         private FormationSystem formationSystem;
 
         public int teamIndex;
 
+        private bool isRegistered;
+
         private void Awake()
         {
             StageInitializeInvoker.OnDSGStagePostInitialize += PostInitialize;
+
+            if (toggle == null)
+                toggle = GetComponent<Toggle>();
         }
         private void OnDestroy()
         {
             StageInitializeInvoker.OnDSGStagePostInitialize -= PostInitialize;
+
+            if (toggle != null && isRegistered)
+                toggle.onValueChanged.RemoveListener(OnToggleChanged);
         }
 
         private void PostInitialize(DeckStrategyStage stage)
         {
-            formationSystem = FindAnyObjectByType<FormationSystem>();
-            //if (teamIndex == 0)
-            //{
-            //    toggle.isOn = true;
-            //}
-            toggle.onValueChanged.AddListener(OnToggleChanged);
+            formationSystem = stage != null ? stage.GetComponent<FormationSystem>() : null;
+            if (toggle == null) return;
+
+            if (!isRegistered)
+            {
+                toggle.onValueChanged.AddListener(OnToggleChanged);
+                isRegistered = true;
+            }
         }
 
         void OnToggleChanged(bool isOn)
         {
             Debug.Log("OnToggleChanged");
-            toggle.image.color = isOn ? UnityEngine.Color.gray : UnityEngine.Color.white;
-            if (isOn)
-            {
+
+            if (toggle != null)
+                toggle.image.color = isOn ? Color.gray : Color.white;
+
+            if (!isOn) return;
+
+            if (formationSystem != null)
                 formationSystem.PlaceTeam(teamIndex);
-                SoundManager.Instance.PlaySFX("Inventory Stash 2");
-            }
+            SoundManager.Instance.PlaySFX("Inventory Stash 2");
         }
 
         public void ButtonStateChange(bool isOn)
         {
-            toggle.image.color = isOn ? UnityEngine.Color.gray : UnityEngine.Color.white;
+            if (toggle == null) return;
+
+            toggle.image.color = isOn ? Color.gray : Color.white;
             toggle.SetIsOnWithoutNotify(isOn);
         }
     }
