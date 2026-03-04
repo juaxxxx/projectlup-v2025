@@ -10,8 +10,6 @@ namespace LUP.DSG
         public float fadeSpeed = 0.5f;
         public float targetOpacity = 0.2f;
 
-        // List<Material> materials = new List<Material>();
-
         private Renderer[] renderers;
         private MaterialPropertyBlock materialPropertyBlock;
 
@@ -24,18 +22,6 @@ namespace LUP.DSG
         {
             renderers = GetComponentsInChildren<Renderer>(true);
             materialPropertyBlock = new MaterialPropertyBlock();
-
-            //Renderer[] renderers = GetComponentsInChildren<Renderer>(true);
-            //if (renderers.Length > 0)
-            //{
-            //    foreach (Renderer mesh in renderers)
-            //    {
-            //        foreach (Material material in mesh.materials)
-            //        {
-            //            materials.Add(material);
-            //        }
-            //    }
-            //}
         }
 
         void Update()
@@ -46,9 +32,6 @@ namespace LUP.DSG
 
             currentOpacity = Mathf.Lerp(currentOpacity, target, fadeSpeed);
             ApplyOpacity(currentOpacity);
-            //currentOpacity = Mathf.MoveTowards(currentOpacity, target, fadeSpeed * Time.deltaTime);
-
-            //FadeOpacity(target);
         }
 
         private void ApplyOpacity(float value)
@@ -65,14 +48,5 @@ namespace LUP.DSG
                 renderer.SetPropertyBlock(materialPropertyBlock);
             }
         }
-
-        //void FadeOpacity(float target)
-        //{
-        //    currentOpacity = Mathf.Lerp(currentOpacity, target, fadeSpeed);
-        //    foreach (Material material in materials)
-        //    {
-        //        material.SetFloat("_Opacity", currentOpacity);
-        //    }
-        //}
     }
 }

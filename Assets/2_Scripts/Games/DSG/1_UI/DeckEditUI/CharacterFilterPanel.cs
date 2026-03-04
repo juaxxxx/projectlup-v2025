@@ -53,27 +53,27 @@ namespace LUP.DSG
 
         private void CreateButtons<T>() where T : Enum
         {
-            if (filterButtonPrefab == null || RangesFilterArea == null) return;
+            if (filterButtonPrefab == null || 
+                RangesFilterArea == null || 
+                attributesFilterArea == null) 
+                return;
 
-            Transform CreatedArea;
             Type propertyType = typeof(T);
             if (propertyType == typeof(EAttributeType))
             {
-                CreatedArea = attributesFilterArea;
                 for (int i = 0; i < AttributeTypes.Length; i++)
                 {
-                    GameObject buttonObj = Instantiate(filterButtonPrefab, CreatedArea);
-                    var button = buttonObj.AddComponent<AttributeFilterButton>();
+                    GameObject buttonObj = Instantiate(filterButtonPrefab, attributesFilterArea);
+                    AttributeFilterButton button = buttonObj.AddComponent<AttributeFilterButton>();
                     button.Register(this, buttonObj, AttributeTypes[i]);
                 }
             }
             else
             {
-                CreatedArea = RangesFilterArea;
                 for (int i = 0; i < RangeTypes.Length; i++)
                 {
-                    GameObject buttonObj = Instantiate(filterButtonPrefab, CreatedArea);
-                    var button = buttonObj.AddComponent<RangeFilterButton>();
+                    GameObject buttonObj = Instantiate(filterButtonPrefab, RangesFilterArea);
+                    RangeFilterButton button = buttonObj.AddComponent<RangeFilterButton>();
                     button.Register(this, buttonObj, RangeTypes[i]);
                 }
             }

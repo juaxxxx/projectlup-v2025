@@ -9,8 +9,9 @@ namespace LUP.DSG
         private Vector3 offset = new Vector3(0, 0, 0);
 
         private Camera mainCamera;
+        private Camera uiCam;
         private RectTransform rectTransform;
-        private RectTransform canvasRect;
+        private RectTransform parentRect;
 
         [Header("보정 설정")]
         [Range(0f, 0.2f)]
@@ -26,7 +27,7 @@ namespace LUP.DSG
             mainCamera = Camera.main;
             rectTransform = GetComponent<RectTransform>();
             canvasGroup = GetComponent<CanvasGroup>();
-            canvasRect = transform.parent as RectTransform;
+            parentRect = rectTransform.parent as RectTransform;
 
             if (canvasGroup != null)
             {
@@ -86,7 +87,9 @@ namespace LUP.DSG
         public void SetTarget(Canvas canvas, Transform newTarget, Vector3 uiOffset)
         {
             if (canvas != null)
-                canvasRect = canvas.GetComponent<RectTransform>();
+                parentRect = canvas.GetComponent<RectTransform>();
+
+            uiCam = (canvas.renderMode == RenderMode.ScreenSpaceCamera) ? canvas.worldCamera : null;
             target = newTarget;
             offset = uiOffset;
             gameObject.SetActive(true);
@@ -95,6 +98,7 @@ namespace LUP.DSG
         public void ReleaseTarget()
         {
             gameObject.SetActive(false);
+            uiCam = null;
             target = null;
             offset = new Vector3(0, 0, 0);
         }
