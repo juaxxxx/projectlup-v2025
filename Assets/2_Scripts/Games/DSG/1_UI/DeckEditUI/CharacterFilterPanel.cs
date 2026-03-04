@@ -1,16 +1,17 @@
 using LUP.DSG.Utils.Enums;
-using NUnit.Framework;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 
 namespace LUP.DSG
 {
     public class CharacterFilterPanel : MonoBehaviour
     {
+        private readonly EAttributeType[] AttributeTypes = (EAttributeType[])Enum.GetValues(typeof(EAttributeType));
+        private readonly ERangeType[] RangeTypes = (ERangeType[])Enum.GetValues(typeof(ERangeType));
+
         [SerializeField]
-        CharactersList charactersList;
+        private CharactersList charactersList;
         [SerializeField]
         private GameObject filterPanel;
 
@@ -21,54 +22,59 @@ namespace LUP.DSG
         [SerializeField]
         private Transform RangesFilterArea;
 
-        Dictionary<EAttributeType, bool> attributeFilter = new Dictionary<EAttributeType, bool>();
-        Dictionary<ERangeType, bool> rangeTypeFilter = new Dictionary<ERangeType, bool>() ;
+        private readonly Dictionary<EAttributeType, bool> attributeFilter = new Dictionary<EAttributeType, bool>();
+        private readonly Dictionary<ERangeType, bool> rangeTypeFilter = new Dictionary<ERangeType, bool>() ;
+
+        private FormationSystem formationSystem;
 
         void Start()
         {
-            foreach (EAttributeType type in Enum.GetValues(typeof(EAttributeType)))
-            {
-                attributeFilter[type] = false;
-            }
-            foreach (ERangeType type in Enum.GetValues(typeof(ERangeType)))
-            {
-                rangeTypeFilter[type] = false;
-            }
+            for (int i = 0; i < AttributeTypes.Length; i++)
+                attributeFilter[AttributeTypes[i]] = false;
+
+            for (int i = 0; i < RangeTypes.Length; i++)
+                rangeTypeFilter[RangeTypes[i]] = false;
 
             CreateButtons<EAttributeType>();
             CreateButtons<ERangeType>();
 
             DeckStrategyStage stage = LUP.StageManager.Instance.GetCurrentStage() as DeckStrategyStage;
             if (stage == null) return;
-            FormationSystem formationSystem = stage.GetComponent<FormationSystem>();
+
+            formationSystem = stage.GetComponent<FormationSystem>();
+            if (formationSystem != null) formationSystem.OnResetTeam += ResetAllFilter;
+        }
+
+        private void OnDestroy()
+        {
             if (formationSystem != null)
-            {
-                formationSystem.OnResetTeam += ResetAllFilter;
-            }
+                formationSystem.OnResetTeam -= ResetAllFilter;
         }
 
         private void CreateButtons<T>() where T : Enum
         {
+            if (filterButtonPrefab == null || RangesFilterArea == null) return;
+
             Transform CreatedArea;
             Type propertyType = typeof(T);
             if (propertyType == typeof(EAttributeType))
             {
                 CreatedArea = attributesFilterArea;
-                foreach (EAttributeType value in Enum.GetValues(propertyType))
+                for (int i = 0; i < AttributeTypes.Length; i++)
                 {
                     GameObject buttonObj = Instantiate(filterButtonPrefab, CreatedArea);
                     var button = buttonObj.AddComponent<AttributeFilterButton>();
-                    button.Register(this, buttonObj, value);
+                    button.Register(this, buttonObj, AttributeTypes[i]);
                 }
             }
             else
             {
                 CreatedArea = RangesFilterArea;
-                foreach (ERangeType value in Enum.GetValues(propertyType))
+                for (int i = 0; i < RangeTypes.Length; i++)
                 {
                     GameObject buttonObj = Instantiate(filterButtonPrefab, CreatedArea);
                     var button = buttonObj.AddComponent<RangeFilterButton>();
-                    button.Register(this, buttonObj, value);
+                    button.Register(this, buttonObj, RangeTypes[i]);
                 }
             }
         }
@@ -89,17 +95,17 @@ namespace LUP.DSG
         public void ConfirmFilter()
         {
             CharacterFilterState filter = new CharacterFilterState();
-            foreach (KeyValuePair<EAttributeType, bool> pair in attributeFilter)
-            {
-                if (pair.Value) filter.checkedAttributes.Add(pair.Key);
-            }
-            foreach (KeyValuePair<ERangeType, bool> pair in rangeTypeFilter)
-            {
-                if (pair.Value) filter.checkedRanges.Add(pair.Key);
-            }
 
-            charactersList.RePopulateThroughFilter(filter.ContainsCheckedFilters() ? filter : null);
-            filterPanel.SetActive(false);
+            foreach (KeyValuePair<EAttributeType, bool> pair in attributeFilter)
+                if (pair.Value) filter.checkedAttributes.Add(pair.Key);
+            foreach (KeyValuePair<ERangeType, bool> pair in rangeTypeFilter)
+                if (pair.Value) filter.checkedRanges.Add(pair.Key);
+
+            if (charactersList != null)
+                charactersList.RePopulateThroughFilter(filter.ContainsCheckedFilters() ? filter : null);
+
+            if (filterPanel != null)
+                filterPanel.SetActive(false);
         }
 
         public void ResetAllFilter()
@@ -110,10 +116,10 @@ namespace LUP.DSG
                 filter.ResetCheckState();
             }
 
-            foreach (EAttributeType key in attributeFilter.Keys.ToList())
-                attributeFilter[key] = false;
-            foreach (ERangeType key in rangeTypeFilter.Keys.ToList())
-                rangeTypeFilter[key] = false;
+            for (int i = 0; i < AttributeTypes.Length; i++)
+                attributeFilter[AttributeTypes[i]] = false;
+            for (int i = 0; i < RangeTypes.Length; i++)
+                rangeTypeFilter[RangeTypes[i]] = false;
         }
     }
 }

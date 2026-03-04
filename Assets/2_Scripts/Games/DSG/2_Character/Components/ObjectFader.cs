@@ -8,66 +8,71 @@ namespace LUP.DSG
     public class ObjectFader : MonoBehaviour
     {
         public float fadeSpeed = 0.5f;
-        float curretOpacity;
-        List<Material> materials = new List<Material>();
-        public bool doFade = false;
-
         public float targetOpacity = 0.2f;
+
+        // List<Material> materials = new List<Material>();
+
+        private Renderer[] renderers;
+        private MaterialPropertyBlock materialPropertyBlock;
+
+        private static readonly int OpacityId = Shader.PropertyToID("_Opacity");
+
+        public bool doFade = false;
+        private float currentOpacity = 1.0f;
 
         void Start()
         {
-            SkinnedMeshRenderer[] skinnedMeshList = GetComponentsInChildren<SkinnedMeshRenderer>();
-            if (skinnedMeshList.Length > 0)
-            {
-                foreach (SkinnedMeshRenderer mesh in skinnedMeshList)
-                {
-                    foreach (Material material in mesh.materials)
-                    {
-                        materials.Add(material);
-                    }
-                }
-            }
-            MeshRenderer[] meshList = GetComponentsInChildren<MeshRenderer>();
-            if (meshList.Length > 0)
-            {
-                foreach (MeshRenderer mesh in meshList)
-                {
-                    materials.Add(mesh.material);
-                }
-            }
+            renderers = GetComponentsInChildren<Renderer>(true);
+            materialPropertyBlock = new MaterialPropertyBlock();
 
-            curretOpacity = 1.0f;
+            //Renderer[] renderers = GetComponentsInChildren<Renderer>(true);
+            //if (renderers.Length > 0)
+            //{
+            //    foreach (Renderer mesh in renderers)
+            //    {
+            //        foreach (Material material in mesh.materials)
+            //        {
+            //            materials.Add(material);
+            //        }
+            //    }
+            //}
         }
 
-        // Update is called once per frame
         void Update()
         {
-            if (doFade)
+            float target = doFade ? targetOpacity : 1f;
+
+            if (Mathf.Abs(currentOpacity - target) < 0.001f) return;
+
+            currentOpacity = Mathf.Lerp(currentOpacity, target, fadeSpeed);
+            ApplyOpacity(currentOpacity);
+            //currentOpacity = Mathf.MoveTowards(currentOpacity, target, fadeSpeed * Time.deltaTime);
+
+            //FadeOpacity(target);
+        }
+
+        private void ApplyOpacity(float value)
+        {
+            if (renderers == null || renderers.Length == 0)
+                return;
+
+            materialPropertyBlock.SetFloat(OpacityId, value);
+
+            for (int i = 0; i < renderers.Length; i++)
             {
-                FadeOut();
-            }
-            else
-            {
-                FadeIn();
+                Renderer renderer = renderers[i];
+                if (renderer == null) continue;
+                renderer.SetPropertyBlock(materialPropertyBlock);
             }
         }
 
-        void FadeIn()
-        {
-            curretOpacity = Mathf.Lerp(curretOpacity, 1.0f, fadeSpeed);
-            foreach (Material material in materials)
-            {
-                material.SetFloat("_Opacity", curretOpacity);
-            }
-        }
-
-        void FadeOut()
-        {
-            curretOpacity = Mathf.Lerp(curretOpacity, targetOpacity, fadeSpeed);
-            foreach (Material material in materials)
-            {
-                material.SetFloat("_Opacity", curretOpacity);
-            }
-        }
+        //void FadeOpacity(float target)
+        //{
+        //    currentOpacity = Mathf.Lerp(currentOpacity, target, fadeSpeed);
+        //    foreach (Material material in materials)
+        //    {
+        //        material.SetFloat("_Opacity", currentOpacity);
+        //    }
+        //}
     }
 }

@@ -28,12 +28,14 @@ namespace LUP.DSG
 
         private GameObject bullet;
         private EffectParticlePair bulletEffect;
-        private float bulletSpeed = 0.2f;
+        private float bulletSpeed = 10.0f;
         [SerializeField]
         private float moveSpeed = 6.0f;
 
         private bool impactApplied = false;
         private Vector3 knockbackTarget;
+        private Vector3 knockbackOriginPosition;
+
         private float knockbackDistance = 0.4f;
         private float knockbackDuration = 0.2f;
         private float knockbackTimer = 0f;
@@ -56,41 +58,49 @@ namespace LUP.DSG
         [SerializeField]
         private GameObject damageLogPrefab;
 
-        private BattleCameraDirector battleCameraDirector;
         [SerializeField]
         private EWeaponType weaponType;
+
+        private BattleCameraDirector battleCameraDirector;
+
+        private Camera mainCamera;
+        private HitVignetteEffect hitVignetteEffect;
+
         private void Awake()
         {
             owner = GetComponent<Character>();
-            originPosition = owner.gameObject.transform.position;
+            originPosition = transform.position;
+            mainCamera = Camera.main;
+            if (mainCamera != null)
+                battleCameraDirector = mainCamera.GetComponent<BattleCameraDirector>();
         }
 
         // Update is called once per frame
         void Update()
         {
-            if (isKnockback)
+            if (!isKnockback) return;
+
+            knockbackTimer += Time.deltaTime;
+
+            float t = knockbackDuration > 0f ? (knockbackTimer / knockbackDuration) : 1f;
+
+            transform.position = Vector3.Lerp(knockbackTarget, knockbackOriginPosition, t);
+
+            if (knockbackTimer >= knockbackDuration)
             {
-                knockbackTimer += Time.deltaTime;
-                float t = knockbackTimer / knockbackDuration;
-
-                transform.position = Vector3.Lerp(knockbackTarget, originPosition, t);
-
-                if (knockbackTimer >= knockbackDuration)
-                {
-                    isKnockback = false;
-                    transform.position = originPosition;
-                }
+                isKnockback = false;
+                transform.position = knockbackOriginPosition;
             }
         }
 
         private void FixedUpdate()
         {
+            if (owner == null || owner.AnimationComp == null) return;
+
             if (owner.AnimationComp.currentState == EAnimStateType.StartDash_Fwd)
             {
-                Debug.Log(targetPosition);
-                Debug.Log(impactApplied);
+                transform.position = Vector3.MoveTowards(transform.position, targetPosition, moveSpeed * Time.deltaTime);
 
-                transform.position = Vector3.MoveTowards(gameObject.transform.position, targetPosition, (moveSpeed * Time.deltaTime));
                 if (Vector3.Distance(transform.position, targetPosition) < 0.01f)
                 {
                     if (!impactApplied)
@@ -114,9 +124,8 @@ namespace LUP.DSG
             }
             else if (owner.AnimationComp.currentState == EAnimStateType.StartDash_Bwd)
             {
-                Debug.Log(targetPosition);
-                Debug.Log(impactApplied);
-                transform.position = Vector3.MoveTowards(gameObject.transform.position, targetPosition, (moveSpeed * Time.deltaTime));
+                transform.position = Vector3.MoveTowards(transform.position, targetPosition, moveSpeed * Time.deltaTime);
+
                 if (Vector3.Distance(transform.position, originPosition) < 0.01f)
                 {
                     owner.AnimationComp.OnEndBwdDashEvent();
@@ -127,87 +136,93 @@ namespace LUP.DSG
             }
             else if (bullet != null)
             {
-                Vector3 dir = projectileTargetPosition - bullet.transform.position;
-                float distanceToTarget = dir.magnitude;
-                float moveDistance = bulletSpeed;
+                UpdateProjectile();
+            }
+        }
 
-                if (distanceToTarget <= moveDistance)
+        private void UpdateProjectile()
+        {
+            Vector3 dir = projectileTargetPosition - bullet.transform.position;
+            float distanceToTarget = dir.magnitude;
+            float moveDistance = bulletSpeed * Time.deltaTime;
+
+            if (distanceToTarget <= moveDistance)
+            {
+                bullet.transform.position = projectileTargetPosition;
+
+                if (!impactApplied)
                 {
-                    bullet.transform.position = projectileTargetPosition;
-
-                    if (!impactApplied)
-                    {
-                        ApplyDamageOnce();
-                        impactApplied = true;
-                        battleCameraDirector.BackToOriginPos(0.5f);
-                    }
-
-                    StartCoroutine(WaitForRangeAttackEnd());
-                    impactApplied = false;
-                    owner.ActioneffectPool.StopLoopVFX(bulletEffect.particlePrefab, bulletEffect.name);
-                    Destroy(bullet);
-                    bullet = null;
-                    return;
+                    ApplyDamageOnce();
+                    impactApplied = true;
+                    battleCameraDirector.BackToOriginPos(0.5f);
                 }
-                else
-                {
-                    bullet.transform.position += dir.normalized * moveDistance;
-                }
+
+                StartCoroutine(WaitForRangeAttackEnd());
+                impactApplied = false;
+
+                if (owner != null && owner.actionEffectPool != null)
+                    owner.actionEffectPool.StopLoopVFX(bulletEffect.particlePrefab, bulletEffect.name);
+
+                Destroy(bullet);
+                bullet = null;
+                return;
+            }
+            else
+            {
+                bullet.transform.position += dir.normalized * moveDistance;
             }
         }
 
         private IEnumerator WaitForRangeAttackEnd()
         {
             yield return new WaitForSecondsRealtime(1f);
-
             isAttacking = false;
         }
 
-        public void SetHp(float hp)
-        {
-            currHp = hp;
-        }
-
-        public void SetMaxGauge(float gauge)
-        {
-            maxSkillGauge = gauge;
-        }
+        public void SetHp(float hp) => currHp = hp;
+        public void SetMaxGauge(float gauge) => maxSkillGauge = gauge;
 
         public void Attack(List<LineupSlot> targets)
         {
-            //if (isAttacking) return;
+            if (owner == null || owner.AnimationComp == null) return;
             if (owner.AnimationComp.currentState != EAnimStateType.Idle) return;
-
-            if (targets == null)
-                return;
+            if (targets == null || targets.Count == 0) return;
 
             targetSlots = targets;
 
-            if (targetSlots.Count < 1)
-                return;
+            LineupSlot first = targetSlots[0];
+            if (first == null || first.AttackedPosition == null) return;
 
-            targetPosition = targetSlots[0].AttackedPosition.position; //@TODO 만약 targets가 여러명이면 다 가서 한명씩 때릴지 기획에따라 코드 바꿔야함
+            targetPosition = first.AttackedPosition.position; //@TODO 만약 targets가 여러명이면 다 가서 한명씩 때릴지 기획에따라 코드 바꿔야함
+            
             HandleAttackStart();
-
             isAttacking = true;
         }
         public void ApplyDamageOnce()
         {
+            if (!isAlive)
+                return;
+
+            if (owner == null || owner.characterData == null || owner.ScoreComp == null || 
+                owner.AnimationComp == null || owner.actionEffectPool == null)
+                return;
+
             if (isUsingSkill)
             {
                 ApplySkillDamage();
                 return;
             }
 
-            if (targetSlots == null)
+            if (targetSlots == null || targetSlots.Count == 0)
                 return;
 
             for (int i = 0; i < targetSlots.Count; i++)
             {
-                var targetChar = targetSlots[i].character;
+                LineupSlot slot = targetSlots[i];
+                Character targetChar = slot != null ? slot.character : null;
 
-                if (targetSlots == null || targetSlots[0].character == null || targetSlots[0].character.BattleComp == null)
-                    return;
+                if (targetChar == null || targetChar.characterData == null || targetChar.BattleComp == null)
+                    continue;
 
                 DamageContext ctx = new DamageContext
                 {
@@ -220,20 +235,12 @@ namespace LUP.DSG
                 bool isWeak;
                 float damage = DamageCalculator.Calculator(ctx, out isWeak);
 
-                ActionEffect hiteffect = owner.ActioneffectPool.GetAttackEffectByGetHITEffect(owner.AnimationComp.attackEffect);
+                ActionEffect hiteffect = owner.actionEffectPool.GetAttackEffectByGetHITEffect(owner.AnimationComp.attackEffect);
                 targetChar.BattleComp.TakeDamage(damage, hiteffect, isWeak);
                 owner.ScoreComp.UpdateDamageDealt(damage);
             }
 
-            Camera mainCam = Camera.main;
-            if (mainCam != null)
-            {
-                var shaker = mainCam.GetComponent<BattleCameraDirector>();
-                if (shaker == null)
-                    shaker = mainCam.gameObject.AddComponent<BattleCameraDirector>();
-
-                shaker.StartCoroutine(shaker.Shake(0.2f, 0.2f));
-            }
+            ShakeCamera();
 
             targetSlots.Clear();
             PlusGuage(50);
@@ -243,8 +250,17 @@ namespace LUP.DSG
             if (targetSlots == null || targetSlots.Count <= 0)
                 return;
 
+            if (owner == null || owner.characterData == null || owner.ScoreComp == null)
+                return;
+
             for (int i = 0; i < targetSlots.Count; i++)
             {
+                LineupSlot slot = targetSlots[i];
+                Character targetChar = slot != null ? slot.character : null;
+
+                if (targetChar == null || targetChar.characterData == null || targetChar.BattleComp == null)
+                    continue;
+
                 if (skillInfo.bIsDamaged)
                 {
                     DamageContext ctx = new DamageContext
@@ -257,38 +273,20 @@ namespace LUP.DSG
 
                     bool isWeak;
                     float damage = DamageCalculator.Calculator(ctx, out isWeak) + skillInfo.damage;
-                    targetSlots[i].character.BattleComp.TakeDamage(damage, skillInfo.gethitEffect, isWeak);
+                    targetChar.BattleComp.TakeDamage(damage, skillInfo.gethitEffect, isWeak);
                     owner.ScoreComp.UpdateDamageDealt(damage);
                 }
 
                 if (skillInfo.bIsStatusEffect)
                 {
                     StatusEffect Status = owner.StatusEffectComp.CreateStatusEffect(skillInfo.effectType, skillInfo.operationType, skillInfo.stack, skillInfo.turn);
-                    targetSlots[i].character.StatusEffectComp.AddEffect(Status);
+                    targetChar.StatusEffectComp.AddEffect(Status);
                 }
             }
 
-            Camera mainCam = Camera.main;
-            if (mainCam != null)
-            {
-                var shaker = mainCam.GetComponent<BattleCameraDirector>();
-                if (shaker == null)
-                    shaker = mainCam.gameObject.AddComponent<BattleCameraDirector>();
-
-                shaker.StartCoroutine(shaker.Shake(0.2f, 0.2f));
-            }
-
+            ShakeCamera();
             InitGuage();
         }
-
-        //public virtual void TakeDamage(float amount)
-        //{
-        //    TakeDamage(amount, ActionEffect.None,false);
-        //}
-        //public virtual void TakeDamage(float amount, ActionEffect getHitEffect)
-        //{
-        //    TakeDamage(amount, getHitEffect, false);
-        //}
         public virtual void TakeDamage(float amount, ActionEffect getHitEffect = ActionEffect.None, bool isWeak = false)
         {
             if (!isAlive)
@@ -296,21 +294,26 @@ namespace LUP.DSG
 
             currHp -= amount;
 
-            owner.AnimationComp.hitEffect = getHitEffect;
+            if (owner != null && owner.AnimationComp != null)
+                owner.AnimationComp.hitEffect = getHitEffect;
+
             OnDamaged?.Invoke(currHp);
 
-            owner.ScoreComp.UpdateDamageTaken(amount);
+            owner?.ScoreComp?.UpdateDamageTaken(amount);
             TriggerKnockback();
 
-            if (damageLogPrefab != null)
+            if (damageLogPrefab != null && mainCamera != null)
             {
                 Vector3 headPos = transform.position + Vector3.up * 0.8f;
-                Quaternion rot = Quaternion.LookRotation(Camera.main.transform.forward);
+                Quaternion rot = Quaternion.LookRotation(mainCamera.transform.forward);
                 GameObject log = Instantiate(damageLogPrefab, headPos, rot);
                 log.GetComponent<DamageLog>()?.Setup(amount, isWeak);
             }
 
-            FindFirstObjectByType<HitVignetteEffect>()?.PlayDamageEffect();
+            if (hitVignetteEffect == null)
+                hitVignetteEffect = FindFirstObjectByType<HitVignetteEffect>();
+
+            hitVignetteEffect?.PlayDamageEffect();
 
             if (currHp <= 0)
             {
@@ -326,10 +329,13 @@ namespace LUP.DSG
 
             HandleAttackStart();
 
-            owner.AnimationComp.attackEffect = skillInfo.attackEffect;
+            if (owner != null && owner.AnimationComp != null)
+                owner.AnimationComp.attackEffect = skillInfo.attackEffect;
+
             isUsingSkill = true;
             isAttacking = true;
         }
+
         private void HandleAttackStart()
         {
             switch (weaponType)
@@ -337,13 +343,14 @@ namespace LUP.DSG
                 case EWeaponType.Melee_OneHanded:
                 case EWeaponType.Melee_TwoHanded:
                     OnStartDash?.Invoke();
-                    if (!battleCameraDirector)
+
+                    if(battleCameraDirector == null)
                     {
-                        Camera camera = Camera.main;
-                        battleCameraDirector = camera.GetComponent<BattleCameraDirector>();
+                        if (mainCamera == null) mainCamera = Camera.main;
+                        battleCameraDirector = mainCamera?.GetComponent<BattleCameraDirector>();
                     }
 
-                    battleCameraDirector.FocusOnTarget(targetPosition);
+                    battleCameraDirector?.FocusOnTarget(targetPosition);
                     break;
                 case EWeaponType.Magic:
                 case EWeaponType.Gun_Rifle:
@@ -355,6 +362,9 @@ namespace LUP.DSG
         public void TrySpawnProjectileForRangedAttack()
         {
             if (weaponType != EWeaponType.Magic && weaponType != EWeaponType.Gun_Rifle && weaponType != EWeaponType.Throw)
+                return;
+
+            if (bulletPrefab == null)
                 return;
 
             Vector3 spawnPos = originPosition;
@@ -372,22 +382,25 @@ namespace LUP.DSG
                     break;
             }
 
-            if(effect != ActionEffect.None)
+            if(effect != ActionEffect.None && owner != null && owner.actionEffectPool != null)
             {
                 Transform vfxRoot = bullet.transform;
-                bulletEffect = owner.ActioneffectPool.PlayVFXAttached(effect, vfxRoot, new Vector3(0, 0, 0), Quaternion.identity, true);
+                bulletEffect = owner.actionEffectPool.PlayVFXAttached(effect, vfxRoot, Vector3.zero, Quaternion.identity, true);
             }
+
+            if (targetSlots == null || targetSlots.Count == 0 || targetSlots[0] == null || targetSlots[0].AttackedPosition == null)
+                return;
 
             projectileTargetPosition = targetSlots[0].AttackedPosition.position;
             projectileTargetPosition.y += 1.2f;
 
-            if (!battleCameraDirector)
+            if (battleCameraDirector == null)
             {
-                Camera camera = Camera.main;
-                battleCameraDirector = camera.GetComponent<BattleCameraDirector>();
+                if (mainCamera == null) mainCamera = Camera.main;
+                battleCameraDirector = mainCamera?.GetComponent<BattleCameraDirector>();
             }
 
-            battleCameraDirector.FocusOnTarget(projectileTargetPosition);
+            battleCameraDirector?.FocusOnTarget(projectileTargetPosition);
         }
 
         public virtual void Die()
@@ -395,34 +408,33 @@ namespace LUP.DSG
             isAlive = false;
             if (owner != null)
             {
-                float score = owner.ScoreComp.CalculateMVPScore();
-                int charid = owner.IconCacheKey;
+                DeckStrategyStage currentStage = LUP.StageManager.Instance.GetCurrentStage() as DeckStrategyStage;
+                BattleSystem battleSystem = currentStage != null ? currentStage.GetBattleSystem() : null;
+                battleSystem?.BackupDeadCharacter(owner);
 
-                GameObject prefab = (owner.characterModelData != null) ? owner.characterModelData.prefab : null;
-
-                DeckStrategyStage stage = LUP.StageManager.Instance.GetCurrentStage() as DeckStrategyStage;
-                if (stage != null)
-                {
-                    BattleSystem battleSystem = stage.GetBattleSystem();
-                    if(battleSystem != null)
-                    {
-                        battleSystem.BackupDeadCharacter(owner);
-                    }
-                }
+                //DeckStrategyStage stage = LUP.StageManager.Instance.GetCurrentStage() as DeckStrategyStage;
+                //if (stage != null)
+                //{
+                //    BattleSystem battleSystem = stage.GetBattleSystem();
+                //    if(battleSystem != null)
+                //    {
+                //        battleSystem.BackupDeadCharacter(owner);
+                //    }
+                //}
             }
 
-            owner.ClearCharacterInfo();
-            OnDie?.Invoke(owner.battleIndex);
+            owner?.ClearCharacterInfo();
+            OnDie?.Invoke(owner != null ? owner.battleIndex : -1);
         }
 
         private void TriggerKnockback()
         {
             if (isKnockback) return;
 
-            originPosition = transform.position;
+            knockbackOriginPosition = transform.position;
 
-            float dirX = owner.isEnemy ? 1f : -1f;
-            knockbackTarget = originPosition + new Vector3(dirX * knockbackDistance, 0f, 0f);
+            float dirX = owner != null && owner.isEnemy ? 1f : -1f;
+            knockbackTarget = knockbackOriginPosition + new Vector3(dirX * knockbackDistance, 0f, 0f);
 
             knockbackTimer = 0f;
             isKnockback = true;
@@ -436,24 +448,26 @@ namespace LUP.DSG
 
         public void PlusGuage(float amount)
         {
+            float prevGauge = currGauge;
+            bool wasSkillOn = isSkillOn;
+
             currGauge = Mathf.Min(maxSkillGauge, currGauge + amount);
+            isSkillOn = currGauge >= maxSkillGauge;
 
-            if (currGauge >= maxSkillGauge)
-            {
-                isSkillOn = true;
+            if (!wasSkillOn && isSkillOn)
                 SoundManager.Instance.PlaySFX("Skill_Disarm");
-            }
 
-            OnChangeGauge?.Invoke(currGauge);
+            if (!Mathf.Approximately(prevGauge, currGauge))
+                OnChangeGauge?.Invoke(currGauge);
         }
 
         private void InitGuage()
         {
-            maxSkillGauge = 100;
             currGauge = 0;
             isSkillOn = false;
             isUsingSkill = false;
-            targetSlots.Clear();
+
+            targetSlots?.Clear();
             OnChangeGauge?.Invoke(currGauge);
         }
 
@@ -462,13 +476,24 @@ namespace LUP.DSG
             OnAttackStarted?.Invoke(weaponType);
         }
 
-        public IEnumerator FocusSkillCaster()
+        //public IEnumerator FocusSkillCaster()
+        //{
+        //    Transform cameraOrigin = Camera.main.transform;
+
+        //    yield return battleCameraDirector.FocusOnSkillCaster(transform, cameraOrigin).WaitForCompletion();
+
+        //    battleCameraDirector.FocusOnTarget(targetPosition);
+        //}
+
+        private void ShakeCamera()
         {
-            Transform cameraOrigin = Camera.main.transform;
+            if (mainCamera == null) mainCamera = Camera.main;
+            if (mainCamera == null) return;
 
-            yield return battleCameraDirector.FocusOnSkillCaster(transform, cameraOrigin).WaitForCompletion();
+            if (battleCameraDirector == null)
+                battleCameraDirector = mainCamera.GetComponent<BattleCameraDirector>();
 
-            battleCameraDirector.FocusOnTarget(targetPosition);
+                battleCameraDirector?.StartCoroutine(battleCameraDirector.Shake(0.2f, 0.2f));
         }
     }
 }

@@ -1,10 +1,7 @@
 using LUP.DSG.Utils.Enums;
-using System.ComponentModel;
 using System.Text;
 using TMPro;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.TextCore.Text;
 using UnityEngine.UI;
 
 namespace LUP.DSG
@@ -15,15 +12,23 @@ namespace LUP.DSG
         private TextMeshProUGUI levelText;
         [SerializeField]
         private Image attributeIcon;
+
+        private AttributeIconContainer iconContainer;
         public void SetCharacterInfo(EAttributeType attribute, int level)
         {
-            StringBuilder sb = new StringBuilder("LV." + level.ToString());
-            levelText.text = sb.ToString();
+            if (levelText != null) levelText.text = $"LV.{level}";
 
-            DeckStrategyStage stage = LUP.StageManager.Instance.GetCurrentStage() as DeckStrategyStage;
-            AttributeIconContainer iconContainer = stage.GetComponent<AttributeIconContainer>();
+            if(iconContainer == null)
+            {
+                DeckStrategyStage stage = LUP.StageManager.Instance != null
+                                          ? (LUP.StageManager.Instance.GetCurrentStage() as DeckStrategyStage)
+                                          : null;
+
+                iconContainer = stage != null ? stage.GetComponent<AttributeIconContainer>() : null;
+            }
+            if (iconContainer == null || attributeIcon == null) return;
+
             AttributeTypeImage icon = iconContainer.GetTypeByAttributeImage(attribute);
-
             if (icon.typeIcon == null) return;
 
             attributeIcon.sprite = icon.typeIcon;

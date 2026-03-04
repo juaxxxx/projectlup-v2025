@@ -1,7 +1,5 @@
 using DG.Tweening;
 using System.Collections;
-using System.Collections.Generic;
-using TMPro;
 using UnityEngine;
 
 namespace LUP.DSG
@@ -27,15 +25,9 @@ namespace LUP.DSG
             originPosition = transform.position;
         }
 
-        private void FixedUpdate()
-        {
-            
-        }
-
         public IEnumerator Shake(float duration, float magnitude)
         {
             Vector3 originalPos = transform.localPosition;
-
             float elapsed = 0.0f;
 
             while (elapsed < duration)
@@ -46,7 +38,6 @@ namespace LUP.DSG
                 transform.localPosition = originalPos + new Vector3(x, y, 0f);
 
                 elapsed += Time.deltaTime;
-
                 yield return null;
             }
 
@@ -69,8 +60,6 @@ namespace LUP.DSG
 
             seq.Append(transform.DOMove(originPos, 1f));
             seq.Join(transform.DORotateQuaternion(originRot, 1f));
-
-            Camera.main.fieldOfView = 70f;
 
             return seq;
         }

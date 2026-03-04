@@ -13,7 +13,7 @@ namespace LUP.DSG
         public override void Remove(Character C) => Debug.Log("µ¶ ³¡");
         public override void AttachEffect(Character C)
         {
-            effect = C.ActioneffectPool.PlayVFXAttached(ActionEffect.Aura_Poison, C.transform, new Vector3(0, 0, 0), Quaternion.identity, true);
+            effect = C.actionEffectPool.PlayVFXAttached(ActionEffect.Aura_Poison, C.transform, new Vector3(0, 0, 0), Quaternion.identity, true);
         }
     }
 }

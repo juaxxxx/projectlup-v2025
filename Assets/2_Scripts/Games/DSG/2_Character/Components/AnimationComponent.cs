@@ -157,28 +157,29 @@ namespace LUP.DSG
 
         private void PlayAttackSoundEffect()
         {
-            if (attackEffect != ActionEffect.None)
-            {
-                owner.ActioneffectPool.PlayVFX(attackEffect, owner.transform.position + effectOffset, owner.transform.rotation, false);
-                string sfx = owner.ActioneffectPool.GetActionBySound(attackEffect);
-                if(sfx != "")
-                {
-                    SoundManager.Instance.PlaySFX(sfx);
-                }
-            }
+            if (owner == null || owner.actionEffectPool == null)
+                return;
+
+            if (attackEffect == ActionEffect.None) return;
+
+            owner.actionEffectPool.PlayVFX(attackEffect, owner.transform.position + effectOffset, owner.transform.rotation, false);
+            string sfx = owner.actionEffectPool.GetActionBySound(attackEffect);
+            if (!string.IsNullOrEmpty(sfx))
+                SoundManager.Instance.PlaySFX(sfx);
         }
 
         private void PlayHitSoundEffect()
         {
-            if (hitEffect != ActionEffect.None)
-            {
-                owner.ActioneffectPool.PlayVFX(hitEffect, owner.transform.position + effectOffset, owner.transform.rotation, false);
-                string sfx = owner.ActioneffectPool.GetActionBySound(hitEffect);
-                if (sfx != "")
-                {
-                    SoundManager.Instance.PlaySFX(sfx);
-                }
-            }
+            if (owner == null || owner.actionEffectPool == null)
+                return;
+
+            if (hitEffect == ActionEffect.None)
+                return;
+
+            owner.actionEffectPool.PlayVFX(hitEffect, owner.transform.position + effectOffset, owner.transform.rotation, false);
+            string sfx = owner.actionEffectPool.GetActionBySound(hitEffect);
+            if (!string.IsNullOrEmpty(sfx))
+                SoundManager.Instance.PlaySFX(sfx);
         }
     }
 }
