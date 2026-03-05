@@ -10,7 +10,7 @@ namespace LUP.DSG
         [SerializeField] private TMP_Text nameText;
         [SerializeField] private TMP_Text contributionText;
 
-        public void SetData(CharacterData data, CharacterModelData modelData)
+        public void SetData(CharacterData data, CharacterPrefabData modelData)
         {
             if (data == null || modelData == null)
             {

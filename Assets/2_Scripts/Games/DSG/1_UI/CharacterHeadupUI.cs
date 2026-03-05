@@ -9,9 +9,8 @@ namespace LUP.DSG
         private Vector3 offset = new Vector3(0, 0, 0);
 
         private Camera mainCamera;
-        private Camera uiCam;
         private RectTransform rectTransform;
-        private RectTransform parentRect;
+        private RectTransform canvasRect;
 
         [Header("보정 설정")]
         [Range(0f, 0.2f)]
@@ -27,7 +26,9 @@ namespace LUP.DSG
             mainCamera = Camera.main;
             rectTransform = GetComponent<RectTransform>();
             canvasGroup = GetComponent<CanvasGroup>();
-            parentRect = rectTransform.parent as RectTransform;
+
+            if (transform.parent != null)
+                canvasRect = transform.parent as RectTransform;
 
             if (canvasGroup != null)
             {
@@ -57,7 +58,7 @@ namespace LUP.DSG
         private void LateUpdate()
         {
             if (target == null) return;
-            if (mainCamera == null || rectTransform == null) return;
+            if (mainCamera == null || rectTransform == null || canvasRect == null) return;
 
             Vector3 viewportPos = mainCamera.WorldToViewportPoint(target.position + offset);
 
@@ -77,7 +78,7 @@ namespace LUP.DSG
             float correctedX = viewportPos.x - (distanceFromCenter * distortionFactor);
 
             // 최종 좌표를 캔버스 크기에 맞게 변환
-            Vector2 canvasSize = transform.parent.GetComponent<RectTransform>().sizeDelta;
+            Vector2 canvasSize = canvasRect.rect.size;
             Vector2 finalPos = new Vector2(
                 (correctedX * canvasSize.x) - (canvasSize.x * 0.5f), (viewportPos.y * canvasSize.y) - (canvasSize.y * 0.5f));
 
@@ -87,9 +88,12 @@ namespace LUP.DSG
         public void SetTarget(Canvas canvas, Transform newTarget, Vector3 uiOffset)
         {
             if (canvas != null)
-                parentRect = canvas.GetComponent<RectTransform>();
+            {
+                canvasRect = canvas.GetComponent<RectTransform>();
+                if (transform.parent != canvas.transform)
+                    transform.SetParent(canvas.transform, false);
+            }
 
-            uiCam = (canvas.renderMode == RenderMode.ScreenSpaceCamera) ? canvas.worldCamera : null;
             target = newTarget;
             offset = uiOffset;
             gameObject.SetActive(true);
@@ -97,10 +101,9 @@ namespace LUP.DSG
 
         public void ReleaseTarget()
         {
-            gameObject.SetActive(false);
-            uiCam = null;
             target = null;
-            offset = new Vector3(0, 0, 0);
+            offset = Vector3.zero;
+            gameObject.SetActive(false);
         }
 
         public void ActiveInfoUI()

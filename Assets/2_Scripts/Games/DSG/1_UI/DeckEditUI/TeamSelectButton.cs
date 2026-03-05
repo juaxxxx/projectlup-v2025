@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -8,50 +9,52 @@ namespace LUP.DSG
         [SerializeField]
         private Toggle toggle;
 
-        private FormationSystem formationSystem;
-
         public int teamIndex;
+
+        public event Action<int> OnTeamSelected;
 
         private bool isRegistered;
 
         private void Awake()
         {
-            StageInitializeInvoker.OnDSGStagePostInitialize += PostInitialize;
+            //StageInitializeInvoker.OnDSGStagePostInitialize += PostInitialize;
 
-            if (toggle == null)
-                toggle = GetComponent<Toggle>();
+            if (toggle == null) toggle = GetComponent<Toggle>();
+
+            if (toggle != null) toggle.onValueChanged.AddListener(OnToggleChanged);
         }
         private void OnDestroy()
         {
-            StageInitializeInvoker.OnDSGStagePostInitialize -= PostInitialize;
+            //StageInitializeInvoker.OnDSGStagePostInitialize -= PostInitialize;
 
             if (toggle != null && isRegistered)
                 toggle.onValueChanged.RemoveListener(OnToggleChanged);
         }
 
-        private void PostInitialize(DeckStrategyStage stage)
-        {
-            formationSystem = stage != null ? stage.GetComponent<FormationSystem>() : null;
-            if (toggle == null) return;
+        //private void PostInitialize(DeckStrategyStage stage)
+        //{
+        //    formationSystem = stage != null ? stage.GetComponent<FormationSystem>() : null;
+        //    if (toggle == null) return;
 
-            if (!isRegistered)
-            {
-                toggle.onValueChanged.AddListener(OnToggleChanged);
-                isRegistered = true;
-            }
-        }
+        //    if (!isRegistered)
+        //    {
+        //        toggle.onValueChanged.AddListener(OnToggleChanged);
+        //        isRegistered = true;
+        //    }
+        //}
 
         void OnToggleChanged(bool isOn)
         {
-            Debug.Log("OnToggleChanged");
-
             if (toggle != null)
                 toggle.image.color = isOn ? Color.gray : Color.white;
 
             if (!isOn) return;
 
-            if (formationSystem != null)
-                formationSystem.PlaceTeam(teamIndex);
+            OnTeamSelected?.Invoke(teamIndex);
+
+            //if (formationSystem != null)
+            //    formationSystem.PlaceTeam(teamIndex);
+
             SoundManager.Instance.PlaySFX("Inventory Stash 2");
         }
 

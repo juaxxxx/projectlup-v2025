@@ -3,7 +3,7 @@ using UnityEngine.UI;
 
 namespace LUP.DSG
 {
-    public class SelectedButton : MonoBehaviour
+    public class CharacterSelectButton : MonoBehaviour
     {
         public Button button { get; private set; }
         [SerializeField]
@@ -14,13 +14,26 @@ namespace LUP.DSG
         public void Init()
         {
             button = GetComponent<Button>();
-            canvasGroup.alpha = 0f;
+
+            SetCheckVisual(false);
+            isSelected = false;
         }
 
         public void ButtonClicked()
         {
-            isSelected = !isSelected;
-            canvasGroup.alpha = isSelected ? 1f : 0f;
+            SetSelected(!isSelected);
+        }
+
+        public void SetSelected(bool selected)
+        {
+            isSelected = selected;
+            SetCheckVisual(selected);
+        }
+
+        private void SetCheckVisual(bool selected)
+        {
+            if (canvasGroup != null)
+                canvasGroup.alpha = selected ? 1f : 0f;
         }
     }
 }

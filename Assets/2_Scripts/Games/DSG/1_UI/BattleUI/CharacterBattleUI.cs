@@ -24,10 +24,14 @@ namespace LUP.DSG
 
         private readonly Dictionary<EStatusEffectType, Sprite> statusSprites = new();
         private readonly Dictionary<EStatusEffectType, Image> activeIcons = new();
+        private readonly int CycleTimeId = Shader.PropertyToID("_CycleTime");
+
+        private readonly Stack<Image> pooledIcons = new();
 
         private Image gaugeImage;
 
         private BattleComponent battleComp;
+        private StatusEffectComponent statusEffectComp;
 
         private void Awake()
         {
@@ -36,7 +40,7 @@ namespace LUP.DSG
 
             for (int i = 0; i < spritePairs.Count; i++)
             {
-                var pair = spritePairs[i];
+                StatusSpritePair pair = spritePairs[i];
                 if (!statusSprites.ContainsKey(pair.Name))
                     statusSprites.Add(pair.Name, pair.Sprite);
             }
@@ -47,25 +51,31 @@ namespace LUP.DSG
             ClearStatusIcons();
         }
 
+        private void OnDestroy()
+        {
+            Unsubscribe();
+        }
+
         public void Init(Character character)
         {
             if (character == null || character.characterData == null || character.BattleComp == null || character.StatusEffectComp == null)
                 return;
 
-            battleComp = character.BattleComp;
+            Unsubscribe();
+            ClearStatusIcons();
 
-            Debug.Log("Init : " + character.characterData.ID);
+            battleComp = character.BattleComp;
 
             if (healthSlider != null)
             {
                 healthSlider.maxValue = character.characterData.maxHp;
-                healthSlider.value = character.characterData.maxHp;
+                healthSlider.value = battleComp.currHp;
             }
 
             if (gaugeSlider != null)
             {
                 gaugeSlider.maxValue = battleComp.maxSkillGauge;
-                gaugeSlider.value = 0;
+                gaugeSlider.value = battleComp.currGauge;
 
                 gaugeImage = gaugeSlider.fillRect != null ? gaugeSlider.fillRect.GetComponent<Image>() : null;
                 if (gaugeImage != null && gaugeImage.material != null)
@@ -91,21 +101,18 @@ namespace LUP.DSG
             }
         }
 
-        private void HealthUpdate(float CurrHp)
+        private void HealthUpdate(float currHp)
         {
-            healthSlider.value = CurrHp;
+            if (healthSlider != null) healthSlider.value = currHp;
         }
-        private void GaugeUpdate(float CurrGauge)
+        private void GaugeUpdate(float currGauge)
         {
-            gaugeSlider.value = CurrGauge;
-            if (gaugeSlider.value >= 100)
-            {
-                gaugeImage.material.SetFloat("_CycleTime", 1.0f);
-            }
-            else
-            {
-                gaugeImage.material.SetFloat("_CycleTime", 0f);
-            }
+            if (gaugeImage == null || gaugeImage.material == null || gaugeSlider == null) return;
+
+            gaugeSlider.value = currGauge;
+
+            bool isFull = currGauge >= gaugeSlider.maxValue;
+            gaugeImage.material.SetFloat(CycleTimeId, isFull ? 1f : 0f);
         }
         private void OnEffectAdded(StatusEffect effect)
         {
@@ -113,9 +120,7 @@ namespace LUP.DSG
 
             if (activeIcons.TryGetValue(effect.effectType, out Image image) && image != null)
             {
-                TextMeshProUGUI stackText = image.GetComponentInChildren<TextMeshProUGUI>();
-                if (stackText != null) stackText.text = $"Stack : {effect.amount}";
-
+                UpdateStackLabel(image, effect.amount);
                 return;
             }
 
@@ -128,12 +133,6 @@ namespace LUP.DSG
 
             var textGO = new GameObject("Text (TMP)", typeof(RectTransform), typeof(TextMeshProUGUI));
             textGO.transform.SetParent(icon.transform, false);
-
-            var rt = (RectTransform)textGO.transform;
-            rt.anchorMin = rt.anchorMax = new Vector2(0.5f, 0.5f);
-            rt.pivot = new Vector2(0.5f, 0.5f);
-            rt.sizeDelta = new Vector2(200f, 64f);
-            rt.anchoredPosition = new Vector2(0f, 32f);
 
             var label = textGO.GetComponent<TextMeshProUGUI>();
             label.text = $"Stack : {effect.amount}";
@@ -153,26 +152,34 @@ namespace LUP.DSG
             if (!activeIcons.TryGetValue(effect.effectType, out Image icon) || icon == null)
                 return;
 
-            Destroy(icon.gameObject);
             activeIcons.Remove(effect.effectType);
+            ReleaseStatusIcon(icon);
         }
         private void OnEffectEndTurn(StatusEffect effect)
         {
             if (activeIcons.TryGetValue(effect.effectType, out Image image))
-            {
-                TextMeshProUGUI label = image.GetComponentInChildren<TextMeshProUGUI>();
-                if (label != null) label.text = $"Stack : {effect.amount}";
-            }
+                UpdateStackLabel(image, effect.amount);
+        }
+
+        private void ReleaseStatusIcon(Image icon)
+        {
+            if (icon == null) return;
+
+            icon.gameObject.SetActive(false);
+            icon.sprite = null;
+            UpdateStackLabel(icon, 0f, clearOnly: true);
+            pooledIcons.Push(icon);
         }
 
         private void ClearStatusIcons()
         {
-            foreach (var pair in activeIcons)
-            {
-                if (pair.Value != null)
-                    Destroy(pair.Value.gameObject);
-            }
+            if (activeIcons.Count == 0) return;
+
+            List<Image> icons = new List<Image>(activeIcons.Values);
             activeIcons.Clear();
+
+            for (int i = 0; i < icons.Count; i++)
+                ReleaseStatusIcon(icons[i]);
         }
 
         private void Unsubscribe()
@@ -182,6 +189,16 @@ namespace LUP.DSG
             battleComp.OnDamaged -= HealthUpdate;
             battleComp.OnChangeGauge -= GaugeUpdate;
             battleComp = null;
+        }
+
+        private void UpdateStackLabel(Image icon, float amount, bool clearOnly = false)
+        {
+            if (icon == null) return;
+
+            TextMeshProUGUI label = icon.GetComponentInChildren<TextMeshProUGUI>(true);
+            if (label == null) return;
+
+            label.text = clearOnly ? string.Empty : $"Stack : {amount}";
         }
     }
 }

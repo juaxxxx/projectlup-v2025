@@ -18,12 +18,12 @@ namespace LUP.DSG
         [SerializeField]
         private TextMeshProUGUI level;
 
-        public SelectedButton selectedButton;
+        public CharacterSelectButton selectedButton;
 
         public OwnedCharacterInfo characterInfo;
 
-        public Action<OwnedCharacterInfo, SelectedButton> OnSelected;
-        public Action<int, SelectedButton> OnDeselected;
+        public Action<OwnedCharacterInfo, CharacterSelectButton> OnSelected;
+        public Action<int, CharacterSelectButton> OnDeselected;
 
         public int selectedSlot = -1;
 

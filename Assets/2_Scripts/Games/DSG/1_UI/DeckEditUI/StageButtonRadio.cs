@@ -24,7 +24,9 @@ public class StageButtonRadio : MonoBehaviour
             if (button == null) continue;
 
             buttonImages.Add(button.GetComponent<Image>());
-            button.onClick.AddListener(() => OnButtonClick(button));
+
+            Button capture = button;
+            capture.onClick.AddListener(() => OnButtonClick(capture));
         }
     }
 
@@ -38,7 +40,7 @@ public class StageButtonRadio : MonoBehaviour
 
         if (clickedButton == null) return;
 
-        var img = clickedButton.GetComponent<Image>();
+        Image img = clickedButton.GetComponent<Image>();
         if (img != null) img.color = selectedColor;
     }
 }

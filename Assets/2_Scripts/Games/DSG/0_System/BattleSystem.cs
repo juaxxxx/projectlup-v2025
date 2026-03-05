@@ -200,7 +200,7 @@ namespace LUP.DSG
                 if (portrait != null)
                 {
                     int characterId = character.IconCacheKey;
-                    int modelId = character.characterModelData != null ? character.characterModelData.ID : 0;
+                    int modelId = character.characterPrefabData != null ? character.characterPrefabData.ID : 0;
 
                     RectTransform rect = portrait.rectTransform;
                     rect.localScale = Vector3.one * 5.0f;
@@ -406,10 +406,10 @@ namespace LUP.DSG
 
                     string name = character.characterData.characterName;
                     int charId = character.IconCacheKey;
-                    int modelId = (character.characterModelData != null) ? character.characterModelData.ID : 0;
+                    int modelId = (character.characterPrefabData != null) ? character.characterPrefabData.ID : 0;
 
                     float score = character.ScoreComp.CalculateMVPScore();
-                    GameObject prefab = (character.characterModelData != null) ? character.characterModelData.prefab : null;
+                    GameObject prefab = (character.characterPrefabData != null) ? character.characterPrefabData.prefab : null;
 
                     Sprite icon = ResolveBattleIcon(character, charId, modelId);
 
@@ -455,10 +455,10 @@ namespace LUP.DSG
             string name = ch.characterData.characterName;
             int charId = ch.IconCacheKey;
             float score = ch.ScoreComp.CalculateMVPScore();
-            GameObject prefab = ch.characterModelData != null ? ch.characterModelData.prefab : null;
+            GameObject prefab = ch.characterPrefabData != null ? ch.characterPrefabData.prefab : null;
 
             Sprite icon = ch.GetBattleIcon();
-            int modelId = (ch.characterModelData != null) ? ch.characterModelData.ID : 0;
+            int modelId = (ch.characterPrefabData != null) ? ch.characterPrefabData.ID : 0;
             if (icon == null)
             {
                 if (modelId != 0) CharacterIconCache.TryGet(charId, modelId, out icon);

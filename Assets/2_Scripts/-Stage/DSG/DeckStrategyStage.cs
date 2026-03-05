@@ -2,7 +2,6 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-//using UnityEditor.SceneManagement;
 using UnityEngine;
 
 namespace LUP.DSG
@@ -27,7 +26,7 @@ namespace LUP.DSG
 
         public List<DeckStaticData> DeckDataList;
         public List<DeckCharacterStaticData> CharacterDataList;
-        public CharacterModelDataTable characterModelDataTable;
+        public CharacterPrefabDataTable characterModelDataTable;
         public TeamMVPData mvpData;
 
         protected override void Awake() 
@@ -183,39 +182,23 @@ namespace LUP.DSG
             base.SaveRuntimeDataList(runtimeDataList);
         }
 
-        public CharacterModelData FindCharacterModel(int modelId)
+        public CharacterPrefabData FindCharacterPrefabData(int prefabId)
         {
             if (characterModelDataTable == null || characterModelDataTable.characterModelDataList == null)
-            {
-                Debug.LogError("[DeckStrategyStage] characterModelDataTable 이 비어있습니다.");
                 return null;
-            }
 
             foreach (var data in characterModelDataTable.characterModelDataList)
-            {
-                if (data.ID == modelId)
-                    return data;
-            }
+                if (data.ID == prefabId) return data;
 
             return null;
         }
 
         public GameObject GetCharacterPrefab(int modelId)
         {
-            var modelData = FindCharacterModel(modelId);
-            if (modelData == null)
-            {
-                Debug.LogError($"[DeckStrategyStage] modelId {modelId} 에 해당하는 CharacterModelData 를 찾지 못했습니다.");
-                return null;
-            }
+            var modelData = FindCharacterPrefabData(modelId);
+            if (modelData == null) return null;
+            if (modelData.prefab == null) return null;
 
-            if (modelData.prefab == null)
-            {
-                Debug.LogError($"[DeckStrategyStage] modelId {modelId} 의 prefab 이 비어 있습니다. (CharacterModelDataTable 체크)");
-                return null;
-            }
-
-            //Debug.Log($"[DeckStrategyStage] GetCharacterPrefab({modelId}) → {modelData.prefab.name}");
             return modelData.prefab;
         }
         public CharacterData FindCharacterData(int id, int level)

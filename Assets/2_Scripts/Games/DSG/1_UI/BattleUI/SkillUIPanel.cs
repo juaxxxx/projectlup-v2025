@@ -36,7 +36,7 @@ namespace LUP.DSG
             skillNameText.text = Attacker.BattleComp.skillInfo.Skillname;
 
             Sprite AttackerIcon;
-            CharacterIconCache.TryGetByModelId(Attacker.characterModelData.ID, out AttackerIcon);
+            CharacterIconCache.TryGetByModelId(Attacker.characterPrefabData.ID, out AttackerIcon);
 
             Image ObjectIcon = Object.transform.Find("SkillBanner/PlayerIcon").GetComponent<Image>();
             ObjectIcon.sprite = AttackerIcon;

@@ -7,7 +7,7 @@ namespace LUP.DSG
 {
     public class ObjectFader : MonoBehaviour
     {
-        public float fadeSpeed = 0.5f;
+        public float fadeSpeed = 2.0f;
         public float targetOpacity = 0.2f;
 
         private Renderer[] renderers;
@@ -36,8 +36,7 @@ namespace LUP.DSG
 
         private void ApplyOpacity(float value)
         {
-            if (renderers == null || renderers.Length == 0)
-                return;
+            if (renderers == null || renderers.Length == 0) return;
 
             materialPropertyBlock.SetFloat(OpacityId, value);
 

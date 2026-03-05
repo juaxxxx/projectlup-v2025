@@ -1,252 +1,252 @@
-using System.Collections.Generic;
+using System;
 using UnityEngine;
 using UnityEngine.UI;
 
 namespace LUP.DSG
 {
-    public class FormationSystem : MonoBehaviour
-    {
-        public GameObject[] slots = new GameObject[5];
+    //public class FormationSystem : MonoBehaviour
+    //{
+    //    public GameObject[] slots = new GameObject[5];
 
-        public Team selectedTeam { get; private set; }
+    //    public Team selectedTeam { get; private set; }
 
-        [SerializeField]
-        private Transform characterListContent;
+    //    [SerializeField]
+    //    private Transform characterListContent;
 
-        private int selectedCount = 0;
+    //    private int selectedCount = 0;
 
-        public delegate void CharacterPlacedHandler(int slotIndex, CharacterData characterBase);
-        public delegate void CharacterReleasedHandler(int slotIndex);
+    //    public delegate void CharacterPlacedHandler(int slotIndex, CharacterData characterBase);
+    //    public delegate void CharacterReleasedHandler(int slotIndex);
 
-        public CharacterPlacedHandler placedHandler;
-        public CharacterReleasedHandler releaseHandler;
+    //    public CharacterPlacedHandler placedHandler;
+    //    public CharacterReleasedHandler releaseHandler;
 
-        public event System.Action OnPowerUpdated;
+    //    public event Action OnPowerUpdated;
+    //    public event Action OnResetTeam;
 
-        public event System.Action<int> OnInitTeam;
-        public event System.Action OnResetTeam;
+    //    private LineupSlot[] lineupSlots;
+    //    private CharactersList charactersList;
 
-        private LineupSlot[] lineupSlots;
+    //    private void OnEnable()
+    //    {
+    //        StageInitializeInvoker.OnDSGStagePostInitialize += OnStagePostInitialize;
+    //    }
 
-        private void OnEnable()
-        {
-            StageInitializeInvoker.OnDSGStagePostInitialize += OnStagePostInitialize;
-        }
+    //    private void OnDisable()
+    //    {
+    //        StageInitializeInvoker.OnDSGStagePostInitialize -= OnStagePostInitialize;
+    //    }
 
-        private void OnDisable()
-        {
-            StageInitializeInvoker.OnDSGStagePostInitialize -= OnStagePostInitialize;
-        }
+    //    private void OnStagePostInitialize(DeckStrategyStage stage)
+    //    {
+    //        if (stage == null) return;
 
-        private void OnStagePostInitialize(DeckStrategyStage stage)
-        {
-            if (stage == null) return;
+    //        DeckStrategyRuntimeData runtimeData = (DeckStrategyRuntimeData)stage.RuntimeData;
+    //        if (runtimeData == null) return;
 
-            DeckStrategyRuntimeData runtimeData = (DeckStrategyRuntimeData)stage.RuntimeData;
-            if (runtimeData == null) return;
+    //        CacheLineupSlots();
 
-            CacheLineupSlots();
+    //        PlaceTeam(runtimeData.SelectedTeamIndex);
 
-            PlaceTeam(runtimeData.SelectedTeamIndex);
-            OnInitTeam?.Invoke(runtimeData.SelectedTeamIndex);
+    //        ToggleGroup toggleGroup = FindAnyObjectByType<ToggleGroup>();
+    //        if (toggleGroup)
+    //        {
+    //            TeamSelectButton[] teamButtons = toggleGroup.GetComponentsInChildren<TeamSelectButton>(true);
+    //            int idx = runtimeData.SelectedTeamIndex;
 
-            ToggleGroup toggleGroup = FindAnyObjectByType<ToggleGroup>();
-            if (toggleGroup)
-            {
-                TeamSelectButton[] teamButtons = toggleGroup.GetComponentsInChildren<TeamSelectButton>(true);
-                int idx = runtimeData.SelectedTeamIndex;
+    //            if (idx >= 0 && idx < teamButtons.Length)
+    //                teamButtons[idx].ButtonStateChange(true);
+    //        }
+    //    }
+    //    public void PlaceTeam(int index)
+    //    {
+    //        DeckStrategyStage stage = LUP.StageManager.Instance.GetCurrentStage() as DeckStrategyStage;
+    //        if (stage == null) return;
 
-                if (idx >= 0 && idx < teamButtons.Length)
-                    teamButtons[idx].ButtonStateChange(true);
-            }
-        }
-        public void PlaceTeam(int index)
-        {
-            DeckStrategyStage stage = LUP.StageManager.Instance.GetCurrentStage() as DeckStrategyStage;
-            if (stage == null) return;
+    //        DeckStrategyRuntimeData runtimeData = stage.RuntimeData as DeckStrategyRuntimeData;
+    //        if (runtimeData == null) return;
 
-            DeckStrategyRuntimeData runtimeData = stage.RuntimeData as DeckStrategyRuntimeData;
-            if (runtimeData == null) return;
+    //        runtimeData.SelectedTeamIndex = index;
+    //        selectedTeam = stage.GetSelectedTeam();
+    //        if (selectedTeam == null) return;
 
-            runtimeData.SelectedTeamIndex = index;
-            selectedTeam = stage.GetSelectedTeam();
-            if (selectedTeam == null) return;
+    //        selectedCount = 0;
 
-            selectedCount = 0;
+    //        if (characterListContent != null)
+    //        {
+    //            ResetCharacterList(selectedTeam);
+    //            ApplyPlaceTeam();
+    //        }
+    //        else
+    //        {
+    //            ApplyPlaceTeamInBattle();
+    //            OnPowerUpdated?.Invoke();
+    //        }
+    //    }
+    //    private void ApplyPlaceTeamInBattle()
+    //    {
+    //        if (lineupSlots == null || selectedTeam.characters == null)
+    //            return;
 
-            if (characterListContent != null)
-                ResetCharacterList(selectedTeam);
+    //        for (int i = 0; i < lineupSlots.Length; ++i)
+    //        {
+    //            LineupSlot slot = lineupSlots[i];
+    //            if (slot == null) continue;
 
-            ApplyPlaceTeam();
-            OnPowerUpdated?.Invoke();
-        }
+    //            if (slot.isPlaced) slot.DeselectCharacter();
 
-        public void ApplyPlaceTeam()
-        {
-            if (lineupSlots == null || selectedTeam == null || selectedTeam.characters == null)
-                return;
+    //            OwnedCharacterInfo info = (i < selectedTeam.characters.Length) ? selectedTeam.characters[i] : null;
+    //            if (info == null || info.characterID == 0) continue;
 
-            for (int i = 0; i < lineupSlots.Length; ++i)
-            {
-                LineupSlot slot = lineupSlots[i];
-                if (slot == null) continue;
+    //            slot.SetSelectedCharacter(selectedTeam.characters[i], false);
+    //            ++selectedCount;
+    //        }
+    //    }
 
-                if (slot.isPlaced) slot.DeselectCharacter();
+    //    private void ApplyPlaceTeam()
+    //    {
+    //        if (lineupSlots == null || selectedTeam.characters == null)
+    //            return;
 
-                OwnedCharacterInfo info = (i < selectedTeam.characters.Length) ? selectedTeam.characters[i] : null;
-                if (info == null || info.characterID == 0) continue;
+    //        for (int i = 0; i < lineupSlots.Length; ++i)
+    //        {
+    //            LineupSlot slot = lineupSlots[i];
+    //            if (slot == null) continue;
 
-                if (characterListContent != null)
-                {
-                    CharacterIcon[] icons = characterListContent.GetComponentsInChildren<CharacterIcon>();
-                    CharacterIcon icon = FindIdByList(selectedTeam.characters[i].characterID);
-                    if (icon)
-                    {
-                        if (icon.selectedButton.isSelected)
-                        {
-                            ReleaseCharacter(icon.characterInfo.characterID, icon.selectedButton);
-                            icon.selectedSlot = -1;
-                        }
-                        else
-                        {
-                            PlaceCharacterInPlaceTeam(icon.characterInfo, icon.selectedButton, i);
-                            icon.selectedSlot = i;
-                        }
-                    }
-                }
-                else
-                {
-                    slot.SetSelectedCharacter(selectedTeam.characters[i], false);
-                    ++selectedCount;
-                }
-            }
-        }
+    //            if (slot.isPlaced) slot.DeselectCharacter();
 
-        public void PlaceCharacterInPlaceTeam(OwnedCharacterInfo info, SelectedButton button, int slotIndex)
-        {
-            if (selectedCount >= 5 || slotIndex == -1) return;
-            if (lineupSlots == null) return;
+    //            OwnedCharacterInfo info = (i < selectedTeam.characters.Length) ? selectedTeam.characters[i] : null;
+    //            if (info == null || info.characterID == 0) continue;
 
-            if (slotIndex < 0 || slotIndex >= lineupSlots.Length) return;
+    //            CharacterIcon icon = FindIdByList(selectedTeam.characters[i].characterID);
+    //            if (icon && icon.selectedButton.isSelected)
+    //            {
+    //                PlaceCharacterInPlaceTeam(icon.characterInfo, icon.selectedButton, i);
+    //                icon.selectedSlot = i;
+    //            }
+    //        }
+    //    }
 
-            LineupSlot slot = lineupSlots[slotIndex];
-            if (slot == null) return;
+    //    public void PlaceCharacterInPlaceTeam(OwnedCharacterInfo info, CharacterSelectButton button, int slotIndex)
+    //    {
+    //        if (selectedCount >= 5 || slotIndex == -1) return;
+    //        if (lineupSlots == null) return;
+    //        if (slotIndex < 0 || slotIndex >= lineupSlots.Length) return;
 
-            if (!slot.isPlaced)
-            {
-                slot.SetSelectedCharacter(info, false);
-                selectedTeam.characters[slotIndex] = info;
-                ++selectedCount;
-                button.ButtonClicked();
-            }
-        }
+    //        LineupSlot slot = lineupSlots[slotIndex];
+    //        if (slot == null || !slot.isPlaced) return;
 
-        public void PlaceCharacter(OwnedCharacterInfo info, SelectedButton button)
-        {
-            if (selectedCount >= 5) return;
-            if (lineupSlots == null) return;
+    //        slot.SetSelectedCharacter(info, false);
+    //        selectedTeam.characters[slotIndex] = info;
+    //        ++selectedCount;
+    //    }
 
-            for (int i = 0; i < lineupSlots.Length; ++i)
-            {
-                LineupSlot slot = lineupSlots[i];
-                if (slot == null) continue;
+    //    public void PlaceCharacter(OwnedCharacterInfo info, CharacterSelectButton button)
+    //    {
+    //        if (selectedCount >= 5) return;
+    //        if (lineupSlots == null) return;
 
-                if (!slot.isPlaced)
-                {
-                    slot.SetSelectedCharacter(info, false);
-                    selectedTeam.characters[i] = info;
-                    ++selectedCount;
-                    button.ButtonClicked();
-                    SoundManager.Instance.PlaySFX("Inventory Stash 2");
-                    return;
-                }
-            }
-        }
+    //        for (int i = 0; i < lineupSlots.Length; ++i)
+    //        {
+    //            LineupSlot slot = lineupSlots[i];
+    //            if (slot == null) continue;
 
-        public void ReleaseCharacter(int characterID, SelectedButton button)
-        {
-            if (selectedCount <= 0) return;
-            if (lineupSlots == null) return;
+    //            if (!slot.isPlaced)
+    //            {
+    //                slot.SetSelectedCharacter(info, false);
+    //                selectedTeam.characters[i] = info;
+    //                ++selectedCount;
+    //                button.ButtonClicked();
+    //                SoundManager.Instance.PlaySFX("Inventory Stash 2");
+    //                return;
+    //            }
+    //        }
+    //    }
 
-            for (int i = 0; i < lineupSlots.Length; ++i)
-            {
-                LineupSlot slot = lineupSlots[i];
-                if (slot == null || slot.character == null || slot.character.characterData == null) continue;
+    //    public void ReleaseCharacter(int characterID, CharacterSelectButton button)
+    //    {
+    //        if (selectedCount <= 0) return;
+    //        if (lineupSlots == null) return;
 
-                if (slot.character.characterData.ID == characterID)
-                {
-                    slot.DeselectCharacter();
-                    selectedTeam.characters[i] = null;
+    //        for (int i = 0; i < lineupSlots.Length; ++i)
+    //        {
+    //            LineupSlot slot = lineupSlots[i];
+    //            if (slot == null || slot.character == null || slot.character.characterData == null) continue;
 
-                    --selectedCount;
-                    button.ButtonClicked();
-                    SoundManager.Instance.PlaySFX("Inventory Stash 2");
-                    return;
-                }
-            }
-        }
+    //            if (slot.character.characterData.ID == characterID)
+    //            {
+    //                slot.DeselectCharacter();
+    //                selectedTeam.characters[i] = null;
 
-        private void ResetCharacterList(Team team)
-        {
-            CharactersList list = characterListContent != null ? characterListContent.GetComponentInParent<CharactersList>() : null;
-            if (list != null)
-            {
-                list.ResetSelectedStatus();
+    //                --selectedCount;
+    //                button.ButtonClicked();
+    //                SoundManager.Instance.PlaySFX("Inventory Stash 2");
+    //                return;
+    //            }
+    //        }
+    //    }
 
-                if (team != null && team.characters != null)
-                {
-                    foreach (OwnedCharacterInfo info in team.characters)
-                    {
-                        if (info == null) continue;
-                        list.UpdateCheckedList(info.characterID, true);
-                    }
-                }
+    //    private void ResetCharacterList(Team team)
+    //    {
+    //        CharactersList list = characterListContent != null ? characterListContent.GetComponentInParent<CharactersList>() : null;
+    //        if (list != null)
+    //        {
+    //            list.ResetSelectedStatus();
 
-                list.PopulateScrollView();
-            }
+    //            if (team != null && team.characters != null)
+    //            {
+    //                foreach (OwnedCharacterInfo info in team.characters)
+    //                {
+    //                    if (info == null) continue;
+    //                    list.UpdateCheckedList(info.characterID, true);
+    //                }
+    //            }
 
-            OnResetTeam?.Invoke();
-        }
+    //            list.RePopulateThroughFilter();
+    //        }
 
-        public void SaveTeam()
-        {
-            DeckStrategyStage stage = LUP.StageManager.Instance.GetCurrentStage() as DeckStrategyStage;
-            if (stage == null) return;
-            DeckStrategyRuntimeData runtimeData = (DeckStrategyRuntimeData)stage.RuntimeData;
-            if (runtimeData == null || runtimeData.Teams == null) return;
+    //        OnResetTeam?.Invoke();
+    //    }
 
-            if (runtimeData.Teams[runtimeData.SelectedTeamIndex] == null) runtimeData.Teams[runtimeData.SelectedTeamIndex] = new Team();
-            runtimeData.Teams[runtimeData.SelectedTeamIndex] = selectedTeam;
-        }
+    //    public void SaveTeam()
+    //    {
+    //        DeckStrategyStage stage = LUP.StageManager.Instance.GetCurrentStage() as DeckStrategyStage;
+    //        if (stage == null) return;
+    //        DeckStrategyRuntimeData runtimeData = (DeckStrategyRuntimeData)stage.RuntimeData;
+    //        if (runtimeData == null || runtimeData.Teams == null) return;
 
-        private void CacheLineupSlots()
-        {
-            if (slots == null)
-            {
-                lineupSlots = System.Array.Empty<LineupSlot>();
-                return;
-            }
+    //        if (runtimeData.Teams[runtimeData.SelectedTeamIndex] == null) runtimeData.Teams[runtimeData.SelectedTeamIndex] = new Team();
+    //        runtimeData.Teams[runtimeData.SelectedTeamIndex] = selectedTeam;
+    //    }
 
-            lineupSlots = new LineupSlot[slots.Length];
-            for (int i = 0; i < slots.Length; i++)
-            {
-                GameObject go = slots[i];
-                lineupSlots[i] = go != null ? go.GetComponent<LineupSlot>() : null;
-            }
-        }
+    //    private void CacheLineupSlots()
+    //    {
+    //        if (slots == null)
+    //        {
+    //            lineupSlots = System.Array.Empty<LineupSlot>();
+    //            return;
+    //        }
 
-        private CharacterIcon FindIdByList(int characterId)
-        {
-            CharacterIcon[] icons = characterListContent.GetComponentsInChildren<CharacterIcon>();
-            foreach (CharacterIcon icon in icons)
-            {
-                if (icon.characterInfo.characterID == characterId)
-                {
-                    return icon;
-                }
-            }
+    //        lineupSlots = new LineupSlot[slots.Length];
+    //        for (int i = 0; i < slots.Length; i++)
+    //        {
+    //            GameObject go = slots[i];
+    //            lineupSlots[i] = go != null ? go.GetComponent<LineupSlot>() : null;
+    //        }
+    //    }
 
-            return null;
-        }
-    }
+    //    private CharacterIcon FindIdByList(int characterId)
+    //    {
+    //        CharacterIcon[] icons = characterListContent.GetComponentsInChildren<CharacterIcon>();
+    //        foreach (CharacterIcon icon in icons)
+    //        {
+    //            if (icon.characterInfo.characterID == characterId)
+    //            {
+    //                return icon;
+    //            }
+    //        }
+
+    //        return null;
+    //    }
+    //}
 }

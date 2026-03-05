@@ -14,34 +14,25 @@ namespace LUP.DSG
         public AnimationComponent AnimationComp => animationComp;
 
         public CharacterData characterData { get; private set; }
-        public CharacterModelData characterModelData { get; private set; }
+        public CharacterPrefabData characterPrefabData { get; private set; }
         public OwnedCharacterInfo characterInfo { get; private set; }
 
         public bool isEnemy = false;
         public int battleIndex = -1;
-
-        [SerializeField]
-        private GameObject characterUIPrefab;
 
         public EffectPool actionEffectPool;
 
         private CharacterHeadupUI characterUI;
 
         [SerializeField]
-        private Transform uiTransform;
-
-        [SerializeField]
-        private Vector3 uiOffset = new Vector3(0, 0, 0);
+        private Vector3 uiOffset = Vector3.zero;
 
         public int IconCacheKey { get; private set; }
         public Sprite BattleIcon { get; private set; }
 
         private void Awake()
         {
-            statusEffectComp = GetComponent<StatusEffectComponent>();
-            battleComp = GetComponent<BattleComponent>();
-            scoreComp = GetComponent<ScoreComponent>();
-            animationComp = GetComponent<AnimationComponent>();
+            InitComponents();
             actionEffectPool = FindAnyObjectByType<EffectPool>();
         }
         private void OnDestroy()
@@ -61,15 +52,11 @@ namespace LUP.DSG
                     battleComp.OnDie -= statusEffectComp.HandleOwnerDie;
             }
 
-            if (characterUI != null)
-                Destroy(characterUI.gameObject);
+            ReleaseCharacterUI();
         }
         public void ManualInitializeAfterSpawn()
         {
-            if (battleComp == null) battleComp = GetComponent<BattleComponent>();
-            if (animationComp == null) animationComp = GetComponent<AnimationComponent>();
-            if (statusEffectComp == null) statusEffectComp = GetComponent<StatusEffectComponent>();
-            if (scoreComp == null) scoreComp = GetComponent<ScoreComponent>();
+            InitComponents();
 
             battleComp.OnAttackStarted += animationComp.StartAttackAnimation;
             battleComp.OnDamaged += animationComp.PlayHittedAnimation;
@@ -82,20 +69,12 @@ namespace LUP.DSG
 
             BattleComp.OnDie += statusEffectComp.HandleOwnerDie;
 
-            Canvas uiCanvas = GameObject.Find("Canvas_CharacterUI").GetComponent<Canvas>();
-            if (uiCanvas == null || characterUIPrefab == null) return;
-
-            GameObject ui = Instantiate(characterUIPrefab, uiCanvas.transform);
-            characterUI = ui.GetComponent<CharacterHeadupUI>();
-            if (characterUI == null) return;
-
-            characterUI.SetTarget(uiCanvas, transform, uiOffset);
-            characterUI.gameObject.SetActive(true);
+            EnsureCharacterUI();
         }
 
         public void EndTurn()
         {
-            statusEffectComp.TurnAll();
+            statusEffectComp?.TurnAll();
         }
 
         public void SetCharacterData(OwnedCharacterInfo info)
@@ -104,21 +83,25 @@ namespace LUP.DSG
             if (stage == null || info == null) return;
 
             CharacterData data = stage.FindCharacterData(info.characterID, info.characterLevel);
-            CharacterModelData modelData = stage.FindCharacterModel(info.characterModelID);
+            CharacterPrefabData prefabData = stage.FindCharacterPrefabData(info.characterModelID);
 
             IconCacheKey = info.characterID;
 
-            if (data == null || modelData == null) return;
+            if (data == null || prefabData == null) return;
 
             characterInfo = info;
+            characterData = data;
+            characterPrefabData = prefabData;
+
             battleComp.SetHp(data.maxHp);
             BattleComp.SetMaxGauge(100);
 
-            characterData = data;
-            characterModelData = modelData;
             gameObject.SetActive(true);
+
+            EnsureCharacterUI();
             if (characterUI == null) return;
 
+            characterUI.gameObject.SetActive(true);
             characterUI.InitInfoUI(data.type, info.characterLevel);
             characterUI.ActiveInfoUI();
         }
@@ -131,18 +114,12 @@ namespace LUP.DSG
 
         public void ActiveBattleUI()
         {
+            EnsureCharacterUI();
             if (characterUI == null) return;
 
+            characterUI.gameObject.SetActive(true);
             characterUI.InitBattleUI(this);
             characterUI.ActiveBattleUI();
-        }
-
-        public void DestroyUI()
-        {
-            if (characterUI == null) return;
-
-            Destroy(characterUI);
-            characterUI = null;
         }
 
         public void SetBattleIcon(Sprite sprite)
@@ -151,5 +128,50 @@ namespace LUP.DSG
         }
 
         public Sprite GetBattleIcon() => BattleIcon;
+
+        private void InitComponents()
+        {
+            if (statusEffectComp == null)
+                statusEffectComp = GetComponent<StatusEffectComponent>();
+
+            if (battleComp == null)
+                battleComp = GetComponent<BattleComponent>();
+
+            if (scoreComp == null)
+                scoreComp = GetComponent<ScoreComponent>();
+
+            if (animationComp == null)
+                animationComp = GetComponent<AnimationComponent>();
+        }
+
+        private void EnsureCharacterUI()
+        {
+            if (characterUI != null) return;
+
+            DeckStrategyStage stage = LUP.StageManager.Instance.GetCurrentStage() as DeckStrategyStage;
+            if (stage == null) return;
+
+            CharacterUIPool uiPool = stage.GetComponent<CharacterUIPool>();
+            if (uiPool == null) return;
+
+            Transform target = transform;
+            characterUI = uiPool.GetUI(target, uiOffset);
+        }
+        public void ReleaseCharacterUI()
+        {
+            if (characterUI == null) return;
+
+            DeckStrategyStage stage = LUP.StageManager.Instance.GetCurrentStage() as DeckStrategyStage;
+            if (stage == null) return;
+
+            CharacterUIPool uiPool = stage.GetComponent<CharacterUIPool>();
+
+            if (uiPool != null)
+                uiPool.Release(characterUI);
+            else if (characterUI != null)
+                Destroy(characterUI.gameObject);
+
+            characterUI = null;
+        }
     }
 }

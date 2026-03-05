@@ -390,6 +390,7 @@ GameObject:
   - component: {fileID: 40700523}
   - component: {fileID: 40700522}
   - component: {fileID: 40700525}
+  - component: {fileID: 40700526}
   m_Layer: 0
   m_Name: FriendlySlot3
   m_TagString: Untagged
@@ -478,12 +479,26 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 40700518}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 35c10283565cb72449d6016c8c9dc4c3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   isPlaced: 0
+  AttackedPosition: {fileID: 1180890745}
+  FocusedPosition: {fileID: 1038360556}
+--- !u!114 &40700526
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 40700518}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 73fa4da22e45e3643b5fedaefb941fe7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
   AttackedPosition: {fileID: 1180890745}
   FocusedPosition: {fileID: 1038360556}
 --- !u!1001 &73658073
@@ -2820,6 +2835,7 @@ GameObject:
   - component: {fileID: 589298283}
   - component: {fileID: 589298282}
   - component: {fileID: 589298278}
+  - component: {fileID: 589298285}
   m_Layer: 0
   m_Name: EnemySlot1
   m_TagString: Untagged
@@ -2834,7 +2850,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 589298277}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 35c10283565cb72449d6016c8c9dc4c3, type: 3}
   m_Name: 
@@ -2916,6 +2932,20 @@ RectTransform:
   m_AnchoredPosition: {x: 3.6, y: 0}
   m_SizeDelta: {x: 1, y: 1}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &589298285
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 589298277}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 73fa4da22e45e3643b5fedaefb941fe7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  AttackedPosition: {fileID: 126472034}
+  FocusedPosition: {fileID: 2039202046}
 --- !u!1 &595504551
 GameObject:
   m_ObjectHideFlags: 0
@@ -2928,6 +2958,7 @@ GameObject:
   - component: {fileID: 595504557}
   - component: {fileID: 595504556}
   - component: {fileID: 595504552}
+  - component: {fileID: 595504559}
   m_Layer: 0
   m_Name: EnemySlot5
   m_TagString: Untagged
@@ -2942,7 +2973,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 595504551}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 35c10283565cb72449d6016c8c9dc4c3, type: 3}
   m_Name: 
@@ -3024,6 +3055,20 @@ RectTransform:
   m_AnchoredPosition: {x: 2.5, y: 0}
   m_SizeDelta: {x: 1, y: 1}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &595504559
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 595504551}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 73fa4da22e45e3643b5fedaefb941fe7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  AttackedPosition: {fileID: 1443737012}
+  FocusedPosition: {fileID: 1986155583}
 --- !u!1 &607820333
 GameObject:
   m_ObjectHideFlags: 0
@@ -3245,8 +3290,11 @@ GameObject:
   - component: {fileID: 613301455}
   - component: {fileID: 613301458}
   - component: {fileID: 613301457}
+  - component: {fileID: 613301463}
+  - component: {fileID: 613301462}
   - component: {fileID: 613301459}
   - component: {fileID: 613301460}
+  - component: {fileID: 613301461}
   m_Layer: 0
   m_Name: Stage
   m_TagString: Untagged
@@ -3296,7 +3344,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 613301454}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fc254983c8656334e91dad08c2833aec, type: 3}
   m_Name: 
@@ -3458,6 +3506,59 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   attributeData: {fileID: 11400000, guid: dfcc3fc86b48b764993b4af2b24c248f, type: 2}
+--- !u!114 &613301461
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 613301454}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 33ea774d15edb0148b276cea44e07683, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  uiPrefab: {fileID: 8173516217759176626, guid: d947c9b7fcf7dab45b738fe9fc92abfa, type: 3}
+  targetCanvas: {fileID: 257151347}
+--- !u!114 &613301462
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 613301454}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bda1574aaa919c44ca1a2001100dfd76, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  slotObjects:
+  - {fileID: 636051258}
+  - {fileID: 1072193027}
+  - {fileID: 40700518}
+  - {fileID: 1462758778}
+  - {fileID: 895510914}
+  characterListContent: {fileID: 0}
+  teamSelectButtons:
+  - {fileID: 1634120903}
+  - {fileID: 636311615}
+  - {fileID: 1056523841}
+  - {fileID: 775267097}
+  - {fileID: 1106294756}
+  - {fileID: 1657315047}
+--- !u!114 &613301463
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 613301454}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e782aa4fc91b12c499e92247ea2cebd0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  formationView: {fileID: 613301462}
 --- !u!1 &636051258
 GameObject:
   m_ObjectHideFlags: 0
@@ -3470,6 +3571,7 @@ GameObject:
   - component: {fileID: 636051263}
   - component: {fileID: 636051262}
   - component: {fileID: 636051265}
+  - component: {fileID: 636051266}
   m_Layer: 0
   m_Name: FriendlySlot1
   m_TagString: Untagged
@@ -3558,12 +3660,26 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 636051258}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 35c10283565cb72449d6016c8c9dc4c3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   isPlaced: 0
+  AttackedPosition: {fileID: 1512416462}
+  FocusedPosition: {fileID: 395126251}
+--- !u!114 &636051266
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 636051258}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 73fa4da22e45e3643b5fedaefb941fe7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
   AttackedPosition: {fileID: 1512416462}
   FocusedPosition: {fileID: 395126251}
 --- !u!1001 &636311613
@@ -3700,6 +3816,17 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 6483404248789734037, guid: 196bb0c19a163c24ba62f227575f6496, type: 3}
   m_PrefabInstance: {fileID: 636311613}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &636311615 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5286909961456713061, guid: 196bb0c19a163c24ba62f227575f6496, type: 3}
+  m_PrefabInstance: {fileID: 636311613}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 54ad98cffb688fc46b600bd990503a23, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &643018106
 GameObject:
   m_ObjectHideFlags: 0
@@ -4307,6 +4434,17 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 6483404248789734037, guid: 196bb0c19a163c24ba62f227575f6496, type: 3}
   m_PrefabInstance: {fileID: 775267095}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &775267097 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5286909961456713061, guid: 196bb0c19a163c24ba62f227575f6496, type: 3}
+  m_PrefabInstance: {fileID: 775267095}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 54ad98cffb688fc46b600bd990503a23, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &796638456
 GameObject:
   m_ObjectHideFlags: 0
@@ -4900,6 +5038,7 @@ GameObject:
   - component: {fileID: 895510919}
   - component: {fileID: 895510918}
   - component: {fileID: 895510921}
+  - component: {fileID: 895510922}
   m_Layer: 0
   m_Name: FriendlySlot5
   m_TagString: Untagged
@@ -4988,12 +5127,26 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 895510914}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 35c10283565cb72449d6016c8c9dc4c3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   isPlaced: 0
+  AttackedPosition: {fileID: 859521233}
+  FocusedPosition: {fileID: 2045939245}
+--- !u!114 &895510922
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 895510914}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 73fa4da22e45e3643b5fedaefb941fe7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
   AttackedPosition: {fileID: 859521233}
   FocusedPosition: {fileID: 2045939245}
 --- !u!1 &935090411
@@ -5453,6 +5606,17 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 6483404248789734037, guid: 196bb0c19a163c24ba62f227575f6496, type: 3}
   m_PrefabInstance: {fileID: 1056523839}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1056523841 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5286909961456713061, guid: 196bb0c19a163c24ba62f227575f6496, type: 3}
+  m_PrefabInstance: {fileID: 1056523839}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 54ad98cffb688fc46b600bd990503a23, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1072193027
 GameObject:
   m_ObjectHideFlags: 0
@@ -5465,6 +5629,7 @@ GameObject:
   - component: {fileID: 1072193032}
   - component: {fileID: 1072193031}
   - component: {fileID: 1072193034}
+  - component: {fileID: 1072193035}
   m_Layer: 0
   m_Name: FriendlySlot2
   m_TagString: Untagged
@@ -5553,12 +5718,26 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1072193027}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 35c10283565cb72449d6016c8c9dc4c3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   isPlaced: 0
+  AttackedPosition: {fileID: 832698303}
+  FocusedPosition: {fileID: 1840422526}
+--- !u!114 &1072193035
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1072193027}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 73fa4da22e45e3643b5fedaefb941fe7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
   AttackedPosition: {fileID: 832698303}
   FocusedPosition: {fileID: 1840422526}
 --- !u!1 &1074448245
@@ -5969,6 +6148,17 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 6483404248789734037, guid: 196bb0c19a163c24ba62f227575f6496, type: 3}
   m_PrefabInstance: {fileID: 1106294754}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1106294756 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5286909961456713061, guid: 196bb0c19a163c24ba62f227575f6496, type: 3}
+  m_PrefabInstance: {fileID: 1106294754}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 54ad98cffb688fc46b600bd990503a23, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1107010020
 GameObject:
   m_ObjectHideFlags: 0
@@ -6824,6 +7014,7 @@ GameObject:
   - component: {fileID: 1285335465}
   - component: {fileID: 1285335464}
   - component: {fileID: 1285335460}
+  - component: {fileID: 1285335467}
   m_Layer: 0
   m_Name: EnemySlot4
   m_TagString: Untagged
@@ -6838,7 +7029,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1285335459}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 35c10283565cb72449d6016c8c9dc4c3, type: 3}
   m_Name: 
@@ -6920,6 +7111,20 @@ RectTransform:
   m_AnchoredPosition: {x: 2, y: 0}
   m_SizeDelta: {x: 1, y: 1}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1285335467
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1285335459}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 73fa4da22e45e3643b5fedaefb941fe7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  AttackedPosition: {fileID: 1212523068}
+  FocusedPosition: {fileID: 1769058968}
 --- !u!1 &1296961725
 GameObject:
   m_ObjectHideFlags: 0
@@ -7205,6 +7410,7 @@ GameObject:
   - component: {fileID: 1372342696}
   - component: {fileID: 1372342695}
   - component: {fileID: 1372342691}
+  - component: {fileID: 1372342698}
   m_Layer: 0
   m_Name: EnemySlot2
   m_TagString: Untagged
@@ -7219,7 +7425,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1372342690}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 35c10283565cb72449d6016c8c9dc4c3, type: 3}
   m_Name: 
@@ -7301,6 +7507,20 @@ RectTransform:
   m_AnchoredPosition: {x: 3.9, y: 0}
   m_SizeDelta: {x: 1, y: 1}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1372342698
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1372342690}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 73fa4da22e45e3643b5fedaefb941fe7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  AttackedPosition: {fileID: 1779897886}
+  FocusedPosition: {fileID: 77582279}
 --- !u!1 &1374968299
 GameObject:
   m_ObjectHideFlags: 0
@@ -7728,6 +7948,7 @@ GameObject:
   - component: {fileID: 1462758783}
   - component: {fileID: 1462758782}
   - component: {fileID: 1462758785}
+  - component: {fileID: 1462758786}
   m_Layer: 0
   m_Name: FriendlySlot4
   m_TagString: Untagged
@@ -7816,12 +8037,26 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1462758778}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 35c10283565cb72449d6016c8c9dc4c3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   isPlaced: 0
+  AttackedPosition: {fileID: 796638457}
+  FocusedPosition: {fileID: 1132351841}
+--- !u!114 &1462758786
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1462758778}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 73fa4da22e45e3643b5fedaefb941fe7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
   AttackedPosition: {fileID: 796638457}
   FocusedPosition: {fileID: 1132351841}
 --- !u!1 &1512416461
@@ -8189,6 +8424,17 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 6483404248789734037, guid: 196bb0c19a163c24ba62f227575f6496, type: 3}
   m_PrefabInstance: {fileID: 1634120901}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1634120903 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5286909961456713061, guid: 196bb0c19a163c24ba62f227575f6496, type: 3}
+  m_PrefabInstance: {fileID: 1634120901}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 54ad98cffb688fc46b600bd990503a23, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1657315045
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -8327,6 +8573,17 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 6483404248789734037, guid: 196bb0c19a163c24ba62f227575f6496, type: 3}
   m_PrefabInstance: {fileID: 1657315045}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1657315047 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5286909961456713061, guid: 196bb0c19a163c24ba62f227575f6496, type: 3}
+  m_PrefabInstance: {fileID: 1657315045}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 54ad98cffb688fc46b600bd990503a23, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1664926182
 GameObject:
   m_ObjectHideFlags: 0
@@ -8447,6 +8704,7 @@ GameObject:
   - component: {fileID: 1743930051}
   - component: {fileID: 1743930050}
   - component: {fileID: 1743930046}
+  - component: {fileID: 1743930053}
   m_Layer: 0
   m_Name: EnemySlot3
   m_TagString: Untagged
@@ -8461,7 +8719,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1743930045}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 35c10283565cb72449d6016c8c9dc4c3, type: 3}
   m_Name: 
@@ -8543,6 +8801,20 @@ RectTransform:
   m_AnchoredPosition: {x: 4, y: 0}
   m_SizeDelta: {x: 1, y: 1}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1743930053
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1743930045}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 73fa4da22e45e3643b5fedaefb941fe7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  AttackedPosition: {fileID: 1236116453}
+  FocusedPosition: {fileID: 3405809}
 --- !u!1001 &1767448627
 PrefabInstance:
   m_ObjectHideFlags: 0
