@@ -2,6 +2,7 @@ using NUnit.Framework;
 using UnityEngine;
 using System.Collections.Generic;
 using UnityEngine.UI;
+using DG.Tweening;
 
 namespace LUP.ES
 {
@@ -52,17 +53,25 @@ namespace LUP.ES
                 {
                     Debug.Log("Slot");
                     slot.SetInventory(inventory);
-                    slot.SetItem(items[i]);
+                    slot.SetItem(items[i], items);
                 }
             }
 
+            lootPanel.transform.DOKill();
             lootPanel.SetActive(true);
+            lootPanel.transform.localScale = Vector3.zero;
+            lootPanel.transform.DOScale(Vector3.one, 0.3f).SetEase(Ease.OutBack);
         }
 
         public void CloseLootPanel()
         {
-            lootPanel.SetActive(false);
-            ClearExistingSlots();
+            lootPanel.transform.DOKill();
+            lootPanel.transform.DOScale(Vector3.zero, 0.3f).SetEase(Ease.InBack)
+                .OnComplete(() =>
+                {
+                    lootPanel.SetActive(false);
+                    ClearExistingSlots();
+                });
         }
 
         private void ClearExistingSlots()

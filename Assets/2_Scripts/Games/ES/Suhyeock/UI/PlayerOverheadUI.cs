@@ -1,3 +1,4 @@
+using DG.Tweening;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -79,7 +80,8 @@ namespace LUP.ES
         public void UpdateHPUI()
         {
             float hpRatio = blackboard.healthComponent.HP / blackboard.healthComponent.MaxHP;
-            hpSlider.value = hpRatio;
+            hpSlider.DOValue(hpRatio, 0.2f).SetEase(Ease.OutCubic);
+            //hpSlider.value = hpRatio;
         }
 
         public void UpdateAmmoUI()
@@ -93,7 +95,8 @@ namespace LUP.ES
                     if (data != null)
                     {
                         float ammoRatio = gun.magAmmo / (float)data.magCapacity;
-                        ammoSlider.value = ammoRatio;
+                        ammoSlider.DOValue(ammoRatio, 0.2f).SetEase(Ease.OutCubic);
+                        //ammoSlider.value = ammoRatio;
                     }
                     return;
                 }

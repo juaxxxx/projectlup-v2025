@@ -42,7 +42,7 @@ namespace LUP.ES
             TargetInAttackRangeCondition targetInAttackRangeCondition = new TargetInAttackRangeCondition(blackboard);
             TurnToPlayerAction turnToPlayerAction = new TurnToPlayerAction(blackboard);
             EnemyAttackAction enemyAttackAction = new EnemyAttackAction(blackboard);
-            Sequence attackSequence = new Sequence(new List<BTNode> { turnToPlayerAction, enemyAttackAction, new WaitAction(2.0f) });
+            Sequence attackSequence = new Sequence(new List<BTNode> {turnToPlayerAction, enemyAttackAction, new WaitAction(2.0f) });
             Sequence handleAttackSequence = new Sequence(new List<BTNode> { targetInAttackRangeCondition, attackSequence });
 
             // 4. Ãß°Ý

@@ -35,13 +35,6 @@ namespace LUP.ES
                 ScreenPostion.y += YOffset;
                 InteractionPromptImage.rectTransform.position = ScreenPostion;
             }
-
-            if (InteractionTimerUIImage.IsActive() == true)
-            {
-                Vector3 ScreenPostion = MainCamera.WorldToScreenPoint(transform.position);
-                ScreenPostion.y += YOffset;
-                InteractionTimerUIImage.rectTransform.position = ScreenPostion;
-            }
         }
         void InitUI()
         {

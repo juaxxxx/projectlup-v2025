@@ -1,3 +1,4 @@
+using DG.Tweening;
 using NUnit.Framework;
 using System.Collections.Generic;
 using UnityEngine;
@@ -11,7 +12,7 @@ namespace LUP.ES
         public EventBroker eventBroker;
         [HideInInspector]
         public Inventory inventory;
-        public GameObject iventoryDisplayPanel;
+        public GameObject inventoryDisplayPanel;
 
         public GameObject itemSlotPrefab;
         public Transform slotsParent;
@@ -25,7 +26,7 @@ namespace LUP.ES
         {
             eventBroker = FindAnyObjectByType<EventBroker>();
             inventory = FindAnyObjectByType<Inventory>();
-            iventoryDisplayPanel.SetActive(isOpen);
+            inventoryDisplayPanel.SetActive(isOpen);
             eventBroker.OnInventoryVisibilityChanged += SetInventoryOpen;
             inventory.OnInventoryUpdated += UpdateUI;
             InitUI();
@@ -42,13 +43,32 @@ namespace LUP.ES
         public void SetInventoryOpen(bool isOpen)
         {
             this.isOpen = isOpen;
-            iventoryDisplayPanel.SetActive(isOpen);
+            InventoryAnimation(isOpen);
         }
 
         public void ToggleInventory()
         {
             isOpen = !isOpen;
-            iventoryDisplayPanel.SetActive(isOpen);
+            InventoryAnimation(isOpen);
+        }
+
+        private void InventoryAnimation(bool isOpen)
+        {
+            inventoryDisplayPanel.transform.DOKill();
+            if (isOpen)
+            {
+                inventoryDisplayPanel.SetActive(true);
+                inventoryDisplayPanel.transform.localScale = Vector3.zero;
+                inventoryDisplayPanel.transform.DOScale(Vector3.one, 0.3f).SetEase(Ease.OutBack);
+            }
+            else
+            {
+                inventoryDisplayPanel.transform.DOScale(Vector3.zero, 0.3f).SetEase(Ease.InBack)
+                    .OnComplete(() =>
+                    {
+                        inventoryDisplayPanel.SetActive(false);
+                    });
+            }
         }
 
         private void InitUI()

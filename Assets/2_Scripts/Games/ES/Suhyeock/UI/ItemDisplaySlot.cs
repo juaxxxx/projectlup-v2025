@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -13,6 +14,8 @@ namespace LUP.ES
 
         private Inventory inventory;
         private Item item;
+        private List<Item> sourceList;
+
         private void Awake()
         {
             acquireButton.onClick.AddListener(AcquireItemToInventory);
@@ -22,17 +25,19 @@ namespace LUP.ES
             this.inventory = inventory;
         }
 
-        public void SetItem(Item item)
+        public void SetItem(Item item, List<Item> sourceList)
         {
             if (item == null)
             {
                 gameObject.SetActive(false);
                 return;
             }
+            this.item = item;
+            this.sourceList = sourceList;
+
             nameText.text = item.baseItem.Name;
             countText.text = "x " + item.count.ToString();
             iconImage.sprite = itemIconLoader.LoadIconSprite(item.baseItem.ID);
-            this.item = item;
             gameObject.SetActive(true);
         }
 
@@ -44,6 +49,7 @@ namespace LUP.ES
 
                 if (success)
                 {
+                    if (sourceList != null) sourceList.Remove(item);
                     gameObject.SetActive(false);
                     Destroy(this.gameObject);
                 }

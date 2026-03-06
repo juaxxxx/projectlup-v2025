@@ -1,3 +1,4 @@
+using DG.Tweening;
 using NUnit.Framework;
 using System.Collections.Generic;
 using UnityEngine;
@@ -22,7 +23,8 @@ namespace LUP.ES
         private float interactionDuration = 5.0f;
         private bool isInteracted = false;
         private bool isInteracting = false;
-
+        [Header("Animation")]
+        [SerializeField] private Animator chestAnimator;
         public bool InterruptsOnMove => true;  // 기수 추가한 코드
 
         private List<Item> dropItems = new List<Item>();
@@ -33,13 +35,18 @@ namespace LUP.ES
             eventBroker = FindAnyObjectByType<EventBroker>();
             itemCenter = FindAnyObjectByType<ItemCenter>();
             InteractionUIController = GetComponent<InteractionUIController>();
+
+            Vector3 originalScale = transform.localScale;
+            transform.localScale = Vector3.zero;
+            transform.DOScale(originalScale, 0.5f).SetEase(Ease.OutBack);
         }
         public void Interact()
         {
             Debug.Log("Interacted");
             ResetInteraction();
-            Renderer rend = GetComponent<Renderer>();
-            rend.material.color = Color.white;
+
+            chestAnimator.SetBool("IsOpened", true);
+
             if (isInteracted == false)
             {
                 dropItems = itemCenter.GenerateLoot();
@@ -101,6 +108,15 @@ namespace LUP.ES
         public void HideInteractionPrompt()
         {
             InteractionUIController.HideInteractionPrompt();
+            if (isInteracted && (dropItems == null || dropItems.Count == 0))
+            {
+                isInteracting = true;
+                transform.DOScale(Vector3.zero, 0.5f)
+                    .SetEase(Ease.InBack)
+                    .OnComplete(() => {
+                        Destroy(gameObject);
+                    });
+            }
         }
 
         public void ShowInteractionTimerUI()

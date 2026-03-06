@@ -5,9 +5,11 @@ namespace LUP.ES
     public class RangedEnemyAttackAction : BTNode
     {
         RangedEnemyBlackboard blackboard;
-        private const float TURN_SPEED = 500.0F;
         int shotsPerBurst = 5;
         int totalShotsFired = 0;
+
+        private float aimDelay = 1f;
+        private float currentAimTime = 0f;
 
         public RangedEnemyAttackAction(RangedEnemyBlackboard blackboard, int shotsPerBurst)
         {
@@ -17,10 +19,19 @@ namespace LUP.ES
 
         public override NodeState Evaluate()
         {
+            blackboard.ChangeState(EnemyState.Attack);
+
+            if (totalShotsFired == 0)
+            {
+                if (currentAimTime < aimDelay)
+                {
+                    currentAimTime += Time.deltaTime;
+                    return NodeState.Running;
+                }
+            }
 
             if (blackboard.gun.Fire())
             {
-                blackboard.ChangeState(EnemyState.Attack);
                 totalShotsFired++;
             }
             
@@ -28,6 +39,7 @@ namespace LUP.ES
             {
                 blackboard.ChangeState(EnemyState.Idle);
                 totalShotsFired = 0;
+                currentAimTime = 0f;
                 return NodeState.Success;
             }
 
