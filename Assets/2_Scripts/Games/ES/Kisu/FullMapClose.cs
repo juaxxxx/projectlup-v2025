@@ -1,3 +1,4 @@
+using DG.Tweening;
 using UnityEngine;
 
 namespace LUP.ES
@@ -20,8 +21,14 @@ namespace LUP.ES
 
         public void OnCloseFullMap()
         {
-            fullmapPanel.SetActive(false); // 전체 지도 숨김
-            minimapPanel.SetActive(true);  // 미니맵 다시 표시
+            fullmapPanel.transform.DOKill();
+            fullmapPanel.transform.DOScale(Vector3.zero, 0.3f).SetEase(Ease.InBack)
+                .OnComplete(() =>
+                {
+                    fullmapPanel.SetActive(false); // 전체 지도 숨김
+                    minimapPanel.SetActive(true);  // 미니맵 다시 표시
+                });
+           
         }
     }
 }

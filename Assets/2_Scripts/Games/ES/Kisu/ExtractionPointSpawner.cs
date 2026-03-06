@@ -24,6 +24,11 @@ namespace LUP.ES
 
         void Update()
         {
+            if (Input.GetKeyDown(KeyCode.T))
+            {
+                // ExtractionNotificationUI에 직접 메시지를 쏴서 연출을 확인합니다.
+                notificationUI.ShowMessage("Extraction Point Activated!");
+            }
             if (gameTimerUI == null) return;
 
             float remainingTime = gameTimerUI.RemainingTime;
@@ -67,12 +72,12 @@ namespace LUP.ES
                 yield break;
 
             currentExtractionPoint.SetActive(true);
-            notificationUI?.ShowMessage("Extraction Point Activated!!!");
+            notificationUI?.ShowMessage("Extraction Point Activated!");
 
             yield return new WaitForSeconds(extractionDuration);
 
             currentExtractionPoint.SetActive(false);
-            notificationUI?.ShowMessage("Extraction Point Deactivated!!!");
+            notificationUI?.ShowMessage("Extraction Point Deactivated");
 
             currentExtractionPoint = null;
         }

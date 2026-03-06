@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using TMPro;
 using UnityEngine.SceneManagement;
+using DG.Tweening;
 
 namespace LUP.ES
 {
@@ -46,8 +47,11 @@ namespace LUP.ES
 
         public void OnPointerClick(PointerEventData eventData)
         {
+            fullmapPanel.transform.DOKill();
             fullmapPanel.SetActive(true);   // 전체 지도 표시
             minimapPanel.SetActive(false);  // 미니맵 숨기기
+            fullmapPanel.transform.localScale = Vector3.zero;
+            fullmapPanel.transform.DOScale(Vector3.one, 0.3f).SetEase(Ease.OutBack);
         }
     }
 }

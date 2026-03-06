@@ -1,3 +1,4 @@
+using DG.Tweening;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -68,7 +69,8 @@ namespace LUP.ES
         public void UpdateHPUI()
         {
             float hpRatio = enemyBlackboard.healthComponent.HP / enemyBlackboard.healthComponent.MaxHP;
-            hpSlider.value = hpRatio;
+            hpSlider.DOValue(hpRatio, 0.2f).SetEase(Ease.OutCubic);
+            //hpSlider.value = hpRatio;
         }
 
 
