@@ -1,5 +1,4 @@
 using LUP.DSG;
-using NUnit.Framework;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -7,12 +6,12 @@ public class DeckStrategyRuntimeData : BaseRuntimeData
 {
     [SerializeField]
     private int playerId;
-    
-    [SerializeField]
-    private List<LUP.DSG.OwnedCharacterInfo> ownedCharacterList = new List<LUP.DSG.OwnedCharacterInfo>();
 
     [SerializeField]
-    private List<LUP.DSG.Team> teams = new List<LUP.DSG.Team>();
+    private List<OwnedCharacterInfo> ownedCharacterList = new List<OwnedCharacterInfo>();
+
+    [SerializeField]
+    private List<Team> teams = new List<Team>();
 
     [SerializeField]
     private int selectedTeamIndex;
@@ -23,13 +22,13 @@ public class DeckStrategyRuntimeData : BaseRuntimeData
         set => SetValue(ref playerId, value);
     }
 
-    public List<LUP.DSG.OwnedCharacterInfo> OwnedCharacterList
+    public List<OwnedCharacterInfo> OwnedCharacterList
     {
         get => ownedCharacterList;
         set => SetValue(ref ownedCharacterList, value);
     }
 
-    public List<LUP.DSG.Team> Teams
+    public List<Team> Teams
     {
         get => teams;
         set => SetValue(ref teams, value);
@@ -41,7 +40,7 @@ public class DeckStrategyRuntimeData : BaseRuntimeData
         set => SetValue(ref selectedTeamIndex, value);
     }
 
-    public override void ResetData() 
+    public override void ResetData()
     {
         playerId = 0;
         ownedCharacterList.Clear();
@@ -49,11 +48,11 @@ public class DeckStrategyRuntimeData : BaseRuntimeData
         selectedTeamIndex = 0;
     }
 
-    public LUP.DSG.OwnedCharacterInfo GetCharacterInfo(int characterId)
+    public OwnedCharacterInfo GetCharacterInfo(int characterId)
     {
-        foreach(LUP.DSG.OwnedCharacterInfo data in ownedCharacterList)
+        foreach (OwnedCharacterInfo data in ownedCharacterList)
         {
-            if(data.characterID == characterId) return data;
+            if (data.characterID == characterId) return data;
         }
 
         return null;

@@ -83,7 +83,7 @@ PrefabInstance:
     - target: {fileID: 5866666021909216657, guid: d13ae30e3e6e1e94a90e5083e25ecf5f, type: 3}
       propertyPath: m_Controller
       value: 
-      objectReference: {fileID: 9100000, guid: 1cd70f89c3ad4654eb3143f69ea0cc24, type: 2}
+      objectReference: {fileID: 22100000, guid: d242aa1347f47104295910cc3964a7dc, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects:
@@ -118,11 +118,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 2412161367050800168, guid: d13ae30e3e6e1e94a90e5083e25ecf5f, type: 3}
   m_PrefabInstance: {fileID: 2613508581362373863}
   m_PrefabAsset: {fileID: 0}
---- !u!4 &400130803216650567 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 2434337355144988064, guid: d13ae30e3e6e1e94a90e5083e25ecf5f, type: 3}
-  m_PrefabInstance: {fileID: 2613508581362373863}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &2919570491952277942 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: d13ae30e3e6e1e94a90e5083e25ecf5f, type: 3}
@@ -142,9 +137,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isEnemy: 0
   battleIndex: -1
-  characterUIPrefab: {fileID: 2879139995223357689, guid: d947c9b7fcf7dab45b738fe9fc92abfa, type: 3}
-  ActioneffectPool: {fileID: 0}
-  uiTransform: {fileID: 400130803216650567}
+  actionEffectPool: {fileID: 0}
   uiOffset: {x: 0, y: 1.8, z: 0}
 --- !u!114 &-8343144124161424726
 MonoBehaviour:
@@ -235,8 +228,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fadeSpeed: 0.1
-  doFade: 0
   targetOpacity: 0.2
+  doFade: 0
 --- !u!4 &4633623372529733932 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7208261743932278219, guid: d13ae30e3e6e1e94a90e5083e25ecf5f, type: 3}

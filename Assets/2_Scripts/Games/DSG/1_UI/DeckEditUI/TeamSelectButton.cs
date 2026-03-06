@@ -10,52 +10,17 @@ namespace LUP.DSG
         private Toggle toggle;
 
         public int teamIndex;
-
         public event Action<int> OnTeamSelected;
-
-        private bool isRegistered;
 
         private void Awake()
         {
-            //StageInitializeInvoker.OnDSGStagePostInitialize += PostInitialize;
-
             if (toggle == null) toggle = GetComponent<Toggle>();
-
             if (toggle != null) toggle.onValueChanged.AddListener(OnToggleChanged);
         }
         private void OnDestroy()
         {
-            //StageInitializeInvoker.OnDSGStagePostInitialize -= PostInitialize;
-
-            if (toggle != null && isRegistered)
-                toggle.onValueChanged.RemoveListener(OnToggleChanged);
-        }
-
-        //private void PostInitialize(DeckStrategyStage stage)
-        //{
-        //    formationSystem = stage != null ? stage.GetComponent<FormationSystem>() : null;
-        //    if (toggle == null) return;
-
-        //    if (!isRegistered)
-        //    {
-        //        toggle.onValueChanged.AddListener(OnToggleChanged);
-        //        isRegistered = true;
-        //    }
-        //}
-
-        void OnToggleChanged(bool isOn)
-        {
             if (toggle != null)
-                toggle.image.color = isOn ? Color.gray : Color.white;
-
-            if (!isOn) return;
-
-            OnTeamSelected?.Invoke(teamIndex);
-
-            //if (formationSystem != null)
-            //    formationSystem.PlaceTeam(teamIndex);
-
-            SoundManager.Instance.PlaySFX("Inventory Stash 2");
+                toggle.onValueChanged.RemoveListener(OnToggleChanged);
         }
 
         public void ButtonStateChange(bool isOn)
@@ -64,6 +29,18 @@ namespace LUP.DSG
 
             toggle.image.color = isOn ? Color.gray : Color.white;
             toggle.SetIsOnWithoutNotify(isOn);
+        }
+
+        private void OnToggleChanged(bool isOn)
+        {
+            if (toggle != null)
+                toggle.image.color = isOn ? Color.gray : Color.white;
+
+            if (!isOn) return;
+
+            OnTeamSelected?.Invoke(teamIndex);
+
+            SoundManager.Instance.PlaySFX("Inventory Stash 2");
         }
     }
 }

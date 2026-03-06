@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using LUP.DSG.Utils.Enums;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace LUP.DSG
@@ -13,50 +14,11 @@ namespace LUP.DSG
         Dictionary<int, bool> selectedOwnedMap = new Dictionary<int, bool>();
         private readonly List<CharacterIcon> iconPool = new List<CharacterIcon>();
 
-        private DeckStrategyStage cachedStage;
-        private DeckStrategyRuntimeData cachedRuntimeData;
-
         private int activeCount = 0;
-
-        private void Awake()
-        {
-            StageInitializeInvoker.OnDSGStagePostInitialize += PostInitialize;
-        }
-        private void OnDestroy()
-        {
-            StageInitializeInvoker.OnDSGStagePostInitialize -= PostInitialize;
-        }
-
-        private void PostInitialize(DeckStrategyStage stage)
-        {
-            cachedStage = stage;
-            cachedRuntimeData = stage != null ? stage.RuntimeData as DeckStrategyRuntimeData : null;
-            RebuildSelectedMap();
-        }
-
-        private void RebuildSelectedMap()
-        {
-            selectedOwnedMap.Clear();
-
-            if (cachedRuntimeData == null || cachedRuntimeData.OwnedCharacterList == null)
-                return;
-
-            for (int i = 0; i < cachedRuntimeData.OwnedCharacterList.Count; i++)
-            {
-                OwnedCharacterInfo info = cachedRuntimeData.OwnedCharacterList[i];
-                if (info == null) continue;
-
-                selectedOwnedMap[info.characterID] = false;
-            }
-        }
 
         public void ResetSelectedStatus()
         {
-            var keys = new List<int>(selectedOwnedMap.Keys);
-            foreach (var key in keys)
-            {
-                selectedOwnedMap[key] = false;
-            }
+            selectedOwnedMap.Clear();
 
             for (int i = 0; i < iconPool.Count; i++)
             {
@@ -65,42 +27,30 @@ namespace LUP.DSG
             }
         }
 
-        public void RePopulateThroughFilter(CharacterFilterState filterState = null)
+        public void UpdateCharacterIcon(OwnedCharacterInfo info, AttributeTypeImage typeIcon)
         {
-            ReleaseAllIcons();
+            if (info == null || typeIcon.typeIcon == null) return;
 
-            if (cachedStage == null || cachedRuntimeData == null) return;
+            CharacterIcon icon = GetOrCreateIcon();
+            if (icon == null || icon.selectedButton == null) return;
 
-            List<OwnedCharacterInfo> characterList = cachedRuntimeData.OwnedCharacterList;
-            if (characterList == null) return;
+            icon.transform.SetParent(contentParent, false);
+            icon.gameObject.SetActive(true);
+            icon.SetIconData(info.characterID, info.characterLevel, typeIcon);
 
-            for (int i = 0; i < characterList.Count; i++)
-            {
-                OwnedCharacterInfo characterInfo = characterList[i];
-                if (characterInfo == null) continue;
-                CharacterData characterData = cachedStage.FindCharacterData(characterInfo.characterID, characterInfo.characterLevel);
-                if (characterData == null) continue;
-                if (!IsMatched(filterState, characterData)) continue;
-                CharacterIcon icon = GetOrCreateIcon();
-                if (icon == null) continue;
-
-                BindIcon(icon, characterInfo, characterData);
-            }
+            bool isSelected = selectedOwnedMap.TryGetValue(info.characterID, out bool value) && value;
+            icon.selectedButton.SetSelected(isSelected);
         }
 
-        public void UpdateCheckedList(int index, bool isChecked)
+        public void UpdateCheckedList(int characterID, bool isChecked)
         {
-            if (index == 0) return;
-
-            if (!selectedOwnedMap.ContainsKey(index))
-            {
-                return;
-            }
-
-            selectedOwnedMap[index] = isChecked;
+            if (isChecked)
+                selectedOwnedMap[characterID] = true;
+            else
+                selectedOwnedMap.Remove(characterID);
         }
 
-        private void ReleaseAllIcons()
+        public void ReleaseAllIcons()
         {
             for (int i = 0; i < iconPool.Count; i++)
             {
@@ -113,18 +63,6 @@ namespace LUP.DSG
             }
 
             activeCount = 0;
-        }
-
-        private bool IsMatched(CharacterFilterState filterState, CharacterData characterData)
-        {
-            if (filterState == null || characterData == null) return true;
-
-            if (!filterState.ContainsCheckedFilters()) return true;
-
-            bool attributeMatched = filterState.checkedAttributes.Contains(characterData.type);
-            bool rangeMatched = filterState.checkedRanges.Contains(characterData.rangeType);
-
-            return attributeMatched || rangeMatched;
         }
 
         private CharacterIcon GetOrCreateIcon()
@@ -144,7 +82,6 @@ namespace LUP.DSG
             icon = newIcon.GetComponent<CharacterIcon>();
             if (icon == null)
             {
-                Debug.LogError("[CharactersList] iconPrefab에 CharacterIcon 컴포넌트가 없습니다.");
                 Destroy(newIcon);
                 return null;
             }
@@ -155,21 +92,21 @@ namespace LUP.DSG
             return icon;
         }
 
-        private void BindIcon(CharacterIcon icon, OwnedCharacterInfo characterInfo, CharacterData characterData)
+        private void BindIcon(OwnedCharacterInfo characterInfo, AttributeTypeImage typeIcon)
         {
-            if (icon == null || characterInfo == null || characterData == null)
-                return;
+            if (characterInfo == null || typeIcon.typeIcon == null) return;
+
+            CharacterIcon icon = GetOrCreateIcon();
+            if (icon == null) return;
 
             icon.transform.SetParent(contentParent, false);
             icon.gameObject.SetActive(true);
-            icon.SetIconData(characterInfo, characterData.type, characterInfo.characterLevel, false);
-            icon.selectedSlot = -1;
+            icon.SetIconData(characterInfo.characterID, characterInfo.characterLevel, typeIcon);
 
-            if (icon.selectedButton != null)
-            {
-                bool isSelected = selectedOwnedMap.TryGetValue(characterInfo.characterID, out bool value) && value;
-                icon.selectedButton.SetSelected(isSelected);
-            }
+            if (icon.selectedButton == null) return;
+
+            bool isSelected = selectedOwnedMap.TryGetValue(characterInfo.characterID, out bool value) && value;
+            icon.selectedButton.SetSelected(isSelected);
         }
     }
 }

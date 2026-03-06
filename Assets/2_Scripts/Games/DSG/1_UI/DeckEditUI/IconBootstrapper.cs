@@ -41,7 +41,7 @@ namespace LUP.DSG
                 yield break;
             }
 
-            var runtime = stage.RuntimeData as DeckStrategyRuntimeData;
+            var runtime = stage.DSGRuntimeData;
             if (runtime == null)
             {
                 Debug.LogError($"[IconBootstrapper] RuntimeData 타입이 DeckStrategyRuntimeData 가 아님: {stage.RuntimeData?.GetType().Name}");

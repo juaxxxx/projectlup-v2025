@@ -1,4 +1,7 @@
+using OpenCvSharp.ML;
 using System;
+using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 namespace LUP.DSG
@@ -8,15 +11,20 @@ namespace LUP.DSG
         [SerializeField]
         private GameObject[] slotObjects = new GameObject[5];
         [SerializeField]
-        private Transform characterListContent;
-        [Header("Team Selection UI")]
-        [SerializeField] private TeamSelectButton[] teamSelectButtons;
+        private CharactersList characterList;
+
+        [SerializeField]
+        private TeamSelectButton[] teamSelectButtons;
+
+        [SerializeField]
+        private CharacterFilterPanel characterFilterPanel;
 
         public LineupSlot[] lineupSlots { get; private set; }
 
-        public event Action<OwnedCharacterInfo, CharacterSelectButton> OnCharacterSlotClicked;
-        public event Action<int> OnReleaseSlotClicked;
+        public event Action<int, CharacterSelectButton> OnCharacterIconSelected;
+        public event Action<int, CharacterSelectButton> OnCharacterIconReleased;
         public event Action<int> OnTeamButtonClicked;
+        public event Action<CharacterFilterState> OnFilterRequested;
 
         private void Awake()
         {
@@ -24,40 +32,87 @@ namespace LUP.DSG
             RegisterTeamButtons();
         }
 
-        public void UpdateCharacterListUI(Team selectedTeam)
+        private void OnEnable()
         {
-            CharactersList list = characterListContent != null ? characterListContent.GetComponentInParent<CharactersList>() : null;
-            if (list == null) return;
+            if (characterFilterPanel != null)
+                characterFilterPanel.OnConfirmFilter += RequestApplyFilter;
+        }
 
-            list.ResetSelectedStatus();
+        private void OnDisable()
+        {
+            if (characterFilterPanel != null)
+                characterFilterPanel.OnConfirmFilter -= RequestApplyFilter;
+        }
+
+        public void UpdateCharacterListUI(List<OwnedCharacterInfo> filteredList, Team selectedTeam, DeckStrategyStage stage)
+        {
+            if (characterList == null || filteredList == null || stage == null) return;
+
+            characterList.ResetSelectedStatus();
+
+            // 선택된 팀 체크박스 UI 업데이트
             if (selectedTeam?.characters != null)
             {
                 foreach (OwnedCharacterInfo info in selectedTeam.characters)
                 {
                     if (info == null) continue;
-                    list.UpdateCheckedList(info.characterID, true);
+                    characterList.UpdateCheckedList(info.characterID, true);
                 }
             }
-            list.RePopulateThroughFilter();
+
+            characterList.ReleaseAllIcons();
+            for (int i = 0; i < filteredList.Count; i++)
+            {
+                OwnedCharacterInfo info = filteredList[i];
+                if (info == null) continue;
+
+                CharacterData data = stage.FindCharacterData(info.characterID, info.characterLevel);
+                if (data == null) continue;
+
+                AttributeIconContainer iconContainer = stage.GetComponent<AttributeIconContainer>();
+                if (iconContainer == null) continue;
+
+                AttributeTypeImage typeIcon = iconContainer.GetTypeByAttributeImage(data.type);
+                characterList.UpdateCharacterIcon(info, typeIcon);
+            }
         }
 
-        public void OnClickTeamChangeButton(int teamIndex)
+        public void UpdateSelectedTeamButtonUI(int teamIndex)
         {
-            OnTeamButtonClicked?.Invoke(teamIndex);
+            if (teamSelectButtons == null) return;
+
+            foreach (TeamSelectButton button in teamSelectButtons)
+            {
+                if (button != null)
+                    button.ButtonStateChange(button.teamIndex == teamIndex);
+            }
         }
 
-        public void PlayEquipSound()
+        public void RequestPlaceCharacter(int characterId, CharacterSelectButton button)
         {
-            SoundManager.Instance.PlaySFX("Inventory Stash 2");
+            OnCharacterIconSelected?.Invoke(characterId, button);
+        }
+
+        public void RequestReleaseCharacter(int characterId, CharacterSelectButton button)
+        {
+            OnCharacterIconReleased?.Invoke(characterId, button);
+        }
+
+        public void RequestApplyFilter(CharacterFilterState filter)
+        {
+            OnFilterRequested?.Invoke(filter);
+        }
+
+        public void TeamReset()
+        {
+            characterFilterPanel?.ResetAllFilter();
         }
 
         private void CacheLineupSlots()
         {
             lineupSlots = new LineupSlot[slotObjects.Length];
             for (int i = 0; i < slotObjects.Length; i++)
-            {
                 lineupSlots[i] = slotObjects[i] != null ? slotObjects[i].GetComponent<LineupSlot>() : null;
-            }
         }
 
         private void RegisterTeamButtons()
@@ -65,27 +120,12 @@ namespace LUP.DSG
             if (teamSelectButtons == null) return;
 
             foreach (TeamSelectButton button in teamSelectButtons)
-            {
-                if (button != null)
-                    button.OnTeamSelected += HandleTeamSelected;
-            }
+                if (button != null) button.OnTeamSelected += TeamSelected;
         }
 
-        private void HandleTeamSelected(int index)
+        private void TeamSelected(int index)
         {
             OnTeamButtonClicked?.Invoke(index);
-        }
-
-        public void UpdateSelectedTeamTabUI(int teamIndex)
-        {
-            if (teamSelectButtons == null) return;
-
-            foreach (TeamSelectButton button in teamSelectButtons)
-            {
-                // 현재 선택된 팀 인덱스와 일치하는 버튼만 켜지도록 연출 
-                if (button != null)
-                    button.ButtonStateChange(button.teamIndex == teamIndex);
-            }
         }
     }
 }

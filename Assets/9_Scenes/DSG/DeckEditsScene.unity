@@ -3772,7 +3772,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1689079311}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: LUP.DSG.FormationSystem, Assembly-CSharp
         m_MethodName: SaveTeam
         m_Mode: 1
@@ -5794,8 +5794,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1689079310}
   - component: {fileID: 1689079309}
-  - component: {fileID: 1689079311}
-  - component: {fileID: 1689079315}
+  - component: {fileID: 1689079316}
   - component: {fileID: 1689079314}
   - component: {fileID: 1689079312}
   - component: {fileID: 1689079313}
@@ -5840,25 +5839,6 @@ Transform:
   - {fileID: 1722222856}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1689079311
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1689079308}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fc254983c8656334e91dad08c2833aec, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  slots:
-  - {fileID: 636051258}
-  - {fileID: 1072193027}
-  - {fileID: 40700518}
-  - {fileID: 1462758778}
-  - {fileID: 895510914}
-  characterListContent: {fileID: 1197695711}
 --- !u!114 &1689079312
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5904,7 +5884,7 @@ MonoBehaviour:
   - {fileID: 40700518}
   - {fileID: 1462758778}
   - {fileID: 895510914}
-  characterListContent: {fileID: 1197695711}
+  characterList: {fileID: 1366979382}
   teamSelectButtons:
   - {fileID: 637303115}
   - {fileID: 1729486489}
@@ -5912,7 +5892,8 @@ MonoBehaviour:
   - {fileID: 721591307}
   - {fileID: 287993902}
   - {fileID: 1721661839}
---- !u!114 &1689079315
+  characterFilterPanel: {fileID: 2115691459}
+--- !u!114 &1689079316
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -5921,10 +5902,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 1689079308}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e782aa4fc91b12c499e92247ea2cebd0, type: 3}
+  m_Script: {fileID: 11500000, guid: 3ac32ea45fb96c243925d938718c1459, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  formationView: {fileID: 1689079314}
+  view: {fileID: 1689079314}
 --- !u!1 &1710040306
 GameObject:
   m_ObjectHideFlags: 0
@@ -7953,7 +7934,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d1fde033dc446df43ba45d536ed5937a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  charactersList: {fileID: 1366979382}
   filterPanel: {fileID: 668089687}
   filterButtonPrefab: {fileID: 8654377384795523768, guid: 0f197e1c0d269b64eb36a3ab56e7dc44, type: 3}
   attributesFilterArea: {fileID: 1025036094}

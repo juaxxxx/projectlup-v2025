@@ -1,10 +1,7 @@
 using LUP.DSG.Utils.Enums;
 using System;
-using System.Text;
 using TMPro;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.TextCore.Text;
 using UnityEngine.UI;
 
 namespace LUP.DSG
@@ -20,15 +17,15 @@ namespace LUP.DSG
 
         public CharacterSelectButton selectedButton;
 
-        public OwnedCharacterInfo characterInfo;
+        private int characterId;
 
-        public Action<OwnedCharacterInfo, CharacterSelectButton> OnSelected;
+        public Action<int, CharacterSelectButton> OnSelected;
         public Action<int, CharacterSelectButton> OnDeselected;
 
-        public int selectedSlot = -1;
-
-        public float iconWidth = 500f;
-        public float iconHeight = 800f;
+        [SerializeField]
+        private float iconWidth = 400f;
+        [SerializeField]
+        private float iconHeight = 800f;
 
         private void OnEnable()
         {
@@ -41,23 +38,23 @@ namespace LUP.DSG
         }
         public void Init()
         {
-            FormationSystem formationSystem = FindAnyObjectByType<FormationSystem>();
-            OnSelected = formationSystem.PlaceCharacter;
-            OnDeselected = formationSystem.ReleaseCharacter;
+            FormationView formationView = FindAnyObjectByType<FormationView>();
+            if(formationView != null)
+            {
+                OnSelected = formationView.RequestPlaceCharacter;
+                OnDeselected = formationView.RequestReleaseCharacter;
+            }
 
             selectedButton.Init();
             selectedButton.button.onClick.AddListener(OnButtonClicked);
 
-            SetIconRectSize(400, iconHeight);
+            SetIconRectSize(iconWidth, iconHeight);
         }
 
-        public void SetIconData(OwnedCharacterInfo info, EAttributeType type, int characterLevel, bool isChecked)
+        public void SetIconData(int id, int characterLevel, AttributeTypeImage typeIcon)
         {
-            characterInfo = info;
-
+            characterId = id;
             level.text = "Lv." + characterLevel;
-
-            int characterId = info.characterID;
 
             if (CharacterIconCache.TryGetByCharacterId(characterId, out var sprite))
             {
@@ -68,41 +65,31 @@ namespace LUP.DSG
             {
                 // 아직 안 만들어졌으면 일단 색만 입힘
                 portrait.sprite = null;
-                //portrait.color = portraitColor;
             }
-            DeckStrategyStage stage = LUP.StageManager.Instance.GetCurrentStage() as DeckStrategyStage;
-            AttributeIconContainer iconContainer = stage.GetComponent<AttributeIconContainer>();
-            AttributeTypeImage typeIcon = iconContainer.GetTypeByAttributeImage(type);
 
             attributeIcon.sprite = typeIcon.typeIcon;
             attributeIcon.color = typeIcon.typeColor;
-
         }
 
         public void OnButtonClicked()
         {
             if (selectedButton.isSelected)
             {
-                OnDeselected?.Invoke(characterInfo.characterID, selectedButton);
+                OnDeselected?.Invoke(characterId, selectedButton);
             }
             else
             {
-                OnSelected?.Invoke(characterInfo, selectedButton);
+                OnSelected?.Invoke(characterId, selectedButton);
             }
 
             CharactersList charactersList = gameObject.GetComponentInParent<CharactersList>();
             if (charactersList != null)
             {
-                charactersList.UpdateCheckedList(characterInfo.characterID, selectedButton.isSelected);
+                charactersList.UpdateCheckedList(characterId, selectedButton.isSelected);
             }
         }
         private void RefreshIcon()
         {
-            if (characterInfo == null)
-                return;
-
-            int characterId = characterInfo.characterID;
-
             if (CharacterIconCache.TryGetByCharacterId(characterId, out var sprite))
             {
                 Debug.Log($"[CharacterIcon] Refresh 성공: {characterId}");

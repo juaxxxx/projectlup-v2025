@@ -11,8 +11,6 @@ namespace LUP.DSG
         private readonly ERangeType[] RangeTypes = (ERangeType[])Enum.GetValues(typeof(ERangeType));
 
         [SerializeField]
-        private CharactersList charactersList;
-        [SerializeField]
         private GameObject filterPanel;
 
         [SerializeField]
@@ -25,7 +23,7 @@ namespace LUP.DSG
         private readonly Dictionary<EAttributeType, bool> attributeFilter = new Dictionary<EAttributeType, bool>();
         private readonly Dictionary<ERangeType, bool> rangeTypeFilter = new Dictionary<ERangeType, bool>() ;
 
-        private FormationSystem formationSystem;
+        public event Action<CharacterFilterState> OnConfirmFilter;
 
         void Start()
         {
@@ -37,18 +35,6 @@ namespace LUP.DSG
 
             CreateButtons<EAttributeType>();
             CreateButtons<ERangeType>();
-
-            DeckStrategyStage stage = LUP.StageManager.Instance.GetCurrentStage() as DeckStrategyStage;
-            if (stage == null) return;
-
-            formationSystem = stage.GetComponent<FormationSystem>();
-            if (formationSystem != null) formationSystem.OnResetTeam += ResetAllFilter;
-        }
-
-        private void OnDestroy()
-        {
-            if (formationSystem != null)
-                formationSystem.OnResetTeam -= ResetAllFilter;
         }
 
         private void CreateButtons<T>() where T : Enum
@@ -101,8 +87,7 @@ namespace LUP.DSG
             foreach (KeyValuePair<ERangeType, bool> pair in rangeTypeFilter)
                 if (pair.Value) filter.checkedRanges.Add(pair.Key);
 
-            if (charactersList != null)
-                charactersList.RePopulateThroughFilter(filter.ContainsCheckedFilters() ? filter : null);
+            OnConfirmFilter?.Invoke(filter.ContainsCheckedFilters() ? filter : null);
 
             if (filterPanel != null)
                 filterPanel.SetActive(false);
@@ -112,9 +97,7 @@ namespace LUP.DSG
         {
             IFilterable[] filters = GetComponentsInChildren<IFilterable>(includeInactive: true);
             foreach(IFilterable filter in filters)
-            {
                 filter.ResetCheckState();
-            }
 
             for (int i = 0; i < AttributeTypes.Length; i++)
                 attributeFilter[AttributeTypes[i]] = false;

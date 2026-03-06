@@ -3289,8 +3289,7 @@ GameObject:
   - component: {fileID: 613301456}
   - component: {fileID: 613301455}
   - component: {fileID: 613301458}
-  - component: {fileID: 613301457}
-  - component: {fileID: 613301463}
+  - component: {fileID: 613301464}
   - component: {fileID: 613301462}
   - component: {fileID: 613301459}
   - component: {fileID: 613301460}
@@ -3337,25 +3336,6 @@ Transform:
   - {fileID: 888336117}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &613301457
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 613301454}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fc254983c8656334e91dad08c2833aec, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  slots:
-  - {fileID: 636051258}
-  - {fileID: 1072193027}
-  - {fileID: 40700518}
-  - {fileID: 1462758778}
-  - {fileID: 895510914}
-  characterListContent: {fileID: 0}
 --- !u!114 &613301458
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3546,7 +3526,7 @@ MonoBehaviour:
   - {fileID: 775267097}
   - {fileID: 1106294756}
   - {fileID: 1657315047}
---- !u!114 &613301463
+--- !u!114 &613301464
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -3555,10 +3535,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 613301454}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e782aa4fc91b12c499e92247ea2cebd0, type: 3}
+  m_Script: {fileID: 11500000, guid: 3ac32ea45fb96c243925d938718c1459, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  formationView: {fileID: 613301462}
+  view: {fileID: 613301462}
 --- !u!1 &636051258
 GameObject:
   m_ObjectHideFlags: 0

@@ -29,6 +29,9 @@ namespace LUP.DSG
         public CharacterPrefabDataTable characterModelDataTable;
         public TeamMVPData mvpData;
 
+        public DeckStrategyRuntimeData DSGRuntimeData { get; private set; }
+        public DSGEnemyStageRuntimeData DSGEnemyRuntimeData { get; private set; }
+
         protected override void Awake() 
         {
             base.Awake();
@@ -51,25 +54,27 @@ namespace LUP.DSG
         {
             yield return base.OnStageEnter();
 
-            DeckStrategyRuntimeData runtimeData = (DeckStrategyRuntimeData)RuntimeData;
-            if (runtimeData.OwnedCharacterList == null || runtimeData.OwnedCharacterList.Count <= 0)
+            if(DSGRuntimeData == null)
+               DSGRuntimeData = (DeckStrategyRuntimeData)RuntimeData;
+
+            if (DSGEnemyRuntimeData != null && (DSGRuntimeData.OwnedCharacterList == null || DSGRuntimeData.OwnedCharacterList.Count <= 0))
             {
                 OwnedCharacterTable testCharacterTable
                     = Resources.Load<OwnedCharacterTable>("Data/Games/DSG/ScriptableObjects/OwnedCharacter/OwnedCharacterListTable");
                 if (testCharacterTable != null)
-                {
-                    runtimeData.OwnedCharacterList = testCharacterTable.ownedCharacterList;
-                }
+                    DSGRuntimeData.OwnedCharacterList = testCharacterTable.ownedCharacterList;
             }
 
-            DSGEnemyStageRuntimeData enemyRuntimeData = (DSGEnemyStageRuntimeData)enemyStageRuntimeData;
-            if (enemyRuntimeData.SelectedEnemyStage == null)
+            if(DSGEnemyRuntimeData == null)
+               DSGEnemyRuntimeData = (DSGEnemyStageRuntimeData)enemyStageRuntimeData;
+
+            if (DSGEnemyRuntimeData != null && DSGEnemyRuntimeData.SelectedEnemyStage == null)
             {
                 EnemyStageData enemyStageData
                     = Resources.Load<EnemyStageData>("Data/Games/DSG/ScriptableObjects/EnemyStageData1");
                 if (enemyStageData != null)
                 {
-                    enemyRuntimeData.SelectedEnemyStage = enemyStageData;
+                    DSGEnemyRuntimeData.SelectedEnemyStage = enemyStageData;
                     SaveDatas();
                 }
             }
@@ -195,7 +200,7 @@ namespace LUP.DSG
 
         public GameObject GetCharacterPrefab(int modelId)
         {
-            var modelData = FindCharacterPrefabData(modelId);
+            CharacterPrefabData modelData = FindCharacterPrefabData(modelId);
             if (modelData == null) return null;
             if (modelData.prefab == null) return null;
 
@@ -207,8 +212,7 @@ namespace LUP.DSG
             {
                 if (data.CharacterId == id)
                 {
-                    DeckStrategyRuntimeData deckStrategyRuntimeData = (DeckStrategyRuntimeData)RuntimeData;
-                    if (deckStrategyRuntimeData == null || deckStrategyRuntimeData.OwnedCharacterList.Count == 0) return null;
+                    if (DSGRuntimeData == null || DSGRuntimeData.OwnedCharacterList.Count == 0) return null;
 
                     int statusId = id * 100 + level;
 
@@ -237,17 +241,15 @@ namespace LUP.DSG
 
         public EnemyStageData GetEnemyStage()
         {
-            DSGEnemyStageRuntimeData enemyRuntimeData = (DSGEnemyStageRuntimeData)enemyStageRuntimeData;
-            if (enemyRuntimeData == null) return null;
+            if (DSGEnemyRuntimeData == null) return null;
 
-            return enemyRuntimeData.SelectedEnemyStage;
+            return DSGEnemyRuntimeData.SelectedEnemyStage;
         }
 
         public void SetEnemyStage(EnemyStageData enemyStageData)
         {
-            DSGEnemyStageRuntimeData enemyRuntimeData = (DSGEnemyStageRuntimeData)enemyStageRuntimeData;
-            if (enemyRuntimeData == null) return;
-            enemyRuntimeData.SelectedEnemyStage = enemyStageData;
+            if (DSGEnemyRuntimeData == null) return;
+            DSGEnemyRuntimeData.SelectedEnemyStage = enemyStageData;
             SaveDatas();
         }
 
@@ -258,32 +260,6 @@ namespace LUP.DSG
             //2: result
 
             LoadStage(StageKind, sceneIndex);
-
-            //BGMListNum num = (BGMListNum)sceneIndex; //@TODO SoundManager.BGM
-            //string bgm;
-
-            //switch (num)
-            //{
-            //    case BGMListNum.EditSceneBGM:
-            //        {
-            //            bgm = "RPG Combat 1 - Duel of the Fates (Loopable)";
-            //            break;
-            //        }
-            //    case BGMListNum.BattleSceneBGM:
-            //        {
-            //            bgm = "RPG Combat 1 - Watch out! (Loopable)";
-            //            break;
-            //        }
-            //    case BGMListNum.ResultSceneBGM:
-            //        {
-            //            bgm = "";
-            //            break;
-            //        }
-            //    default:
-            //        return;
-            //}
-
-            //SoundManager.Instance.PlayBGM(bgm, true);
         }
 
         public void BattleEnd()
@@ -303,38 +279,50 @@ namespace LUP.DSG
 
         public Team GetSelectedTeam()
         {
-            DeckStrategyRuntimeData runtimeData = (DeckStrategyRuntimeData)RuntimeData;
-            if (runtimeData == null) return null;
-            if (runtimeData.Teams[runtimeData.SelectedTeamIndex] == null)
+            if (DSGRuntimeData == null) return null;
+            if (DSGRuntimeData.Teams[DSGRuntimeData.SelectedTeamIndex] == null)
             {
-                return runtimeData.Teams[runtimeData.SelectedTeamIndex] = new Team();
+                return DSGRuntimeData.Teams[DSGRuntimeData.SelectedTeamIndex] = new Team();
             }
 
-            return runtimeData.Teams[runtimeData.SelectedTeamIndex];
+            return DSGRuntimeData.Teams[DSGRuntimeData.SelectedTeamIndex];
         }
 
         public void SetSelectedTeam(int index)
         {
-            DeckStrategyRuntimeData runtimeData = (DeckStrategyRuntimeData)RuntimeData;
-            if (runtimeData == null) return;
-            runtimeData.SelectedTeamIndex = index;
+            if (DSGRuntimeData == null) return;
+            DSGRuntimeData.SelectedTeamIndex = index;
             SaveDatas();
         }
 
         public Team ChangeSelectedTeam(int index)
         {
-            DeckStrategyRuntimeData runtimeData = (DeckStrategyRuntimeData)RuntimeData;
-            if (runtimeData == null) return null;
+            if (DSGRuntimeData == null) return null;
 
-            runtimeData.SelectedTeamIndex = index;
+            DSGRuntimeData.SelectedTeamIndex = index;
 
-            if (runtimeData.Teams[index] == null)
+            if (DSGRuntimeData.Teams[index] == null)
             {
-                return runtimeData.Teams[index] = new Team();
+                return DSGRuntimeData.Teams[index] = new Team();
             }
 
-            return runtimeData.Teams[runtimeData.SelectedTeamIndex];
+            return DSGRuntimeData.Teams[DSGRuntimeData.SelectedTeamIndex];
         }
+
+        public OwnedCharacterInfo GetOwnedCharacterById(int id)
+        {
+            if (DSGRuntimeData == null || DSGRuntimeData.OwnedCharacterList == null) return null;
+
+            List<OwnedCharacterInfo> ownedList = DSGRuntimeData.OwnedCharacterList;
+            for(int i = 0; i < ownedList.Count; ++i)
+            {
+                if (ownedList[i].characterID == id)
+                    return ownedList[i];
+            }
+
+            return null;
+        }
+
     }
 }
 

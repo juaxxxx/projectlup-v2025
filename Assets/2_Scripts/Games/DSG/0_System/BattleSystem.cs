@@ -81,6 +81,8 @@ namespace LUP.DSG
         private LineupSlot[] cachedFriendlySlots;
         private LineupSlot[] cachedEnemySlots;
 
+        private ICharacterFactory characterFactory;
+
         void Awake()
         {
             StageInitializeInvoker.OnDSGStagePostInitialize += Initialize;
@@ -103,6 +105,8 @@ namespace LUP.DSG
             cachedStage = stage;
             if (cachedStage == null) return;
 
+            characterFactory = new CharacterFactory(stage);
+
             stageData = stage.GetEnemyStage();
 
             cachedFriendlySlots = CacheLineupSlots(friendlySlots);
@@ -111,11 +115,6 @@ namespace LUP.DSG
             currentWave = 0;
             SetEnemyWave(currentWave);
 
-            FormationSystem formationSystem = GetComponent<FormationSystem>();
-            if(formationSystem)
-            {
-                formationSystem.OnPowerUpdated += UpdatePlayerCP;
-            }
 
             UpdatePlayerCP();
             UpdateEnemyCP();
@@ -597,7 +596,7 @@ namespace LUP.DSG
             }
         }
 
-        void UpdatePlayerCP()
+        public void UpdatePlayerCP()
         {
             if (playerCP == null) return;
 
@@ -873,11 +872,12 @@ namespace LUP.DSG
                 LineupSlot enemySlot = cachedEnemySlots[i];
                 if (enemySlot == null) continue;
 
-                enemySlot.DeselectCharacter();
+                enemySlot.ClearCharacter();
 
-                if (team.characters[i] == null) continue;
-
-                enemySlot.SetSelectedCharacter(team.characters[i], true);
+                if (team.characters[i] == null || team.characters[i].characterID <= 0) continue;
+                Character newEnemy = characterFactory.CreateCharacter(team.characters[i], enemySlot.transform, true);
+                if (newEnemy == null) continue;
+                enemySlot.SetCharacter(newEnemy);
             }
 
             if (waveText != null)

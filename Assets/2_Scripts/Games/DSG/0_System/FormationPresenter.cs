@@ -1,62 +1,129 @@
 using OpenCvSharp.Flann;
 using System;
+using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace LUP.DSG
 {
     public class FormationPresenter : MonoBehaviour
     {
+        [SerializeField]
         private FormationView view;
+
         private ICharacterFactory characterFactory;
-        private DeckStrategyStage stageModel;
+        private DeckStrategyStage stage;
 
         private Team currentTeam;
         private int selectedCount = 0;
+        private CharacterFilterState currentFilter = null;
+        private Dictionary<int, OwnedCharacterInfo> ownedInfoDict = new Dictionary<int, OwnedCharacterInfo>();
 
         public event Action OnPowerUpdated;
 
-        public FormationPresenter(FormationView view, ICharacterFactory factory, DeckStrategyStage stage)
+        private void OnEnable()
         {
-            this.view = view;
-            characterFactory = factory;
-            stageModel = stage;
-
-            // View의 이벤트 구독
-            this.view.OnCharacterSlotClicked += HandlePlaceCharacter;
-            this.view.OnReleaseSlotClicked += HandleReleaseCharacter;
-            this.view.OnTeamButtonClicked += ChangeAndLoadTeam;
+            StageInitializeInvoker.OnDSGStagePostInitialize += OnStagePostInitialize;
         }
 
-        ~FormationPresenter()
+        private void OnDisable()
         {
-            view.OnCharacterSlotClicked -= HandlePlaceCharacter;
-            view.OnReleaseSlotClicked -= HandleReleaseCharacter;
-            view.OnTeamButtonClicked -= ChangeAndLoadTeam;
+            StageInitializeInvoker.OnDSGStagePostInitialize -= OnStagePostInitialize;
+
+            if (view != null)
+            {
+                view.OnCharacterIconSelected -= PlaceCharacter;
+                view.OnCharacterIconReleased -= ReleaseCharacter;
+                view.OnTeamButtonClicked -= ChangeAndLoadTeam;
+                view.OnFilterRequested -= ApplyFilter;
+            }
+        }
+
+        private void OnStagePostInitialize(DeckStrategyStage stage)
+        {
+            if (stage == null) return;
+            this.stage = stage;
+            characterFactory = new CharacterFactory(stage);
+
+            DeckStrategyRuntimeData runtimeData = stage.DSGRuntimeData;
+            if (runtimeData == null) return;
+
+            BattleSystem battleSystem = stage.GetBattleSystem();
+            if (battleSystem != null)
+                OnPowerUpdated += battleSystem.UpdatePlayerCP;
+
+            LoadTeam(runtimeData.SelectedTeamIndex);
+
+            ToggleGroup toggleGroup = FindAnyObjectByType<ToggleGroup>();
+            if (toggleGroup)
+            {
+                TeamSelectButton[] teamButtons = toggleGroup.GetComponentsInChildren<TeamSelectButton>(true);
+                int idx = runtimeData.SelectedTeamIndex;
+
+                if (idx >= 0 && idx < teamButtons.Length)
+                    teamButtons[idx].ButtonStateChange(true);
+            }
+
+            ownedInfoDict.Clear();
+            List<OwnedCharacterInfo> ownedList = runtimeData.OwnedCharacterList;
+            if(ownedList != null)
+            {
+                for(int i = 0; i < ownedList.Count; ++i)
+                {
+                    ownedInfoDict.Add(ownedList[i].characterID, ownedList[i]);
+                }
+            }
+
+            if (view != null)
+            {
+                view.OnCharacterIconSelected += PlaceCharacter;
+                view.OnCharacterIconReleased += ReleaseCharacter;
+                view.OnTeamButtonClicked += ChangeAndLoadTeam;
+                view.OnFilterRequested += ApplyFilter;
+            }
         }
 
         public void LoadTeam(int teamIndex)
         {
-            if (stageModel == null) return;
+            if (stage == null) return;
 
-            DeckStrategyRuntimeData runtimeData = stageModel.RuntimeData as DeckStrategyRuntimeData;
+            DeckStrategyRuntimeData runtimeData = stage.DSGRuntimeData;
             if (runtimeData != null)
                 runtimeData.SelectedTeamIndex = teamIndex;
 
-            currentTeam = stageModel.GetSelectedTeam();
+            currentTeam = stage.GetSelectedTeam();
             selectedCount = 0;
 
-            if (currentTeam == null || currentTeam.characters == null) return;
+            if (currentTeam == null || currentTeam.characters == null || view == null) return;
 
-            view.UpdateSelectedTeamTabUI(teamIndex);
-            view.UpdateCharacterListUI(currentTeam);
+            view.UpdateSelectedTeamButtonUI(teamIndex);
+            RefreshCharacterListUI();
+
             RefreshAllSlots();
+            
+            view.TeamReset();
+        }
+
+        public void SaveCurrentTeam()
+        {
+            DeckStrategyRuntimeData runtimeData = stage?.DSGRuntimeData;
+            if (runtimeData != null && runtimeData.Teams != null)
+                runtimeData.Teams[runtimeData.SelectedTeamIndex] = currentTeam;
+        }
+
+        private void ChangeAndLoadTeam(int newTeamIndex)
+        {
+            stage.ChangeSelectedTeam(newTeamIndex);
+            LoadTeam(newTeamIndex);
         }
 
         private void RefreshAllSlots()
         {
+            if (view.lineupSlots == null) return;
+
             for (int i = 0; i < view.lineupSlots.Length; ++i)
             {
-                var slotView = view.lineupSlots[i];
+                LineupSlot slotView = view.lineupSlots[i];
                 if (slotView == null) continue;
 
                 slotView.ClearCharacter();
@@ -65,72 +132,96 @@ namespace LUP.DSG
                 if (info == null || info.characterID == 0) continue;
 
                 // 팩토리를 통한 생성 및 View 갱신
-                Character newChar = characterFactory.CreateCharacter(info, slotView.slotTransform, false);
-                slotView.SetCharacterView(newChar);
+                Character newChar = characterFactory.CreateCharacter(info, slotView.transform, false);
+                slotView.SetCharacter(newChar);
                 selectedCount++;
             }
             OnPowerUpdated?.Invoke();
         }
 
-        private void HandlePlaceCharacter(OwnedCharacterInfo info, CharacterSelectButton button)
+        private void PlaceCharacter(int characterId, CharacterSelectButton button)
         {
-            if (selectedCount >= 5) return;
+            if (selectedCount >= 5 || view == null) return;
 
             for (int i = 0; i < view.lineupSlots.Length; ++i)
             {
                 LineupSlot slotView = view.lineupSlots[i];
                 if (slotView == null || slotView.isPlaced) continue;
 
-                // 1. Model 데이터 업데이트
-                currentTeam.characters[i] = info;
+                ownedInfoDict.TryGetValue(characterId, out OwnedCharacterInfo characterInfo);
+                if (characterInfo == null) continue;
 
-                // 2. Factory를 통한 객체 생성
-                Character newChar = characterFactory.CreateCharacter(info, slotView.slotTransform, false);
-
-                // 3. View 업데이트 명령
-                slotView.SetCharacterView(newChar);
+                currentTeam.characters[i] = characterInfo;
+                Character newChar = characterFactory.CreateCharacter(characterInfo, slotView.transform, false);
+                slotView.SetCharacter(newChar);
 
                 selectedCount++;
                 button.ButtonClicked();
-                view.PlayEquipSound();
+                SoundManager.Instance.PlaySFX("Inventory Stash 2");
 
                 SaveCurrentTeam();
                 return;
             }
         }
 
-        private void HandleReleaseCharacter(int slotIndex)
+        private void ReleaseCharacter(int characterId, CharacterSelectButton button)
         {
-            if (selectedCount <= 0 || slotIndex < 0 || slotIndex >= view.lineupSlots.Length) return;
+            if (selectedCount <= 0 || view == null) return;
 
-            LineupSlot slotView = view.lineupSlots[slotIndex];
-            if (slotView == null || !slotView.isPlaced) return;
+            for (int i = 0; i < view.lineupSlots.Length; ++i)
+            {
+                LineupSlot slotView = view.lineupSlots[i];
+                if (slotView == null || !slotView.isPlaced || slotView.character == null) continue;
+                if (slotView.character.characterData == null || 
+                    slotView.character.characterData.ID != characterId) continue;
 
-            // Model 업데이트
-            currentTeam.characters[slotIndex] = null;
+                currentTeam.characters[i] = null;
+                slotView.ClearCharacter();
 
-            // View 업데이트
-            slotView.ClearCharacter();
+                selectedCount--;
+                button.ButtonClicked();
+                SoundManager.Instance.PlaySFX("Inventory Stash 2");
 
-            selectedCount--;
-            view.PlayEquipSound();
-            SaveCurrentTeam();
+                SaveCurrentTeam();
+                return;
+            }
         }
 
-        public void SaveCurrentTeam()
+        private void ApplyFilter(CharacterFilterState filter)
         {
-            DeckStrategyRuntimeData runtimeData = stageModel.RuntimeData as DeckStrategyRuntimeData;
-            if (runtimeData != null && runtimeData.Teams != null)
-                runtimeData.Teams[runtimeData.SelectedTeamIndex] = currentTeam;
+            currentFilter = filter;
+            RefreshCharacterListUI();
         }
 
-        private void ChangeAndLoadTeam(int newTeamIndex)
+        private void RefreshCharacterListUI()
         {
-            // 1. Stage 모델의 데이터 변경
-            stageModel.ChangeSelectedTeam(newTeamIndex);
+            DeckStrategyRuntimeData runtimeData = stage?.DSGRuntimeData;
+            if (runtimeData == null || runtimeData.OwnedCharacterList == null) return;
 
-            // 2. 변경된 데이터로 필드(슬롯) 및 UI 새로고침
-            LoadTeam(newTeamIndex);
+            List<OwnedCharacterInfo> filteredList = new List<OwnedCharacterInfo>();
+
+            foreach (OwnedCharacterInfo info in runtimeData.OwnedCharacterList)
+            {
+                if (info == null) continue;
+
+                if (currentFilter != null && currentFilter.ContainsCheckedFilters())
+                {
+                    CharacterData data = stage.FindCharacterData(info.characterID, info.characterLevel);
+                    if (data == null) continue;
+
+                    bool matchAttribute = currentFilter.checkedAttributes.Count == 0 || currentFilter.checkedAttributes.Contains(data.type);
+                    bool matchRange = currentFilter.checkedRanges.Count == 0 || currentFilter.checkedRanges.Contains(data.rangeType);
+
+                    if (!matchAttribute || !matchRange) continue;
+                }
+
+                filteredList.Add(info);
+            }
+
+            if (view != null)
+            {
+                view.UpdateCharacterListUI(filteredList, currentTeam, stage);
+            }
         }
     }
 }
