@@ -8,13 +8,11 @@ namespace LUP.PCR
     {
         public readonly string Key;
         public readonly int hashKey;
-
         public WorkerBlackboardKey(string key)
         {
             this.Key = key;
             hashKey = ComputeHash(Key);
         }
-
         private static int ComputeHash(string str)
         {
             unchecked
@@ -25,7 +23,6 @@ namespace LUP.PCR
                 return hash;
             }
         }
-
         // 해시(숫자)값 비교 로직
         public bool Equals(WorkerBlackboardKey other) => hashKey == other.hashKey;
         public override bool Equals(object obj) => obj is WorkerBlackboardKey other && Equals(other);
@@ -34,6 +31,4 @@ namespace LUP.PCR
         public static bool operator ==(WorkerBlackboardKey lhs, WorkerBlackboardKey rhs) => lhs.Equals(rhs);
         public static bool operator !=(WorkerBlackboardKey lhs, WorkerBlackboardKey rhs) => !(lhs == rhs);
     }
-
 }
-

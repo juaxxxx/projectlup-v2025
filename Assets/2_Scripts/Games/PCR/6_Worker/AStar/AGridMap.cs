@@ -102,9 +102,12 @@ namespace LUP.PCR
         }
         private void OnDrawGizmos()
         {
-            if (grid == null) return;
+            if (grid == null)
+            {
+                return;
+            }
 
-            foreach (var node in grid)
+            foreach (ANode node in grid)
             {
                 if (!node.isWalkable)
                 {
@@ -159,7 +162,6 @@ namespace LUP.PCR
                 );
             }
         }
-
 
         [ContextMenu("Print Walkable Nodes")]
         public void PrintWalkableNodes()

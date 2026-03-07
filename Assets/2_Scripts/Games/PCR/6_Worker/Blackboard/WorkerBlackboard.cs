@@ -8,13 +8,15 @@ namespace LUP.PCR
         private Dictionary<WorkerBlackboardKey, object> data = new (); // 실제 데이터 저장소
         private Dictionary<string, WorkerBlackboardKey> keyRegistry = new (); // 키 캐싱 ( 같은 문자열인 키 생성 방지 )
 
-        
         // 키가 이미 존재하면 기존 키 반환, 없으면 새로 생성하여 등록 후 반환
         public WorkerBlackboardKey GetOrRegisterKey(string keyName)
         {
-            if (keyRegistry.TryGetValue(keyName, out var existingKey)) { return existingKey; }
+            if (keyRegistry.TryGetValue(keyName, out WorkerBlackboardKey existingKey)) 
+            {
+                return existingKey; 
+            }
 
-            var newKey = new WorkerBlackboardKey(keyName);
+            WorkerBlackboardKey newKey = new WorkerBlackboardKey(keyName);
             keyRegistry[keyName] = newKey;
 
             return newKey;
@@ -36,7 +38,6 @@ namespace LUP.PCR
             if (keyRegistry.TryGetValue(keyName, out var key)) { return GetValue<T>(key); }
             return default(T);
         }
-
         public T GetValue<T>(WorkerBlackboardKey key)
         {
             if (data.TryGetValue(key, out object val))
@@ -57,25 +58,17 @@ namespace LUP.PCR
             if (keyRegistry.TryGetValue(keyName, out var key))
             {
                 value = GetValue<T>(key);
-    
-                if (data.TryGetValue(key, out var v) && v is T t)
-                {
-                    value = t;
-                    return true;
-                }
+                return true;
             }
             
             value = default;
             return false;
         }
 
-
         public void Remove(string keyName)
         {
             if (keyRegistry.TryGetValue(keyName, out var key))
                 data.Remove(key);
         }
-
     }
 }
-

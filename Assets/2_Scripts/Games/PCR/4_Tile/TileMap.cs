@@ -30,6 +30,8 @@ namespace LUP.PCR
                             Quaternion.identity, this.transform);
                         tiles[i, j] = tile.GetComponent<Tile>();
                         tiles[i, j].SetTileInfo(new TileInfo(TileType.PATH, BuildingType.NONE, WallType.NONE, new Vector2Int(i, j), 1));
+
+                        tiles[i, j].UpdateVisualState();
                         tiles[i,j].ShowDarkVisionMark();
                     }
                 }
@@ -50,6 +52,8 @@ namespace LUP.PCR
 
             tiles[x, y].tileInfo.tileType = TileType.WALL;
             tiles[x, y].tileInfo.wallType = type;
+
+            tiles[x, y].UpdateVisualState();
         }
 
         public void UpdateTilebyBuilding(BuildingType type, Tile pivotTile)
@@ -59,30 +63,34 @@ namespace LUP.PCR
             switch (type)
             {
                 case BuildingType.WHEATFARM:
-                    placementSize = new Vector2Int(3, 1);
+                    placementSize = new Vector2Int(4, 1);
                     break;
                 case BuildingType.MUSHROOMFARM:
-                    placementSize = new Vector2Int(2, 1);
+                    placementSize = new Vector2Int(4, 1);
                     break;
                 case BuildingType.MOLEFARM:
-                    placementSize = new Vector2Int(3, 1);
+                    placementSize = new Vector2Int(4, 1);
                     break;
                 case BuildingType.RESTAURANT:
-                    placementSize = new Vector2Int(3, 1);
+                    placementSize = new Vector2Int(4, 1);
                     break;
                 case BuildingType.POWERSTATION:
-                    placementSize = new Vector2Int(2, 1);
+                    placementSize = new Vector2Int(3, 1);
                     break;
                 case BuildingType.STONEMINE:
-                case BuildingType.IRONMINE:
-                case BuildingType.COALMINE:
-                    placementSize = new Vector2Int(1, 1);
+                    placementSize = new Vector2Int(2, 1);
                     break;
-                case BuildingType.WORKSTATION:
+                case BuildingType.IRONMINE:
+                    placementSize = new Vector2Int(2, 1);
+                    break;
+                case BuildingType.COALMINE:
                     placementSize = new Vector2Int(2, 1);
                     break;
                 case BuildingType.LADDER:
                     placementSize = new Vector2Int(1, 1);
+                    break;
+                case BuildingType.WORKSTATION:
+                    placementSize = new Vector2Int(4, 2);
                     break;
             }
 
@@ -94,7 +102,7 @@ namespace LUP.PCR
                 for (int j = 0; j < placementSize.y; j++)
                 {
                     int nx = x + i;
-                    int ny = y + j;
+                    int ny = y - j;
 
                     if (nx >= 0 && nx < GridSize.x && ny >= 0 && ny < GridSize.y)
                     {
@@ -108,6 +116,8 @@ namespace LUP.PCR
                         }
 
                         tiles[nx, ny].tileInfo.buildingType = type;
+
+                        tiles[nx, ny].UpdateVisualState(isUpperFloor: j > 0);
                     }
                 }
             }

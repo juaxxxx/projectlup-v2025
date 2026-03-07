@@ -9,7 +9,13 @@ namespace LUP.PCR
         public float elapsedTime;
         public int totalCount;
         public bool isCooking;
-
+        public RestaurantInfo()
+        {
+            this.elapsedTime = 0f;
+            this.totalCount = 0;
+            this.isCooking = false;
+            this.currentFood = default;
+        }
         public RestaurantInfo(float elapsedTime, int totalCount, bool isCooking, FoodType currentFood)
         {
             this.elapsedTime = elapsedTime;

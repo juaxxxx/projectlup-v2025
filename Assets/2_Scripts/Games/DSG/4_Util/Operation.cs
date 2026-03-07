@@ -1,5 +1,4 @@
 using LUP.DSG.Utils.Enums;
-using OpenCvSharp.Aruco;
 using System;
 using System.Collections.Generic;
 using UnityEngine;

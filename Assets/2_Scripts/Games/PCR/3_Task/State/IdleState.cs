@@ -84,12 +84,7 @@ namespace LUP.PCR
 
         private void OpenBuildingTaskUI(BuildingBase building)
         {
-            ProductableBuilding productableBuilding = building as ProductableBuilding;
-            if (productableBuilding)
-            {
-                taskController.uiCenter.OpenProductableTask(productableBuilding);
-            }
-
+            taskController.NotifyBuildingClicked(building);
         }
     }
 

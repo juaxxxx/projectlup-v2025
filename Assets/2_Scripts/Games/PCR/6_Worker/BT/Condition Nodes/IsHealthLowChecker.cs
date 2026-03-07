@@ -4,8 +4,7 @@ namespace LUP.PCR
 {
     public class IsHealthLowChecker : WorkerBlackboardNode
     {
-        public IsHealthLowChecker(WorkerBlackboard bb) : base(bb) { }
-
+       public IsHealthLowChecker(WorkerBlackboard bb) : base(bb) { }
        protected override NodeState OnUpdate()
         {
             float currentHunger = GetData<float>(BBKeys.Hunger);
@@ -21,10 +20,7 @@ namespace LUP.PCR
             {
                 return ReturnAndLog(NodeState.FAILURE, "아직 배고프지 않음.");
             }
-
         }
     }
-
-
 }
 

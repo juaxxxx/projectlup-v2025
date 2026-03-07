@@ -13,6 +13,7 @@ namespace LUP.PCR
         [SerializeField] private float hunger = 0;
         private bool isHunger = false;
         private bool hasTask = false; 
+        public bool IsWorking { get; set; }
 
         [Header("Component")]
         private Worker worker;
@@ -35,6 +36,7 @@ namespace LUP.PCR
                 CheckHungerState();
             }
         }
+
         private void CheckHungerState()
         {
             bool shouldBeHungry = hunger >= HungerRules.HungryThreshold;
@@ -69,7 +71,6 @@ namespace LUP.PCR
 
             }
         }
-
         public void Initialize(WorkerInfo info, BuildingBase restaurant, BuildingBase station)
         {
             this.myInfo = info;
@@ -87,12 +88,16 @@ namespace LUP.PCR
             Debug.Log($"Worker Initialized: {info.name} (ID: {info.id})");
 
         }
-
-
         public void InitBTReferences()
         {
             worker = GetComponent<Worker>();
             mover = GetComponent<UnitMover>();
+
+            if (worker != null)
+            {
+                worker.InitAnimator();
+            }
+
             LocalBlackboard = new WorkerBlackboard();
 
             InitBlackboard();
@@ -100,7 +105,6 @@ namespace LUP.PCR
             SettingBT();
             GetComponentInChildren<WorkerOverlayUI>().Setup(this);
         }
-
         private void InitBlackboard()
         {
             //정적 데이터(참조) 등록
@@ -114,42 +118,51 @@ namespace LUP.PCR
             LocalBlackboard.SetValue(BBKeys.HasTask, hasTask);
         }
 
-        void SettingBT()
+        private void SettingBT()
         {
-            // 모든 Leaf Node 생성자에 LocalBlackboard를 전달 (주입)
-            // CompositeNode(Sequence/Selector)는 블랙보드가 필요 없으므로 리스트만 전달
-
-            // Sequence: 배고픔 처리
             BTNode hungerSequence = new SequenceNode(new List<BTNode>
-         {
-             new IsHealthLowChecker(LocalBlackboard),
-             new PauseCurrentTask(LocalBlackboard),
-             new GoToEatingPlace(LocalBlackboard),
-             new EatFood(LocalBlackboard)
-         });
+            {
+                new IsHealthLowChecker(LocalBlackboard),
+                new PauseCurrentTask(LocalBlackboard),
+                new GoToEatingPlace(LocalBlackboard),
+                new EatFood(LocalBlackboard)
+            });
 
-        // Sequence: 새 일 시작
-        BTNode workingSequence = new SequenceNode(new List<BTNode>
-        {
-            new IsNewTaskChecker(LocalBlackboard),
-            new GoToNewTaskLocation(LocalBlackboard),
-            new StartNewTask(LocalBlackboard),
-            new PerformTask(LocalBlackboard)
-        });
+            BTNode workingSequence = new SequenceNode(new List<BTNode>
+            {
+                new IsNewTaskChecker(LocalBlackboard),
+                new GoToNewTaskLocation(LocalBlackboard),
+                new StartNewTask(LocalBlackboard),
+                new PerformTask(LocalBlackboard)
+            });
 
-        // Root Selector: 배고픔 → 작업/휴식
-        root = new SelectorNode(new List<BTNode>
+            root = new SelectorNode(new List<BTNode>
+            {
+                hungerSequence,
+                workingSequence,
+                new RoamAroundBuilding(LocalBlackboard)
+            });
+        }
+        public void StopWorkAndResetState()
         {
-            hungerSequence,
-            workingSequence,
-            //new GoToWorkerStation(LocalBlackboard),
-            new RoamAroundBuilding(LocalBlackboard)
-        });
+            HasTask = false;
+            IsWorking = false;
+
+            LocalBlackboard.Remove(BBKeys.AssignedWorkplace);
+
+            if (worker != null)
+            {
+                worker.SetActionState(WorkerActionState.Idle);
+            }
         }
 
         public void UpdateBT()
         {
-            if (root == null) return;
+            if (root == null)
+            {
+                return;
+            }
+
             root?.Evaluate();
 
             if(!isHunger)
@@ -162,6 +175,7 @@ namespace LUP.PCR
         public void AssignTask(StructureBase workingPlace)
         {
             hasTask = true;
+            IsWorking = false;
             
             currentTaskPlace = workingPlace;
             LocalBlackboard.SetValue(BBKeys.AssignedWorkplace, currentTaskPlace);
@@ -170,5 +184,4 @@ namespace LUP.PCR
             LocalBlackboard.SetValue(BBKeys.HasTask, hasTask);
         }
     }
-
 }

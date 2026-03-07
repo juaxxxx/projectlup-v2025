@@ -10,14 +10,12 @@ namespace LUP.PCR
         private WorkerAI ownerAI;
         private Worker workerComp;
         private UnitMover mover;
-
         private NodeState? lastReturnState = null;
 
         protected WorkerBlackboardNode(WorkerBlackboard blackboard) : base()
         {
             BB = blackboard;
         }
-
         protected NodeState ReturnAndLog(NodeState newState, string message)
         {
             if (lastReturnState != newState)
@@ -28,14 +26,14 @@ namespace LUP.PCR
 
             return newState;
         }
-
-
         protected WorkerAI OwnerAI
         {
             get
             {
                 if (ownerAI == null)
+                {
                     BB.TryGetValue(BBKeys.OwnerAI, out ownerAI);
+                }
                 return ownerAI;
             }
         }
@@ -44,7 +42,9 @@ namespace LUP.PCR
             get
             {
                 if (workerComp == null)
+                {
                     BB.TryGetValue(BBKeys.Self, out workerComp);
+                }
                 return workerComp;
             }
         }
@@ -53,7 +53,9 @@ namespace LUP.PCR
             get
             {
                 if (mover == null)
+                {
                     BB.TryGetValue(BBKeys.UnitMover, out mover);
+                }
                 return mover;
             }
         }

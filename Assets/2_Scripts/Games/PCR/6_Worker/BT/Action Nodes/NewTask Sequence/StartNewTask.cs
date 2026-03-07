@@ -8,21 +8,34 @@ namespace LUP.PCR
         
         protected override NodeState OnUpdate()
         {
-            ProductableBuilding building = GetData<ProductableBuilding>(BBKeys.AssignedWorkplace);
-            //OwnerAI.HasTask = GetData<bool>(BBKeys.HasTask);
+            if (OwnerAI.IsWorking)
+            {
+                return NodeState.SUCCESS;
+            }
             
+            ProductableBuilding building = GetData<ProductableBuilding>(BBKeys.AssignedWorkplace);
+
             if (building == null)
             {
                 return NodeState.FAILURE;
             }
 
-            building.EnterWorker();
+            if(building is ProductableBuilding productable)
+            {
+                building.EnterWorker();
+            }
 
+            if (WorkerComp != null)
+            {
+                Mover.Stop();
+                WorkerComp.transform.position = building.WorkSpotWorldPos;
+
+                WorkerComp.SetActionState(building.requiredAction);
+            }
+
+            OwnerAI.IsWorking = true;
+            Debug.Log($"2-3. {building.placeName} 작업 시작 (모션: {building.requiredAction})");
             return NodeState.SUCCESS;
         }
     }
 }
-//OwnerAI.HasTask = true;
-//return NodeState.RUNNING;
-//BB.Remove(BBKeys.AssignedWorkplace);
-//OwnerAI.HasTask = false;

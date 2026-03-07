@@ -1,3 +1,4 @@
+using R3;
 using System;
 using UnityEngine;
 
@@ -17,7 +18,8 @@ namespace LUP.PCR
         public PCRConstructionStaticData currentConstructionData;
         public BuildingEvents buildingEvents;
 
-        public string buildingName;
+        public ReactiveProperty<string> buildingName = new ReactiveProperty<string>("");
+
         public PCRResourceCenter resourceCenter;
         public GameObject ConstructScreen;
         public ConstructionOverlayView constructionOverlay;
