@@ -96,6 +96,17 @@ namespace LUP
             return vfx;
         }
 
+        public T LoadTexture<T>(string name) where T : Object
+        {
+            if (AB_Image == null)
+            {
+                LoadAssetBundles();
+            }
+            T image = AB_Image.LoadAsset<T>(name);
+
+            return image;
+        }
+
         public List<BaseStaticDataLoader> LoadStaticData(Define.StageKind type, int stagetype)
         {
             List<BaseStaticDataLoader> dataList = new List<BaseStaticDataLoader>();

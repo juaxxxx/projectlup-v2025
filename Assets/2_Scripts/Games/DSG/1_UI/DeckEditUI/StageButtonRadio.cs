@@ -39,8 +39,8 @@ public class StageButtonRadio : MonoBehaviour
         }
 
         if (clickedButton == null) return;
-
         Image img = clickedButton.GetComponent<Image>();
         if (img != null) img.color = selectedColor;
+
     }
 }
