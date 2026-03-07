@@ -61,13 +61,13 @@ namespace LUP.PCR
 
             // 작업자 있는지 데이터 필요.
             hasWork = true;
-            buildingName = "MoleFarm";
-            placeName = buildingName;
+            buildingName.Value = "MoleFarm";
+            placeName = buildingName.Value;
 
             ProductionStage stage = LUP.StageManager.Instance.GetCurrentStage() as ProductionStage;
             currentConstructionData = stage.GetCurrentConstructionData((int)BuildingType.MOLEFARM, buildingInfo.level);
             currentProductionData = stage.GetCurrentProductionData((int)BuildingType.MOLEFARM, buildingInfo.level);
-            maxStorage = currentProductionData.StorageCapacity;
+            maxStorage.Value = currentProductionData.StorageCapacity;
 
             if (buildingInfo.isConstructing)
             {
@@ -84,10 +84,12 @@ namespace LUP.PCR
         {
             // 레벨업
             buildingInfo.level++;
+            level.Value = buildingInfo.level;
+
             ProductionStage stage = LUP.StageManager.Instance.GetCurrentStage() as ProductionStage;
             currentConstructionData = stage.GetCurrentConstructionData((int)BuildingType.MOLEFARM, buildingInfo.level);
             currentProductionData = stage.GetCurrentProductionData((int)BuildingType.MOLEFARM, buildingInfo.level);
-            maxStorage = currentProductionData.StorageCapacity;
+            maxStorage.Value = currentProductionData.StorageCapacity;
 
             ChangeState(productableState);
         }
@@ -130,9 +132,10 @@ namespace LUP.PCR
         public override void CompleteProduction()
         {
             Debug.Log("CompleteProduction");
-            productionInfo.currentStorage = productionInfo.currentStorage + 1 > maxStorage ? maxStorage : productionInfo.currentStorage + 1;
+            productionInfo.currentStorage = productionInfo.currentStorage + 1 > maxStorage.Value ? maxStorage.Value : productionInfo.currentStorage + 1;
+            currentStorage.Value = productionInfo.currentStorage;
 
-            if (productionInfo.currentStorage == maxStorage)
+            if (productionInfo.currentStorage == maxStorage.Value)
             {
                 DeliverToInventory();
                 StartProduction();
@@ -148,6 +151,7 @@ namespace LUP.PCR
         {
             resourceCenter.AddResource(ResourceType.Meat, productionInfo.currentStorage);
             productionInfo.currentStorage = 0;
+            currentStorage.Value = productionInfo.currentStorage;
         }
     }
 

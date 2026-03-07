@@ -6,6 +6,10 @@ namespace LUP.PCR
     {
         public TileInfo tileInfo;
 
+        [SerializeField] 
+        private GameObject[] tileVisualObjects;
+        [SerializeField] 
+        private GameObject floorVisual;
         [SerializeField]
         private GameObject canActMark;
         [SerializeField]
@@ -22,6 +26,47 @@ namespace LUP.PCR
         public void SetTileInfo(TileInfo tileInfo)
         {
             this.tileInfo = tileInfo;
+        }
+
+        public void UpdateVisualState(bool isUpperFloor = false)
+        {
+            if (tileInfo.tileType == TileType.PATH || tileInfo.tileType == TileType.NONE)
+            {
+                foreach (GameObject obj in tileVisualObjects)
+                {
+                    if (obj)
+                    {
+                        obj.SetActive(true);
+                    }
+                }
+            }
+            else if (tileInfo.tileType == TileType.WALL)
+            {
+                foreach (GameObject obj in tileVisualObjects)
+                {
+                    if (obj)
+                    {
+                        obj.SetActive(false);
+                    }
+                }
+            }
+            else if (tileInfo.tileType == TileType.BUILDING || tileInfo.tileType == TileType.LADDER)
+            {
+                foreach (GameObject obj in tileVisualObjects)
+                {
+                    if (obj)
+                    {
+                        obj.SetActive(false);
+                    }
+                }
+
+                //  2층 이상이 아닐 때(즉, 1층일 때)만 바닥 활성화
+                // (만약 1층도 바닥을 끄고 싶다면 이 if문을 지우기)
+                if (isUpperFloor == false && floorVisual != null)
+                {
+                    floorVisual.SetActive(true);
+                }
+            }
         }
 
         public void ShowCanDigWallMark()

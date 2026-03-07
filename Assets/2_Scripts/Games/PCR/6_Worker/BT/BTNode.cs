@@ -1,6 +1,4 @@
-﻿using UnityEngine;
-
-namespace LUP.PCR
+﻿namespace LUP.PCR
 {
     public abstract class BTNode
     {
@@ -17,6 +15,7 @@ namespace LUP.PCR
         }
         protected NodeState state = NodeState.FAILURE;
         private bool isStarted = false;
+
         public NodeState Evaluate()
         {
             if (!isStarted)

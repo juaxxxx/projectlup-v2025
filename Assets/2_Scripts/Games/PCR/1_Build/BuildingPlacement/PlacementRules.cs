@@ -24,7 +24,7 @@ namespace LUP.PCR
             int startGridY = pivotTile.tileInfo.pos.y;
 
             if (startGridX + placementSize.x - 1 >= GridSize.x ||
-                startGridY + placementSize.y - 1 >= GridSize.y)
+                startGridY + placementSize.y + 1 < 0)
             {
                 return false;
             }
@@ -34,7 +34,7 @@ namespace LUP.PCR
                 for (int j = 0; j < placementSize.y; j++)
                 {
                     int nextGridX = startGridX + i;
-                    int nextGridY = startGridY + j;
+                    int nextGridY = startGridY - j;
 
                     // 기획에 따라 통과 가능한 건물과 아닌 건물로 나뉠수도
                     if (tileMap.tiles[nextGridX, nextGridY].tileInfo.tileType != TileType.NONE &&
@@ -59,28 +59,34 @@ namespace LUP.PCR
             switch (type)
             {
                 case BuildingType.WHEATFARM:
-                    placementSize = new Vector2Int(3, 1);
+                    placementSize = new Vector2Int(4, 1);
                     break;
                 case BuildingType.MUSHROOMFARM:
-                    placementSize = new Vector2Int(2, 1);
+                    placementSize = new Vector2Int(4, 1);
                     break;
                 case BuildingType.MOLEFARM:
-                    placementSize = new Vector2Int(3, 1);
+                    placementSize = new Vector2Int(4, 1);
                     break;
                 case BuildingType.RESTAURANT:
-                    placementSize = new Vector2Int(3, 1);
+                    placementSize = new Vector2Int(4, 1);
                     break;
                 case BuildingType.POWERSTATION:
-                    placementSize = new Vector2Int(2, 1);
+                    placementSize = new Vector2Int(3, 1);
                     break;
                 case BuildingType.STONEMINE:
+                    placementSize = new Vector2Int(2, 1);
+                    break;
                 case BuildingType.IRONMINE:
+                    placementSize = new Vector2Int(2, 1);
+                    break;
                 case BuildingType.COALMINE:
+                    placementSize = new Vector2Int(2, 1);
+                    break;
                 case BuildingType.LADDER:
                     placementSize = new Vector2Int(1, 1);
                     break;
                 case BuildingType.WORKSTATION:
-                    placementSize = new Vector2Int(2, 1);
+                    placementSize = new Vector2Int(4, 2);
                     break;
                    
             }

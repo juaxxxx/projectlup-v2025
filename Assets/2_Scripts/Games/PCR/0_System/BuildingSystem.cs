@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections.Generic;
+using UnityEngine.UIElements;
 
 namespace LUP.PCR
 {
@@ -43,7 +44,6 @@ namespace LUP.PCR
 
             foreach (WallInfo wallInfo in curWallInfoList)
             {
-
                 GameObject wallObject = buildingGenerator.CreateWall(wallInfo);
                 if (!wallObject)
                 {
@@ -71,7 +71,6 @@ namespace LUP.PCR
 
             Debug.Log("BuildingSystem Init");
         }
-
         public void RemoveWall(WallBase wall)
         {
             pcrRuntimeData.RemoveFromList(curWallInfoList, wall.GetWallInfo());
@@ -80,7 +79,6 @@ namespace LUP.PCR
             Destroy(wall.gameObject);
             tileMap.UpdateVision();
         }
-
 
         public void UpdateDigTile(WallBase wall)
         {
@@ -94,6 +92,7 @@ namespace LUP.PCR
                     tile.HideCanDigWallMark();
                     digWallPreview.AddCanNotDigTile(tile);
                     tile.SetTileInfo(new TileInfo(TileType.PATH, BuildingType.NONE, WallType.NONE, tile.tileInfo.pos, tile.tileInfo.id));
+                    tile.UpdateVisualState();
                 }
             }
         }
@@ -147,7 +146,7 @@ namespace LUP.PCR
                 {
                     currBuildings.Add(id, building);
                 }
-                
+
                 tileMap.UpdateTilebyBuilding(type, pivotTile);
                 building.SetEntrance(pivotTile.tileInfo.pos);
 

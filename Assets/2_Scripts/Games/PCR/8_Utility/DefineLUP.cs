@@ -13,7 +13,6 @@ namespace LUP.PCR
         public static float tileSize = 5f;
     }
 
-
     public enum TileType
     {
         NONE,
@@ -86,17 +85,35 @@ namespace LUP.PCR
 
     public enum TaskType
     {
+        Idle,
+        Dig,
+        Construct,
         BuildingWheatFarm,
         BuildingMushroomFarm,
     }
 
-    public enum ActiveUIType
+    public enum UIScreen
     {
-        None,
         Main,
-        SelectConstrcut,
-        ConstructionDecision,
-        ProductableBuilding,
         Inventory,
+        SelectConstrcut,
+        FarmTask,
+        ConstructionDecision,
+        DigWall,
     }
+
+    public enum WorkerActionState
+    {
+        Idle = 0,       // 기본 대기
+
+        // 작업 (10번대)
+        Farming = 10,     // 농사
+        Hammering = 11,   // 건설, 제작
+        Researching = 12, // 연구
+
+        // 생활 (20번대)
+        Eating = 20,      // 식사
+        //Sleeping = 21     // 수면
+    }
+
 }

@@ -9,7 +9,7 @@ namespace LUP.PCR
         {
             this.nodes = nodes; 
         }
-        protected override BTNode.NodeState OnUpdate()
+        protected override NodeState OnUpdate()
         {
             foreach (BTNode node in nodes)
             {
@@ -26,6 +26,5 @@ namespace LUP.PCR
             return NodeState.SUCCESS;
         }
     }
-
 
 }

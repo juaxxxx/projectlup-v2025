@@ -11,7 +11,7 @@ namespace LUP.PCR
             
             if (workingPlace == null)
             {
-                ClearWorkData();
+                OwnerAI.StopWorkAndResetState();
                 return NodeState.FAILURE;
             }
 
@@ -19,22 +19,14 @@ namespace LUP.PCR
             if (!workingPlace.IsWorkRequested)
             {
                 workingPlace.ExitWorker();
-                ClearWorkData();
+                OwnerAI.StopWorkAndResetState();
                 return NodeState.FAILURE;
             }
 
-            if (!OwnerAI.HasTask)
-            {
-                OwnerAI.HasTask = true;
-            }
 
             return NodeState.RUNNING;
         }
 
-        private void ClearWorkData()
-        {
-            BB.Remove(BBKeys.AssignedWorkplace);
-            OwnerAI.HasTask = false;
-        }
+        
     }
 }

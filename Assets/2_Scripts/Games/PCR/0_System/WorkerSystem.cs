@@ -6,9 +6,12 @@ namespace LUP.PCR
     public class WorkerSystem : MonoBehaviour
     {
         public static WorkerSystem Instance { get; private set; }
-        // 옵션
-        [SerializeField] private GameObject workerPrefab;
+        
+        [Header("Worker Settings")]
+        [SerializeField] private GameObject workerLogicPrefab;
+        [SerializeField] private List<GameObject> workerModelPrefabs = new List<GameObject>();
         [SerializeField] private Transform workerContainer;
+
         private BuildingBase defaultRestaurant; 
         private BuildingBase defaultStation; // @TODO : 같은 종류의 목적지 중에 가장 가까운 곳을 찾게 bt 로직 변경
         private int maxWorkerCount = 50;
@@ -28,7 +31,7 @@ namespace LUP.PCR
         // 실제 작업 할당
         private List<BuildingBase> taskBuildingList = new List<BuildingBase>();
         private List<WorkerAI> activeWorkers;
-        private Queue<StructureBase> taskQueue = new Queue<StructureBase>();
+        private Queue<StructureBase> taskQueue = new Queue<StructureBase>(GridSize.x * GridSize.y);
 
         public void InitWorkerSystem(BuildingSystem buildingSystem, TileMap tileMap)
         {
@@ -46,10 +49,13 @@ namespace LUP.PCR
             aGrid.InitMap(tileMap.tiles);
 
             curBuildings = buildingSystem.GetCurrentBuildingDictionary();
+
             ProductionStage stage = StageManager.Instance.GetCurrentStage() as ProductionStage;
             pcrRuntimeData = stage.productionRuntimeData;
+
             curReservedBuildingIdList = pcrRuntimeData.ReservedBuildingIdList;
             curAssignedBuildingIdList = pcrRuntimeData.AssignedBuildingIdList;
+
             curWorkerInfoList = pcrRuntimeData.WorkerInfoList;
 
             // 위 데이터 기반으로 초기화.
@@ -63,7 +69,6 @@ namespace LUP.PCR
             TestDebuging();
             isInitialized = true;
         }
-
         private void InitDefaults()
         {
             // 초기 건물정보 생성
@@ -130,9 +135,26 @@ namespace LUP.PCR
 
             //@TODO : 건물 외 작업 구역(채집 등)도 별도의 task~List.Add 로 별도의 목록에 추가
         }
-        private void CreateWorkerObject(WorkerInfo info)
+
+        private void IgnoreCollisionWithOtherWorkers(CharacterController newWorkerCC)
         {
-            if (defaultStation == null) return;
+            foreach (WorkerAI existingWorker in activeWorkers)
+            {
+                CharacterController existingCC = existingWorker.GetComponent<CharacterController>();
+
+                if (existingCC != null && newWorkerCC != existingCC)
+                {
+                    Physics.IgnoreCollision(newWorkerCC, existingCC, true);
+                }
+            }
+        }
+
+        private void CreateWorkerObject(WorkerInfo info, int prefabIndex = -1)
+        {
+            if (defaultStation == null)
+            {
+                return;
+            }
 
             ANode spawnNode = aGrid.GetNodeFromGridPos(defaultStation.entrancePos);
             
@@ -141,14 +163,31 @@ namespace LUP.PCR
                 Vector3 floorPos = aGrid.GetNodeFootPosition(spawnNode);
                 Vector3 randomOffset = new Vector3(Random.Range(-1f, 1f), 0, Random.Range(-1f, 1f));
                 Vector3 spawnPos = floorPos + randomOffset;
-                GameObject newWorker = Instantiate(workerPrefab, spawnPos, Quaternion.identity, workerContainer);
-                WorkerAI ai = newWorker.GetComponent<WorkerAI>();
-                
+
+                GameObject logicObj = Instantiate(workerLogicPrefab, spawnPos, Quaternion.identity, workerContainer);
+                WorkerAI ai = logicObj.GetComponent<WorkerAI>();
+
                 if (ai == null)
                 {
                     ai = ai.GetComponentInChildren<WorkerAI>();
                 }
-                
+
+                int targetIndex = prefabIndex;
+                if (targetIndex < 0 || targetIndex >= workerModelPrefabs.Count)
+                {
+                    targetIndex = Random.Range(0, workerModelPrefabs.Count);
+                }
+
+                GameObject modelObj = Instantiate(workerModelPrefabs[targetIndex], logicObj.transform);
+                modelObj.transform.localPosition = Vector3.zero;
+                modelObj.transform.localRotation = Quaternion.identity;
+
+                CharacterController newCC = logicObj.GetComponent<CharacterController>();
+                if (newCC != null)
+                {
+                    IgnoreCollisionWithOtherWorkers(newCC);
+                }
+
                 if (!activeWorkers.Contains(ai))
                 {
                     activeWorkers.Add(ai);
@@ -312,32 +351,6 @@ namespace LUP.PCR
 
             return bestWorker;
         }
-        
-
     }
 }
 
-/*
-
-        //// [새로운 워커 고용] 게임 도중 버튼을 눌러 추가할 때 사용
-        //public void HireNewWorker(string name)
-        //{
-        //    int newId = curWorkerInfoList.Count + 1; // ID 생성
-        //    //WorkerInfo newInfo = new WorkerInfo { workerId = newId, workerName = name };
-        //    //curWorkerInfoList.Add(newInfo);
-        //    //CreateWorkerObject(newInfo);
-        //}
-
-        //// [워커 삭제]
-        //public void RemoveWorker(WorkerAI worker)
-        //{
-        //    if (activeWorkers.Contains(worker))
-        //    {
-        //        activeWorkers.Remove(worker);
-        //        // curWorkerInfoList.Remove(...) 
-        //        Destroy(worker.gameObject);
-        //    }
-        //}
-
-
- */

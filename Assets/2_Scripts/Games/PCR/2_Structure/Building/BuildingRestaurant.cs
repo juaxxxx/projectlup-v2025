@@ -34,8 +34,8 @@ namespace LUP.PCR
         {
             this.runtimeData = runtimeData;
 
-            buildingName = "Restaurant";
-            placeName = buildingName;
+            buildingName.Value = "Restaurant";
+            placeName = buildingName.Value;
 
             if (ConstructScreen)
             {
@@ -44,6 +44,12 @@ namespace LUP.PCR
 
             ProductionStage stage = LUP.StageManager.Instance.GetCurrentStage() as ProductionStage;
             restaurantInfo = stage.productionRuntimeData.RestaurantInfo;
+
+            if (restaurantInfo == null)
+            {
+                restaurantInfo = new RestaurantInfo();
+                stage.productionRuntimeData.RestaurantInfo = restaurantInfo;
+            }
 
             if (restaurantInfo.isCooking)
             {
@@ -121,15 +127,15 @@ namespace LUP.PCR
             switch (restaurantInfo.currentFood)
             {
                 case FoodType.Bread:
-                    resourceCenter.UseResource(ResourceType.Wheat, 10);
+                    resourceCenter.TryUseResource(ResourceType.Wheat, 10);
                     resourceCenter.AddResource(ResourceType.Food, 50);
                     break;
                 case FoodType.GrilledMushroom:
-                    resourceCenter.UseResource(ResourceType.Mushroom, 10);
+                    resourceCenter.TryUseResource(ResourceType.Mushroom, 10);
                     resourceCenter.AddResource(ResourceType.Food, 30);
                     break;
                 case FoodType.MeatSoup:
-                    resourceCenter.UseResource(ResourceType.Meat, 10);
+                    resourceCenter.TryUseResource(ResourceType.Meat, 10);
                     resourceCenter.AddResource(ResourceType.Food, 70);
                     break;
                 default:

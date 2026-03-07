@@ -58,8 +58,8 @@ namespace LUP.PCR
 
             // 작업자 있는지 데이터 필요.
             hasWork = true;
-            buildingName = "WorkStation";
-            placeName = buildingName;
+            buildingName.Value = "WorkStation";
+            placeName = buildingName.Value;
 
 
             ProductionStage stage = LUP.StageManager.Instance.GetCurrentStage() as ProductionStage;
