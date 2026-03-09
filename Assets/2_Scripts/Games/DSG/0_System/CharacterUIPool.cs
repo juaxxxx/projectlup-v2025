@@ -23,10 +23,9 @@ namespace LUP.DSG
             if (uiRoot == null && targetCanvas != null)
                 uiRoot = targetCanvas.transform;
 
-            // 풀 초기화: (생성함수, 대여시 호출, 반환시 호출, 파괴시 호출, 중복반환체크, 기본용량, 최대용량)
             pool = new ObjectPool<CharacterHeadupUI>(
                 createFunc: CreatePooledItem,
-                actionOnGet: OnTakeFromPool,
+                actionOnGet: OnGetFromPool,
                 actionOnRelease: OnReturnedToPool,
                 actionOnDestroy: OnDestroyPoolObject,
                 collectionCheck: true,
@@ -41,7 +40,7 @@ namespace LUP.DSG
             return uiInstance;
         }
 
-        private void OnTakeFromPool(CharacterHeadupUI ui)
+        private void OnGetFromPool(CharacterHeadupUI ui)
         {
             ui.gameObject.SetActive(true);
         }

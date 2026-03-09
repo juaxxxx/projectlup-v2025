@@ -12,7 +12,7 @@ namespace LUP.DSG
         [SerializeField]
         private FormationView view;
 
-        private ICharacterFactory characterFactory;
+        private CharacterFactory characterFactory;
         private DeckStrategyStage stage;
 
         private Team currentTeam;

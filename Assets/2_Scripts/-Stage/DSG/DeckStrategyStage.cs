@@ -260,7 +260,6 @@ namespace LUP.DSG
         public EnemyStageData GetEnemyStage()
         {
             if (DSGEnemyRuntimeData == null) return null;
-
             return DSGEnemyRuntimeData.SelectedEnemyStage;
         }
 

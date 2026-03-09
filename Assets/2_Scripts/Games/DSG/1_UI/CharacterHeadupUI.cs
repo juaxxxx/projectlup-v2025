@@ -57,11 +57,10 @@ namespace LUP.DSG
 
         private void LateUpdate()
         {
-            if (target == null) return;
-            if (mainCamera == null || rectTransform == null || canvasRect == null) return;
+            if (target == null || mainCamera == null || 
+                rectTransform == null || canvasRect == null) return;
 
             Vector3 viewportPos = mainCamera.WorldToViewportPoint(target.position + offset);
-
             if (viewportPos.z < 0)
             {
                 SetVisible(false);
@@ -74,13 +73,13 @@ namespace LUP.DSG
             float distanceFromCenter = viewportPos.x - 0.5f;
 
             // 보정치 적용: 중앙에서 멀어질수록 반대 방향으로 좌표를 이동시킴
-            // x 좌표가 1에 가까워지면(오른쪽 끝), 값을 마이너스해서 왼쪽으로 당김
             float correctedX = viewportPos.x - (distanceFromCenter * distortionFactor);
 
             // 최종 좌표를 캔버스 크기에 맞게 변환
             Vector2 canvasSize = canvasRect.rect.size;
             Vector2 finalPos = new Vector2(
-                (correctedX * canvasSize.x) - (canvasSize.x * 0.5f), (viewportPos.y * canvasSize.y) - (canvasSize.y * 0.5f));
+                (correctedX * canvasSize.x) - (canvasSize.x * 0.5f), 
+                (viewportPos.y * canvasSize.y) - (canvasSize.y * 0.5f));
 
             rectTransform.anchoredPosition = finalPos;
         }

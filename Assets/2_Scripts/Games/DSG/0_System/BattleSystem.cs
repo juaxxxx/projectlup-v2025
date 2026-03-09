@@ -81,7 +81,7 @@ namespace LUP.DSG
         private LineupSlot[] cachedFriendlySlots;
         private LineupSlot[] cachedEnemySlots;
 
-        private ICharacterFactory characterFactory;
+        private CharacterFactory characterFactory;
 
         void Awake()
         {
