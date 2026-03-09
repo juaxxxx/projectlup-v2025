@@ -22,6 +22,7 @@ namespace LUP.ES
             characters[currentIndex].SetActive(false);
             currentIndex = (currentIndex + 1) % characters.Length;
             ShowCharacter(currentIndex);
+            SoundManager.Instance.PlaySFX("OnButton");
             PlayerPrefs.SetInt("SelectedCharacterIndex", currentIndex);
         }
 
@@ -30,7 +31,7 @@ namespace LUP.ES
             characters[currentIndex].SetActive(false);
             currentIndex = (currentIndex - 1 + characters.Length) % characters.Length;
             ShowCharacter(currentIndex);
-
+            SoundManager.Instance.PlaySFX("OnButton");
             Debug.Log("ÇöÀç ÀÎµ¦½º: " + currentIndex + "============");
             PlayerPrefs.SetInt("SelectedCharacterIndex", currentIndex);
         }

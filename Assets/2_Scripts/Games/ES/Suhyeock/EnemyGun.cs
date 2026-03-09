@@ -41,6 +41,7 @@ namespace LUP.ES
             {
                 RangedWeaponItemData data = weapon.data as RangedWeaponItemData;
                 bullet.Init(bulletPool, firePoint.position, firePoint.rotation, weapon.data.range, weapon.data.damage, data.bulletSpeed);
+                SoundManager.Instance.PlaySFX("PistolShot", gameObject);
                 return true;
             }
             return true;

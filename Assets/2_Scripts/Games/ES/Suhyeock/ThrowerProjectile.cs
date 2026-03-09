@@ -41,6 +41,7 @@ namespace LUP.ES
                     healthComponent.TakeDamage(damage);
                 }
             }
+            SoundManager.Instance.PlaySFX("Explosion", gameObject);
             SpawnExplosionVFX();
 
             ownerPool.Return(gameObject);

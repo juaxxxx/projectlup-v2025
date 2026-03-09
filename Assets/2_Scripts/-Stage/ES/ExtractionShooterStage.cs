@@ -120,6 +120,7 @@ namespace LUP
         public void SceneChange(int sceneNumber)
         {
             Time.timeScale = 1f;
+            SoundManager.Instance.PlaySFX("OnButton");
             LoadStage(StageKind, sceneNumber);
         }
     }
