@@ -12,10 +12,8 @@ namespace LUP.DSG
         private GameObject[] slotObjects = new GameObject[5];
         [SerializeField]
         private CharactersList characterList;
-
         [SerializeField]
         private TeamSelectButton[] teamSelectButtons;
-
         [SerializeField]
         private CharacterFilterPanel characterFilterPanel;
 
@@ -44,7 +42,7 @@ namespace LUP.DSG
                 characterFilterPanel.OnConfirmFilter -= RequestApplyFilter;
         }
 
-        public void UpdateCharacterListUI(List<OwnedCharacterInfo> filteredList, Team selectedTeam, DeckStrategyStage stage)
+        public void UpdateCharacterListUI(List<CharacterInfo> filteredList, Team selectedTeam, DeckStrategyStage stage)
         {
             if (characterList == null || filteredList == null || stage == null) return;
 
@@ -53,7 +51,7 @@ namespace LUP.DSG
             // 선택된 팀 체크박스 UI 업데이트
             if (selectedTeam?.characters != null)
             {
-                foreach (OwnedCharacterInfo info in selectedTeam.characters)
+                foreach (CharacterInfo info in selectedTeam.characters)
                 {
                     if (info == null) continue;
                     characterList.UpdateCheckedList(info.characterID, true);
@@ -61,16 +59,17 @@ namespace LUP.DSG
             }
 
             characterList.ReleaseAllIcons();
+
+            AttributeIconContainer iconContainer = stage.GetComponent<AttributeIconContainer>();
+            if (iconContainer == null) return;
+
             for (int i = 0; i < filteredList.Count; i++)
             {
-                OwnedCharacterInfo info = filteredList[i];
+                CharacterInfo info = filteredList[i];
                 if (info == null) continue;
 
                 CharacterData data = stage.FindCharacterData(info.characterID, info.characterLevel);
                 if (data == null) continue;
-
-                AttributeIconContainer iconContainer = stage.GetComponent<AttributeIconContainer>();
-                if (iconContainer == null) continue;
 
                 AttributeTypeImage typeIcon = iconContainer.GetTypeByAttributeImage(data.type);
                 characterList.UpdateCharacterIcon(info, typeIcon);

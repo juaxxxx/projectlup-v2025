@@ -1,52 +1,48 @@
 using System;
-using TMPro;
 using UnityEngine;
-using UnityEngine.UI;
 
 namespace LUP.DSG
 {
-    public class BaseFilterButton<T> : MonoBehaviour, IFilterable where T : Enum
+    public class BaseFilterButton<T> : MonoBehaviour, IFilterable where T : unmanaged, Enum
     {
-        private CharacterFilterPanel filterPanel;
-
-        [SerializeField]
-        protected T enumValue;
-
-        [SerializeField]
-        protected Button filterButton;
-        [SerializeField]
-        protected TextMeshProUGUI filterText;
-
-        private Image checkedImage;
+        public T enumValue { get; private set; }
+        private FilterButtonUI uiView;
         private bool isSelected = false;
+        public event Action<T> OnFilterToggled;
 
-        public void Register(CharacterFilterPanel panel, GameObject buttonObject, T enumVal)
+        public void Register(FilterButtonUI view, T enumVal)
         {
-            filterPanel = panel;
+            uiView = view;
             enumValue = enumVal;
-            if (filterButton = buttonObject.GetComponentInChildren<Button>())
-            {
-                filterButton.onClick.AddListener(SelectFilterProperty);
-                checkedImage = filterButton.gameObject.transform.GetChild(0).GetComponentInChildren<Image>();
-            }
-            if (filterText = buttonObject.GetComponentInChildren<TextMeshProUGUI>())
-            {
-                filterText.text = enumVal.ToString();
-            }
-        }
 
-        void SelectFilterProperty()
-        {
-            isSelected = !isSelected;
-            checkedImage.enabled = isSelected;
+            if (!uiView) return;
 
-            filterPanel.UpdateFilter(enumValue);
+            if (uiView.filterText)
+                uiView.filterText.text = enumVal.ToString();
+            if (uiView.filterButton)
+                uiView.filterButton.onClick.AddListener(OnFilterButtonClicked);
+
+            ResetCheckState();
         }
 
         public void ResetCheckState()
         {
             isSelected = false;
-            checkedImage.enabled = false;
+            if(uiView.checkedImage) uiView.checkedImage.enabled = false;
+        }
+
+        private void OnFilterButtonClicked()
+        {
+            isSelected = !isSelected;
+            if (uiView.checkedImage) uiView.checkedImage.enabled = isSelected;
+
+            OnFilterToggled?.Invoke(enumValue);
+        }
+
+        private void OnDestroy()
+        {
+            if (uiView && uiView.filterButton)
+                uiView.filterButton.onClick.RemoveListener(OnFilterButtonClicked);
         }
     }
 }

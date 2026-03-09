@@ -27,7 +27,7 @@ namespace LUP.DSG
             }
         }
 
-        public void UpdateCharacterIcon(OwnedCharacterInfo info, AttributeTypeImage typeIcon)
+        public void UpdateCharacterIcon(CharacterInfo info, AttributeTypeImage typeIcon)
         {
             if (info == null || typeIcon.typeIcon == null) return;
 
@@ -92,7 +92,7 @@ namespace LUP.DSG
             return icon;
         }
 
-        private void BindIcon(OwnedCharacterInfo characterInfo, AttributeTypeImage typeIcon)
+        private void BindIcon(CharacterInfo characterInfo, AttributeTypeImage typeIcon)
         {
             if (characterInfo == null || typeIcon.typeIcon == null) return;
 

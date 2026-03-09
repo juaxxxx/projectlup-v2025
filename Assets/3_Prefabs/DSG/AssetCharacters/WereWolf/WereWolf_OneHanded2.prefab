@@ -1,0 +1,220 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &4551390810507087447
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4120865446918756001}
+  - component: {fileID: 4207267159162357734}
+  - component: {fileID: 4858854604680233580}
+  - component: {fileID: 341526704084818720}
+  - component: {fileID: 5874411446012564993}
+  - component: {fileID: 4427912948518316600}
+  - component: {fileID: 1070599169027729081}
+  - component: {fileID: 8621004842426697638}
+  m_Layer: 0
+  m_Name: WereWolf_OneHanded2
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4120865446918756001
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4551390810507087447}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 1208090540937571606}
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &4207267159162357734
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4551390810507087447}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cfa9a6f2540d0194baae0ed9a96ab8df, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  animator: {fileID: 1208090540944458708}
+  attackEffect: 0
+  effectOffset: {x: 0, y: 1.5, z: 0}
+  attackSpeed: 1.5
+  hitSpeed: 1
+  backwardSpeed: 1
+--- !u!114 &4858854604680233580
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4551390810507087447}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ff21c82275225e3418b870b44f879f9e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currHp: 0
+  currGauge: 0
+  isAttacking: 0
+  isUsingSkill: 0
+  bulletPrefab: {fileID: 1159801650698535097, guid: e6e6cd0df923f974286ea66ff9cba1e8, type: 3}
+  moveSpeed: 6
+  skillInfo: {fileID: 11400000, guid: a6bdd38ec6a24bf4db37e43a2b1e29fb, type: 2}
+  damageLogPrefab: {fileID: 7683064257652862875, guid: a1f113c2e8dff434092bc754de6b349e, type: 3}
+  weaponType: 1
+--- !u!114 &341526704084818720
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4551390810507087447}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa722f751adc0f34f8830e2c508ff9e9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  fadeSpeed: 0.5
+  targetOpacity: 0.2
+  doFade: 0
+--- !u!114 &5874411446012564993
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4551390810507087447}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 54d8b693caaec0644a2c1c1f3ff4b743, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &4427912948518316600
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4551390810507087447}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7162272663ce2954da53bbf656bc7258, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1070599169027729081
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4551390810507087447}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d02750f963c98fa42b41ea78f2674793, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isEnemy: 0
+  battleIndex: -1
+  actionEffectPool: {fileID: 0}
+  uiOffset: {x: 0, y: 1.8, z: 0}
+--- !u!114 &8621004842426697638
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4551390810507087447}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dde920bbfd409944f82d2343b1b9b46a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  portraitTransform: {fileID: 1208090540937571770}
+--- !u!1001 &7736804412862921092
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 4120865446918756001}
+    m_Modifications:
+    - target: {fileID: 8907373964713104530, guid: 02ff605da6c14a64aa990e2d46a55a65, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8907373964713104530, guid: 02ff605da6c14a64aa990e2d46a55a65, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8907373964713104530, guid: 02ff605da6c14a64aa990e2d46a55a65, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8907373964713104530, guid: 02ff605da6c14a64aa990e2d46a55a65, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8907373964713104530, guid: 02ff605da6c14a64aa990e2d46a55a65, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8907373964713104530, guid: 02ff605da6c14a64aa990e2d46a55a65, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8907373964713104530, guid: 02ff605da6c14a64aa990e2d46a55a65, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8907373964713104530, guid: 02ff605da6c14a64aa990e2d46a55a65, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8907373964713104530, guid: 02ff605da6c14a64aa990e2d46a55a65, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8907373964713104530, guid: 02ff605da6c14a64aa990e2d46a55a65, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8907373964713396466, guid: 02ff605da6c14a64aa990e2d46a55a65, type: 3}
+      propertyPath: m_Name
+      value: WereWolf_OneHanded_model
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 02ff605da6c14a64aa990e2d46a55a65, type: 3}
+--- !u!4 &1208090540937571606 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 8907373964713104530, guid: 02ff605da6c14a64aa990e2d46a55a65, type: 3}
+  m_PrefabInstance: {fileID: 7736804412862921092}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &1208090540937571770 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 8907373964713104446, guid: 02ff605da6c14a64aa990e2d46a55a65, type: 3}
+  m_PrefabInstance: {fileID: 7736804412862921092}
+  m_PrefabAsset: {fileID: 0}
+--- !u!95 &1208090540944458708 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 8907373964722928208, guid: 02ff605da6c14a64aa990e2d46a55a65, type: 3}
+  m_PrefabInstance: {fileID: 7736804412862921092}
+  m_PrefabAsset: {fileID: 0}

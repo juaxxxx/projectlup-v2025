@@ -5,6 +5,6 @@ namespace LUP.DSG
     {
         private const int maxSize = 5;
 
-        public OwnedCharacterInfo[] characters = new OwnedCharacterInfo[maxSize];
+        public CharacterInfo[] characters = new CharacterInfo[maxSize];
     }
 }

@@ -15,7 +15,7 @@ namespace LUP.DSG
 
         public CharacterData characterData { get; private set; }
         public CharacterPrefabData characterPrefabData { get; private set; }
-        public OwnedCharacterInfo characterInfo { get; private set; }
+        public CharacterInfo characterInfo { get; private set; }
 
         public bool isEnemy = false;
         public int battleIndex = -1;
@@ -77,7 +77,7 @@ namespace LUP.DSG
             statusEffectComp?.TurnAll();
         }
 
-        public void SetCharacterData(OwnedCharacterInfo info)
+        public void SetCharacterData(CharacterInfo info)
         {
             DeckStrategyStage stage = LUP.StageManager.Instance.GetCurrentStage() as DeckStrategyStage;
             if (stage == null || info == null) return;

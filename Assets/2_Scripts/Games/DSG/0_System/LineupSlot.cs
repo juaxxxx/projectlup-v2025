@@ -8,8 +8,8 @@ namespace LUP.DSG
         public bool isPlaced { get; private set; } = false;
         public Character character { get; private set; }
 
-        public Transform AttackedPosition;
-        public Transform FocusedPosition;
+        public Transform attackedPosition;
+        public Transform focusedPosition;
 
         public void SetCharacter(Character newCharacter)
         {
@@ -24,7 +24,6 @@ namespace LUP.DSG
             if (character != null)
             {
                 character.ReleaseCharacterUI();
-                Destroy(character.gameObject);
                 character = null;
             }
             isPlaced = false;

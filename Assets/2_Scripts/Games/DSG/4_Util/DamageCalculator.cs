@@ -32,16 +32,16 @@ namespace LUP.DSG.Utils
         {
             switch (my)
             {
-                case EAttributeType.PAPER:
-                    if (target == EAttributeType.ROCK)
+                case EAttributeType.FIRE:
+                    if (target == EAttributeType.NATURE)
                         return true;
                     break;
-                case EAttributeType.ROCK:
-                    if (target == EAttributeType.SCISSORS)
+                case EAttributeType.NATURE:
+                    if (target == EAttributeType.WATER)
                         return true;
                     break;
-                case EAttributeType.SCISSORS:
-                    if (target == EAttributeType.PAPER)
+                case EAttributeType.WATER:
+                    if (target == EAttributeType.FIRE)
                         return true;
                     break;
             }

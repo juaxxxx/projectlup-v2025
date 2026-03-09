@@ -85,9 +85,9 @@ namespace LUP.DSG
                     }
                 }
             }
-            if (stage.characterModelDataTable != null && stage.characterModelDataTable.characterModelDataList != null)
+            if (stage.characterPrefabList != null)
             {
-                foreach (var modelData in stage.characterModelDataTable.characterModelDataList)
+                foreach (var modelData in stage.characterPrefabList)
                 {
                     if (modelData == null) continue;
 

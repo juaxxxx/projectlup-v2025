@@ -27,15 +27,15 @@ namespace LUP.DSG
             Utils.Enums.EAttributeType type = Attacker.characterData.type;
             switch (type)
             {
-                case EAttributeType.ROCK: //�������� type�� ������ ������ �����ִ��� 5��(Front)���� Ȯ����
+                case EAttributeType.NATURE: //�������� type�� ������ ������ �����ִ��� 5��(Front)���� Ȯ����
                     {
-                        return GetWeakTargets(Alive, EAttributeType.SCISSORS, mincount);
+                        return GetWeakTargets(Alive, EAttributeType.WATER, mincount);
                     }
-                case EAttributeType.PAPER:
+                case EAttributeType.FIRE:
                     {
-                        return GetWeakTargets(Alive, EAttributeType.ROCK, mincount);
+                        return GetWeakTargets(Alive, EAttributeType.NATURE, mincount);
                     }
-                case EAttributeType.SCISSORS:
+                case EAttributeType.WATER:
                     {
                         //for (int i = Alive.Count - 1; i >= 0; i--)
                         //{
@@ -49,7 +49,7 @@ namespace LUP.DSG
                         //    }
                         //}
 
-                        return GetWeakTargets(Alive, EAttributeType.PAPER, mincount);
+                        return GetWeakTargets(Alive, EAttributeType.FIRE, mincount);
                     }
             }
             return null;

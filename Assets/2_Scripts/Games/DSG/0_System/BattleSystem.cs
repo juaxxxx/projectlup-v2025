@@ -722,7 +722,7 @@ namespace LUP.DSG
                 LineupSlot currentSlot = currentChar.GetComponentInParent<LineupSlot>();
                 if (director != null && currentSlot != null)
                 {
-                    Transform focusTransform = currentSlot.FocusedPosition;
+                    Transform focusTransform = currentSlot.focusedPosition;
                     Transform cameraOrigin = camera.transform;
 
                     yield return director.FocusOnSkillCaster(focusTransform, cameraOrigin).WaitForCompletion();
@@ -875,7 +875,7 @@ namespace LUP.DSG
                 enemySlot.ClearCharacter();
 
                 if (team.characters[i] == null || team.characters[i].characterID <= 0) continue;
-                Character newEnemy = characterFactory.CreateCharacter(team.characters[i], enemySlot.transform, true);
+                Character newEnemy = characterFactory.GetCharacter(team.characters[i], enemySlot.transform, true);
                 if (newEnemy == null) continue;
                 enemySlot.SetCharacter(newEnemy);
             }

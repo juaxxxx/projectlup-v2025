@@ -26,8 +26,10 @@ namespace LUP.DSG
 
         public List<DeckStaticData> DeckDataList;
         public List<DeckCharacterStaticData> CharacterDataList;
-        public CharacterPrefabDataTable characterModelDataTable;
+        //private List<DeckCharacterModelStaticData> CharacterModelDataList;
         public TeamMVPData mvpData;
+
+        public List<CharacterPrefabData> characterPrefabList = new List<CharacterPrefabData>();
 
         public DeckStrategyRuntimeData DSGRuntimeData { get; private set; }
         public DSGEnemyStageRuntimeData DSGEnemyRuntimeData { get; private set; }
@@ -134,6 +136,23 @@ namespace LUP.DSG
                     {
                         CharacterDataList = charLoader.GetDataList();
                     }
+                    else if (loader is DeckCharacterModelStaticDataLoader modelLoader)
+                    {
+                        List<DeckCharacterModelStaticData> CharacterModelDataList = modelLoader.GetDataList();
+                        if(CharacterModelDataList != null)
+                        {
+                            foreach(DeckCharacterModelStaticData modelData in CharacterModelDataList)
+                            {
+                                GameObject prefab = Resources.Load(modelData.ModelPath) as GameObject;
+                                if (!prefab) continue;
+
+                                CharacterPrefabData prefabData = new();
+                                prefabData.prefab = prefab;
+                                prefabData.ID = modelData.ModelId;
+                                characterPrefabList.Add(prefabData);
+                            }
+                        }
+                    }
                 }
             }
 
@@ -189,10 +208,9 @@ namespace LUP.DSG
 
         public CharacterPrefabData FindCharacterPrefabData(int prefabId)
         {
-            if (characterModelDataTable == null || characterModelDataTable.characterModelDataList == null)
-                return null;
+            if (characterPrefabList == null) return null;
 
-            foreach (var data in characterModelDataTable.characterModelDataList)
+            foreach (CharacterPrefabData data in characterPrefabList)
                 if (data.ID == prefabId) return data;
 
             return null;
@@ -309,11 +327,11 @@ namespace LUP.DSG
             return DSGRuntimeData.Teams[DSGRuntimeData.SelectedTeamIndex];
         }
 
-        public OwnedCharacterInfo GetOwnedCharacterById(int id)
+        public CharacterInfo GetOwnedCharacterById(int id)
         {
             if (DSGRuntimeData == null || DSGRuntimeData.OwnedCharacterList == null) return null;
 
-            List<OwnedCharacterInfo> ownedList = DSGRuntimeData.OwnedCharacterList;
+            List<CharacterInfo> ownedList = DSGRuntimeData.OwnedCharacterList;
             for(int i = 0; i < ownedList.Count; ++i)
             {
                 if (ownedList[i].characterID == id)

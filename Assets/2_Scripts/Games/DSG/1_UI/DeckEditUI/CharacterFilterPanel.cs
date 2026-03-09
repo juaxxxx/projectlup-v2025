@@ -7,102 +7,89 @@ namespace LUP.DSG
 {
     public class CharacterFilterPanel : MonoBehaviour
     {
-        private readonly EAttributeType[] AttributeTypes = (EAttributeType[])Enum.GetValues(typeof(EAttributeType));
-        private readonly ERangeType[] RangeTypes = (ERangeType[])Enum.GetValues(typeof(ERangeType));
-
         [SerializeField]
         private GameObject filterPanel;
-
         [SerializeField]
         private GameObject filterButtonPrefab;
         [SerializeField]
         private Transform attributesFilterArea;
         [SerializeField]
-        private Transform RangesFilterArea;
+        private Transform rangesFilterArea;
 
-        private readonly Dictionary<EAttributeType, bool> attributeFilter = new Dictionary<EAttributeType, bool>();
-        private readonly Dictionary<ERangeType, bool> rangeTypeFilter = new Dictionary<ERangeType, bool>() ;
+        // 람다 함수 캐싱
+        private readonly List<Action<CharacterFilterState>> statePopulators = new();
+        private readonly List<Action> dataResets = new();
+
+        private IFilterable[] cachedFilters;
 
         public event Action<CharacterFilterState> OnConfirmFilter;
 
         void Start()
         {
-            for (int i = 0; i < AttributeTypes.Length; i++)
-                attributeFilter[AttributeTypes[i]] = false;
+            CreateButtons<AttributeFilterButton, EAttributeType>(attributesFilterArea);
+            CreateButtons<RangeFilterButton, ERangeType>(rangesFilterArea);
 
-            for (int i = 0; i < RangeTypes.Length; i++)
-                rangeTypeFilter[RangeTypes[i]] = false;
-
-            CreateButtons<EAttributeType>();
-            CreateButtons<ERangeType>();
+            cachedFilters = GetComponentsInChildren<IFilterable>(includeInactive: true);
         }
 
-        private void CreateButtons<T>() where T : Enum
+        private void CreateButtons<TButton, TEnum>(Transform area) where TButton : BaseFilterButton<TEnum> where TEnum : unmanaged, Enum
         {
-            if (filterButtonPrefab == null || 
-                RangesFilterArea == null || 
-                attributesFilterArea == null) 
-                return;
+            if (filterButtonPrefab == null || area == null) return;
 
-            Type propertyType = typeof(T);
-            if (propertyType == typeof(EAttributeType))
-            {
-                for (int i = 0; i < AttributeTypes.Length; i++)
-                {
-                    GameObject buttonObj = Instantiate(filterButtonPrefab, attributesFilterArea);
-                    AttributeFilterButton button = buttonObj.AddComponent<AttributeFilterButton>();
-                    button.Register(this, buttonObj, AttributeTypes[i]);
-                }
-            }
-            else
-            {
-                for (int i = 0; i < RangeTypes.Length; i++)
-                {
-                    GameObject buttonObj = Instantiate(filterButtonPrefab, RangesFilterArea);
-                    RangeFilterButton button = buttonObj.AddComponent<RangeFilterButton>();
-                    button.Register(this, buttonObj, RangeTypes[i]);
-                }
-            }
-        }
+            TEnum[] enumValues = (TEnum[])Enum.GetValues(typeof(TEnum));
+            bool[] localState = new bool[enumValues.Length];
 
-        public void UpdateFilter<T>(T checkedFilter) where T : Enum
-        {
-            switch (checkedFilter)
+            for (int i = 0; i < enumValues.Length; i++)
             {
-                case EAttributeType attr:
-                    attributeFilter[attr] = !attributeFilter[attr];
-                    break;
-                case ERangeType range:
-                    rangeTypeFilter[range] = !rangeTypeFilter[range];
-                    break;
+                TEnum enumVal = enumValues[i];
+                int index = i; // 클로저가 캡처할 수 있도록 로컬 인덱스 복사
+
+                GameObject buttonObj = Instantiate(filterButtonPrefab, area);
+                TButton button = buttonObj.AddComponent<TButton>();
+                FilterButtonUI uiView = buttonObj.GetComponent<FilterButtonUI>();
+                button.Register(uiView, enumVal);
+
+                button.OnFilterToggled += (val) => localState[index] = !localState[index];
             }
+
+            // confirm
+            statePopulators.Add((filterState) =>
+            {
+                for (int i = 0; i < enumValues.Length; i++)
+                {
+                    if (localState[i]) filterState.AddFilter(enumValues[i]);
+                }
+            });
+
+            // reset
+            dataResets.Add(() =>
+            {
+                Array.Clear(localState, 0, localState.Length);
+            });
         }
 
         public void ConfirmFilter()
         {
             CharacterFilterState filter = new CharacterFilterState();
 
-            foreach (KeyValuePair<EAttributeType, bool> pair in attributeFilter)
-                if (pair.Value) filter.checkedAttributes.Add(pair.Key);
-            foreach (KeyValuePair<ERangeType, bool> pair in rangeTypeFilter)
-                if (pair.Value) filter.checkedRanges.Add(pair.Key);
+            foreach (var populator in statePopulators)
+                populator.Invoke(filter);
 
             OnConfirmFilter?.Invoke(filter.ContainsCheckedFilters() ? filter : null);
 
-            if (filterPanel != null)
-                filterPanel.SetActive(false);
+            if (filterPanel != null) filterPanel.SetActive(false);
         }
 
         public void ResetAllFilter()
         {
-            IFilterable[] filters = GetComponentsInChildren<IFilterable>(includeInactive: true);
-            foreach(IFilterable filter in filters)
-                filter.ResetCheckState();
+            if (cachedFilters != null)
+            {
+                for (int i = 0; i < cachedFilters.Length; i++)
+                    cachedFilters[i].ResetCheckState();
+            }
 
-            for (int i = 0; i < AttributeTypes.Length; i++)
-                attributeFilter[AttributeTypes[i]] = false;
-            for (int i = 0; i < RangeTypes.Length; i++)
-                rangeTypeFilter[RangeTypes[i]] = false;
+            for (int i = 0; i < dataResets.Count; i++)
+                dataResets[i].Invoke();
         }
     }
 }

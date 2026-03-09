@@ -191,9 +191,9 @@ namespace LUP.DSG
             targetSlots = targets;
 
             LineupSlot first = targetSlots[0];
-            if (first == null || first.AttackedPosition == null) return;
+            if (first == null || first.attackedPosition == null) return;
 
-            targetPosition = first.AttackedPosition.position; //@TODO 만약 targets가 여러명이면 다 가서 한명씩 때릴지 기획에따라 코드 바꿔야함
+            targetPosition = first.attackedPosition.position; //@TODO 만약 targets가 여러명이면 다 가서 한명씩 때릴지 기획에따라 코드 바꿔야함
             
             HandleAttackStart();
             isAttacking = true;
@@ -388,10 +388,10 @@ namespace LUP.DSG
                 bulletEffect = owner.actionEffectPool.PlayVFXAttached(effect, vfxRoot, Vector3.zero, Quaternion.identity, true);
             }
 
-            if (targetSlots == null || targetSlots.Count == 0 || targetSlots[0] == null || targetSlots[0].AttackedPosition == null)
+            if (targetSlots == null || targetSlots.Count == 0 || targetSlots[0] == null || targetSlots[0].attackedPosition == null)
                 return;
 
-            projectileTargetPosition = targetSlots[0].AttackedPosition.position;
+            projectileTargetPosition = targetSlots[0].attackedPosition.position;
             projectileTargetPosition.y += 1.2f;
 
             if (battleCameraDirector == null)

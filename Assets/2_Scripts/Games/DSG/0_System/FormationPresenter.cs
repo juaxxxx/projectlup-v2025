@@ -1,3 +1,4 @@
+using LUP.DSG.Utils.Enums;
 using OpenCvSharp.Flann;
 using System;
 using System.Collections.Generic;
@@ -17,7 +18,9 @@ namespace LUP.DSG
         private Team currentTeam;
         private int selectedCount = 0;
         private CharacterFilterState currentFilter = null;
-        private Dictionary<int, OwnedCharacterInfo> ownedInfoDict = new Dictionary<int, OwnedCharacterInfo>();
+
+        private Dictionary<int, CharacterInfo> ownedInfoDict = new Dictionary<int, CharacterInfo>();
+        private readonly List<CharacterInfo> filteredList = new List<CharacterInfo>();
 
         public event Action OnPowerUpdated;
 
@@ -30,7 +33,7 @@ namespace LUP.DSG
         {
             StageInitializeInvoker.OnDSGStagePostInitialize -= OnStagePostInitialize;
 
-            if (view != null)
+            if (view)
             {
                 view.OnCharacterIconSelected -= PlaceCharacter;
                 view.OnCharacterIconReleased -= ReleaseCharacter;
@@ -41,7 +44,7 @@ namespace LUP.DSG
 
         private void OnStagePostInitialize(DeckStrategyStage stage)
         {
-            if (stage == null) return;
+            if (!stage) return;
             this.stage = stage;
             characterFactory = new CharacterFactory(stage);
 
@@ -49,32 +52,20 @@ namespace LUP.DSG
             if (runtimeData == null) return;
 
             BattleSystem battleSystem = stage.GetBattleSystem();
-            if (battleSystem != null)
+            if (battleSystem)
                 OnPowerUpdated += battleSystem.UpdatePlayerCP;
 
             LoadTeam(runtimeData.SelectedTeamIndex);
 
-            ToggleGroup toggleGroup = FindAnyObjectByType<ToggleGroup>();
-            if (toggleGroup)
-            {
-                TeamSelectButton[] teamButtons = toggleGroup.GetComponentsInChildren<TeamSelectButton>(true);
-                int idx = runtimeData.SelectedTeamIndex;
-
-                if (idx >= 0 && idx < teamButtons.Length)
-                    teamButtons[idx].ButtonStateChange(true);
-            }
-
             ownedInfoDict.Clear();
-            List<OwnedCharacterInfo> ownedList = runtimeData.OwnedCharacterList;
+            List<CharacterInfo> ownedList = runtimeData.OwnedCharacterList;
             if(ownedList != null)
             {
                 for(int i = 0; i < ownedList.Count; ++i)
-                {
                     ownedInfoDict.Add(ownedList[i].characterID, ownedList[i]);
-                }
             }
 
-            if (view != null)
+            if (view)
             {
                 view.OnCharacterIconSelected += PlaceCharacter;
                 view.OnCharacterIconReleased += ReleaseCharacter;
@@ -85,7 +76,7 @@ namespace LUP.DSG
 
         public void LoadTeam(int teamIndex)
         {
-            if (stage == null) return;
+            if (!stage) return;
 
             DeckStrategyRuntimeData runtimeData = stage.DSGRuntimeData;
             if (runtimeData != null)
@@ -94,13 +85,12 @@ namespace LUP.DSG
             currentTeam = stage.GetSelectedTeam();
             selectedCount = 0;
 
-            if (currentTeam == null || currentTeam.characters == null || view == null) return;
+            if (currentTeam == null || currentTeam.characters == null || !view) return;
 
             view.UpdateSelectedTeamButtonUI(teamIndex);
+            currentFilter = null;
             RefreshCharacterListUI();
-
-            RefreshAllSlots();
-            
+            RefreshAllSlots();            
             view.TeamReset();
         }
 
@@ -124,16 +114,17 @@ namespace LUP.DSG
             for (int i = 0; i < view.lineupSlots.Length; ++i)
             {
                 LineupSlot slotView = view.lineupSlots[i];
-                if (slotView == null) continue;
+                if (!slotView) continue;
 
+                if (slotView.character)
+                    characterFactory.ReturnCharacter(slotView.character);
                 slotView.ClearCharacter();
 
-                OwnedCharacterInfo info = (i < currentTeam.characters.Length) ? currentTeam.characters[i] : null;
+                CharacterInfo info = (i < currentTeam.characters.Length) ? currentTeam.characters[i] : null;
                 if (info == null || info.characterID == 0) continue;
 
-                // 팩토리를 통한 생성 및 View 갱신
-                Character newChar = characterFactory.CreateCharacter(info, slotView.transform, false);
-                slotView.SetCharacter(newChar);
+                Character newCharacter = characterFactory.GetCharacter(info, slotView.transform, false);
+                slotView.SetCharacter(newCharacter);
                 selectedCount++;
             }
             OnPowerUpdated?.Invoke();
@@ -141,19 +132,19 @@ namespace LUP.DSG
 
         private void PlaceCharacter(int characterId, CharacterSelectButton button)
         {
-            if (selectedCount >= 5 || view == null) return;
+            if (selectedCount >= 5 || !view) return;
 
             for (int i = 0; i < view.lineupSlots.Length; ++i)
             {
                 LineupSlot slotView = view.lineupSlots[i];
-                if (slotView == null || slotView.isPlaced) continue;
+                if (!slotView || slotView.isPlaced) continue;
 
-                ownedInfoDict.TryGetValue(characterId, out OwnedCharacterInfo characterInfo);
+                ownedInfoDict.TryGetValue(characterId, out CharacterInfo characterInfo);
                 if (characterInfo == null) continue;
 
                 currentTeam.characters[i] = characterInfo;
-                Character newChar = characterFactory.CreateCharacter(characterInfo, slotView.transform, false);
-                slotView.SetCharacter(newChar);
+                Character newCharacter = characterFactory.GetCharacter(characterInfo, slotView.transform, false);
+                slotView.SetCharacter(newCharacter);
 
                 selectedCount++;
                 button.ButtonClicked();
@@ -166,16 +157,18 @@ namespace LUP.DSG
 
         private void ReleaseCharacter(int characterId, CharacterSelectButton button)
         {
-            if (selectedCount <= 0 || view == null) return;
+            if (selectedCount <= 0 || !view) return;
 
             for (int i = 0; i < view.lineupSlots.Length; ++i)
             {
                 LineupSlot slotView = view.lineupSlots[i];
-                if (slotView == null || !slotView.isPlaced || slotView.character == null) continue;
+                if (!slotView || !slotView.isPlaced || !slotView.character) continue;
                 if (slotView.character.characterData == null || 
                     slotView.character.characterData.ID != characterId) continue;
 
                 currentTeam.characters[i] = null;
+
+                characterFactory.ReturnCharacter(slotView.character);
                 slotView.ClearCharacter();
 
                 selectedCount--;
@@ -198,19 +191,20 @@ namespace LUP.DSG
             DeckStrategyRuntimeData runtimeData = stage?.DSGRuntimeData;
             if (runtimeData == null || runtimeData.OwnedCharacterList == null) return;
 
-            List<OwnedCharacterInfo> filteredList = new List<OwnedCharacterInfo>();
+            filteredList.Clear();
 
-            foreach (OwnedCharacterInfo info in runtimeData.OwnedCharacterList)
+            bool hasFilters = currentFilter != null && currentFilter.ContainsCheckedFilters();
+            foreach (CharacterInfo info in runtimeData.OwnedCharacterList)
             {
                 if (info == null) continue;
 
-                if (currentFilter != null && currentFilter.ContainsCheckedFilters())
+                if (hasFilters)
                 {
                     CharacterData data = stage.FindCharacterData(info.characterID, info.characterLevel);
                     if (data == null) continue;
 
-                    bool matchAttribute = currentFilter.checkedAttributes.Count == 0 || currentFilter.checkedAttributes.Contains(data.type);
-                    bool matchRange = currentFilter.checkedRanges.Count == 0 || currentFilter.checkedRanges.Contains(data.rangeType);
+                    bool matchAttribute = currentFilter.CheckFilterMatch(data.type);
+                    bool matchRange = currentFilter.CheckFilterMatch(data.rangeType);
 
                     if (!matchAttribute || !matchRange) continue;
                 }
@@ -218,10 +212,8 @@ namespace LUP.DSG
                 filteredList.Add(info);
             }
 
-            if (view != null)
-            {
+            if (view)
                 view.UpdateCharacterListUI(filteredList, currentTeam, stage);
-            }
         }
     }
 }

@@ -8,7 +8,7 @@ public class DeckStrategyRuntimeData : BaseRuntimeData
     private int playerId;
 
     [SerializeField]
-    private List<OwnedCharacterInfo> ownedCharacterList = new List<OwnedCharacterInfo>();
+    private List<LUP.DSG.CharacterInfo> ownedCharacterList = new List<LUP.DSG.CharacterInfo>();
 
     [SerializeField]
     private List<Team> teams = new List<Team>();
@@ -22,7 +22,7 @@ public class DeckStrategyRuntimeData : BaseRuntimeData
         set => SetValue(ref playerId, value);
     }
 
-    public List<OwnedCharacterInfo> OwnedCharacterList
+    public List<LUP.DSG.CharacterInfo> OwnedCharacterList
     {
         get => ownedCharacterList;
         set => SetValue(ref ownedCharacterList, value);
@@ -48,9 +48,9 @@ public class DeckStrategyRuntimeData : BaseRuntimeData
         selectedTeamIndex = 0;
     }
 
-    public OwnedCharacterInfo GetCharacterInfo(int characterId)
+    public LUP.DSG.CharacterInfo GetCharacterInfo(int characterId)
     {
-        foreach (OwnedCharacterInfo data in ownedCharacterList)
+        foreach (LUP.DSG.CharacterInfo data in ownedCharacterList)
         {
             if (data.characterID == characterId) return data;
         }

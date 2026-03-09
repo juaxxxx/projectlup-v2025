@@ -223,9 +223,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 35c10283565cb72449d6016c8c9dc4c3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isPlaced: 0
-  AttackedPosition: {fileID: 0}
-  FocusedPosition: {fileID: 0}
 --- !u!114 &40700526
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -238,8 +235,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 73fa4da22e45e3643b5fedaefb941fe7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  AttackedPosition: {fileID: 0}
-  FocusedPosition: {fileID: 0}
+  attackedPosition: {fileID: 0}
+  focusedPosition: {fileID: 0}
 --- !u!1001 &46354254
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2260,9 +2257,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 35c10283565cb72449d6016c8c9dc4c3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isPlaced: 0
-  AttackedPosition: {fileID: 0}
-  FocusedPosition: {fileID: 0}
 --- !u!114 &636051266
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2275,8 +2269,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 73fa4da22e45e3643b5fedaefb941fe7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  AttackedPosition: {fileID: 0}
-  FocusedPosition: {fileID: 0}
+  attackedPosition: {fileID: 0}
+  focusedPosition: {fileID: 0}
 --- !u!1001 &637303113
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3480,9 +3474,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 35c10283565cb72449d6016c8c9dc4c3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isPlaced: 0
-  AttackedPosition: {fileID: 0}
-  FocusedPosition: {fileID: 0}
 --- !u!114 &895510922
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3495,8 +3486,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 73fa4da22e45e3643b5fedaefb941fe7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  AttackedPosition: {fileID: 0}
-  FocusedPosition: {fileID: 0}
+  attackedPosition: {fileID: 0}
+  focusedPosition: {fileID: 0}
 --- !u!1 &923651070
 GameObject:
   m_ObjectHideFlags: 0
@@ -4028,9 +4019,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 35c10283565cb72449d6016c8c9dc4c3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isPlaced: 0
-  AttackedPosition: {fileID: 0}
-  FocusedPosition: {fileID: 0}
 --- !u!114 &1072193035
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4043,8 +4031,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 73fa4da22e45e3643b5fedaefb941fe7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  AttackedPosition: {fileID: 0}
-  FocusedPosition: {fileID: 0}
+  attackedPosition: {fileID: 0}
+  focusedPosition: {fileID: 0}
 --- !u!1 &1081687712
 GameObject:
   m_ObjectHideFlags: 0
@@ -4298,7 +4286,7 @@ AudioSource:
   m_PlayOnAwake: 1
   m_Volume: 0.3
   m_Pitch: 1
-  Loop: 0
+  Loop: 1
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
@@ -5042,9 +5030,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 35c10283565cb72449d6016c8c9dc4c3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isPlaced: 0
-  AttackedPosition: {fileID: 0}
-  FocusedPosition: {fileID: 0}
 --- !u!114 &1462758786
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5057,8 +5042,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 73fa4da22e45e3643b5fedaefb941fe7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  AttackedPosition: {fileID: 0}
-  FocusedPosition: {fileID: 0}
+  attackedPosition: {fileID: 0}
+  focusedPosition: {fileID: 0}
 --- !u!1001 &1463842590
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -7937,7 +7922,7 @@ MonoBehaviour:
   filterPanel: {fileID: 668089687}
   filterButtonPrefab: {fileID: 8654377384795523768, guid: 0f197e1c0d269b64eb36a3ab56e7dc44, type: 3}
   attributesFilterArea: {fileID: 1025036094}
-  RangesFilterArea: {fileID: 1503181067}
+  rangesFilterArea: {fileID: 1503181067}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
