@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace LUP.PCR
 {
-    public sealed class PCRResourceCenter
+    public sealed class PCRResourceCenter : MonoBehaviour
     {
         private Inventory inventory;
 
