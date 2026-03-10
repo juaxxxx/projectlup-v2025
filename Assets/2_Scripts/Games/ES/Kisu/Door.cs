@@ -2,7 +2,6 @@ using LUP.ES;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
-using UnityEngine.Rendering.VirtualTexturing;
 //using static UnityEditor.ShaderGraph.Internal.KeywordDependentCollection;
 
 namespace LUP.ES

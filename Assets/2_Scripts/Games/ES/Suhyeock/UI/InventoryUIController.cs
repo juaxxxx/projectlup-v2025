@@ -3,6 +3,7 @@ using NUnit.Framework;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using LUP;
 
 namespace LUP.ES
 {
@@ -49,6 +50,7 @@ namespace LUP.ES
         public void ToggleInventory()
         {
             isOpen = !isOpen;
+            SoundManager.Instance.PlaySFX("BagOpen");
             InventoryAnimation(isOpen);
         }
 

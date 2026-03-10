@@ -7,8 +7,9 @@ namespace LUP.ES
     {
         [Header("VFX")]
         [SerializeField] private ParticleSystem bulletBodyVFX;
-        [SerializeField] private GameObject trailPrefab; // 여기에 트레일 프리팹을 넣으세요
+        [SerializeField] private GameObject trailPrefab;
         [SerializeField] private float trailFadeTime = 0.5f; // 꼬리가 사라지는 시간
+        [SerializeField] private GameObject hitPrefab;
 
         [SerializeField]
         private string targetTag;
@@ -21,18 +22,20 @@ namespace LUP.ES
         private Collider bulletCollider;
         private bool isDeactivating = false;
         private TrailRenderer[] trailInstances;
+        private VFXObjectPool vfxObjectPool;
 
         private void Awake()
         {
             bulletCollider = GetComponent<Collider>();
 
-            // 2. 트레일 프리팹을 총알의 자식으로 생성 (딱 한 번만 실행됨)
             if (trailPrefab != null)
             {
                 GameObject tObj = Instantiate(trailPrefab, transform);
-                tObj.transform.localPosition = Vector3.zero; // 위치 정렬
+                tObj.transform.localPosition = Vector3.zero;
                 trailInstances = tObj.GetComponentsInChildren<TrailRenderer>();
             }
+
+            vfxObjectPool = FindFirstObjectByType<VFXObjectPool>();
         }
 
         void Update()
@@ -95,6 +98,11 @@ namespace LUP.ES
         {
             if (isDeactivating) return;
             StartCoroutine(DeactivateRoutine());
+            if (vfxObjectPool != null)
+            {
+                vfxObjectPool.SpawnVFX(hitPrefab, transform.position);
+            }
+            SoundManager.Instance.PlaySFX("GunHit",gameObject);
         }
 
         private IEnumerator DeactivateRoutine()

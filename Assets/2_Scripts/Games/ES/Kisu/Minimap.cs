@@ -51,6 +51,7 @@ namespace LUP.ES
             fullmapPanel.SetActive(true);   // 전체 지도 표시
             minimapPanel.SetActive(false);  // 미니맵 숨기기
             fullmapPanel.transform.localScale = Vector3.zero;
+            SoundManager.Instance.PlaySFX("OnButton");
             fullmapPanel.transform.DOScale(Vector3.one, 0.3f).SetEase(Ease.OutBack);
         }
     }
