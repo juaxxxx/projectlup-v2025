@@ -9,6 +9,7 @@ namespace LUP.ES
         private float radius;
         public LayerMask targetLayer;
         private BulletObjectPool ownerPool;
+        private VFXObjectPool vfxObjectPool;
 
         [SerializeField] private GameObject explosionPrefab; // 이펙트 프리팹 연결
         [SerializeField] private float vfxDuration = 2.0f;   // 이펙트가 유지될 시간
@@ -21,6 +22,7 @@ namespace LUP.ES
             transform.rotation = rotation;
             this.damage = damage;
             this.radius = radius;
+            vfxObjectPool = FindFirstObjectByType<VFXObjectPool>();
         }
 
         private void OnCollisionEnter(Collision collision)
@@ -52,11 +54,12 @@ namespace LUP.ES
         {
             if (explosionPrefab != null)
             {
-                GameObject vfxInstance = Instantiate(explosionPrefab, transform.position, Quaternion.identity);
+                vfxObjectPool.SpawnVFX(explosionPrefab, transform.position);
+                //GameObject vfxInstance = Instantiate(explosionPrefab, transform.position, Quaternion.identity);
 
-                vfxInstance.transform.localScale = Vector3.one * radius * scaleMultiplier;
+                //vfxInstance.transform.localScale = Vector3.one * radius * scaleMultiplier;
 
-                Destroy(vfxInstance, vfxDuration);
+                //Destroy(vfxInstance, vfxDuration);
             }
         }
 
