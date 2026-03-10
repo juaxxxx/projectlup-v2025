@@ -33,13 +33,19 @@ public static class AutoCreateAssetBundle
             // 폴더 자체는 스킵
             if (AssetDatabase.IsValidFolder(path))
                 continue;
-            if (path.EndsWith(".cs"))
-                continue;
+            
             var importer = AssetImporter.GetAtPath(path);
-            if (importer != null)
+            if (importer == null)
+                continue;
+
+            // Scene 또는 cs 파일이면 AssetBundle 제거
+            if (path.EndsWith(".unity") || path.EndsWith(".cs"))
             {
-                importer.assetBundleName = bundleName;
+                importer.assetBundleName = "";
+                continue;
             }
+
+            importer.assetBundleName = bundleName;
         }
 
         AssetDatabase.RemoveUnusedAssetBundleNames();
