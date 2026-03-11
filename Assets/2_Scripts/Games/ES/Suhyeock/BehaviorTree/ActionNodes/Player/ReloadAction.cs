@@ -42,6 +42,7 @@ namespace LUP.ES
                     blackboard.animator.SetFloat("ReloadSpeedMultiplier", speedMultiplier);
                     blackboard.animator.SetBool("IsReloading", true);
                 }
+                SoundManager.Instance.PlaySFX("Reloading", blackboard.gameObject);
                 return NodeState.Running;
             }
             return NodeState.Failure;

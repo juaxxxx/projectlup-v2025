@@ -19,11 +19,13 @@ namespace LUP.ES
 
         public void OnClickEvent()
         {
+            SoundManager.Instance.PlaySFX("OnButton");
             Panel.SetActive(true);
         }
 
         public void OnClickCloseEvent()
         {
+            SoundManager.Instance.PlaySFX("ExitButton");
             Panel.SetActive(false);
         }
     }

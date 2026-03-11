@@ -21,6 +21,7 @@ namespace LUP.ES
 
         public void OnCloseFullMap()
         {
+            SoundManager.Instance.PlaySFX("ExitButton");
             fullmapPanel.transform.DOKill();
             fullmapPanel.transform.DOScale(Vector3.zero, 0.3f).SetEase(Ease.InBack)
                 .OnComplete(() =>

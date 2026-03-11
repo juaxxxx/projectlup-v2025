@@ -85,6 +85,16 @@ namespace LUP
             return audio;
         }
 
+        public T LoadImage<T>(string name) where T : Object
+        {
+            if (AB_Image == null)
+            {
+                LoadAssetBundles();
+            }
+            T image = AB_Image.LoadAsset<T>(name);
+
+            return image;
+        }
         public T LoadVFX<T>(string name) where T : Object
         {
             if (AB_VFX == null)
@@ -95,7 +105,37 @@ namespace LUP
 
             return vfx;
         }
+        public T LoadGUI<T>(string name) where T : Object
+        {
+            if (AB_GUI == null)
+            {
+                LoadAssetBundles();
+            }
+            T gui = AB_GUI.LoadAsset<T>(name);
 
+            return gui;
+        }
+        public T LoadModel<T>(string name) where T : Object
+        {
+            if (AB_Model == null)
+            {
+                LoadAssetBundles();
+            }
+            T model = AB_Model.LoadAsset<T>(name);
+
+            return model;
+        }
+        public T LoadShader<T>(string name) where T : Object
+        {
+            if (AB_Shader == null)
+            {
+                LoadAssetBundles();
+            }
+            T shader = AB_Shader.LoadAsset<T>(name);
+
+            return shader;
+        }
+        
         public List<BaseStaticDataLoader> LoadStaticData(Define.StageKind type, int stagetype)
         {
             List<BaseStaticDataLoader> dataList = new List<BaseStaticDataLoader>();

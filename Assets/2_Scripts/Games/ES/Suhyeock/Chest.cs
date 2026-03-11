@@ -39,6 +39,7 @@ namespace LUP.ES
             Vector3 originalScale = transform.localScale;
             transform.localScale = Vector3.zero;
             transform.DOScale(originalScale, 0.5f).SetEase(Ease.OutBack);
+            SoundManager.Instance.PlaySFX("ChestGenerate", gameObject);
         }
         public void Interact()
         {
@@ -59,6 +60,8 @@ namespace LUP.ES
             HideInteractionTimerUI();
             ShowInteractionPrompt();
             isInteracted = true;
+
+            SoundManager.Instance.PlaySFX("ChestOpen", gameObject);
         }
 
         public bool TryStartInteraction(float deltaTime)

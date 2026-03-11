@@ -66,6 +66,7 @@ namespace LUP.ES
         public void CloseLootPanel()
         {
             lootPanel.transform.DOKill();
+            SoundManager.Instance.PlaySFX("ExitButton");
             lootPanel.transform.DOScale(Vector3.zero, 0.3f).SetEase(Ease.InBack)
                 .OnComplete(() =>
                 {

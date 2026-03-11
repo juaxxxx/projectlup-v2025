@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace LUP
 {
@@ -15,6 +16,7 @@ namespace LUP
         // 변수명은 예시이니 바꾸셔도 됩니다.
         public Inventory ESInven;
 
+        private int currentScene = 0;
         protected override void Awake()
         {
             base.Awake();
@@ -40,6 +42,22 @@ namespace LUP
 
             // InventoryManager를 통해 ES 인벤토리 로드 및 등록
             ESInven = InventoryManager.Instance.LoadOrCreateInventory("ES", "ESInventory.json");
+
+            int currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
+
+            if (currentSceneIndex == 9)
+            {
+                SoundManager.Instance.StopBGM();
+                SoundManager.Instance.PlayBGM("ArcadeGameBGM#17", true);
+                SoundManager.Instance.SetBGMVolume(0.15f);
+            }
+            else if (currentSceneIndex == 10)
+            {
+                SoundManager.Instance.StopBGM();
+                SoundManager.Instance.PlayBGM("SpaceGameBgm#1_Galaxy Blues_Loop", true);
+                SoundManager.Instance.SetBGMVolume(0.05f);
+            }
+
 
             if (characterSelector != null)
             {
@@ -120,6 +138,7 @@ namespace LUP
         public void SceneChange(int sceneNumber)
         {
             Time.timeScale = 1f;
+            SoundManager.Instance.PlaySFX("OnButton");
             LoadStage(StageKind, sceneNumber);
         }
     }

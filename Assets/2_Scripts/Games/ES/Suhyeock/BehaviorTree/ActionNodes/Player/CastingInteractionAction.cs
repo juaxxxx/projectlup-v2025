@@ -46,8 +46,12 @@ namespace LUP.ES
                 blackboard.SetWeaponVisible(true);
                 return NodeState.Success;
             }
-            if (blackboard.animator != null)
+            if (blackboard.animator != null && blackboard.animator.GetBool("IsInteracting") == false)
+            {
                 blackboard.animator.SetBool("IsInteracting", true);
+                SoundManager.Instance.PlaySFX("Interaction", blackboard.gameObject);
+            }
+                
             return NodeState.Running;
         }
 

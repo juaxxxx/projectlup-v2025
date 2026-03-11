@@ -73,11 +73,13 @@ namespace LUP.ES
 
             currentExtractionPoint.SetActive(true);
             notificationUI?.ShowMessage("Extraction Point Activated!");
+            SoundManager.Instance.PlaySFX("ExtractionAlarm");
 
             yield return new WaitForSeconds(extractionDuration);
 
             currentExtractionPoint.SetActive(false);
             notificationUI?.ShowMessage("Extraction Point Deactivated");
+            SoundManager.Instance.PlaySFX("ExtractionAlarm");
 
             currentExtractionPoint = null;
         }

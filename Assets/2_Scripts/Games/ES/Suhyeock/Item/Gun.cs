@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using LUP;
 
 namespace LUP.ES
 {
@@ -81,6 +82,7 @@ namespace LUP.ES
             {
                 Quaternion shootRotation = aimPivot.rotation;
                 bullet.Init(bulletPool, firePoint.position, shootRotation, data.range, data.damage, data.bulletSpeed);
+                SoundManager.Instance.PlaySFX("ARShot", gameObject);
                 magAmmo--;
                 cameraScript.Shake(0.08f, 0.03f);
                 return true;

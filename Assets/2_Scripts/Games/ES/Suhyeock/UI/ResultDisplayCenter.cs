@@ -115,6 +115,7 @@ namespace LUP.ES
             resultPanel.SetActive(true);
             if (isSuccess)
             {
+                SoundManager.Instance.PlaySFX("SuccessfulEscape");
                 resultHeadrString.Append("Complete");
                 resultHeader.color = Color.white;
                 Inventory inventory = FindAnyObjectByType<Inventory>();
@@ -137,6 +138,7 @@ namespace LUP.ES
             }
             else
             {
+                SoundManager.Instance.PlaySFX("Escape failed");
                 resultHeadrString.Append("Failed");
                 resultHeader.color = Color.red;
             }
