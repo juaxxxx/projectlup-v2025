@@ -14,16 +14,22 @@ namespace LUP.ES
         public InventorySlot weaponSlot;
         private PlayerBlackboard playerBlackboard;
         private WeaponEquip weaponEquip;
-        void Start()
+
+        private void Awake()
         {
-            playerBlackboard = FindAnyObjectByType<PlayerBlackboard>();
-            weaponEquip = playerBlackboard.GetComponent<WeaponEquip>();
             slots = new List<InventorySlot>(inventorySize);
             for (int i = 0; i < inventorySize; i++)
             {
                 slots.Add(new InventorySlot());
             }
             weaponSlot = new InventorySlot();
+        }
+        void Start()
+        {
+            playerBlackboard = FindAnyObjectByType<PlayerBlackboard>();
+            weaponEquip = playerBlackboard.GetComponent<WeaponEquip>();
+            
+            
             weaponSlot.item = playerBlackboard.weapon.weaponItem;
         }
 

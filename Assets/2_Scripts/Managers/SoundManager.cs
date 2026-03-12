@@ -21,6 +21,12 @@ namespace LUP
         Vector3 zeroVector = Vector3.zero;
         public void PlayBGM(string bgmname, bool loop = true)
         {
+            if (bgmSource == null)
+            {
+                Debug.LogError("[SoundManager] bgmSource가 인스펙터에 할당되지 않았습니다.");
+                return;
+            }
+
             AudioClip clip = ResourceManager.Instance.LoadAudioBGM<AudioClip>(bgmname);
             if (clip == null)
             {
@@ -43,14 +49,14 @@ namespace LUP
             AudioClip clip = ResourceManager.Instance.LoadAudioSFX<AudioClip>(sfxname);
             if (clip == null)
             {
-                Debug.LogWarning($"[SoundManager] SFX not found: {name}");
+                Debug.LogWarning($"[SoundManager] SFX not found: {sfxname}");
                 return;
             }
 
-            if (!activeSFX.ContainsKey(name))
-                activeSFX[name] = new List<AudioSource>();
+            if (!activeSFX.ContainsKey(sfxname))
+                activeSFX[sfxname] = new List<AudioSource>();
 
-            List<AudioSource> list = activeSFX[name];
+            List<AudioSource> list = activeSFX[sfxname];
             list.RemoveAll(a => a == null || !a.isPlaying);
 
             if (list.Count >= maxSameSFXCount)

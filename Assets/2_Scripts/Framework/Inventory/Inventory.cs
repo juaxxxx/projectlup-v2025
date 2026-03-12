@@ -19,6 +19,7 @@ namespace LUP
         public event Action<IItemable, int> OnItemRemoved;
         public event Action<IItemable> OnItemUsed;
 
+        
         public Inventory()
         {
             if (slots == null)

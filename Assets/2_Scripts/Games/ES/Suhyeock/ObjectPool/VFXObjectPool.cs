@@ -43,9 +43,9 @@ namespace LUP.ES
             }
         }
 
-        public void SpawnVFX(GameObject prefab, Vector3 position, float duration = 1.0f)
+        public GameObject SpawnVFX(GameObject prefab, Vector3 position, bool bLoop = false, float duration = 1.0f)
         {
-            if (prefab == null) return;
+            if (prefab == null) return null;
 
             if (!poolDict.ContainsKey(prefab))
             {
@@ -69,17 +69,43 @@ namespace LUP.ES
             ParticleSystem mainPS = vfx.GetComponent<ParticleSystem>();
             if (mainPS != null)
             {
+                var main = mainPS.main;
+                main.loop = bLoop;
+
                 mainPS.Play(true); // true: 자식 파티클까지 모두 재생
-                
-                // 파티클 컴포넌트를 코루틴에 함께 넘겨줌
-                StartCoroutine(ReturnRoutine(prefab, vfx, mainPS));
+
+                if (!bLoop)
+                {
+                    StartCoroutine(ReturnRoutine(prefab, vfx, mainPS));
+                }
+
             }
             else
             {
-                // 파티클 컴포넌트가 없는 예외 상황을 위한 안전장치
-                StartCoroutine(ReturnRoutine(prefab, vfx, null));
+                if (!bLoop)
+                {
+                    StartCoroutine(ReturnRoutine(prefab, vfx, null));
+                }
+            }
+            return vfx;
+        }
+
+        public void DespawnVFX(GameObject prefabKey, GameObject vfx)
+        {
+            if (vfx == null || prefabKey == null) return;
+
+            ParticleSystem mainPS = vfx.GetComponent<ParticleSystem>();
+            if (mainPS != null)
+            {
+                mainPS.Stop(true, ParticleSystemStopBehavior.StopEmitting); // 파티클 부드럽게 정지
             }
 
+            vfx.SetActive(false);
+
+            if (poolDict.ContainsKey(prefabKey))
+            {
+                poolDict[prefabKey].Enqueue(vfx);
+            }
         }
 
         private IEnumerator ReturnRoutine(GameObject prefabKey, GameObject vfx, ParticleSystem ps)
@@ -96,6 +122,8 @@ namespace LUP.ES
             vfx.SetActive(false);
             poolDict[prefabKey].Enqueue(vfx);
         }
+
+
     }
     
 }

@@ -104,38 +104,33 @@ namespace LUP
 
             using (UnityWebRequest request = UnityWebRequest.Get(fullurl))
             {
-                // yield return request.SendWebRequest();
+                // 다운로드 받을 경로를 미리 지정하여 디스크에 바로 쓰기
+                string assetBundleDirectory = Path.Combine(Application.persistentDataPath, "LUP/assetbundles");
+                if (!Directory.Exists(assetBundleDirectory))
+                {
+                    Directory.CreateDirectory(assetBundleDirectory);
+                }
+                string filePath = Path.Combine(assetBundleDirectory, filename);
 
-                // 비동기로 요청 시작
+                // DownloadHandlerFile 사용
+                request.downloadHandler = new UnityEngine.Networking.DownloadHandlerFile(filePath);
+
                 var operation = request.SendWebRequest();
-
-                // 다운로드 진행률 업데이트
                 while (!operation.isDone)
                 {
                     currentDownloadProgress = request.downloadProgress;
                     yield return null;
                 }
 
-#if UNITY_2020_1_OR_NEWER
                 if (request.result != UnityWebRequest.Result.Success)
-                #else
-                if (request.isNetworkError || request.isHttpError)
-                #endif
                 {
-                    Debug.LogError($"[Patcher] 에셋번들 다운로드 실패 ({fullurl}): {request.error}");
+                    Debug.LogError($"[Patcher] 에셋번들 다운로드 실패: {request.error}");
+                    // 실패 시 불완전한 파일 삭제
+                    if (File.Exists(filePath)) File.Delete(filePath);
                     yield break;
                 }
 
-                string assetBundleDirectory = Path.Combine(Application.persistentDataPath, "LUP/assetbundles");
-                if (!Directory.Exists(assetBundleDirectory))
-                {
-                    Directory.CreateDirectory(assetBundleDirectory);
-                }
-
-                string filePath = Path.Combine(assetBundleDirectory, filename);
-                File.WriteAllBytes(filePath, request.downloadHandler.data);
-
-                Debug.Log($"[Patcher] 에셋번들 다운로드 완료: {fullurl} → {filePath}");
+                Debug.Log($"[Patcher] 다운로드 완료: {filePath}");
             }
 
             // 현재 파일 다운로드 완료

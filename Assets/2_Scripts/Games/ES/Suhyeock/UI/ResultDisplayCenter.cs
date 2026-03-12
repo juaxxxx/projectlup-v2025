@@ -21,6 +21,10 @@ namespace LUP.ES
 
         private Transform contentParent;
         private List<Item> items;
+
+        private List<GameObject> slotPool = new List<GameObject>();
+        [Header("풀링 설정")]
+        public int initialSlotCount = 30;
         private void Start()
         {
             resultPanel.SetActive(false);
@@ -28,9 +32,22 @@ namespace LUP.ES
             eventBroker = FindAnyObjectByType<EventBroker>();
             itemCenter = FindAnyObjectByType<ItemCenter>();
             contentParent = ItemDisplayContent.transform;
+
+            PreGenerateSlots();
+
             if (eventBroker != null )
             {
                 eventBroker.OnGameFinished += ShowResult;
+            }
+        }
+
+        private void PreGenerateSlots()
+        {
+            for (int i = 0; i < initialSlotCount; i++)
+            {
+                GameObject newSlot = Instantiate(itemSlotPrefab, contentParent);
+                newSlot.SetActive(false); // 일단 숨겨둠
+                slotPool.Add(newSlot);
             }
         }
 
@@ -44,28 +61,47 @@ namespace LUP.ES
 
         public void ShowInventoryItems(List<Item> items)
         {
-            List<GameObject> createdSlots = new List<GameObject>();
+            List<GameObject> activeSlots = new List<GameObject>();
 
+            // 1. 필요한 슬롯 활성화 및 데이터 세팅 (Instantiate 최소화)
             for (int i = 0; i < items.Count; i++)
             {
-                GameObject newSlot = Instantiate(itemSlotPrefab, contentParent);
+                // 안전 장치: 미리 만들어둔 풀보다 아이템이 많을 때만 추가 생성
+                if (i >= slotPool.Count)
+                {
+                    GameObject newSlot = Instantiate(itemSlotPrefab, contentParent);
+                    slotPool.Add(newSlot);
+                }
 
-                ItemDisplaySlot slot = newSlot.GetComponent<ItemDisplaySlot>();
+                GameObject slotObj = slotPool[i];
+                slotObj.SetActive(true);
+                activeSlots.Add(slotObj);
 
+                // 아이템 세팅
+                ItemDisplaySlot slot = slotObj.GetComponent<ItemDisplaySlot>();
                 if (slot != null)
                 {
                     slot.SetItem(items[i], items);
                 }
 
-                CanvasGroup canvasGroup = newSlot.GetComponent<CanvasGroup>();
-                if (canvasGroup == null) canvasGroup = newSlot.AddComponent<CanvasGroup>();
-
+                // 캔버스 투명도 초기화
+                CanvasGroup canvasGroup = slotObj.GetComponent<CanvasGroup>();
+                if (canvasGroup == null) canvasGroup = slotObj.AddComponent<CanvasGroup>();
                 canvasGroup.alpha = 0f;
 
-                createdSlots.Add(newSlot);
-
-               
+                // 스케일 확실히 1로 보장
+                RectTransform rect = slotObj.GetComponent<RectTransform>();
+                rect.localScale = Vector3.one;
             }
+
+            // 남은 슬롯들은 확실하게 비활성화
+            for (int i = items.Count; i < slotPool.Count; i++)
+            {
+                slotPool[i].SetActive(false);
+            }
+
+            // 2. -----------------------------------------------------------------
+            // 여기서부터는 작성하셨던 [원본 레이아웃 갱신 & 슬라이딩 연출] 코드입니다.
 
             Canvas.ForceUpdateCanvases();
 
@@ -75,9 +111,9 @@ namespace LUP.ES
                 layoutGroup.enabled = false;
             }
 
-            for (int i = 0; i < createdSlots.Count; i++)
+            for (int i = 0; i < activeSlots.Count; i++)
             {
-                GameObject slotObj = createdSlots[i];
+                GameObject slotObj = activeSlots[i];
                 RectTransform rect = slotObj.GetComponent<RectTransform>();
                 CanvasGroup canvasGroup = slotObj.GetComponent<CanvasGroup>();
 
@@ -91,7 +127,7 @@ namespace LUP.ES
                     .SetEase(Ease.OutCubic)
                     .SetUpdate(true);
 
-                if (i == createdSlots.Count - 1)
+                if (i == activeSlots.Count - 1)
                 {
                     moveTween.OnComplete(() =>
                     {
@@ -104,6 +140,67 @@ namespace LUP.ES
                     .SetEase(Ease.Linear)
                     .SetUpdate(true);
             }
+
+            //List<GameObject> createdSlots = new List<GameObject>();
+
+            //for (int i = 0; i < items.Count; i++)
+            //{
+            //    GameObject newSlot = Instantiate(itemSlotPrefab, contentParent);
+
+            //    ItemDisplaySlot slot = newSlot.GetComponent<ItemDisplaySlot>();
+
+            //    if (slot != null)
+            //    {
+            //        slot.SetItem(items[i], items);
+            //    }
+
+            //    CanvasGroup canvasGroup = newSlot.GetComponent<CanvasGroup>();
+            //    if (canvasGroup == null) canvasGroup = newSlot.AddComponent<CanvasGroup>();
+
+            //    canvasGroup.alpha = 0f;
+
+            //    createdSlots.Add(newSlot);
+
+
+            //}
+
+            //Canvas.ForceUpdateCanvases();
+
+            //LayoutGroup layoutGroup = contentParent.GetComponent<LayoutGroup>();
+            //if (layoutGroup != null)
+            //{
+            //    layoutGroup.enabled = false;
+            //}
+
+            //for (int i = 0; i < createdSlots.Count; i++)
+            //{
+            //    GameObject slotObj = createdSlots[i];
+            //    RectTransform rect = slotObj.GetComponent<RectTransform>();
+            //    CanvasGroup canvasGroup = slotObj.GetComponent<CanvasGroup>();
+
+            //    Vector2 originalPos = rect.anchoredPosition;
+            //    rect.anchoredPosition = new Vector2(originalPos.x - 200f, originalPos.y);
+
+            //    float delay = i * 0.1f;
+
+            //    var moveTween = rect.DOAnchorPos(originalPos, 0.8f)
+            //        .SetDelay(delay)
+            //        .SetEase(Ease.OutCubic)
+            //        .SetUpdate(true);
+
+            //    if (i == createdSlots.Count - 1)
+            //    {
+            //        moveTween.OnComplete(() =>
+            //        {
+            //            if (layoutGroup != null) layoutGroup.enabled = true;
+            //        });
+            //    }
+
+            //    canvasGroup.DOFade(1f, 0.8f)
+            //        .SetDelay(delay)
+            //        .SetEase(Ease.Linear)
+            //        .SetUpdate(true);
+            //}
         }
 
         private void ShowResult(bool isSuccess)
@@ -113,28 +210,28 @@ namespace LUP.ES
             StringBuilder resultHeadrString = new StringBuilder();
             resultHeadrString.Append("Extraction ");
             resultPanel.SetActive(true);
+
             if (isSuccess)
             {
                 SoundManager.Instance.PlaySFX("SuccessfulEscape");
                 resultHeadrString.Append("Complete");
                 resultHeader.color = Color.white;
                 Inventory inventory = FindAnyObjectByType<Inventory>();
+
                 if (inventory != null)
                 {
                     items = inventory.GetItems();
-                    ShowInventoryItems(items);
                     ExtractionShooterStage extractionShooterStage = StageManager.Instance.GetCurrentStage() as ExtractionShooterStage;
 
                     foreach (Item item in items)
                     {
-                        if (item == null)
-                            continue;
-                        if (item.ItemID == 1 || item.ItemID == 4 || item.ItemID == 7)
+                        if (item == null || item.ItemID == 1 || item.ItemID == 4 || item.ItemID == 7)
                             continue;
                         extractionShooterStage.ESInven.AddItem(item);
                     }
+
+                    ShowInventoryItems(items);
                 }
-                
             }
             else
             {
@@ -143,6 +240,41 @@ namespace LUP.ES
                 resultHeader.color = Color.red;
             }
             resultHeader.text = resultHeadrString.ToString();
+            //Debug.Log("GameFinish");
+            //Time.timeScale = 0f;
+            //StringBuilder resultHeadrString = new StringBuilder();
+            //resultHeadrString.Append("Extraction ");
+            //resultPanel.SetActive(true);
+            //if (isSuccess)
+            //{
+            //    SoundManager.Instance.PlaySFX("SuccessfulEscape");
+            //    resultHeadrString.Append("Complete");
+            //    resultHeader.color = Color.white;
+            //    Inventory inventory = FindAnyObjectByType<Inventory>();
+            //    if (inventory != null)
+            //    {
+            //        items = inventory.GetItems();
+            //        ShowInventoryItems(items);
+            //        ExtractionShooterStage extractionShooterStage = StageManager.Instance.GetCurrentStage() as ExtractionShooterStage;
+
+            //        foreach (Item item in items)
+            //        {
+            //            if (item == null)
+            //                continue;
+            //            if (item.ItemID == 1 || item.ItemID == 4 || item.ItemID == 7)
+            //                continue;
+            //            extractionShooterStage.ESInven.AddItem(item);
+            //        }
+            //    }
+
+            //}
+            //else
+            //{
+            //    SoundManager.Instance.PlaySFX("Escape failed");
+            //    resultHeadrString.Append("Failed");
+            //    resultHeader.color = Color.red;
+            //}
+            //resultHeader.text = resultHeadrString.ToString();
         }
     }
 }

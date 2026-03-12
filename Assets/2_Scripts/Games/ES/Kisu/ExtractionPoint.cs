@@ -7,6 +7,7 @@ namespace LUP.ES
     public class ExtractionPoint : MonoBehaviour, IInteractable
     {
         [Header("Open FX")] // 기수 추가한 코드
+        private VFXObjectPool vfxObjectPool;
         public GameObject extractionFxPrefab; // 기수 추가한 코드
         public Transform fxAnchor;  // 기수 추가한 코드
 
@@ -39,6 +40,7 @@ namespace LUP.ES
 
         void Start()
         {
+            vfxObjectPool = FindFirstObjectByType<VFXObjectPool>();
             interactionUI = GetComponent<InteractionUIController>();
             eventBroker = FindAnyObjectByType<EventBroker>();
             // 초기 상태 설정
@@ -137,37 +139,40 @@ namespace LUP.ES
 
         void PlayOpenFX()
         {
-            if (fxInstance != null) return;
+            if (fxInstance != null || vfxObjectPool == null) return;
+            fxInstance = vfxObjectPool.SpawnVFX(extractionFxPrefab, transform.position, true);
+            fxInstance.transform.localScale = Vector3.one * 0.5f;
+            //fxInstance = Instantiate(extractionFxPrefab, fxAnchor.position, fxAnchor.rotation);
 
-            fxInstance = Instantiate(extractionFxPrefab, fxAnchor.position, fxAnchor.rotation);
+            //fxInstance.transform.localScale *= 0.5f;
 
-            fxInstance.transform.localScale *= 0.5f;
+            //fxSystems = fxInstance.GetComponentsInChildren<ParticleSystem>();
 
-            fxSystems = fxInstance.GetComponentsInChildren<ParticleSystem>();
-
-            foreach (var ps in fxSystems)
-            {
-                var main = ps.main;
-                main.loop = true;
-                ps.Play();
-            }
+            //foreach (var ps in fxSystems)
+            //{
+            //    var main = ps.main;
+            //    main.loop = true;
+            //    ps.Play();
+            //}
         }
         // 기수 추가한 코드
         void StopOpenFX()
         {
-            if (fxSystems == null) return;
+            if (fxSystems == null || vfxObjectPool == null) return;
+            vfxObjectPool.DespawnVFX(extractionFxPrefab, fxInstance);
 
-            foreach (var ps in fxSystems)
-            {
-                if (ps == null) continue;
-                var main = ps.main;
-                main.loop = false;
-                ps.Stop(true, ParticleSystemStopBehavior.StopEmitting);
-            }
-
-            Destroy(fxInstance, 2.0f);
             fxInstance = null;
-            fxSystems = null;
+            //foreach (var ps in fxSystems)
+            //{
+            //    if (ps == null) continue;
+            //    var main = ps.main;
+            //    main.loop = false;
+            //    ps.Stop(true, ParticleSystemStopBehavior.StopEmitting);
+            //}
+
+            //Destroy(fxInstance, 2.0f);
+            //fxInstance = null;
+            //fxSystems = null;
         }
     }
 }
